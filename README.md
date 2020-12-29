@@ -1,5 +1,17 @@
 ### Hi there 👋
 
+Here's Mission Control:
+
+http://missioncontrol.mcnz.com/
+
+Here's TheServerSide:
+
+https://www.theserverside.com/
+
+Here's me on YouTube:
+
+https://www.youtube.com/user/potemcam/videos
+
 <!--
 **cameronmcnz/cameronmcnz** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
