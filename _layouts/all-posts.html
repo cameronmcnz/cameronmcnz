@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+	{% include head-common.html %}  
+
+	<meta name="description" content="All posts on the Java Mission Control Tutorial and JDK Flight Recorder Course"/>	   
+	   
+	<title>Java Mission Control and Flight Recorder Content and Updates</title>
+
+	{% include boostrap-css.html %}
+	{% include style-common.html %}  	   
+	   
+   </head> 
+	
+   <body>
+      <div class="container">
+         <div class="row">
+            {% include navigation.html %}  
+         </div>
+	  {% include common-cookie-row.html %}      
+         <div class="row">
+		 
+		 		 
+<div  class="aside-2 col col-12  col-sm-12  col-md-4 col-lg-3 order-2 order-sm-2 order-lg-2 mb-3 d-flex align-items-stretch">
+  <div class="card mb-2">
+    <div class="card-header">
+      <h1>All Posts</h1>
+    </div>
+    <div class="card-body  d-flex flex-column">
+      <p class="card-text">Here's all of the Java Mission Control related content on the site.</p>
+      <p class="card-text">Enjoy. And have fun learning how to monitor, profile and troubleshoot your Java applications!</p>
+    </div>
+  </div>
+</div> 
+		 
+{% for post in site.posts offset:0 %}
+<div  class="aside-2 col col-12  col-sm-12  col-md-4 col-lg-3 order-2 order-sm-2 order-lg-2 mb-3 d-flex align-items-stretch">
+  <div class="card mb-2">
+    <div class="card-header">
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </div>
+	<picture>
+            <img src="/assets/java-flight-recorder-example.jpg" class="img-fluid" alt="JDK JVM Flight Recorder Example">
+         </picture>
+    <div class="card-body  d-flex flex-column">
+      <p class="card-text">{{ post.blurb }}</p>
+      <p class="text-center mt-auto"><a href="{{ post.url }}" class="btn btn-primary btn-sm mt-auto">Check it out</a></p>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<aside  class="aside-2 col col-12  col-sm-12  col-md-4 col-lg-3 order-2 order-sm-2 order-lg-2 mb-3">
+</aside>
+		 
+</div>
+	      
+	      
+      </div>
+{% include bootstrap-min.html %} 
+</body>
+</html>

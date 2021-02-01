@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="https://www.sitemaps.org/schemas/sitemap/0.9
+            https://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://missioncontrol.mcnz.com/</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/index.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.99</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/Free_Java_Mission_Control_Training_Course.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/download_install_jdk_mission_control_recorder.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/introduction_java_mission_control_eclipse.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/Java_LinkedList_vs_HashSet_Performance.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/low_latency_java_performance_jmc_jfr.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/Profile-GC-Garbage-JFC-JMC-Mission-Flight.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/JVM_Memory_Leaks_Mission_Recorder_Profile.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/WebLogic_JDK_Profiler_Flight_Recorder_Mission.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/Profile_JavaFX_Performance_Flight_Recorder_Mission.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/Exception_Monitoring_Flight_Recorder_Mission.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/Custom_Flight_Recorder_Events_Mission_Control.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/Custom_Rules_Mission_Control_JDK_Java_JVM.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/Custom_Pages_Filters_Mission_Control.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/MBeans_Management_Console_Mission_Control.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/Java_Heap_Waste_Analysis_JVM_JMC_JFR.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/JCMD_Java_Diagnostic_Command_JDK_JVM_JMC_JFR.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.88</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/allposts.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.95</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/23/Java_JVM_Memory_Management_GC.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/20/introduction_Java_Flight_Recorder.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/20/Demo_Flight_Recorder_Java_JDK_11_LTS.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/16/Optimize_Java_Code.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/16/Java_Mission_Control_Example.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/16/Java_Flight_Recorder_Example.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/16/Introduction_Java_Mission_Control_Flight_Recorder.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/16/How_Start_Java_Flight_Recorder_Mission_JDK_JVM.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/16/Flight_Recorder_Memory_Leaks.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/16/Eclipse_Plugin_Mission_Control_JDK_Java.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/16/Bad_Code_Performance_Problem_CPU_Mission_Control.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/12/visualvm-vs-mission-control-recorder.txt</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/12/triggers-jdk-mission-control-java.txt</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/12/mission-control-training-course.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/12/java-mission-control-explained.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/12/java-jdk-monitoring-tools.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/getting_started_with_mission_control.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/eclipse_java_mission_control.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/What_is_Java_Mission_Control.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/What_is_Java_JDK_Flight_Recorder.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/Start_JDK_Flight_Recorder_How_JFR_JMC.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/Mission_Control_Eclipse_Plugin.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/Mike_Tyson_Snoop_Dog.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/12/10/JDK-Mission-Control-Introduction-Overview.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>https://missioncontrol.mcnz.com/2020/11/11/java_performance_tips.html</loc>
+  <lastmod>2020-12-23T15:23:40+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+
+
+</urlset>

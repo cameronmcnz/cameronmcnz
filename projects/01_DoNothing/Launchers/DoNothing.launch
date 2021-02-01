@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+    <booleanAttribute key="jmc.jfr.launching.JFR.AUTO_OPEN" value="true"/>
+    <booleanAttribute key="jmc.jfr.launching.JFR.CONTINUOUS" value="false"/>
+    <stringAttribute key="jmc.jfr.launching.JFR.DELAY" value="2 s"/>
+    <stringAttribute key="jmc.jfr.launching.JFR.DURATION" value="1 min"/>
+    <booleanAttribute key="jmc.jfr.launching.JFR.ENABLED" value="true"/>
+    <stringAttribute key="jmc.jfr.launching.JFR.FILENAME" value="/01_DoNothing/flight_recording.jfr"/>
+    <stringAttribute key="jmc.jfr.launching.JFR.NAME" value="My Recording2"/>
+    <stringAttribute key="jmc.jfr.launching.JFR.SETTINGS" value=""/>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+        <listEntry value="/01_DoNothing/src/se/hirt/jmc/tutorial/donothing/DoNothing.java"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+        <listEntry value="1"/>
+    </listAttribute>
+    <mapAttribute key="org.eclipse.debug.core.preferred_launchers">
+        <mapEntry key="[run]" value="org.openjdk.jmc.ide.launch.JFRJavaLaunchDelegate"/>
+    </mapAttribute>
+    <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+        <listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+        <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+    </listAttribute>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_EXCLUDE_TEST_CODE" value="true"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_CLASSPATH_ONLY_JAR" value="false"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
+    <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-10"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="se.hirt.jmc.tutorial.donothing.DoNothing"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="01_DoNothing"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="01_DoNothing"/>
+    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Djava.net.preferIPv4Stack=true &#13;&#10;-XX:+FlightRecorder  &#13;&#10;-XX:FlightRecorderOptions=stackdepth=128 &#13;&#10;-XX:+UnlockDiagnosticVMOptions &#13;&#10;-XX:+DebugNonSafepoints"/>
+</launchConfiguration>

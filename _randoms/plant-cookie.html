@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Javascript - Plant a Cookie</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+<script>
+
+ 
+/*
+	The init function below is called in the '<body onload="init">' in the html.
+*/
+
+function init() {
+	/*
+		This function tells the page what to do when the button is clicked.
+		The id on the button is "plant-cookie-button". Check the id on the
+		button in the html file.
+		We'll use the id to identify the button to the page.
+	*/
+
+	/* 
+		This line uses the document.getElementById() method to load the button
+		into the theButton variable, so that we can use it in JavaScript.
+	*/
+	var theButton = document.getElementById("plant-cookie-button");
+
+	
+	/*
+		Here's where we use that variable. We use the addEventListener() method
+		(set to a "click" type) to launch the addCookie function.
+	*/
+
+	theButton.addEventListener("click",addCookie);
+
+}
+
+function addCookie() {
+
+	/*
+		Cookies can sometimes have an expiry. This one doesn't.
+		That means that it will disappear once your browser session is over.
+		That's good enough for now.
+	*/
+
+    document.cookie = "mycookie=55;path=/";
+    document.cookie = "username=mckenzie;path=/";
+    document.cookie = "page=plant;path=/";
+}
+
+function getCookie() {
+
+	/*
+		We use document.cookie.length to check if there are any cookies for our domain.
+		The domain is the name for your website.
+		Google.com is the domain of that website.
+		On your local server, the domain is called "localhost".
+	*/
+
+    if (document.cookie.length > 0) {
+
+    	/*
+			We are using document.getElementById() again to get the p tag
+			that we have in the html that has an id of "result".
+			We are assigning the object that we get to a varable called 
+			"resultDisplay".
+    	*/
+
+		var resultDisplay = document.getElementById("result");
+
+		/*
+			Then we set a property of the resultDisplay object as the 
+			text we want to show when we've found a cookie.
+		*/
+
+		resultDisplay.innerHTML = "Cookie found! You can do something different on this page."
+    }
+}
+
+</script>
+    </head>
+    <body onload="init()">
+        <h1>What's a cookie?????</h1>
+
+        <p>A cookie is a small text file that can be planted in your internet browser to be remembered later. Often, a cookie is used to detect whether a user is logged into a website, or has been to the website before.</p>
+
+        <p><a href="cookie-test.html">Go to the page that will test your results.</a></p>
+
+        <p><button id="plant-cookie-button">Plant cookie</button></p>
+
+    </body>
+</html>
