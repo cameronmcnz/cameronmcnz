@@ -28,4 +28,4 @@ Which one of these architectures would you prefer to maintain?
 
 <hr/>
 
-<iframe  src="https://www.youtube.com/embed/3yBIRmUJhio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe  src="https://www.youtube.com/embed/3yBIRmUJhio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
