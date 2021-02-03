@@ -10,17 +10,17 @@ blurb: Here are a couple of diagrams that are supposed to make monolights look b
 Which one of these architectures would you prefer to maintain?
 
 <figure class="figure">
-  <img src='/assets/monolith01.jpg' alt="Microservices Monoliths pooh" class="img-fluid mx-auto d-block img-thumbnail rounded " >
+  <img src='/assets/monlith01.jpg' alt="Microservices Monoliths pooh" class="img-fluid mx-auto d-block img-thumbnail rounded " >
   <figcaption class="figure-caption">The pooh emoji Monolith vs microservices architecture diagram.</figcaption>
 </figure>
 
 <figure class="figure">
-  <img src='/assets/monolith02.jpg' alt="Microservices Monoliths pooh" class="img-fluid mx-auto d-block img-thumbnail rounded " >
+  <img src='/assets/monlith02.jpg' alt="Microservices Monoliths pooh" class="img-fluid mx-auto d-block img-thumbnail rounded " >
   <figcaption class="figure-caption">The pooh emoji Monolith vs microservices architecture diagram.</figcaption>
 </figure>
 
 <figure class="figure">
-  <img src='/assets/monolith03.jpg' alt="Microservices Monoliths pooh" class="img-fluid mx-auto d-block img-thumbnail rounded " >
+  <img src='/assets/monlith03.jpg' alt="Microservices Monoliths pooh" class="img-fluid mx-auto d-block img-thumbnail rounded " >
   <figcaption class="figure-caption">The pooh emoji Monolith vs microservices architecture diagram.</figcaption>
 </figure>
 
