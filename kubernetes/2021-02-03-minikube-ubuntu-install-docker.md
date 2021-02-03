@@ -50,3 +50,11 @@ You can take a look at the pods that are created and associated with it so we've
 ##### microservice deployment to minikube ubuntu
 
 we now get our rock paper scissors application this is the same one that I deployed on the installation of docker in a previous tutorial but now we've got it all wrapped up and running through mini cube and cube control and there you go that's how you install mini cube Kubernetes on ubuntu 20. and there you go that's how easy it is to install Kubernetes mini cube on your ubuntu 20 workstation now if you enjoyed that tutorial head over to theserverside.com I'm the editor in chief over there lots of great tutorials on ubuntu Kubernetes docker devops you name it if you're interested in my personal antics you can always follow me on twitter cameronmcnz and subscribe on the youtube
+
+
+##### Commands to install minikube on Ubuntu 20
+
+<pre>
+
+
+</pre>
