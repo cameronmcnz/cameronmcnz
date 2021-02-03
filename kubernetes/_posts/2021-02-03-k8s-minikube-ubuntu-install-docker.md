@@ -55,6 +55,61 @@ we now get our rock paper scissors application this is the same one that I deplo
 ##### Commands to install minikube on Ubuntu 20
 
 <pre>
+sudo apt-get update
 
+sudo apt-get upgrade
+
+sudo apt-get install socat
+
+sudo apt-get install curl
+
+sudo apt-get install apt-transport-https
+
+sudo apt install conntrack
+
+sudo apt install virtualbox virtualbox-ext-pack
+
+wget https://storage.googleapis.com/miniku...​
+
+sudo cp minikube-linux-amd64 /usr/local/bin/minikube
+
+sudo chmod 777 /usr/local/bin/minikube
+
+sudo minikube version
+
+
+sudo curl -LO https://storage.googleapis.com/kubern...​`curl -s https://storage.googleapis.com/kubern...​`/bin/linux/amd64/kubectl
+
+chmod +x ./kubectl
+
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+kubectl version -o json
+
+sudo kubectl version -o json
+
+sudo minikube start --vm-driver=none
+
+sudo kubectl cluster-info
+
+sudo kubectl get deployments
+
+sudo kubectl get pods
+
+sudo kubectl get events
+
+sudo kubectl config view
+
+sudo docker images
+
+sudo kubectl create deployment rps-node --image="cameronmcnz/rock-paper-spring"
+
+sudo kubectl get pods
+
+sudo kubectl expose deployment rps-node --type=LoadBalancer --port=8080
+
+sudo kubectl port-forward service/rps-node 7070:8080
+
+http://localhost:7070/index.html
 
 </pre>
