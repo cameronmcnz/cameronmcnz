@@ -25,7 +25,7 @@ First things first. You want to update the app package index and make sure that 
 
  Once this completes we're going to do the sudo apt update once again you can never ever do the sudo apt update too many times I might even do a little sudo app cache policy just to see what we've got available to us.
 
- ## docker-ce docker-cli & containerd.io on Ubuntu
+## docker-ce docker-cli & containerd.io on Ubuntu
  
  We've got all sorts of different archives available to you that's too much for me to even keep track of you know what I'm just going to do the basic install Docker ce I'm not going to specify a version or anything like that I'm going to say sudo apt-get install docker-ce docker-cli containerd.io and that's going to go ahead and that's going to install Docker.
 
@@ -33,7 +33,7 @@ First things first. You want to update the app package index and make sure that 
 
  I'm pretty happy with that. Maybe we can take a little look at the status see if the process is actually running looks like we've got everything running it's active it's running I'm pretty happy about that you know anytime you install Docker it is customary to do the old Docker hello world so I'm going to do a sudo Docker run hello world.
 
- ### Docker Ubuntu HelloWorld container
+### Docker Ubuntu HelloWorld container
  
  hello world is a container hosted over on Docker hub and you see it says hey I can't find this image locally is that first command but it searches for it it downloads it it says it's pulling it it's pulling it from Docker hub it downloads it and says hey hello from Docker that's all it does it's not that interesting but it proves that things are working it's also cool if you go sudo Docker images you'll notice that that hello world image is registered.
  
@@ -47,7 +47,6 @@ You'll notice It's a Spring Boot application running in Docker. You can see the 
  I incorrectly typed localhost:8080. Of course I mapped it to localhost:8088 and so you got to have the right port mapping otherwise of course it's not going to work and there we go index.html like I had originally except I didn't have the right port number and then there's our little rock paper scissors game so can we play the game we can keep playing rock paper and scissors if you can figure out the trick well you can win every time but there you go that's a little Spring Boot application running in Docker pulled from Docker hub all within just about five minutes doing the installation.
 
  And that's about it and there you go that's how easy it is to install Docker on Ubuntu 20 and run a couple of containers from Docker hub including the hello world and a beautiful little rock paper scissors done with a Spring Boot now if you enjoyed that tutorial I want you to head over to theserverside.com. I'm the Editor-in-Chief over there we've got lots of great tutorials on spring Docker devops you name it if you're interested in my personal antics you can always follow me on twitter @cameronmcnz and subscribe on the Youtube.
- 
  
  
 #### Commands to install Docker on Ubuntu
