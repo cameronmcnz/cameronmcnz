@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: mcnz/basic-post
 author: Cameron McKenzie
 title: How to install Docker in Ubuntu 20
 blurb: A quick, 5-minute tutorial on how to install Docker on Ubuntu 20. I use a virtual image here but this Docker & containerd on Ubuntu example works on bare metal too.

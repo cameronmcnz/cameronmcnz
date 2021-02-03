@@ -1,5 +1,5 @@
 ---
-layout: mcnz/default
+layout: mcnz/basic-post
 author: Cameron McKenzie
 title: Test post
 blurb: Just a test post

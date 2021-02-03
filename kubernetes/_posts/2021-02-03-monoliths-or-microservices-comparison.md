@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: mcnz/basic-post
 author: Cameron McKenzie
 title: How do monoliths and microservices compare?
 blurb: Here are a couple of diagrams that are supposed to make monolights look bad. I think they do the opposite.

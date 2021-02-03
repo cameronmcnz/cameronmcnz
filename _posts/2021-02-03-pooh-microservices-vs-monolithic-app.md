@@ -1,5 +1,5 @@
 ---
-layout: mcnz/default
+layout: mcnz/basic-post
 author: Cameron McKenzie
 title: Monoliths vs Microservices Pooh Emoji Infographic
 blurb: Here's a quick visual comparison of monolithic vs microservices architectures. It's one of my favorite infographics.
