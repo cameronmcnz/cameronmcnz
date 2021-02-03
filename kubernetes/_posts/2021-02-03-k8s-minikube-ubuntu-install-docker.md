@@ -7,7 +7,7 @@ blurb: A quick, 5-minute tutorial on how to install Kubernetes minikube on Ubunt
 ---
 
 <div class="embed-responsive embed-responsive-16by9">
-<iframe width="560" height="315" src="https://youtu.be/Jn9iKEjlmio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://youtu.be/https://youtu.be/DaQLWrS04h8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 # How to Install Kubernetes minikube & containerd on Ubuntu 20
 
