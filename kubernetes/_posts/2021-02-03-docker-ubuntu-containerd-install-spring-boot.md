@@ -6,7 +6,7 @@ blurb: A quick, 5-minute tutorial on how to install Docker on Ubuntu 20. I use a
 ---
 
 <div class="embed-responsive embed-responsive-16by9">
-<iframe width="560" height="315" src="https://youtu.be/Jn9iKEjlmio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Jn9iKEjlmio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 # How to Install Docker on Ubuntu 20
 
