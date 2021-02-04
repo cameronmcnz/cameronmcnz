@@ -27,6 +27,8 @@ To fix a problem you do a branch off the release branch a topic branch and then 
 
 We do some last minute testing and then finally when we're done this release branch gets merged into master and it gets tagged. 
 
+<img src="https://itknowledgeexchange.techtarget.com/coffee-talk/files/2021/01/gitflow-release-branch.jpg" alt="gitflow release branch diagram" class="img-fluid mx-auto d-block">
+
 ## Gitflow release fixes and merges
 
 Also, just to make sure that any fixes that happen to the release branch also get pushed back to develop we do a merge back into develop as well. The git flow release branch branches off of develop but it merges into both master and into develop.
