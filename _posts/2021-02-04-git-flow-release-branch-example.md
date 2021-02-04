@@ -13,6 +13,8 @@ blurb: Here's an example of how the Git Flow release branch works and how the re
 
 Hi I'm Cameron Mckenzie, @cameronmcnz on Twitter and I wanted to talk to you about the release branch in git flow, how it works, what you do with the git flow release branch and how you merge the release branch into master and develop.
 
+<em>I write a full write-up on the [Gitflow Release Branch](https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Gitflow-release-branch-process-start-finish) over on TheServerSide</em>
+
 So there is the get flow release branch right there, and this is sort of a prototypical little git flow example whenever you initialize git flow you get your master branch and you get a develop branch that is branched directly off of it.
 
 On this develop branch well we add some features and we do some commits until finally, boom, we end up having a project that is feature complete. When that happens, what we do is we create a release branch. 
