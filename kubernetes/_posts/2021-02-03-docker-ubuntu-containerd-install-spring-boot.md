@@ -12,7 +12,6 @@ blurb: A quick, 5-minute tutorial on how to install Docker on Ubuntu 20. I use a
 
 Hey, I'm Cameron Mckenzie, @cameronmcnz on Twitter, and I wanted to talk to you about Docker. Specifically, installing Docker on  Ubuntu 20.0. And then maybe even pulling a container from Docker hub and running it.
 
-
  I've got the hello world container I've also got a special Spring Boot micro service app I'm going to try and run as well. 
  
  You can see here I've got a base install of Ubuntu 20.04 and the only thing I've done here is add the terminal to my favorites I put a little bit of text inside of this text file to guide me through the installation of Docker on Ubuntu. I've also got a little Firefox browser open to my Docker hub account where I've got a Docker container hosted over there called rock paper spring I thought it might be nice to prove that Docker is installed on Ubuntu successfully by running that little Spring Boot microservice container.
