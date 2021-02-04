@@ -29,3 +29,8 @@ If improving website performance is important to you, check them out:
 
 * The most important [web page metrics](https://www.theserverside.com/feature/6-top-webpage-performance-metrics-to-monitor) to monitor
 
+## Website Performance Tips
+
+<img src="https://cdn.ttgtmedia.com/rms/onlineImages/server_side-improve_landing_page-f_desktop.png" alt="Webpage Performance Improvement" class="img-fluid"/>
+
+
