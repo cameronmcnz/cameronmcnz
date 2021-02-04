@@ -27,7 +27,9 @@ To fix a problem you do a branch off the release branch a topic branch and then 
 
 We do some last minute testing and then finally when we're done this release branch gets merged into master and it gets tagged. 
 
+<a href="https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/GitFlow-Hotfix-Branch-Example-Start-Finish">
 <img src="https://itknowledgeexchange.techtarget.com/coffee-talk/files/2021/01/gitflow-release-branch.jpg" alt="gitflow release branch diagram" class="img-fluid mx-auto d-block">
+    </a>
 
 ## Gitflow release fixes and merges
 
@@ -62,6 +64,10 @@ We've started the release branch now let's take a look at all the different bran
 Once you're done you then finish the release and it was released 0.2 0.2.0 that we had before so I'm going to now finish that release git flow release finish and all of a sudden what do you think happens there well that release branch is going to be deleted. As it's deleted it's actually going to ask me for a little bit of information on the merge so I'm going to say yeah you know release done and it's good actually that's a really poor git commit message but it'll do for this and all of a sudden we now get that new tag added now if I do a git branch dash a notice the release branch is gone.
 
 It's been deleted, where is it? Well it's been merged into master and you know what it's been merged and to develop as well so we were in this situation here before we did that git flow release finish call when we did the finish well deleted that branch but before deleting it merged into master and it merged that content into develop just in case there was a fix in here that made the release branch different from development. 
+
+<a href="https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/init-Gitflow-example-workflow-tutorial">
+<img src="https://itknowledgeexchange.techtarget.com/coffee-talk/files/2021/01/gitflow-hotfix-branch-diagram.jpg" alt="gitflow release branch diagram" class="img-fluid mx-auto d-block">
+</a>
 
 #### Gitflow Release Finished
 
