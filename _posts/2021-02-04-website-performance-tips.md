@@ -5,7 +5,11 @@ title: Website Performance Improvement Tips and Tricks
 blurb: Proud of these articles on website performance improvement. Just wish they got more hits.
 ---
 
+
+
+<div class="embed-responsive embed-responsive-16by9">
 <iframe  src="https://www.youtube.com/embed/6zTPiuAsMQU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 # How to Improve Website Performance 
 
