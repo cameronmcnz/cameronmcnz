@@ -37,7 +37,7 @@ I've done a couple of little changes here, but you know you shouldn't change the
   <figcaption class="figure-caption">The git flow init command preps your workspace for main, master, feature, release and hotfix branch creations.</figcaption>
 </figure>
 
-<p><em>I write a proper tutorial on the <a href="https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Gitflow-release-branch-process-start-finish">Gitflow Release Branch</a> over on TheServerSide</em></p>
+<p><em>I wrote a proper tutorial on the <a href="https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Gitflow-release-branch-process-start-finish">Gitflow Release Branch</a> over on TheServerSide</em></p>
 
 ### init git flow branches
 
