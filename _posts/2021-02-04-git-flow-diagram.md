@@ -2,7 +2,7 @@
 layout: mcnz/basic-post
 author: Cameron McKenzie
 title: An Improved Git Flow Diagram
-blurb: Here's an improved gitflow diagram showing all branches, including: master, main, develop, release, hotfix, support, bugfix and feature.
+blurb: Here's an improved gitflow diagram showing all branches, including master, main, develop, release, hotfix, support, bugfix and feature.
 ---
 
 
