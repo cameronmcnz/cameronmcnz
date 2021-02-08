@@ -42,6 +42,7 @@ task copyFile(type: Copy) {
 Is this better than Jenkins?
 
 <pre>
+cd C:\Workspace\rps-gradle
 git pull origin
 gradle build
 gradle copyFile
