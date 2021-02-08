@@ -6,12 +6,7 @@ blurb: Here are the virtual machine assignments.
 ---
 
 
-
-<div class="embed-responsive embed-responsive-16by9">
-<iframe  src="https://www.youtube.com/embed/6zTPiuAsMQU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
-# How to Improve Website Performance 
+# Virtual Machine Assignments
 
 
 * PC-467425-101 C. Parrish
@@ -30,7 +25,6 @@ blurb: Here are the virtual machine assignments.
 * PC-467425-106 G. Ligon
 
 
-
 * PC-467425-107 J. Baird
 
 
@@ -39,14 +33,13 @@ blurb: Here are the virtual machine assignments.
 
 * PC-467425-109 Kenny A
 
-
 * PC-467425-110 Kerry A
-
 
 * PC-467425-111 P. Upreti
 
-
 * PC-467425-112 Y. Oh
+
+* PC-467425-INST mcnz
 
 
 Username: LABS\wasadmin      
