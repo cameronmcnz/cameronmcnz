@@ -8,6 +8,11 @@ blurb: Here are the virtual machine assignments.
 
 # Virtual Machine Assignments
 
+[http://toronto.webagesolutions.com/](http://toronto.webagesolutions.com/)
+
+Username: LABS\wasadmin      
+Password:  wasadmin
+
 
 * PC-467425-101 C. Parrish
 
@@ -27,9 +32,7 @@ blurb: Here are the virtual machine assignments.
 
 * PC-467425-107 J. Baird
 
-
 * PC-467425-108 J. Schumacher
-
 
 * PC-467425-109 Kenny A
 
@@ -43,8 +46,7 @@ blurb: Here are the virtual machine assignments.
 
 
 Username: LABS\wasadmin      
-
 Password:  wasadmin
 
 
-http://toronto.webagesolutions.com/
+[http://toronto.webagesolutions.com/](http://toronto.webagesolutions.com/)
