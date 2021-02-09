@@ -42,6 +42,10 @@ git branch -a
 
 touch "feature.html"
 
+git add .
+
+git commit -m "feature added"
+
 git flow feature finish feature_branch
 
 git flow release start 0.1.0
@@ -49,6 +53,10 @@ git flow release start 0.1.0
 git branch -a
 
 touch "quick-fix.html"
+
+git add .
+
+git commit -m "quick fix added"
 
 git flow release finish '0.1.0'
 
