@@ -40,11 +40,15 @@ git flow feature start feature_branch
 
 git branch -a
 
+touch "feature.html"
+
 git flow feature finish feature_branch
 
 git flow release start 0.1.0
 
 git branch -a
+
+touch "quick-fix.html"
 
 git flow release finish '0.1.0'
 
