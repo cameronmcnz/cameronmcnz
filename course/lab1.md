@@ -23,11 +23,18 @@ There's an even easier way to run Git Flow. Check this link out:
 </figure>
 
 <pre>
+
+
+
 git flow init
 
 git branch -a
 
 git tag -l
+
+git config --global user.name "me"
+
+git config --global user.email "me@example.com"
 
 git flow feature start feature_branch
 
