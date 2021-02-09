@@ -4,7 +4,7 @@ author: Cameron McKenzie
 title: Blooms Taxonomy of Learning
 blurb: A nice diagram for Bloom's Taxonomy of Learning
 ---
-h
+
 # Bloom's Taxonomy of Learning
 
 <figure class="figure">
