@@ -86,7 +86,7 @@ If you're really clever, you'll integrate the following code into your script. B
 
 Again, the [raw code is here](https://raw.githubusercontent.com/cameronmcnz/cameronmcnz/main/ajax-javascript.txt).
 
-If you copy and paste the code below, you may pull in unwanted HTML characters from the webpage.
+If you copy and paste the code below, you may pull in unwanted HTML characters from the webpage. Copying the raw code is the safest bet.
 
 <hr/>
 <pre>Here are the number of wins:
