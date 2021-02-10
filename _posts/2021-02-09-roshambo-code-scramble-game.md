@@ -33,51 +33,50 @@ It's better to copy from the raw, unformatted text. Copying the text below might
 
 <hr/>
 
-<p>//server always chooses rock</p>
+<pre>//server always chooses rock
 
-<p><div id=&quot;results&quot;></div></p>
+&lt;div id="results"&gt;&lt;/div&gt;
 
-<p>result = &quot;tie&quot;;</p>
+result = "tie";
 
-<p><br/></p>
+&lt;br/&gt;
 
-<p><script></p>
+&lt;script&gt;
 
-<p><a href=&quot;#&quot; onclick=&quot;playRoshambo('paper')&quot;>paper</a></p>
+&lt;a href="#" onclick="playRoshambo('paper')"&gt;paper&lt;/a&gt;
 
-<p></body></p>
+&lt;/body&gt;
 
-<p>Which one will it be?<br/></p>
+Which one will it be?&lt;br/&gt;
 
-<p></script></p>
+&lt;/script&gt;
 
-<p>result = &quot;win&quot;;</p>
+result = "win";
 
-<p><html></p>
+&lt;html&gt;
 
-<p>result = &quot;lose&quot;;</p>
+result = "lose";
 
-<p><a href=&quot;#&quot; onclick=&quot;playRoshambo('rock')&quot;>rock</a></p>
+&lt;a href="#" onclick="playRoshambo('rock')"&gt;rock&lt;/a&gt;
 
-<p>if (clientGesture=='rock') {</p>
+if (clientGesture=='rock') {
 
-<p><head></p>
+&lt;head&gt;
 
-<p>if (clientGesture=='paper') {</p>
+if (clientGesture=='paper') {
 
-<p></html></p>
+&lt;/html&gt;
 
-<p>playRoshambo = function(clientGesture){</p>
+playRoshambo = function(clientGesture){
 
-<p></head></p>
+&lt;/head&gt;
 
-<p>document.getElementById('results').innerHTML = result;</p>
+document.getElementById('results').innerHTML = result;
 
-<p><body></p>
+&lt;body&gt;
 
-<p><a href=&quot;#&quot; onclick=&quot;playRoshambo('scissors')&quot;>scissors</a></p>
-
-<p>if (clientGesture=='scissors') {</p>
+&lt;a href="#" onclick="playRoshambo('scissors')"&gt;scissors&lt;/a&gt;
+</pre>
 
 </hr>
 
