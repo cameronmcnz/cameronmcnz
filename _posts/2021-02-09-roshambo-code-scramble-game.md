@@ -29,55 +29,57 @@ Here's a GitHub page with the code in raw, unformatted text:
 
 [Roshambo Code Scramble](https://raw.githubusercontent.com/jheguevara/java101/master/shared_stuff/02%20first%20scramble.txt)
 
-<pre>
+It's better to copy from the raw, unformatted text. Copying the text below might give you some unwanted HTML characters. YMMV.
 
-//server always chooses rock
+<hr/>
 
-<div id="results"></div>
+<p>//server always chooses rock</p>
 
-result = "tie";
+<p><div id=&quot;results&quot;></div></p>
 
-<br/>
+<p>result = &quot;tie&quot;;</p>
 
-<script>
+<p><br/></p>
 
-<a href="#" onclick="playRoshambo('paper')">paper</a>
+<p><script></p>
 
-</body>
+<p><a href=&quot;#&quot; onclick=&quot;playRoshambo('paper')&quot;>paper</a></p>
 
-Which one will it be?<br/>
+<p></body></p>
 
-</script>
+<p>Which one will it be?<br/></p>
 
-result = "win";
+<p></script></p>
 
-<html>
+<p>result = &quot;win&quot;;</p>
 
-result = "lose";
+<p><html></p>
 
-<a href="#" onclick="playRoshambo('rock')">rock</a>
+<p>result = &quot;lose&quot;;</p>
 
-if (clientGesture=='rock') {
+<p><a href=&quot;#&quot; onclick=&quot;playRoshambo('rock')&quot;>rock</a></p>
 
-<head>
+<p>if (clientGesture=='rock') {</p>
 
-if (clientGesture=='paper') {
+<p><head></p>
 
-</html>
+<p>if (clientGesture=='paper') {</p>
 
-playRoshambo = function(clientGesture){
+<p></html></p>
 
-</head>
+<p>playRoshambo = function(clientGesture){</p>
 
-document.getElementById('results').innerHTML = result;
+<p></head></p>
 
-<body>
+<p>document.getElementById('results').innerHTML = result;</p>
 
-<a href="#" onclick="playRoshambo('scissors')">scissors</a>
+<p><body></p>
 
-if (clientGesture=='scissors') {
-</pre>
+<p><a href=&quot;#&quot; onclick=&quot;playRoshambo('scissors')&quot;>scissors</a></p>
 
+<p>if (clientGesture=='scissors') {</p>
+
+</hr>
 
 ## Ajax Integration
 
@@ -85,25 +87,13 @@ If you're really clever, you'll integrate the following code into your script. B
 
 <pre>
 
-Here are the number of wins:
-<div id="wins"></div>
+<p>Here are the number of wins: <div id=&quot;wins&quot;></div></p>
 
+<p> <script> let url = &quot;http://100.24.244.253:8080/increasewins&quot;; let ajaxRequest = new XMLHttpRequest();</p>
 
-<script>
-let url = "http://100.24.244.253:8080/increasewins";
-let ajaxRequest = new XMLHttpRequest();
+<p>ajaxRequest.onreadystatechange = function() {  if (this.readyState == 4 &amp;&amp; this.status == 200) {  console.log(this.responseText);  let score = JSON.parse(this.responseText);  document.getElementById(&quot;wins&quot;).innerHTML = score.wins;  } }; ajaxRequest.open(&quot;GET&quot;, url, true); ajaxRequest.send();</p>
 
-ajaxRequest.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-		console.log(this.responseText);
-        let score = JSON.parse(this.responseText);
-        document.getElementById("wins").innerHTML = score.wins;
-    }
-};
-ajaxRequest.open("GET", url, true);
-ajaxRequest.send();
-
-</script>
+<p></script></p>
 
 </pre>
 
