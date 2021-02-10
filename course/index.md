@@ -24,12 +24,13 @@ Use editpad or notepad and rearrange [the code](https://raw.githubusercontent.co
 Here are some tips:
 
 * Use each line of code once and only once.
-* Do not write any of your own code.
+* Do not write any of your own code. (An end curly bracket or two is okay)
 * Group similar looking pieces of code together as you are starting out.
-* Do not write any of your own code.
+* Do not write any of your own code. (An end curly bracket or two is okay)
 * Group HTML tag elements together and elements that look like code together
-* Do not write any of your own code.
+* Do not write any of your own code. (An end curly bracket or two is okay)
 * When you think your done, save the file as rps.html and open it in a web browser and see if it works!!!
+* Do not write any of your own code. (An end curly bracket or two is okay)
 
 <img src="https://images-na.ssl-images-amazon.com/images/I/61QkvmvEdVL.png" alt="rock paper scissors" class="img-fluid"/>
 
