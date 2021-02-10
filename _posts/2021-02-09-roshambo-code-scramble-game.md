@@ -88,17 +88,25 @@ Again, the [raw code is here](https://raw.githubusercontent.com/cameronmcnz/came
 
 If you copy and paste the code below, you may pull in unwanted HTML characters from the webpage.
 
-<pre>
+<pre>Here are the number of wins:
+&lt;div id="wins"&gt;&lt;/div&gt;
 
-<p>Here are the number of wins: <div id=&quot;wins&quot;></div></p>
 
-<p> <script> let url = &quot;http://100.24.244.253:8080/increasewins&quot;; let ajaxRequest = new XMLHttpRequest();</p>
+&lt;script&gt;
+let url = "http://100.24.244.253:8080/increasewins";
+let ajaxRequest = new XMLHttpRequest();
 
-<p>ajaxRequest.onreadystatechange = function() {  if (this.readyState == 4 &amp;&amp; this.status == 200) {  console.log(this.responseText);  let score = JSON.parse(this.responseText);  document.getElementById(&quot;wins&quot;).innerHTML = score.wins;  } }; ajaxRequest.open(&quot;GET&quot;, url, true); ajaxRequest.send();</p>
+ajaxRequest.onreadystatechange = function() {
+    if (this.readyState == 4 &amp;&amp; this.status == 200) {
+		console.log(this.responseText);
+        let score = JSON.parse(this.responseText);
+        document.getElementById("wins").innerHTML = score.wins;
+    }
+};
+ajaxRequest.open("GET", url, true);
+ajaxRequest.send();
 
-<p></script></p>
-
-</pre>
+&lt;/script&gt;</pre>
 
 
 
