@@ -5,6 +5,8 @@ title: Roshambo Code Scramble
 blurb: A fun little exercise to brush up on your HTML and JavaScript skills.
 ---
 
+# Code Scramble!
+
 Oh no! I dropped my laptop on the ground and the course code spilled out all over the floor!
 
 I threw all the lines of code back into a text file, but none of the lines are in order.
@@ -14,8 +16,10 @@ Plus, a bunch of end brackets fell down a sewer grate, so I need your help findi
 ## Instructions
 
 Use editpad or notepad and rearrange [the code](https://raw.githubusercontent.com/jheguevara/java101/master/shared_stuff/02%20first%20scramble.txt) so that it will run a little rock-paper-scissors application in your web browser.
+<hr/>
 
 [The Scrambled Code](https://raw.githubusercontent.com/jheguevara/java101/master/shared_stuff/02%20first%20scramble.txt)
+<hr/>
 
 Here are some tips:
 
@@ -116,4 +120,5 @@ ajaxRequest.send();
 
 <hr/>
 
+<img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Pilot_seen_running_to_fighter.jpg" alt="scramble for jets" class="img-fluid"/>
 
