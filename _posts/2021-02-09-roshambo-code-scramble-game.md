@@ -25,6 +25,9 @@ Here are some tips:
 * Do not write any of your own code.
 * When you think your done, save the file as rps.html and open it in a web browser and see if it works!!!
 
+<img src="https://images-na.ssl-images-amazon.com/images/I/61QkvmvEdVL.png" alt="rock paper scissors" class="img-fluid"/>
+
+
 Here's a GitHub page with the code in raw, unformatted text:
 
 [Roshambo Code Scramble](https://raw.githubusercontent.com/jheguevara/java101/master/shared_stuff/02%20first%20scramble.txt)
