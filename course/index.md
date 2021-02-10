@@ -4,6 +4,7 @@ author: Cameron McKenzie
 title: Roshambo Code Scramble
 blurb: A fun little exercise to brush up on your HTML and JavaScript skills.
 ---
+The link to this page is: http://www.mcnz.com/course/
 
 # Code Scramble!
 
