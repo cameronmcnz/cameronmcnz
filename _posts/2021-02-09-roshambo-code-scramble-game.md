@@ -85,6 +85,10 @@ It's better to copy from the raw, unformatted text. Copying the text below might
 
 If you're really clever, you'll integrate the following code into your script. But this challenge is only for those with the very biggest of brains.
 
+Again, the [raw code is here](https://raw.githubusercontent.com/cameronmcnz/cameronmcnz/main/ajax-javascript.txt).
+
+If you copy and paste the code below, you may pull in unwanted HTML characters from the webpage.
+
 <pre>
 
 <p>Here are the number of wins: <div id=&quot;wins&quot;></div></p>
