@@ -1,0 +1,19 @@
+Here are the number of wins:
+<div id="wins"></div>
+
+
+<script>
+let url = "http://100.24.244.253:8080/increasewins";
+let ajaxRequest = new XMLHttpRequest();
+
+ajaxRequest.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+		console.log(this.responseText);
+        let score = JSON.parse(this.responseText);
+        document.getElementById("wins").innerHTML = score.wins;
+    }
+};
+ajaxRequest.open("GET", url, true);
+ajaxRequest.send();
+
+</script>
