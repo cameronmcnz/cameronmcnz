@@ -33,6 +33,7 @@ Here are some tips:
 
 <img src="https://images-na.ssl-images-amazon.com/images/I/61QkvmvEdVL.png" alt="rock paper scissors" class="img-fluid"/>
 
+### The Scrambled Code
 
 Here's a GitHub page with the code in raw, unformatted text:
 
