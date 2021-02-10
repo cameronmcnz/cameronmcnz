@@ -4,6 +4,41 @@ author: Cameron McKenzie
 title: Roshambo Code Scramble
 blurb: A fun little exercise to brush up on your HTML and JavaScript skills.
 ---
+# Spring Development
+
+You can find the code for this example on GitHub:
+
+https://github.com/learn-devops-fast/lab-4-spring-boot
+
+Here are the individual files we will be building:
+
+## build.gradle
+
+https://raw.githubusercontent.com/learn-devops-fast/lab-4-spring-boot/main/build.gradle
+
+## HelloApi.Java
+
+https://github.com/learn-devops-fast/lab-4-spring-boot/blob/main/src/main/java/com/webage/spring/samples/hello/HelloApi.java
+
+## HelloResponse
+
+https://raw.githubusercontent.com/learn-devops-fast/lab-4-spring-boot/main/src/main/java/com/webage/spring/samples/hello/api/HelloResponse.java
+
+## HelloResource
+
+https://raw.githubusercontent.com/learn-devops-fast/lab-4-spring-boot/main/src/main/java/com/webage/spring/samples/hello/api/HelloResource.java
+
+## Score
+
+https://raw.githubusercontent.com/learn-devops-fast/lab-4-spring-boot/main/src/main/java/com/mcnz/roshambo/Score.java
+
+## ScoreService
+
+https://raw.githubusercontent.com/learn-devops-fast/lab-4-spring-boot/main/src/main/java/com/mcnz/roshambo/ScoreService.java
+
+
+
+
 The link to this page is: http://www.mcnz.com/course/
 
 # Code Scramble!
