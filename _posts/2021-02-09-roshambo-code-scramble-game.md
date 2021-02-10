@@ -78,7 +78,7 @@ document.getElementById('results').innerHTML = result;
 &lt;a href="#" onclick="playRoshambo('scissors')"&gt;scissors&lt;/a&gt;
 </pre>
 
-</hr>
+<hr/>
 
 ## Ajax Integration
 
@@ -88,6 +88,7 @@ Again, the [raw code is here](https://raw.githubusercontent.com/cameronmcnz/came
 
 If you copy and paste the code below, you may pull in unwanted HTML characters from the webpage.
 
+<hr/>
 <pre>Here are the number of wins:
 &lt;div id="wins"&gt;&lt;/div&gt;
 
@@ -108,6 +109,6 @@ ajaxRequest.send();
 
 &lt;/script&gt;</pre>
 
-
+<hr/>
 
 
