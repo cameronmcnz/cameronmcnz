@@ -110,7 +110,7 @@ let ajaxRequest = new XMLHttpRequest();
 
 ajaxRequest.onreadystatechange = function() {
     if (this.readyState == 4 &amp;&amp; this.status == 200) {
-		console.log(this.responseText);
+        console.log(this.responseText);
         let score = JSON.parse(this.responseText);
         document.getElementById("wins").innerHTML = score.wins;
     }
