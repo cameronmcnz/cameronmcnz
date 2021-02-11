@@ -63,9 +63,13 @@ playRoshambo = function(clientGesture){
 }
 </script>
 
-<hr/><hr/><hr/>
+<hr/><hr/>
 
-# Clone the repo
+# Your Own CI Server?
+
+Do we know enough to create our own CI/CD server?
+
+## Clone the repo
 
 Open a Git BASH shell in the C:\Workspace\ folder.
 
