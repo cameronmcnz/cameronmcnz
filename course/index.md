@@ -12,7 +12,7 @@ Run each of these locally if you want. Just copy the code into a file and save i
 <br/>
 
 <a href="https://raw.githubusercontent.com/cameronmcnz/cameronmcnz/main/course/roshambo.md">roshamboA.html</a>  
-||  
+~~ 
 <a href="https://raw.githubusercontent.com/cameronmcnz/cameronmcnz/main/course/rps.md">RoshamboB.html</a>
 <br/><br/>
 
