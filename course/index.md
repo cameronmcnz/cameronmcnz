@@ -5,8 +5,11 @@ title: Roshambo Code Scramble
 blurb: A fun little exercise to brush up on your HTML and JavaScript skills.
 ---
 
+# Revisiting Roshambo!
+
 <hr/>
-<a href="https://raw.githubusercontent.com/cameronmcnz/cameronmcnz/main/course/roshambo.md">source code</a><br/>
+Run each of these locally if you want. Just copy the code into a file and save it with an .html extension on your desktop
+<a href="https://raw.githubusercontent.com/cameronmcnz/cameronmcnz/main/course/roshambo.md">roshamboA.html</a><br/> || <a href="https://raw.githubusercontent.com/cameronmcnz/cameronmcnz/main/course/rps.md">RoshamboB.html</a><br/>
 
 Which one will it be?<br/>
 
