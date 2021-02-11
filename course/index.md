@@ -13,6 +13,8 @@ Run each of these locally if you want. Just copy the code into a file and save i
 
 <a href="https://raw.githubusercontent.com/cameronmcnz/cameronmcnz/main/course/roshambo.md">roshamboA.html</a>  ||  <a href="https://raw.githubusercontent.com/cameronmcnz/cameronmcnz/main/course/rps.md">RoshamboB.html</a><br/>
 
+## Do you want to play a game?
+
 Which one will it be?<br/>
 
 <a href="#" onclick="playRoshambo('paper')">paper</a>
