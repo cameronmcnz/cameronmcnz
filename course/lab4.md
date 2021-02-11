@@ -11,11 +11,11 @@ blurb: Take your Gradle and Groofy to the next level
 
 # Clone the repo
 
+Open a Git BASH shell in the C:\Workspace\ folder.
+
 Clone the rock-paper-gradle repo with the following command:
 
 <pre>git clone https://github.com/learn-devops-fast/rps-gradle.git</pre>
-
-Now run the main class.
 
 
 ## Main Class
@@ -24,11 +24,11 @@ The main class in the Roshambo jar is:
 
 <pre>mainClassName = "com.mcnz.rps.DesktopGame"</pre>
 
-You may need to add the appropriate 'apply' to reference it and run it.
+If you want to run the glass with Gradle, look up the labs how to configure this. You may need to add the appropriate 'apply' to reference it and run it. (page 36)
 
 ### Prepare for continuous deployment
 
-Add this to your Gradle build
+Add this to your Gradle build. (This only works if you cloned the GitHub repo in the C:/Workspace folder.)
 
 <pre>
 task copyFile(type: Copy) {
@@ -48,4 +48,6 @@ gradle build
 gradle copyFile
 </pre>
 
-Can you schedule it to run every hour with Windows Task Scheduler? If so, why would anyone need Jenkins?
+Can you put that in a file named continuous-integration.bat?
+
+Can you schedule the bat file to run every hour with Windows Task Scheduler? If so, why would anyone need Jenkins?
