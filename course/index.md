@@ -61,8 +61,6 @@ playRoshambo = function(clientGesture){
 }
 </script>
 
-<a href="http://www.mcnz.com/course/roshambo.html">Roshambo01</a>  || <a href="http://www.mcnz.com/course/rps.html">Roshambo02</a>
-
 <hr/><hr/><hr/>
 
 # Clone the repo
