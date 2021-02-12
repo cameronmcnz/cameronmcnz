@@ -24,6 +24,8 @@ To follow along:
     
 Note: Because a few plugins are a bit stale, the install may initially fail, you'll need to restart, and then do the installation a second time.
 
+<img src="https://itknowledgeexchange.techtarget.com/coffee-talk/files/2020/12/jenkins-warnings-plugin.jpg" class="img-fluid">
+
 ## To reboot Jenkins:
 
 Click the start button on Windows in the lower left, and right-click on the command prompt and choose 'Run as Administrator'
@@ -60,6 +62,8 @@ Click the 'Add Tool' option a few times to add PMD, Findbugs and Checkstyle.
 
 Then run the build!
 
+<img src="https://itknowledgeexchange.techtarget.com/coffee-talk/files/2020/12/Jenkins-Checkstyle-plugin.jpg" alt="Jenkins Findbugs"/>
+
 There's a video that describes the process on [theserverside](https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Jenkins-Warnings-Plugin-CheckStyle-FindBugs-PMD-Example-Tutorial).
 
 
@@ -73,9 +77,8 @@ There's a video that describes the process on [theserverside](https://www.theser
 
 
 
-<img src="https://itknowledgeexchange.techtarget.com/coffee-talk/files/2020/12/jenkins-warnings-plugin.jpg" class="img-fluid">
 
-I'd like 
+
 
 
 
