@@ -16,11 +16,11 @@ I'd like to take a quick look at plugins. Very quick.
 Two things you'll need for this exercise:
 
 <pre>
-
+<b>
 https://github.com/cameronmcnz/rock-paper-scissors.git
 
 clean install pmd:pmd checkstyle:checkstyle findbugs:findbugs
-
+</b>
 </pre>
 
 ## Install Warnings Next Generation Plugin
