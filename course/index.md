@@ -5,7 +5,7 @@ title: Roshambo Code Scramble
 blurb: A fun little exercise to brush up on your HTML and JavaScript skills.
 ---
 
-#Jenkins, Jenkins, Jenkins!
+# Jenkins, Jenkins, Jenkins!
 
 Why does Jenkins use blue spheres? ([My interview with Kohsuke Kawaguchi](https://www.theserverside.com/video/Jenkins-creator-explains-why-a-successful-build-job-is-blue))
 
