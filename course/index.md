@@ -24,7 +24,7 @@ To follow along:
     
 Note: Because a few plugins are a bit stale, the install may initially fail, you'll need to restart, and then do the installation a second time.
 
-To reboot Jenkins:
+## To reboot Jenkins:
 
 Click the start button on Windows in the lower left, and right-click on the command prompt and choose 'Run as Administrator'
 
@@ -48,7 +48,7 @@ https://github.com/cameronmcnz/rock-paper-scissors.git
 
 Add the foll0wing <strong>build step</strong> as:
 
->> Top Level Maven
+<em>Invoke Top Level Maven Targets</em>
 
 clean install pmd:pmd checkstyle:checkstyle findbugs:findbugs
 
