@@ -81,7 +81,31 @@ There's a video that describes the process on [theserverside](https://www.theser
 
 
 
+## Pipeline Code
 
+<pre>
+<b>
+node {
+    stage('Checkout') {
+        git url: 'C:\\Software\\repos\\SimpleGreeting.git'
+    }
+    
+    
+    stage ('User Acceptance Test') {
+    
+     def response = input message: 'Is this build good to go?',
+      parameters: [choice(choices: 'Yes\nNo',
+       description: '', name: 'Pass')]
+     
+     if (response=="Yes") {
+      stage('Deploy') {
+       bat 'gradle build -x test'
+      } 
+     }
+    }
+}
+</b>
+</pre>
 
 
 
