@@ -5,6 +5,80 @@ title: Roshambo Code Scramble
 blurb: A fun little exercise to brush up on your HTML and JavaScript skills.
 ---
 
+#Jenkins, Jenkins, Jenkins!
+
+Why does Jenkins use blue spheres? ([My interview with Kohsuke Kawaguchi](https://www.theserverside.com/video/Jenkins-creator-explains-why-a-successful-build-job-is-blue))
+
+## Warnings Next Generation
+
+I'd like to take a quick look at plugins. Very quick.
+
+You can follow along, but just watching is fine too.
+
+To follow along:
+
+1. Start Jenkins (wasadmin/wasadmin on localhost:8080)
+2. Click 'Manage Jenkins' on the left and look for 'Manage Plugins'
+3. Look for the 'Warnings Next Generation' plugin. Make sure you click the <em>Avaliable<em> tab, as shown in the image below.
+4. Click the Checkbox next to 'Warnings Next Generation' and then click the "Install without Restart"
+    
+Note: Because a few plugins are a bit stale, the install may initially fail, you'll need to restart, and then do the installation a second time.
+
+To reboot Jenkins:
+
+Click the start button on Windows in the lower left, and right-click on the command prompt and choose 'Run as Administrator'
+
+<pre>
+cd C:\Program Files (*
+cd jenk*
+jenkins stop
+jenkins status
+jenkins start
+</pre>
+
+## Create a build job
+
+Create a freestyle build job named rock-paper-errors
+
+Set the Git repository as: 
+
+https://github.com/cameronmcnz/rock-paper-scissors.git
+
+### Build Step
+
+Add the foll0wing <strong>build step</strong> as:
+
+>> Top Level Maven
+
+clean install pmd:pmd checkstyle:checkstyle findbugs:findbugs
+
+#### POST Build Step
+
+Add the <em>Record copmiler warnings and static analysis results<em> option as a post build step.
+    
+Click the 'Add Tool' option a few times to add PMD, Findbugs and Checkstyle.
+
+Then run the build!
+
+There's a video that describes the process on [theserverside](https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Jenkins-Warnings-Plugin-CheckStyle-FindBugs-PMD-Example-Tutorial).
+
+
+
+
+
+
+
+
+
+
+
+
+<img src="https://itknowledgeexchange.techtarget.com/coffee-talk/files/2020/12/jenkins-warnings-plugin.jpg" class="img-fluid">
+
+I'd like 
+
+
+
 # Revisiting Roshambo!
 
 <hr/>
