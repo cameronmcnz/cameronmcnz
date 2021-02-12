@@ -9,9 +9,17 @@ blurb: A fun little exercise to brush up on your HTML and JavaScript skills.
 
 Why does Jenkins use blue spheres? ([My interview with Kohsuke Kawaguchi](https://www.theserverside.com/video/Jenkins-creator-explains-why-a-successful-build-job-is-blue))
 
-## Warnings Next Generation
+## Quick Look at Plugins
 
 I'd like to take a quick look at plugins. Very quick.
+
+Two things you'll need for this exercise:
+
+https://github.com/cameronmcnz/rock-paper-scissors.git
+
+clean install pmd:pmd checkstyle:checkstyle findbugs:findbugs
+
+## Install Warnings Next Generation Plugin
 
 You can follow along, but just watching is fine too.
 
