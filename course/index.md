@@ -15,9 +15,13 @@ I'd like to take a quick look at plugins. Very quick.
 
 Two things you'll need for this exercise:
 
+<pre>
+
 https://github.com/cameronmcnz/rock-paper-scissors.git
 
 clean install pmd:pmd checkstyle:checkstyle findbugs:findbugs
+
+</pre>
 
 ## Install Warnings Next Generation Plugin
 
@@ -51,17 +55,18 @@ jenkins start
 Create a freestyle build job named rock-paper-errors
 
 Set the Git repository as: 
-
+<pre>
 https://github.com/cameronmcnz/rock-paper-scissors.git
+</pre>
 
 ### Build Step
 
 Add the foll0wing <strong>build step</strong> as:
 
 <em>Invoke Top Level Maven Targets</em>
-
+<pre>
 clean install pmd:pmd checkstyle:checkstyle findbugs:findbugs
-
+</pre>
 #### POST Build Step
 
 Add the <em>Record copmiler warnings and static analysis results<em> option as a post build step.
