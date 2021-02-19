@@ -5,6 +5,15 @@ title: Docker quiz!
 blurb: Here's a fun Docker and Kubernetes quiz
 ---
 
+## Command to copy git repo to var
+
+git clone .git /var/lib/jenkins/repos/hello-node
+
+## Command to move to the repo directory
+
+cd /var/lib/jenkins/repos/hello-node
+
+
 <pre>
 
 'use strict';
