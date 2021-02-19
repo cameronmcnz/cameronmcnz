@@ -14,6 +14,15 @@ git clone .git /var/lib/jenkins/repos/hello-node
 cd /var/lib/jenkins/repos/hello-node
 
 
+### Evals
+
+Please go to this link to fill out class evals: https://www.webagesolutions.com/eval.
+
+Enter the following class code: 467056-2266
+Select FINAL (NOT Daily) Evaluation
+Fill in the form and submit it
+
+
 <pre>
 
 'use strict';
