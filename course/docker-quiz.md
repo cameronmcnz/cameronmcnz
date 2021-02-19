@@ -43,6 +43,7 @@ app.listen(PORT, HOST);
 
 </pre>
 
+<hr/>
 
 
 Question: If not found locally, Docker will try to pull images from:
