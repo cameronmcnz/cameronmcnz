@@ -16,7 +16,7 @@ cd /var/lib/jenkins/repos/hello-node
 
 ### Evals
 
-Please go to this link to fill out class evals: https://www.webagesolutions.com/eval.
+Please go to this link to fill out class evals: <a href="https://www.webagesolutions.com/eval">https://www.webagesolutions.com/eval</a>
 
 Enter the following class code: 467056-2266
 Select FINAL (NOT Daily) Evaluation
