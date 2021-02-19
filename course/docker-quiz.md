@@ -6,7 +6,6 @@ blurb: Here's a fun Docker and Kubernetes quiz
 ---
 
 Question: If not found locally, Docker will try to pull images from:
-
 (Choose one)
 
 - [ ] &nbsp;  GitHub
@@ -15,7 +14,6 @@ Question: If not found locally, Docker will try to pull images from:
 - [ ] &nbsp;  Git
 
 Question: A single computer in a Kubernetes cluster is known as a:
-
 (Choose one)
 
 - [ ] &nbsp;  Node
@@ -24,7 +22,6 @@ Question: A single computer in a Kubernetes cluster is known as a:
 - [ ] &nbsp;  Deployment
 
 Question: Red Hat's Kubernetes based software offering is known as:
-
 (Choose one)
 
 - [ ] &nbsp;  RHEL
@@ -40,7 +37,6 @@ Question: Which of the following two statements are most correct?
 - [ ] &nbsp;  Images can be stopped and started
 
 Question: Administrators interact directly with which component to scale a Kubernetes hosted application:
-
 (Choose one)
 
 - [ ] &nbsp;  Node
@@ -49,7 +45,6 @@ Question: Administrators interact directly with which component to scale a Kuber
 - [ ] &nbsp;  Pod
 
 Question: To define in YAML how a single container is configured you write a:
-
 (Choose one)
 
 - [ ] &nbsp;  Docker service
@@ -63,7 +58,6 @@ docker run --name some-wordpress --network some-network -d wordpress
 docker run --name some-wordpress -p 8088:80 -d wordpress
 </pre>
 Why is the second command necessary? 
-
 (Choose 2. Mildly unfair question)
 
 - [ ] &nbsp;  By default Docker and Kubernetes block access on all ports
@@ -73,8 +67,8 @@ Why is the second command necessary?
 
 
 Question: In Kubernetes, to expose a common port across pods (to access a web server or database, etc), you create a:
-
 (Choose 1. Lab page 32)
+
 - [ ] &nbsp;  replicant
 - [ ] &nbsp;  node
 - [ ] &nbsp;  service
@@ -82,7 +76,6 @@ Question: In Kubernetes, to expose a common port across pods (to access a web se
 
 
 Question: Running multiple pods on a single node to take advantage of muliple processors is known as: 
-
 (Mea Culpa: Instructor was unclear on pods and nodes yesterday.)
 
 - [ ] &nbsp;  Vertical scaling
@@ -90,7 +83,6 @@ Question: Running multiple pods on a single node to take advantage of muliple pr
   
 
 Question: To make a port in a container that runs in a Kubernetes cluster accessible to the public Internet, which command would be run?
-
 (Choose 1. Lab page 31)
 
 
