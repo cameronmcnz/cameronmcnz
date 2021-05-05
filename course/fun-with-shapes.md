@@ -9,7 +9,7 @@ blurb: Here's a fun way to learn about inheritance in Java.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-B3fW0A3hzY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-# Basic Git Commands Overview
+# The Shapes Example
 
 The local university is conducting an experiment with their first year psychology class, and they have tasked our team with developing the object model. 
 
