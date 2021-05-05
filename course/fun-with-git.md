@@ -6,8 +6,9 @@ blurb: Here's how Git add, commit and reset works.
 ---
 
 <div class="embed-responsive embed-responsive-16by9">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/PRDUK2WRzjo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XTolZqmZq6s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
+
 
 # Basic Git Commands Overview
 
@@ -86,7 +87,11 @@ a.html  b.html  c.html
 
 Pretty cool, eh?
 
+rX80eKPdA28
 
+<div class="embed-responsive embed-responsive-16by9">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rX80eKPdA28" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 <figure class="figure">
   <img src="https://cdn.ttgtmedia.com/rms/editorial/071918_help_file_half_column_desktop.png" alt="Git Flow Diagram" class="img-fluid mx-auto d-block img-thumbnail rounded ">
@@ -94,6 +99,4 @@ Pretty cool, eh?
 </figure>
 
 
-<div class="embed-responsive embed-responsive-16by9">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/XTolZqmZq6s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+
