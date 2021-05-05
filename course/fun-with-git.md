@@ -2,21 +2,23 @@
 layout: mcnz/hidden-post
 author: Cameron McKenzie
 title: Fun with Git
-blurb: Here's how Git add, commit and reset works
+blurb: Here's how Git add, commit and reset works.
 ---
 
 <div class="embed-responsive embed-responsive-16by9">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PRDUK2WRzjo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-# How Git Flow Works
+# Basic Git Commands Overview
 
 Git is great for doing personal devleopment, let alone collaborative development in groups and teams.
 
 Git lets you commit changes, and revert back to a previous save state if you mess things up. Actually, the proper term is reset. Revert has a slightly different meaning in Git. But you get the point.
 
 
-Follow these steps to get a better idea of how to commit code, and how to go back to the way things were in a previous commit by following this example.
+Follow these steps to get a better idea of how to initalize a Git repo, commit code, and go back to the way things were in a previous commit.
+
+## Initialize and commit to a Git repo
 
 <pre>
 
@@ -49,7 +51,9 @@ $ git commit -m "Commit #5 - 5 files"
 
 </pre>
 
-Now see what git reflow shows
+### A history of commits
+
+Now see what git reflog shows
 
 <pre>
 
@@ -68,6 +72,8 @@ Now list what's in the current directory:
 $ ls
 a.html  b.html  c.html  d.html  e.html
 </pre>
+
+## Git reset hard
 
 Now reset. Make sure you use the commit id from your reflog command.
 
