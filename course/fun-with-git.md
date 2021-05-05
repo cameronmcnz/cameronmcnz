@@ -15,8 +15,7 @@ Git is great for doing personal devleopment, let alone collaborative development
 
 Git lets you commit changes, and revert back to a previous save state if you mess things up. Actually, the proper term is reset. Revert has a slightly different meaning in Git. But you get the point.
 
-
-Follow these steps to get a better idea of how to initalize a Git repo, commit code, and go back to the way things were in a previous commit.
+Follow these steps to get a better idea of how to initalize a Git repo, commit code, and go back to the way things were in a previous commit. There is a full write-up on this <a href="https://www.theserverside.com/video/How-to-use-the-git-reset-hard-command-to-change-a-commit-history">Git reset hard example</a> on TheServerSide.
 
 ## Initialize and commit to a Git repo
 
