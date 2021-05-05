@@ -5,9 +5,7 @@ title: Fun with Shapes
 blurb: Here's a fun way to learn about inheritance in Java.
 ---
 
-<div class="embed-responsive embed-responsive-16by9">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-B3fW0A3hzY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+
 
 # The Shapes Example
 
@@ -41,3 +39,7 @@ When the object model is completed, please deliver it to the offshore team so th
   <figcaption class="figure-caption">Just some features of Java.</figcaption>
 </figure>
 
+
+<div class="embed-responsive embed-responsive-16by9">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-B3fW0A3hzY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
