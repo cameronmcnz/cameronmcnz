@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>The Number Guesser Game</title>
+</head>
+
+   <body style="padding:50">
+	  <h3><font color="navy">Would you like to play a game?</font></h3>
+      <p>Pick a number between <b>1</b> and <b>10</b>?<p/>
+	  
+      <button onclick="playTheGame('1')"> 1 </button> &nbsp;
+      <button onclick="playTheGame('2')"> 2 </button> &nbsp;
+      <button onclick="playTheGame('3')"> 3 </button> &nbsp;
+	  <button onclick="playTheGame('4')"> 4 </button> &nbsp;
+	  <button onclick="playTheGame('5')"> 5 </button> &nbsp;
+	  <button onclick="playTheGame('6')"> 6 </button> &nbsp;
+	  <button onclick="playTheGame('7')"> 7 </button> &nbsp;
+	  <button onclick="playTheGame('8')"> 8 </button> &nbsp;
+	  <button onclick="playTheGame('9')"> 9 </button> &nbsp;
+	  <button onclick="playTheGame('10')">10</button> &nbsp;
+
+      <div id="results">The gameplay results will appear here.</div>
+	 
+   </body>
+</html>
+
+<script>
+
+var magicNumber = Math.floor(Math.random() * 10);
+
+playTheGame = function(guess) {
+
+	let response = "Nope. It's not " + guess;
+	if (guess>magicNumber) {
+		response = response + ". Guess Lower!";
+	}
+	if (guess<magicNumber) {
+		response = response + ". Guess Higher!";
+	}
+	if (guess==magicNumber) {
+	    response = "You got it correct! The number was " + magicNumber + ".  Now play again.";
+		magicNumber = Math.floor(Math.random() * 10);
+		
+	}
+   document.getElementById('results').innerHTML = response; 
+}
+
+
+</script>
+
