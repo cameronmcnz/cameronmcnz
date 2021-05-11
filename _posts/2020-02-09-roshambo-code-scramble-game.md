@@ -5,7 +5,7 @@ title: Roshambo Code Scramle
 blurb: A fun little exercise to brush up on your HTML and JavaScript skills.
 ---
 
-Oh no! I dropped my laptop on the ground and the course code spilled out all over the floor!
+Oh no! I dropped my laptop on the ground and the Roshambo course code spilled out all over the floor! (Fortunately, the <a href="https://www.mcnz.com/course/numberguesser.html">number guesser</a> is fine.)
 
 I threw all the lines of code back into a text file, but none of the lines are in order.
 
@@ -114,4 +114,19 @@ ajaxRequest.send();
 
 <hr/>
 
+<h3>One Step Further</h3>
 
+The script above hits a RESTful web service, deployed as a microservice to a Kubernetes cluster on Amazon. If you're really bold, you could code it on your own. Here's the GitHub repo for reference:
+
+<a href="https://github.com/cameronmcnz/keeping-score">GitHub Keeping Score Code Repository</a>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PSnGYWAVfJ0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h3>One Step Backwards</h3>
+
+This Single Page Interface (SPI) approach is a far cry from how we developed web applications in the days of Servlets and JSPs. Here's a version of the game that takes a more traditional, monolithic approach to implementation:
+
+* <a href="http://rps-env.eba-uwjfetjg.us-east-1.elasticbeanstalk.com/index.jsp">Monolithic Rock-Paper-Scissors Game</a>
+* <a href="https://github.com/cameronmcnz/rock-paper-scissors/tree/monolith/src/com/mcnz/rps/moai">Monolithic RPS Source Code</a>
+
+Play the game. Check out the code!
