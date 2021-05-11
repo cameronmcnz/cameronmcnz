@@ -3,6 +3,7 @@ layout: mcnz/basic-post
 author: Cameron McKenzie
 title: Roshambo Code Scramle
 blurb: A fun little exercise to brush up on your HTML and JavaScript skills.
+canonical: https://www.mcnz.com/2020/02/09/roshambo-code-scramble-game.html
 ---
 
 Oh no! I dropped my laptop on the ground and the Roshambo course code spilled out all over the floor! (Fortunately, the <a href="https://www.mcnz.com/course/numberguesser.html">number guesser</a> is fine.)
