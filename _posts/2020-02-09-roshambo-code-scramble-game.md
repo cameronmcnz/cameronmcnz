@@ -119,7 +119,7 @@ ajaxRequest.send();
 
 The script above hits a RESTful web service, deployed as a microservice to a Kubernetes cluster on Amazon. If you're really bold, you could code it on your own. Here's the GitHub repo for reference:
 
-<a href="https://github.com/cameronmcnz/keeping-score">GitHub Keeping Score Code Repository</a>
+<a href="https://github.com/cameronmcnz/keeping-score/tree/main/src/main/java/com/mcnz/rps/rest">GitHub Keeping Score Code Repository</a>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PSnGYWAVfJ0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
