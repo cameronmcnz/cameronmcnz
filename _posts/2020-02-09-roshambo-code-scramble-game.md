@@ -123,6 +123,8 @@ The script above hits a RESTful web service, deployed as a microservice to a Kub
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PSnGYWAVfJ0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+<hr/>
+
 <h3>One Step Backwards</h3>
 
 This Single Page Interface (<a href="https://www.mcnz.com/course/rock-paper-scissors-unscrambled.html">SPI</a>) approach is a far cry from how we developed web applications in the days of Servlets and JSPs. Here's a version of the game that takes a more traditional, monolithic approach to implementation:
