@@ -3,6 +3,7 @@ layout: mcnz/hidden-post
 author: Cameron McKenzie
 title: Lab 4 - No Code Gradle
 blurb: Here's the Gradle lab with code from GitHub
+canonical: https://www.mcnz.com/course/no-code-gradle.html
 ---
 
 <div class="embed-responsive embed-responsive-16by9">
