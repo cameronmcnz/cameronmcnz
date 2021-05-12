@@ -84,8 +84,7 @@ $ gradle build
 
 And clean up again:
 
-<pre><code>
-$ gradle clean
+<pre><code>$ gradle clean
 </code></pre>
 
 ### Switch Branches
@@ -98,8 +97,7 @@ git commit -m "done for now"
 
 Then switch branches:
 
-<pre><code>
-git checkout part5
+<pre><code>git checkout part5
 </code></pre>
 
 ### Part 5
