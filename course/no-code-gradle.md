@@ -18,23 +18,26 @@ Here's Lab 4 with a twist. Instead of writing your own code, why not pull it fro
 
 Create a folder under C:\workspace\labs\gradle and in that directory clone a GitHub repo:
 
+<pre>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
 $ git clone https://github.com/cameronmcnz/MyProject.git
-
+</pre>
 You may need to then move into the MyProject directory
 
-cd My*
+<pre>cd My*</pre>
 
 ### Compile Java Code with javac
 
 From the MyProject directory, look at the BadJava.java file. Then compile it with the Java compiler:
 
+<pre>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
 $ javac BadJava.java
+</pre>
 
 Then run the bytecode
 
-$ java BadJava
+<pre>$ java BadJava</pre>
 
 ### Gradle Tasks
 
