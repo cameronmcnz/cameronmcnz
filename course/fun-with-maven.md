@@ -1,8 +1,8 @@
 ---
 layout: mcnz/hidden-post
 author: Cameron McKenzie
-title: Here's some fun with Maven
-blurb: Let's contrast Maven against Gradle
+title: "Here's some fun with Maven"
+blurb: "Let's contrast Maven against Gradle"
 canonical: https://www.mcnz.com/course/fun-with-maven.html
 ---
 <style>
