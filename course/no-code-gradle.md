@@ -43,50 +43,64 @@ Then run the bytecode
 
 See what Gradle tasks are available:
 
+<pre>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
 $ gradle tasks
+</pre>
 
 Then tell Gradle that you're all about Java:
 
-apply plugin: 'java'
+<pre>apply plugin: 'java'</pre>
 
 Now run the tasks again and note the difference.
 
+<pre>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
 $ gradle tasks
-
+</pre>
 
 ### Compile with Gradle
 
 Compile your code with Gradle:
 
+<pre>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject (part7)
 $ gradle classes
-
+</pre>
 Now clean up your workspace:
 
+<pre>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject (part7)
 $ gradle clean
+</pre>
 
 Now build a JAR file:
 
+<pre>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject (part7)
 $ gradle build
+</pre>
 
 And clean up again:
 
+<pre>
 $ gradle clean
+</pre>
 
 ### Switch Branches
 
 Add and commit your changes:
 
+<pre>
 git add .
 git commit -m "done for now"
+</pre>
 
 Then switch branches:
 
+<pre>
 git checkout part5
+</pre>
 
 ### Part 5
 
@@ -94,28 +108,31 @@ Update your gradle file according to the lab guide.
 
 Commands to issue include:
 
+<pre>
 gradle build
 gradle -q run
+</pre>
 
 ### Switch branches
 
 To switch branches, add and commit again. Then do the checkout:
 
+<pre>
 git add .
 git commit -m "done again"
 
 git checkout part7
+</pre>
 
 ### Run Tests
 
 Look at the code added under the test folders. Follow section 7 in the book and then run the test command. Note that it will fail.
 
-gradle test
+<pre>gradle test</pre>
 
 Fix the test files so the test will pass. Then run your tests again.
 
-gradle test
-
+<pre>gradle test</pre>
 
 That just about covers it!
 
