@@ -5,6 +5,14 @@ title: Lab 4 - No Code Gradle
 blurb: Here's the Gradle lab with code from GitHub
 canonical: https://www.mcnz.com/course/no-code-gradle.html
 ---
+<style>
+pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+}
+</style>
 
 <div class="embed-responsive embed-responsive-16by9">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rY-MrvpZ6xU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -18,10 +26,10 @@ Here's Lab 4 with a twist. Instead of writing your own code, why not pull it fro
 
 Create a folder under C:\workspace\labs\gradle and in that directory clone a GitHub repo:
 
-<pre>
+<pre><cod>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
 $ git clone https://github.com/cameronmcnz/MyProject.git
-</pre>
+</code></pre>
 You may need to then move into the MyProject directory
 
 <pre>cd My*</pre>
