@@ -26,8 +26,7 @@ Here's Lab 4 with a twist. Instead of writing your own code, why not pull it fro
 
 Create a folder under C:\workspace\labs\gradle and in that directory clone a GitHub repo:
 
-<pre><code>
-wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
+<pre><code>wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
 $ git clone https://github.com/cameronmcnz/MyProject.git
 </code></pre>
 You may need to then move into the MyProject directory
@@ -38,8 +37,7 @@ You may need to then move into the MyProject directory
 
 From the MyProject directory, look at the BadJava.java file. Then compile it with the Java compiler:
 
-<pre><code>
-wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
+<pre><code>wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
 $ javac BadJava.java
 </code></pre>
 
@@ -51,8 +49,7 @@ Then run the bytecode
 
 See what Gradle tasks are available:
 
-<pre><code>
-wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
+<pre><code>wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
 $ gradle tasks
 </code></pre>
 
@@ -62,8 +59,7 @@ Then tell Gradle that you're all about Java:
 
 Now run the tasks again and note the difference.
 
-<pre><code>
-wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
+<pre><code>wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
 $ gradle tasks
 </code></pre>
 
@@ -71,21 +67,18 @@ $ gradle tasks
 
 Compile your code with Gradle:
 
-<pre><code>
-wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject (part7)
+<pre><code>wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject (part7)
 $ gradle classes
 </code></pre>
 Now clean up your workspace:
 
-<pre><code>
-wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject (part7)
+<pre><code>wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject (part7)
 $ gradle clean
 </code></pre>
 
 Now build a JAR file:
 
-<pre><code>
-wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject (part7)
+<pre><code>wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject (part7)
 $ gradle build
 </code></pre>
 
@@ -99,8 +92,7 @@ $ gradle clean
 
 Add and commit your changes:
 
-<pre><code>
-git add .
+<pre><code>git add .
 git commit -m "done for now"
 </code></pre>
 
@@ -116,8 +108,7 @@ Update your gradle file according to the lab guide.
 
 Commands to issue include:
 
-<pre><code>
-gradle build
+<pre><code>gradle build
 gradle -q run
 </code></pre>
 
@@ -125,8 +116,7 @@ gradle -q run
 
 To switch branches, add and commit again. Then do the checkout:
 
-<pre><code>
-git add .
+<pre><code>git add .
 git commit -m "done again"
 
 git checkout part7
