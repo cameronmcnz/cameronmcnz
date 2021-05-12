@@ -26,7 +26,7 @@ Here's a compliment to Lab 4. While Gradle is the new kid on the block, the majo
 
 My apologies, but this is just going to be a lot of code snippets for you to type.
 
-## Part 1-3
+## Clone from GitHub
 
 Create a folder under C:\workspace\labs\ named maven and in that directory clone the rps-maven GitHub repo:
 
