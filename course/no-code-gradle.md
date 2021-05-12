@@ -26,7 +26,7 @@ Here's Lab 4 with a twist. Instead of writing your own code, why not pull it fro
 
 Create a folder under C:\workspace\labs\gradle and in that directory clone a GitHub repo:
 
-<pre><code>wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
+<pre><code>wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/
 $ git clone https://github.com/cameronmcnz/MyProject.git
 </code></pre>
 You may need to then move into the MyProject directory
