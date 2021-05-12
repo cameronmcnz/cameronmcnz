@@ -32,83 +32,83 @@ $ git clone https://github.com/cameronmcnz/MyProject.git
 </code></pre>
 You may need to then move into the MyProject directory
 
-<pre>cd My*</pre>
+<pre><code>cd My*</code></pre>
 
 ### Compile Java Code with javac
 
 From the MyProject directory, look at the BadJava.java file. Then compile it with the Java compiler:
 
-<pre>
+<pre><code>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
 $ javac BadJava.java
-</pre>
+</code></pre>
 
 Then run the bytecode
 
-<pre>$ java BadJava</pre>
+<pre><code>$ java BadJava</code></pre>
 
 ### Gradle Tasks
 
 See what Gradle tasks are available:
 
-<pre>
+<pre><code>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
 $ gradle tasks
-</pre>
+</code></pre>
 
 Then tell Gradle that you're all about Java:
 
-<pre>apply plugin: 'java'</pre>
+<pre><code>apply plugin: 'java'</code></pre>
 
 Now run the tasks again and note the difference.
 
-<pre>
+<pre><code>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject
 $ gradle tasks
-</pre>
+</code></pre>
 
 ### Compile with Gradle
 
 Compile your code with Gradle:
 
-<pre>
+<pre><code>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject (part7)
 $ gradle classes
-</pre>
+</code></pre>
 Now clean up your workspace:
 
-<pre>
+<pre><code>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject (part7)
 $ gradle clean
-</pre>
+</code></pre>
 
 Now build a JAR file:
 
-<pre>
+<pre><code>
 wasadmin@CLASSPC MINGW64 /c/Workspace/labs/gradle/MyProject (part7)
 $ gradle build
-</pre>
+</code></pre>
 
 And clean up again:
 
-<pre>
+<pre><code>
 $ gradle clean
-</pre>
+</code></pre>
 
 ### Switch Branches
 
 Add and commit your changes:
 
-<pre>
+<pre><code>
 git add .
 git commit -m "done for now"
-</pre>
+</code></pre>
 
 Then switch branches:
 
-<pre>
+<pre><code>
 git checkout part5
-</pre>
+</code></pre>
 
 ### Part 5
 
@@ -116,31 +116,31 @@ Update your gradle file according to the lab guide.
 
 Commands to issue include:
 
-<pre>
+<pre><code>
 gradle build
 gradle -q run
-</pre>
+</code></pre>
 
 ### Switch branches
 
 To switch branches, add and commit again. Then do the checkout:
 
-<pre>
+<pre><code>
 git add .
 git commit -m "done again"
 
 git checkout part7
-</pre>
+</code></pre>
 
 ### Run Tests
 
 Look at the code added under the test folders. Follow section 7 in the book and then run the test command. Note that it will fail.
 
-<pre>gradle test</pre>
+<pre><code>gradle test</code></pre>
 
 Fix the test files so the test will pass. Then run your tests again.
 
-<pre>gradle test</pre>
+<pre><code>gradle test</code></pre>
 
 That just about covers it!
 
@@ -153,6 +153,4 @@ That just about covers it!
   <img src="https://pbs.twimg.com/media/C-KM9LfXkAAUFHP?format=jpg" alt="Java Features" class="img-fluid mx-auto d-block img-thumbnail rounded ">
   <figcaption class="figure-caption">Maven Cheat Sheet.</figcaption>
 </figure>
-
-
 
