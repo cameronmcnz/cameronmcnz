@@ -56,7 +56,7 @@ $ mvn test
 </code></pre>
 
 <figure class="figure">
-  <img src="/assets/gradle-vs-maven.jpg" alt="Build vs Merge with Maven Gradle and Git" class="img-fluid mx-auto d-block img-thumbnail rounded ">
+  <img src="/assets/merge-vs-build.jpg" alt="Build vs Merge with Maven Gradle and Git" class="img-fluid mx-auto d-block img-thumbnail rounded ">
   <figcaption class="figure-caption">Just because it will merge doesn't mean it will compile.</figcaption>
 </figure>
 
