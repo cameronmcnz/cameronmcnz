@@ -26,28 +26,6 @@
    
 <!-- facebook login -->
 <script>
-
-  var facebookResponse;
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '287616246137792',
-      cookie     : true,
-      xfbml      : true,
-      version    : 'v10.0'
-    });
-    
-    FB.AppEvents.logPageView();   
-    triggerLoginCheck();
-      
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
 	
 	
 function checkLoginState() {
@@ -55,38 +33,18 @@ function checkLoginState() {
 }	
 	
 function triggerLoginCheck() {       
- FB.getLoginStatus(function(response) {
-	facebookResponse = response;
-    //statusChangeCallback(response);
-    console.log(response);
-    console.log(response.status);
-    //if (response.status == 'connected'){
     if (true){
-		//set cheat visible
 	    	console.log("authenticated user");
 		document.getElementById("answerCardBody").classList.remove('d-none');
 		document.getElementById("answerCardBodyDefault").classList.add('d-none');
     }
-    
-    //if (response.status == 'not_authorized'){
-    if (false){
-		//set cheat invisible
-		document.getElementById("answerCardBodyDefault").classList.remove('d-none');
-		document.getElementById("answerCardBody").classList.add('d-none');
-	    FB.login();
-    }
-	
-	
-	
-	
- });
 }	
 
 function collapseAndExpand() {
-console.log("start collapse and expand");
+	console.log("start collapse and expand");
 	document.getElementById('answerCardBody').classList.toggle('collapse');
 	document.getElementById('answerCardBodyDefault').classList.toggle('collapse');
-console.log("end collapse and expand");
+	console.log("end collapse and expand");
 }
 
 </script>	      
