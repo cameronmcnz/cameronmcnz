@@ -190,8 +190,8 @@ function collapseAndExpand() {
    	document.getElementById("labelOption2").innerHTML = exam.questions[questionNumber].options[2].text;
    	document.getElementById("labelOption3").innerHTML = exam.questions[questionNumber].options[3].text;
    
-   	document.getElementById("answerLink").innerHTML = exam.questions[questionNumber].query;
-   	document.getElementById("answerLink").setAttribute("href", exam.questions[questionNumber].answer);
+   	document.getElementById("answerLink").innerHTML = exam.questions[questionNumber].answer;
+	//document.getElementById("answerLink").setAttribute("href", exam.questions[questionNumber].answer);
    	
     chooseBetweenRadioOrCheckbox();
     redisplaySelectedInput();
@@ -372,7 +372,7 @@ function collapseAndExpand() {
          <a  id="cheat" class="btn btn-warning my-2" onclick="highlightCorrectAnswers()">Cheat</a>
          <h3>Full Answer</h3>
          <p class="card-text">If the cheat is not enough, here's the detailed UiPath Certification question answer:</p>
-         <p class="card-text"><a  id="answerLink" target="_blank">Answer opens in a new window.</a></p>
+         <p class="card-text"><div  id="answerLink" target="_blank">Answer opens in a new window.</a></p>
       </div>
 	  
 	  <div class="card-body " id="answerCardBodyDefault">
@@ -381,7 +381,7 @@ function collapseAndExpand() {
          <a  id="cheat" class="btn btn-warning my-2" onclick="highlightCorrectAnswers()">Cheat</a>
          <h3>Full Answer</h3>
          <p class="card-text">If the cheat is not enough, here's the detailed UiPath Certification question answer:</p>
-         <p class="card-text"><a  id="answerLink" target="_blank">Answer opens in a new window.</a></p>
+         <p class="card-text"><div  id="answerLink" target="_blank">Answer opens in a new window.</a></p>
 		  
       </div>
 	  
