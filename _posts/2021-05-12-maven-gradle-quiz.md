@@ -30,3 +30,8 @@ window.addEventListener('load', function () {
  
 });
 </script>
+
+<figure class="figure">
+  <img src="/assets/gradle-vs-maven.jpg" alt="Git Flow Diagram" class="img-fluid mx-auto d-block img-thumbnail rounded ">
+  <figcaption class="figure-caption">A better Gitflow diagram.</figcaption>
+</figure>
