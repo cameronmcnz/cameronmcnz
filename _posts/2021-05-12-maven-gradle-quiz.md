@@ -32,6 +32,6 @@ window.addEventListener('load', function () {
 </script>
 
 <figure class="figure">
-  <img src="/assets/gradle-vs-maven.jpg" alt="Git Flow Diagram" class="img-fluid mx-auto d-block img-thumbnail rounded ">
-  <figcaption class="figure-caption">A better Gitflow diagram.</figcaption>
+  <img src="/assets/gradle-vs-maven.jpg" alt="Gradle vs Git merge and build" class="img-fluid mx-auto d-block img-thumbnail rounded ">
+  <figcaption class="figure-caption">Just because it will merge in Git doesn't mean it will build with Maven or Gradle.</figcaption>
 </figure>
