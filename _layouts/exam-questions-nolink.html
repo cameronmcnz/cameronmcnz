@@ -26,6 +26,28 @@
    
 <!-- facebook login -->
 <script>
+
+  var facebookResponse;
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '287616246137792',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v10.0'
+    });
+    
+    FB.AppEvents.logPageView();   
+    triggerLoginCheck();
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 	
 	
 function checkLoginState() {
@@ -33,18 +55,38 @@ function checkLoginState() {
 }	
 	
 function triggerLoginCheck() {       
+ FB.getLoginStatus(function(response) {
+	facebookResponse = response;
+    //statusChangeCallback(response);
+    console.log(response);
+    console.log(response.status);
+    //if (response.status == 'connected'){
     if (true){
-	    console.log("authenticated user");
+		//set cheat visible
+	    	console.log("authenticated user");
 		document.getElementById("answerCardBody").classList.remove('d-none');
 		document.getElementById("answerCardBodyDefault").classList.add('d-none');
     }
+    
+    //if (response.status == 'not_authorized'){
+    if (false){
+		//set cheat invisible
+		document.getElementById("answerCardBodyDefault").classList.remove('d-none');
+		document.getElementById("answerCardBody").classList.add('d-none');
+	    FB.login();
+    }
+	
+	
+	
+	
+ });
 }	
 
 function collapseAndExpand() {
-	console.log("start collapse and expand");
+console.log("start collapse and expand");
 	document.getElementById('answerCardBody').classList.toggle('collapse');
 	document.getElementById('answerCardBodyDefault').classList.toggle('collapse');
-	console.log("end collapse and expand");
+console.log("end collapse and expand");
 }
 
 </script>	      
@@ -190,8 +232,8 @@ function collapseAndExpand() {
    	document.getElementById("labelOption2").innerHTML = exam.questions[questionNumber].options[2].text;
    	document.getElementById("labelOption3").innerHTML = exam.questions[questionNumber].options[3].text;
    
-   	document.getElementById("answerLink").innerHTML = exam.questions[questionNumber].answer;
-	//document.getElementById("answerLink").setAttribute("href", exam.questions[questionNumber].answer);
+   	document.getElementById("answerLink").innerHTML = exam.questions[questionNumber].query;
+   	document.getElementById("answerLink").setAttribute("href", exam.questions[questionNumber].answer);
    	
     chooseBetweenRadioOrCheckbox();
     redisplaySelectedInput();
@@ -291,7 +333,7 @@ function collapseAndExpand() {
    	let correctCount = 0; 
    	for (i = 0; i < exam.questions.length; i++) {
    		let correct = true;
-
+		if (facebookResponse.status == 'connected') {
 			for (j = 0; j < exam.questions[i].options.length; j++) {
 				correct = (exam.questions[i].options[j].checked == exam.questions[i].options[j].correct);
 				if (correct == false) {
@@ -301,13 +343,16 @@ function collapseAndExpand() {
 					document.getElementById('jumpTo'+i).setAttribute('class', 'btn btn-success  mr-2');
 				}
 			}
-
+		}
    		if (correct) {correctCount++}
    	}
 	
+	if (facebookResponse.status == 'connected') {
+		highlightCorrectAnswers();
+	}
    	
 	wrongCount = exam.questions.length - correctCount;
-	if (true) {
+	if (facebookResponse.status == 'connected') {
 		document.getElementById('score').innerHTML = 'You got '  + correctCount + ' out of ' + exam.questions.length + ' correct.';
 	} else {
 		document.getElementById('score').innerHTML = 'Login with Facebook to find out which question(s) you got right, and which ones you got wrong.';
@@ -372,16 +417,20 @@ function collapseAndExpand() {
          <a  id="cheat" class="btn btn-warning my-2" onclick="highlightCorrectAnswers()">Cheat</a>
          <h3>Full Answer</h3>
          <p class="card-text">If the cheat is not enough, here's the detailed UiPath Certification question answer:</p>
-         <p class="card-text"><div  id="answerLink" target="_blank">Answer opens in a new window.</a></p>
+         <p class="card-text"><a  id="answerLink" target="_blank">Answer opens in a new window.</a></p>
       </div>
 	  
 	  <div class="card-body " id="answerCardBodyDefault">
          <h3 class="card-title" id="answer"></h3>
-         <p>Click this button to cheat.</p>
-         <a  id="cheat" class="btn btn-warning my-2" onclick="highlightCorrectAnswers()">Cheat</a>
-         <h3>Full Answer</h3>
-         <p class="card-text">If the cheat is not enough, here's the detailed UiPath Certification question answer:</p>
-         <p class="card-text"><div  id="answerLink" target="_blank">Answer opens in a new window.</a></p>
+         <p class="card-text">Our cheats are awesome!</p>
+		 <p class="card-text">We'd just appreciate it if you logged into our rpacertified Facebook app to gain access to it.</p>
+		 
+
+         <p class="card-text">The cheat will tell you the right answer, link to documentation and explain why a certain option is right, and why other options are wrong.</p>
+			<fb:login-button 
+			  scope="public_profile,email"
+			  onlogin="checkLoginState();">
+			</fb:login-button>
 		  
       </div>
 	  
@@ -1467,6 +1516,7 @@ function collapseAndExpand() {
       "objectives":[
          "3.0", "3.0"
       ]},	
+
 	  {id:86, query:"Microservices can be written in any programming language so long as they use a common data exchange format such as:",  "answer":"JSON is the defacto data exchange format for microservices. XML is also used when a more rigid structure and set of data exchange rules are required.", "difficulty": "99",
 			options:[
 			{text:"Comma separated values (CSVs)", correct:false, selected:false}, 
@@ -1478,7 +1528,7 @@ function collapseAndExpand() {
          "99", "99"
       ]},
 
-	  {id:87, query:"The most popular, Java based alternative to Java EE and Jakarta EE for creating microservices, is:",  "answer":"Spring Boot is the most popular Java based framework for the creation of cloud-native applications and microservices. Eclipse Microprofile is actually another Java based microservices framework, but it's not as popular as Spring Boot. Docker is a deployment container. Kotlin is a programming language.", "difficulty": "99",
+	  {id:87, query:"The most popular popular, Java based alternative to Java EE and Jakarta EE for creating microservices, is:",  "answer":"Spring Boot is the most popular Java based framework for the creation of cloud-native applications and microservices. Eclipse Microprofile is actually another Java based microservices framework, but it's not as popular as Spring Boot. Docker is a deployment container. Kotlin is a programming language.", "difficulty": "99",
 			options:[
 			{text:"Spring Boot", correct:true, selected:false}, 
 			{text:"Docker", correct:false, selected:false},
@@ -1522,7 +1572,7 @@ function collapseAndExpand() {
          "99", "99"
       ]},
 
-	  {id:91, query:"When a Spring Boot application is created in Eclipse, you can choose to between which of the following two build tools?",  "answer":"Maven and Gradle are the popular Java build tools Spring Boot currently integrates with.", "difficulty": "99",
+	  {id:91, query:"When a Spring Boot application is created in Eclipse, you can chose to between which of the following two build tools?",  "answer":"aaa", "difficulty": "99",
 			options:[
 			{text:"CMake", correct:false, selected:false}, 
 			{text:"Gradle", correct:true, selected:false},
@@ -1544,11 +1594,11 @@ function collapseAndExpand() {
          "99", "99"
       ]},
 
-	  {id:93, query:"Spring Boot allows microservices to be coded in which of the following three Java Virtual Machine (JVM) programming languages:",  "answer":"Kotlin, Groovy and Java are the three options for Spring Boot microservice development. But a microservice can be written in any language.", "difficulty": "99",
+	  {id:93, query:"Spring Boot allows microservices to be coded in which of the following three Java Virtual Machine (JVM) programming languages:",  "answer":"aaa", "difficulty": "99",
 			options:[
-			{text:"Kotlin", correct:false, selected:false}, 
-			{text:"Java", correct:false, selected:false},
-			{text:"Groovy", correct:false, selected:false},
+			{text:"Kotlin", correct:true, selected:false}, 
+			{text:"Java", correct:true, selected:false},
+			{text:"Groovy", correct:true, selected:false},
 			{text:"Golang", correct:false, selected:false}
 			],
       "objectives":[
@@ -1566,7 +1616,7 @@ function collapseAndExpand() {
          "99", "99"
       ]},
 
-	  {id:95, query:"Which of the following statements are true:",  "answer":"More servers can lead to a larger security perimeter to secure, so that is a bit of a drawback to microservices. But the global distribution of microservices deployed to containers that are managed by Kubernetes clusters across the globe makes microservices much more resilient to failover. ", "difficulty": "99",
+	  {id:95, query:"Which of the following statements ate true:",  "answer":"More servers can lead to a larger security perimeter to secure, so that is a bit of a drawback to microservices. But the global distribution of microservices deployed to containers that are managed by Kubernetes clusters across the globe makes microservices much more resilient to failover. ", "difficulty": "99",
 			options:[
 			{text:"It is easier to secure one, monolithic application hosted on a single, powerful servers.", correct:true, selected:false}, 
 			{text:"It is easier to secure multiple, independent microservices, globally deployed to multiple servers.", correct:false, selected:false},
@@ -1577,7 +1627,7 @@ function collapseAndExpand() {
          "99", "99"
       ]},
 
-	  {id:96, query:"Although this approach to software development predates Docker and Kubernetes by 10 years, which design strategy is recommended when building a microservices based architecture:",  "answer":"Domain driven design is the recommended approach to microservice design and development.", "difficulty": "99",
+	  {id:96, query:"Although this approach to software development predates Docker and Kubernetes by 10 years, which design strategy is recommended when building a microservices based architecture:",  "answer":"aaa", "difficulty": "99",
 			options:[
 			{text:"Form Driven Design", correct:false, selected:false}, 
 			{text:"Data Driven Design", correct:false, selected:false},
@@ -1590,9 +1640,9 @@ function collapseAndExpand() {
 
 	  {id:97, query:"Which of the following statements is correct?",  "answer":"EAR and WAR files went to application servers like Tomcat or WebSphere. Modern Java based microservices are deployed as standalone JAR files and deployed in Docker containers that are managed and orchestrated by Kubernetes. Get familiar with the terms EAR, WAR and JAR. You'll heat them a fair bit if you work with traditional Java programmers.", "difficulty": "99",
 			options:[
-			{text:"Traditional Java web apps are packaged as EAR and WAR files and deployed to application servers like WebSphere or Tomcat. ", correct:true, selected:false}, 
+			{text:"Traditional Java web apps are packaged as EAR and WAR files and deployed to application servers like WebSphere or Tomcat. ", correct:false, selected:false}, 
 			{text:"Traditional Java web apps are packaged as JAR files and deployed to Kubernetes orchestrated Docker containers.", correct:false, selected:false},
-			{text:"Spring Boot apps are packaged as standalone JAR files and deployed to Kubernetes orchestrated Docker containers.", correct:true, selected:false},
+			{text:"Spring Boot apps are packaged as standalone JAR files and deployed to Kubernetes orchestrated Docker containers.", correct:false, selected:false},
 			{text:"Spring Boot apps are packaged as EAR and WAR files and deployed to application servers like WebSphere or Tomcat.", correct:false, selected:false}
 			],
       "objectives":[
@@ -1610,23 +1660,23 @@ function collapseAndExpand() {
          "99", "99"
       ]},
 
-	  {id:99, query:"The generally accepted guidelines for developing microservices is known as: ",  "answer":"The 12-Factor App, also known as the 12-Factor methodology, provides 12 points to ponder when you develop microservices and web applications to be deployed in a software-as-a-service (SAAS) environment.", "difficulty": "99",
+	  {id:999, query:"aaa:",  "answer":"aaa", "difficulty": "99",
 			options:[
-			{text:"The Agile Manifesto", correct:false, selected:false}, 
-			{text:"The Cloud Native Manifesto", correct:false, selected:false},
-			{text:"Opinionated Spring Boot", correct:false, selected:false},
-			{text:"The 12-Factor Methodology", correct:true, selected:false}
+			{text:"aaa", correct:false, selected:false}, 
+			{text:"aaa", correct:false, selected:false},
+			{text:"aaa", correct:false, selected:false},
+			{text:"aaa", correct:false, selected:false}
 			],
       "objectives":[
          "99", "99"
       ]},
 
-	  {id:999, query:"Which of the following statements are true about Single Page Interface applications?",  "answer":"aaa", "difficulty": "99",
+	  {id:999, query:"aaa:",  "answer":"aaa", "difficulty": "99",
 			options:[
-			{text:"SPIs typically employ JavaScript, Ajax, HTML and JSON", correct:true, selected:false}, 
-			{text:"SPIs deployment requires Docker containers.", correct:false, selected:false},
-			{text:"SPIs can be used on fewer devices than a traditional web app that performs client side rendering.", correct:true, selected:false},
-			{text:"This quiz is implemented as an SPI.", correct:true, selected:false}
+			{text:"aaa", correct:false, selected:false}, 
+			{text:"aaa", correct:false, selected:false},
+			{text:"aaa", correct:false, selected:false},
+			{text:"aaa", correct:false, selected:false}
 			],
       "objectives":[
          "99", "99"
@@ -1974,7 +2024,8 @@ function collapseAndExpand() {
 			],
       "objectives":[
          "99", "99"
-      ]},	
+      ]},		  
+
 	  
 	];
 	
