@@ -232,9 +232,8 @@ console.log("end collapse and expand");
    	document.getElementById("labelOption2").innerHTML = exam.questions[questionNumber].options[2].text;
    	document.getElementById("labelOption3").innerHTML = exam.questions[questionNumber].options[3].text;
    
-   	//document.getElementById("answerLink").innerHTML = exam.questions[questionNumber].query;
-   	//document.getElementById("answerLink").setAttribute("href", exam.questions[questionNumber].answer);
-	document.getElementById("answerLink").innerHTML = exam.questions[questionNumber].answer;
+   	document.getElementById("answerLink").innerHTML = exam.questions[questionNumber].query;
+   	document.getElementById("answerLink").setAttribute("href", exam.questions[questionNumber].answer);
    	
     chooseBetweenRadioOrCheckbox();
     redisplaySelectedInput();
@@ -1597,9 +1596,9 @@ console.log("end collapse and expand");
 
 	  {id:93, query:"Spring Boot allows microservices to be coded in which of the following three Java Virtual Machine (JVM) programming languages:",  "answer":"aaa", "difficulty": "99",
 			options:[
-			{text:"Kotlin", correct:true, selected:false}, 
-			{text:"Java", correct:true, selected:false},
-			{text:"Groovy", correct:true, selected:false},
+			{text:"Kotlin", correct:false, selected:false}, 
+			{text:"Java", correct:false, selected:false},
+			{text:"Groovy", correct:false, selected:false},
 			{text:"Golang", correct:false, selected:false}
 			],
       "objectives":[
@@ -1661,12 +1660,12 @@ console.log("end collapse and expand");
          "99", "99"
       ]},
 
-	  {id:999, query:"aaa:",  "answer":"aaa", "difficulty": "99",
+	  {id:99, query:"The generally accepted guidelines for developing microservices is known as: ",  "answer":"The 12-Factor App, also known as the 12-Factor methodology, provides 12 points to ponder when you develop microservices and web applications to be deployed in a software-as-a-service (SAAS) environment.", "difficulty": "99",
 			options:[
-			{text:"aaa", correct:false, selected:false}, 
-			{text:"aaa", correct:false, selected:false},
-			{text:"aaa", correct:false, selected:false},
-			{text:"aaa", correct:false, selected:false}
+			{text:"The Agile Manifesto", correct:false, selected:false}, 
+			{text:"The Cloud Native Manifesto", correct:false, selected:false},
+			{text:"Opinionated Spring Boot", correct:false, selected:false},
+			{text:"The 12-Factor Methodology", correct:true, selected:false}
 			],
       "objectives":[
          "99", "99"
