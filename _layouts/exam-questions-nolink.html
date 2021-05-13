@@ -348,12 +348,14 @@ console.log("end collapse and expand");
    		if (correct) {correctCount++}
    	}
 	
-	if (facebookResponse.status == 'connected') {
+	//if (facebookResponse.status == 'connected') {
+	if (true) {
 		highlightCorrectAnswers();
 	}
    	
 	wrongCount = exam.questions.length - correctCount;
-	if (facebookResponse.status == 'connected') {
+	//if (facebookResponse.status == 'connected') {
+	if (true) {
 		document.getElementById('score').innerHTML = 'You got '  + correctCount + ' out of ' + exam.questions.length + ' correct.';
 	} else {
 		document.getElementById('score').innerHTML = 'Login with Facebook to find out which question(s) you got right, and which ones you got wrong.';
