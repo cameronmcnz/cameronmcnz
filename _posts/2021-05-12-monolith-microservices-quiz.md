@@ -1,5 +1,5 @@
 ---
-layout: exam-questions
+layout: exam-questions-nolink
 author: Cameron
 title: Microservices vs Monoliths Quiz
 blurb: Here's a quiz to test you on the benefts and drawbacks to microservices.
