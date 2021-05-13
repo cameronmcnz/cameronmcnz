@@ -106,6 +106,13 @@ $ git checkout broken
 $ mvn clean install
 </code></pre>
 
+##### FindBugs, PMD and CheckStyle
+
+If you really want to go crazy, run this command:
+
+<pre><code> mvn compile checkstyle:checkstyle findbugs:findbugs pmd:pmd </code></pre>
+
+
 Now check out the Maven cheat sheet to see all of the various Maven commands that are at your disposal.
 
 <figure class="figure">
