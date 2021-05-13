@@ -333,7 +333,8 @@ console.log("end collapse and expand");
    	let correctCount = 0; 
    	for (i = 0; i < exam.questions.length; i++) {
    		let correct = true;
-		if (facebookResponse.status == 'connected') {
+		//if (facebookResponse.status == 'connected') {
+		if (true) {
 			for (j = 0; j < exam.questions[i].options.length; j++) {
 				correct = (exam.questions[i].options[j].checked == exam.questions[i].options[j].correct);
 				if (correct == false) {
