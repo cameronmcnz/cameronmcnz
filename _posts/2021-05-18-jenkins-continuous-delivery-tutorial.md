@@ -34,6 +34,9 @@ https://raw.githubusercontent.com/cameronmcnz/rps-maven/main/website-status-chec
 
 Ever wonder why does Jenkins uses blue spheres? ([My interview with Kohsuke Kawaguchi](https://www.theserverside.com/video/Jenkins-creator-explains-why-a-successful-build-job-is-blue))
 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BiIuR4aQK9A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Quick Look at Plugins
 
 I'd like to take a quick look at plugins. Very quick.
