@@ -3,11 +3,12 @@ layout: mcnz/hidden-post
 author: Cameron McKenzie
 title: Jenkins Continuous Delivery Example
 blurb: "This quick Jenkins tutorial give an example of how to implement continuous delivery with the popular JenkinsCI CI/CD tool."
+canonical: https://www.mcnz.com/2021/05/18/jenkins-continuous-delivery-tutorial.html
 ---
 
 # Continuous Delivery with Jenkins CI
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/tK7gd9Q0lBE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Mas5HjFHwvo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Continuous delivery jobs with Jenkins
 
