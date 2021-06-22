@@ -86,53 +86,14 @@ document.getElementById('results').innerHTML = result;
 
 <hr/>
 
-## Ajax Integration
+## Part II: The Java App
 
-If you're really clever, you'll integrate the following code into your script. But this challenge is only for those with the very biggest of brains.
+Here is the second scramble. I'm not putting the code on this page as people will confuse it with the code above:
 
-Again, the [raw code is here](https://raw.githubusercontent.com/cameronmcnz/cameronmcnz/main/ajax-javascript.txt).
+https://github.com/jheguevara/java101/blob/master/shared_stuff/03%20second%20scramble.txt
 
-If you copy and paste the code below, you may pull in unwanted HTML characters from the webpage. Copying the raw code is the safest bet.
+Can you create a standalone Java application from this code? Can you compile it and run it on the command line? In Eclipse? 
 
-<hr/>
-<pre>Here are the number of wins:
-&lt;div id="wins"&gt;&lt;/div&gt;
+Could you turn it into a Spring Boot app???
 
 
-&lt;script&gt;
-let url = "http://100.24.244.253:8080/increasewins";
-let ajaxRequest = new XMLHttpRequest();
-
-ajaxRequest.onreadystatechange = function() {
-    if (this.readyState == 4 &amp;&amp; this.status == 200) {
-		console.log(this.responseText);
-        let score = JSON.parse(this.responseText);
-        document.getElementById("wins").innerHTML = score.wins;
-    }
-};
-ajaxRequest.open("GET", url, true);
-ajaxRequest.send();
-
-&lt;/script&gt;</pre>
-
-<hr/>
-
-<h3>One Step Further</h3>
-
-The script above hits a RESTful web service, deployed as a microservice to a Kubernetes cluster on Amazon. If you're really bold, you could code it on your own. Here's the GitHub repo for reference:
-
-<a href="https://github.com/cameronmcnz/keeping-score/tree/main/src/main/java/com/mcnz/rps/rest">GitHub Keeping Score Code Repository</a>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/PSnGYWAVfJ0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<hr/>
-
-<h3>One Step Backwards</h3>
-
-This Single Page Interface (<a href="https://www.mcnz.com/course/rock-paper-scissors-unscrambled.html">SPI</a>) approach is a far cry from how we developed web applications in the days of Servlets and JSPs. Here's a version of the game that takes a more traditional, monolithic approach to implementation:
-
-* <a href="http://rps-env.eba-uwjfetjg.us-east-1.elasticbeanstalk.com/index.jsp">Monolithic Rock-Paper-Scissors Game</a>
-* <a href="https://github.com/cameronmcnz/rock-paper-scissors/tree/monolith/src/com/mcnz/rps/moai">Monolithic RPS Source Code</a>
-
-
-Play the game. Check out the code!
