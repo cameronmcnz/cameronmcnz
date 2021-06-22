@@ -1,8 +1,8 @@
 ---
 layout: mcnz/basic-post
 author: Cameron McKenzie
-title: Roshambo Code Scramle
-blurb: A fun little exercise to brush up on your HTML and JavaScript skills.
+title: Maven Jenkins Bash Commands
+blurb: Some commands and code for maven and Jenkins
 canonical: https://www.mcnz.com/2021/05/14/fun-with-maven.html
 ---
 
