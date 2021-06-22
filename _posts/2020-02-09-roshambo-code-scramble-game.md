@@ -37,6 +37,8 @@ It's better to copy from the raw, unformatted text. Copying the text below might
 
 <hr/>
 
+if (clientGesture=='scissors') {
+
 <pre>//server always chooses rock
 
 &lt;div id="results"&gt;&lt;/div&gt;
