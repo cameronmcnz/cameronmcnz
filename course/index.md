@@ -4,6 +4,21 @@ author: Cameron McKenzie
 title: Spring Training
 blurb: Here is some info for you.
 ---
+# Keeping Score
+
+The code for the [Keeping Score](https://github.com/cameronmcnz/keeping-score/tree/main/src/main/java/com/mcnz/rps/rest) example is on GitHub:
+
+https://github.com/cameronmcnz/keeping-score/tree/main/src/main/java/com/mcnz/rps/rest
+
+# Daily Eval
+
+They've asked you to keep me in check by filling out a <b>daily eval.</b> So please take a minute:
+
+[Daily Eval](http://www.webagesolutions.com/eval)
+
+Class Code: 503947-2266
+
+
 
 # Download STS
 
