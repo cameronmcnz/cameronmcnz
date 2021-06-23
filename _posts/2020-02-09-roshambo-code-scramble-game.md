@@ -69,7 +69,7 @@ if (clientGesture=='rock') {
 
 &lt;head&gt;
 
-if (clientGesture=='paper') {
+if (clientGesture=='paper') { 
 
 &lt;/html&gt;
 
