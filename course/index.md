@@ -7,7 +7,7 @@ blurb: Here is some info for you.
 
 # Download STS
 
-I'd like to play with SpringSource Tool Suite to contrast it against Elipse. Download and install it into you VM:
+I'd like to play with SpringSource Tool Suite to contrast it against Elipse. Download and install it into you VM <a href="https://www.mcnz.com/course/vms01.html">(VM Assignments)</a>:
 
 <a href="https://download.springsource.com/release/STS4/4.11.0.RELEASE/dist/e4.20/spring-tool-suite-4-4.11.0.RELEASE-e4.20.0-win32.win32.x86_64.self-extracting.jar">STS Download</a>
 
