@@ -20,7 +20,7 @@ Let's do the Roshambo Code Scramble!
 
 Then do the Java code scramble!
 
-https://github.com/jheguevara/java101/blob/master/shared_stuff/03%20second%20scramble.txt
+[Java Code Scramble](https://github.com/jheguevara/java101/blob/master/shared_stuff/03%20second%20scramble.txt)
 
 <img src="https://images-na.ssl-images-amazon.com/images/I/61QkvmvEdVL.png" alt="rock paper scissors" class="img-fluid">
 
