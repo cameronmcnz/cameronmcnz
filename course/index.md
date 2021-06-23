@@ -16,7 +16,7 @@ I'd like to play with SpringSource Tool Suite to contrast it against Elipse. Dow
 
 Let's do the Roshambo Code Scramble!
 
-<a hreaf="https://www.mcnz.com/2020/02/09/roshambo-code-scramble-game.html">Code Scramble</a>
+<a href="https://www.mcnz.com/2020/02/09/roshambo-code-scramble-game.html">Code Scramble</a>
 
 Then do the Java code scramble!
 
