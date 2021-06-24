@@ -12,7 +12,7 @@ JDBC and Spring is a bit more complicated than most other activities. There are 
 
 1. Close any other open projects for now
 2. Create a Spring project named ScoreData
-4. Add Dev Tools, <b>SQL</b>Spring Data JDBC <i>and</i> the <b>MySQL Driver</b> to the project
+4. Add Dev Tools, <b>SQL -- </b> Spring Data JDBC <i>and</i> the <b>MySQL Driver</b> to the project
 5. In the 'Application' class, implement CommandLineRunner
 6. Add the required <b>public void run(String... args) throws Exception</b> method
 7. Mark the class as @Transactional
