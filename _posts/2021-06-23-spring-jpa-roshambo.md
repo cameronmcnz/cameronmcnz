@@ -3,7 +3,7 @@ layout: mcnz/basic-post
 author: Cameron McKenzie
 title: Spring JPA
 blurb: How to create a JPA app in Spring
-canonical: https://www.mcnz.com/2020/06/23/spring-jpa-roshambo.html
+canonical: https://www.mcnz.com/2021/06/23/spring-jpa-roshambo.html
 ---
 
 # Spring, JPA and Databases
