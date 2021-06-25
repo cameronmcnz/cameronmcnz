@@ -14,8 +14,10 @@ We're not done yet, but before you forget, could you please fill out an [eval](h
 Please go to: [https://www.webagesolutions.com/eval](https://www.webagesolutions.com/eval). Then:
 
 Enter the following class code: <b>503947-2266</b>
-Select <b>FINAL</b> (NOT Daily) Evaluation
-Fill in the form and submit it
+
+Select <b>FINAL</b> <i>(NOT Daily)</i> Evaluation
+
+Fill in the form, say nice things, and submit it
 
 
 
