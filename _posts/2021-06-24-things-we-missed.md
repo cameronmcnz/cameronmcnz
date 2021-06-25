@@ -15,7 +15,7 @@ window.addEventListener('load', function () {
  var questionBank = localStorage.getItem("questions");
  //console.log("The size is: " + questionBank.length);
  questionBank = JSON.parse(questionBank);
- questionBank = questionBank.slice(110,114);
+ questionBank = questionBank.slice(110,124);
  
  try {
   exam = new Exam(questionBank);
