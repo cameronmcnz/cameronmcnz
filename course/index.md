@@ -4,19 +4,28 @@ author: Cameron McKenzie
 title: Spring Training
 blurb: Here is some info for you.
 ---
+
+# Final Eval
+
+I really hope you've enjoyed the course and learned a thing or two. 
+
+We're not done yet, but before you forget, could you please fill out an eval. It's appreciated:
+
+Please go to: https://www.webagesolutions.com/eval. Then:
+
+Enter the following class code: 503947-2266
+Select <b>FINAL</b> (NOT Daily) Evaluation
+Fill in the form and submit it
+
+
+
 # Keeping Score
 
 The code for the [Keeping Score](https://github.com/cameronmcnz/keeping-score/tree/main/src/main/java/com/mcnz/rps/rest) example is on GitHub:
 
 https://github.com/cameronmcnz/keeping-score/tree/main/src/main/java/com/mcnz/rps/rest
 
-# Daily Eval
 
-They've asked you to keep me in check by filling out a <b>daily eval.</b> So please take a minute:
-
-[Daily Eval](http://www.webagesolutions.com/eval)
-
-Class Code: 503947-2266
 
 
 
