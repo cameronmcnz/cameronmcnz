@@ -9,11 +9,11 @@ blurb: Here is some info for you.
 
 I really hope you've enjoyed the course and learned a thing or two. 
 
-We're not done yet, but before you forget, could you please fill out an eval. It's appreciated:
+We're not done yet, but before you forget, could you please fill out an [eval](https://www.webagesolutions.com/eval). It's appreciated:
 
-Please go to: https://www.webagesolutions.com/eval. Then:
+Please go to: [https://www.webagesolutions.com/eval](https://www.webagesolutions.com/eval). Then:
 
-Enter the following class code: 503947-2266
+Enter the following class code: <b>503947-2266</b>
 Select <b>FINAL</b> (NOT Daily) Evaluation
 Fill in the form and submit it
 
