@@ -12,9 +12,9 @@ canonical: https://www.mcnz.com/2021/07/20/java-roshambo-assignment.html
 
 # Code it in Java
 
-There's a rock-paper-scissors program embedded on this page. Can you find it?
+There's a rock-paper-scissors program embedded on <a href="http://www.mcnz.com">this page</a>t. Can you find it?
 
-https://www.mcnz.com/
+<a href="http://www.mcnz.com">https://www.mcnz.com/</a>
 
 Could you code the equivalent in Java? 
 
