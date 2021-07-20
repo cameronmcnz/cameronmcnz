@@ -20,9 +20,24 @@ Here are some tips:
 
 - Create a Java class called NumberGuesser
 - Add a main method
-- At the start of the main method, declare the variables you'll need.
 - Hard code the magic number to 5 for now
 - Keep track of the number of guesses
+- At the start of the main method, declare the variables you'll need, like the magicNumber and the numberOfAttempts
+
+## Refactor it!
+
+Create a new, static, void method that prints out the results when the game is completed.
+
+You will need to pass in two arguments at least: The magicNumber and the numberOfAttempts
+
+### Randoms
+
+There's a class called java.util.Random that generates random numbers. Any idea how to use it?
+
+### Review
+
+What do you think? What was hard? Where did you get tripped up.
+
 
 
 
