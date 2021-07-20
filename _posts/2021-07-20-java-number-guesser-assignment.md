@@ -5,6 +5,9 @@ title: Java NumberGuesser Assignment
 blurb: How well do you know your Java basics? Try your hand at coding the numberguesser!
 canonical: https://www.mcnz.com/2021/07/20/java-number-guesser-assignment.html
 ---
+<a class="btn btn-primary" href="https://www.mcnz.com/2021/07/20/back-to-basics-java.html">Assignment 1: The Basics</a>
+<a class="btn btn-primary" href="https://www.mcnz.com/2021/07/20/java-number-guesser-assignment.html">Assignment 2: Guess a Number</a>
+<a class="btn btn-primary" href="https://www.mcnz.com/2021/07/20/java-roshambo-assignment.html">Assignment 3: Roshambo!</a>
 
 # Code it in Java
 
