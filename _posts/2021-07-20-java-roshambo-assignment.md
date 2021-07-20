@@ -6,6 +6,10 @@ blurb: Here's a fun little rock-paper-scissors game. Can you code it?
 canonical: https://www.mcnz.com/2021/07/20/java-roshambo-assignment.html
 ---
 
+<a class="btn btn-primary" href="https://www.mcnz.com/2021/07/20/back-to-basics-java.html">Assignment 1: The Basics</a>
+<a class="btn btn-primary" href="https://www.mcnz.com/2021/07/20/java-number-guesser-assignment.html">Assignment 2: Guess a Number</a>
+<a class="btn btn-primary" href="https://www.mcnz.com/2021/07/20/java-roshambo-assignment.html">Assignment 3: Roshambo!</a>
+
 # Code it in Java
 
 There's a rock-paper-scissors program embedded on this page. Can you find it?
