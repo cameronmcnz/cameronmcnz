@@ -27,9 +27,9 @@ If you were tasked with this assignment, could you do it?
 - Add the famous main method
 - Declare a variable of type int and assign it the value of 1
 - Create an infinite while loop where the condition is simply (true)
-- Print out the value of the variableon every iteration of the loop
+- Print out the value of the variable on every iteration of the loop
 - Increase the int by one every time the loop iterates
-- Break out of the loop with a return; if the number is greater than ten
+- Break out of the loop with a `return;` if the number is greater than ten
 
 ### Hints
 
@@ -58,25 +58,6 @@ while(true) {  }
 ```
 
 So, what would your code look like?
-
-
-#### I Like the JOptionPane
-
-I'm not a big fan of the scanner. I like the JOptionPane better:
-
-```
-String prompt = "Will it be rock, paper or scissors?";
-String input = JOptionPane.showInputDialog(prompt);
-```
-
-Try it out! The only problem is that it only returns a String, so you have to convert it to an int or double if that's what you need:
-
-
-```
-String prompt = "Will it be rock, paper or scissors?";
-String input = JOptionPane.showInputDialog(prompt);
-int number = Integer.parseInt(input);
-```
 
 
 
