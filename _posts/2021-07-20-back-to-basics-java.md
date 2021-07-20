@@ -57,6 +57,27 @@ while(true) {  }
 So, what would your code look like?
 
 
+#### I Like the JOptionPane
+
+I'm not a big fan of the scanner. I like the JOptionPane better:
+
+```
+String prompt = "Will it be rock, paper or scissors?";
+String input = JOptionPane.showInputDialog(prompt);
+```
+
+Try it out! The only problem is that it only returns a String, so you have to convert it to an int or double if that's what you need:
+
+
+```
+String prompt = "Will it be rock, paper or scissors?";
+String input = JOptionPane.showInputDialog(prompt);
+int number = Integer.parseInt(input);
+```
+
+
+
+
 
 
 
