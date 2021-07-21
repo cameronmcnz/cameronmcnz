@@ -43,6 +43,14 @@ Random random = new Random();
 int rand = random.nextInt();
 ```
 
+#### Play the name game!
+
+Get the users name before you play the game. Then, when you print out the results, make the message personalized!
+
+#### Is there a GameData object here?
+
+Say someone wanted you to get 'object oriented.' Is there any data in the application that could be logically grouped together in a single object?
+
 #### I Like the JOptionPane
 
 I'm not a big fan of the scanner. I like the JOptionPane better:
