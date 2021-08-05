@@ -71,3 +71,86 @@ git tag -l
   <img src="https://itknowledgeexchange.techtarget.com/coffee-talk/files/2021/01/gitflow-hotfix-branch-diagram.jpg" alt="Git Flow Diagram" class="img-fluid mx-auto d-block img-thumbnail rounded ">
   <figcaption class="figure-caption">We don't deal with the hotfix branch in this example.</figcaption>
 </figure>
+
+
+### Commands used in Lab 1
+
+<pre>
+cd \Workspace   
+
+
+mkdir gitflow_test
+git init --bare remote_repo.git
+tree remote_repo.git
+git clone remote_repo.git local_repo
+
+tree local_repo
+cd local_repo
+
+git config user.email "bob@abc.com"
+git config user.name "Bob"
+
+git commit --allow-empty -m "Initial commit."
+git checkout -b develop
+
+git flow init
+git branch
+
+git checkout -b feature/HOME_PAGE
+git branch
+
+git status
+
+notepad index.html
+
+git status
+
+git add index.html
+git add .
+
+git commit -m "Added index.html"
+
+git ls-tree -r --name-only feature/HOME_PAGE
+
+git checkout develop
+git merge --no-ff feature/HOME_PAGE
+
+git ls-tree -r --name-only develop
+
+git checkout develop
+git merge --no-ff feature/HOME_PAGE
+
+git push --all
+
+git ls-remote
+
+git checkout develop
+git checkout -b release/REL_1.0
+
+git checkout master
+git merge release/REL_1.0
+git tag REL_1.0 -m "REL_1.0"
+
+git branch -d release/REL_1.0
+git checkout develop
+git merge master
+
+git branch
+
+git checkout master
+git merge release/REL_2.0
+git tag "REL_2.0" -m "REL_2.0"
+
+git checkout master
+git merge hotfix/REL_2.0.1
+git tag "REL_2.0.1" -m "REL_2.0.1"
+git branch -d hotfix/REL_2.0.1
+
+git describe
+
+
+
+
+</pre>
+
+
