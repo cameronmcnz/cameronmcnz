@@ -211,7 +211,7 @@ There is a compilation error in the merged code, so the compile command will fai
 <pre>
 mvn compile
 [ERROR] numberguesser/src/main/java/com/mcnz/servlet/CoreLogic.java:[26,68] ';' expected
-<pre>
+</pre>
 
 The error message says a semi-colon is missing on line 26 of the CoreLogic.java file. Open this file in a text editor and add the missing colon.
 
