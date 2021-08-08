@@ -47,12 +47,12 @@ java -jar executable.jar
 
 <figure class="figure">
   <img src="/assets/01-flow.jpg" alt="Git flow Example Start" class="img-fluid mx-auto d-block img-thumbnail rounded ">
-  <figcaption class="figure-caption">This is the history of the Git repo on GitHub.</figcaption>
+  <figcaption class="figure-caption">This is the commit history of the Git repo on GitHub as we start this challenge.</figcaption>
 </figure>
 
 ## 1. Clone the Remote Repository
 
-Create a folder named C:\workspace and open this folder up in the BASH shell. This can be done by right-clicking on the folder in Windows Explorer and selecting Git Bash Here.
+Create a folder named C:\workspace and open this folder up in the BASH shell. This can be done by right-clicking on the folder in Windows Explorer and selecting Git Bash Here. You might already have one created. You can run this from any folder on your filesystem if you like, so long as you have Git installed.
 
 Issue the following command to clone the repository:
 
