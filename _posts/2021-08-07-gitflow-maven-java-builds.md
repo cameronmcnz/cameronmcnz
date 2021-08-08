@@ -25,7 +25,7 @@ Initially, the GitFlow diagram looks like this:
 The process of merging branches, building the app, running tests, creating a release branch and then testing your application before it merges into main will require the following commands:
 <hr/>
 <pre>
-git clone https://github.com/cameronmcnz/learn-devops
+git clone https://github.com/cameronmcnz/macro-maven
 git branch -a
 
 git checkout -branchname-
@@ -49,7 +49,7 @@ Create a folder named C:\workspace and open this folder up in the BASH shell. Th
 Issue the following command to clone the repository:
 
 <pre>
-git clone https://github.com/cameronmcnz/learn-devops
+git clone https://github.com/cameronmcnz/macro-maven
 </pre>
 
 A new folder will appear in C:\workspace named learn-devops. This folder will contain another folder named numberguesser. Open the C:\workstation\learn-devops\numberguesser folder in Windows Explorer and note the existence of a POM file. This file indicates that the numberguesser is a Maven based project.
