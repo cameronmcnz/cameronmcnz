@@ -45,7 +45,10 @@ java -jar executable.jar
 
 mvn compile checkstyle:checkstyle findbugs:findbugs pmd:pmd
 
+:q
 </pre>
+
+Note that any time you need to escape back to the command prompt in BASH, just type :q
 <hr/>
 
 <figure class="figure">
@@ -155,7 +158,7 @@ There should now only be one Java file in the \servlet folder, whereas before th
 Merge the FEATURE/enhance_webpage branch into development with the following command:
 
 <pre>
-git merge --no-ff FEATURE/enhance_webpage
+git merge --no-ff FEATURE/enhance_webpage -m "Enhanced webpage merged"
 </pre>
 
 ## 6. Compile and Test the Merge
@@ -185,7 +188,7 @@ Merge the FEATURE/game_logic branch into the development branch. First checkout 
 <hr/>
 <pre>
 git checkout development
-git merge --no-ff FEATURE/game_logic
+git merge --no-ff FEATURE/game_logic  -m "Game Logic merged"
 </pre>
 <hr/>
 
@@ -219,7 +222,7 @@ The compile and test still will initially fail.
 <hr/>
 <pre>
 git checkout development
-git merge --no-ff FEATURE/game_logic
+git merge --no-ff FEATURE/negatives_fix  -m "Negatives fix merged"
 </pre>
 <hr/>
 ## 9. Fix Compilation Errors
@@ -382,7 +385,7 @@ Before you merge with master, make sure this change goes into the development br
 <hr/>
 <pre>
 git checkout development
-git merge --no-ff release
+git merge --no-ff release  -m "Merge release fix to development"
 </pre>
 <hr/>
 ## 17. Merge into Master
@@ -391,7 +394,7 @@ Now merge the release branch into master.
 <hr/>
 <pre>
 git checkout master
-git merge  --no-ff release
+git merge  --no-ff release -m "Merge release to master"
 </pre>
 <hr/>
 ## 18. Tag the commit.
