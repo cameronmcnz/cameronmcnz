@@ -316,7 +316,6 @@ Open the BASH shell in the \target folder and issue the ls command.
 
 Make sure the executable.jar file is in the folder.
 
-
 <pre>
 V@D MINGW64 /c/workspace/learn-devops/numberguesser/target (release)
 $ ls
@@ -325,7 +324,7 @@ classes/                 maven-archiver/    surefire-reports/
 generated-sources/       numberguesser/     war-exec.manifest
 generated-test-sources/  numberguesser.war  war-exec.properties 
 
-</pre
+</pre>
 
 ## 14. Run the JAR:
 
