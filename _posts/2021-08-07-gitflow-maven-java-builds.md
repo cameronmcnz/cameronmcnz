@@ -308,7 +308,7 @@ Jenkins may be running on port 8080. Got to http://localhost:8080 to check.
 
 If Jenkins is running, open the Windows Services app and shut down the Jenkins service.
 
-Also ensure no other Tomcat servers are running or test servers in Eclipse.
+Also ensure no other Tomcat servers are running. Stop any test servers running in Eclipse.
 
 ## 13. Run the NumberGuesserGame
 
