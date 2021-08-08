@@ -32,7 +32,7 @@ git clone https://github.com/cameronmcnz/macro-maven
 git branch -a
 
 git checkout -branchname-
-git merge -branchname-
+git merge --no-ff -branchname-
 
 ls
 
@@ -155,7 +155,7 @@ There should now only be one Java file in the \servlet folder, whereas before th
 Merge the FEATURE/enhance_webpage branch into development with the following command:
 
 <pre>
-git merge FEATURE/enhance_webpage
+git merge --no-ff FEATURE/enhance_webpage
 </pre>
 
 ## 6. Compile and Test the Merge
@@ -185,7 +185,7 @@ Merge the FEATURE/game_logic branch into the development branch. First checkout 
 <hr/>
 <pre>
 git checkout development
-git merge FEATURE/game_logic
+git merge --no-ff FEATURE/game_logic
 </pre>
 <hr/>
 
@@ -219,7 +219,7 @@ The compile and test still will initially fail.
 <hr/>
 <pre>
 git checkout development
-git merge FEATURE/game_logic
+git merge --no-ff FEATURE/game_logic
 </pre>
 <hr/>
 ## 9. Fix Compilation Errors
@@ -382,7 +382,7 @@ Before you merge with master, make sure this change goes into the development br
 <hr/>
 <pre>
 git checkout development
-git merge release
+git merge --no-ff release
 </pre>
 <hr/>
 ## 17. Merge into Master
@@ -391,7 +391,7 @@ Now merge the release branch into master.
 <hr/>
 <pre>
 git checkout master
-git merge release
+git merge  --no-ff release
 </pre>
 <hr/>
 ## 18. Tag the commit.
@@ -431,7 +431,17 @@ Reference step 0.
   <figcaption class="figure-caption">The merge and brach creation flow of this example.</figcaption>
 </figure>
 
-## 21. Static Code Analyisis
+## 21. Log History
+
+Look at your log history with the following command:
+
+<pre>
+git log --all --decorate --oneline --graph
+</pre>
+
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVWXmdNugr2W84HjnhiiM5OpnA4ekSVYQVzgX3q1yRodt4zIKcmutO3cCCjFhCum526Bw&usqp=CAU"/>
+
+## 22. Static Code Analyisis
 
 Run FindBugs, PMD (Programmer Mistake Detection) and CheckStyle. These are known as static code analysis tools.
 
