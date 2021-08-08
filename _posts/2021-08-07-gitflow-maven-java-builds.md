@@ -171,10 +171,97 @@ mvn compile
 [ERROR] numberguesser/src/main/java/com/mcnz/servlet/CoreLogic.java:[26,68] ';' expected
 <pre>
 
+The error message says a semi-colon is missing on line 26 of the CoreLogic.java file. Open this file in a text editor and add the missing colon.
 
-
-
+Before (no semi-colon)
+<pre>
+magicNumber = Math.abs(magicNumber)
 </pre>
+
+After (semi-colon added)
+<pre>
+magicNumber = Math.abs(magicNumber);
+</pre>
+
+Save the file and re-run the build. If the build fails, double-check to make sure you saved the file after the edit.
+<pre>
+mvn compile
+</pre>
+
+The Maven build should run successfully.
+
+Now test the build. This will also fail.
+
+<pre>
+mvn test
+ BUILD FAILURE
+ There are test failures.
+ Failed tests:   testWinLogic(com.mcnz.servlet.NumberGuesserTest)
+</pre>
+
+The NumberGuesserTest file can be found in the following folder:
+<pre>
+C:\workspace\learn-devops\numberguesser\src\test\java\com\mcnz\servlet
+</pre>
+
+The class includes a test the will obviously fail. Change the testWinLogic from this:
+
+<pre>
+	@Test
+	public void testWinLogic() {
+		Assert.assertTrue(false);
+	}
+</pre>
+
+to this:
+
+<pre>
+	@Test
+	public void testWinLogic() {
+		Assert.assertTrue(true);
+	}
+</pre>
+
+Save your changes and have Maven rerun the tests. The build will run successfully.
+
+<pre>
+mvn compile
+</pre>
+
+Commit the code and then create a release branch.
+
+<pre>
+git commit -m "feature branch merges complete"
+git checkout -b release
+</pre>
+
+You should now be on the release branch.
+
+Before you merge to master, build an executable JAR file so you can run your application and perform a few last-minute tests.
+<pre>
+mvn clean install tomcat7:exec-war-only
+</pre>
+
+This command will place a file named executable.jar in the \target subfolder of your project.
+
+## Make Sure Port 8080 is Open
+
+Make sure all programs running on port 8080 are stopped.
+
+Jenkins may be running on port 8080. Got to http://localhost:8080 to check.
+
+If Jenkins is running, open the Windows Services app and shut down the Jenkins service.
+
+Also ensure no other Tomcat servers are running or test servers in Eclipse.
+
+## Run the NumberGuesserGame
+
+Open the BASH shell in the \target folder and issue the ls command:
+
+
+
+
+
 
 
 
