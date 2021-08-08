@@ -415,6 +415,16 @@ git push origin
   fatal: Authentication failed
 </pre>
 <hr/>
+
+## 21. Missing Lines
+
+The GitFlow diagram is missing two lines. Where should these additional two lines be?
+
+<figure class="figure">
+  <img src="/assets/gitflow-maven.gif" alt="Git flow Example Start" class="img-fluid mx-auto d-block img-thumbnail rounded ">
+  <figcaption class="figure-caption">The merge and brach creation flow of this example.</figcaption>
+</figure>
+
 ## Conclusion
 
 Congratulations. You have worked with the GitFlow Workflow pattern and successfully built a Java web appliacation with Apache Maven.
