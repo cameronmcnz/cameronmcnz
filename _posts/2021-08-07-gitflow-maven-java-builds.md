@@ -15,7 +15,7 @@ You are the team lead on an important project, and your developers have all told
 
 Initially, the GitFlow diagram looks like this:
 <figure class="figure">
-  <img src="/assets/01-flow.jpg" alt="Git flow Example Start" class="img-fluid mx-auto d-block img-thumbnail rounded ">
+  <img src="/assets/gitflow-maven.gif" alt="Git flow Example Start" class="img-fluid mx-auto d-block img-thumbnail rounded ">
   <figcaption class="figure-caption">This is the history of the Git repo on GitHub.</figcaption>
 </figure>
 
@@ -41,6 +41,11 @@ mvn clean install tomcat7:exec-war-only
 java -jar executable.jar
 </pre>
 <hr/>
+
+<figure class="figure">
+  <img src="/assets/01-flow.jpg" alt="Git flow Example Start" class="img-fluid mx-auto d-block img-thumbnail rounded ">
+  <figcaption class="figure-caption">This is the history of the Git repo on GitHub.</figcaption>
+</figure>
 
 ## 1. Clone the Remote Repository
 
