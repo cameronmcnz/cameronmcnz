@@ -403,9 +403,10 @@ git push origin
   fatal: Authentication failed
 </pre>
 
+## Conclusion
 
+Congratulations. You have worked with the GitFlow Workflow pattern and successfully built a Java web appliacation with Apache Maven.
 
-cd 
 <figure class="figure">
   <img src="https://itknowledgeexchange.techtarget.com/coffee-talk/files/2021/01/gitflow-hotfix-branch-diagram.jpg" alt="Git flow init branches" class="img-fluid mx-auto d-block img-thumbnail rounded ">
   <figcaption class="figure-caption">The git flow init command preps your workspace for main, master, feature, release and hotfix branch creations.</figcaption>
