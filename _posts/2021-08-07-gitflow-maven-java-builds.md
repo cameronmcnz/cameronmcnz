@@ -251,23 +251,23 @@ C:\workspace\learn-devops\numberguesser\src\test\java\com\mcnz\servlet
 </pre>
 
 The class includes a test the will obviously fail. Change the testWinLogic from this:
-
+<hr/>
 <pre>
-	@Test
-	public void testWinLogic() {
-		Assert.assertTrue(false);
-	}
+@Test
+public void testWinLogic() {
+  Assert.assertTrue(<b>false</b>);
+}
 </pre>
 
 to this:
-
+<hr/>
 <pre>
-	@Test
-	public void testWinLogic() {
-		Assert.assertTrue(true);
-	}
+@Test
+public void testWinLogic() {
+  Assert.assertTrue(<b>true</b>);
+}
 </pre>
-
+<hr/>
 Save your changes and have Maven rerun the tests. The build will run successfully.
 
 <pre>
