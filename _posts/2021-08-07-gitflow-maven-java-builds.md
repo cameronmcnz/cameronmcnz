@@ -50,6 +50,10 @@ java -jar executable.jar
   <figcaption class="figure-caption">This is the commit history of the Git repo on GitHub as we start this challenge.</figcaption>
 </figure>
 
+## 0. Play on Expert Level
+
+The following steps have you clone a repository that you have no rights to. If you want to play this game on expert level, fork the https://github.com/cameronmcnz/macro-maven repository first. Then clone your own forked version of the repository. If you do, then you own your fork and have all rights to push and pull to and from it.
+
 ## 1. Clone the Remote Repository
 
 Create a folder named C:\workspace and open this folder up in the BASH shell. This can be done by right-clicking on the folder in Windows Explorer and selecting Git Bash Here. You might already have one created. You can run this from any folder on your filesystem if you like, so long as you have Git installed.
@@ -415,6 +419,8 @@ git push origin
   fatal: Authentication failed
 </pre>
 <hr/>
+
+Reference step 0.
 
 ## 21. Missing Lines
 
