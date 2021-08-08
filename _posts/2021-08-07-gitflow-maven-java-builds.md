@@ -310,7 +310,7 @@ git checkout -b release
 <hr/>
 You should now be on the release branch.
 
-Before you merge to master, build an executable JAR file so you can run your application and perform a few last-minute tests.
+Before you merge to main, build an executable JAR file so you can run your application and perform a few last-minute tests.
 <pre>
 mvn clean install tomcat7:exec-war-only
 </pre>
@@ -381,25 +381,25 @@ git commit -m "Release fix made"
 
 ## 16. Merge with Development
 
-Before you merge with master, make sure this change goes into the development branch to ensure it does not get incorporated in a future release.
+Before you merge,, make sure this change goes into the development branch to ensure it does not get incorporated in a future release.
 <hr/>
 <pre>
 git checkout development
 git merge --no-ff release  -m "Merge release fix to development"
 </pre>
 <hr/>
-## 17. Merge into Master
+## 17. Merge into Main
 
-Now merge the release branch into master.
+Now merge the release branch into main.
 <hr/>
 <pre>
-git checkout master
-git merge  --no-ff release -m "Merge release to master"
+git checkout main
+git merge  --no-ff release -m "Merge release to main"
 </pre>
 <hr/>
 ## 18. Tag the commit.
 
-All commits to Master should be tagged with a version number and optional metadata.
+All commits to main should be tagged with a version number and optional metadata.
 
 <pre>
 git tag 1.0
@@ -413,7 +413,7 @@ The only long-term branches in GitFlow are main and development. All other branc
 git branch -d FEATURE/enhance_webpage
 git branch -d FEATURE/game_logic
 git branch -d FEATURE/negatives_fix
-git branch -d FEATURE/release
+git branch -d release
 </pre>
 <hr/>
 ## 20. Push to Origin
@@ -462,7 +462,7 @@ Congratulations. You have worked with the GitFlow Workflow pattern and successfu
 
 <figure class="figure">
   <img src="https://itknowledgeexchange.techtarget.com/coffee-talk/files/2021/01/gitflow-hotfix-branch-diagram.jpg" alt="Git flow init branches" class="img-fluid mx-auto d-block img-thumbnail rounded ">
-  <figcaption class="figure-caption">The git flow init command preps your workspace for main, master, feature, release and hotfix branch creations.</figcaption>
+  <figcaption class="figure-caption">The git flow init command preps your workspace for main, feature, release and hotfix branch creations.</figcaption>
 </figure>
 
 
