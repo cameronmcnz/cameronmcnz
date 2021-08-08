@@ -323,7 +323,7 @@ $ ls
 classes/                 maven-archiver/    surefire-reports/
 <b>executable.jar</b>          maven-status/      test-classes/
 generated-sources/       numberguesser/     war-exec.manifest
-generated-test-sources/  numberguesser.war  war-exec.properties
+generated-test-sources/  numberguesser.war  war-exec.properties 
 
 </pre
 
