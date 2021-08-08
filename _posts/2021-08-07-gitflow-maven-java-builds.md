@@ -23,7 +23,7 @@ Initially, the GitFlow diagram looks like this:
 ## Commands Used in this Example
 
 The process of merging branches, building the app, running tests, creating a release branch and then testing your application before it merges into main will require the following commands:
-
+<hr/>
 <pre>
 git clone https://github.com/cameronmcnz/learn-devops
 git branch -a
@@ -40,7 +40,7 @@ mvn clean install tomcat7:exec-war-only
 
 java -jar executable.jar
 </pre>
-
+<hr/>
 
 ## 1. Clone the Remote Repository
 
@@ -57,13 +57,13 @@ A new folder will appear in C:\workspace named learn-devops. This folder will co
 Right click on the numberguesser folder and select Git Bash Here to open a terminal window in this folder.
 
 Type the ls command into the terminal window to ensure the POM file is in the BASH windows's directory.
-
+<hr/>
 <pre>
 me@computer MINGW64 /c/workspace/learn-devops/numberguesser (main)
 $ ls
 pom.xml  src/
 </pre>
-
+<hr/>
 ## 2. Compile and Test the Application
 
 Issue the following command to make sure all of the Java code compiles:
@@ -85,7 +85,7 @@ mvn test
 ## 3. List All Branches
 
 List all of the local and remote branches.
-
+<hr/>
 <pre>
 $ git branch -a
 * main
@@ -96,7 +96,7 @@ $ git branch -a
   remotes/origin/development
   remotes/origin/main
 </pre>
-
+<hr/>
 ## 4. Checkout the First Feature Branch
 
 Check out the remote FEATURE/enhance_webpage branch to make it local.
@@ -105,7 +105,7 @@ git checkout FEATURE/enhance_webpage
 </pre>
 
 List the branches to prove the checked out branch has become local:
-
+<hr/>
 <pre>
 $ git branch -a
 <b>* FEATURE/enhance_webpage</b>
@@ -117,7 +117,7 @@ $ git branch -a
   remotes/origin/development
   remotes/origin/main
 </pre>
-
+<hr/>
 In Windows Explorer, open the \numberguesser\src\main\java\com\mcnz\servlet folder.
 
 Note the number of Java files in this folder. We want to merge these files into the development branch.
@@ -146,11 +146,12 @@ git merge FEATURE/enhance_webpage
 ## 6. Compile and Test the Merge
 
 After the merge compmletes, compile and test the code on the development branch with the following two commands:
+<hr/>
 <pre>
 mvn compile
 mvn test
 </pre>
-
+<hr/>
 
 <figure class="figure">
   <img src="/assets/03-flow.jpg" alt="Git flow Example Start" class="img-fluid mx-auto d-block img-thumbnail rounded ">
@@ -166,20 +167,22 @@ git checkout FEATURE/game_logic
 Count the number of Java files in the \servlet folder monitored earlier. There should be 3 now.
 
 Merge the FEATURE/game_logic branch into the development branch. First checkout the development branch. Then perform the merge.
+<hr/>
 <pre>
 git checkout development
 git merge FEATURE/game_logic
 </pre>
+<hr/>
 
 Note the number of files in the development branch's \servlet folder has changed to match the FEATURE/game_logic branch.
 
 Compile the merged code and test it.
-
+<hr/>
 <pre>
 mvn compile
 mvn test
 </pre>
-
+<hr/>
 Now merge the remotes/origin/FEATURE/negatives_fix branch.
 
 A checkout of the FEATURE/negatives_fix branch is required to make the remote branch local.
@@ -198,33 +201,34 @@ git checkout FEATURE/negatives_fix
 Return to the development branch. Merge, compile and test the code. 
 
 The compile and test still will initially fail.
-
+<hr/>
 <pre>
 git checkout development
 git merge FEATURE/game_logic
 </pre>
-
+<hr/>
 ## 9. Fix Compilation Errors
 
 There is a compilation error in the merged code, so the compile command will fail:
-
+<hr/>
 <pre>
 mvn compile
 [ERROR] numberguesser/src/main/java/com/mcnz/servlet/CoreLogic.java:[26,68] ';' expected
 </pre>
-
+<hr/>
 The error message says a semi-colon is missing on line 26 of the CoreLogic.java file. Open this file in a text editor and add the missing colon.
 
+<hr/>
 <b>Before (no semi-colon)</b>
 <pre>
 magicNumber = Math.abs(magicNumber)
 </pre>
-
+<hr/>
 <b>After (semi-colon added)</b>
 <pre>
 magicNumber = Math.abs(magicNumber);
 </pre>
-
+<hr/>
 Save the file and re-run the build. If the build fails, double-check to make sure you properly saved the file after the edit.
 <pre>
 mvn compile
@@ -233,14 +237,14 @@ mvn compile
 The Maven build should run successfully.
 
 Now test the build. This will also fail.
-
+<hr/>
 <pre>
 mvn test
  BUILD FAILURE
  There are test failures.
  Failed tests:   testWinLogic(com.mcnz.servlet.NumberGuesserTest)
 </pre>
-
+<hr/>
 ## 10. Fix the Failed Test
 
 Open the NumberGuesserTest.java file and fix the error that has caused the testWinLogic code to fail.
@@ -279,13 +283,13 @@ Add the changed file to the index and then commit the code.
 ## 11. Commit and Create the Release Branch
 
 After the commit is made, create a release branch.
-
+<hr/>
 <pre>
 git add .
 git commit -m "feature branch merges complete"
 git checkout -b release
 </pre>
-
+<hr/>
 You should now be on the release branch.
 
 Before you merge to master, build an executable JAR file so you can run your application and perform a few last-minute tests.
@@ -315,7 +319,7 @@ Also ensure no other Tomcat servers are running. Stop any test servers running i
 Open the BASH shell in the \target folder and issue the ls command.
 
 Make sure the executable.jar file is in the folder.
-
+<hr/>
 <pre>
 V@D MINGW64 /c/workspace/learn-devops/numberguesser/target (release)
 $ ls
@@ -325,7 +329,7 @@ generated-sources/       numberguesser/     war-exec.manifest
 generated-test-sources/  numberguesser.war  war-exec.properties 
 
 </pre>
-
+<hr/>
 ## 14. Run the JAR:
 
 <pre>
@@ -346,12 +350,12 @@ Stop the NumberGuesserGame by pressing CTRL+C in the command prompt used to run 
 Using any test editor, edit the WebpageFactory.java file located in the \servlet folder and change the word 'hear' to 'here.'
 
 Save the file, add it to Git's index and then commit the changes.
-
+<hr/>
 <pre>
 git add .
 git commit -m "Release fix made"
 </pre>
-
+<hr/>
 <figure class="figure">
   <img src="/assets/05-flow.jpg" alt="Git flow Example Start" class="img-fluid mx-auto d-block img-thumbnail rounded ">
   <figcaption class="figure-caption">We now want to merge the second feature branch into development.</figcaption>
@@ -360,21 +364,21 @@ git commit -m "Release fix made"
 ## 16. Merge with Development
 
 Before you merge with master, make sure this change goes into the development branch to ensure it does not get incorporated in a future release.
-
+<hr/>
 <pre>
 git checkout development
 git merge release
 </pre>
-
+<hr/>
 ## 17. Merge into Master
 
 Now merge the release branch into master.
-
+<hr/>
 <pre>
 git checkout master
 git merge release
 </pre>
-
+<hr/>
 ## 18. Tag the commit.
 
 All commits to Master should be tagged with a version number and optional metadata.
@@ -386,23 +390,23 @@ git tag 1.0
 ## 19. Delete Unnessesary Branches
 
 The only long-term branches in GitFlow are main and development. All other branches can be deleted.
-
+<hr/>
 <pre>
 git branch -d FEATURE/enhance_webpage
 git branch -d FEATURE/game_logic
 git branch -d FEATURE/negatives_fix
 git branch -d FEATURE/release
 </pre>
-
+<hr/>
 ## 20. Push to Origin
 
 Try to push back to the original server. It will inevitably fail. Why? How would a fork have avoided this?
-
+<hr/>
 <pre>
 git push origin
   fatal: Authentication failed
 </pre>
-
+<hr/>
 ## Conclusion
 
 Congratulations. You have worked with the GitFlow Workflow pattern and successfully built a Java web appliacation with Apache Maven.
