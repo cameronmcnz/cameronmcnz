@@ -13,10 +13,13 @@ blurb: Here's how to merge GitFlow branches and build your Java apps with Maven.
 
 You are the team lead on an important project, and your developers have all told you their feature branches are complete, but they've all gone home for the weekend, and you want to build a release.
 
-Initially, the GitFlow diagram looks like this:
+The developers have left you with their feature branches. You must merge those into develop, make sure the code compiles and passes all unit tests, and the create a release branch and merge that into main.
+
+Here's what the flow will look like:
+
 <figure class="figure">
   <img src="/assets/gitflow-maven.gif" alt="Git flow Example Start" class="img-fluid mx-auto d-block img-thumbnail rounded ">
-  <figcaption class="figure-caption">This is the history of the Git repo on GitHub.</figcaption>
+  <figcaption class="figure-caption">The merge and brach creation flow of this example.</figcaption>
 </figure>
 
 
