@@ -25,7 +25,6 @@ Initially, the GitFlow diagram looks like this:
 The process of merging branches, building the app, running tests, creating a release branch and then testing your application before it merges into main will require the following commands:
 
 <pre>
-
 git clone https://github.com/cameronmcnz/learn-devops
 git branch -a
 
@@ -40,20 +39,17 @@ mvn test
 mvn clean install tomcat7:exec-war-only
 
 java -jar executable.jar
-
 </pre>
 
 
-## Clone the Remote Repository
+## 1. Clone the Remote Repository
 
 Create a folder named C:\workspace and open this folder up in the BASH shell. This can be done by right-clicking on the folder in Windows Explorer and selecting Git Bash Here.
 
 Issue the following command to clone the repository:
 
 <pre>
-
 git clone https://github.com/cameronmcnz/learn-devops
-
 </pre>
 
 A new folder will appear in C:\workspace named learn-devops. This folder will contain another folder named numberguesser. Open the C:\workstation\learn-devops\numberguesser folder in Windows Explorer and note the existence of a POM file. This file indicates that the numberguesser is a Maven based project.
@@ -63,21 +59,17 @@ Right click on the numberguesser folder and select Git Bash Here to open a termi
 Type the ls command into the terminal window to ensure the POM file is in the BASH windows's directory.
 
 <pre>
-
 me@computer MINGW64 /c/workspace/learn-devops/numberguesser (main)
 $ ls
 pom.xml  src/
-
 </pre>
 
-## Compile and Build the Application
+## 2. Compile and Test the Application
 
 Issue the following command to make sure all of the Java code compiles:
 
 <pre>
-
 mvn compile
-
 </pre>
 
 The command may report some errors, but there should be a green BUILD SUCCESS message indicating that the code compiled successfully.
@@ -87,12 +79,10 @@ The command may report some errors, but there should be a green BUILD SUCCESS me
 Make sure all of the tests pass by issuing the following command:
 
 <pre>
-
 mvn test
-
 </pre>
 
-## List All Branches
+## 3. List All Branches
 
 List all of the local and remote branches.
 
@@ -107,7 +97,7 @@ $ git branch -a
   remotes/origin/main
 </pre>
 
-## Checkout the First Feature Branch
+## 4. Checkout the First Feature Branch
 
 Check out the remote FEATURE/enhance_webpage branch to make it local.
 <pre>
@@ -137,7 +127,7 @@ Note the number of Java files in this folder. We want to merge these files into 
   <figcaption class="figure-caption">We want to merge the first feature branch into development.</figcaption>
 </figure>
 
-## Merge Feature into Development
+## 5. Merge Feature into Development
 
 To merge the feature branch into the development branch, you must be on the development branch.
 
@@ -153,7 +143,7 @@ Merge the FEATURE/enhance_webpage branch into development with the following com
 git merge FEATURE/enhance_webpage
 </pre>
 
-## Compile and Test the Merge
+## 6. Compile and Test the Merge
 
 After the merge compmletes, compile and test the code on the development branch with the following two commands:
 <pre>
@@ -167,7 +157,7 @@ mvn test
   <figcaption class="figure-caption">We now want to merge the second feature branch into development.</figcaption>
 </figure>
 
-## Merge the Second Feature Branch
+## 7. Merge the Second Feature Branch
 
 Checkout the FEATURE/game_logic branch:
 <pre>
@@ -203,7 +193,7 @@ git checkout FEATURE/negatives_fix
   <figcaption class="figure-caption">We now want to merge the second feature branch into development.</figcaption>
 </figure>
 
-## Merge the Third Feature Branch
+## 8. Merge the Third Feature Branch
 
 Return to the development branch. Merge, compile and test the code. 
 
@@ -214,7 +204,7 @@ git checkout development
 git merge FEATURE/game_logic
 </pre>
 
-## Fix Compilation Errors
+## 9. Fix Compilation Errors
 
 There is a compilation error in the merged code, so the compile command will fail:
 
@@ -251,7 +241,7 @@ mvn test
  Failed tests:   testWinLogic(com.mcnz.servlet.NumberGuesserTest)
 </pre>
 
-## Fix the Failed Test
+## 10. Fix the Failed Test
 
 Open the NumberGuesserTest.java file and fix the error that has caused the testWinLogic code to fail.
 
@@ -286,6 +276,8 @@ mvn test
 
 Add the changed file to the index and then commit the code.
 
+## 11. Commit and Create the Release Branch
+
 After the commit is made, create a release branch.
 
 <pre>
@@ -308,7 +300,7 @@ This command will place a file named executable.jar in the \target subfolder of 
   <figcaption class="figure-caption">We now want to merge the second feature branch into development.</figcaption>
 </figure>
 
-## Make Sure Port 8080 is Open
+## 12. Make Sure Port 8080 is Open
 
 Make sure all programs running on port 8080 are stopped.
 
@@ -318,7 +310,7 @@ If Jenkins is running, open the Windows Services app and shut down the Jenkins s
 
 Also ensure no other Tomcat servers are running or test servers in Eclipse.
 
-## Run the NumberGuesserGame
+## 13. Run the NumberGuesserGame
 
 Open the BASH shell in the \target folder and issue the ls command.
 
@@ -335,7 +327,7 @@ generated-test-sources/  numberguesser.war  war-exec.properties
 
 </pre
 
-Run the JAR:
+## 14. Run the JAR:
 
 <pre>
 java -jar executable.jar
@@ -349,6 +341,8 @@ http://localhost:8080/playthegame
 Notice the word 'here' is incorrectly spelled 'hear.' This must be corrected before we merge our release branch into main.
 
 Stop the NumberGuesserGame by pressing CTRL+C in the command prompt used to run the executable.jar file.
+
+## 15. Fix the Release
 
 Using any test editor, edit the WebpageFactory.java file located in the \servlet folder and change the word 'hear' to 'here.'
 
@@ -364,7 +358,7 @@ git commit -m "Release fix made"
   <figcaption class="figure-caption">We now want to merge the second feature branch into development.</figcaption>
 </figure>
 
-## Merge with Development
+## 16. Merge with Development
 
 Before you merge with master, make sure this change goes into the development branch to ensure it does not get incorporated in a future release.
 
@@ -373,6 +367,8 @@ git checkout development
 git merge release
 </pre>
 
+## 17. Merge into Master
+
 Now merge the release branch into master.
 
 <pre>
@@ -380,13 +376,15 @@ git checkout master
 git merge release
 </pre>
 
-Now tag the commit.
+## 18. Tag the commit.
+
+All commits to Master should be tagged with a version number and optional metadata.
 
 <pre>
 git tag 1.0
 </pre>
 
-## Delete Unnessesary Branches
+## 19. Delete Unnessesary Branches
 
 The only long-term branches in GitFlow are main and development. All other branches can be deleted.
 
@@ -397,7 +395,7 @@ git branch -d FEATURE/negatives_fix
 git branch -d FEATURE/release
 </pre>
 
-## Push to Origin
+## 20. Push to Origin
 
 Try to push back to the original server. It will inevitably fail. Why? How would a fork have avoided this?
 
