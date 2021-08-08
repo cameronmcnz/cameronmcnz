@@ -40,6 +40,7 @@ mvn test
 mvn clean install tomcat7:exec-war-only
 
 java -jar executable.jar
+
 </pre>
 
 
