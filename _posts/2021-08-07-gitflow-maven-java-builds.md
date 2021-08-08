@@ -29,8 +29,8 @@ The process of merging branches, building the app, running tests, creating a rel
 git clone https://github.com/cameronmcnz/learn-devops
 git branch -a
 
-git checkout <branchname>
-git merge <branchname>
+git checkout -branchname-
+git merge -branchname-
 
 ls
 
