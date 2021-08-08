@@ -51,7 +51,9 @@ Create a folder named C:\workspace and open this folder up in the BASH shell. Th
 Issue the following command to clone the repository:
 
 <pre>
+
 git clone https://github.com/cameronmcnz/learn-devops
+
 </pre>
 
 A new folder will appear in C:\workspace named learn-devops. This folder will contain another folder named numberguesser. Open the C:\workstation\learn-devops\numberguesser folder in Windows Explorer and note the existence of a POM file. This file indicates that the numberguesser is a Maven based project.
@@ -59,25 +61,35 @@ A new folder will appear in C:\workspace named learn-devops. This folder will co
 Right click on the numberguesser folder and select Git Bash Here to open a terminal window in this folder.
 
 Type the ls command into the terminal window to ensure the POM file is in the BASH windows's directory.
+
 <pre>
+
 me@computer MINGW64 /c/workspace/learn-devops/numberguesser (main)
 $ ls
 pom.xml  src/
+
 </pre>
 
 ## Compile and Build the Application
 
 Issue the following command to make sure all of the Java code compiles:
+
 <pre>
+
 mvn compile
+
 </pre>
+
 The command may report some errors, but there should be a green BUILD SUCCESS message indicating that the code compiled successfully.
 
 ## Run All Software Tests
 
 Make sure all of the tests pass by issuing the following command:
+
 <pre>
+
 mvn test
+
 </pre>
 
 ## List All Branches
