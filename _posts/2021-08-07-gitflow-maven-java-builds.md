@@ -422,9 +422,6 @@ git push origin
 
 Reference step 0.
 
-## 21. Missing Lines
-
-The GitFlow diagram is missing two lines. Where should these additional two lines be?
 
 <figure class="figure">
   <img src="/assets/gitflow-maven.gif" alt="Git flow Example Start" class="img-fluid mx-auto d-block img-thumbnail rounded ">
