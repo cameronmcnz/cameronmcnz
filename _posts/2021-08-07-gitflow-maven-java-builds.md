@@ -42,6 +42,9 @@ mvn test
 mvn clean install tomcat7:exec-war-only
 
 java -jar executable.jar
+
+mvn compile checkstyle:checkstyle findbugs:findbugs pmd:pmd
+
 </pre>
 <hr/>
 
@@ -427,6 +430,18 @@ Reference step 0.
   <img src="/assets/gitflow-maven.gif" alt="Git flow Example Start" class="img-fluid mx-auto d-block img-thumbnail rounded ">
   <figcaption class="figure-caption">The merge and brach creation flow of this example.</figcaption>
 </figure>
+
+## 21. Static Code Analyisis
+
+Run FindBugs, PMD (Programmer Mistake Detection) and CheckStyle. These are known as static code analysis tools.
+
+<pre>
+mvn compile checkstyle:checkstyle findbugs:findbugs pmd:pmd
+</pre>
+
+Navigate through the various files these static code analysis tools generate.
+
+Did you push a release onto the main branch without first running a static code analysis check? They'll bring that up in your annual review.
 
 ## Conclusion
 
