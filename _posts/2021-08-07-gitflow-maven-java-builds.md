@@ -3,6 +3,7 @@ layout: mcnz/basic-post
 author: Cameron McKenzie
 title: GitFlow, Branch Merging, Maven and Java Builds
 blurb: Here's how to merge GitFlow branches and build your Java apps with Maven.
+canonical: https://www.mcnz.com/2021/08/07/gitflow-maven-java-builds.html
 ---
 
 <div class="embed-responsive embed-responsive-16by9">
