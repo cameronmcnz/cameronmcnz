@@ -6,7 +6,7 @@ blurb: Here's how to merge GitFlow branches and build your Java apps with Maven.
 ---
 
 <div class="embed-responsive embed-responsive-16by9">
-<iframe width="560" height="315" src="https://youtu.be/rjzh8vmzJH8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rjzh8vmzJH8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 Some people tell me my YouTube videos are much more enjoyable when run at 2x speed and muted. YMMV.
