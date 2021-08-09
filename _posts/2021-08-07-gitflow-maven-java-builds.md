@@ -9,6 +9,8 @@ blurb: Here's how to merge GitFlow branches and build your Java apps with Maven.
 <iframe width="560" height="315" src="https://youtu.be/rjzh8vmzJH8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
+Some people tell me my YouTube videos are much more enjoyable when run at 2x speed and muted. YMMV.
+
 # Git Flow and Maven Tutorial
 
 You are the team lead on an important project, and your developers have all told you their feature branches are complete, but they've all gone home for the weekend, and you want to build a release.
