@@ -14,9 +14,9 @@ Some people tell me my YouTube videos are much more enjoyable when run at 2x spe
 
 # Git Flow and Maven Tutorial
 
-You are the team lead on an important project, and your developers have all told you their feature branches are complete, but they've all gone home for the weekend, and you want to build a release.
+You are the team lead on an important project, and your developers have all told you their feature branches are complete. But they've all gone home for the weekend, and you want to build a release.
 
-The developers have left you with their feature branches. You must merge those into develop, make sure the code compiles and passes all unit tests, and the create a release branch and merge that into main.
+The developers have left you with their feature branches. You must merge those feature branches into the develop branch and make sure the merged code compiles. You also need to make sure all of the unit tests pass. If the code compiles and the tests all pass, create a release branch, perform any last minute fixes, and merge that branch into main.
 
 Here's what the flow will look like:
 
@@ -31,22 +31,45 @@ Here's what the flow will look like:
 The process of merging branches, building the app, running tests, creating a release branch and then testing your application before it merges into main will require the following commands:
 <hr/>
 <pre>
+### TERMINAL COMMANDS  
+
+ls
+cd
+
+### Git Commands
+
 git clone https://github.com/cameronmcnz/macro-maven
+
+git config --global user.name "Cameron"
+git config --global user.email "me@example.com"
+
+git add .
+git commit -m "commit message"
+
 git branch -a
+git push origin
 
 git checkout -branchname-
 git merge --no-ff -branchname-
+git tag 1.0
 
-ls
+git branch -d release
+
+git log --all --decorate --oneline --graph
+
+### Apache Maven Commands (These are new. Don't fret.)
 
 mvn clean
 mvn compile
 mvn test
 mvn clean install tomcat7:exec-war-only
+mvn compile checkstyle:checkstyle findbugs:findbugs pmd:pmd
+
+### Java Commands
 
 java -jar executable.jar
 
-mvn compile checkstyle:checkstyle findbugs:findbugs pmd:pmd
+### Git Lifesaver Commands
 
 :q
 </pre>
@@ -163,6 +186,13 @@ Merge the FEATURE/enhance_webpage branch into development with the following com
 <pre>
 git merge --no-ff FEATURE/enhance_webpage -m "Enhanced webpage merged"
 </pre>
+
+
+<figure class="figure">
+  <img src="/assets/merge-vs-build.jpg" alt="Build vs Merge with Maven Gradle and Git" class="img-fluid mx-auto d-block img-thumbnail rounded ">
+  <figcaption class="figure-caption">Just because it will merge doesn't mean it will compile.</figcaption>
+</figure>
+
 
 ## 6. Compile and Test the Merge
 
