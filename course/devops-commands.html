@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Drag and Drop Quiz</title>
+  <link rel='stylesheet' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="quiz-wrapper">
+	<p class="question-description">Fill in the blanks by dragging the missing answer.</p>
+	<ul class="options">
+		<li class="title">Options</li>
+		<li class="option" data-target="build-war">mvn -f numberguesser/pom.xml package</li>
+		<li class="option" data-target="abc">tomcat9 start</li>
+		<li class="option" data-target="tomcat-deploy">copy numberguesser\\target\\numberguesser.war C:\\Software\\apache-tomcat-9.0.8\\webapps /Y</li>
+		<li class="option" data-target="pull-development">git checkout development</li>
+		<li class="option" data-target="abc">mvn clean install</li>
+		<li class="option" data-target="run-tests">mvn -f numberguesser/pom.xml test checkstyle:checkstyle findbugs:findbugs pmd:pmd</li>
+		<li class="option" data-target="abc">git tag 1.0</li>
+		<li class="option" data-target="git-clone">git clone https://github.com/cameronmcnz/macro-maven.git</li>
+		<li class="option" data-target="pull-feature">git checkout FEATURE/game_logic</li>
+		
+		<li class="option" data-target="java-version">java -version</li>
+    		
+    <li class="option" data-target="maven-compile">mvn -f numberguesser/pom.xml compile</li>
+    
+    
+	<li class="option" data-target="git-version">git --version</li>
+    <li class="option" data-target="build-jar">mvn -f numberguesser/pom.xml install tomcat7:exec-war-only</li>
+    
+    <li class="option" data-target="abc">java -jar executable.jar</li>
+    
+    
+	<li class="option" data-target="merge">git merge FEATURE/game_logic</li>
+	
+	<li class="option" data-target="maven-version">mvn --version</li>
+    
+	</ul>
+<div class="answers">
+  
+<pre>
+<span class="target" data-accept="java-version">Display the Java version</span>
+        
+<span class="target" data-accept="git-version">Display the Git version</span>
+        
+<span class="target" data-accept="maven-version">&nbsp;</span>Display the Maven version
+
+<span class="target" data-accept="git-clone">&nbsp;</span>
+
+<span class="target" data-accept="pull-feature">&nbsp;</span>
+		
+<span class="target" data-accept="pull-development">&nbsp;</span>
+		
+<span class="target" data-accept="merge">&nbsp;</span>
+        
+<span class="target" data-accept="maven-compile">&nbsp;</span>
+
+<span class="target" data-accept="run-tests">&nbsp;</span>
+
+<span class="target" data-accept="build-war">&nbsp;</span>
+	  
+<span class="target" data-accept="build-jar">&nbsp;</span>
+
+<span class="target" data-accept="tomcat-deploy">&nbsp;</span>
+
+</pre>
+</div>
+ <button type="submit" value="submit">Submit</button>
+ <div class="lightbox-bg"></div>
+ <div class="status confirm">
+   <p>All Answers Answered</p>
+ </div>
+ <div class="status deny">
+   <p>Answers Remain</p>
+ </div>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
