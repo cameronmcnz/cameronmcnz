@@ -1,0 +1,83 @@
+.quiz-wrapper {
+  position: relative;
+  display: block;
+  width: 1500px;
+  height: 1500px;
+}
+.quiz-wrapper p.question-description {
+  background: #19286C;
+  color: white;
+  padding: 25px 20px;
+}
+.quiz-wrapper ul.options {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  width: 700px;
+  height: 1400px;
+  list-style: none;
+  border: 1px solid #19286C;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+.quiz-wrapper ul.options li {
+  border: 1px solid transparent;
+  padding: 6px 8px;
+}
+.quiz-wrapper ul.options li.title {
+  background: #19286C;
+  color: white;
+}
+.quiz-wrapper ul.options li.option {
+  display: block;
+  position: relative;
+  z-index: 50;
+  font-size: 13px;
+}
+.quiz-wrapper .answers {
+  display: inline-block;
+  width: 700px;
+  font-size: 13px;
+  line-height: 20px;
+}
+.quiz-wrapper .answers .target {
+  display: inline-block;
+  width: 700px;
+  background: silver;
+  margin: 10 10px;
+  text-align: left;
+}
+.quiz-wrapper button[type="submit"] {
+  display: block;
+  position: relative;
+  margin: 10px auto;
+  padding: 10px;
+  background: #19286C;
+  border: none;
+  color: white;
+  font-size: 16px;
+}
+.lightbox-bg {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+.status {
+  display: none;
+  position: absolute;
+  z-index: 110;
+  text-align: center;
+  width: 80%;
+  top: 220px;
+  left: 47px;
+}
+.status p {
+  background: white;
+  padding: 30px;
+}
