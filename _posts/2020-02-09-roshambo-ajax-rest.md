@@ -22,13 +22,6 @@ http://3.222.19.178/score
 
 http://3.222.19.178/score/increasewins
 
-### Port 8080?
-
-Sometimes the service runs on port 8080:
-
-http://3.222.19.178:8080/score
-
-http://keepingthescore-env.eba-cgup4jh6.us-east-1.elasticbeanstalk.com:8080/score/
 
 
 If you copy and paste the code below, with the correct URL, you may pull in unwanted HTML characters from the webpage. Copying the raw code is the safest bet.
