@@ -20,12 +20,4 @@ Evaluation Code: 530919-2266
 Choose the <b>FINAL</b> Evaluation option.
 
 
-## Bloom's Taxonomy of Learning
 
-<figure class="figure">
-  <img src="https://courses.dcs.wisc.edu/design-teaching/PlanDesign_Fall2016/2-Online-Course-Design/2_Learning-Objectives-Alignment/images/blooms_shadow_text-centered_890x575.png" alt="Git flow init branches" class="img-fluid mx-auto d-block img-thumbnail rounded ">
-  <figcaption class="figure-caption">Bloom's Taxonomy.</figcaption>
-</figure>
-
-
-h
