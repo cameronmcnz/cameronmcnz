@@ -9,6 +9,7 @@ canonical: https://www.mcnz.com/2021/08/07/gitflow-maven-java-builds.html
 <div class="embed-responsive embed-responsive-16by9">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rjzh8vmzJH8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
+A video that shows this exercise done in Eclipse is at the bottom of this page.
 
 Some people tell me my YouTube videos are much more enjoyable when run at 2x speed and muted. YMMV.
 
@@ -22,7 +23,7 @@ Here's what the flow will look like:
 
 <figure class="figure">
   <img src="/assets/gitflow-maven.gif" alt="Git flow Example Start" class="img-fluid mx-auto d-block img-thumbnail rounded ">
-  <figcaption class="figure-caption">The merge and brach creation flow of this example.</figcaption>
+  <figcaption class="figure-caption">The merge and branch creation flow of this example.</figcaption>
 </figure>
 
 
@@ -383,13 +384,30 @@ generated-test-sources/  numberguesser.war  war-exec.properties
 <hr/>
 ## 14. Run the JAR:
 
+If port 8080 is open you can run a JAR as follows. Of course, if Jenkins or some other server is running on 8080, the JAR will fail.
 <pre>
 java -jar executable.jar
 </pre>
 
-The NumberGuesserGame will then be avaialable at the following URL:
+This should change the port to Wayne Gretzky:
+<pre>
+java -jar executable.jar --server.port=8099
+</pre>
+Here is another syntax:
+<pre>
+java -jar -Dserver.port=8099 spring-5.jar
+</pre>
+
+
+
+The NumberGuesserGame will then be avaialable at the following URL if you did not change the default port:
 <pre>
 http://localhost:8080/playthegame
+</pre>
+
+If you tipped your hat to <i>The Great One</i>, the url will be:
+<pre>
+http://localhost:8099/playthegame
 </pre>
 
 Notice the word 'here' is incorrectly spelled 'hear.' This must be corrected before we merge our release branch into main.
