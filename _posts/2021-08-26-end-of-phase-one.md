@@ -2,7 +2,7 @@
 layout: mcnz/hidden-post
 author: Cameron McKenzie
 title: End of Phase 1
-blurb: End of phase 1: Eval and Quiz
+blurb: End of phase 1 - Eval and Quiz
 canonical: https://www.mcnz.com/2021/08/26/end-of-phase-one.html
 ---
 
