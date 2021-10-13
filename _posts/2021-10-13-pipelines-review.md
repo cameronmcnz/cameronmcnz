@@ -13,6 +13,17 @@ We have three labs to go in the Jenkins section:
 2. Advanced Pipelines with Groovy (Lab 7)
 3. Configure Jenkins Security (Lab 8)
 
+Lab Confusion
+-------------
+
+Lab 7 (Page 71) has some code that should go all on one line, but spans two lines in the book for formatting reasons. Be careful. This trips up a lot of students.
+
+<figure class="figure">
+  <img src='/images/groovy-image.png' alt="Microservices Monoliths pooh" class="img-fluid mx-auto d-block img-thumbnail rounded " >
+  <figcaption class="figure-caption">The pooh emoji Monolith vs microservices architecture diagram.</figcaption>
+</figure>
+
+
 Today's Agenda
 --------------
 
