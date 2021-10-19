@@ -18,23 +18,27 @@ docker login -u cameronmcnz90210 -p *your-password*
 
 You must make Kubernetes aware of your Docker credentials so it can pull images. This is on page 29 of your lab guide.
 
+Note the space between .json /var
+<hr>
 <pre>
 cp ~/.docker/config.json /var/lib/kubelet/config.json
 </pre>
+</hr>
 
 ## Clone a GitHub Repository
-
+<hr/>
 <pre>
 git clone https://github.com/cameronmcnz/spock-lizard-docker.git
 </pre>
 <hr/>
-For the next set of steps, use your own name instead of 'cams', and your own dockerhub account instead of cameronmcnz90210.
-<hr/>
+
 
 ## Move into the Spock* Folder and Build Image
 
-Feel free to name the image something other than 'cams-rps-service'. Just make sure you use that same name throughout.
+For the next set of steps, use your own name instead of 'cams', and your own dockerhub account instead of cameronmcnz90210.
 
+Feel free to name the image something other than 'cams-rps-service'. Just make sure you use that same name throughout.
+<hr/>
 <pre>
 
 cd spock*
@@ -50,7 +54,7 @@ sudo docker run -p 8085:8080 -t cams-rps-service
 sudo docker ps -a
 
 
-</pre>
+</pre><hr/>
 
 ## Push to DockerHub
 
@@ -60,9 +64,9 @@ You need to tag your image with your DockerHub username as a prefix.
 
 Name the image anything you want.
 
-<pre>
+<hr/><pre>
 docker login --username=cameronmcnz90210
-<provide actual password, not the token>
+*provide actual password, not the token*
 
 docker tag **??a70e7b4f9e4d?? cameronmcnz90210/cams-rps-service:first
 
@@ -91,15 +95,16 @@ kubectl expose deployment rps --type=NodePort
 
 </pre>
 <hr/>
+## Scale your App!
 Now scale it!
 <hr/>
 
-## Scale your App!
-<pre>
+
+<hr/><pre>
 kubectl scale --replicas=3 deployment/rps
 
 kubectl get deployment
-</pre>
+</pre><hr/>
 <hr/>
 
 
