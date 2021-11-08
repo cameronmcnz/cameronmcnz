@@ -14,18 +14,16 @@
 	<ul class="options">
 		<li class="title">Options</li>
 		<li class="option" data-target="build-war">mvn package</li>
-		<li class="option" data-target="tomcat-deploy">copy target\\roshambo.war C:\\Software\\apache-tomcat-9.0.8\\webapps /Y</li>
 		<li class="option" data-target="maven-install">mvn clean install</li>
 		<li class="option" data-target="run-tests">mvn test checkstyle:checkstyle findbugs:findbugs pmd:pmd</li>
 		<li class="option" data-target="git-clone">git clone https://github.com/cameronmcnz/spock-lizard-docker.git</li>
 		<li class="option" data-target="java-version">java -version</li>
 		<li class="option" data-target="maven-compile">mvn compile</li>
 		<li class="option" data-target="git-version">git --version</li>
-    		<li class="option" data-target="build-jar">mvn install tomcat7:exec-war-only</li>
-    		<li class="option" data-target="run-jar">java -jar executable.jar</li>
+    		<li class="option" data-target="run-jar">java -jar spock-lizard-1.0.jar</li>
 		<li class="option" data-target="maven-version">mvn --version</li>
 		<li class="option" data-target="change-directory">cd spock*</li>
-		<li class="option" data-target="webpage-url">http://localhost:8080/playthegame</li>
+		<li class="option" data-target="webpage-url">http://localhost:8080/playagame or just http://localhost:8080</li>
 		
     
 	</ul>
@@ -52,10 +50,6 @@
 <span class="target" data-accept="build-war">Build the project's deployment artifact</span>
 
 <span class="target" data-accept="maven-install">Push your app to a Maven repository</span>
-
-<span class="target" data-accept="tomcat-deploy">Move a WAR file to a Tomcat server (Optional)</span>
-	  
-<span class="target" data-accept="build-jar">Build an embedded Tomcat JAR</span>
 
 <span class="target" data-accept="run-jar">Run an exectuable JAR file located in the current directory</span>
 
