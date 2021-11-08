@@ -17,7 +17,7 @@
 		<li class="option" data-target="list-branches">git branch -a</li>
 		<li class="option" data-target="tomcat-deploy">copy numberguesser\\target\\numberguesser.war C:\\Software\\apache-tomcat-9.0.8\\webapps /Y</li>
 		<li class="option" data-target="pull-development">git checkout development</li>
-		<li class="option" data-target="maven-install">mvn clean install</li>
+		<li class="option" data-target="maven-install">mvn -f numberguesser/pom.xml clean install</li>
 		<li class="option" data-target="run-tests">mvn -f numberguesser/pom.xml test checkstyle:checkstyle findbugs:findbugs pmd:pmd</li>
 		<li class="option" data-target="git-tag">git tag 1.0</li>
 		<li class="option" data-target="git-clone">git clone https://github.com/cameronmcnz/macro-maven.git</li>
