@@ -14,6 +14,7 @@
 		<li class="title">Options</li>
 		<li class="option" data-target="build-war">mvn -f numberguesser/pom.xml package</li>
 		<li class="option" data-target="tomcat-start">tomcat9 start</li>
+		<li class="option" data-target="list-branches">git branch -a</li>
 		<li class="option" data-target="tomcat-deploy">copy numberguesser\\target\\numberguesser.war C:\\Software\\apache-tomcat-9.0.8\\webapps /Y</li>
 		<li class="option" data-target="pull-development">git checkout development</li>
 		<li class="option" data-target="maven-install">mvn clean install</li>
@@ -22,12 +23,14 @@
 		<li class="option" data-target="git-clone">git clone https://github.com/cameronmcnz/macro-maven.git</li>
 		<li class="option" data-target="pull-feature">git checkout FEATURE/game_logic</li>
 		<li class="option" data-target="java-version">java -version</li>
+		<li class="option" data-target="browser-url">http://localhost:8080/playagame or http://localhost:8080/playthegame</li>
 		<li class="option" data-target="maven-compile">mvn -f numberguesser/pom.xml compile</li>
 		<li class="option" data-target="git-version">git --version</li>
     		<li class="option" data-target="build-jar">mvn -f numberguesser/pom.xml install tomcat7:exec-war-only</li>
     		<li class="option" data-target="run-jar">java -jar executable.jar</li>
 		<li class="option" data-target="merge">git merge FEATURE/game_logic</li>
 		<li class="option" data-target="maven-version">mvn --version</li>
+		<li class="option" data-target="git-log">git log -all -decorate -oneline -graph </li>
     
 	</ul>
 <div class="answers">
@@ -42,6 +45,10 @@
 <span class="target" data-accept="git-tag">Tag a Git commit</span>
 
 <span class="target" data-accept="git-clone">Clone a GitHub repo</span>
+
+<span class="target" data-accept="list-branches">List all Git branches</span>
+
+<span class="target" data-accept="git-log">Graph the git log history</span>
 
 <span class="target" data-accept="pull-feature">Checkout the remote feature branch</span>
 		
@@ -61,9 +68,11 @@
 
 <span class="target" data-accept="tomcat-deploy">Move WAR file to at Tomcat server</span>
 
-<span class="target" data-accept="tomcat-start">Start Tomcat</span>
-
 <span class="target" data-accept="run-jar">Run an exectuable JAR file</span>
+
+<span class="target" data-accept="browser-url">URL to load application</span>
+
+<span class="target" data-accept="tomcat-start">Start Tomcat</span>
 
 </pre>
 </div>
