@@ -23,22 +23,27 @@
 		<li class="option" data-target="run-tests">mvn -f numberguesser/pom.xml test checkstyle:checkstyle findbugs:findbugs pmd:pmd</li>
 		<li class="option" data-target="git-tag">git tag 1.0</li>
 		<li class="option" data-target="git-clone">git clone https://github.com/cameronmcnz/macro-maven.git</li>
-		<li class="option" data-target="pull-feature">git switch FEATURE/game_logic</li>
+		<li class="option" data-target="pull-feature">git switch FEATURE/experiment</li>
 		<li class="option" data-target="java-version">java -version</li>
-		<li class="option" data-target="browser-url">http://localhost:8080/playagame or http://localhost:8080/playthegame</li>
+		<li class="option" data-target="browser-url">http://localhost:8080/playthegame (maybe http://localhost:8080/playagame)</li>
 		<li class="option" data-target="maven-compile">mvn -f numberguesser/pom.xml compile</li>
 		<li class="option" data-target="git-version">git --version</li>
     		<li class="option" data-target="build-jar">mvn -f numberguesser/pom.xml install tomcat7:exec-war-only</li>
     		<li class="option" data-target="run-jar">java -jar executable.jar</li>
-		<li class="option" data-target="merge">git merge FEATURE/game_logic</li>
+		<li class="option" data-target="merge">git merge FEATURE/experiment</li>
 		<li class="option" data-target="maven-version">mvn --version</li>
 		<li class="option" data-target="git-log">git log --all --decorate --oneline --graph </li>
 		<li class="option" data-target="cd">cd macro*</li>
+		<li class="option" data-target="exit">q or :q</li>
+		<li class="option" data-target="ctrl">CTRL+C</li>
     
 	</ul>
 <div class="answers">
   
 <pre>
+
+<span class="target" data-accept="exit">Exit Git BASH</span>
+
 <span class="target" data-accept="java-version">Display the Java version</span>
         
 <span class="target" data-accept="git-version">Display the Git version</span>
@@ -70,6 +75,8 @@
 <span class="target" data-accept="build-jar">Build an embedded Tomcat JAR</span>
 
 <span class="target" data-accept="run-jar">Run an exectuable JAR file that is in the current directory</span>
+
+<span class="target" data-accept="ctrl">Terminate an app running in the Terminal window</span>
 
 <span class="target" data-accept="browser-url">URL to load application</span>
 
