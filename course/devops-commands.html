@@ -15,10 +15,10 @@
 	<ul class="options">
 		<li class="title">Options</li>
 		<li class="option" data-target="build-war">mvn -f numberguesser/pom.xml package</li>
-		<li class="option" data-target="tomcat-start">C:\Software\apache-tomcat-9.0.8\bin\tomcat9 start</li>
+		<li class="option" data-target="tomcat-start">C:\Software\apache-tomcat-9.0.8\bin\startup.bat</li>
 		<li class="option" data-target="list-branches">git branch -a</li>
 		<li class="option" data-target="ctrl">CTRL+C</li>
-		<li class="option" data-target="tomcat-deploy">cp numberguesser\target\numberguesser.war C:\Software\apache-tomcat-9.0.8\webapps /Y</li>
+		<li class="option" data-target="tomcat-deploy">xcopy numberguesser\target\numberguesser.war C:\Software\apache-tomcat-9.0.8\webapps</li>
 		<li class="option" data-target="pull-development">git checkout development</li>
 		<li class="option" data-target="maven-install">mvn -f numberguesser/pom.xml clean install</li>
 		<li class="option" data-target="run-tests">mvn -f numberguesser/pom.xml test checkstyle:checkstyle findbugs:findbugs pmd:pmd</li>
