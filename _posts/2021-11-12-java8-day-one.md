@@ -51,6 +51,8 @@ Padmaja - What was the best feature in JDK 5
 
 Pooja - What was the best feature in JDK 2
 
+## Present Your Findings. Introduce Yourself.
+
 You will be given 10 minutes to research this topic.
 
 You will then be asked to present your findings back to the class.
