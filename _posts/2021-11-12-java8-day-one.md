@@ -80,7 +80,13 @@ Which of the agenda topics are you most interested in?
 - Internationalization
 - All Java Security topics
 
+## Exercise on Garbage Collection
 
+Code the SnoopInt and MikeTyson classes from this exercise into a project in Eclise. You can name the project anything you want. Just get these two classes into Eclipse.
+
+Then run the MikeTyson class. Bring up JConsole as it is running and connect to the process running the program.
+
+Monitor the Java heap and memory management. How could you improve the application's performance?
 
 
 
