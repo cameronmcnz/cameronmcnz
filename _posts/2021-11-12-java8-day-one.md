@@ -63,7 +63,25 @@ You will also be asked to introduce yourself and answer these questions:
 - Years of Java experience
 - What topic in the book you are most interested in learning about?
 - Are there any topics outside of the book you are interested in learning about?
-- Do you feel like an exploroer, vacationer or prisoner this week?
+- Do you feel like an explorer, vacationer or prisoner this week?
+
+## Course Topics
+
+Which of the agenda topics are you most interested in?
+- JVM (Memory Changes, etc.)
+- Packaging Applications (Signing, Verifying JARs)
+- Best Practices for Exception Handling
+- Threading and Concurrency
+- Networking (Sockets)
+- Advanced JDBC
+- Performance
+- Writing Effective Java - best practices
+- Data Structures - optimizing for performance and task
+- Internationalization
+- All Java Security topics
+
+
+
 
 
 
