@@ -23,20 +23,33 @@ Everyone will be assigned a version of the JDK. You need to present back to the 
 
 If possible, show a code snippet of the feature of interest to the class.
 
-Reena - JDK 17
-Manish - JDK 16
-Amanda - JDK 15
-Lavanya - JDK 14
-Madhu - JDK 13
-James - JDK 12
-Mrunalini - JDK 11
-Laxmi S - JDK 10
-Sumaiya - JDK 9
-Gopu - JDK 8
-Veera - JDK 7
-Venkataramana JDK 6
-Padmaja JDK 5
-Pooja JDK 2
+Reena - What was the best feature in JDK 17?
+
+Manish - What was the best feature in JDK 16
+
+Amanda - What was the best feature in JDK 15
+
+Lavanya - What was the best feature in JDK 14
+
+Madhu - What was the best feature in JDK 13
+
+James - What was the best feature in JDK 12
+
+Mrunalini - What was the best feature in JDK 11
+
+Laxmi S - What was the best feature in JDK 10
+
+Sumaiya - What was the best feature in JDK 9
+
+Gopu - What was the best feature in JDK 8
+
+Veera - What was the best feature in JDK 7
+
+Venkataramana - What was the best feature in JDK 6
+
+Padmaja - What was the best feature in JDK 5
+
+Pooja - What was the best feature in JDK 2
 
 You will be given 10 minutes to research this topic.
 
