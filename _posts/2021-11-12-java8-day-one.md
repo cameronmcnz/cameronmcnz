@@ -117,7 +117,7 @@ Monitor the Java heap and memory management. How could you improve the applicati
 
 We're going to work on a threaded version of this application in the future. But for now, see if you can fix the issues with this application, and get the application running in your local workspace:
 
-https://www.mcnz.com/2021/11/12/image-editor-exceptions.html
+https://www.mcnz.com/2021/11/11/image-editor-exceptions.html
 
 
 
