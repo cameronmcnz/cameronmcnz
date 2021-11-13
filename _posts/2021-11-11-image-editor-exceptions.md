@@ -3,7 +3,7 @@ layout: mcnz/2271-jenkins-course
 author: Cameron McKenzie
 title: Java 8 Day One
 blurb: Day one of the Java 8 course
-canonical: https://www.mcnz.com/2021/11/12/image-editor-exceptions.html
+canonical: https://www.mcnz.com/2021/11/11/image-editor-exceptions.html
 ---
 
 The following code doens't work. But it should.
