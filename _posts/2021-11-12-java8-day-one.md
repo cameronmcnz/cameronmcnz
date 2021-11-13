@@ -80,9 +80,34 @@ Which of the agenda topics are you most interested in?
 - Internationalization
 - All Java Security topics
 
+## Java and HTML
+
+Let's dip our toes into the software development waters with a little HTML and Java development.
+
+Tackle this little code scramble and get a web page working in your virtual machine:
+
+https://www.mcnz.com/2020/02/09/roshambo-code-scramble-game.html
+
+### Experts only
+
+If you're a real expert, you'll integrate a RESTful web service, deployed as a microservice to an AWS Kubernetes cluster, into your app. Here's some hints:
+
+https://www.mcnz.com/2020/02/09/roshambo-ajax-rest.html
+
+## Do it in Java
+
+When you are done with the HTML code scramble, see if you can create the same application in Java. Here are some instructions:
+
+https://www.mcnz.com/2021/07/20/java-roshambo-assignment.html
+
+
 ## Exercise on Garbage Collection
 
-Code the SnoopInt and MikeTyson classes from this exercise into a project in Eclise. You can name the project anything you want. Just get these two classes into Eclipse.
+Code the SnoopInt and MikeTyson classes from <a href="https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Performance-cost-of-Java-autoboxing-and-unboxing-of-primitive-types">this exercise</a> into a project in Eclise. 
+
+https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Performance-cost-of-Java-autoboxing-and-unboxing-of-primitive-types
+
+You can name the project anything you want. Just get these two classes into Eclipse.
 
 Then run the MikeTyson class. Bring up JConsole as it is running and connect to the process running the program.
 
