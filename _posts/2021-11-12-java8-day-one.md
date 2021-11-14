@@ -167,4 +167,16 @@ https://github.com/learn-java-fast/java101/blob/master/rpsdbCreate.cmd
 https://github.com/learn-java-fast/java101/blob/master/rpsdbCreate.sql
 https://github.com/learn-java-fast/java101/blob/master/rpsdbSQL.cmd
 
+## Performance
 
+What's new in the world of performance management? Sadly, nothing... Here's an interview with Jevgeni Kabanov:
+
+https://www.theserverside.com/tip/Are-production-performance-problems-plaguing-your-work
+
+Why Java applications don't scale linearly
+
+https://www.theserverside.com/feature/Why-Java-Applications-Fail-to-Scale-Linearly
+
+Fix your CPU
+
+https://www.theserverside.com/answer/How-to-fix-high-Java-CPU-usage-problems
