@@ -10,6 +10,7 @@ The following code doens't work. But it should.
 
 Identify the various exceptions this code is throwing, fix them, and then run the application.
 
+<hr/>
 <pre>
 package com.mcnz.jfr.jmc;
 
@@ -58,3 +59,4 @@ public class ImageChanger {
 }
 
 </pre>
+<hr/>
