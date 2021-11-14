@@ -167,7 +167,9 @@ https://github.com/learn-java-fast/java101/blob/master/rpsdbCreate.cmd
 https://github.com/learn-java-fast/java101/blob/master/rpsdbCreate.sql
 https://github.com/learn-java-fast/java101/blob/master/rpsdbSQL.cmd
 
-## Performance
+# Day Three
+
+## Performance Monitoring and Optimization
 
 What's new in the world of performance management? Sadly, nothing... Here's an interview with Jevgeni Kabanov:
 
@@ -180,3 +182,25 @@ https://www.theserverside.com/feature/Why-Java-Applications-Fail-to-Scale-Linear
 Fix your CPU
 
 https://www.theserverside.com/answer/How-to-fix-high-Java-CPU-usage-problems
+
+## Effective Java
+
+We'll just do the lab here
+
+We'll also talk about the 12 factor application
+
+## Data Structures
+
+Let's look at Streams. We will discuss this code snippet together:
+
+https://raw.githubusercontent.com/learn-java-fast/learn-java-8/master/com/mcnz/lambda/SimpleStreams.java
+
+Then you'll be given time to work on the following assignment to get more hands on.
+
+https://raw.githubusercontent.com/learn-java-fast/learn-java-8/master/com/mcnz/lambda/StreamExamples.java
+
+# Day 4
+
+The final day!!!
+
+## Internationalization and Security
