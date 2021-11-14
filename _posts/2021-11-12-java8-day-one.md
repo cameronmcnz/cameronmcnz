@@ -157,6 +157,8 @@ Just do the lab!
 
 ## JDBC
 
-https://github.com/learn-java-fast/java101/blob/master/JDBC_SCRAMBLE.txt
+Can you complete the JDBC scramble?
+
+https://www.mcnz.com/2021/11/11/jdbc-scramble.html
 
 
