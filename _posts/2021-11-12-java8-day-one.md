@@ -113,6 +113,14 @@ Then run the MikeTyson class. Bring up JConsole as it is running and connect to 
 
 Monitor the Java heap and memory management. How could you improve the application's performance?
 
+## Working with Lambda Expressions
+
+Take a look at the following page:
+
+https://www.mcnz.com/2021/11/12/lambdas.html
+
+Bring the code from this page into Eclipse and implement the functionality described inside the main method.
+
 ## Exception Handling
 
 We're going to work on a threaded version of this application in the future. But for now, see if you can fix the issues with this application, and get the application running in your local workspace:
