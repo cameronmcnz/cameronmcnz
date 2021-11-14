@@ -161,4 +161,10 @@ Can you complete the JDBC scramble?
 
 https://www.mcnz.com/2021/11/11/jdbc-scramble.html
 
+Here's a couple of scripts to create the database in Derby if you are so inclined:
+
+https://github.com/learn-java-fast/java101/blob/master/rpsdbCreate.cmd
+https://github.com/learn-java-fast/java101/blob/master/rpsdbCreate.sql
+https://github.com/learn-java-fast/java101/blob/master/rpsdbSQL.cmd
+
 
