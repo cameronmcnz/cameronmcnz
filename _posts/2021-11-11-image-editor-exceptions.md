@@ -6,7 +6,9 @@ blurb: Day one of the Java 8 course
 canonical: https://www.mcnz.com/2021/11/11/image-editor-exceptions.html
 ---
 
-The following code doens't work. But it should.
+## Exception Handling
+
+The following code doesn't work. But it should.
 
 Identify the various exceptions this code is throwing, fix them, and then run the application.
 
