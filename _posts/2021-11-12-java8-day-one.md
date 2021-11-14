@@ -127,6 +127,36 @@ We're going to work on a threaded version of this application in the future. But
 
 https://www.mcnz.com/2021/11/11/image-editor-exceptions.html
 
+## Day Two
 
+Welcome to day two!
+
+## Agile Methodologies Discussion
+
+Look at the 12 questions on this quiz. 
+
+Decide if you think the point is:
+- actionable
+- motivational
+- debatable
+- vague
+
+We will run through this as a Kahoots Quiz, although there are no right answers. 
+
+https://create.kahoot.it/share/opinionated-agile/67110d1c-eb21-4a48-9018-b6d668bf763f
+
+## Threading and Concurrency
+
+Not extra exercises. Just do the lab!
+
+There may be a Kahoot on this topic in the future.
+
+## Networking
+
+Just do the lab!
+
+## JDBC
+
+https://github.com/learn-java-fast/java101/blob/master/JDBC_SCRAMBLE.txt
 
 
