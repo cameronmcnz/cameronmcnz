@@ -33,6 +33,22 @@ We will cover sections 6 and 7 in the book today:
 - Chapter 6 Jenkins Jobs
 - Chapter 7 Jenkins Pipelines
 
+Jenkins Job Example
+-------------------
+
+Want a cool example of how Jenkins and Plugins really raise the game? 
+
+Install the Warnings Next Generation Plugin and use these parameters in a new Jenkins job:
+
+- git clone https://github.com/cameronmcnz/spock-lizard-docker.git
+- mvn install checkstyle:checkstyle findbugs:findbugs pmd:pmd
+
+Then add the warnings plugin to the post build steps. 
+
+View this link for more details:
+
+https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Jenkins-Warnings-Plugin-CheckStyle-FindBugs-PMD-Example-Tutorial
+
 Pipeline Examples
 -----------------
 
