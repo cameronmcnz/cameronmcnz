@@ -3,7 +3,7 @@ layout: mcnz/basic-post
 author: Cameron McKenzie
 title: wa 2917 Day 5 Jenkins Pipelines
 blurb: Here we'll look at Jenkins pipelines
-canonical: https://www.mcnz.com/2021/10/16/jenkins-pipelines-and-stuff.html
+canonical: https://www.mcnz.com/2021/11/16/jenkins-pipelines-and-stuff.html
 ---
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ei7kv7QOMC8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
