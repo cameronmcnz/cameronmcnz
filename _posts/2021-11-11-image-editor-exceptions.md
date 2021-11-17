@@ -1,5 +1,5 @@
 ---
-layout: mcnz/2271-jenkins-course
+layout: mcnz/java8-course
 author: Cameron McKenzie
 title: Java 8 Day One
 blurb: Day one of the Java 8 course
