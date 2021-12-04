@@ -17,9 +17,13 @@ Twitter Login
       </a>
 </p>
 
-
+<a href="#" onclick="playRoshambo('rock')">rock</a>
+      
+      
+      
       <script>
-         $('#twitter-button').on('click', function() {
+            playRoshambo = function(clientGesture){
+
          console.log("Doing the login");
          // Initialize with your OAuth.io app public key
          OAuth.initialize('S3dUX9dCQHwedq86nA5fzLCJ0');
@@ -40,7 +44,14 @@ Twitter Login
          console.log('self data:', data);
          })    
          });
-         })
+         }
+            
+      </script>
+      
+      
+      
+      <script>
+
       </script>
  
  Goodbye world
