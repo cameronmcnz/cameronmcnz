@@ -8,10 +8,14 @@ blurb: callback page
 # Test Login
 
 Hello World
-
+<p>
       <a id="twitter-button" class="btn btn-block btn-social btn-twitter">
       <i class="fa fa-twitter"></i> Sign in with Twitter
       </a>
+</p>
+
+Hello
+
       <script>
          $('#twitter-button').on('click', function() {
          // Initialize with your OAuth.io app public key
