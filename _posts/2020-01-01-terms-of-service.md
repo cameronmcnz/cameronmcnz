@@ -4,16 +4,15 @@ author: Cameron
 title: Terms of Service
 blurb: These are the terms of service for mcnz.com
 ---
+# Terms of Service
 
-
-Terms of Service
 Please read these terms of service ("terms", "terms of service") carefully before using [website] website (the "service") operated by mcnz.com ("us", 'we", "our").
 
 Conditions of Use
 
 We will provide their services to you, which are subject to the conditions stated below in this document. Every time you visit this website, use its services or make a purchase, you accept the following conditions. This is why we urge you to read them carefully.
 
-Privacy Policy
+## Privacy Policy
 
 Before you continue using our website we advise you to read our privacy policy <a href="https://www.mcnz.com/2021/01/01/privacy-policy.html">privacy policy</a> regarding our user data collection. It will help you better understand our practices.
 
