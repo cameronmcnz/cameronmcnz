@@ -7,6 +7,8 @@ blurb: callback page
 
 # Test Login
 
+Hello World
+
       <a id="twitter-button" class="btn btn-block btn-social btn-twitter">
       <i class="fa fa-twitter"></i> Sign in with Twitter
       </a>
@@ -33,3 +35,4 @@ blurb: callback page
          })
       </script>
  
+ Goodbye world
