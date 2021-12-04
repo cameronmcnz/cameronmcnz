@@ -1,5 +1,10 @@
-<html>
-   <body>
+---
+layout: default
+author: Cameron
+title: callback
+blurb: callback page
+---
+
       <a id="twitter-button" class="btn btn-block btn-social btn-twitter">
       <i class="fa fa-twitter"></i> Sign in with Twitter
       </a>
@@ -25,5 +30,4 @@
          });
          })
       </script>
-   </body>
-</html>
+
