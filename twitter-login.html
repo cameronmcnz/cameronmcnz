@@ -20,8 +20,10 @@ Twitter Login
 
       <script>
          $('#twitter-button').on('click', function() {
+         console.log("Doing the login");
          // Initialize with your OAuth.io app public key
          OAuth.initialize('S3dUX9dCQHwedq86nA5fzLCJ0');
+         console.log("Initialized");
          // Use popup for OAuth
          OAuth.popup('twitter').then(twitter => {
          console.log('twitter:', twitter);
