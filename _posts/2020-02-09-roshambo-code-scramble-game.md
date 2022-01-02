@@ -64,7 +64,7 @@ result = "tie";
 
 &lt;/body&gt;
 
-Which one will it be?&lt;br/&gt;
+&lt;p&gt;Which one will it be?&lt;/p&gt;
 
 &lt;/script&gt;
 
