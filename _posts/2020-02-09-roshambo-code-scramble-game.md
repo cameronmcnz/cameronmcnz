@@ -50,7 +50,7 @@ It's better to copy from the raw, unformatted text. Copying the text below might
 
 if (clientGesture=='scissors') {
 
-&lt; title&gt;Rock Paper Roshambo in JavaScript &lt;/title&gt;
+&lt;title&gt;Rock Paper Roshambo in JavaScript &lt;/title&gt;
 
 &lt;div id="results"&gt;&lt;/div&gt;
 
