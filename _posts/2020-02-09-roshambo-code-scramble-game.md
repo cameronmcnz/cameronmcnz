@@ -40,10 +40,17 @@ It's better to copy from the raw, unformatted text. Copying the text below might
 
 
 <pre>
+} // end if
+
+} // end if
+
+} // end if
+
+} // end method
 
 if (clientGesture=='scissors') {
 
-//server always chooses rock
+&lt; title&gt;Rock Paper Roshambo in JavaScript &lt;/title&gt;
 
 &lt;div id="results"&gt;&lt;/div&gt;
 
