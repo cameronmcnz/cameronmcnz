@@ -13,7 +13,7 @@ keywords: apache aws http server installation apachelounce ahs bitnami apache24 
 
 # Install HTTP Sever Apache 2.4 on Windows
 
-To install the Apache 2.4 HTTP Server on Windows 10, first head over to the Apache HTTP Server website and click on the download button. 
+To <a href="https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Install-Apache-Web-Server-24-Windows-10-ServerRoot-Error">install the Apache 2.4 HTTP Server on Windows 10,</a> first head over to the Apache HTTP Server website and click on the download button. 
 
 Then click "Files for Microsoft" because you can't get the <a href="http://www.scrumtuous.com/aws/exam/2022/01/01/apache-web-server-installation-windows.html">Apache installation</a> media directly from apache.
 
