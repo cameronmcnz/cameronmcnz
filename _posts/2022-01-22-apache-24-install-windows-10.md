@@ -17,7 +17,7 @@ To install the Apache 2.4 HTTP Server on Windows 10, first head over to the Apac
 
 Then click "Files for Microsoft" because you can't get the <a href="http://www.scrumtuous.com/aws/exam/2022/01/01/apache-web-server-installation-windows.html">Apache installation</a> media directly from apache.
 
-I like the Apache lounge. Go there and and download the Apache 2.4 HTTP web server install ZIP file. 
+I like the Apache lounge. Go there and you can download the Apache 2.4 HTTP Web Server install ZIP file. 
 
 ## Apache Web Server Download
 
