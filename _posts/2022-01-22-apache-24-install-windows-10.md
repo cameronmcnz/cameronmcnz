@@ -3,7 +3,7 @@ layout: mcnz/basic-post
 author: Cameron McKenzie
 title: How to install Apache 2.4 on Windows 10 Tutorial (Apache HTTP Web Server AWS)
 blurb: Here's a quick installation of Apache on Windoews 10 example for anyone who wants to install version 2.4 of Apache's HTTP Server locally.
-canonical: canonical: https://www.mcnz.com/2022/01/22/apache-24-install-windows-10.html
+canonical: https://www.mcnz.com/2022/01/22/apache-24-install-windows-10.html
 keywords: apache aws http server installation apachelounce ahs bitnami apache24 windows windows10
 ---
 
