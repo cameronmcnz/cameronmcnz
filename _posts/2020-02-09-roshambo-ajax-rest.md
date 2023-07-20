@@ -12,17 +12,6 @@ If you're really clever, you'll integrate the following code into your script. B
 
 Again, the [raw code is here](https://raw.githubusercontent.com/cameronmcnz/cameronmcnz/main/ajax-javascript.txt).
 
-The RESTful web service URL may change from time to time, so check for the correct URL. Right now this should work:
-
-http://keepingthescore-env.eba-cgup4jh6.us-east-1.elasticbeanstalk.com/score/
-
-or
-
-http://3.222.19.178/score
-
-http://3.222.19.178/score/increasewins
-
-
 
 If you copy and paste the code below, with the correct URL, you may pull in unwanted HTML characters from the webpage. Copying the raw code is the safest bet.
 
@@ -34,7 +23,7 @@ Make sure you use the <b>correct URL!</b>
 
 
 &lt;script&gt;
-let url = "http://3.222.19.178/score/increasewins";
+let url = "http://localhost:8080/score/increasewins";
 let ajaxRequest = new XMLHttpRequest();
 
 ajaxRequest.onreadystatechange = function() {
