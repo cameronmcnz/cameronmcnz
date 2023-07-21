@@ -30,6 +30,7 @@ ajaxRequest.onreadystatechange = function() {
     if (this.readyState == 4 &amp;&amp; this.status == 200) {
 		console.log(this.responseText);
         let score = JSON.parse(this.responseText);
+        // possibly  document.getElementById("wins").innerHTML = this.responseText if the API returns an int not a score;
         document.getElementById("wins").innerHTML = score.wins;
     }
 };
