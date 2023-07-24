@@ -19,7 +19,7 @@
 
 updateServer = function(postfix){
 	console.log(result);
-	let url = "http://100.25.148.119:8080/score/increase" + postfix;
+	let url = "http://3.236.56.24:8080/score/increase" + postfix;
 	console.log(url);
 	
 	let ajaxRequest = new XMLHttpRequest();
@@ -36,7 +36,7 @@ updateServer = function(postfix){
 
 updateDisplayedScore = function(clientGesture){
     // @CrossOrigin CORS support on REST API required for this
-	let url = "http://100.25.148.119:8080/score"
+	let url = "http://3.236.56.24:8080/score"
 	let ajaxRequest = new XMLHttpRequest();
 	ajaxRequest.open("GET", url, true);
 	ajaxRequest.send();
