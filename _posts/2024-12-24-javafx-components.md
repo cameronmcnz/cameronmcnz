@@ -1,8 +1,8 @@
 ---
 layout: mcnz/basic-post
 author: Cameron McKenzie
-title: Introduction to JavaFX 
-blurb: Let's get started with JavaFX
+title: JavaFX Components and the VBox
+blurb: Get familiar with the various JavaFX components!
 ---
 
 # Part 3: JavaFX Layouts and Scenes
