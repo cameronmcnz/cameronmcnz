@@ -65,11 +65,11 @@ These are the styles to be used to format the labels and their content.
 
 2. **Label Style**:
    ```java
-   label2.setStyle("-fx-background-color: lightgreen; -fx-alignment: center; -fx-padding: 20 0 20 0; -fx-font-size: 14px; -fx-font-weight: bold; -fx-min-height: 100px;");
+   label2.setStyle("-fx-background-color: lightgreen; -fx-alignment: center; -fx-padding: 20 10 20 10; -fx-font-size: 14px; -fx-font-weight: bold; -fx-min-height: 100px;");
    ```
    - **`-fx-background-color`**: Sets the background color of the label to light green.
    - **`-fx-alignment`**: Aligns the text within the label to the center.
-   - **`-fx-padding`**: Adds padding inside the label. The values `20 0 20 0` specify 20 pixels of padding at the top and bottom, and 0 pixels on the sides.
+   - **`-fx-padding`**: Adds padding inside the label. The values `20 10 20 10` specify 20 pixels of padding at the top and bottom, and 10 pixels on the sides.
    - **`-fx-font-size`**: Sets the font size of the text to 14 pixels.
    - **`-fx-font-weight`**: Makes the text bold.
    - **`-fx-min-height`**: Ensures the label has a minimum height of 100 pixels, allowing space for alignment to be noticeable.
@@ -97,27 +97,27 @@ public class StyledVBoxExample extends Application {
 
         // Create labels with unique styles and alignment
         Label label1 = new Label("Background: Light Blue, Aligned: Top-Left");
-        label1.setStyle("-fx-background-color: lightblue; -fx-alignment: top-left; -fx-padding: 20 0 20 0; -fx-font-size: 12px;  -fx-min-height: 100px;");
+        label1.setStyle("-fx-background-color: lightblue; -fx-alignment: top-left; -fx-padding: 20 10 20 10; -fx-font-size: 12px;  -fx-min-height: 100px;");
         label1.setMaxWidth(Double.MAX_VALUE);
 
         Label label2 = new Label("Background: Light Green, Aligned: Center");
-        label2.setStyle("-fx-background-color: lightgreen; -fx-alignment: center; -fx-padding: 20 0 20 0; -fx-font-size: 14px; -fx-font-weight: bold; -fx-min-height: 100px;");
+        label2.setStyle("-fx-background-color: lightgreen; -fx-alignment: center; -fx-padding: 20 10 20 10; -fx-font-size: 14px; -fx-font-weight: bold; -fx-min-height: 100px;");
         label2.setMaxWidth(Double.MAX_VALUE);
 
         Label label3 = new Label("Background: Light Pink, Aligned: Top-Right");
-        label3.setStyle("-fx-background-color: lightpink; -fx-alignment: top-right; -fx-padding: 20 0 20 0; -fx-font-size: 16px;  -fx-min-height: 100px;");
+        label3.setStyle("-fx-background-color: lightpink; -fx-alignment: top-right; -fx-padding: 20 10 20 10; -fx-font-size: 16px;  -fx-min-height: 100px;");
         label3.setMaxWidth(Double.MAX_VALUE);
 
         Label label4 = new Label("Background: Light Yellow, Aligned: Bottom-Left");
-        label4.setStyle("-fx-background-color: lightyellow; -fx-alignment: bottom-left; -fx-padding: 20 0 20 0; -fx-font-size: 18px; -fx-font-weight: bold; -fx-min-height: 100px;");
+        label4.setStyle("-fx-background-color: lightyellow; -fx-alignment: bottom-left; -fx-padding: 20 10 20 10; -fx-font-size: 18px; -fx-font-weight: bold; -fx-min-height: 100px;");
         label4.setMaxWidth(Double.MAX_VALUE);
 
         Label label5 = new Label("Background: Light Coral, Aligned: Bottom-Center");
-        label5.setStyle("-fx-background-color: lightcoral; -fx-alignment: bottom-center; -fx-padding: 20 0 20 0; -fx-font-size: 20px; -fx-font-style: italic; -fx-min-height: 100px;");
+        label5.setStyle("-fx-background-color: lightcoral; -fx-alignment: bottom-center; -fx-padding: 20 10 20 10; -fx-font-size: 20px; -fx-font-style: italic; -fx-min-height: 100px;");
         label5.setMaxWidth(Double.MAX_VALUE);
 
         Label label6 = new Label("Background: Dark Cyan, Aligned: Bottom-Right");
-        label6.setStyle("-fx-background-color: darkcyan; -fx-alignment: bottom-right; -fx-padding: 20 0 20 0; -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white; -fx-min-height: 100px;");
+        label6.setStyle("-fx-background-color: darkcyan; -fx-alignment: bottom-right; -fx-padding: 20 10 20 10; -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white; -fx-min-height: 100px;");
         label6.setMaxWidth(Double.MAX_VALUE);
 
         // Add labels to the VBox
