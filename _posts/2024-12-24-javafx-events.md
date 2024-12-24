@@ -1,7 +1,7 @@
 ---
 layout: mcnz/basic-post
 author: Cameron McKenzie
-title: Introduction to JavaFX Events
+title: JavaFX Events, Controls and User Input
 blurb: Here's how to respond to a simple button click in JavaFX
 ---
 
