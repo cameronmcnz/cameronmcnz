@@ -270,4 +270,187 @@ public class DynamicFormExample extends Application {
 }
 ```
 
+# Part 8B: Working with JavaFX `ObservableList`
+
+## Introduction to `ObservableList`
+
+In JavaFX, `ObservableList` is a specialized list that automatically notifies listeners about changes to its elements. This makes it ideal for creating dynamic, responsive UIs where the display updates automatically as data changes.
+
 ---
+
+## Key Features of `ObservableList`
+
+1. **Observability**:
+   - Automatically notifies listeners when items are added, removed, or updated.
+
+2. **Integration with JavaFX Controls**:
+   - Directly used in controls like `ListView`, `TableView`, and `ComboBox`.
+
+3. **Listener Support**:
+   - Supports adding listeners to react to changes in the list.
+
+---
+
+## Creating and Using an `ObservableList`
+
+### Creating an `ObservableList`
+Use the `FXCollections.observableArrayList()` method to create an `ObservableList`.
+
+```java
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+ObservableList<String> items = FXCollections.observableArrayList("Item 1", "Item 2", "Item 3");
+```
+
+### Adding and Removing Items
+```java
+items.add("Item 4"); // Adds a new item
+items.remove(0); // Removes the first item
+items.set(1, "Updated Item 2"); // Updates the second item
+```
+
+### Listening to Changes
+Add a listener to observe changes in the list.
+
+```java
+items.addListener((change) -> {
+    while (change.next()) {
+        if (change.wasAdded()) {
+            System.out.println("Added: " + change.getAddedSubList());
+        }
+        if (change.wasRemoved()) {
+            System.out.println("Removed: " + change.getRemoved());
+        }
+    }
+});
+```
+
+---
+
+## Important Methods in `ObservableList`
+
+1. **`add(E element)`**:
+   - Adds an element to the list.
+
+2. **`remove(int index)`**:
+   - Removes the element at the specified index.
+
+3. **`set(int index, E element)`**:
+   - Replaces the element at the specified index.
+
+4. **`addAll(Collection<? extends E> elements)`**:
+   - Adds a collection of elements to the list.
+
+5. **`clear()`**:
+   - Removes all elements from the list.
+
+6. **`addListener(ListChangeListener<? super E> listener)`**:
+   - Adds a listener to observe changes.
+
+---
+
+## Example Application: Dynamic ListView with ObservableList
+
+This example demonstrates how to use an `ObservableList` with a `ListView`. Users can add, remove, and observe changes in real-time.
+
+### Code Example
+```java
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class ObservableListExample extends Application {
+
+    @Override
+    public void start(Stage stage) {
+        VBox root = new VBox(10);
+
+        // Create an ObservableList
+        ObservableList<String> items = FXCollections.observableArrayList("Task 1", "Task 2", "Task 3");
+
+        // ListView connected to the ObservableList
+        ListView<String> listView = new ListView<>(items);
+
+        // Input field for adding new items
+        TextField inputField = new TextField();
+        inputField.setPromptText("Enter a task");
+
+        // Add button
+        Button addButton = new Button("Add");
+        addButton.setOnAction(e -> {
+            String newItem = inputField.getText().trim();
+            if (!newItem.isEmpty()) {
+                items.add(newItem);
+                inputField.clear();
+            }
+        });
+
+        // Remove button
+        Button removeButton = new Button("Remove Selected");
+        removeButton.setOnAction(e -> {
+            String selectedItem = listView.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                items.remove(selectedItem);
+            }
+        });
+
+        // Add listener to observe changes in the ObservableList
+        items.addListener((change) -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    System.out.println("Added: " + change.getAddedSubList());
+                }
+                if (change.wasRemoved()) {
+                    System.out.println("Removed: " + change.getRemoved());
+                }
+            }
+        });
+
+        // Layout
+        root.getChildren().addAll(new Label("Dynamic ListView"), inputField, addButton, removeButton, listView);
+
+        // Scene setup
+        Scene scene = new Scene(root, 400, 300);
+        stage.setScene(scene);
+        stage.setTitle("ObservableList Example");
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+---
+
+## How It Works
+
+1. **`ObservableList`**:
+   - Holds the list of items and automatically notifies the `ListView` when it changes.
+
+2. **`ListView`**:
+   - Displays the contents of the `ObservableList`.
+
+3. **Buttons**:
+   - Add and remove items from the list dynamically.
+
+4. **Listeners**:
+   - Log changes to the console for debugging or tracking purposes.
+
+---
+
+### When to Use `ObservableList`
+
+- When building dynamic UIs where the display updates based on changes in the data.
+- When working with JavaFX controls like `ListView`, `TableView`, and `ComboBox`.
+- When you need to observe and react to changes in a collection.
+
+---
+
+This extension provides a deep dive into `ObservableList`, showing how to integrate it into practical applications. 
