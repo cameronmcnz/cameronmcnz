@@ -1,0 +1,164 @@
+---
+layout: mcnz/basic-post
+author: Cameron McKenzie
+title: Styling JavaFX Components with CSS
+blurb: Here's how to style your JavaFX components with CSS compliant styles.
+---
+
+# Part 4: JavaFX Styles and CSS
+
+## Styling in JavaFX
+
+JavaFX is **CSS compatible**, allowing developers to use CSS to style their UI components. This feature is highly beneficial because:
+- It separates the style from the application logic, promoting cleaner and more maintainable code.
+- Developers familiar with web development can leverage their CSS knowledge to create visually appealing JavaFX applications.
+- Styling can be reused across multiple components or even different applications through external CSS files.
+
+### How CSS is Used in JavaFX
+JavaFX components can be styled using:
+1. **Inline CSS**: Directly applied to a component using the `setStyle` method.
+2. **External CSS Files**: Applied to a `Scene` or specific components by linking a `.css` file.
+
+Example of applying an external CSS file:
+```java
+scene.getStylesheets().add("styles.css");
+```
+
+### Benefits of Using CSS in JavaFX
+- Consistency: Style multiple components with the same rules.
+- Flexibility: Modify styles dynamically at runtime.
+- Reusability: Create a single CSS file for styling multiple scenes or applications.
+
+---
+
+## Starter Example
+
+Let’s start with a simple example to get familiar with JavaFX styling. We will:
+- Create a styled `VBox` container.
+- Add a single styled `Label` to the container.
+- Display it to see the effect of the styles.
+
+This approach allows us to focus on understanding how styles are applied to a single component before adding more labels with varied styles or additional components.
+
+Once the first label is styled and displayed, we will extend the example to include multiple labels and demonstrate how different styles impact the display, as well as how additional components can be added to the `VBox`.
+
+## Example: Styling a VBox Layout
+
+We will create a `VBox` layout with 6 labels. Each label will have:
+- A unique pastel background color (with the last label darker).
+- Different alignment for each label to demonstrate variety.
+- The text of each label will describe its style.
+- Padding to create space inside the labels.
+- Extra height to better demonstrate top and bottom alignments.
+
+### Understanding the Styles
+
+This is how we are going to style the VBox, which is the container component that holds each of the labels.
+
+1. **VBox Style**:
+   ```java
+   vbox.setStyle("-fx-padding: 10 10 10 10;"); // Padding on all sides
+   ```
+   - **`-fx-padding`**: Adds padding around the VBox. The values `10 10 10 10` specify padding of 10 pixels on the top, right, bottom, and left, respectively.
+
+These are the styles to be used to format the labels and their content.
+
+2. **Label Style**:
+   ```java
+   label2.setStyle("-fx-background-color: lightgreen; -fx-alignment: center; -fx-padding: 20 0 20 0; -fx-font-size: 14px; -fx-font-weight: bold; -fx-min-height: 100px;");
+   ```
+   - **`-fx-background-color`**: Sets the background color of the label to light green.
+   - **`-fx-alignment`**: Aligns the text within the label to the center.
+   - **`-fx-padding`**: Adds padding inside the label. The values `20 0 20 0` specify 20 pixels of padding at the top and bottom, and 0 pixels on the sides.
+   - **`-fx-font-size`**: Sets the font size of the text to 14 pixels.
+   - **`-fx-font-weight`**: Makes the text bold.
+   - **`-fx-min-height`**: Ensures the label has a minimum height of 100 pixels, allowing space for alignment to be noticeable.
+
+We will create a `VBox` layout with 6 labels. Each label will have:
+- A unique pastel background color (with the last label darker).
+- Different alignment for each label to demonstrate variety.
+- The text of each label will describe its style.
+- Padding to create space inside the labels.
+- Extra height to better demonstrate top and bottom alignments.
+
+### Code Example:
+```java
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class StyledVBoxExample extends Application {
+    @Override
+    public void start(Stage stage) {
+        VBox vbox = new VBox(10); // Vertical spacing of 10px
+        vbox.setStyle("-fx-padding: 10 10 10 10;"); // Padding on all sides
+
+        // Create labels with unique styles and alignment
+        Label label1 = new Label("Background: Light Blue, Aligned: Top-Left");
+        label1.setStyle("-fx-background-color: lightblue; -fx-alignment: top-left; -fx-padding: 20 0 20 0; -fx-font-size: 12px;  -fx-min-height: 100px;");
+        label1.setMaxWidth(Double.MAX_VALUE);
+
+        Label label2 = new Label("Background: Light Green, Aligned: Center");
+        label2.setStyle("-fx-background-color: lightgreen; -fx-alignment: center; -fx-padding: 20 0 20 0; -fx-font-size: 14px; -fx-font-weight: bold; -fx-min-height: 100px;");
+        label2.setMaxWidth(Double.MAX_VALUE);
+
+        Label label3 = new Label("Background: Light Pink, Aligned: Top-Right");
+        label3.setStyle("-fx-background-color: lightpink; -fx-alignment: top-right; -fx-padding: 20 0 20 0; -fx-font-size: 16px;  -fx-min-height: 100px;");
+        label3.setMaxWidth(Double.MAX_VALUE);
+
+        Label label4 = new Label("Background: Light Yellow, Aligned: Bottom-Left");
+        label4.setStyle("-fx-background-color: lightyellow; -fx-alignment: bottom-left; -fx-padding: 20 0 20 0; -fx-font-size: 18px; -fx-font-weight: bold; -fx-min-height: 100px;");
+        label4.setMaxWidth(Double.MAX_VALUE);
+
+        Label label5 = new Label("Background: Light Coral, Aligned: Bottom-Center");
+        label5.setStyle("-fx-background-color: lightcoral; -fx-alignment: bottom-center; -fx-padding: 20 0 20 0; -fx-font-size: 20px; -fx-font-style: italic; -fx-min-height: 100px;");
+        label5.setMaxWidth(Double.MAX_VALUE);
+
+        Label label6 = new Label("Background: Dark Cyan, Aligned: Bottom-Right");
+        label6.setStyle("-fx-background-color: darkcyan; -fx-alignment: bottom-right; -fx-padding: 20 0 20 0; -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white; -fx-min-height: 100px;");
+        label6.setMaxWidth(Double.MAX_VALUE);
+
+        // Add labels to the VBox
+        vbox.getChildren().addAll(label1, label2, label3, label4, label5, label6);
+
+        // Create a scene and set it on the stage
+        Scene scene = new Scene(vbox, 1000, 1000);
+        stage.setScene(scene);
+        stage.setTitle("Styled VBox Example");
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+---
+
+## Learning More About JavaFX Styles
+
+To master JavaFX styling, you can explore the following resources:
+1. **Official Documentation**: The [JavaFX CSS Reference Guide](https://openjfx.io/javadoc/) provides detailed information on all supported CSS properties.
+2. **Community Tutorials**: Websites like Baeldung, GeeksforGeeks, and DZone offer examples and practical tips.
+3. **Books**: Books like *"JavaFX: A Beginner's Guide"* and *"Mastering JavaFX"* include sections dedicated to styling.
+
+---
+
+## Challenge: Enhance the Previous Layout
+
+Take the exercise from the previous part and style its components to make the layout visually appealing. Here are some suggestions:
+- **Label**: Add a background color, padding, and center the text.
+- **TextField**: Increase its font size and add padding.
+- **Button**: Add a background color, padding, and slightly increase the font size.
+
+For example:
+```java
+label.setStyle("-fx-background-color: lightblue; -fx-padding: 10; -fx-font-size: 16px; -fx-alignment: center;");
+textField.setStyle("-fx-font-size: 14px; -fx-padding: 5;");
+button.setStyle("-fx-background-color: lightgreen; -fx-font-size: 14px; -fx-padding: 10;");
+```
+
+Experiment with these styles and see how they improve the appearance of your layout!
