@@ -114,13 +114,76 @@ public class HelloWorldApp extends Application {
 
 ---
 
+The provided JavaFX code demonstrates a simple "Hello, World!" application. Here's what each part of the code does:
+
+### Code Breakdown:
+
+1. **Import Statements**:
+   - `javafx.application.Application`: The base class for JavaFX applications.
+   - `javafx.scene.Scene`: Represents the container for all content in a JavaFX application.
+   - `javafx.scene.control.Label`: A UI control to display text.
+   - `javafx.stage.Stage`: Represents the main window (or primary stage) of the application.
+
+2. **Main Class**:
+   ```java
+   public class HelloWorldApp extends Application {
+   ```
+   - The class extends `Application`, making it a JavaFX application. This is required to use the JavaFX framework.
+
+3. **`start` Method**:
+   ```java
+   public void start(Stage stage) {
+   ```
+   - The `start` method is the entry point of the JavaFX application. It is automatically called after the application is launched.
+
+4. **Creating a Label**:
+   ```java
+   Label label = new Label("Hello, World!");
+   ```
+   - A `Label` is created to display the text "Hello, World!" on the screen.
+
+5. **Creating a Scene**:
+   ```java
+   Scene scene = new Scene(label, 400, 200);
+   ```
+   - A `Scene` is created to hold the `Label`. The scene defines the width (400) and height (200) of the application window.
+
+6. **Setting the Scene on the Stage**:
+   ```java
+   stage.setScene(scene);
+   ```
+   - The `Scene` is set on the `Stage`, which is the main window of the application.
+
+7. **Setting the Window Title**:
+   ```java
+   stage.setTitle("Hello, World!");
+   ```
+   - The title of the `Stage` is set to "Hello, World!" which appears in the title bar of the application window.
+
+8. **Displaying the Stage**:
+   ```java
+   stage.show();
+   ```
+   - The `show` method makes the `Stage` visible on the screen.
+
+9. **`main` Method**:
+   ```java
+   public static void main(String[] args) {
+       launch(args);
+   }
+   ```
+   - The `main` method is the entry point of the Java application. It calls `launch(args)` to start the JavaFX application, which initializes the JavaFX runtime and calls the `start` method.
+
+### Execution Flow:
+1. The `main` method launches the application.
+2. The JavaFX runtime initializes and calls the `start` method.
+3. A `Label` is created and added to a `Scene`.
+4. The `Scene` is set on the `Stage`, which is then shown on the screen.
+5. The application displays a window with "Hello, World!" in the center.
+
+### Result:
+When you run the program, a window opens with the title "Hello, World!" and the text "Hello, World!" displayed within it. The window size is 400 pixels wide and 200 pixels high.
+
 Congratulations! You’ve set up JavaFX and created your first application. In the next part, you’ll dive into layouts and scenes to design more complex user interfaces.
 
 
-#### Gitflow Release Finished
-
-You want those fixes that would happen here to make sure they find their way into development too but of course it gets put into master and now one last thing git tag dash l for list and you see boom we've got another tag in there 0 2 0 because it was 0 2 0 that we released into the master and the develop branches.
-
-And there you go, that's how the get flow release branch works. That's how easy it is to work with the gitflow release branch in git flow. 
-
-If you enjoyed that tutorial why don't you head over to the [serverside.com](https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/init-Gitflow-example-workflow-tutorial). I'm the editor in chief over there we've got lots of great tutorials on git github git flow devops enterprise software development you name it if you're interested in my personal antics you can always follow me on twitter at cameronmcnz and subscribe on the youtube
