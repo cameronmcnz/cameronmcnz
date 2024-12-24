@@ -1,8 +1,8 @@
 ---
 layout: mcnz/basic-post
 author: Cameron McKenzie
-title: Introduction to JavaFX Events
-blurb: Here's how to respond to a simple button click in JavaFX
+title: Introduction to JavaFX 
+blurb: Let's get started with JavaFX
 ---
 
 <div class="embed-responsive embed-responsive-16by9">
