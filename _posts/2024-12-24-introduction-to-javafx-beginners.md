@@ -102,3 +102,32 @@ public class HelloWorldApp extends Application {
 4. **Stage**: Represents the main window of the application.
 
 ---
+
+### What is a Scene?
+
+In JavaFX, whenever you create an application you need to create a Scene, set that scene on the JavaFX stage, and finally show the stage to bring your app to life. But what exactly is a Scene and a Stage?
+
+Well, imagine you're at a theater watching a play. The **stage** is like the big platform where the actors perform, and the **scene** is everything that's happening on that stage – the actors, the props, and the story they’re telling.
+
+In JavaFX:
+- The **stage** is the theater itself. It’s the space where everything gets set up for the audience to watch.
+- The **scene** is what’s happening on the stage – the decorations, the actors, and the actions they perform.
+
+So, when we write:
+
+```java
+Stage stage = new Stage();
+Scene scene = new Scene(label, 400, 200);
+stage.setScene(scene);
+```
+
+It’s like saying:
+1. "Here’s the theater (**stage**) where the play will happen."
+2. "Here’s the setup for the play (**scene**) – maybe a chair, a table, and an actor."
+3. "Now we’re putting the play (**scene**) onto the theater’s stage (**stage**) so the audience can watch."
+
+Without the stage, there would be no place for the play to happen. And without the scene, the stage would be empty and boring. They need each other to make the play exciting and fun for everyone!
+
+---
+
+This keeps the analogy engaging while making it relatable and easy to understand. 😊
