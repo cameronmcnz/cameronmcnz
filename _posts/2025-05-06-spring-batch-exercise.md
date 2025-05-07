@@ -108,6 +108,8 @@ UnmaskedItemProcessor (include the listener)
 MaskingExecutionListener
 MaskingSkippedListener
 
+Annotate appropriately and it should run.
+
 BONUS
 
 Add a MaskingChunkListener and MaskingRetryListener
