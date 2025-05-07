@@ -210,9 +210,9 @@ public class MySpringBatchExampleApplication implements ItemProcessor<String, St
 				.build();
 	}
 
-	protected Job maskingJob(JobRepository jobRepository, Step maskingStep, Step unblankingStep, MySpringBatchExampleApplication listener) {
+	protected Job maskingJob(JobRepository jobRepository, Step maskingStep, MySpringBatchExampleApplication listener) {
 		return new JobBuilder("masking-job", jobRepository)
-				.start(maskingStep).next(unblankingStep).listener(listener)
+				.start(maskingStep).listener(listener)
 				.build();
 	}
 	
