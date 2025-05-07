@@ -153,6 +153,8 @@ This job only runs in prod.
 
 Your configuration will now have two methods that return a Step and two methods that return a Job. How will Spring know when to use which one?
 
+You may need to use named @Bean annotations, Qualifier annotations and maybe even a @Profile("prod") and @Profile("dev") annotations.
+
 
 
  */
