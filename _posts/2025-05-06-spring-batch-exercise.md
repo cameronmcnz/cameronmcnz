@@ -9,40 +9,6 @@ blurb: Just a little fun with Spring Batch
 
 Let's play around with this. Instructions in the code!
 
-```
-package com.mcnz.batch;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import org.springframework.batch.core.BatchStatus;
-import org.springframework.batch.core.ItemProcessListener;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobExecutionListener;
-import org.springframework.batch.core.SkipListener;
-import org.springframework.batch.core.Step;
-import org.springframework.batch.core.job.builder.JobBuilder;
-import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.FlatFileItemWriter;
-import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
-import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.PlatformTransactionManager;
-
 
 /*
 Lab files for future reference:
@@ -53,6 +19,8 @@ Here is the exercise:
 STEP 0
 
 Create a Spring project with Batch and H2 dependencies
+Making the package name com.mcnz.batch might make things easier.
+Name the class MySpringBatchExampleApplication too if you can when you create the project. That'll also make it easier.
 
 Step 1
 
@@ -155,6 +123,44 @@ Step 10
 BONUS: Replace the Spring Boot banner with your own custom banner.
 
  */
+
+ 
+```
+package com.mcnz.batch;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import org.springframework.batch.core.BatchStatus;
+import org.springframework.batch.core.ItemProcessListener;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobExecutionListener;
+import org.springframework.batch.core.SkipListener;
+import org.springframework.batch.core.Step;
+import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.FlatFileItemWriter;
+import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
+import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.PlatformTransactionManager;
+
+
+
 
 
 public class MySpringBatchExampleApplication implements ItemProcessor<String, String>, JobExecutionListener, SkipListener<String, String>, ItemProcessListener<String, String> {
