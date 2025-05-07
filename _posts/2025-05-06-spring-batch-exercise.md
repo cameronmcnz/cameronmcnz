@@ -73,6 +73,8 @@ path.file.input  = data-file.csv
 path.file.output = src/main/resources/masked-prod-data.csv
 spring.main.banner-mode=off
 
+RUN THE APPLICATION... IS THE CONSOLE OUTPUT DIFFERENT? Why?
+
 
 STEP 2
 
