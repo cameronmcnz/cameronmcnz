@@ -50,6 +50,10 @@ STEP 0
 
 Create a Spring project with Batch and H2 dependencies
 
+If the base package name is com.mcnz.batch your life will be a bit easier.
+
+Other Maven or Gradle settings don't matter much. Just create the project!
+
 Step 1
 
 Add the following to application.properties:
@@ -72,8 +76,6 @@ spring.config.activate.on-profile=prod
 path.file.input  = data-file.csv
 path.file.output = src/main/resources/masked-prod-data.csv
 spring.main.banner-mode=off
-
-RUN THE APPLICATION... IS THE CONSOLE OUTPUT DIFFERENT? Why?
 
 
 STEP 2
@@ -109,8 +111,6 @@ BatchConfiguration
 UnmaskedItemProcessor (include the listener)
 MaskingExecutionListener
 MaskingSkippedListener
-
-Annotate appropriately and it should run.
 
 BONUS
 
@@ -153,8 +153,6 @@ This job only runs in prod.
 
 Your configuration will now have two methods that return a Step and two methods that return a Job. How will Spring know when to use which one?
 
-You may need to use named @Bean annotations, Qualifier annotations and maybe even a @Profile("prod") and @Profile("dev") annotations.
-
 
 
  */
@@ -171,11 +169,73 @@ public class MySpringBatchExampleApplication implements ItemProcessor<String, St
 	@Value("${spring.profiles.active}")
 	String activeProfile;
 	
+	public static void main(String[] args) {
+		SpringApplication.run(MySpringBatchExampleApplication.class, args);
+	}
+	
+	protected FlatFileItemReader<String> reader() {
+		return new FlatFileItemReaderBuilder<String>()
+				.resource(new ClassPathResource("data-file.csv"))
+				.name("csv-reader")
+				.lineMapper((line, lineNumber) -> line)
+				.build();
+	}
 	
 	public void onSkipInRead(Throwable t) {
 		System.out.println("A record was skipped for some reason?");
 	}
+	
+	
+	protected FlatFileItemWriter<String> writer() {
+		String fileLocation = "src/main/resources/masked-data.csv";
+		return new FlatFileItemWriterBuilder<String>()
+				.name("csv-writer")
+				.resource(new FileSystemResource(fileLocation))
+				.lineAggregator(item -> item)
+				.build();
+	}
 
+	public void onSkipInWrite(String item, Throwable t) {
+		System.out.println("There has been a skip in the write.");
+	}
+	
+	public void beforeProcess(String item) {
+		System.out.println("This is called before the itme is processed.");
+	}
+	
+	public String process(String message) throws Exception {
+		return message.replaceAll("\\d", "*");
+	}
+	
+	public void onSkipInProcess(String item, Throwable t) {
+		System.out.println("There has been a skip in the process.");
+	}
+	
+	public void afterProcess(String item, String result) {
+		System.out.println("This is called after the item is processed.");
+	}
+	
+	protected Step maskingStep(JobRepository jobRepo, PlatformTransactionManager manager,
+			FlatFileItemReader<String> reader, MySpringBatchExampleApplication processor, FlatFileItemWriter<String> writer) {
+		
+		return new StepBuilder("masking-step", jobRepo)
+				.<String, String> chunk(2, manager)
+				.reader(reader)
+				.processor(processor)
+				.writer(writer)
+				.build();
+	}
+	
+	public void beforeJob(JobExecution jobExecution) {
+		System.out.println("The job is about to start!!!");
+	}
+	
+	protected Job maskingJob(JobRepository jobRepository, Step maskingStep, MySpringBatchExampleApplication listener) {
+		return new JobBuilder("masking-job", jobRepository)
+				.start(maskingStep).listener(listener)
+				.build();
+	}
+	
 	public void afterJob(JobExecution jobExecution) {
 		if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
 			
@@ -190,66 +250,8 @@ public class MySpringBatchExampleApplication implements ItemProcessor<String, St
 			System.out.println("The currently active profile is: " + activeProfile);
 		}
 	}
-	
-	public void beforeJob(JobExecution jobExecution) {
-		System.out.println("The job is about to start!!!");
-	}
-	
-	public String process(String message) throws Exception {
-		return message.replaceAll("\\d", "*");
-	}
-	
-	protected Step maskingStep(JobRepository jobRepo, PlatformTransactionManager manager,
-			FlatFileItemReader<String> reader, MySpringBatchExampleApplication processor, FlatFileItemWriter<String> writer) {
-		
-		return new StepBuilder("masking-step", jobRepo)
-				.<String, String> chunk(2, manager)
-				.reader(reader)
-				.processor(processor)
-				.writer(writer)
-				.build();
-	}
-
-	protected Job maskingJob(JobRepository jobRepository, Step maskingStep, MySpringBatchExampleApplication listener) {
-		return new JobBuilder("masking-job", jobRepository)
-				.start(maskingStep).listener(listener)
-				.build();
-	}
-	
-	public void afterProcess(String item, String result) {
-		System.out.println("This is called after the item is processed.");
-	}
-	
-	public void onProcessError(String item, Exception e) {
-		System.out.println("This is called when an error happens during item processing.");
-	}
-	
-	protected FlatFileItemReader<String> reader() {
-		return new FlatFileItemReaderBuilder<String>()
-				.resource(new ClassPathResource("data-file.csv"))
-				.name("csv-reader")
-				.lineMapper((line, lineNumber) -> line)
-				.build();
-	}
-	
-	public static void main(String[] args) {
-		SpringApplication.run(MySpringBatchExampleApplication.class, args);
-	}
-	
-	protected FlatFileItemWriter<String> writer() {
-		String fileLocation = "src/main/resources/masked-data.csv";
-		return new FlatFileItemWriterBuilder<String>()
-				.name("csv-writer")
-				.resource(new FileSystemResource(fileLocation))
-				.lineAggregator(item -> item)
-				.build();
-	}
-
-	public void beforeProcess(String item) {
-		System.out.println("This is called before the itme is processed.");
-	}
-
 }
+
 
 
 ```
