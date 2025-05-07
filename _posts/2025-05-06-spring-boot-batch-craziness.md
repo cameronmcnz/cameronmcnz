@@ -1,8 +1,8 @@
 ---
 layout: mcnz/basic-post
 author: Cameron McKenzie
-title: Spring Batch Exercise Solution
-blurb: Just a little solution to some Spring Batch stuff.
+title: Underwater cannon cleaning
+blurb: How to clean cannons that are underwater.
 ---
 
 Here's the solution all in one file. 
