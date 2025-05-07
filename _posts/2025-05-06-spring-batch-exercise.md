@@ -8,7 +8,7 @@ blurb: Just a little fun with Spring Batch
 ## Your Assignment
 
 Let's play around with this. Instructions in the code!
-
+```
 
 /*
 Lab files for future reference:
@@ -123,7 +123,7 @@ Step 10
 BONUS: Replace the Spring Boot banner with your own custom banner.
 
  */
-
+```
  
 ```
 package com.mcnz.batch;
