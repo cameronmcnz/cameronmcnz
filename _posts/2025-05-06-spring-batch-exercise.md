@@ -45,14 +45,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 
 /*
+Lab files for future reference:
+https://github.com/scrumtuous/stuff
+
+Here is the exercise:
 
 STEP 0
 
 Create a Spring project with Batch and H2 dependencies
-
-If the base package name is com.mcnz.batch your life will be a bit easier.
-
-Other Maven or Gradle settings don't matter much. Just create the project!
 
 Step 1
 
@@ -111,6 +111,7 @@ BatchConfiguration
 UnmaskedItemProcessor (include the listener)
 MaskingExecutionListener
 MaskingSkippedListener
+MaskingJobExecutionListener
 
 BONUS
 
@@ -118,7 +119,7 @@ Add a MaskingChunkListener and MaskingRetryListener
 
 Step 6
 
-Use the values injected into the application for the input and output files.
+Use the values injected into the application with @Value for the input and output files.
 
 Only the output file will really make a difference.
 
@@ -127,10 +128,6 @@ Step 7
 Change the active profile
 
 Step 8
-
-BONUS: Replace the Spring Boot banner with your own custom banner.
-
-Step 9
 
 Here is a class that replaces blanks. Add it to your project.
 
@@ -143,7 +140,7 @@ class BlanksProcessor implements ItemProcessor<String, String> {
 
 }
 
-Step 10
+Step 9
 
 Create a method that returns a Step that uses this BlanksProcessor. Use the method you already have to create a Step as a template. It's practically the same.
 
@@ -153,7 +150,9 @@ This job only runs in prod.
 
 Your configuration will now have two methods that return a Step and two methods that return a Job. How will Spring know when to use which one?
 
+Step 10
 
+BONUS: Replace the Spring Boot banner with your own custom banner.
 
  */
 
