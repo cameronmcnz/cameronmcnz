@@ -1,405 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-	   
-	   <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9Y0PXJ8VP7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WindSafe.ai</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- LineIcons CSS -->
+  <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" id="brand-animate" href="/index.html">WindSafe.ai</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/map.html">
+            <i class="lni lni-warning text-danger"></i> Alerts
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-  gtag('config', 'G-9Y0PXJ8VP7');
-</script>
-	   
-	   
-	   
-	   
-      <meta charset="utf-8">
-       <meta description="This is the home page of Cameron McKenzie, 2145702 Ontario Inc. All of the Simpsons, Java, UiPath and JakartaEE stuff that doesn't fit on TheServerSide goes here.">
-      <title>Cameron McKenzie | TheServerSide, Java, UiPath, JakartaEE</title>
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-      <style>
-         .header {
-         background: #7ADEFF;
-         }
-         .footer {
-         background: #34641A;
-         }
-         .main {
-         text-align: left;
-         background: whitesmoke;
-         }
-         .aside-nav {
-         background: #FFCB05;
-         }
-         .aside-promos {
-         background: #dddddd;
-         }
-         .orange-divider {
-         height:.75rem;
-         background: #FF583B;
-         }
-         body {
-         padding: 1em; 
-         font-family: 'Rock Salt', Helvetica, Times;
-         }
-         .card-header{
-         background-color: #FFCB05;
-         }
-      </style>
-   </head>
-   <body>
-      <div class="container">
-      <div class="row">
-         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffc107;">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-               <ul class="navbar-nav ml-auto">
-			   
-			   			   			   	<li class="nav-item active">
-                     <a class="nav-link" href="/allposts.html">
-                     All Posts</a>
-                  </li>
-			   
-			   			   	<li class="nav-item active">
-                     <a class="nav-link" href="https://www.twitter.com/cameronmcnz">
-                     Twitter</a>
-                  </li>
-			   
-			   	<li class="nav-item active">
-                     <a class="nav-link" href="https://www.youtube.com/channel/UCAc45SVFATruhRe_kb1iGkA">
-                     YouTube</a>
-                  </li>
-
-				  <li class="nav-item active">
-                     <a class="nav-link" href="https://www.theserverside.com">
-                     TSS</a>
-                  </li>
-		       
-		   <li class="nav-item active">
-                     <a class="nav-link" href="https://www.mcnz.com/course">
-                     Spring</a>
-                  </li>
-				  <li class="nav-item active">
-                     <a class="nav-link" href="https://www.mcnz.com">
-                     Home</a>
-                  </li>
-               </ul>
-            </div>
-         </nav>
+  <!-- Main Content Placeholder -->
+  <div id="page-loader" class="page-loader d-flex align-items-center justify-content-center">
+    <div class="loader-spinner"></div>
+  </div>
+  <main class="container-fluid p-0" style="margin-top: 90px;">
+    <section id="hero" class="section-hero d-flex align-items-center justify-content-center">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 text-lg-start text-center mb-4 mb-lg-0">
+        <div class="mb-2">
+          <span class="hero-lead">Smarter Safety. Safer Turbines.</span>
+        </div>
+        <h1 class="hero-title mb-2">Introducing WindSafe.ai<br/>Protecting Crews<br>Coordinating Landowners</h1>
+        <div class="mb-3">
+          <span class="hero-sub">The first platform built to prevent chemical exposure during turbine maintenance.</span>
+        </div>
+        <div class="hero-social d-flex justify-content-lg-start justify-content-center gap-3 mt-4">
+          <a href="https://twitter.com/" target="_blank" class="hero-icon icon-style-1" aria-label="Twitter"><i class="lni lni-twitter"></i></a>
+          <a href="https://youtube.com/" target="_blank" class="hero-icon icon-style-2" aria-label="YouTube"><i class="lni lni-youtube"></i></a>
+          <a href="https://github.com/" target="_blank" class="hero-icon icon-style-1" aria-label="GitHub"><i class="lni lni-github-original"></i></a>
+          <a href="https://amazon.com/" target="_blank" class="hero-icon icon-style-2" aria-label="Amazon"><i class="lni lni-amazon"></i></a>
+        </div>
       </div>
-      <div class="row">
-         <header class="header"><img src="assets/banner.gif" class="img-fluid mx-auto d-block" alt="page banner"/></header>
-      </div>
-      <div class="row">
-         <div class="orange-divider" height="1px">
-            <center>
-               <script type="text/javascript"><!--
-                  google_ad_client = "pub-0390715486461025";
-                  google_ad_width = 728;
-                  google_ad_height = 90;
-                  google_ad_format = "728x90_as";
-                  google_ad_type = "text_image";
-                  google_ad_channel = "";
-                  google_color_border = "7ADEFF";
-                  google_color_bg = "FF583B";
-                  google_color_link = "34641A";
-                  google_color_text = "FFCB05";
-                  google_color_url = "7ADEFF.html";
-                  //-->
-               </script> <script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-            </center>
-         </div>
-      </div>
-      <div class="row">
-         <aside class="aside aside-nav d-none d-md-block col-md-2  aside-nav">
-            <div class="mt-2"><a href="https://pickeringisspringfield.com/whereisspringfield6c83.html?answer=therealspringfield"> <img class="img-fluid mx-auto d-block" border="0" height="40" width="170"
-               src="assets/home.gif" name=limage0
-               onmouseover="document.limage0.src = 'assets/homeO.gif';"
-               onmousedown="document.limage0.src = 'assets/homeD.gif';"
-               onmouseout="document.limage0.src = 'assets/home.gif';"> </a></div>
-            <div class="mt-2"><a href="https://pickeringisspringfield.com/whereisspringfieldd5e6.html?answer=ontariosimilarities00"> <img class="img-fluid mx-auto d-block" border="0" height="40"
-               width="170" src="assets/similarities.gif" name=limage2
-               onmouseover="document.limage2.src = 'assets/similaritiesO.gif';"
-               onmousedown="document.limage2.src = 'assets/similaritiesD.gif';"
-               onmouseout="document.limage2.src = 'assets/similarities.gif';"> </a></div>
-            <div class="mt-2"><a href="https://pickeringisspringfield.com/whereisspringfieldd9e6.html?answer=canadians00"> <img class="img-fluid mx-auto d-block" border="0" height="40" width="170"
-               src="assets/cancon.gif" name=limage3
-               onmouseover="document.limage3.src = 'assets/canconO.gif';"
-               onmousedown="document.limage3.src = 'assets/canconD.gif';"
-               onmouseout="document.limage3.src = 'assets/cancon.gif';"> </a></div>
-            <div class="mt-2"><a href="https://pickeringisspringfield.com/whereisspringfieldc65e.html?answer=quotes00"> <img class="img-fluid mx-auto d-block" border="0" src="assets/quotes.gif"
-               height="40" width="170" name=limage7
-               onmouseover="document.limage7.src = 'assets/quotesO.gif';"
-               onmousedown="document.limage7.src = 'assets/quotesD.gif';"
-               onmouseout="document.limage7.src = 'assets/quotes.gif';"> </a></div>
-            <div class="mt-2"><a href="https://pickeringisspringfield.com/whereisspringfield3bf5.html?answer=simpsonsquiz"> <img class="img-fluid mx-auto d-block" border="0" height="40" width="170"
-               src="assets/quiz.gif" name=limage4
-               onmouseover="document.limage4.src = 'assets/quizO.gif';"
-               onmousedown="document.limage4.src = 'assets/quizD.gif';"
-               onmouseout="document.limage4.src = 'assets/quiz.gif';"> </a></div>
-            <div class="mt-2"><a href="https://pickeringisspringfield.com/whereisspringfield36bd.html?answer=buynow"> <img class="img-fluid mx-auto d-block" border="0" height="40" width="170"
-               src="assets/buynow.gif" name=limage6
-               onmouseover="document.limage6.src = 'assets/buynowO.gif';"
-               onmousedown="document.limage6.src = 'assets/buynowD.gif';"
-               onmouseout="document.limage6.src = 'assets/buynow.gif';"> </a></div>
-            <div class="mt-2"><a href="https://pickeringisspringfield.com/whereisspringfieldfb29.html?answer=learnjava"> <img class="img-fluid mx-auto d-block" border="0" height="40" width="170"
-               src="assets/learn.gif" name=limage8
-               onmouseover="document.limage8.src = 'assets/learnO.gif';"
-               onmousedown="document.limage8.src = 'assets/learnD.gif';"
-               onmouseout="document.limage8.src = 'assets/learn.gif';"> </a></div>
-            <div class="mt-2">
-               <a href="https://pickeringisspringfield.com/whereisspringfield1d1b.html?answer=media"><img class="img-fluid mx-auto d-block" border="0" height="40" width="170"
-                  src="assets/tvradio.gif" name=limage9
-                  onmouseover="document.limage9.src = 'assets/tvradioO.gif';"
-                  onmousedown="document.limage9.src = 'assets/tvradioD.gif';"
-                  onmouseout="document.limage9.src = 'assets/tvradio.gif';"></a>
+      <div class="col-lg-6">
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="assets/images/heros/hero00.png" class="d-block w-100 hero-img" alt="Hero 1">
             </div>
-            <div class="mt-2">
-               <a href="https://pickeringisspringfield.com/whereisspringfieldaeae.html?answer=bombs"><img class="img-fluid mx-auto d-block" border="0" height="40" width="170"
-                  src="assets/bombs.gif" name=limage10
-                  onmouseover="document.limage10.src = 'assets/bombsO.gif';"
-                  onmousedown="document.limage10.src = 'assets/bombsD.gif';"
-                  onmouseout="document.limage10.src = 'assets/bombs.gif';"></a>
+            <div class="carousel-item">
+              <img src="assets/images/heros/hero01.png" class="d-block w-100 hero-img" alt="Hero 2">
             </div>
-			
-			<div class="mt-2">
-
-<img src="assets/anime/nervousbook.gif" border="0" name="submit" alt="Pickering is Springfield book" class="img-fluid mx-auto d-block">
-
+            <div class="carousel-item">
+              <img src="assets/images/heros/hero02.png" class="d-block w-100 hero-img" alt="Hero 3">
             </div>
-			
-
-         </aside>
-         <article class="article main col-sm-8 col-md-7">
-            <!-- ***************************************************** -->
-            <div class="row">
-               <div class=" col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-2   align-items-stretch mt-2">
-                  <div class="card">
-                 
-                     <!--img src="/assets/shut-up-meme.jpg" class="img-fluid img-fluid mx-auto d-block" alt="Course Outline"-->
-                     <div class="row no-gutters">
-                        <div class="col-md-8">
-                           <div class="card-body  d-flex flex-column">
-                              <p class="card-text">Sorry about all the "Pickering is Springfield" stuff. I'm just too lazy to put a proper site together, so I'm using the same template as that other site of mine.</p>
-                              <p class="card-text">Most of the stuff I write you'll find over at <a href="https://www.theserverside.com/">TheServerSide.com.</a> This page is just for stuff that doesn't really fit over there.</p>
-                              <p class="card-text">All content copyright 2145702 Ontario Inc. </p>
-				   
-				   
-				   <div class="container-lg px-3 my-5 markdown-body">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-md-4">
-                           <img src="/assets/me02l.jpg" class="card-img" alt="...">
-                        </div>
-                     </div>
-					 </div>
-                  </div>
-                  <div class=" col-12 col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-2  d-flex align-items-stretch">
-                     <div class="card">
-                        <div class="card-header">22 Second Portal</div>
-                        <picture>
-                           <source srcset="/assets/shut-up-meme.jpg" media="(min-width: 1200px)">
-                           <source srcset="/assets/shut-up-meme.jpg" media="(min-width: 992px)">
-                           <source srcset="/assets/shut-up-meme.jpg" media="(min-width: 768px)">
-                           <source srcset="/assets/shut-up-meme.jpg" media="(min-width: 576px)">
-                           <img src="/assets/shut-up-meme.jpg" class="img-fluid" alt="Course Outline">
-                        </picture>
-                        <div class="card-body  d-flex flex-column">
-                           <p class="card-text">Get miles ahead by creating your own portal in 22 seconds.</p>
-                           <p class="text-center mt-auto"><a href="http://www.mcnz.com/site-builder-x.html" class="text-center btn btn-outline-primary btn-sm">Get RPA Certified</a></p>
-                        </div>
-                     </div>
-                  </div>
-                  <div class=" col-12 col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-2  d-flex align-items-stretch">
-                     <div class="card">
-                        <div class="card-header">Let's play!</div>
-                        <picture>
-                           <source srcset="/assets/get-started-mission-control.jpg" media="(min-width: 1200px)">
-                           <source srcset="/assets/get-started-mission-control.jpg" media="(min-width: 992px)">
-                           <source srcset="/assets/get-started-mission-control.jpg" media="(min-width: 768px)">
-                           <source srcset="/assets/get-started-mission-control.jpg" media="(min-width: 576px)">
-                           <img src="/assets/get-started-mission-control.jpg" class="img-fluid" alt="Get Started Java Mission Control">
-                        </picture>
-                        <div class="card-body  d-flex flex-column">
-
-               <p >Which one will it be?</p>
-			   <center>
-			   <a href="#" onclick="playRoshambo('rock');return false;">rock</a><br/>
-               <a href="#" onclick="playRoshambo('paper');return false;">paper</a><br/>
-               <a href="#" onclick="playRoshambo('scissors');return false;">scissors</a>
-               <div id="results-1" class="results"></div>
-				</center>
-
-                           <p class="text-center mt-auto">
-						   
-						   <a href="https://www.theserverside.com/tutorial/Tutorial-Coding-a-simple-Rock-Paper-Scissors-application-in-JavaScript" class="text-center btn btn-outline-primary btn-sm mt-2">Code Roshambo!</a></p>
-                        </div>
-                     </div>
-                  </div>
-                  <div class=" col-12 col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-2  d-flex align-items-stretch">
-                     <div class="card">
-                        <div class="card-header">Java Flight Recorder</div>
-                        <picture>
-                           <source srcset="/assets/java-flight-recorder-example.jpg" media="(min-width: 1200px)">
-                           <source srcset="/assets/java-flight-recorder-example.jpg" media="(min-width: 992px)">
-                           <source srcset="/assets/java-flight-recorder-example.jpg" media="(min-width: 768px)">
-                           <source srcset="/assets/java-flight-recorder-example.jpg" media="(min-width: 576px)">
-                           <img src="/assets/java-flight-recorder-example.jpg" class="img-fluid" alt="JDK JVM Flight Recorder Example">
-                        </picture>
-                        <div class="card-body  d-flex flex-column">
-                           <p class="card-text">Here's some updates on Marcus Hirt's JFR and JMC tutorials.</p>
-                           <p class="text-center mt-auto"><a href="http://missioncontrol.mcnz.com" class="text-center btn btn-outline-primary btn-sm">Mission Control</a></p>
-                        </div>
-                     </div>
-                  </div>
-				  
-
-
-  
-
-               <!-- <ol id="history" class="history"></ol> -->
-               <!-- ***************************************************** -->
-         </article>
-         <aside class="aside-promos col-sm-4 col-md-3">
-		 
-		 
-		 
-         <div class=" col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-2   align-items-stretch mt-2">
-		 
-		 
-		 <div class="card my-0">
-                  <div class="card-header">
-                     Follow me on YouTube
-                  </div>
-                  <div class="card-body">
-                     <div class="embed-responsive embed-responsive-16by9">
-  			<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/y3yymH0J4y8"></iframe>
-		     </div>
-                  </div>
-               </div>
-		 
-		 <div class="card my-2">
-                  <div class="card-header">
-                     Social Media
-                  </div>
-                  <img src="/assets/cameron-social2.jpg" class="card-img-top" alt="UiPath Studio Preparation">
-                  <div class="card-body">
-                     <p class="card-text">Catch up with me, Cameron McKenzie, and my friends on social media.</p>
-                     <ul class="nav flex-column">
-                        <li class="nav-item">
-                           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-hdd-network-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h5.5v3A1.5 1.5 0 0 0 6 11.5H.5a.5.5 0 0 0 0 1H6A1.5 1.5 0 0 0 7.5 14h1a1.5 1.5 0 0 0 1.5-1.5h5.5a.5.5 0 0 0 0-1H10A1.5 1.5 0 0 0 8.5 10V7H14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm.5 3a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"></path>
-                           </svg>
-                           <a href="https://twitter.com/cameronmcnz">Twitter</a>
-                        </li>
-                        <li class="nav-item">
-                           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-hdd-rack-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" d="M2 9a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2H2zm.5 3a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM2 2a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm.5 3a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM3 9V7h1v2H3zm9 0V7h1v2h-1z"></path>
-                           </svg>
-                           <a href="https://www.youtube.com/channel/UCAc45SVFATruhRe_kb1iGkA">YouTube</a>
-                        </li>
-                        <li class="nav-item">
-                           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-hdd-network" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" d="M14 3H2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM2 2a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z"></path>
-                              <path d="M5 4.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"></path>
-                              <path fill-rule="evenodd" d="M7.5 10V7h1v3a1.5 1.5 0 0 1 1.5 1.5h5.5a.5.5 0 0 1 0 1H10A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5H.5a.5.5 0 0 1 0-1H6A1.5 1.5 0 0 1 7.5 10zm0 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"></path>
-                           </svg>
-                           <a href="https://www.linkedin.com/in/cameronwmckenzie/">LinkedIn</a>
-                        </li>
-                        <li class="nav-item">
-                           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-hdd-stack" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" d="M14 10H2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1zM2 9a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2H2z"></path>
-                              <path d="M5 11.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"></path>
-                              <path fill-rule="evenodd" d="M14 3H2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM2 2a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z"></path>
-                              <path d="M5 4.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"></path>
-                           </svg>
-			   
-                           <a href="https://github.com/cameronmcnz">GitHub</a>
-                        </li>
-                     </ul>
-                  </div>
-               </div>
-		 
-		 
-	<div class="card mt-2">
-
-                  <div class="card-header">
-                    All Posts
-                  </div>
-                  <div class="card-body">
-                     <p class="card-text">Here's a list of all the recent posts on the site.</p>
-	             <a href="https://www.rpacertified.com/2020/11/12/all-uipath-exam-questions.html">
-                     <img src="/assets/like-this-post.gif" class="img-fluid img-thumbnail mx-auto d-block" alt="All UiPath cert posts">
-                     </a>
-					 <p></p>
-                     <p class="text-center mt-auto mt-2 my-2">
-                     <a href="/allposts.html" class="btn btn-primary btn-sm">All Posts</a></p>
-                  </div>
-               </div>	 
-		 
-		 
-		 
-		 
-
-		 
-		 
-         </aside>
-         </div>
-         <div class="row">
-            <div class="orange-divider" height="1px"></div>
-         </div>
-         <div class="row">
-            <footer class="footer">Cameron McKenzie 2145702 Ontario Inc 85 Clover Ridge Dr E, Ajax, ON Canada<div>2145702 Ontario Inc</div></footer>
-         </div>
+            <div class="carousel-item">
+              <img src="assets/images/heros/hero03.png" class="d-block w-100 hero-img" alt="Hero 4">
+            </div>
+          </div>
+        </div>
       </div>
-      <script>
-         let history = new Array();
-         
-         //server always chooses rock
-         playRoshambo = function(clientGesture){
-         	if (clientGesture=='paper') {
-         		result = "win";
-         	}
-         	if (clientGesture=='rock') {
-         		result = "tie";
-         	}
-         	if (clientGesture=='scissors') {
-         		result = "lose";
-         	}	
-         
-         	gameSummary = new Object();
-         	gameSummary.result = result;
-         	gameSummary.clientGesture = clientGesture;
-         	gameSummary.serverGesture = "rock";
-         	gameSummary.timePlayed = new Date();
-         	
-         	//alert(JSON.stringify(gameSummary));
-         	//alert(JSON.stringify(history));
-         	
-         	//history.push(gameSummary);
-         
-         	//let listItems = "";
-         	
-         	//for (gs in history) {
-         	//	listItems += "<li>" + history[gs].result + " : " 
-         	//	                    + history[gs].clientGesture + " : " 
-         	//						+ history[gs].timePlayed.toLocaleString()
-         	//						+ "</li>";
-         	//	console.log(history[gs].result + " : " + history[gs].clientGesture + " : " + history[gs].timePlayed);
-         	//}
-         	
-         	//document.getElementById('history').innerHTML = listItems;
-         	
-document.getElementById('results-1').innerHTML = result;
-         	
-         	
-         }
-         
-      </script>
-   </body>
-</html>
+    </div>
+  </div>
+</section>
+
+<section id="alerts" class="section-white py-5">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold"><i class="lni lni-warning text-danger me-2"></i>Active Spray Alerts</h2>
+      <p class="text-muted">Stay ahead of scheduled agricultural spraying near wind turbine sites. These alerts help prevent hazardous technician exposure.</p>
+    </div>
+    <div class="row justify-content-center align-items-center g-4 alerts-row">
+      <div class="col-12 col-md-4 d-flex justify-content-center">
+        <img src="assets/images/testimonials/amazon-testimonial01.png" alt="Spray Alert 1" class="testimonial-img testimonial-flyin-1 img-fluid rounded shadow">
+      </div>
+      <div class="col-12 col-md-4 d-flex justify-content-center">
+        <img src="assets/images/testimonials/amazon-testimonial02.png" alt="Spray Alert 2" class="testimonial-img testimonial-flyin-2 img-fluid rounded shadow">
+      </div>
+      <div class="col-12 col-md-4 d-flex justify-content-center">
+        <img src="assets/images/testimonials/amazon-testimonial03.png" alt="Spray Alert 3" class="testimonial-img testimonial-flyin-3 img-fluid rounded shadow">
+      </div>
+    </div>
+
+    <!-- Embedded Mapsly Map -->
+    <div class="mt-5">
+      <div class="ratio ratio-16x9">
+        <iframe 
+          src="https://app.mapsly.com/map/50a6b6a8fe6b429aadf79aab3294c2ab" 
+          title="WindSafe Spray Alert Map" 
+          allowfullscreen 
+          loading="lazy" 
+          style="border:0;"></iframe>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="about" class="section-snow py-5">
+  <div class="container">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-lg-6 d-flex justify-content-center mb-4 mb-lg-0">
+        <img src="assets/images/scrum-guide-cover.png" alt="WindSafe Platform Map" class="about-img img-fluid rounded shadow">
+      </div>
+      <div class="col-lg-6">
+        <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
+          <div class="about-title-gradient mb-3 px-4 py-2">
+            <span class="about-title">A Smarter Way to Coordinate</span>
+          </div>
+          <div class="mb-3">
+            <span class="fw-bold text-dark">WindSafe.ai bridges the gap between turbine crews and landowners:</span>
+          </div>
+          <ul class="about-list text-start mx-auto mb-4">
+            <li>Instant SMS and email alerts to landowners when crews are on-site</li>
+            <li>Two-way communication: farmers submit spraying schedules easily</li>
+            <li>Interactive map interface—no apps or logins needed</li>
+            <li>Fully integrated with tools like Smartsheet for effortless adoption</li>
+            <li>Digital logs for legal protection and compliance documentation</li>
+            <li>Built to scale from small wind sites to global energy operators</li>
+            <li>Backed by real-world operational experience in wind and ag-tech</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stats" class="section-gradient py-5">
+  <div class="container">
+    <div class="row justify-content-center align-items-center text-center g-4">
+      <div class="col-6 col-md-3">
+        <div class="stats-item d-flex flex-column align-items-center">
+          <div class="stats-icon mb-2"><span class="icon-bg"><i class="lni lni-map-marker"></i></span></div>
+          <div class="stats-number" data-target="900">900</div>
+          <div class="stats-label">Turbines Mapped</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stats-item d-flex flex-column align-items-center">
+          <div class="stats-icon mb-2"><span class="icon-bg"><i class="lni lni-alarm"></i></span></div>
+          <div class="stats-number" data-target="137">137</div>
+          <div class="stats-label">Spray Alerts Issued</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stats-item d-flex flex-column align-items-center">
+          <div class="stats-icon mb-2"><span class="icon-bg"><i class="lni lni-users"></i></span></div>
+          <div class="stats-number" data-target="482">482</div>
+          <div class="stats-label">Landowners Connected</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stats-item d-flex flex-column align-items-center">
+          <div class="stats-icon mb-2"><span class="icon-bg"><i class="lni lni-shield"></i></span></div>
+          <div class="stats-number" data-target="521">521</div>
+          <div class="stats-label">Incidents Prevented</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section id="video" class="section-snow py-5">
+  <div class="container">
+    <div class="d-flex flex-column align-items-center mb-4">
+      <div class="video-title-gradient mb-3 px-4 py-2">
+        <span class="video-title">See WindSafe.ai in Action</span>
+      </div>
+    </div>
+    <div class="row align-items-center justify-content-center">
+      <div class="col-lg-6 mb-4 mb-lg-0 d-flex justify-content-center">
+        <div class="ratio ratio-16x9 w-100" style="max-width: 480px;">
+          <iframe src="https://www.youtube.com/embed/5vj6GwVhQT0" title="WindSafe.ai Platform Demo" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center text-lg-start">
+          <div class="fw-bold mb-3">Explore how WindSafe.ai reduces risk, simplifies coordination, and improves safety across wind farms.</div>
+          <ul class="video-list text-start mx-auto mb-4">
+            <li>Automated alerts for landowners and turbine technicians</li>
+            <li>Visual mapping powered by Mapsly</li>
+            <li>Smartsheet integration for minimal operator effort</li>
+            <li>Instant digital records for legal protection</li>
+            <li>Scalable design for national and global deployment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+    <section id="team" class="section-snow py-5">
+  <div class="container">
+    <div class="d-flex flex-column align-items-center mb-5">
+      <div class="authors-title-gradient mb-3 px-4 py-2">
+        <span class="authors-title">Meet the WindSafe.ai Team</span>
+      </div>
+    </div>
+    <div class="row justify-content-center g-4">
+      <div class="col-12 col-sm-6 col-lg-3 d-flex">
+        <div class="author-card flex-fill d-flex flex-column align-items-center text-center p-4">
+          <img src="assets/images/authors/darcy-declute-author.png" alt="Darcy DeClute" class="author-img rounded-circle mb-3">
+          <div class="fw-bold">Darcy DeClute</div>
+          <div class="text-muted mb-2">Co-Founder & Safety Strategist</div>
+          <hr class="w-100 my-2">
+          <div class="author-role-desc mb-3">Oversees safety coordination logic and brings deep field experience in energy sector protocols and risk reduction.</div>
+          <div class="author-social d-flex justify-content-center gap-2 mt-auto">
+            <a href="#" class="hero-icon icon-style-2" aria-label="LinkedIn"><i class="lni lni-linkedin-original"></i></a>
+            <a href="#" class="hero-icon icon-style-2" aria-label="Twitter"><i class="lni lni-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 d-flex">
+        <div class="author-card flex-fill d-flex flex-column align-items-center text-center p-4">
+          <img src="assets/images/authors/amanda-punsammy-associate-editor.png" alt="Amanda Punsammy" class="author-img rounded-circle mb-3">
+          <div class="fw-bold">Amanda Punsammy</div>
+          <div class="text-muted mb-2">Operations & Compliance Lead</div>
+          <hr class="w-100 my-2">
+          <div class="author-role-desc mb-3">Ensures all workflows align with legal, environmental, and occupational regulations for safety-critical infrastructure.</div>
+          <div class="author-social d-flex justify-content-center gap-2 mt-auto">
+            <a href="#" class="hero-icon icon-style-2" aria-label="LinkedIn"><i class="lni lni-linkedin-original"></i></a>
+            <a href="#" class="hero-icon icon-style-2" aria-label="Twitter"><i class="lni lni-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 d-flex">
+        <div class="author-card flex-fill d-flex flex-column align-items-center text-center p-4">
+          <img src="assets/images/authors/prachi-shah-technical-edtior.png" alt="Prachi Shah" class="author-img rounded-circle mb-3">
+          <div class="fw-bold">Prachi Shah</div>
+          <div class="text-muted mb-2">GIS & Mapping Lead</div>
+          <hr class="w-100 my-2">
+          <div class="author-role-desc mb-3">Responsible for the real-time visual coordination map that powers all landowner and technician awareness features.</div>
+          <div class="author-social d-flex justify-content-center gap-2 mt-auto">
+            <a href="#" class="hero-icon icon-style-2" aria-label="LinkedIn"><i class="lni lni-linkedin-original"></i></a>
+            <a href="#" class="hero-icon icon-style-2" aria-label="Twitter"><i class="lni lni-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3 d-flex">
+        <div class="author-card flex-fill d-flex flex-column align-items-center text-center p-4">
+          <img src="assets/images/authors/Walker-Boh-editor.jfif" alt="Walker Boh" class="author-img rounded-circle mb-3">
+          <div class="fw-bold">Walker Boh</div>
+          <div class="text-muted mb-2">Full-Stack Developer</div>
+          <hr class="w-100 my-2">
+          <div class="author-role-desc mb-3">Built the WindSafe.ai MVP and integrations with Smartsheet, Mapsly, and alert delivery systems. Obsessed with uptime.</div>
+          <div class="author-social d-flex justify-content-center gap-2 mt-auto">
+            <a href="#" class="hero-icon icon-style-2" aria-label="LinkedIn"><i class="lni lni-linkedin-original"></i></a>
+            <a href="#" class="hero-icon icon-style-2" aria-label="Twitter"><i class="lni lni-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </main>
+  <footer class="section-gradient text-center py-4">
+    <div class="container">
+      <small class="text-white">&copy; 2025 WindSafe.ai All rights reserved.</small>
+    </div>
+  </footer>
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="assets/js/scripts.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</body>
+</html> 
