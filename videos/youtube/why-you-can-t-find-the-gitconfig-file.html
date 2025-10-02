@@ -1,0 +1,68 @@
+---
+layout: video
+title: "Why you can't find the gitconfig file?"
+description: "Find the missing gitconfig file learn where Git stores config and how to reveal and create global and system configuration files"
+video_host: "youtube"
+video_id: "x8k9CyM23Ek"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M28S"
+thumbnail_url: "https://i.ytimg.com/vi/x8k9CyM23Ek/maxresdefault.jpg"
+content_url: "https://youtu.be/x8k9CyM23Ek"
+embed_url: "https://www.youtube.com/embed/x8k9CyM23Ek"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - gitconfig
+  - git config
+  - dotfiles
+  - XDG
+  - global config
+  - system config
+  - windows
+  - linux
+  - developer tools
+---
+
+<h2>Quick answer</h2>
+<p>You usually can find the gitconfig file if you stop panicking and look where Git actually looks. Git reads three scopes project global and system. Each scope lives in a predictable place most of the time unless your environment is trying to be mysterious.</p>
+
+<h2>Where Git looks for config</h2>
+<p>Short list for the impatient and the tired</p>
+<ul>
+  <li><strong>Repository level</strong> A file at <code>.git/config</code> inside the repo</li>
+  <li><strong>Global or user level</strong> Typically <code>~/.gitconfig</code> or when you follow the XDG standard <code>~/.config/git/config</code></li>
+  <li><strong>System level</strong> Usually <code>/etc/gitconfig</code> on Linux and <code>C:\ProgramData\Git\config</code> on Windows</li>
+</ul>
+
+<h2>How to see what Git is actually reading</h2>
+<p>Stop guessing and run the command that tells the truth</p>
+<pre><code>git config --list --show-origin</code></pre>
+<p>This prints every setting and the file it came from. If a setting shows as coming from the command line that means an environment override or a CLI flag is in play. If you see nothing for a given key it probably was never written to any file.</p>
+
+<h3>Commands you will want</h3>
+<ul>
+  <li><code>git config --global --edit</code> to open or create your user level file</li>
+  <li><code>git config --system --list</code> to inspect system level values which may need administrator rights</li>
+  <li><code>git config --global user.name 'Your Name'</code> and <code>git config --global user.email 'email@example.com'</code> to create the global file and stop Git from nagging</li>
+</ul>
+
+<h2>Common reasons the file is "missing"</h2>
+<ul>
+  <li>There is no global file because you never set any global values</li>
+  <li>XDG_CONFIG_HOME points somewhere unexpected so Git looks in <code>~/.config/git/config</code> instead of <code>~/.gitconfig</code></li>
+  <li>You are running as a different user or using a portable Git build on Windows so files live in a different profile folder</li>
+  <li>Permissions or antivirus software are hiding or blocking files</li>
+</ul>
+
+<h2>Windows specific notes</h2>
+<p>On Windows check your user profile for <code>\.gitconfig</code> and check <code>C:\ProgramData\Git\config</code> for system level settings. If you installed Git with default options the program data path is where the system file shows up.</p>
+
+<h2>Dotfiles and XDG sanity</h2>
+<p>If you like managing dotfiles with symbolic links remember Git honors the XDG standard when <code>XDG_CONFIG_HOME</code> is set. That explains a lot of surprises when your dotfile repo is not where Git expects. A quick environment check will save you from rifling through hidden folders like a sleep deprived raccoon.</p>
+
+<h2>Final survival tips</h2>
+<p>Run <code>git config --list --show-origin</code> first and stop wandering blindly. If you need to create a global file set user.name and user.email with <code>git config --global</code> and Git will make the file for you. If you still cannot find what you need check which user you are running as and whether XDG_CONFIG_HOME is set. Now go fix your config and pretend this was all part of your plan.</p>
+

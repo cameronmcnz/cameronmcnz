@@ -1,0 +1,80 @@
+---
+layout: video
+title: "Jenkins GitHub WebHooks Example"
+description: "Learn how to trigger Jenkins jobs from GitHub using webhooks. Setup plugins create job add webhook test trigger and secure payloads"
+video_host: "youtube"
+video_id: "ZiHMsEKklKQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M35S"
+thumbnail_url: "https://i.ytimg.com/vi/ZiHMsEKklKQ/maxresdefault.jpg"
+content_url: "https://youtu.be/ZiHMsEKklKQ"
+embed_url: "https://www.youtube.com/embed/ZiHMsEKklKQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - GitHub
+  - WebHooks
+  - CI
+  - Continuous Integration
+  - Jenkins Pipeline
+  - GitHub Webhook
+  - Automation
+  - DevOps
+  - DevOps
+---
+
+<p>Want your Jenkins server to wake up and build like clockwork when someone pushes code to GitHub without you doing the little dance of clicking build now? Welcome to webhook driven CI and a tiny bit of automation that saves your time and dignity. This guide walks through the real steps to wire GitHub webhooks to Jenkins pipeline jobs in a secure and reliable way with a few snarky comments along the route.</p>
+
+<h2>Prepare Jenkins and plugins</h2>
+<p>First things first, install the right plugins. You need the GitHub plugin and the GitHub Branch Source plugin on your Jenkins server. These handle webhook payloads and multibranch pipelines so you do not have to hack around with fragile scripts.</p>
+
+<ul>
+  <li>Go to Manage Plugins and install GitHub and GitHub Branch Source.</li>
+  <li>Add credentials for GitHub access in Credentials so SCM operations do not fail like a soap opera.</li>
+  <li>Register a GitHub server under Jenkins global configuration for smoother authentication and fewer surprises.</li>
+</ul>
+
+<h2>Create a job or a Jenkins Pipeline</h2>
+<p>You can use a freestyle job if you like nostalgia, but for proper branch based CI use a Multibranch Pipeline or a Pipeline job that points at your Git repository.</p>
+
+<ul>
+  <li>For multibranch setups use the GitHub Branch Source and point it to your repository.</li>
+  <li>For single branch jobs configure the SCM to the repo and add the build trigger that accepts GitHub hook triggers for GITScm polling style events.</li>
+  <li>Supply the Git credentials you added earlier so clones do not fail during the first dramatic moment.</li>
+</ul>
+
+<h2>Add the webhook in the GitHub repository</h2>
+<p>In your GitHub repo settings add a webhook. For the payload URL use your Jenkins public URL followed by /github-webhook/ so GitHub knows where to send events. Set the content type to application/json and paste a shared secret token. Save that same secret in your Jenkins job or global webhook settings for signature verification.</p>
+
+<h3>Which events should you send</h3>
+<ul>
+  <li>Push events are the usual suspects for triggering builds.</li>
+  <li>Open and synchronize pull request events are good for PR validation pipelines.</li>
+  <li>Keep it minimal when testing or you will get spammy builds and regret.</li>
+</ul>
+
+<h2>Trigger and test the webhook</h2>
+<p>Make a trivial commit and push, or use GitHubs Recent Deliveries panel to resend a payload while you sip your coffee. Then check Jenkins for a new build. The job console output will show whether the pipeline started and if the clone step worked.</p>
+
+<ul>
+  <li>On GitHub check the delivery logs for HTTP response codes and bodies to see what GitHub received back.</li>
+  <li>On Jenkins check the job console and the build logs to confirm the pipeline ran as expected.</li>
+</ul>
+
+<h2>Secure webhooks and troubleshoot like a pro</h2>
+<p>Security is tiny but mighty. Use a shared secret and enable signature verification so Jenkins can validate the header named X-Hub-Signature-256. If the signature does not match Jenkins will reject the payload and you will be grateful later.</p>
+
+<ul>
+  <li>If delivery fails confirm firewall rules allow traffic from GitHub and that your webhook endpoint is reachable from the public internet.</li>
+  <li>If cloning fails check repository credentials and SCM settings in the job configuration.</li>
+  <li>If builds do not trigger inspect the webhook delivery response code on GitHub and the Jenkins access logs for clues.</li>
+</ul>
+
+<h2>Best practices for reliable CI automation</h2>
+<p>Keep webhook secrets safe, limit events to only those you need, and prefer multibranch pipelines for automatic branch and PR handling. Monitor delivery retries and set up lightweight health checks so you know when the automation misbehaves.</p>
+
+<p>Follow these steps and your Jenkins builds will trigger automatically from GitHub with fewer late night panics. You will have automated CI, cleaner logs, and more time to fix other things that will inevitably break tomorrow.</p>
+

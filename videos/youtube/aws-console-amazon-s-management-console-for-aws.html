@@ -1,0 +1,72 @@
+---
+layout: video
+title: "AWS Console Amazon's Management Console for AWS"
+description: "Fast overview of the AWS Management Console with practical tips for using S3 EC2 EKS Bedrock SageMaker Lambda and IAM"
+video_host: "youtube"
+video_id: "w0VLz0xnNJ0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT56S"
+thumbnail_url: "https://i.ytimg.com/vi/w0VLz0xnNJ0/maxresdefault.jpg"
+content_url: "https://youtu.be/w0VLz0xnNJ0"
+embed_url: "https://www.youtube.com/embed/w0VLz0xnNJ0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS Console
+  - Amazon Web Services
+  - S3
+  - EC2
+  - EKS
+  - Bedrock
+  - SageMaker
+  - Lambda
+  - IAM
+  - cloud management
+---
+
+<article>
+  <h1>Navigate the AWS Console with hands on tips for S3 EC2 EKS IAM and costs</h1>
+  <p>The AWS Management Console is the web based control panel for Amazon Web Services. It is the place you go when you want to create something useful or accidentally launch a very expensive VM. The console gives you a GUI for provisioning and managing services such as S3, EC2, EKS, Bedrock, SageMaker, Lambda, and IAM. It is not magic, but it will make you feel like a cloud wizard when you use it right.</p>
+
+  <h2>Quick tour of the console</h2>
+  <p>Think of the top search bar as your teleportation device. Type a service name and you appear there fast. The Services menu groups compute, storage, analytics, machine learning and security so you do not have to play hide and seek. The region selector decides where your resources live which affects latency, cost and compliance. The account menu is where billing, credentials and access management hang out.</p>
+
+  <h2>Service cheat sheet</h2>
+  <h3>S3</h3>
+  <p>Simple object storage for logs, backups and things you hope you will never need. Use lifecycle rules to move old objects to cheaper storage and prevent surprise bills.</p>
+
+  <h3>EC2</h3>
+  <p>Virtual machines with AMIs, security groups and key pairs. Choose instance types carefully and turn off nightly test boxes unless you secretly enjoy large bills.</p>
+
+  <h3>EKS</h3>
+  <p>Managed Kubernetes with cluster and node group views. The console is fine for quick checks but use kubectl and your CI for repeatable cluster tasks.</p>
+
+  <h3>Bedrock and SageMaker</h3>
+  <p>Bedrock gives you access to generative AI foundations and hosted model endpoints. SageMaker focuses on training experiments, pipelines and hosted models. Use the console for experiments and dashboards and automation for production deployments.</p>
+
+  <h3>Lambda</h3>
+  <p>Serverless functions with triggers and retry settings. Great for tiny glue code and horrible for stateful workloads that refuse to stay small.</p>
+
+  <h3>IAM</h3>
+  <p>Users, roles and policies that decide who can do what across your account. Misconfigured IAM is the gateway to bad days. Validate policies before granting broad permissions.</p>
+
+  <h2>Practical tips that actually help</h2>
+  <ul>
+    <li>Use the search bar to jump to a service or resource fast</li>
+    <li>Switch region before you create resources so you do not accidentally spawn things far from your users</li>
+    <li>Pin frequently used services to the console home for less clicking</li>
+    <li>Validate IAM policies and follow least privilege to avoid screaming incidents</li>
+    <li>Enable multi factor authentication on the root account and leave the root account alone unless it is a special event</li>
+    <li>Monitor costs from the billing dashboard regularly and tag resources for proper cost allocation</li>
+    <li>Use the console search to find ARNs quickly and apply tags that include project owner and environment</li>
+  </ul>
+
+  <h2>When to stop clicking and use infrastructure as code</h2>
+  <p>The console is great for exploration and small fixes. For production workloads prefer infrastructure as code so environments are reproducible and you have fewer surprises during deployment. Terraform, CloudFormation or CDK reduce finger based errors and make audits less painful.</p>
+
+  <h2>Final survival guide</h2>
+  <p>Navigation speed beats cleverness. Bookmark the console home and frequently used services. Lean on resource tags to group things across projects. Automate billing alerts so your wallet does not become a victim. And remember to keep IAM tight, enable MFA and treat the root account like a mythical beast that should not be disturbed.</p>
+</article>
+

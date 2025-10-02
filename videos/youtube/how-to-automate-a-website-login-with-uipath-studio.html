@@ -1,0 +1,69 @@
+---
+layout: video
+title: "How to Automate a Website Login with UiPath Studio"
+description: "Step by step guide to automate website logins using UiPath Studio for reliable credential input selectors and success checks."
+video_host: "youtube"
+video_id: "030dEAB8oyg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M37S"
+thumbnail_url: "https://i.ytimg.com/vi/030dEAB8oyg/maxresdefault.jpg"
+content_url: "https://youtu.be/030dEAB8oyg"
+embed_url: "https://www.youtube.com/embed/030dEAB8oyg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - RPA
+  - web automation
+  - login automation
+  - selectors
+  - Type Into
+  - Open Browser
+  - secure credentials
+  - error handling
+  - UiExplorer
+---
+
+<h2>Intro</h2>
+<p>So you want to automate website logins with UiPath and avoid the robot version of face planting. This guide walks through a practical, reliable approach for web automation and login automation using UiPath Studio. We will cover Open Browser, Type Into, secure credential handling, selector strategies, and error handling so your robot does not cry in the logs.</p>
+
+<h2>Project setup and dependencies</h2>
+<p>Create a new UiPath project and add the UiPath.UIAutomation.Activities package. If you plan to use Orchestrator assets or Windows Credential Manager bring in the appropriate package for credential stores. A clean project folder saves you time and your future self from rage quitting.</p>
+
+<h2>High level flow</h2>
+<p>The usual flow is familiar and pointless to ignore. Start with Open Browser or Attach Browser to target the login page. Use Type Into for the username. For passwords use Get Secure Credential or Windows Credential Manager together with Type Secure Text. Use Click to send the login action and Wait For Ready or Element Exists to confirm navigation and a successful login.</p>
+
+<h3>Step by step checklist</h3>
+<ul>
+  <li>Add Open Browser to navigate to the login page</li>
+  <li>Use stable selectors to target username and password fields</li>
+  <li>Use Get Secure Credential or Orchestrator asset for secrets</li>
+  <li>Use Type Into for username and Type Secure Text for the password</li>
+  <li>Click the login button and wait for a known post login element</li>
+  <li>Add Try Catch and retry logic for resilience</li>
+</ul>
+
+<h2>Secure credentials without drama</h2>
+<p>Do not hard code secrets. Ever. Security teams do not have a sense of humor about leaked passwords. Use Orchestrator assets or Windows Credential Manager and the Get Secure Credential activity. Feed the result into Type Secure Text so the secret never lives as plain text in a log or in a project file.</p>
+
+<h2>Selector strategies that do not hate you</h2>
+<p>Use selectors that rely on stable attributes like id or name rather than visible text which changes with the next redesign. When the DOM moves around use anchor based selectors to find fields that travel together. Wildcards are your friend when values include session ids. Use UiExplorer to test matches and tune attributes instead of relying on brittle paths that break on the slightest style update.</p>
+
+<h2>Error handling and retries</h2>
+<p>Wrap the main login flow in Try Catch. If a selector fails attempt a fallback selector and add a short retry with a small delay. For transient network blips retry once or twice before throwing a controlled error. Log messages at key points so humans can follow the trail when something goes sideways. Blindly assuming success invites unhappy stakeholders and existential robot questions.</p>
+
+<h2>Validation and testing</h2>
+<p>After the Click activity wait for a reliable post login indicator. Use Element Exists or Wait For Ready for an element only visible after authentication. Test the workflow across different screen sizes and browser zoom levels. Cross browser testing is not glamorous but it prevents surprises in production.</p>
+
+<h2>Troubleshooting tips</h2>
+<ul>
+  <li>If Type Into misses characters add a small delay between keystrokes or set SendWindowMessages to false depending on the element</li>
+  <li>When selectors change, open UiExplorer and capture multiple attributes then test with wildcards</li>
+  <li>Use logging to capture which selector variant succeeded so you can retire the others later</li>
+</ul>
+
+<h2>Summary</h2>
+<p>Automating a website login with UiPath is straightforward when you treat selectors like precious glass and credentials like nuclear codes. Use Open Browser or Attach Browser, prefer stable selectors, secure passwords with Get Secure Credential and Type Secure Text, and add retry logic and validation checks. Do that and your automation will log in reliably and spend less time embarrassing itself in the logs.</p>
+

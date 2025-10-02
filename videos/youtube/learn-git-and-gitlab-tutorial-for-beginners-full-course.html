@@ -1,0 +1,82 @@
+---
+layout: video
+title: "Learn Git and GitLab Tutorial For Beginners | Full Course"
+description: "Beginner friendly guide to Git and GitLab covering setup branching merging CI CD and workflow best practices for 2024"
+video_host: "youtube"
+video_id: "NK2BrGpA9wI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1H44M9S"
+thumbnail_url: "https://i.ytimg.com/vi/NK2BrGpA9wI/maxresdefault.jpg"
+content_url: "https://youtu.be/NK2BrGpA9wI"
+embed_url: "https://www.youtube.com/embed/NK2BrGpA9wI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - GitLab
+  - Version Control
+  - Git Tutorial
+  - GitLab CI
+  - Branching
+  - Merging
+  - Git Commands
+  - DevOps
+  - Beginner Guide
+---
+
+<h1>Step by step Git workflow and GitLab CI tips for beginners and teams</h1>
+<p>This crash friendly guide covers Git basics and GitLab workflows with real world tips and a mild sarcastic undertone. You will learn local setup commits branching pushing merge requests and a gentle look at GitLab CI pipelines for automated tests and deploys. Think of this as a survival guide for version control so your future self does not rage at you.</p>
+
+<h2>Install and configure Git</h2>
+<p>Install Git from your package manager or from the official site. Then set your identity so commits are traceable and you do not end up as anonymous mystery contributor.</p>
+<pre><code>git config --global user.name 'Your Name'
+git config --global user.email 'you@example.com'
+ssh-keygen -t rsa -b 4096 -C 'you@example.com'
+</code></pre>
+<p>Copy the public key from <code>~/.ssh/id_rsa.pub</code> and paste it into your GitLab profile under SSH Keys for secure password free pushes. Use <code>git config</code> to make settings permanent and avoid awkward anonymous commits later.</p>
+
+<h2>Local workflow and commits</h2>
+<p>Stage deliberately and commit often. Use <code>git add</code> to pick changes and <code>git commit</code> to create a checkpoint. Small logical commits make reviews less painful and debugging less like archaeology.</p>
+<ul>
+<li><code>git status</code> to see your state</li>
+<li><code>git add &lt;path&gt;</code> or <code>git add .</code> to stage</li>
+<li><code>git commit -m 'clear message'</code> to record a change</li>
+</ul>
+<p>Good commit messages save team sanity. Include the why not just the what so your reviewers do not have to guess your motives.</p>
+
+<h2>Branching and merging</h2>
+<p>Create branches for features and fixes so main stays calm and deployable. Use <code>git checkout -b feature/name</code> or the modern <code>git switch -c feature/name</code> when you want a cleaner vibe.</p>
+<p>When it is time to integrate choose merge to preserve history or rebase to tidy up a slim sequence of commits. Merge keeps the story intact and rebase rewrites history into something neat. Pick what fits your team workflow.</p>
+
+<h2>Remote repositories and GitLab</h2>
+<p>Use <code>git push</code> and <code>git pull</code> to sync with remotes. If your workflow uses forks create merge requests to ask for reviews and to trigger CI pipelines on GitLab. Merge requests are the polite method to get feedback and to run tests before code reaches main.</p>
+
+<h2>GitLab CI and pipelines</h2>
+<p>GitLab CI is driven by a file named <code>.gitlab-ci.yml</code> which defines jobs that run on runners. Jobs can run tests builds and deploy steps and give feedback before code lands in production. You do not need to be a YAML wizard to get useful pipelines running.</p>
+
+<h3>Common pipeline stages</h3>
+<ul>
+<li>Run unit tests to catch regressions</li>
+<li>Build artifacts so you can deploy the same thing everywhere</li>
+<li>Deploy to staging to validate in a safe area</li>
+<li>Run smoke checks so basic functionality is verified</li>
+</ul>
+
+<h2>Collaboration and best practices</h2>
+<p>Protect main branches and require merge requests and approvals. Use descriptive branch names like <code>feature/login</code> or <code>fix/logout-bug</code> and keep changes small so reviewers do not fall asleep.</p>
+<p>Use CI checks and code review rules to catch problems early. Write commit messages that explain the why and avoid gigantic diffs that make reviewers weep quietly.</p>
+
+<h2>Quick cheat sheet</h2>
+<p>Keep these five commands in a dotfile or your repo README to save time and dignity.</p>
+<ul>
+<li><code>git status</code></li>
+<li><code>git add .</code></li>
+<li><code>git commit -m 'small clear message'</code></li>
+<li><code>git push</code></li>
+<li><code>git pull</code></li>
+</ul>
+
+<p>Follow these steps and you will gain practical skills in version control and continuous delivery without summoning mystical rituals. Now go make a branch and try not to break the build.</p>
+

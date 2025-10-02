@@ -1,0 +1,70 @@
+---
+layout: video
+title: "UiPath If Activity by Example"
+description: "Quick guide to using the UiPath If activity with examples for branching conditions in workflows and testing expressions."
+video_host: "youtube"
+video_id: "Dy9SyAbie_4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M39S"
+thumbnail_url: "https://i.ytimg.com/vi/Dy9SyAbie_4/maxresdefault.jpg"
+content_url: "https://youtu.be/Dy9SyAbie_4"
+embed_url: "https://www.youtube.com/embed/Dy9SyAbie_4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - RPA
+  - If Activity
+  - Workflow
+  - Conditions
+  - Automation
+  - Tutorial
+  - Expressions
+  - Debugging
+  - Best Practices
+---
+
+<article>
+  <h2>Why the If activity matters and why you will thank it later</h2>
+  <p>If activities are the tiny traffic directors of your UiPath workflows. They decide whether a path runs now or gets politely ignored. Get them right and your automation behaves like a well trained intern. Get them wrong and you will spend an afternoon chasing ghost branches while muttering about row values.</p>
+
+  <h2>Quick start steps to make If activity behave</h2>
+  <p>Follow these steps to add a decision to your workflow without invoking chaos in the name of conditional logic.</p>
+  <ol>
+    <li><strong>Drag the If activity</strong> into a Sequence or Flowchart and give it a sensible name like Check Age or Validate Value so debugging does not feel like reading tea leaves.</li>
+    <li><strong>Build the condition</strong> using the Expression Editor for autocomplete and type hints. Example expression for a DataRow might look like</li>
+  </ol>
+  <pre><code>row("Age") &gt; 18</code></pre>
+  <p>Remember UiPath uses VB style expressions so AndAlso and OrElse exist if you want short circuit evaluation. A compound example looks like</p>
+  <pre><code>row("Score") &gt; 80 AndAlso row("Attempts") &lt;= 3</code></pre>
+
+  <h2>What goes into Then and Else</h2>
+  <p>Then runs when your condition is True. Use it for Assign, Log Message, Invoke Workflow or whatever keeps the downstream happy. Else runs when the condition is False. Be explicit with Else so your workflow does not fail silently like a ghost file.</p>
+
+  <h3>Practical branch items</h3>
+  <ul>
+    <li>Then branch: update status, call next process, log success</li>
+    <li>Else branch: log the reason, set retry flags, or route to exception handling</li>
+  </ul>
+
+  <h2>Testing and debugging without crying</h2>
+  <p>Run the workflow with representative test data. Use Breakpoints, Step Into, and the Locals panel to inspect variable values. The fastest way to know which branch ran is to log it. Put a Log Message in both branches with text that tells you what happened. That beats guessing and saves you time you can spend on snacks.</p>
+
+  <h3>When conditions get messy</h3>
+  <p>If your condition looks like a ransom note with too many operators then refactor. Split complex expressions into helper boolean variables defined by Assign or a small invoked workflow. If branching logic grows into a hydra consider switching to a Flowchart or a Switch activity for clearer flow.</p>
+
+  <h2>Common pitfalls and how to avoid them</h2>
+  <ul>
+    <li>Forgetting to handle Null values. Use IsNothing or default values to avoid runtime breaks.</li>
+    <li>Using the wrong operator. Prefer AndAlso and OrElse when you need short circuit logic to avoid unwanted evaluation of the second operand.</li>
+    <li>Not logging which branch ran. A single Log Message per branch will save hours of guessing.</li>
+  </ul>
+
+  <h2>Recap and best practices</h2>
+  <p>Place the If activity where it makes the decision obvious. Keep conditions readable. Populate both Then and Else so alternative flows are documented. Test with representative data and use the debugger tools UiPath gives you. If you do these things your branching will stop being spooky and start being reliable instead.</p>
+
+  <p>Now go add an If activity and watch your workflow make sensible choices. If it misbehaves remember to log everything and blame the data before blaming the robot.</p>
+</article>
+

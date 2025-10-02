@@ -1,0 +1,86 @@
+---
+layout: video
+title: "UiPath Read, Write and Filter CSV Files Example"
+description: "Learn how to read write and filter CSV files in UiPath with clear steps and simple examples for reliable RPA data handling"
+video_host: "youtube"
+video_id: "8bIKtEgSKUs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M40S"
+thumbnail_url: "https://i.ytimg.com/vi/8bIKtEgSKUs/maxresdefault.jpg"
+content_url: "https://youtu.be/8bIKtEgSKUs"
+embed_url: "https://www.youtube.com/embed/8bIKtEgSKUs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - CSV
+  - Read CSV
+  - Write CSV
+  - Filter CSV
+  - DataTable
+  - RPA
+  - UiPath Studio
+  - Automation
+  - CSV handling
+---
+
+<p>If your automation needs to chew through CSVs without staging a melodrama, this guide shows how to do it in UiPath Studio like a competent robot. We will read a CSV into a DataTable, filter or mutate rows, then write the result back to a new file. You get clean output, better error handling, and fewer support tickets at 2 a m.</p>
+
+<h2>Quick overview of the workflow</h2>
+<p>High level first so you feel smart before the details hit. The flow looks like this</p>
+<ul>
+  <li>Read CSV into a DataTable using the Read CSV activity</li>
+  <li>Filter or transform rows using DataTable methods or a For Each row loop</li>
+  <li>Validate and handle edge cases to avoid runtime surprises</li>
+  <li>Write the cleaned DataTable back to disk with Write CSV</li>
+</ul>
+
+<h2>Read the CSV into a DataTable</h2>
+<p>Drag the Read CSV activity into your sequence. Point FilePath to the source file and save the output to a DataTable variable such as <code>table</code> or <code>dtInput</code>. If your file uses tabs or pipes instead of commas, set the delimiter accordingly. If you want culture aware parsing, set the appropriate culture so numbers and dates do not fight you.</p>
+
+<h3>Tips for robust parsing</h3>
+<ul>
+  <li>Trim whitespace early to avoid phantom mismatches with <code>row(&quot;ColumnName&quot;).ToString.Trim()</code></li>
+  <li>Specify the delimiter explicitly when the source system is unpredictable</li>
+  <li>If headers might be missing, detect that and either add default headers or fail with a useful log message</li>
+</ul>
+
+<h2>Filter or transform the DataTable</h2>
+<p>Want rows where Age is over 30 Use the Select method to pick them</p>
+<pre><code>Dim selected = table.Select("Age &gt; 30")
+Dim filtered = If(selected.Any, selected.CopyToDataTable(), table.Clone())
+</code></pre>
+<p>Yes you must validate before CopyToDataTable because it throws if the selection is empty. A safe pattern is to check <code>selected.Any</code> or verify <code>selected.Length &gt; 0</code> first. For column edits loop with For Each row in table and assign values like</p>
+<pre><code>For Each row As DataRow In table.Rows
+  row("Status") = SomeNewValue
+Next
+</code></pre>
+
+<h3>When to use Select versus LINQ</h3>
+<p>Use <code>DataTable.Select</code> for quick filters, and LINQ to DataSet when you need more complex transformations. Both keep you in-memory and fast enough for typical RPA CSV handling scenarios.</p>
+
+<h2>Write the result back to a CSV</h2>
+<p>Use the Write CSV activity. Set the Input to your DataTable variable and the FilePath to the output location. Decide whether to overwrite or archive previous files. Archiving is the polite choice when you want to explain mistakes to auditors later.</p>
+
+<h2>Validation and error handling</h2>
+<p>Protect your workflow with a few proven checks</p>
+<ul>
+  <li>Check <code>table IsNot Nothing</code> and <code>table.Rows.Count &gt; 0</code> before calling <code>CopyToDataTable</code></li>
+  <li>Wrap file operations in Try Catch to catch IO exceptions for locked files or missing permissions</li>
+  <li>Log clear messages so you can blame the source system instead of your automation</li>
+</ul>
+
+<h2>Putting it together</h2>
+<p>So the practical pipeline in UiPath Studio looks like this. Read CSV into a DataTable, optionally filter or modify rows with Select or a For Each loop, validate the result, then Write CSV. Add Try Catch blocks around file IO, trim values early, and set a culture aware delimiter if needed. That gives you reliable CSV handling for RPA automation without drama.</p>
+
+<h3>Final sanity checks</h3>
+<ul>
+  <li>Do a dry run with a small sample file</li>
+  <li>Confirm header names and data types match expectations</li>
+  <li>Decide on an overwrite policy so your logs do not look like a crime scene</li>
+</ul>
+
+<p>If you follow these steps you will have a maintainable UiPath workflow that reads writes and filters CSV files, and you will have earned at least some respect from ops. Now go automate something.</p>
+

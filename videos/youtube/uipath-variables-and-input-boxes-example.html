@@ -1,0 +1,76 @@
+---
+layout: video
+title: "UiPath variables and input boxes example"
+description: "Short guide to using UiPath variables and Input Dialog activities to capture user input and pass values through a workflow."
+video_host: "youtube"
+video_id: "KCCBJ711Z5Q"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M24S"
+thumbnail_url: "https://i.ytimg.com/vi/KCCBJ711Z5Q/maxresdefault.jpg"
+content_url: "https://youtu.be/KCCBJ711Z5Q"
+embed_url: "https://www.youtube.com/embed/KCCBJ711Z5Q"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - RPA
+  - variables
+  - Input Dialog
+  - automation
+  - UiPath tutorial
+  - user input
+  - Assign activity
+  - debugging
+  - workflow design
+---
+
+<h2>Quick overview</h2>
+<p>This is a short and honest guide to getting user input into your UiPath automation without losing your mind. You will see how to create variables, bind them to an Input Dialog, validate the results and use Assign activity and logging so your workflow does not behave like a gremlin during demo time.</p>
+
+<h2>Why variable scope matters</h2>
+<p>Scope is the thing most developers ignore until it punches them in the test run. Variables in UiPath are not global by default. Give variables the smallest scope that still lets your activities talk to one another. Do that and your workflow will be readable and less likely to produce mysterious empty values when an activity runs in a different sequence.</p>
+
+<h2>Set up variables the sensible way</h2>
+<p>Create descriptive names that tell you what they hold. Examples that do not make you cry later include:</p>
+<ul>
+  <li>String userName</li>
+  <li>Int32 quantity</li>
+  <li>Boolean isConfirmed</li>
+</ul>
+<p>Pick the correct data type at creation time. If you plan to do math, use Int32 or Double. If you expect freeform text, use String. Avoid vague names like temp or data unless you enjoy debugging archaeology.</p>
+
+<h2>Use the Input Dialog activity like a grownup</h2>
+<p>Drag an Input Dialog where you need user input. Set a clear title and label so the user does not guess what you meant. In the Output property bind the dialog to the variable you created earlier, for example userName or quantityText. That binding writes the entered value straight into your workflow state.</p>
+
+<h3>Minimal validation that saves careers</h3>
+<ul>
+  <li>Trim user input to drop accidental spaces with inputText.Trim()</li>
+  <li>For numbers use Integer.TryParse or Int32.TryParse to avoid exceptions and to convert text safely into an Int32 variable</li>
+  <li>Check string length and required flags for required fields so you do not pass malformed data downstream</li>
+</ul>
+<p>Example in a simple If activity expression using VB style that UiPath accepts at expression points</p>
+<pre><code>Dim qty As Int32
+If Integer.TryParse(quantityText.Trim(), qty) Then
+  Assign activity sets quantity to qty
+Else
+  Log message that input was invalid and prompt again
+End If</code></pre>
+
+<h2>Use Assign activity for transformations</h2>
+<p>Want to normalize or convert values before using them elsewhere Use Assign activity to set variables after parsing or trimming. For example you can do an Assign called sanitizedName with value userName.Trim().ToUpper when you need uniformity for comparisons or lookups.</p>
+
+<h2>Keep debugging boring and predictable</h2>
+<p>Logging is your friend when troubleshooting weird data shapes. Use Log Message activities to print variable contents at key points. If something goes wrong add a breakpoint and watch variables during the run. That is less painful than guessing at failures from the logs alone.</p>
+
+<h2>Workflow design tips that will save time later</h2>
+<ul>
+  <li>Prefer explicit variable names and narrow scope so future maintenance does not feel like excavating ruins</li>
+  <li>Validate early and often so downstream activities get clean input</li>
+  <li>Group user interaction steps in a single sequence or flow so you can reuse them and avoid duplication</li>
+</ul>
+
+<h2>Wrap up</h2>
+<p>If you follow these basic UiPath practices for variables and Input Dialog activities your automations will be more reliable and easier to maintain. You will still make mistakes, because humans make mistakes, but at least your workflow will fail with dignity and clear logs instead of dramatic silence.</p>
+

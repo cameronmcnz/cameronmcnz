@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Struts jQuery Plugin Tutorial"
+description: "Integrate the Struts jQuery Plugin into Struts apps to add AJAX features and simplify UI interactions with minimal code"
+video_host: "youtube"
+video_id: "PTNtxAjuQL8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT13M28S"
+thumbnail_url: "https://i.ytimg.com/vi/PTNtxAjuQL8/maxresdefault.jpg"
+content_url: "https://youtu.be/PTNtxAjuQL8"
+embed_url: "https://www.youtube.com/embed/PTNtxAjuQL8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Struts2
+  - jQuery
+  - Struts jQuery Plugin
+  - Ajax
+  - Java
+  - Maven
+  - JSP
+  - Web Development
+  - JSON
+  - Tutorial
+---
+
+<article>
+  <h1>Integrate Struts2 and jQuery for Ajax driven UI with JSON results</h1>
+  <p>If you are still hand crafting every Ajax request and living in a JavaScript swamp, the Struts jQuery Plugin will be your life raft. This guide shows how to add the plugin to a Struts2 app and get grids forms and partial updates working without writing a small novel of client code.</p>
+
+  <h2>Quick setup and dependencies</h2>
+  <p>Add the Struts jQuery Plugin jar or use Maven to pull it in along with a matching Struts2 core version. Version drift will cause mysterious ClassNotFound surprises and will cost you hair and time, so keep them aligned. Also include the Struts JSON plugin if you plan to return JSON from actions.</p>
+
+  <h2>Configure Struts and static resources</h2>
+  <p>Enable static resource serving so the plugin can load its JavaScript and CSS. Update struts.xml to include the plugin tag libraries and make sure your theme settings allow the plugin assets to load. If resources do not appear on a page check web server mappings first, not your therapist.</p>
+
+  <h2>Build JSP with Struts jQuery tags</h2>
+  <p>Stop writing boilerplate JavaScript. Use the plugin tags in JSP to render common UI elements</p>
+  <ul>
+    <li>Use <code>&lt;sj:head&gt;</code> to include scripts and styles</li>
+    <li>Use <code>&lt;sj:grid&gt;</code> to render data tables with sorting and paging</li>
+    <li>Use <code>&lt;sj:form&gt;</code> and <code>&lt;sj:submit&gt;</code> to bind Ajax submission to Struts actions</li>
+    <li>Use <code>&lt;sj:a&gt;</code> and <code>&lt;sj:div&gt;</code> for partial updates</li>
+  </ul>
+  <p>These tags let you target containers for partial updates and keep your JSPs readable. You still get full control when you need it, but most of the grunt work is handled for you.</p>
+
+  <h2>Actions and JSON responses</h2>
+  <p>Implement Struts actions in Java that prepare data and return either a JSP view or JSON. Configure results in struts.xml or use the JSON plugin result type so the plugin receives predictable payloads. Keep the JSON shape stable to avoid client side errors and nested debugging sessions.</p>
+
+  <h2>Test and debug like a reasonable human</h2>
+  <p>Open browser developer tools and watch network calls responses and console logs. If something is broken check these things</p>
+  <ul>
+    <li>Are the plugin resources loading</li>
+    <li>Is the action returning JSON with the expected property names</li>
+    <li>Is the Struts mapping correct and returning the intended result type</li>
+  </ul>
+  <p>Log action inputs and the JSON output during development. Console logging is your friend until it is your enemy in production.</p>
+
+  <h3>Checklist</h3>
+  <ul>
+    <li>Plugin and Struts2 versions match</li>
+    <li>Static resources are mapped and cached in production</li>
+    <li>JSP uses <code>&lt;sj:head&gt;</code> and appropriate sj tags</li>
+    <li>Actions return JSON or JSP as configured</li>
+    <li>Developer tools are used for network and console inspection</li>
+  </ul>
+
+  <h3>Pro tips</h3>
+  <p>Cache static plugin assets in production to avoid serving a fresh bug each deploy. During development keep verbose logging and conservative JSON shapes. If two things fail at once check versions first and blame Maven second.</p>
+
+  <p>This tutorial covered dependency setup resource configuration JSP usage action wiring and practical debugging steps to get the Struts jQuery Plugin running in a Struts2 environment. The plugin reduces manual Ajax plumbing and lets you focus on real features while maintaining a sensible Java and JSP workflow.</p>
+</article>
+

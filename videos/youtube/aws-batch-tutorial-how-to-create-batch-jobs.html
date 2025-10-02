@@ -1,0 +1,74 @@
+---
+layout: video
+title: "AWS Batch Tutorial | How to Create Batch Jobs"
+description: "Step by step guide to AWS Batch job setup including job definitions queues and Fargate EC2 and EKS options"
+video_host: "youtube"
+video_id: "BzRUKk3A3l4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/BzRUKk3A3l4/maxresdefault.jpg"
+content_url: "https://youtu.be/BzRUKk3A3l4"
+embed_url: "https://www.youtube.com/embed/BzRUKk3A3l4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS Batch
+  - AWS Fargate
+  - EC2
+  - EKS
+  - Job Queue
+  - Job Definition
+  - Batch Jobs
+  - Cloud Computing
+  - DevOps
+  - Containers
+---
+
+<p>If you need to run batch jobs at scale and you do not enjoy babysitting servers then AWS Batch is your new best frenemy. This guide walks through the practical steps to build job definitions, provision compute environments with Fargate EC2 or EKS, create job queues, submit work and monitor results. No fluff, just the parts that keep your costs down and your deadlines alive.</p>
+
+<h2>Why use AWS Batch</h2>
+<p>AWS Batch handles scheduling containerized batch jobs across suitable compute resources so you can focus on the workload and not on which EC2 flavor to cry over. Use it for parallel data processing scientific workloads or any batch job where automation matters more than hand tuning.</p>
+
+<h2>Core concepts explained without the corporate jargon</h2>
+
+<h3>Job definition</h3>
+<p>This is the container spec and runtime rules. It tells Batch which image to run what command to execute and how much vCPU and memory to reserve. Add retries and timeouts in the job definition to stop runaway bills and ghost processes.</p>
+
+<h3>Compute environment</h3>
+<p>This is where the work actually runs. Choose one of three options based on how much control you crave.</p>
+<ul>
+  <li>Fargate You get serverless containers and no host management. Great for simple tasks and predictable scaling.</li>
+  <li>EC2 Use a managed compute environment to let AWS handle instance lifecycle or unmanaged if you want full control over AMIs and instance types.</li>
+  <li>EKS Connect an existing Kubernetes cluster and run batch pods if you already live in the K8s ecosystem.</li>
+</ul>
+
+<h3>Job queue</h3>
+<p>Queues route jobs to compute environments. Attach multiple compute environments and set priorities. Put fast responsive capacity at higher priority and cheap spot capacity with fallback at lower priority to save money without sacrificing completion.</p>
+
+<h2>Step by step setup without the drama</h2>
+<p>Follow these steps in order and you will have a working pipeline that does not require daily pep talks.</p>
+<ol>
+  <li>Create a job definition by packaging your container image and declaring command and resource needs. Match vCPU and memory to your workload profile.</li>
+  <li>Provision a compute environment and choose Fargate EC2 or EKS based on your needs. For managed EC2 let AWS handle instances. For unmanaged EC2 pick the AMI and instance types that fit your workload.</li>
+  <li>Create a job queue and attach compute environments. Set priorities so urgent jobs go to low latency resources and bulk work uses spot capacity.</li>
+  <li>Submit a job with the Console CLI or SDK and watch the scheduler do its thing.</li>
+</ol>
+
+<h3>Example CLI command</h3>
+<pre><code>aws batch submit-job --job-name myjob --job-queue myqueue --job-definition mydef</code></pre>
+<p>That enqueues your job and AWS Batch schedules it according to queue rules and compute availability. It is thrilling in a very boring way.</p>
+
+<h2>Monitoring and troubleshooting like a pro</h2>
+<p>Use the Console CloudWatch logs and describe job CLI calls to monitor status. Capture container logs for debugging and add retries and timeouts in the job definition to prevent runaway costs. If something fails check IAM roles network settings and container exit codes first before blaming AWS.</p>
+
+<h2>Tips to save money and time</h2>
+<ul>
+  <li>Use job arrays for large parallel workloads to reduce operational overhead and repeated submissions.</li>
+  <li>Combine spot capacity with a higher priority fallback to on demand or managed instances to balance cost and reliability.</li>
+  <li>Right size vCPU and memory to avoid idle resource waste. Containers do not appreciate being oversized any more than your laptop does.</li>
+</ul>
+
+<p>Follow these steps and you will move from setup to running batch workflows without unnecessary pain. AWS Batch gives you a way to run containers at scale whether you prefer serverless Fargate managed EC2 or integrating with EKS. Now go submit jobs and pretend you planned this all along.</p>
+

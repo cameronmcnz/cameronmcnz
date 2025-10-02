@@ -1,0 +1,65 @@
+---
+layout: video
+title: "What is .gitkeep in Git? Plus an example?"
+description: "Quick explanation of .gitkeep why empty folders are ignored by Git and a practical example to keep directories tracked"
+video_host: "youtube"
+video_id: "PdJqFpxA9zA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M53S"
+thumbnail_url: "https://i.ytimg.com/vi/PdJqFpxA9zA/maxresdefault.jpg"
+content_url: "https://youtu.be/PdJqFpxA9zA"
+embed_url: "https://www.youtube.com/embed/PdJqFpxA9zA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - .gitkeep
+  - git
+  - empty folders
+  - gitignore
+  - version control
+  - placeholder file
+  - git tutorial
+  - software development
+  - repo management
+  - git best practices
+---
+
+<p>Git has many virtues but keeping empty folders on the radar is not one of them. By default Git tracks files not folders so when you need an empty directory to exist in your repo you create a tiny placeholder file and teach Git to care. The community favorite for this little exercise is called <strong>.gitkeep</strong> which is just a convention not a magic spell.</p>
+
+<h2>Why you might want an empty folder</h2>
+<p>Some apps expect folders to exist for logs temporary uploads or generated assets. If a folder is missing your code may crash in ways that are delightful to debug at 3 a m. Adding a placeholder file ensures the structure is preserved when someone clones the repo and runs the code.</p>
+
+<h2>What .gitkeep actually is</h2>
+<p>The file named <strong>.gitkeep</strong> does nothing special to Git. It is a plain file that you add to an otherwise empty folder so Git will track that folder. The name signals intent to humans not to Git. Treat it as a tiny seatbelt for your repository structure.</p>
+
+<h3>Quick example commands</h3>
+<pre><code>mkdir logs
+touch logs/.gitkeep
+git add logs/.gitkeep
+git commit -m 'Add logs folder with .gitkeep'</code></pre>
+
+<h2>Alternatives that are slightly more talkative</h2>
+<ul>
+  <li><strong>README</strong> in the folder. This explains why the folder exists and is great for future you or teammates who enjoy context.</li>
+  <li><strong>.gitignore trick</strong> Use a pattern that ignores everything but lets one file in. This is handy when you want to ignore generated content but keep the folder itself tracked.</li>
+</ul>
+
+<h3>Example .gitignore for a folder you want present but empty</h3>
+<pre><code>logs/*
+!logs/.gitkeep</code></pre>
+
+<h2>Common mistakes to avoid</h2>
+<ul>
+  <li>Thinking .gitkeep does anything special to Git. It does not.</li>
+  <li>Committing the placeholder to the wrong branch and then wondering why it is missing. Branches are real and they do not share memory.</li>
+  <li>Having a global ignore rule that hides your tiny file. If that happens add a local negate pattern like in the example above.</li>
+</ul>
+
+<h2>When to prefer README and when to prefer .gitkeep</h2>
+<p>If the folder benefits from a short explanation prefer a README file. If you just want the smallest possible tracked artifact use <strong>.gitkeep</strong>. Both are valid repo management tools and both fit into git best practices depending on what you value more clarity or minimalism.</p>
+
+<h2>Final tip for version control survival</h2>
+<p>Use whatever makes the repository easier for humans to understand and for the code to run. That could be a tiny file called <strong>.gitkeep</strong> a README or a clever .gitignore rule. Just do not summon mysterious folder not found errors at runtime and then blame Git for having standards.</p>
+

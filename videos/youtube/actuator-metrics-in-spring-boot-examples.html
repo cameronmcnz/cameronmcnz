@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Actuator Metrics in Spring Boot Examples"
+description: "Learn how to enable and expose CPU memory and thread metrics with Spring Boot Actuator for easy monitoring and troubleshooting."
+video_host: "youtube"
+video_id: "ACrRY0REgA4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M41S"
+thumbnail_url: "https://i.ytimg.com/vi/ACrRY0REgA4/maxresdefault.jpg"
+content_url: "https://youtu.be/ACrRY0REgA4"
+embed_url: "https://www.youtube.com/embed/ACrRY0REgA4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - spring-boot
+  - actuator
+  - micrometer
+  - metrics
+  - cpu
+  - memory
+  - threads
+  - endpoints
+  - prometheus
+  - monitoring
+---
+
+<h2>Quick overview</h2>
+<p>Spring Boot Actuator plus Micrometer gives you CPU memory and thread metrics without begging for mercy. Add the starter and a Prometheus registry and you get useful meters like jvm.memory.used and jvm.threads.live. This guide walks through the minimal steps to expose those metrics and to stop them from shouting at you in production.</p>
+
+<h3>Add dependencies and binders</h3>
+<p>Include the Actuator starter and a Micrometer registry. Maven users can paste the XML below. Gradle is similar and yes it will work even if you do not remember the plugin incantations.</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;io.micrometer&lt;/groupId&gt;
+  &lt;artifactId&gt;micrometer-registry-prometheus&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+
+<h3>Configure Actuator endpoints and exposure</h3>
+<p>Turn on only the endpoints you need so you do not accidentally hand sensitive telemetry to the internet circus. Use application properties to expose metrics and Prometheus scraping.</p>
+<pre><code>management.endpoints.web.exposure.include=metrics,health,prometheus
+management.endpoint.metrics.enabled=true
+management.endpoint.prometheus.enabled=true</code></pre>
+
+<h3>Register Micrometer backend and pick meters</h3>
+<p>Micrometer auto config supplies JVM meters such as jvm.memory.used and jvm.threads.live. For process and system CPU you can add platform specific binders from Micrometer. The heavy lifting is mostly dependency and wiring work, not heroic code.</p>
+
+<h3>Query metrics from Actuator endpoints</h3>
+<p>Point your monitoring system or open a browser to the Actuator paths to inspect metric names and values. Useful endpoints include the following.</p>
+<ul>
+  <li>/actuator/metrics/jvm.memory.used</li>
+  <li>/actuator/metrics/jvm.threads.live</li>
+  <li>/actuator/prometheus for a Prometheus scrape target</li>
+</ul>
+<p>Keep in mind that CPU metrics vary by platform. If you need process CPU or system CPU metrics use the OS or process binders that Micrometer provides.</p>
+
+<h3>Secure and tune metric collection</h3>
+<p>Metrics are useful but also noisy. Protect actuator endpoints with Spring Security and limit which meters you register. Tweak scrape and reporting frequency in your registry or in Prometheus to control overhead.</p>
+<ul>
+  <li>Restrict access to actuator endpoints with Spring Security rules</li>
+  <li>Enable only the meters and endpoints you actually need for monitoring</li>
+  <li>Reduce meter cardinality by filtering tags and labels</li>
+  <li>Lower scrape or publish frequency to reduce CPU and memory cost</li>
+</ul>
+
+<h2>Tips for production</h2>
+<p>Do not expose everything by default. Pick metrics that answer real questions about app health and performance. Use Prometheus for scraping and Grafana for dashboards. If something looks wrong start with thread and memory metrics and then check CPU, because threads and memory tend to tell the juiciest stories.</p>
+
+<h3>Summary</h3>
+<p>Spring Boot Actuator plus Micrometer and a Prometheus registry gives you a solid foundation for monitoring CPU memory and threads. Add the dependencies wire the endpoints and registry and secure and tune what you expose. Then enjoy clean metrics and fewer midnight alerts, or at least fewer false alarms.</p>
+

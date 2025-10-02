@@ -1,0 +1,70 @@
+---
+layout: video
+title: "DB Browser SQLite Viewer Manage Data Types and CRUD"
+description: "Quick guide to DB Browser for SQLite covering data types, CREATE TABLE SQL and inserting records for CRUD work"
+video_host: "youtube"
+video_id: "mhaY9hh3Irs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M56S"
+thumbnail_url: "https://i.ytimg.com/vi/mhaY9hh3Irs/maxresdefault.jpg"
+content_url: "https://youtu.be/mhaY9hh3Irs"
+embed_url: "https://www.youtube.com/embed/mhaY9hh3Irs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - DB Browser
+  - SQLite
+  - Database Viewer
+  - CRUD
+  - Data Types
+  - CREATE TABLE
+  - Insert Records
+  - SQL Tutorial
+  - Browse Data
+  - Database Tools
+---
+
+<p>If you opened DB Browser for SQLite hoping for a life changing experience you will be slightly disappointed. If you opened it to manage tables, data types and basic CRUD operations you are in the right place. This quick walkthrough covers how to inspect structure, run CREATE TABLE SQL, add rows with Browse Data or Execute SQL, and save changes without setting off alarm bells.</p>
+
+<h2>Open a database and meet the interface</h2>
+<p>Launch DB Browser for SQLite and open a file or create a new database. The left pane shows your tables. The main area has tabs for Browse Data, Database Structure, Execute SQL and Modify Table. This is where you will do the useful work and also where typos get obvious fast.</p>
+
+<h2>Check column definitions and pick sensible data types</h2>
+<p>Switch to Database Structure to view columns. Pick a type that fits your data and your sanity. Common storage classes in SQLite are flexible but they still matter for sorting and storage.</p>
+
+<h3>Common SQLite types</h3>
+<ul>
+  <li>INTEGER for whole numbers and primary keys</li>
+  <li>TEXT for strings and human drama</li>
+  <li>REAL for floating point numbers</li>
+  <li>BLOB for opaque binary junk like images or secrets</li>
+  <li>NUMERIC when you want SQLite to try harder about type affinity</li>
+</ul>
+<p>Remember that SQLite uses type affinity, which means it is forgiving but not a free for all. Choose types to make your queries predictable.</p>
+
+<h2>Run CREATE TABLE SQL</h2>
+<p>Want to add a table without clicking through a dozen dialogs Then use Execute SQL. Paste a statement and hit Execute. No drama required.</p>
+<pre><code>CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, email TEXT)</code></pre>
+<p>After running the statement refresh Database Structure to see your new table show up.</p>
+
+<h2>Insert records with Browse Data or Execute SQL</h2>
+<p>For quick manual edits use Browse Data. It looks like a spreadsheet and feels forgiving. For repeatable inserts and tests use Execute SQL and run INSERT statements.</p>
+<pre><code>INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com')</code></pre>
+<p>Browse Data is safer for ad hoc fixes. Execute SQL is better for scripted inserts, testing constraints and automation.</p>
+
+<h2>Save changes and verify CRUD behavior</h2>
+<p>When you are done press Write Changes to persist edits. If you forget this button will teach you humility the next time you close the app. Test reads, updates and deletes to confirm that your application sees the same behavior you do.</p>
+<p>If you use foreign keys enable and test them with the PRAGMA foreign_keys = ON command while in Execute SQL. Otherwise those relationships will be suggestions and not rules.</p>
+
+<h2>Troubleshooting and practical tips</h2>
+<ul>
+  <li>Use Transactional batches in Execute SQL for multiple inserts to keep things atomic</li>
+  <li>Check indexing for queries that feel sluggish</li>
+  <li>Run PRAGMA integrity_check if you suspect corruption</li>
+  <li>Export your schema or data if you need to share work with teammates who still use rituals from the 90s</li>
+</ul>
+
+<p>This guide showed opening a database, inspecting and choosing data types, running CREATE TABLE SQL, inserting records and saving changes. You now have the essentials to manage SQLite tables with DB Browser and avoid the most embarrassing mistakes.</p>
+

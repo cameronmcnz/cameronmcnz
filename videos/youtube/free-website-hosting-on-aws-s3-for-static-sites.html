@@ -1,0 +1,77 @@
+---
+layout: video
+title: "Free Website Hosting on AWS S3 for Static Sites"
+description: "Host a static website on AWS S3 using the Amazon Free Tier and map a custom domain with DNS and optional CloudFront for HTTPS."
+video_host: "youtube"
+video_id: "v5MW0ErA97A"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/v5MW0ErA97A/maxresdefault.jpg"
+content_url: "https://youtu.be/v5MW0ErA97A"
+embed_url: "https://www.youtube.com/embed/v5MW0ErA97A"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS S3
+  - Static Hosting
+  - Amazon Free Tier
+  - Route 53
+  - CloudFront
+  - Static Site
+  - Website Hosting
+  - S3 Website
+  - DNS
+  - Hosting Tutorial
+---
+
+<h1>Step by step S3 static hosting with Route 53, CloudFront and HTTPS</h1>
+<p>Tired of paying for a web host that serves ads and regret? Host your static site on AWS S3 and treat the Free Tier like a free trial that never ends. This guide walks you through naming the bucket, uploading files, granting public read access without turning your data into public art, pointing DNS, and adding CloudFront for HTTPS when you decide to look professional.</p>
+
+<h2>Why S3 works so well for static sites</h2>
+<p>S3 is an object store that moonlights as a web server. It serves static HTML, CSS and assets directly from a website endpoint, with low cost bandwidth and decent performance. For small projects you will likely stay in the Free Tier, but keep an eye on requests and transfer unless you enjoy surprise invoices.</p>
+
+<h2>What you need</h2>
+<ul>
+  <li>An AWS account with Free Tier available</li>
+  <li>A registered domain name</li>
+  <li>Route 53 or another DNS provider to change records</li>
+  <li>Optional CloudFront for HTTPS and edge caching</li>
+  <li>The AWS console or AWS CLI for uploads</li>
+</ul>
+
+<h2>Quick setup steps</h2>
+<ol>
+  <li><strong>Create the bucket</strong> Use a bucket name that exactly matches your domain if you want root hosting, for example example.com. Choose the region closest to your visitors.</li>
+  <li><strong>Upload your site</strong> Use the console or run <pre><code>aws s3 sync ./site s3://example.com --acl public-read</code></pre> This copies HTML, CSS and images to S3.</li>
+  <li><strong>Make objects public</strong> Prefer a bucket policy over individual ACLs. Grant s3 GetObject for the objects in the bucket so browsers can fetch them.</li>
+  <li><strong>Enable static website hosting</strong> In the bucket properties set the index document to index.html and the error document to 404.html. Copy the website endpoint that AWS gives you.</li>
+  <li><strong>Point DNS</strong> In Route 53 create an alias record for the root domain pointing to the S3 website endpoint or add a CNAME for a subdomain. Root domains usually need an alias rather than a CNAME.</li>
+  <li><strong>Optional add HTTPS</strong> Use CloudFront in front of the bucket and request an ACM certificate in us east 1. CloudFront will serve the certificate so browsers do not complain about security.</li>
+</ol>
+
+<h3>Minimal bucket policy example</h3>
+<pre><code>{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::example.com/*"
+    }
+  ]
+}</code></pre>
+
+<h2>Tips and common gotchas</h2>
+<ul>
+  <li>If you see 403 errors check the object permissions and the resource ARN in the policy.</li>
+  <li>For CloudFront request the ACM certificate in the us east 1 region even if your bucket lives elsewhere.</li>
+  <li>Enable gzip or precompress your assets to save bandwidth and speed up load times.</li>
+  <li>Monitor the Free Tier dashboard and set billing alerts so AWS does not ruin your day.</li>
+</ul>
+
+<p>There you go. You now have a lean static site on S3 that costs almost nothing and performs better than many paid hosts. Use aws s3 sync to push updates, add CloudFront for HTTPS and caching when you need it, and enjoy the smug satisfaction of running a site on the cloud without selling a kidney.</p>
+

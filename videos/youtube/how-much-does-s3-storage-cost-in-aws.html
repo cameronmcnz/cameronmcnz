@@ -1,0 +1,71 @@
+---
+layout: video
+title: "How Much does S3 Storage Cost in AWS?"
+description: "Quick guide to AWS S3 pricing across Standard Intelligent Tiering Infrequent Access Glacier and Archive with cost drivers and retrieval trade offs"
+video_host: "youtube"
+video_id: "iMQxRBAwp-Q"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/iMQxRBAwp-Q/maxresdefault.jpg"
+content_url: "https://youtu.be/iMQxRBAwp-Q"
+embed_url: "https://www.youtube.com/embed/iMQxRBAwp-Q"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - S3
+  - S3 pricing
+  - AWS pricing
+  - Glacier
+  - Intelligent Tiering
+  - Infrequent Access
+  - Cloud storage
+  - Cost optimization
+  - Storage tiers
+---
+
+<h2>Short version for people who hate spreadsheets</h2>
+<p>Yes S3 pricing is predictable if you read the fine print like a masochist. You pay for storage per GB per month plus a grab bag of request fees retrieval charges and transfer costs. Pick a storage tier that matches how often you actually touch the data and not the one that sounds cheapest in a midnight Slack debate.</p>
+
+<h2>What actually drives your S3 bill</h2>
+<p>There are a few moving parts that matter more than the headline price per GB.</p>
+<ul>
+  <li>Storage per GB per month. This is the big number people quote and then ignore.</li>
+  <li>Request and operation fees. GET PUT LIST lifecycle operations and others cost money when you do them a lot.</li>
+  <li>Data retrieval costs. Archive tiers are cheap to store and pricey to read back.</li>
+  <li>Minimum storage duration and early deletion penalties. Shove it into certain tiers and AWS will hold it hostage for a set number of days.</li>
+  <li>Data transfer out. Moving data out of AWS across the internet can outshine your storage costs in a single bill.</li>
+</ul>
+
+<h3>Typical US ballpark prices to keep you humble</h3>
+<p>These are rough examples not a prophecy. Standard storage is around $0.023 per GB per month. Standard Infrequent Access is about $0.0125 per GB per month. Glacier Flexible Retrieval sits near $0.0036 per GB per month and Glacier Deep Archive is roughly $0.00099 per GB per month. Regions and exact tiers will nudge these numbers around so check the AWS console before committing your life savings.</p>
+
+<h2>Request fees and small objects ruin lives quietly</h2>
+<p>If you have millions of tiny files those GET and PUT charges will add up faster than you can say optimization. Request costs can be the dominant line item for metadata heavy workloads. If request volume is your villain move to a class or design that lowers per request cost or batch operations into fewer calls.</p>
+
+<h2>Archive tiers are cheap to sleep on and expensive to wake up</h2>
+<p>Archive storage offers ridiculouly low monthly prices but retrieval is where the plot twist lives. Archive classes charge per GB retrieved and per request and may charge extra to get the data back quickly. If you need instant reads keep it out of deep archival storage unless you like surprise bills and waiting.</p>
+
+<h2>Lifecycle rules the automation you will love then curse</h2>
+<p>Lifecycle rules let you move objects to cheaper tiers automatically based on object age. This is powerful but timing matters. Transition too early and you pay minimum duration penalties. Transition too late and you missed potential savings. Test rules on a small bucket before staging a mass migration.</p>
+
+<h3>When to consider Intelligent Tiering</h3>
+<p>If access patterns are unpredictable Intelligent Tiering can be a nice safety net. It moves objects between frequent and infrequent access tiers for you and can include archive options. It is not free and it has monitoring and monitoring charges so do the math for your workload.</p>
+
+<h2>Data transfer and edge caching</h2>
+<p>Transfers out to the internet can easily dwarf storage fees. If you serve lots of downloads or global users use CloudFront or keep processing in the same region to avoid hefty egress charges. A CDN often pays for itself in avoided transfer costs and faster user experience.</p>
+
+<h2>Simple checklist to avoid a bill that makes you cry</h2>
+<ul>
+  <li>Measure current access patterns before picking a tier.</li>
+  <li>Use lifecycle rules cautiously and test them.</li>
+  <li>Consolidate tiny files when possible to reduce request counts.</li>
+  <li>Consider Intelligent Tiering for unpredictable reads.</li>
+  <li>Use a pricing calculator and run a small pilot bucket to validate assumptions.</li>
+  <li>Cache with CloudFront for heavy downloads to shrink transfer out costs.</li>
+</ul>
+
+<p>Real world usage will wreck optimistic spreadsheets. Plan for requests transfers retrievals and minimum durations not just the per GB price. Do that and your next S3 bill will be boring which in cloud finance is a victory.</p>
+

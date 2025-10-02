@@ -1,0 +1,73 @@
+---
+layout: video
+title: "How Much Does an AWS EC2 Instance Cost Per Month"
+description: "Estimate monthly and yearly AWS EC2 costs for t2 and t3 sizes and learn what drives pricing and how to cut cloud bills."
+video_host: "youtube"
+video_id: "0TefAhKqJDU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/0TefAhKqJDU/maxresdefault.jpg"
+content_url: "https://youtu.be/0TefAhKqJDU"
+embed_url: "https://www.youtube.com/embed/0TefAhKqJDU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - EC2
+  - EC2 pricing
+  - AWS pricing
+  - t2
+  - t3
+  - cloud costs
+  - monthly cost
+  - yearly cost
+  - reserved instances
+---
+
+<h1>Monthly EC2 pricing breakdown by instance family region and billing model</h1>
+<p>Welcome to the thrilling world of cloud bills where compute is not the whole story and surprises arrive by invoice. If you are trying to estimate an AWS EC2 monthly cost you need to look at more than just the instance name and pretend that network traffic will behave. This guide gives clear rough numbers for On Demand Linux in us east 1 as of mid 2025 and shows practical ways to reduce cloud costs without sacrificing sleep.</p>
+
+<h2>What actually drives your EC2 bill</h2>
+<ul>
+  <li><strong>Instance family and size</strong> determine CPU memory and network capacity so a larger instance costs more per hour.</li>
+  <li><strong>Billing model</strong> matters a lot. On Demand is flexible and easy to like. Reserved Instances and Savings Plans reward commitment with discounts. Spot gives steep savings if your workload can handle interruptions.</li>
+  <li><strong>Storage and data transfer</strong> are sneaky extras. Compute is only one actor in this drama.</li>
+  <li><strong>Extras</strong> such as managed services load balancers snapshots and NAT gateways can inflate the bill fast.</li>
+</ul>
+
+<h2>Rough monthly and yearly On Demand Linux numbers in us east 1</h2>
+<p>These are approximations for t3 family instances and assume continuous On Demand usage. Actual costs depend on region usage patterns and attached services. Think of these as useful ballpark figures not gospel.</p>
+<ul>
+  <li>t3.nano about $3 per month or $36 per year</li>
+  <li>t3.small about $7 per month or $84 per year</li>
+  <li>t3.medium about $15 per month or $180 per year</li>
+  <li>t3.large about $30 per month or $360 per year</li>
+  <li>t3.xlarge about $60 per month or $720 per year</li>
+</ul>
+<p>These numbers exclude EBS storage charges data transfer and managed services. For example adding 100 GB of general purpose SSD typically adds roughly $10 to $12 per month. Cross region data transfer can add dozens or hundreds depending on traffic volumes and volume of egress.</p>
+
+<h3>t2 versus t3 in the real world</h3>
+<p>Both are burstable families but they behave differently when CPU spikes happen. t2 uses an older CPU credit model while t3 is newer and often gives better price performance for many workloads. Always test your workload and measure cost per work unit rather than cost per hour before you move to production.</p>
+
+<h2>Practical ways to cut EC2 costs without sacrificing reliability</h2>
+<ul>
+  <li><strong>Use Spot for flexible or batch jobs</strong> to grab deep discounts if interruptions are acceptable.</li>
+  <li><strong>Buy Reserved Instances or Savings Plans</strong> for predictable sustained compute and watch the math on commitment versus savings.</li>
+  <li><strong>Rightsize instances</strong> and consider burstable families if CPU needs are sporadic.</li>
+  <li><strong>Monitor with Cost Explorer</strong> tag resources and set budgets so surprise bills become an occasional joke rather than a recurring trauma.</li>
+  <li><strong>Measure cost per work unit</strong> instead of hours to compare families and instance sizes fairly.</li>
+  <li><strong>Prefer newer instance families</strong> when they offer better price performance for your workload.</li>
+</ul>
+
+<h3>Other cost traps to watch</h3>
+<ul>
+  <li>Frequent snapshots and long term EBS retention</li>
+  <li>Cross region data transfer and heavy egress</li>
+  <li>Idle but running instances and forgotten test environments</li>
+  <li>Load balancers NAT gateways and other network services</li>
+</ul>
+
+<p>Final tip be deliberate. Use Spot for what can be interrupted and Savings Plans for steady workloads. Tag everything and automate budgets so the billing alarm is a minor inconvenience rather than the cliff you did not see coming. Cloud costs can be boring or they can be dramatic. You get to pick which one by how you architect and monitor your EC2 usage.</p>
+

@@ -1,0 +1,85 @@
+---
+layout: video
+title: "Spring XML Configuration #techtarget"
+description: "Practical guide to Spring XML configuration for defining beans wiring scopes and lifecycle with concise tips for reliable wiring"
+video_host: "youtube"
+video_id: "4wBjmdoENQY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M39S"
+thumbnail_url: "https://i.ytimg.com/vi/4wBjmdoENQY/maxresdefault.jpg"
+content_url: "https://youtu.be/4wBjmdoENQY"
+embed_url: "https://www.youtube.com/embed/4wBjmdoENQY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring
+  - XML
+  - Spring XML
+  - bean configuration
+  - dependency injection
+  - ApplicationContext
+  - beans
+  - wiring
+  - Spring Framework
+  - configuration
+---
+
+<h2>Why Spring XML still matters</h2>
+<p>If you think XML is dead you are not alone, but Spring XML is like a reliable old wrench. It will not wink at you like annotations, and it will not try to guess what you meant. If you want explicit bean configuration, predictable dependency injection and easier troubleshooting, XML remains a solid option.</p>
+
+<h2>Quick checklist for project setup</h2>
+<ul>
+  <li>Add Spring framework dependencies via Maven or Gradle and use a stable Spring release</li>
+  <li>Keep your resources folder tidy and place your beans XML under resources</li>
+  <li>Prefer clear package names and sensible bean ids for human sanity</li>
+</ul>
+
+<h2>Create a beans XML file under resources</h2>
+<p>Keep the XML simple and explicit. You do not need every namespace trick to get started. Declare your beans with ids and classes and wire references where needed.</p>
+
+<pre><code>&lt;beans&gt;
+  &lt;bean id='myRepo' class='com.example.repository.MyRepository' /&gt;
+  &lt;bean id='myService' class='com.example.service.MyService'&gt;
+    &lt;property name='repo' ref='myRepo' /&gt;
+  &lt;/bean&gt;
+&lt;/beans&gt;
+</code></pre>
+
+<h3>Naming tips</h3>
+<p>Use explicit ids and clear class names. Autowiring is convenient until it makes a bad guess. Explicit wiring makes debugging faster and less annoying.</p>
+
+<h2>Define bean properties scopes and wiring</h2>
+<p>XML supports constructor injection and setter injection. Use constructor injection for mandatory dependencies and setter injection for optional configuration values. You can set the scope attribute to singleton or prototype depending on whether you want one instance or a fresh one each time.</p>
+
+<ul>
+  <li>Constructor injection for required dependencies</li>
+  <li>Setter injection for optional or configurable properties</li>
+  <li>Scope control with singleton or prototype for lifecycle behavior</li>
+  <li>Explicit wiring when autowiring would otherwise pick the wrong candidate</li>
+</ul>
+
+<h2>Load the ApplicationContext in code</h2>
+<p>Boot the Spring container by loading the XML from the classpath and then request beans by name or by type. This starts dependency injection and lifecycle callbacks as defined in the XML.</p>
+
+<pre><code>ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml")
+MyService svc = ctx.getBean("myService", MyService.class)
+</code></pre>
+
+<p>If you hate startup surprises add logging for bean creation and lifecycle events. It helps when something fails silently and then gloats in the logs.</p>
+
+<h2>Test wiring and troubleshoot like a pro</h2>
+<p>Write unit tests that load the XML context and assert that required beans are present and in the expected state. Look for nulls and unexpected proxies. When things break check for missing bean definitions and circular dependencies.</p>
+
+<ul>
+  <li>Load the beans XML in a test and assert non null for critical beans</li>
+  <li>Inspect exception stack traces for missing bean ids or ambiguous wiring</li>
+  <li>Check scope and lifecycle if instances behave oddly</li>
+</ul>
+
+<h2>Summary and final tip</h2>
+<p>Spring XML keeps you in charge of wiring and makes the app behavior explicit. It is especially handy when you want readable configuration files that a teammate can scan without decoding annotations. If you must pick a fight with autowiring, win it with explicit bean ids and clean XML.</p>
+
+<p>Tip, favor clear ids, consistent packages and simple wiring. Your future self will send you a thank you note, or at least fewer angry bug reports.</p>
+

@@ -1,0 +1,105 @@
+---
+layout: video
+title: "Amazon EKS Cluster Creation & Deployment to AWS EC2"
+description: "Step by step tutorial to create an Amazon EKS cluster and deploy Docker images to EC2 based Kubernetes pods using eksctl kubectl and ECR"
+video_host: "youtube"
+video_id: "DhJstNAHIkw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/DhJstNAHIkw/maxresdefault.jpg"
+content_url: "https://youtu.be/DhJstNAHIkw"
+embed_url: "https://www.youtube.com/embed/DhJstNAHIkw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Amazon EKS
+  - EKS
+  - Kubernetes
+  - AWS
+  - EC2
+  - Docker
+  - ECR
+  - eksctl
+  - kubectl
+  - Deployment
+---
+
+<h2>Why this exists and why you will love it in a resigned way</h2>
+<p>If you want Kubernetes on AWS that does not require a small island nation budget or repeated therapy sessions this guide shows how to create an Amazon EKS cluster and run a Docker image on EC2 backed nodes. You will use eksctl for cluster plumbing, ECR for storing images, and kubectl for the usual poking and prodding of pods.</p>
+
+<h2>Create the EKS control plane with eksctl</h2>
+<p>Yes you can type a single command and let eksctl do the heavy lifting. Make sure your AWS CLI is configured with credentials and the right region before you sulk at the terminal.</p>
+<pre><code>eksctl create cluster --name my-cluster --region us-west-2</code></pre>
+<p>This provisions the control plane and basic networking. If you want managed node groups for less maintenance or self managed EC2 instances for more control both are fine. Managed node groups are a nice compromise when you are not in a masochistic mood.</p>
+
+<h3>Optional create a node group or attach EC2 instances</h3>
+<p>Use eksctl to add a node group or use the console if you enjoy clicking things. Example with eksctl</p>
+<pre><code>eksctl create nodegroup --cluster my-cluster --name my-nodes --node-type t3.medium --nodes 2</code></pre>
+<p>Nodes register with the cluster so pods can schedule on regular AWS compute. Label node groups by purpose so you do not accidentally schedule the CI job on the database hardware.</p>
+
+<h2>Build your Docker image and push to ECR</h2>
+<p>Build locally, authenticate to ECR, then push. Replace REGISTRY with your ECR registry URI and myrepo with your repository name.</p>
+<pre><code>docker build -t myrepo/myapp .
+aws ecr create-repository --repository-name myrepo
+aws ecr get-login-password | docker login --username AWS --password-stdin REGISTRY
+docker tag myrepo/myapp REGISTRY/myrepo/myapp
+docker push REGISTRY/myrepo/myapp</code></pre>
+<p>Yes create-repository will fail if it already exists. That is not a bug, it is a feature that tells you to stop running the same script 12 times.</p>
+
+<h2>Create a Kubernetes deployment and service</h2>
+<p>Write a deployment manifest that points to your ECR image and a service to expose the pod. Keep the image field pointing to REGISTRY/myrepo/myapp and set imagePullPolicy if you need strict behavior.</p>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: REGISTRY/myrepo/myapp
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: myapp
+  ports:
+  - port: 80
+    targetPort: 80</code></pre>
+
+<h2>Apply manifests and check status</h2>
+<p>Use kubectl as if you are conducting a ritual that sometimes works.</p>
+<pre><code>kubectl apply -f deployment.yaml
+kubectl get pods
+kubectl get svc</code></pre>
+<p>If a pod is stuck use these trusty commands to find out why.</p>
+<pre><code>kubectl describe pod POD_NAME
+kubectl logs POD_NAME</code></pre>
+
+<h2>Quick debugging and scheduling tips</h2>
+<ul>
+  <li>Check node readiness with kubectl get nodes</li>
+  <li>If image pull fails confirm the ECR registry URI and authentication</li>
+  <li>Use nodeSelector or node affinity and labels to control where pods land</li>
+  <li>Use kubectl describe to read events for scheduling and taints</li>
+</ul>
+
+<h2>Final notes and best practices</h2>
+<p>Follow access control and security group hygiene before exposing production workloads. Tag and label node groups by purpose, use private registries for sensitive images, and consider autoscaling if you hate manual capacity planning.</p>
+<p>This guide covered cluster creation with eksctl, node group setup, Docker build and ECR push, creating Kubernetes deployment and service, and verifying pods on EC2 backed nodes. Go forth and deploy, and remember that logs are your friends and midnight rollbacks are not.</p>
+

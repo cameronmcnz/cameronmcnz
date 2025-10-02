@@ -1,0 +1,85 @@
+---
+layout: video
+title: "Multiple Values Per Key in Java Maps Example"
+description: "Learn how to store multiple values per key in Java Maps with list set patterns libraries and stream grouping for cleaner code and better performance"
+video_host: "youtube"
+video_id: "6Zlo5Kf-CV4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M21S"
+thumbnail_url: "https://i.ytimg.com/vi/6Zlo5Kf-CV4/maxresdefault.jpg"
+content_url: "https://youtu.be/6Zlo5Kf-CV4"
+embed_url: "https://www.youtube.com/embed/6Zlo5Kf-CV4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Multiple Values
+  - Java Maps
+  - Multimap
+  - computeIfAbsent
+  - Guava
+  - Apache Commons
+  - List
+  - Set
+  - Streams
+  - Tutorial
+---
+
+<h2>Pick the right value collection and stop guessing</h2>
+<p>Yes you can stuff a bunch of values under one map key in Java. No you should not do it the sloppy way that causes bugs later when someone else inherits your code. Use a List when order and duplicates matter. Use a Set when uniqueness matters. Use LinkedHashSet when you want uniqueness but you also care which item showed up first. Choosing the right collection up front will save you from five minutes of debugging and several angry lattes.</p>
+
+<h2>The map of collections pattern that actually works</h2>
+<p>The core idea is simple and reliable. Instead of trying to shoehorn a single value type into a map use a map from key to a collection. Then add values to that collection. The usual one liner looks like this in practice and yes it is your friend</p>
+<pre><code>Map<String, List<String>> map = new HashMap<>()
+map.computeIfAbsent(key, k -> new ArrayList<>()).add(value)
+
+Map<String, Set<String>> setMap = new HashMap<>()
+setMap.computeIfAbsent(key, k -> new LinkedHashSet<>()).add(value)
+</code></pre>
+<p>computeIfAbsent avoids the null check noise and keeps initialization consistent when different parts of the code add values for the same key.</p>
+
+<h3>When duplicates are bad</h3>
+<p>If duplicates are unacceptable use a Set and let add return a boolean to tell you whether the item was new. HashSet gives you raw speed. LinkedHashSet buys you predictable iteration order without duplicate headaches.</p>
+
+<h2>When a library makes life easier</h2>
+<p>If you are tired of writing the same map to collection plumbing in multiple places consider a dedicated multimapping library. Guava offers Multimap which feels like a native fit for this job. Apache Commons provides MultiValuedMap if you prefer that ecosystem. They wrap the pattern into a cleaner API and provide helpful utilities for removal iteration and view operations.</p>
+<pre><code>// Guava style example
+Multimap<String, Integer> mm = ArrayListMultimap.create()
+mm.put(key, value)
+mm.get(key).forEach(v -> doSomething(v))
+</code></pre>
+
+<h2>Bulk grouping with streams</h2>
+<p>When you start from a collection or stream of records use the Collectors utilities to turn a stream into a map of collections in one pass. This avoids manual loops and is concise and fast.</p>
+<pre><code>Map<String, List<Integer>> grouped = items.stream()
+    .collect(Collectors.groupingBy(Item::getKey, Collectors.mapping(Item::getValue, Collectors.toList())))
+
+Map<String, Set<Integer>> asSets = items.stream()
+    .collect(Collectors.groupingBy(Item::getKey, Collectors.mapping(Item::getValue, Collectors.toCollection(LinkedHashSet::new))))
+</code></pre>
+
+<h2>Concurrency tips without chaos</h2>
+<p>High concurrency changes the rules. A plain HashMap with computeIfAbsent can still race in some scenarios when multiple threads mutate the inner collections. Prefer a ConcurrentHashMap when threads will add concurrently. For sets use ConcurrentHashMap.newKeySet which avoids extra locking. If you need a thread safe list consider Collections.synchronizedList or a CopyOnWriteArrayList for mostly read scenarios.</p>
+<pre><code>ConcurrentMap<String, Set<String>> concurrent = new ConcurrentHashMap<>()
+concurrent.computeIfAbsent(key, k -> ConcurrentHashMap.newKeySet()).add(value)
+</code></pre>
+
+<h2>Common pitfalls to avoid</h2>
+<ul>
+  <li>Do not share mutable inner collections across keys unintentionally. Each key needs its own collection instance.</li>
+  <li>Avoid reinventing the multimapping API if a library already gives you what you need.</li>
+  <li>Think about order and duplication up front so you do not chase bugs later.</li>
+</ul>
+
+<h2>Quick takeaway</h2>
+<ul>
+  <li>Map to a Collection for multiple values per key</li>
+  <li>Use computeIfAbsent to initialize safely</li>
+  <li>Pick List or Set based on order and uniqueness needs</li>
+  <li>Use Guava Multimap or Apache Commons MultiValuedMap for less boilerplate</li>
+  <li>Use streams for bulk grouping and ConcurrentHashMap or newKeySet for concurrency</li>
+</ul>
+
+<p>That is it. Build sensible maps and your future self will thank you or at least stop yelling at you in code reviews.</p>
+

@@ -1,0 +1,18 @@
+[2025-10-01 18:52:48,686] INFO Uploaded JSONL file. file_id=file-9wsYkGXBx3j24W15e3Pg1w
+[2025-10-01 18:52:49,107] INFO Created batch. id=batch_68ddb0bd6aec81908bc96d93c39c5d52 status=validating
+[2025-10-01 18:52:49,107] INFO Saved batch id to openai-batch-id.txt
+[2025-10-01 18:52:49,250] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=validating counts=BatchRequestCounts(completed=0, failed=0, total=0)
+[2025-10-01 18:54:29,598] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=in_progress counts=BatchRequestCounts(completed=0, failed=101, total=1146)
+[2025-10-01 18:56:09,909] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=in_progress counts=BatchRequestCounts(completed=0, failed=418, total=1146)
+[2025-10-01 18:57:50,177] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=in_progress counts=BatchRequestCounts(completed=0, failed=995, total=1146)
+[2025-10-01 18:59:30,483] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=in_progress counts=BatchRequestCounts(completed=0, failed=1140, total=1146)
+[2025-10-01 19:01:10,761] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=in_progress counts=BatchRequestCounts(completed=0, failed=1140, total=1146)
+[2025-10-01 19:02:51,010] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=in_progress counts=BatchRequestCounts(completed=0, failed=1140, total=1146)
+[2025-10-01 19:04:31,361] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=in_progress counts=BatchRequestCounts(completed=0, failed=1140, total=1146)
+[2025-10-01 19:06:11,639] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=in_progress counts=BatchRequestCounts(completed=0, failed=1140, total=1146)
+[2025-10-01 19:07:51,947] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=in_progress counts=BatchRequestCounts(completed=0, failed=1140, total=1146)
+[2025-10-01 19:09:32,262] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=in_progress counts=BatchRequestCounts(completed=0, failed=1140, total=1146)
+[2025-10-01 19:11:12,564] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=in_progress counts=BatchRequestCounts(completed=0, failed=1141, total=1146)
+[2025-10-01 19:12:52,788] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=finalizing counts=BatchRequestCounts(completed=0, failed=1146, total=1146)
+[2025-10-01 19:14:33,083] INFO Batch batch_68ddb0bd6aec81908bc96d93c39c5d52: status=completed counts=BatchRequestCounts(completed=0, failed=1146, total=1146)
+[2025-10-01 19:14:33,083] ERROR Batch completed but no output_file_id present.

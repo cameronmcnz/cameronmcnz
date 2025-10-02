@@ -1,0 +1,97 @@
+---
+layout: video
+title: "Git GitHub Maven Eclipse"
+description: "Use Git GitHub Maven and Eclipse together to manage Java projects with version control build and deploy steps and practical tips"
+video_host: "youtube"
+video_id: "dP6564jyRGI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT16M11S"
+thumbnail_url: "https://i.ytimg.com/vi/dP6564jyRGI/maxresdefault.jpg"
+content_url: "https://youtu.be/dP6564jyRGI"
+embed_url: "https://www.youtube.com/embed/dP6564jyRGI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - GitHub
+  - Maven
+  - Eclipse
+  - Java
+  - EGit
+  - pom.xml
+  - VersionControl
+  - BuildAutomation
+  - Workflow
+---
+
+<p>If you ever wanted to feel like a professional while also secretly trusting the internet not to erase your work this guide walks you through using Git and GitHub with Maven inside Eclipse. It covers the essentials from local repo to remote push and automated builds with a dash of real world sarcasm and zero command line worship required.</p>
+
+<h2>What you need before you start</h2>
+<p>Gather these bits like a practical hoarder. You will need Eclipse with EGit and Maven support installed, a Java JDK configured in Eclipse, and Git installed on your machine. Also set your Git user name and email with global config so your commits stop looking anonymous.</p>
+<ul>
+  <li>Git installed and in your PATH</li>
+  <li>Eclipse with EGit and Maven integration</li>
+  <li>JDK configured in Eclipse</li>
+  <li>GitHub account and a repository waiting for your brilliance</li>
+</ul>
+
+<h2>Initialize the local Git repository</h2>
+<p>If you prefer the command line life then run these from your project folder.</p>
+<pre><code>git init
+git add .
+git commit -m "Initial commit"
+</code></pre>
+<p>If you like GUI magic use Eclipse Team menu to share the project with Git. EGit will create the local repository and wire up the project metadata for you. Either way commit messages should be human readable so future you does not rage.</p>
+
+<h2>Create the remote on GitHub and push</h2>
+<p>Create a repository on GitHub using the website. Back in your terminal or in Eclipse add the remote and push the main branch.</p>
+<pre><code>git remote add origin &lt;repository URL&gt;
+git push -u origin main
+</code></pre>
+<p>Use SSH keys or a personal access token for authentication. SSH keys are the least awkward once they are set up. A personal access token works well with HTTPS when your network or tooling refuses to behave.</p>
+
+<h2>Configure the Maven project</h2>
+<p>Make sure your <code>pom.xml</code> contains the usual groupId artifactId and version. Declare dependencies for compilation and testing and add plugins for building packaging and reporting as needed. Keep the POM tidy so build automation does not develop an existential crisis.</p>
+<ul>
+  <li>groupId artifactId version in <code>pom.xml</code></li>
+  <li>dependencies for compile and test scopes</li>
+  <li>plugins for compiler surefire and packaging</li>
+  <li>consider adding the Maven wrapper for reproducible builds</li>
+</ul>
+
+<h2>Eclipse integration for commits builds and Maven goals</h2>
+<p>Eclipse has Maven support so you can update the project run Maven goals and resolve dependencies without leaving the IDE. Use the context menu Run As Maven build for specific goals and use Maven update to refresh Eclipse project settings from the POM.</p>
+<p>The Team perspective and Git history views let you make commits stage changes and push without performing a ritual at the command line altar. That said knowing a few commands keeps you from being surprised when the GUI does something mysterious.</p>
+
+<h3>Handy commands that still matter</h3>
+<pre><code>mvn clean package
+mvn test
+git branch feature/name
+git checkout feature/name
+git push -u origin feature/name
+</code></pre>
+
+<h2>Work with branches and pull requests</h2>
+<p>Create a feature branch for each unit of work then push it and open a pull request on GitHub for review. Protect the main branch with required checks and merge only after tests pass and reviewers stop asking for tiny changes.</p>
+<ul>
+  <li>Create feature branches for isolated work</li>
+  <li>Push branches and open pull requests on GitHub</li>
+  <li>Protect main branch with CI checks and review rules</li>
+</ul>
+
+<h2>Build automation and workflow tips</h2>
+<p>Hook your GitHub repository to a CI system that runs Maven builds for every PR. This catches failures early and gives reviewers something boring to rely on. Use automated checks that run <code>mvn test</code> and a packaging step so merges do not surprise your release pipeline.</p>
+<p>Keep commits focused and messages meaningful. Use the POM to centralize build configuration so local builds match CI. If you use the Maven wrapper include the wrapper files in the repo so colleagues do not invent new local Maven versions like they were collecting vintage stamps.</p>
+
+<h2>Quick checklist before merging</h2>
+<ul>
+  <li>All tests pass locally and in CI</li>
+  <li>POM has explicit versions for important plugins</li>
+  <li>Branch is up to date with main</li>
+  <li>PR has at least one approving review</li>
+</ul>
+
+<p>There you have it. With Git GitHub Maven Eclipse and a smidge of patience you can run a sane version control and build automation workflow for Java projects. Now go commit something that future you will thank you for.
+

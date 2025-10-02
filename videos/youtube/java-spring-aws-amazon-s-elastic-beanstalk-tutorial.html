@@ -1,0 +1,84 @@
+---
+layout: video
+title: "Java, Spring, AWS & Amazon's Elastic Beanstalk Tutorial"
+description: "Deploy a Spring Boot Java app to AWS Elastic Beanstalk using Maven eb CLI environment setup and troubleshooting tips for production ready deployments"
+video_host: "youtube"
+video_id: "oI3GCNrGAcs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT13M33S"
+thumbnail_url: "https://i.ytimg.com/vi/oI3GCNrGAcs/maxresdefault.jpg"
+content_url: "https://youtu.be/oI3GCNrGAcs"
+embed_url: "https://www.youtube.com/embed/oI3GCNrGAcs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Spring
+  - Spring Boot
+  - AWS
+  - Elastic Beanstalk
+  - AWS Elastic Beanstalk
+  - Maven
+  - Deployment
+  - eb CLI
+  - Cloud
+---
+
+<h2>Quick overview you can skim while pretending to be busy</h2>
+<p>This guide walks you through building a Spring Boot Java app and pushing it to AWS Elastic Beanstalk using Maven and the eb CLI. It covers project packaging, account setup, the eb CLI and AWS CLI, packaging and deployment, and common gotchas like environment variables and port mismatch. Read it like you mean business or at least like you will when your app breaks at 2am.</p>
+
+<h2>What you need before you start</h2>
+<ul>
+  <li>Java JDK installed and a Spring Boot project with Maven packaging</li>
+  <li>Maven installed so you can run <code>mvn clean package</code></li>
+  <li>An AWS account and an IAM user with managed policies for Elastic Beanstalk and S3</li>
+  <li>A named AWS profile for your CLI work</li>
+  <li>eb CLI and AWS CLI installed for painless deployments</li>
+</ul>
+
+<h2>Prepare your Spring Boot app so Elastic Beanstalk does not hate you</h2>
+<p>Use the Spring Boot Maven plugin to build a single executable jar or war. Elastic Beanstalk will run the artifact you hand it so do not hand it a random folder and hope for the best. Typical build command that actually matters is</p>
+<pre><code>mvn clean package</code></pre>
+<p>Make sure your <code>pom.xml</code> produces a runnable artifact. If you rely on actuator health checks add the actuator dependency and configure the health endpoint so the Beanstalk health monitor can be polite about reporting status instead of just yelling.</p>
+
+<h2>Prepare AWS and IAM like a sensible adult</h2>
+<p>Create an IAM user with the managed policies for Elastic Beanstalk and S3. Do not use root credentials unless you enjoy accidental outages. Create a named profile so the CLIs have something to point at when they need credentials.</p>
+<pre><code>aws configure --profile myprofile</code></pre>
+
+<h2>Install and configure eb CLI and AWS CLI</h2>
+<p>Install the aws CLI for credentials and the eb CLI for the parts of deployment that do not deserve a UI. Link your project to a Beanstalk application by running</p>
+<pre><code>eb init</code></pre>
+<p>eb init will ask for platform and region. Pick the Java platform that matches your artifact and the region where you want to pay cloud bills.</p>
+
+<h2>Spin up an environment and deploy</h2>
+<p>Build the artifact and create an environment. You can be theatrical and use the console, or be efficient and use the CLI</p>
+<pre><code>mvn clean package
+eb create my-env</code></pre>
+<p>Give your environment a meaningful name and choose instance types that match expected load. If you pick tiny instances to save money you will be rewarded with slow performance and regret.</p>
+
+<h2>Push code updates and check health</h2>
+<p>Use eb deploy to push new versions. Then check the health dashboard in the AWS console and use the CLI to read logs if things look sad</p>
+<pre><code>eb deploy
+eb logs</code></pre>
+<p>Common culprits are port misconfiguration and missing environment variables. Spring Boot defaults to port 8080 so confirm the Beanstalk proxy is routing to the same port or make your app read the runtime port from an env var.</p>
+
+<h3>Set environment variables without drama</h3>
+<p>Environment variables can be set in the console or with the CLI so secrets and runtime settings end up where your app can read them. For example</p>
+<pre><code>eb setenv SPRING_PROFILES_ACTIVE=prod DB_URL=jdbc...</code></pre>
+
+<h2>Scaling and monitoring so you can sleep sometimes</h2>
+<p>Choose instance sizes and autoscaling policies based on real load not guesses. Enable basic monitoring and consider health checks from the Spring actuator so Elastic Beanstalk can make intelligent decisions about replacing unhealthy instances.</p>
+
+<h2>Quick troubleshooting checklist</h2>
+<ul>
+  <li>Artifact packaging is correct and runnable</li>
+  <li>AWS profile and IAM permissions are set for the eb CLI</li>
+  <li>Correct platform selected during eb init</li>
+  <li>Application listens on the expected port and uses environment variables when needed</li>
+  <li>Logs streamed with <code>eb logs</code> for precise crying and triage</li>
+</ul>
+
+<p>That is the essential workflow for deploying Java Spring Boot apps to AWS Elastic Beanstalk using Maven and the eb CLI. It is efficient, repeatable, and only mildly cruel to your weekend plans. Now go build something that scales better than your coffee habit.</p>
+

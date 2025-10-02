@@ -1,0 +1,103 @@
+---
+layout: video
+title: "Create an EKS Cluster and Deploy Docker to Kubernetes"
+description: "Fast practical guide to create an AWS EKS cluster and deploy Docker containers to Kubernetes using eksctl kubectl and a simple manifest"
+video_host: "youtube"
+video_id: "j0oR94MDahI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M9S"
+thumbnail_url: "https://i.ytimg.com/vi/j0oR94MDahI/maxresdefault.jpg"
+content_url: "https://youtu.be/j0oR94MDahI"
+embed_url: "https://www.youtube.com/embed/j0oR94MDahI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - EKS
+  - Kubernetes
+  - Docker
+  - eksctl
+  - kubectl
+  - AWS
+  - container deployment
+  - ECR
+  - k8s
+  - deployment manifest
+---
+
+<h2>Quick summary for people who like getting things done</h2>
+<p>Want to run your Docker container on Kubernetes in AWS without crying into your keyboard? This guide walks through creating an EKS cluster with eksctl then deploying a Docker image with kubectl. You will configure AWS credentials, build and push images to ECR or another registry, apply a deployment manifest, expose the app, and clean up the cloud mess when you are done. Keywords you should feel guilty about using are EKS Kubernetes Docker eksctl kubectl AWS ECR k8s deployment manifest container deployment.</p>
+
+<h2>Prerequisites you should not skip</h2>
+<p>Install these tools on your workstation and make sure your AWS profile has EKS permissions. If you try to skip this step a heroic cascade of error messages will be your reward.</p>
+<ul>
+  <li>eksctl</li>
+  <li>kubectl</li>
+  <li>AWS CLI</li>
+  <li>Docker</li>
+</ul>
+
+<h2>Create the EKS cluster</h2>
+<p>eksctl is the fastest route to a managed EKS cluster. It provisions the control plane and a managed node group on your behalf. Keep your patience and a reasonable node size while testing.</p>
+<pre><code>eksctl create cluster --name demo-cluster --region us-west-2 --nodes 2</code></pre>
+<p>Wait for the command to finish. When it does your kubeconfig will be updated and kubectl will talk to the new cluster.</p>
+
+<h3>Why eksctl</h3>
+<p>Because it hides the boilerplate and creates VPC networking node groups and IAM roles in one command. Yes it does a lot so watch the output and check the AWS console if you want to feel powerful.</p>
+
+<h2>Build and push your Docker image</h2>
+<p>Build a container locally then push to a registry that your cluster can access. Amazon ECR is convenient for EKS but Docker Hub or any private registry will do.</p>
+<pre><code>docker build -t myapp latest .
+docker tag myapp latest 123456789012.dkr.ecr.us-west-2.amazonaws.com/myapp latest
+# Authenticate to ECR and push
+aws ecr get-login-password | docker login --username AWS --password-stdin 123456789012.dkr.ecr.us-west-2.amazonaws.com
+docker push 123456789012.dkr.ecr.us-west-2.amazonaws.com/myapp latest</code></pre>
+<p>Replace the account id and region with your values. Yes the tag syntax looks odd here but follow the pattern your registry expects.</p>
+
+<h2>Create and apply a Kubernetes deployment manifest</h2>
+<p>Write a small deployment YAML that points to your pushed image. This is the deployment manifest that tells k8s to run your container.</p>
+<pre><code>apiVersion apps/v1
+kind Deployment
+metadata:
+  name myapp
+spec:
+  replicas 2
+  selector:
+    matchLabels:
+      app myapp
+  template:
+    metadata:
+      labels:
+        app myapp
+    spec:
+      containers:
+      - name myapp
+        image 123456789012.dkr.ecr.us-west-2.amazonaws.com/myapp latest
+        ports:
+        - containerPort 8080</code></pre>
+<p>Apply the manifest with kubectl.</p>
+<pre><code>kubectl apply -f deployment.yaml</code></pre>
+<p>The cluster will create pods and pull the image from your registry. Use kubectl get pods to watch the status.</p>
+
+<h2>Expose the app and verify it runs</h2>
+<p>Use a LoadBalancer service for a quick external IP or NodePort for a network nerd challenge.</p>
+<pre><code>kubectl expose deployment myapp --type LoadBalancer --port 80 --target-port 8080
+kubectl get svc
+kubectl get pods</code></pre>
+<p>When the service has an external endpoint hit it with curl or your browser. If pods stay in ImagePullBackOff double check registry auth and image names.</p>
+
+<h2>Clean up so AWS does not send you a nasty invoice</h2>
+<p>When you are done delete the cluster and any ECR repos you created. eksctl makes deletion easy and dramatic.</p>
+<pre><code>eksctl delete cluster --name demo-cluster</code></pre>
+
+<h2>Recap and a few sarcastic tips</h2>
+<ul>
+  <li>Install eksctl kubectl AWS CLI and Docker first or the rest is misery</li>
+  <li>Create a managed EKS cluster with eksctl to avoid wrestling CloudFormation</li>
+  <li>Build and push your Docker image to ECR or another registry that your cluster can access</li>
+  <li>Use a simple deployment manifest and kubectl apply to create pods</li>
+  <li>Expose via LoadBalancer for quick testing and remember to delete resources when you are done</li>
+</ul>
+<p>Pro tip use small test node groups to save money and shame. If something breaks the logs with kubectl logs and kubectl describe are your best friends. Now go deploy something and try not to break production on your first commit.</p>
+

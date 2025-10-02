@@ -1,0 +1,61 @@
+---
+layout: video
+title: "git log and reflog compared"
+description: "Understand differences between git log and reflog and learn when to use each for history inspection and recovering lost commits."
+video_host: "youtube"
+video_id: "zXCfEubhE4k"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M44S"
+thumbnail_url: "https://i.ytimg.com/vi/zXCfEubhE4k/maxresdefault.jpg"
+content_url: "https://youtu.be/zXCfEubhE4k"
+embed_url: "https://www.youtube.com/embed/zXCfEubhE4k"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git log
+  - reflog
+  - version control
+  - commit recovery
+  - HEAD
+  - history
+  - commands
+  - git reset
+  - branch
+---
+
+<p>If you broke something in Git and are now sweating quietly into your keyboard you are not alone. Git has two mostly friendly tools for poking at history. One shows the shared story you and your team agreed on. The other keeps a private diary of every time you told HEAD to do something dumb.</p>
+
+<h2>What git log shows</h2>
+<p>git log walks the commit graph reachable from a branch or reference. Think of it as the public ledger. Use options like <code>git log --oneline</code> or <code>git log --graph</code> to see a condensed, human readable overview. This is the history that gets pushed and reviewed in pull requests. If it is not in git log then other people do not see it.</p>
+
+<h2>What git reflog records</h2>
+<p>git reflog records local reference updates. That includes checkouts, rebases, resets and merges that moved HEAD. This is a personal safety net that remembers where HEAD has been even when those commits no longer appear in the public graph. It is local to your repo on disk so do not treat it as a permanent backup.</p>
+
+<h2>Common commit recovery workflow</h2>
+<p>When a commit looks lost follow these practical steps without panicking.</p>
+<ul>
+  <li>Run <pre><code>git reflog</code></pre> to find the commit hash you want.</li>
+  <li>Create a branch from that hash to avoid making things worse. Example</li>
+</ul>
+<pre><code>git checkout -b recover abc1234</code></pre>
+<p>If your goal is to move an existing branch back to the found commit you can do that too. Only run this when you are sure because it rewrites history.</p>
+<pre><code>git reset --hard abc1234</code></pre>
+<p>When in doubt create a branch first. Creating a branch is the difference between a safe museum exhibit and a crime scene.</p>
+
+<h3>Quick cheat sheet for common commands</h3>
+<ul>
+  <li><code>git log --oneline --graph --all</code> Show compact history across branches</li>
+  <li><code>git reflog</code> List every local update to HEAD and refs</li>
+  <li><code>git checkout -b recover HASH</code> Rescue a lost commit onto a new branch</li>
+  <li><code>git reset --hard HASH</code> Move current branch to a commit and discard working state</li>
+</ul>
+
+<h2>Important caveats about reflog and safety</h2>
+<p>Reflog entries expire according to your garbage collection settings such as <code>gc.reflogExpire</code> and <code>gc.reflogExpireUnreachable</code>. If a commit matters push it to a remote or tag it so the commit moves out of the fragile local-only zone. Tags and remotes are the difference between permanent records and ephemeral notes scribbled on a Post it.</p>
+
+<h2>Final tip to avoid late night panic</h2>
+<p>If you do a mistaken reset or rebase run git reflog first and create a branch from the reflog hash you want. That preserves the work and helps you avoid furiously guessing commands while on adrenaline. Use git log when you want to inspect the shared history. Use git reflog when you want to recover a local action that no longer shows up in the shared history.</p>
+

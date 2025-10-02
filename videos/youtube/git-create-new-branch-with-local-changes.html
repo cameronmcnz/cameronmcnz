@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Git Create New Branch with Local Changes"
+description: "Create a new Git branch when local changes exist and preserve work during branch switch and reapply changes safely"
+video_host: "youtube"
+video_id: "ZUPnzAgBpYo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M30S"
+thumbnail_url: "https://i.ytimg.com/vi/ZUPnzAgBpYo/maxresdefault.jpg"
+content_url: "https://youtu.be/ZUPnzAgBpYo"
+embed_url: "https://www.youtube.com/embed/ZUPnzAgBpYo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - branch
+  - git stash
+  - git checkout
+  - git switch
+  - local changes
+  - version control
+  - tutorial
+  - workflow
+  - developer
+---
+
+<p>So you have half finished code that you are not ready to show the world and you need a new branch. Welcome to the delightful world of version control anxiety. This guide shows how to move local changes into a fresh branch without losing work or inventing new swear words.</p>
+
+<h2>Save your local work</h2>
+<p>If your working tree is messy but you do not want to rewrite history try one of these two polite options. Stashing hides changes without adding a noisy commit. A quick local commit preserves a record so you can cherry pick or move it later.</p>
+<pre><code>git stash push -m "WIP"
+# or
+git add . && git commit -m "WIP"
+</code></pre>
+<p>Use stash for temporary experiments and small WIP commits when you want an explicit checkpoint. Both keep your files safe while you switch branches.</p>
+
+<h2>Create the new branch</h2>
+<p>Make the branch where this work actually belongs. Pick the newer command or the classic one. Both do the job and both will judge you equally if you named the branch feature123.</p>
+<pre><code>git switch -c new-branch
+# or
+git checkout -b new-branch
+</code></pre>
+
+<h2>Move your work into the new branch</h2>
+<p>If you used a stash apply it now. If you made a local commit move it with cherry pick or by resetting and applying. Pick the option that matches your sense of order and the repo rules.</p>
+<pre><code>git stash pop
+# or, for a local commit
+git cherry-pick COMMIT_HASH
+</code></pre>
+<p>Stash pop will try to apply and remove the stash in one go. Cherry pick will copy the commit into the new branch and leave the original where it was. Both are valid. Both deserve coffee.</p>
+
+<h3>When conflicts appear</h3>
+<p>Conflicts will show up when the saved changes touch the same lines as the branch. Resolve them like an adult. Use your diff tool or edit the files by hand. Then mark the fixes and finish the job.</p>
+<pre><code>git status
+# resolve files, then
+git add .
+git commit -m "Resolve conflicts and apply WIP"
+</code></pre>
+
+<h2>Finish up and share</h2>
+<p>Once the new branch holds your work and the repo is clean push it upstream if collaboration is needed. Set the upstream on the first push and move on with your life.</p>
+<pre><code>git push -u origin new-branch
+</code></pre>
+
+<h2>Quick tips for less panic</h2>
+<ul>
+<li>Use clear stash messages so you do not end up guessing what WIP means two days later</li>
+<li>Prefer small WIP commits instead of huge blobs of changes</li>
+<li>Use git switch -c for clarity and to look like you read the docs</li>
+<li>Test locally after applying changes before you push</li>
+</ul>
+
+<p>Follow these steps and you will move local changes into focused branches with minimal drama. Your future self will thank you or at least be a little less angry.</p>
+

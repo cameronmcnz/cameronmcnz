@@ -1,0 +1,70 @@
+---
+layout: video
+title: "Git Set Upstream Example | Learn Branch Management in Git"
+description: "Quick tutorial on setting upstream branches in Git and managing local and remote branch tracking for smooth pushes and pulls"
+video_host: "youtube"
+video_id: "wBc0WcyTtOA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT16M3S"
+thumbnail_url: "https://i.ytimg.com/vi/wBc0WcyTtOA/maxresdefault.jpg"
+content_url: "https://youtu.be/wBc0WcyTtOA"
+embed_url: "https://www.youtube.com/embed/wBc0WcyTtOA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - set upstream
+  - branch management
+  - git tutorial
+  - git push
+  - tracking branch
+  - remote branch
+  - git branch
+  - version control
+  - developer workflow
+---
+
+<p>If you like surprises from git then by all means ignore upstreams and live dangerously. If you prefer your pushes and pulls to go where you expect then set an upstream and cure the chaos. This quick guide shows how to link a local branch to a remote branch so daily git push and git pull behave like a professional tool and not a rogue art project.</p>
+
+<h2>Quick steps to set an upstream</h2>
+
+<h3>Step 1 Create a local branch</h3>
+<p>Start a feature or a fix with a branch. You can make the branch and switch to it in one go or in two steps depending on your mood and terminal history.</p>
+<pre><code>git branch feature-branch
+# or
+git checkout -b feature-branch</code></pre>
+
+<h3>Step 2 Push and set upstream</h3>
+<p>Push the branch to the remote and teach git where to send future pushes and pulls. The flag -u tells git to remember the remote branch as the upstream tracking branch.</p>
+<pre><code>git push -u origin feature-branch</code></pre>
+<p>After that you can run git push and git pull without typing the remote and branch name and fewer mistakes will be made. That is the whole point.</p>
+
+<h3>Step 3 Verify tracking status</h3>
+<p>Want proof that you did it right or that your teammate did not sabotage your branch naming? Use one of these commands.</p>
+<ul>
+  <li><code>git status -sb</code> shows a compact status and shows the remote tracking name</li>
+  <li><code>git branch -vv</code> lists local branches with their upstream and how far ahead or behind they are</li>
+</ul>
+
+<h3>Step 4 Change upstream when the remote name or target changes</h3>
+<p>If the remote branch gets renamed or you need to point your local branch at a different remote branch do not delete the branch and cry. Use this command to rewire the tracking target.</p>
+<pre><code>git branch -u origin/other-branch feature-branch</code></pre>
+<p>This is handy when you rebase and want to map the updated local branch to an existing remote branch or when you are moving a feature between remotes.</p>
+
+<h3>Step 5 Use upstream tracking for day to day workflow</h3>
+<p>Once upstream is set you get to be lazy in a productive way. Use plain <code>git pull</code> and <code>git push</code> with no extra arguments for most work. Fewer keystrokes means fewer chances to push to the wrong place which is the true hazard of modern development.</p>
+
+<h2>Common mistakes and how to survive them</h2>
+<ul>
+  <li>Forgetting to push with -u the first time and then pushing to the wrong branch. Fix by running <code>git push -u origin feature-branch</code> or run <code>git branch -u origin/feature-branch feature-branch</code>.</li>
+  <li>Seeing unexpected upstream names in <code>git branch -vv</code>. That usually means the branch was created differently. Repoint with <code>git branch -u</code>.</li>
+  <li>Pushing to the wrong remote because you have multiple remotes. Use <code>git remote -v</code> to inspect remotes and then push explicitly once to set the expected upstream.</li>
+</ul>
+
+<h2>Quick troubleshooting tips</h2>
+<p>If you are unsure where a branch points run <code>git branch -vv</code> and read the rightmost column. If the branch has no upstream the column will be empty and git will ask for a destination when you push. If git refuses to push after you rebase you might need to force push depending on your workflow and team rules. Do not force push unless you enjoyed asking for trouble and then apologizing in pull request comments.</p>
+
+<p>Setting upstreams is a small amount of discipline that saves a ton of accidental merges and awkward git apologetic messages. Keep your branch management tidy and your developer workflow marginally less painful.</p>
+

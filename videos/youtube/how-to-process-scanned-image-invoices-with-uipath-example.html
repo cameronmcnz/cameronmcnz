@@ -1,0 +1,75 @@
+---
+layout: video
+title: "How to Process Scanned Image Invoices with UiPath Example"
+description: "Step by step guide to extract data from scanned image invoices using UiPath including OCR setup data validation and output options"
+video_host: "youtube"
+video_id: "hUp_h2RaCBE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M42S"
+thumbnail_url: "https://i.ytimg.com/vi/hUp_h2RaCBE/maxresdefault.jpg"
+content_url: "https://youtu.be/hUp_h2RaCBE"
+embed_url: "https://www.youtube.com/embed/hUp_h2RaCBE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - OCR
+  - Document Understanding
+  - Invoice Processing
+  - RPA
+  - Scanned Invoices
+  - Data Extraction
+  - Regex
+  - Image Preprocessing
+  - Automation
+---
+
+<h2>Overview</h2>
+<p>If your inbox looks like a confetti factory exploded with scanned invoices you are in the right place. This guide walks through a practical UiPath Document Understanding and OCR workflow that converts crappy pixels into tidy fields you can actually trust. Expect image preprocessing tricks, OCR engine choices, field extraction methods, and a reality check called Validation Station.</p>
+
+<h2>Getting started with UiPath and OCR</h2>
+<p>Create a new Studio project and add UiPath.DocumentUnderstanding plus an OCR package such as Tesseract or Google Cloud OCR. Install packages early so you avoid dependency drama later. Keep a sample set of invoices from different vendors for testing because one heroic sample does not a robust workflow make.</p>
+
+<h3>Basic workflow steps</h3>
+<ol>
+  <li>Preprocess images to improve OCR results</li>
+  <li>Configure and run an OCR activity like Read PDF with OCR or Read Image Text</li>
+  <li>Extract fields using Anchor Base, Document Understanding classifiers, templates, or regex</li>
+  <li>Validate results with Validation Station</li>
+  <li>Export cleaned data to Excel or a database</li>
+</ol>
+
+<h2>Image preprocessing tips that actually help</h2>
+<p>OCR loves neat input. If you give it a crooked, low DPI scan it will invent new characters to keep itself entertained. The usual fixes are:</p>
+<ul>
+  <li>Convert to grayscale to reduce color noise</li>
+  <li>Resize to about 300 DPI for reliable character recognition</li>
+  <li>Apply thresholding and noise removal so background speckles stop competing with numbers</li>
+  <li>Deskew pages so lines are horizontal and not auditioning for a modern art exhibit</li>
+</ul>
+
+<h2>Choosing and configuring the OCR engine</h2>
+<p>Pick an engine based on language support and budget. Tesseract is free and fine for many cases. Commercial options like Google Cloud OCR or Abbyy usually give better accuracy for complex layouts but cost money. Always test with a representative sample set rather than trusting a single lucky invoice.</p>
+
+<h2>Extraction strategies that actually work</h2>
+<p>For predictable vendor formats use templates. For semi-structured documents try Anchor Base or Document Understanding classifiers. For concise fields like invoice numbers and totals regex is your friend if you do not let it turn into an overengineered horror show.</p>
+<p>Example regex for invoice numbers that avoids punctuation traps</p>
+<pre><code>Invoice\s+No\s*([A-Z0-9\-]+)</code></pre>
+<p>Use a whitelist of expected characters for known fields when possible. A tiny whitelist beats an endless chain of regex arguments at 3 a m.</p>
+
+<h2>Validation and export</h2>
+<p>Validation Station is not optional if accuracy matters. Let humans confirm or correct fields when automated confidence is low. After validation write a DataTable to Excel using Write Range or push records into your database for downstream processing. Keep logging so you can prove the robot did not hallucinate totals.</p>
+
+<h2>Troubleshooting and tuning</h2>
+<ul>
+  <li>If OCR is missing numbers raise DPI and redo preprocessing</li>
+  <li>If one vendor is breaking everything consider adding a template for that vendor</li>
+  <li>Adjust OCR engine settings for language and character set for better precision</li>
+  <li>Iteratively refine regex and classifiers with new samples</li>
+</ul>
+
+<h2>Final tips</h2>
+<p>Standardize incoming scans to 300 DPI, perform deskewing, and limit character sets for known fields. These small steps give the biggest accuracy boost. RPA is not magic but with good preprocessing and validation you can make your UiPath invoice process annoyingly reliable.</p>
+

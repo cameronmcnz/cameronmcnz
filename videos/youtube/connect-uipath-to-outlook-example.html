@@ -1,0 +1,67 @@
+---
+layout: video
+title: "Connect UiPath to Outlook Example"
+description: "Quick practical guide to connect UiPath Studio with Outlook to read send and manage email using UiPath mail activities"
+video_host: "youtube"
+video_id: "RJpiufTytTI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M25S"
+thumbnail_url: "https://i.ytimg.com/vi/RJpiufTytTI/maxresdefault.jpg"
+content_url: "https://youtu.be/RJpiufTytTI"
+embed_url: "https://www.youtube.com/embed/RJpiufTytTI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Outlook
+  - RPA
+  - Automation
+  - Email Automation
+  - UiPath Studio
+  - Mail Activities
+  - Get Outlook Mail Messages
+  - Send Outlook Mail Message
+  - Tutorial
+---
+
+<p>If you want a robot to read send and manage Outlook email without crying in the corner of your inbox this guide shows how. You will add the UiPath mail activities confirm that Outlook is set up on the robot machine and use Get Outlook Mail Messages and Send Outlook Mail Message with basic error handling and best practices for Orchestrator deployments. This is practical Email Automation for RPA that actually works.</p>
+
+<h2>What you need before you start</h2>
+<p>Keep this short and painless. You will need UiPath Studio installed Outlook configured on the robot machine and access to UiPath.Mail.Activities via Package Manager. If you are deploying to Orchestrator plan a service account for unattended runs so no one has to babysit pop ups.</p>
+
+<h2>Step 1 Install mail activities</h2>
+<p>Open Package Manager in UiPath Studio and add the package named <code>UiPath.Mail.Activities</code>. That brings Outlook specific actions to your activities panel. Yes it feels like clicking a button to summon powers you did not deserve but did acquire.</p>
+
+<h2>Step 2 Confirm Outlook profile</h2>
+<p>Make sure Outlook is installed on the same machine the robot will use and that at least one mail profile is signed in and working. UiPath talks to the local Outlook client so there is no magic cloud handshake here. If you see authentication pop ups during testing consider using an unattended robot account or adjusting security policies with your IT team.</p>
+
+<h2>Step 3 Use Get Outlook Mail Messages</h2>
+<p>Drag the <code>Get Outlook Mail Messages</code> activity into a sequence. Set properties like <code>MailFolder</code> <code>OnlyUnread</code> and <code>Top</code> to limit what the robot pulls. Map the output to a variable such as <code>List&lt;MailMessage&gt;</code> or <code>IEnumerable&lt;System.Net.Mail.MailMessage&gt;</code>. The result is a collection of MailMessage objects you can loop over and process.</p>
+
+<h3>Quick filtering tips</h3>
+<ul>
+  <li>Filter by folder or subject to reduce processing time and keep the robot from spawning an accidental mail apocalypse.</li>
+  <li>Use <code>OnlyUnread</code> to avoid reprocessing every item every run.</li>
+  <li>Use <code>Top</code> to test with a tiny sample first and scale up later.</li>
+</ul>
+
+<h2>Step 4 Use Send Outlook Mail Message</h2>
+<p>Use the <code>Send Outlook Mail Message</code> activity to supply recipients subject body and attachments. It uses the default Outlook profile so no extra SMTP config is required. You can toggle <code>IsBodyHtml</code> if you plan to send fancy formatted email or just plain awkward plain text as your soul desires.</p>
+
+<h2>Step 5 Handle errors and run</h2>
+<p>Wrap mail calls in a Try Catch and log meaningful errors. Test with a small inbox sample and watch the logs. If an authentication popup or security prompt appears during automated runs check local security policies or move the job to an unattended robot with a service account in Orchestrator.</p>
+
+<h3>Error handling checklist</h3>
+<ul>
+  <li>Catch Smtp issues and Outlook COM exceptions and log enough context to debug later.</li>
+  <li>Save attachments to a temp folder before processing to avoid locking problems.</li>
+  <li>Throttle reads and writes if you hit mailbox rate limits or very large attachments.</li>
+</ul>
+
+<h2>Deployment notes for Orchestrator</h2>
+<p>When you deploy choose a service account and configure the robot to use that local profile to avoid interactive prompts. This makes the automation reliable and blissfully unbothered by human popup drama. Also ensure the machine and robot user have Outlook open at least once and that any security addons are configured for unattended access.</p>
+
+<p>This guide covered installing Mail Activities confirming an Outlook profile using Get Outlook Mail Messages sending mail with Send Outlook Mail Message and adding basic error handling. Follow these steps and you will have a robot that handles routine email tasks while you enjoy coffee or pretend to do human work.</p>
+

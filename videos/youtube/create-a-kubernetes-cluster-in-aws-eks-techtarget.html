@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Create a Kubernetes Cluster in AWS EKS #techtarget"
+description: "Step by step guide to provision an AWS EKS Kubernetes cluster with eksctl kubectl IAM networking and node groups"
+video_host: "youtube"
+video_id: "coF8J0ttDC4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT26M43S"
+thumbnail_url: "https://i.ytimg.com/vi/coF8J0ttDC4/maxresdefault.jpg"
+content_url: "https://youtu.be/coF8J0ttDC4"
+embed_url: "https://www.youtube.com/embed/coF8J0ttDC4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Kubernetes
+  - AWS EKS
+  - eksctl
+  - kubectl
+  - Node groups
+  - IAM
+  - VPC
+  - Cluster provisioning
+  - DevOps
+  - Cloud native
+---
+
+<p>If you want a Kubernetes cluster on AWS without sacrificing your weekend or your sanity welcome aboard. This guide walks through creating a sturdy EKS cluster with eksctl and kubectl while handling IAM and VPC bits so pods do not go rogue.</p>
+
+<h2>What this guide covers</h2>
+<p>We will cover preparing AWS credentials and IAM policies setting up or choosing a VPC bootstrapping the cluster with eksctl configuring kubectl and verifying nodes and managing node groups and scaling. Follow the commands adapt region and names and expect a few cloud hiccups along the way.</p>
+
+<h2>Prepare AWS credentials and IAM roles</h2>
+<p>Install the AWS CLI and run <code>aws configure</code> to set your access key secret key and default region. Make sure the IAM user or role you use has the usual EKS policies attached so you do not hit mysterious permission errors. Common managed policies include AmazonEKSClusterPolicy AmazonEKSServicePolicy and AmazonEKSWorkerNodePolicy.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>AWS CLI configured with the right profile</li>
+  <li>IAM user or role with EKS related policies</li>
+  <li>Optional extra permissions for node role if you plan to use managed node groups</li>
+</ul>
+
+<h2>Choose or create a VPC for networking</h2>
+<p>Use an existing VPC if you know what you are doing otherwise let eksctl create one for you. Make sure the VPC has enough subnets across multiple availability zones for high availability. Your VPC choices affect pod networking service IPs and load balancer behavior so a little planning now prevents angry troubleshooting later.</p>
+
+<h2>Create the EKS cluster with eksctl</h2>
+<p>eksctl does most of the boring plumbing for you. A single command will create the control plane node groups and the necessary IAM roles. Example for a basic cluster is</p>
+<pre><code>eksctl create cluster --name my-cluster --region us-west-2 --nodes 2</code></pre>
+<p>That command boots a cluster with a managed node group and sensible defaults. If you want custom VPC or node group settings create a YAML cluster config and pass it to eksctl. Either way you avoid hand editing dozens of manifests.</p>
+
+<h2>Configure kubectl and verify node status</h2>
+<p>Update your kubeconfig so kubectl can talk to the new cluster with</p>
+<pre><code>aws eks update-kubeconfig --name my-cluster --region us-west-2</code></pre>
+<p>Then confirm healthy nodes and ready status with</p>
+<pre><code>kubectl get nodes</code></pre>
+<p>If nodes are not ready give the cloud a moment then check events and node conditions. Common culprits include wrong IAM policies or subnets without proper internet access for node bootstrapping.</p>
+
+<h2>Manage node groups and scale capacity</h2>
+<p>Add managed node groups for different workload tiers or scale capacity on demand using eksctl or the AWS console. Example scale command is</p>
+<pre><code>eksctl scale nodegroup --cluster my-cluster --name ng-1 --nodes 4</code></pre>
+<p>Consider separate node groups for system workloads GPU workloads and bursty user workloads. Managed node groups save you from endless instance lifecycle scripts while still letting you pick instance types and autoscaling settings.</p>
+
+<h2>Verification and hygiene</h2>
+<ul>
+  <li>Confirm kube system pods are running with <code>kubectl get pods -n kube-system</code></li>
+  <li>Check cloud provider resources such as load balancers and target groups</li>
+  <li>Ensure node IAM roles have permissions for attaching ENIs and using EBS if you use persistent volumes</li>
+</ul>
+
+<h2>Troubleshooting tips</h2>
+<p>If something fails read the logs and events before panicking. Permission issues usually point at IAM policies. Networking problems often trace back to subnets or available IPs. When in doubt recreate the cluster with verbose logging and a sane config file.</p>
+
+<h2>Final notes for the DevOps crowd</h2>
+<p>This workflow covered creating credentials choosing networking bootstrapping the cluster verifying access and adjusting node capacity for workload needs. Use infrastructure as code and proper CI pipelines to avoid manual cruft. Now drink coffee or whatever helps you smile while the cloud finishes provisioning.</p>
+

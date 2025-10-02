@@ -1,0 +1,72 @@
+---
+layout: video
+title: "Getting started with GitHub Pages"
+description: "Quick guide to publish a website with GitHub Pages from repo to custom domain and Jekyll basics"
+video_host: "youtube"
+video_id: "OFmG7l4GzGg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M28S"
+thumbnail_url: "https://i.ytimg.com/vi/OFmG7l4GzGg/maxresdefault.jpg"
+content_url: "https://youtu.be/OFmG7l4GzGg"
+embed_url: "https://www.youtube.com/embed/OFmG7l4GzGg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub Pages
+  - GitHub
+  - Jekyll
+  - Static Site
+  - Deployment
+  - Custom Domain
+  - HTTPS
+  - Repository
+  - Web Hosting
+  - Git
+---
+
+<article>
+  <p>So you want a website that does not require a server that cries itself to sleep each night. Good call. GitHub Pages hosts static sites with minimal fuss and maximum smugness. This guide walks you through the parts that matter while keeping the fake ceremony to a minimum.</p>
+
+  <h2>Create the repository</h2>
+  <p>Start on GitHub and make a new repository. If you want a user or organization site the repo name must match username.github.io exactly. For project sites pick any name and expect a URL under your username domain. Add your files directly on GitHub or clone locally and use your normal Git workflow.</p>
+
+  <h3>Local workflow that actually works</h3>
+  <pre><code>git init
+git add .
+git commit -m "Initial site"
+git branch -M main
+git remote add origin git@github.com:username/repo.git
+git push -u origin main</code></pre>
+
+  <h2>Choose the publishing source</h2>
+  <p>Open the repository settings and enable GitHub Pages. Pick the branch and folder to publish from such as main and root or use a gh-pages branch. That chosen branch becomes the source for the live site. No wizardry required, just pick the thing you actually want to maintain.</p>
+
+  <h2>Pick a theme or use Jekyll</h2>
+  <p>If you want instant design gratification try the Pages theme chooser. If you prefer templating and content in markdown use Jekyll. Jekyll supports layouts, includes, and a small set of plugins allowed by GitHub Pages. A simple _config.yml controls site title, baseurl, and other basics.</p>
+
+  <h3>Simple Jekyll folder layout</h3>
+  <ul>
+    <li>index.html or index.md at the site root</li>
+    <li>_layouts for templates</li>
+    <li>_posts if you intend to blog</li>
+  </ul>
+
+  <h2>Custom domain and HTTPS</h2>
+  <p>Want a domain that sounds like you own the internet even if you do not? Add a CNAME file to the repository with your domain or set the proper DNS records at your registrar. After DNS changes give it some time while GitHub provisions HTTPS for the domain. The Pages dashboard reports status and DNS warnings so you do not have to guess in the dark.</p>
+
+  <h2>Deployments and edits</h2>
+  <p>Make small edits, commit, and push. Each push triggers a deployment from the selected publishing source and the site updates. If the page does not show changes check the Pages build log and the repository actions or console output for clues.</p>
+
+  <h2>Troubleshooting tips that save dignity</h2>
+  <ul>
+    <li>If your user site is not at username.github.io double check the repo name and branch</li>
+    <li>If assets 404 check that the baseurl and file paths are correct in _config.yml or HTML</li>
+    <li>If HTTPS is not ready wait for DNS propagation and check the Pages dashboard for warnings</li>
+    <li>If builds fail read the Pages or Actions log for error messages and missing dependencies</li>
+  </ul>
+
+  <p>That covers repository creation, content placement, publishing source selection, theme or Jekyll setup, custom domain configuration, and how to push updates. You now have a static site hosted on GitHub Pages ready to take on the internet with very little drama. Go forth and deploy something small and proud.</p>
+</article>
+

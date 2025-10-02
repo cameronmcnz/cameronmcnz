@@ -1,0 +1,68 @@
+---
+layout: video
+title: "GitHub Actions Environment Variables"
+description: "Quick guide to using environment variables in GitHub Actions for config and secrets with practical rules and examples"
+video_host: "youtube"
+video_id: "SMPyLi8x6eo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M28S"
+thumbnail_url: "https://i.ytimg.com/vi/SMPyLi8x6eo/maxresdefault.jpg"
+content_url: "https://youtu.be/SMPyLi8x6eo"
+embed_url: "https://www.youtube.com/embed/SMPyLi8x6eo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub Actions
+  - Environment Variables
+  - CI
+  - DevOps
+  - Secrets
+  - GITHUB_ENV
+  - Workflows
+  - YAML
+  - Automation
+  - Best Practices
+---
+
+<p>Welcome to the thrilling world of environment variables in GitHub Actions. Think of them as sticky notes for your CI process. When used well they keep workflows readable and secure. When used poorly they leak secrets into logs and ruin your morning.</p>
+
+<h2>Basics and scope</h2>
+<p>Environment variables are key value pairs available to your workflow at different scopes. You can define them at workflow level to apply to everything, at job level to limit exposure to one job, or at step level for one tiny operation that nobody else needs to see. When names collide the narrower scope wins with step level overriding job level and job level overriding workflow level.</p>
+
+<h2>Set a variable during a run</h2>
+<p>If you need to create a variable at runtime write to the special file that the runner watches. That value will be available to later steps in the same job. Example shell usage:</p>
+<pre><code>echo "MY_VAR=hello" >> $GITHUB_ENV
+</code></pre>
+<p>Later you can read it with the env context like this</p>
+<pre><code>echo Hello ${{ env.MY_VAR }}
+</code></pre>
+
+<h2>Secrets are a different beast</h2>
+<p>Sensitive data should live in the secrets context. Use the secrets object for tokens and keys. Example:</p>
+<pre><code>echo ${{ secrets.MY_SECRET }}
+</code></pre>
+<p>Secrets are masked in logs so you avoid accidental public confessions. Do not deliberately echo them unless you enjoy rewriting history.</p>
+
+<h2>Passing values between jobs</h2>
+<p>Steps can set outputs that jobs can consume. If you need to move data between completely separate jobs consider job outputs or artifacts. Both require a few extra lines but they save you from brittle hacks.</p>
+
+<h3>Quick options</h3>
+<ul>
+  <li>Use job outputs for structured data that the next job will consume</li>
+  <li>Upload artifacts when the data is large or binary</li>
+  <li>Prefer secrets for anything sensitive and avoid putting secrets in $GITHUB_ENV</li>
+</ul>
+
+<h2>Common pitfalls and best practices</h2>
+<ul>
+  <li>Do not print secrets to logs. Masking helps but human error is dramatic and fun for villains</li>
+  <li>Assume step level env changes do not cross job boundaries unless explicitly exported</li>
+  <li>Use uppercase names with underscores for clarity and to avoid clashing with runner variables</li>
+  <li>Keep scopes narrow. The smaller the blast radius the less you will cry later</li>
+</ul>
+
+<h2>Final words of grudging wisdom</h2>
+<p>Prefer storing sensitive values in the secrets context and use $GITHUB_ENV for dynamic runtime values. Name variables clearly and scope them as tightly as possible. Follow these rules and your CI will be tidy and mostly boring. Break them and you will enjoy debugging in production at three in the morning.</p>
+

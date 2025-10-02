@@ -1,0 +1,70 @@
+---
+layout: video
+title: "GitHub Pages HTML"
+description: "Quick guide to publish a static HTML site on GitHub Pages from a repository with simple steps and commands"
+video_host: "youtube"
+video_id: "lEot4GNBLxE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M9S"
+thumbnail_url: "https://i.ytimg.com/vi/lEot4GNBLxE/maxresdefault.jpg"
+content_url: "https://youtu.be/lEot4GNBLxE"
+embed_url: "https://www.youtube.com/embed/lEot4GNBLxE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub Pages
+  - HTML
+  - Static site hosting
+  - index.html
+  - gh-pages
+  - GitHub
+  - Deploy site
+  - Web hosting
+  - Site publishing
+  - Web development
+---
+
+<article>
+  <h1>Step by step guide to publish index.html on GitHub Pages for free</h1>
+  <p>Want to toss a single HTML file onto the internet and call it a day This is the crash course that spares you the tears. GitHub Pages will host static sites for free and the process is annoyingly easy if you follow the steps and do not panic.</p>
+
+  <h2>Make a repository</h2>
+  <p>Sign in to GitHub and create a new repository. Give it a sensible name so your future self does not curse your past self. Public repositories work for free hosting. Private repositories might need a paid plan to publish, so check the fine print before you get attached.</p>
+
+  <h3>Add an index.html file</h3>
+  <p>Create a simple index.html at the repository root or on the branch you plan to publish from. From your project folder the common commands are</p>
+  <pre><code>git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+# create the repo on GitHub then push with git push -u origin main</code></pre>
+  <p>Keep your HTML minimal to start. If it loads locally it will usually load on Pages as well.</p>
+
+  <h2>Choose a publishing branch</h2>
+  <p>GitHub Pages can serve from the main branch root or from a gh-pages branch for project sites. Pick the workflow that fits your project. Keep the site files on that branch to avoid the classic 404 surprise party.</p>
+
+  <h2>Enable Pages in settings</h2>
+  <p>Open your repository Settings and locate the Pages section. Select the branch you want to publish from and save. GitHub will build and publish your site after a short wait. No wizardry required just a click and patience.</p>
+
+  <h2>Visit your published site</h2>
+  <p>Wait a minute for DNS and cache updates then visit the URL. For user and organization sites the pattern is</p>
+  <p><code>username.github.io</code></p>
+  <p>For project sites use</p>
+  <p><code>username.github.io/REPO</code></p>
+  <p>If the page is not live check that index.html exists on the publishing branch and that the repository visibility matches your plan.</p>
+
+  <h2>Extras that make you look professional</h2>
+  <ul>
+    <li>Add a 404.html so visitors see something nicer than a sad default page</li>
+    <li>Include a small robots.txt to control crawler behavior</li>
+    <li>Add a CNAME file if you plan to use a custom domain</li>
+  </ul>
+
+  <h2>Troubleshooting and quick tips</h2>
+  <p>If GitHub shows a build error check the Pages section or the Actions tab for messages. If DNS seems wrong clear caches and wait a bit. For tiny edits the web editor is fine, for real work push from your machine like a civilized human.</p>
+
+  <p>That is the essentials wrapped in mild sarcasm. Follow these steps and your static HTML site should be live without selling a kidney for hosting. Welcome to simple web publishing with slightly less drama.</p>
+</article>
+

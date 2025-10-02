@@ -1,0 +1,83 @@
+---
+layout: video
+title: "Difference between Controller vs RestController in Spring"
+description: "Clear comparison of Controller and RestController in Spring with examples response handling and use cases for web pages and REST APIs"
+video_host: "youtube"
+video_id: "o3cJnTm3p94"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M34S"
+thumbnail_url: "https://i.ytimg.com/vi/o3cJnTm3p94/maxresdefault.jpg"
+content_url: "https://youtu.be/o3cJnTm3p94"
+embed_url: "https://www.youtube.com/embed/o3cJnTm3p94"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring
+  - Controller
+  - RestController
+  - Spring MVC
+  - REST API
+  - Java
+  - Annotations
+  - ResponseBody
+  - ViewResolver
+  - Web Development
+---
+
+<p>Short version for the busy and the slightly dramatic</p>
+
+<h2>Quick summary for impatient developers</h2>
+<ul>
+  <li>Use @Controller when you want server side rendering with JSP Thymeleaf or another template engine and methods return view names that a view resolver will turn into HTML</li>
+  <li>Use @RestController when you want objects serialized to JSON XML or other formats for APIs and clients like SPAs mobile apps or other services</li>
+  <li>@RestController is just @Controller plus @ResponseBody so Spring bypasses view resolution and hands your object to HttpMessageConverters for serialization</li>
+</ul>
+
+<h2>Controller and RestController in action</h2>
+<p>Think of @Controller as the traditional stage actor that hands off a scene to a view resolver and asks the template to do the heavy lifting. Think of @RestController as the actor who posts raw data to the feed and leaves the rendering drama to the client.</p>
+
+<pre><code>@Controller
+public class PageController {
+    @GetMapping("/home")
+    public String home(Model model) {
+        model.addAttribute("name", "Guest");
+        return "home";
+    }
+}
+</code></pre>
+
+<p>The controller example returns a string that maps to a template like home html which the view resolver finds and renders. This is server side rendering pure and simple.</p>
+
+<pre><code>@RestController
+public class ApiController {
+    @GetMapping("/users")
+    public List<User> list() {
+        return userService.findAll();
+    }
+}
+</code></pre>
+
+<p>The RestController example returns a List of User objects which Spring converts to JSON using message converters. No view resolver involved unless you really try to make it sad.</p>
+
+<h3>What actually happens under the hood</h3>
+<p>When a method is annotated with @ResponseBody or the class is @RestController Spring skips view resolution and uses HttpMessageConverter instances to write the response. That means content negotiation for JSON XML or other formats works automatically based on Accept headers and available converters. Status codes headers and content type handling still work the same way so you can use ResponseEntity to control status and headers when you need to be explicit.</p>
+
+<h3>Useful rules of thumb</h3>
+<ul>
+  <li>Server side rendered pages use @Controller and return template names</li>
+  <li>APIs use @RestController and return domain objects or ResponseEntity objects so clients get JSON or XML</li>
+  <li>If you only need one method to return JSON add @ResponseBody to that method otherwise switch the whole class to @RestController for brevity and fewer surprises</li>
+  <li>Avoid returning view names from methods in a RestController unless you are trying to confuse future you</li>
+</ul>
+
+<h3>Common gotchas and quick fixes</h3>
+<ul>
+  <li>If your page suddenly comes back as JSON you probably converted a controller to rest without changing a template return. Change the annotation or the return type and move on</li>
+  <li>If you need custom serialization control the converters or return ResponseEntity and set headers and status manually</li>
+  <li>Mixing both approaches in one class is possible but messy. Keep intent explicit to avoid accidental HTML in JSON responses</li>
+</ul>
+
+<p>Final thought no magic here just intent. Use @Controller for pages and @RestController for APIs and your code will be easier to read debug and explain to the intern next quarter. Now go pick the one that matches your use case and stop arguing about annotations in meetings.</p>
+

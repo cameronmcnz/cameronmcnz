@@ -1,0 +1,60 @@
+---
+layout: video
+title: "UiPath Web Scraping Tutorial"
+description: "Step by step UiPath web scraping tutorial covering Data Scraping wizard selectors pagination cleaning and export to Excel for reliable automation"
+video_host: "youtube"
+video_id: "x_713hTRsic"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M30S"
+thumbnail_url: "https://i.ytimg.com/vi/x_713hTRsic/maxresdefault.jpg"
+content_url: "https://youtu.be/x_713hTRsic"
+embed_url: "https://www.youtube.com/embed/x_713hTRsic"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - web scraping
+  - data scraping
+  - RPA
+  - automation
+  - selectors
+  - UiPath Studio
+  - pagination
+  - Excel export
+  - data extraction
+---
+
+<h2>Quick overview</h2>
+<p>Use UiPath Studio to extract tables and repeated items from web pages with the Data Scraping wizard. Create a new project and add the UiPath UIAutomation package to get the activities you need. Name your workflows so debugging feels like minor annoyance rather than a full existential crisis.</p>
+
+<h2>What to do first</h2>
+<p>Launch the Data Scraping wizard from the Design ribbon and pick a sample element. The wizard looks for a pattern to detect repeated rows. For heavy rendering or when elements refuse to behave choose Screen Scraping or an anchor based selector. Review the generated selectors in the wizard preview before you celebrate.</p>
+
+<h3>Selecting and stabilizing selectors</h3>
+<p>Use Ui Explorer for brittle targets. Prefer stable attributes like id or data attributes over index based paths. Wildcard tokens are handy but do not overuse them or your selectors will start behaving like a needy houseplant. Test selectors on several pages to avoid surprises.</p>
+
+<h2>Handling pagination</h2>
+<p>If the site has multiple pages capture the Next control as part of the wizard flow when possible. If that fails implement a loop that clicks Next with a small delay and checks for the end of pages. Use Wait for Ready and brief delays to avoid race conditions on slow or heavily scripted pages.</p>
+
+<h2>Cleaning and transforming data</h2>
+<p>Filter Data Table, Assign and Regex are your friends when the site serves messy text. Trim whitespace, convert types and normalize dates before exporting. Fix these issues early to prevent Excel from throwing passive aggressive warnings later.</p>
+
+<h3>Exporting results</h3>
+<p>Use Write Range to send the final DataTable to an Excel workbook when you need full fidelity. For simple, flat lists Write CSV is faster and less dramatic. Ensure the target file is closed or saved to avoid file lock errors.</p>
+
+<h2>Error handling and testing</h2>
+<p>Wrap fragile parts in Try Catch and add logging so errors are visible instead of living their best life in a black box. Test extraction on multiple pages and include edge cases so production surprises remain hypothetical rather than catastrophic.</p>
+
+<h2>Quick checklist</h2>
+<ul>
+<li>Add retries and sensible delays</li>
+<li>Prefer stable attributes like id or data values</li>
+<li>Use wildcard tokens sparingly</li>
+<li>Validate the extracted DataTable before export</li>
+<li>Log progress and failures in a readable format</li>
+</ul>
+
+<p>Follow these steps and your UiPath web scraping workflow will be faster, cleaner and less likely to produce mysterious empty columns. If selectors break start with Ui Explorer and pick better attributes. Now go automate something boring and let the robot take the blame when things go wrong.</p>
+

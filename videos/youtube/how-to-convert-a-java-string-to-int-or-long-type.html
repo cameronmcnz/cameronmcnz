@@ -1,0 +1,107 @@
+---
+layout: video
+title: "How to Convert a Java String to int or long Type"
+description: "Quick guide to parse Java strings to int and long with safe parsing examples NumberFormatException handling and practical tips"
+video_host: "youtube"
+video_id: "sJ5ECR8UiKM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M52S"
+thumbnail_url: "https://i.ytimg.com/vi/sJ5ECR8UiKM/maxresdefault.jpg"
+content_url: "https://youtu.be/sJ5ECR8UiKM"
+embed_url: "https://www.youtube.com/embed/sJ5ECR8UiKM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - java
+  - string to int
+  - string to long
+  - parseInt
+  - parseLong
+  - NumberFormatException
+  - Integer valueOf
+  - data conversion
+  - input validation
+  - performance tips
+---
+
+<p>Yes you can turn a Java string into a number without summoning demons or leaking exceptions all over your logs. This guide covers the usual suspects for string to int and string to long conversions and how to do it safely and fast. Expect parseInt parseLong NumberFormatException tips and a couple of survival tricks for real world input.</p>
+
+<h2>Basic parsing methods</h2>
+
+<p>When the input is trusted and performance matters use the built in parsers. They are simple and fast for converting a numeric string to a primitive.</p>
+
+<pre><code>int n = Integer.parseInt(str)
+long l = Long.parseLong(str)</code></pre>
+
+<p>These throw NumberFormatException for invalid characters or overflow. That is fine when the data is clean or you want a fast failure.</p>
+
+<h3>Protect parsing when input is hostile</h3>
+
+<p>Any external input can be malformed and then the parser will throw NumberFormatException. Wrap the call when you do not trust the caller.</p>
+
+<pre><code>try {
+    int n = Integer.parseInt(str)
+} catch (NumberFormatException e) {
+    // handle invalid number from input validation failure
+}</code></pre>
+
+<h2>When you need an object value</h2>
+
+<p>Use Integer.valueOf when you need a boxed Integer. This can reuse cached values for small integers so it is not always slower than parsing into a primitive and boxing later.</p>
+
+<pre><code>Integer boxed = Integer.valueOf(str)</code></pre>
+
+<h2>Parsing other bases without surprises</h2>
+
+<p>If your input might be hexadecimal or another base specify a radix so you do not misinterpret the digits.</p>
+
+<pre><code>int hex = Integer.parseInt(str, 16)
+long bin = Long.parseLong(str, 2)</code></pre>
+
+<h2>Avoid throwing exceptions in hot paths</h2>
+
+<p>NumberFormatException is handy but expensive if it happens a lot. If parsed values are a normal part of control flow prefer a safe parse helper that returns an Optional or a default. That keeps logs sane and keeps the CPU happier.</p>
+
+<pre><code>OptionalInt safeParseInt(String s) {
+    try {
+        return OptionalInt.of(Integer.parseInt(s))
+    } catch (NumberFormatException e) {
+        return OptionalInt.empty()
+    }
+}</code></pre>
+
+<p>Or a defaulting helper for legacy code.</p>
+
+<pre><code>int parseIntOrDefault(String s, int defaultValue) {
+    try {
+        return Integer.parseInt(s)
+    } catch (NumberFormatException e) {
+        return defaultValue
+    }
+}</code></pre>
+
+<h2>Lightweight input validation options</h2>
+
+<p>If you want to avoid exceptions entirely validate the string first. A simple regex or Character checks reduce the chance of NumberFormatException and make intent clear.</p>
+
+<ul>
+    <li>Use s.matches("\\d+") for unsigned digits when null safety is handled elsewhere</li>
+    <li>Use Character.isDigit per character when you need more control such as allowing a leading minus sign</li>
+    <li>Then call parseInt or parseLong once the format looks sane</li>
+</ul>
+
+<h2>Performance tips and practical advice</h2>
+
+<ul>
+    <li>Prefer parseInt when you need a primitive int and want max speed</li>
+    <li>Use valueOf when you need an Integer object or rely on autoboxing</li>
+    <li>Avoid using exceptions for normal control flow because throwing and catching exceptions is costly</li>
+    <li>Specify a radix for non decimal strings to avoid accidental misparsing</li>
+</ul>
+
+<h2>Summary and final sanity check</h2>
+
+<p>To convert strings to int or long in Java use Integer.parseInt and Long.parseLong for trusted input. Wrap parsing in try catch when input may be malformed. Use Integer.valueOf when you need a boxed Integer. Specify a radix for non decimal input and prefer a safe helper that returns OptionalInt or a default when exceptions would be common. Validate untrusted data before parsing and try to keep exceptions for actual exceptional situations. Your logs will thank you and your CPU will stop complaining.</p>
+

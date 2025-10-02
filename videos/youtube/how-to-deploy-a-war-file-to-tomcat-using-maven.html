@@ -1,0 +1,97 @@
+---
+layout: video
+title: "How to deploy a WAR file to Tomcat using Maven"
+description: "Step by step Maven guide to build a WAR and deploy that WAR to Tomcat with plugin setup build and common troubleshooting tips."
+video_host: "youtube"
+video_id: "thEk-i2OIK4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M42S"
+thumbnail_url: "https://i.ytimg.com/vi/thEk-i2OIK4/maxresdefault.jpg"
+content_url: "https://youtu.be/thEk-i2OIK4"
+embed_url: "https://www.youtube.com/embed/thEk-i2OIK4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Tomcat
+  - Maven
+  - WAR
+  - deploy
+  - Tomcat Maven Plugin
+  - Java webapp
+  - pom.xml
+  - build
+  - deployment
+  - tutorial
+---
+
+<p>If you enjoy subtle thrills like watching a server unpack a zip file then deploying a WAR to Tomcat with Maven is your kind of party. This guide walks through preparing a Java webapp, wiring up the Tomcat Maven plugin, building a WAR and deploying it either automatically or by hand. No smoke and mirrors, just useful commands and things to check when the manager sends you a passive aggressive error.</p>
+
+<h2>Prepare your Maven webapp</h2>
+<p>Start with a normal Maven web project. In your pom.xml set the packaging to <code>war</code> and keep your web sources under <code>src/main/webapp</code>. Add a standard <code>web.xml</code> if you need old school servlet configuration and declare any required dependencies in the pom so the WAR includes them.</p>
+
+<ul>
+  <li>pom.xml: <code>&lt;packaging&gt;war&lt;/packaging&gt;</code></li>
+  <li>Source layout: <code>src/main/webapp</code> for JSPs static assets and WEB-INF</li>
+  <li>Dependencies: include servlet API as provided if Tomcat already supplies it</li>
+</ul>
+
+<h2>Add and configure the Tomcat Maven plugin</h2>
+<p>Edit pom.xml to include the Tomcat Maven plugin so Maven can talk to Tomcat manager. You must provide a manager URL and credentials for a user with the manager role on the Tomcat server. Please do not paste plain passwords in pom.xml like it is 2005.</p>
+
+<h3>Best practice for credentials</h3>
+<p>Put the server id and credentials in your <code>~/.m2/settings.xml</code> and reference the server id from the pom. That keeps secrets out of version control and avoids awkward conversations with compliance.</p>
+
+<pre><code>&lt;server&gt;
+  &lt;id&gt;tomcat-host&lt;/id&gt;
+  &lt;username&gt;deployuser&lt;/username&gt;
+  &lt;password&gt;REDACTED&lt;/password&gt;
+&lt;/server&gt;
+</code></pre>
+
+<h2>Build the WAR</h2>
+<p>Run the classic Maven combo to produce a clean WAR artifact.</p>
+
+<pre><code>mvn clean package
+</code></pre>
+
+<p>The WAR will appear in <code>target/</code>. That is the file you will either push with the plugin or copy into Tomcat's webapps folder like an analog hacker.</p>
+
+<h2>Deploy using the Tomcat Maven plugin</h2>
+<p>If you prefer automation invoke the plugin's deploy goal to upload the WAR to the Tomcat manager. If Tomcat gives you a manager role or credential error double check your <code>server</code> id mapping and the roles on the Tomcat user that you configured in <code>tomcat-users.xml</code>.</p>
+
+<pre><code>mvn tomcat7:deploy -DskipTests
+</code></pre>
+
+<p>If you need to redeploy an existing context use the <code>redeploy</code> goal or add the <code>path</code> parameter. The manager will reject uploads if the user lacks permissions so fix roles before blaming Maven.</p>
+
+<h2>Manual deploy to Tomcat webapps</h2>
+<p>If the plugin feels like modern alchemy then the boring reliable trick is to copy the WAR into <code>TOMCAT_HOME/webapps</code>. Tomcat will explode the archive into a folder and register the context. Restart Tomcat when a simple drop does not register the application.</p>
+
+<ol>
+  <li>Copy <code>target/yourapp.war</code> to <code>$CATALINA_HOME/webapps</code></li>
+  <li>Watch the logs or tail <code>logs/catalina.out</code></li>
+  <li>Visit <code>http://your-server:8080/yourapp</code> to confirm</li>
+</ol>
+
+<h2>Verify and troubleshoot deployment</h2>
+<p>When things go sideways the Tomcat logs are your best friend. Look for class loader errors missing classes or exceptions during context startup. Common issues and quick fixes follow.</p>
+
+<h3>Common problems</h3>
+<ul>
+  <li>Missing dependencies. Add them to the WAR or mark them provided if Tomcat supplies them.</li>
+  <li>Context path collisions. Ensure the WAR name and <code>context.xml</code> do not conflict with another app.</li>
+  <li>Manager permission errors. Confirm the user has manager script or manager gui roles depending on your plugin and Tomcat version.</li>
+</ul>
+
+<h3>Helpful commands</h3>
+<pre><code>tail -f $CATALINA_HOME/logs/catalina.out
+# check for stack traces and class not found errors
+</code></pre>
+
+<p>Also verify Tomcat's <code>conf/tomcat-users.xml</code> for the right roles and the manager URL in your plugin configuration matches the server's manager interface. Network firewalls and wrong ports are surprisingly dramatic.</p>
+
+<h2>Recap</h2>
+<p>You can safely build a WAR with <code>mvn package</code> and either let the Tomcat Maven plugin upload it or copy it into <code>webapps</code> like a traditionalist. Secure credentials in <code>settings.xml</code> fix most permission headaches. When deployment fails read the logs add any missing libraries and check context names. Now go deploy something and enjoy that brief 30 seconds of validation pleasure when the home page finally loads.</p>
+

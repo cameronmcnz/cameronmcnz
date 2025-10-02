@@ -1,0 +1,69 @@
+---
+layout: video
+title: "How to use Java Scanner next and nextLine"
+description: "Learn how to read single words and full lines from the console using Java Scanner next and nextLine and avoid the common newline trap"
+video_host: "youtube"
+video_id: "e1ceaKbouno"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M8S"
+thumbnail_url: "https://i.ytimg.com/vi/e1ceaKbouno/maxresdefault.jpg"
+content_url: "https://youtu.be/e1ceaKbouno"
+embed_url: "https://www.youtube.com/embed/e1ceaKbouno"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Scanner
+  - next
+  - nextLine
+  - String input
+  - console input
+  - newline trap
+  - Java tutorial
+  - beginner Java
+  - input handling
+---
+
+<p>If you are new to Java input or you enjoy tiny punishments from the terminal then welcome. Scanner next and nextLine both read user input but they behave like two roommates who refuse to clean up after themselves. next grabs the next token while nextLine grabs the entire line. Mix them and you get the classic newline trap that makes beginner Java input handling feel like a prank.</p>
+
+<h2>Create a Scanner and grab a single token</h2>
+<p>Make a Scanner that reads from standard input and use next when you only want the next whitespace separated token. Great for a first name a one word command or any situation where spaces are a betrayal.</p>
+<pre><code>Scanner scanner = new Scanner(System.in)
+String word = scanner.next()
+</code></pre>
+
+<h2>Read a full line with nextLine</h2>
+<p>Use nextLine when you want everything the user typed up to the newline including spaces. This is what you want for addresses multiline comments or any sentence that refuses to be tokenized.</p>
+<pre><code>String line = scanner.nextLine()
+</code></pre>
+
+<h2>Why mixing next and nextLine leads to an empty string</h2>
+<p>The annoying truth is that next does not consume the trailing newline. It leaves that newline sitting in the input buffer like a passive aggressive note. The very next call to nextLine will read that leftover newline and return an empty string. Not a bug a design choice that tests your patience.</p>
+<pre><code>String first = scanner.next()
+scanner.nextLine()
+String comment = scanner.nextLine()
+</code></pre>
+
+<h3>Two simple fixes that do not involve crying</h3>
+<ul>
+<li>Call an extra nextLine right after next to consume the leftover newline then call nextLine to get the real input</li>
+<li>Use nextLine for all console input then split or parse the returned String when you need tokens</li>
+</ul>
+
+<p>Example using only nextLine then splitting for predictable String input handling</p>
+<pre><code>String line = scanner.nextLine()
+String[] parts = line.split("\\s+")
+String firstToken = parts[0]
+</code></pre>
+
+<h2>Quick tips for beginner Java input handling</h2>
+<ul>
+<li>Prefer nextLine and parse when you want consistent behavior across mixed inputs</li>
+<li>If you do use next remember that a newline remains until you consume it</li>
+<li>Close the scanner when your program is done reading input but know that closing the scanner will also close System.in</li>
+</ul>
+
+<p>If you follow these rules your console input will stop surprising you. If you do not the newline trap will continue to humiliate your program one empty string at a time.</p>
+

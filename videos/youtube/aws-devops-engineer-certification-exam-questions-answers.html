@@ -1,0 +1,80 @@
+---
+layout: video
+title: "AWS DevOps Engineer Certification Exam Questions & Answers"
+description: "Quick guide to API Gateway mapping templates Lambda integration and exam focused tips for AWS DevOps certification"
+video_host: "youtube"
+video_id: "F3kzNl1FC6s"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/F3kzNl1FC6s/maxresdefault.jpg"
+content_url: "https://youtu.be/F3kzNl1FC6s"
+embed_url: "https://www.youtube.com/embed/F3kzNl1FC6s"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - DevOps
+  - Certification
+  - API Gateway
+  - Lambda
+  - Mapping Templates
+  - AWS Exam
+  - Serverless
+  - Integration
+  - VTL
+---
+
+<h2>Quick reality check for exam time</h2>
+<p>Yes this is the section that looks like a sad crossword of acronyms. You need to know when to use proxy integration and when to stop being lazy and write a mapping template. You also need to understand VTL mapping templates and how API Gateway and Lambda talk to each other without throwing a tantrum. This guide gives you the facts the exam wants and a few bad jokes you can ignore when nervous.</p>
+
+<h2>Integration types explained without drama</h2>
+<p>There are two main ways to hook API Gateway to Lambda. One passes the whole kitchen sink to your function. The other lets API Gateway do some light weight janitorial work first.</p>
+
+<h3>Proxy integration</h3>
+<ul>
+  <li>Use this when the Lambda function should see the full request context with minimal fuss.</li>
+  <li>API Gateway forwards headers path parameters query string and the body to Lambda in a single envelope.</li>
+  <li>Lambda is expected to return an object that includes statusCode and body fields so API Gateway can forward the response to the client.</li>
+</ul>
+
+<h3>Non proxy integration</h3>
+<ul>
+  <li>Use this when you want API Gateway to transform the request or response with a mapping template.</li>
+  <li>You control the payload Lambda receives and you control which HTTP status the client sees.</li>
+  <li>This is the exam favorite because it tests your attention to detail and your ability to read mapping templates without fainting.</li>
+</ul>
+
+<h2>Velocity mapping templates that do actual work</h2>
+<p>Mapping templates use VTL to turn incoming JSON form data or other formats into the shape your Lambda wants. These are tiny programs that run before your function gets the request and they matter for serverless integrations and the AWS Exam.</p>
+
+<h3>Minimal examples to remember</h3>
+<pre><code>$input.json('$')</code></pre>
+<p>That little line passes raw JSON from the body into Lambda. If the exam shows that exact snippet your answer is probably non proxy integration unless they explicitly say proxy.</p>
+
+<h3>Accessing headers and query strings</h3>
+<p>Headers appear in the request context and mapping templates must reference their exact names. For example you can use expressions like</p>
+<pre><code>$input.params('header-name')</code></pre>
+<p>For query string parameters use the params collection for querystring values. If you need path parameters those come from the path variable collection in the request context.</p>
+
+<h2>Permissions and who can speak to who</h2>
+<p>API Gateway must be allowed to invoke your Lambda. That happens by adding invoke permission to the Lambda resource policy for the API Gateway service principal. The exam loves to test whether you understand resource policies versus execution roles. Short version resource policies let services call your function. Roles let your code call other AWS services.</p>
+
+<h2>Error mapping and returning sensible status codes</h2>
+<p>Lambda can fail in lots of creative ways. Mapping templates and integration responses let you translate those failures into the HTTP status codes you actually want the client to see. In non proxy integration you configure method response and integration response mappings and match on patterns from Lambda output to decide which HTTP status to return and what JSON body to send.</p>
+<p>With proxy integration you must return a response structure that contains statusCode and body so API Gateway does not invent one for you.</p>
+
+<h2>Testing and deployment without tears</h2>
+<p>Use one method as proxy and one method as non proxy when you practice. Deploy to stages and use stage variables to swap between environments. Stage variables can point to different Lambda ARNs or to different config values so your serverless setup behaves like an adult across dev test and prod.</p>
+
+<h2>Exam tips that do not involve voodoo</h2>
+<ul>
+  <li>Read whether the question expects a full request context in Lambda. If yes pick proxy integration.</li>
+  <li>If you see VTL functions or mapping snippets pick non proxy unless otherwise stated.</li>
+  <li>Remember permissions are granted on the Lambda resource policy for API Gateway as the principal.</li>
+  <li>Practice by comparing incoming headers path params and bodies between proxy and non proxy methods.</li>
+</ul>
+
+<p>There you go. You now have the high value exam facts about API Gateway Lambda integration mapping templates VTL permissions error mapping and deployment stages. Study this and the real pain of debugging serverless integrations will be half as bad as your instructor made it sound.
+

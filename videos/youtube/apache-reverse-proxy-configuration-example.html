@@ -1,0 +1,104 @@
+---
+layout: video
+title: "Apache Reverse Proxy Configuration Example"
+description: "Quick hands on guide to configure Apache as a reverse proxy with ProxyPass ProxyPassReverse virtual host and basic security tips"
+video_host: "youtube"
+video_id: "vPEcHU7yUdk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M59S"
+thumbnail_url: "https://i.ytimg.com/vi/vPEcHU7yUdk/maxresdefault.jpg"
+content_url: "https://youtu.be/vPEcHU7yUdk"
+embed_url: "https://www.youtube.com/embed/vPEcHU7yUdk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - apache
+  - reverse proxy
+  - proxy
+  - ProxyPass
+  - ProxyPassReverse
+  - mod_proxy
+  - virtual hosts
+  - web server
+  - load balancing
+  - security
+---
+
+<h2>Quick overview</h2>
+<p>Think of Apache as a polite bouncer that forwards requests to your backend apps and keeps the drama out of public view. This guide shows how to enable the right modules set up virtual hosts and proxy rules and add a few security tweaks so you do not accidentally open your server to the entire internet.</p>
+
+<h2>Enable the required modules</h2>
+<p>On Debian derivatives the a2enmod helper will save you typing. The key modules are mod_proxy mod_proxy_http and mod_proxy_balancer. You may also want mod_headers and mod_rewrite for header work and redirects.</p>
+<pre><code>sudo a2enmod proxy proxy_http proxy_balancer headers rewrite
+sudo systemctl restart apache2</code></pre>
+
+<h2>Simple virtual host with a backend pool</h2>
+<p>Here is a minimal but realistic example that uses ProxyPass ProxyPassReverse and a balancer. It preserves the Host header so backend apps see the original domain.</p>
+<pre><code>&lt;VirtualHost *:80&gt;
+  ServerName example.com
+
+  ProxyPreserveHost On
+
+  # Public path mapped to a balancer pool
+  ProxyPass "/app/" "balancer://appcluster/"
+  ProxyPassReverse "/app/" "balancer://appcluster/"
+
+  &lt;Proxy 'balancer://appcluster/'&gt;
+    BalancerMember 'http://10.0.0.10:8080'
+    BalancerMember 'http://10.0.0.11:8080'
+    # Optional stickyness or load methods go here if needed
+  &lt;/Proxy&gt;
+
+  # Pass client info to the backend
+  RequestHeader set X-Forwarded-Proto 'http'
+  RequestHeader set X-Forwarded-For '%{REMOTE_ADDR}s'
+
+  ErrorLog '/var/log/apache2/proxy-error.log'
+  CustomLog '/var/log/apache2/proxy-access.log' combined
+&lt;/VirtualHost&gt;</code></pre>
+
+<h2>Make it secure and not embarrassing</h2>
+<p>Reverse proxies can accidentally become open proxies if mapping is too permissive. Protect internal paths and admin interfaces and limit what gets proxied.</p>
+<ul>
+  <li>Deny access to raw server info and predictable internal paths</li>
+  <li>Add headers so backend apps know the client and protocol</li>
+  <li>Limit HTTP methods on proxied endpoints to what your app actually needs</li>
+  <li>Consider Basic or stronger authentication for admin or status endpoints</li>
+</ul>
+
+<h3>Example restrictions</h3>
+<pre><code># Block common internal endpoints from being proxied
+&lt;LocationMatch "^/(?:server-status|server-info|\.git)"&gt;
+  Require all denied
+&lt;/LocationMatch&gt;
+
+# Allow only safe methods on proxied paths
+&lt;Location "/app/"&gt;
+  &lt;LimitExcept GET POST HEAD&gt;
+    Require all denied
+  &lt;/LimitExcept&gt;
+&lt;/Location&gt;</code></pre>
+
+<h2>TLS and backend transport</h2>
+<p>Terminate TLS at the proxy for public traffic and keep backend connections on the private network. If backend servers require encryption then use https in the BalancerMember URL and verify certificates where appropriate.</p>
+
+<h2>Testing and restart</h2>
+<p>Reload gracefully and then poke the proxy with curl or a browser. Inspect headers and backend logs to confirm the Host and X Forwarded headers reached the app.</p>
+<pre><code>sudo systemctl reload apache2
+
+# Quick checks
+curl -v -H 'Host: example.com' 'http://proxy-host/app/'
+curl -I 'http://proxy-host/app/'</code></pre>
+
+<h2>Extra tips that sound like common sense but are worth stating</h2>
+<ul>
+  <li>Keep ProxyPass rules explicit and simple. Wildcards and overlapping rules are how open proxies are born.</li>
+  <li>Use ProxyPreserveHost when backend apps rely on the original Host header.</li>
+  <li>Monitor logs and enable access controls for admin endpoints.</li>
+  <li>When in doubt test with curl and check backend logs before you tell stakeholders everything is fine.</li>
+</ul>
+
+<p>Follow these steps and you will have a reliable Apache reverse proxy using mod_proxy with clear ProxyPass and ProxyPassReverse mappings a sensible balancer configuration and a few security fences so your server behaves like a responsible gatekeeper.</p>
+

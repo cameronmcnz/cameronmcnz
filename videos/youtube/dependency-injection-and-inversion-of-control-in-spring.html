@@ -1,0 +1,70 @@
+---
+layout: video
+title: "Dependency Injection and Inversion of Control in Spring"
+description: "Learn DI and IOC patterns in Spring and Spring Boot with practical examples and annotation based configuration for clean and testable Java apps"
+video_host: "youtube"
+video_id: "FHii0xjGN5g"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT29M14S"
+thumbnail_url: "https://i.ytimg.com/vi/FHii0xjGN5g/maxresdefault.jpg"
+content_url: "https://youtu.be/FHii0xjGN5g"
+embed_url: "https://www.youtube.com/embed/FHii0xjGN5g"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Dependency Injection
+  - Inversion of Control
+  - Spring
+  - Spring Boot
+  - Java
+  - DI
+  - IOC
+  - Spring Beans
+  - Autowiring
+  - Spring Framework
+---
+
+<p>If you want your Java code to focus on business logic instead of playing babysitter for object graphs then you are in the right place. This article walks through dependency injection and inversion of control in Spring and Spring Boot with clear examples and a little sarcastic commentary to keep the caffeine up.</p>
+
+<h2>Understand inversion of control and dependency injection</h2>
+<p>Inversion of control means the framework does the heavy lifting of creating and wiring objects so your classes can be boring and testable. Dependency injection is the pattern that hands dependencies into a class rather than forcing the class to assemble them itself. The payoff is lower coupling, clearer responsibilities, and unit tests that do not need a choreographed cast of mock objects.</p>
+
+<h2>Configure beans and let the container assemble the graph</h2>
+<p>You can declare beans in a few ways depending on taste and nostalgia. Spring will manage lifecycle and dependencies once you register your configuration or enable component scanning.</p>
+<ul>
+  <li>Java configuration with @Configuration and @Bean for explicit wiring that is easy to read</li>
+  <li>Component scanning with @Component, @Service, and @Repository for convention driven wiring</li>
+  <li>XML for the brave who enjoy extra typing and a retro vibe</li>
+</ul>
+<p>Let the container assemble the object graph so your service classes only implement behavior. If you find yourself newing up collaborators in production code you are doing it wrong and the IoC container will help you stop.</p>
+
+<h2>Annotations and autowiring</h2>
+<p>Use annotations to reduce boilerplate. @Autowired will inject by type by default and @Qualifier can resolve name collisions when two beans share the same type. Component stereotypes make intent clearer and improve scanning performance.</p>
+
+<h3>Prefer constructor injection</h3>
+<ul>
+  <li>Constructor injection makes required dependencies explicit</li>
+  <li>It plays much nicer with immutable fields and unit tests</li>
+  <li>It avoids surprises from optional injection at runtime</li>
+</ul>
+<p>Field injection may look convenient, but it makes testing harder and hides the true contract of your class. Constructor injection reads like a promise and tests can easily satisfy that promise with mocks or fakes.</p>
+
+<h2>Manage bean scope and profiles</h2>
+<p>Default singleton scope means one instance per container which is great most of the time. Prototype scope yields a new instance per request which can be useful for stateful objects. Profiles let you swap beans for development testing or production without changing code. Use proper scoping to avoid shared mutable state and surprising thread safety bugs.</p>
+
+<h2>Run and test with Spring Boot</h2>
+<p>Spring Boot makes running the app trivial and testing easier. Write slice tests that load only the parts you need and use mocks for external systems. For integration tests rely on the container to wire real services and use test slices to keep the suite fast. That way the testing pyramid behaves like an actual pyramid and not a sad pancake.</p>
+
+<h2>Quick checklist for healthy DI</h2>
+<ul>
+  <li>Prefer constructor injection for required dependencies</li>
+  <li>Use @Component and friends for simple scanning and clear intent</li>
+  <li>Choose scopes deliberately to avoid shared state issues</li>
+  <li>Use profiles to separate dev test and prod wiring</li>
+  <li>Write focused tests with container slices and mocks for external systems</li>
+</ul>
+
+<p>Follow these patterns and Spring will handle the plumbing while you write features. If nothing else you will have fewer mysterious null pointer errors and more time for coffee and mild existential dread.</p>
+

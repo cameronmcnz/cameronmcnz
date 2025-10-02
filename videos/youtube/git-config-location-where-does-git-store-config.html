@@ -1,0 +1,61 @@
+---
+layout: video
+title: "Git Config Location Where does Git store config?"
+description: "Find where Git keeps system local and user configuration files and how to inspect effective values and file locations"
+video_host: "youtube"
+video_id: "PIAm-Qk7rhE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/PIAm-Qk7rhE/maxresdefault.jpg"
+content_url: "https://youtu.be/PIAm-Qk7rhE"
+embed_url: "https://www.youtube.com/embed/PIAm-Qk7rhE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git config
+  - git config location
+  - git config file
+  - global config
+  - system config
+  - local config
+  - git troubleshooting
+  - github
+  - version control
+---
+
+<h2>Where Git keeps its config files</h2>
+<p>Git stores configuration in three scopes that you should know about if you enjoy understanding why your commits look like they belong to someone else. The scopes are system global and local. The system file applies to every user on the machine and is usually at <code>/etc/gitconfig</code>. The per user global file lives at <code>~/.gitconfig</code> or in modern setups at <code>~/.config/git/config</code>. The repo specific local file is at <code>.git/config</code> inside the project folder.</p>
+
+<h2>How to see which file set a value</h2>
+<p>Before you start panicking about mysterious settings run the built in detective command</p>
+<pre><code>git config --show-origin --list</code></pre>
+<p>This prints each config key along with the exact file path that defined it. It will save you from a lot of blind guessing and blame assigning.</p>
+
+<h2>Precedence and common gotchas</h2>
+<p>Config precedence goes local then global then system so a value in <code>.git/config</code> overrides the same key in <code>~/.gitconfig</code>. That is why your name or email can still be wrong for a single repo even though you set it globally.</p>
+
+<h3>Quick examples</h3>
+<ul>
+  <li>Set your global name so you do not need to type it for every new repo</li>
+  <pre><code>git config --global user.name YourName</code></pre>
+  <li>Check the effective value for a key</li>
+  <pre><code>git config user.email</code></pre>
+</ul>
+
+<h2>Troubleshooting steps that do not involve smashing your keyboard</h2>
+<ul>
+  <li>Run <code>git config --show-origin --list</code> to see the source file for each key</li>
+  <li>Open the repo level file at <code>.git/config</code> to inspect overrides</li>
+  <li>Check for environment based overrides such as the <code>GIT_DIR</code> variable or other core environment variables that can redirect which config is used</li>
+  <li>Remember system level files at <code>/etc/gitconfig</code> can be set by admins for all users</li>
+</ul>
+
+<h2>Why this matters for GitHub and version control</h2>
+<p>If your commits show the wrong author on GitHub or you have odd behavior in your version control workflow the config location and precedence are usually the culprit. Fix the right file and the problem goes away. If it does not then you probably missed an environment override or a repo specific setting.</p>
+
+<h2>Final tip</h2>
+<p>When in doubt run <code>git config --show-origin --list</code> first. It tells you where to look and saves you from guessing which config file is haunting your repo. Now go fix the config and pretend this was all part of a planned refactor.</p>
+

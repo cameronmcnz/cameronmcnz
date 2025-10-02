@@ -1,0 +1,59 @@
+---
+layout: video
+title: "Create an Unattended Robot in UiPath Orchestrator Tutorial"
+description: "Step by step guide to create and run an unattended robot in UiPath Orchestrator for scheduled background automation"
+video_host: "youtube"
+video_id: "xtpk2RORXDA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M13S"
+thumbnail_url: "https://i.ytimg.com/vi/xtpk2RORXDA/maxresdefault.jpg"
+content_url: "https://youtu.be/xtpk2RORXDA"
+embed_url: "https://www.youtube.com/embed/xtpk2RORXDA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Orchestrator
+  - Unattended Robot
+  - RPA
+  - Automation
+  - Robot Provisioning
+  - UiPath Tutorial
+  - Process Scheduling
+  - Credentials
+  - Studio
+---
+
+<h2>Quick reality check</h2>
+<p>You want a machine that does work while humans sip coffee and pretend they are essential. This guide walks through provisioning an unattended robot in UiPath Orchestrator so your RPA lives in the background and actually does the heavy lifting. No keyboard, no breaks, just glorious automation.</p>
+
+<h2>Step 1 Register the machine and create the robot</h2>
+<p>In Orchestrator add the machine entry and copy the machine key. Choose the machine template that matches your setup. Then create a robot and set the robot type to Unattended. Assign the robot a service account username so the robot can run headless under a proper identity. Yes that means it will work without coffee or a login session.</p>
+
+<h2>Step 2 Install the Robot service and connect to Orchestrator</h2>
+<p>Install UiPath Robot on the target server or VM. During connection paste the Orchestrator URL and the machine key you copied. Make sure the Robot service runs as the service account you created earlier. That service account is the secure channel between Orchestrator and the host and it must have the correct rights to run the automation.</p>
+
+<h2>Step 3 Create an environment and add the robot</h2>
+<p>Environments let you group robots for process assignment. Create an environment in Orchestrator and add the newly registered robot. This prevents manual juggling when you deploy a process to a fleet of machines.</p>
+
+<h2>Step 4 Publish from Studio and create a process</h2>
+<p>From UiPath Studio publish your workflow package to Orchestrator. In Orchestrator create a process that points to the published package and select the environment that contains your unattended robot. This links the code with the execution target so Orchestrator knows which robot will run the job.</p>
+
+<h2>Step 5 Configure assets and credentials</h2>
+<p>Store secrets as assets in Orchestrator instead of hard coding them in projects. Create credential assets for usernames and passwords and reference those assets from your automation project. This keeps secrets out of source files and gives admins control over who can change passwords.</p>
+
+<h2>Testing and scheduling</h2>
+<p>Start a job manually to validate the setup. Watch logs for permission issues or failed credential retrieval. If the manual run is happy then create a schedule in Orchestrator to run the process on your desired cadence. Use process scheduling to run unattended tasks while humans pretend to be busy.</p>
+
+<h3>Troubleshooting tips</h3>
+<ul>
+  <li>Robot status shows disconnected. Check the Robot service account and the Orchestrator URL plus the machine key.</li>
+  <li>Credential errors. Verify asset permissions and that the service account has the rights to use those assets.</li>
+  <li>Process fails on startup. Confirm the right package version is selected and that dependencies were published from Studio.</li>
+  <li>Scaling oddities. Use environments and roles to assign processes to specific robot groups so you do not accidentally summon chaos.</li>
+</ul>
+
+<p>Follow these steps and you will have a production ready unattended robot in UiPath Orchestrator. It will run scheduled automation reliably, use secure credentials via assets, and scale across environments so you can finally stop babysitting the bots.</p>
+

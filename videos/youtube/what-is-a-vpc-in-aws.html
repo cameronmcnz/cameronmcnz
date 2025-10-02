@@ -1,0 +1,66 @@
+---
+layout: video
+title: "What is a VPC in AWS?"
+description: "Clear overview of AWS VPC public subnets security groups and internet gateways for beginners and engineers"
+video_host: "youtube"
+video_id: "UDt9A9bQL1w"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/UDt9A9bQL1w/maxresdefault.jpg"
+content_url: "https://youtu.be/UDt9A9bQL1w"
+embed_url: "https://www.youtube.com/embed/UDt9A9bQL1w"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - VPC
+  - Virtual Private Cloud
+  - Public Subnets
+  - Security Groups
+  - Internet Gateway
+  - Subnet
+  - Cloud Networking
+  - AWS Networking
+  - VPC Design
+---
+
+<p>Think of a VPC as your cloud neighborhood with rules and walls. AWS Virtual Private Cloud gives you an isolated virtual network where you place subnets, route tables and security policies so your instances behave like devices on a private LAN instead of floating anonymous services on the internet. You pick the CIDR blocks, you pick who can leave the cul de sac, and you get to blame yourself when things go wrong.</p>
+
+<h2>Public and private subnets in plain English</h2>
+<p>Public subnets host resources that need direct internet reach. Give an instance a public IP, add a route to an internet gateway in the subnet route table, and traffic flows in and out for that resource. Typical public subnet residents include load balancers, bastion hosts and NAT gateways when you need controlled egress for private resources.</p>
+
+<p>Private subnets stay behind doors. Instances there usually lack public IPs and use a NAT gateway that lives in a public subnet for outbound internet access. This keeps your attack surface lower and your coffee calmer.</p>
+
+<h2>Security groups and network ACLs explained</h2>
+<p>Security groups act as stateful firewalls attached to instances. Define allowed inbound rules and allowed outbound rules and AWS automatically lets return traffic through. They filter by protocol, port and source so you do not have to open everything like a medieval castle gate.</p>
+
+<p>Network ACLs are stateless and operate at the subnet level. Use them for coarse controls such as blocking obvious bad traffic patterns or implementing subnet wide rules that you do not want scattered across many security groups.</p>
+
+<h2>The internet gateway and routing basics</h2>
+<p>An internet gateway is the bridge between your VPC and the public internet. Attach an internet gateway to the VPC, update the subnet route table with a 0.0.0.0/0 route to that gateway for the public subnet, and public IP enabled resources will be reachable. Without the route or without a public IP, the instance stays politely offline from the world.</p>
+
+<h3>NAT gateways and when to use them</h3>
+<p>NAT gateways live in public subnets and let private instances reach the internet for updates and outbound calls while keeping inbound access blocked. They are managed by AWS and cost money, so avoid creating 10 of them for no reason. Put them in public subnets and reference them from private subnet route tables for reliable outbound networking.</p>
+
+<h2>VPC design checklist</h2>
+<ul>
+  <li>Plan CIDR blocks with growth room and avoid overlaps with on prem networks or other VPCs</li>
+  <li>Separate public and private subnets to reduce surface area and simplify routing</li>
+  <li>Use security groups for instance level rules and network ACLs for subnet level controls</li>
+  <li>Keep NAT gateways in public subnets to grant outbound internet to private instances</li>
+  <li>Attach an internet gateway to the VPC and update route tables for public subnets</li>
+  <li>Monitor flow logs and alarms to detect accidental wide open rules or strange traffic</li>
+</ul>
+
+<h2>Practical patterns for AWS networking</h2>
+<p>Bastion hosts belong in public subnets with very tight security group rules. Load balancers usually sit in public subnets while application servers live in private subnets. For hybrid setups avoid CIDR overlap with on prem networks and use VPN or AWS Direct Connect to link networks cleanly.</p>
+
+<p>Remember that security groups are stateful. If you allow inbound SSH from a bastion host, the return traffic is handled for you. Network ACLs require explicit both way rules since they are stateless, which makes them useful for broad restrictions but annoying for fine tuning.</p>
+
+<h2>Final notes and a tip</h2>
+<p>Designing a VPC is less about magic and more about discipline. Keep your blast radius small, enforce least privilege for security groups, and document your route tables so future you does not weep.</p>
+
+<p><strong>Tip</strong> Start with conservative security group rules. Allow nothing, then add specific ports and sources. You will thank yourself when a misconfiguration does not become a headline.</p>
+

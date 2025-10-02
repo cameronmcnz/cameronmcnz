@@ -1,0 +1,80 @@
+---
+layout: video
+title: "React Hello World App for Beginners #javascript #reactjs"
+description: "Quick step by step guide to create a React Hello World app using Node and VS Code with commands and tips for beginners"
+video_host: "youtube"
+video_id: "1v2tAjE84p8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT15M10S"
+thumbnail_url: "https://i.ytimg.com/vi/1v2tAjE84p8/maxresdefault.jpg"
+content_url: "https://youtu.be/1v2tAjE84p8"
+embed_url: "https://www.youtube.com/embed/1v2tAjE84p8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - react
+  - hello world
+  - javascript
+  - nodejs
+  - vscode
+  - tutorial
+  - create-react-app
+  - beginner
+  - web development
+  - front-end
+---
+
+<p>Welcome to the tiny heroic moment where you make a web page say Hello World and feel like a wizard. This guide walks a beginner through creating a React hello world app using Node and VS Code without pretending you need a PhD in build systems.</p>
+
+<h2>What you need before we break the internet</h2>
+<p>Install Node and have a code editor ready. VS Code is the usual suspect. You will also need a terminal and a willingness to type commands that actually do things for you.</p>
+<ul>
+  <li>Node and npm installed from the official site</li>
+  <li>VS Code or another editor you tolerate</li>
+  <li>About 5 minutes and mild curiosity</li>
+</ul>
+
+<h2>Create the React project</h2>
+<p>Use create react app to scaffold a starter project so you do not have to pretend you enjoy configuring webpack. Run this in a terminal in the folder where you want your project.</p>
+<pre><code>npx create-react-app hello-world</code></pre>
+<p>This command uses create react app to set up React, JavaScript tooling, and a sensible default file layout for front end development.</p>
+
+<h2>Open the project and peek around</h2>
+<p>Launch VS Code in the new folder and scan the source tree. The important bits are in the src folder and the public folder has the root div that React mounts into. The entry point is index.js so no need to memorize every file right now.</p>
+
+<h2>Edit the App component to show Hello World</h2>
+<p>Open src/App.js and replace the default content with a small function component. Function components are modern and concise which means less ceremony and more output.</p>
+<pre><code>function App() {
+  return (
+    <div>
+      <h1>Hello World</h1>
+      <p>This is a React hello world example for beginners</p>
+    </div>
+  )
+}
+
+export default App</code></pre>
+
+<h2>Start the development server and see it live</h2>
+<p>Run the dev server and enjoy instant updates while you edit files. It hot reloads so your changes show up without ritual sacrifice.</p>
+<pre><code>npm start</code></pre>
+<p>Open a browser at http slash slash localhost port 3000 to view your app. If the page says Hello World then congratulations you have achieved peak beginner front end glory.</p>
+
+<h2>Optional build for production</h2>
+<p>When you want to deploy run a build command that optimizes assets for the real world. Then host the static files on any platform that serves HTML and JavaScript.</p>
+<pre><code>npm run build</code></pre>
+
+<h3>What to explore next</h3>
+<ul>
+  <li>Props and simple component composition</li>
+  <li>Local state and hooks such as useState</li>
+  <li>Client side routing with react router</li>
+  <li>Deploying the build to a static host</li>
+</ul>
+
+<p>This short tutorial covered installing Node creating a project with create react app editing a component to render Hello World and running a dev server to preview the result. Those steps give a safe foundation for learning more about React, JavaScript, and web development without getting lost in configuration stew.</p>
+
+<p>Go forth and make more components. Or at least change the greeting to something snarky and satisfying.</p>
+

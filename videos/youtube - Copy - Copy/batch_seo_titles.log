@@ -1,0 +1,21 @@
+[2025-10-02 06:52:28,773] INFO Uploaded JSONL file. file_id=file-J96xTa9AMUghvQVHisxVWS
+[2025-10-02 06:52:29,570] INFO Created batch. id=batch_68de596c64848190a462067525eed39f status=validating
+[2025-10-02 06:52:29,571] INFO Saved batch id -> openai-batch-id.txt
+[2025-10-02 06:52:29,706] INFO Batch batch_68de596c64848190a462067525eed39f: status=validating counts=BatchRequestCounts(completed=0, failed=0, total=0)
+[2025-10-02 06:54:09,991] INFO Batch batch_68de596c64848190a462067525eed39f: status=in_progress counts=BatchRequestCounts(completed=0, failed=62, total=1146)
+[2025-10-02 06:55:50,240] INFO Batch batch_68de596c64848190a462067525eed39f: status=in_progress counts=BatchRequestCounts(completed=0, failed=1123, total=1146)
+[2025-10-02 06:57:30,484] INFO Batch batch_68de596c64848190a462067525eed39f: status=finalizing counts=BatchRequestCounts(completed=0, failed=1146, total=1146)
+[2025-10-02 06:59:10,764] INFO Batch batch_68de596c64848190a462067525eed39f: status=completed
+[2025-10-02 06:59:10,764] INFO Batch terminal status=completed counts=BatchRequestCounts(completed=0, failed=1146, total=1146)
+[2025-10-02 06:59:10,765] WARNING No output_file_id present (all items may have failed).
+[2025-10-02 06:59:30,549] INFO Downloaded errors -> openai-batch-errors.jsonl
+[2025-10-02 06:59:30,552] INFO Skip merge: no output file to merge.
+[2025-10-02 06:59:30,571] INFO Wrote error text report -> errors_report.txt
+[2025-10-02 06:59:30,578] INFO Wrote error JSON report -> errors_report.json
+[2025-10-02 06:59:30,579] INFO SUMMARY: total=1146, merged_successes=0, output_parse_failures=0, batch_failed_items=1146
+[2025-10-02 06:59:30,579] WARNING All items appear to have failed. Try:
+  - --loose-schema (relax structured outputs)
+  - shorter prompts (reduce input size)
+  - smaller batches (if you split outside of Batch API)
+  - verify your org/endpoint expects max_output_tokens vs max_completion_tokens
+

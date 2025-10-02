@@ -1,0 +1,79 @@
+---
+layout: video
+title: "Send Gmail Emails with UiPath Example"
+description: "Compact guide to send Gmail from UiPath with authentication activity setup and testing for reliable email automation"
+video_host: "youtube"
+video_id: "clxw6pZ1uhY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M58S"
+thumbnail_url: "https://i.ytimg.com/vi/clxw6pZ1uhY/maxresdefault.jpg"
+content_url: "https://youtu.be/clxw6pZ1uhY"
+embed_url: "https://www.youtube.com/embed/clxw6pZ1uhY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Gmail
+  - Email Automation
+  - RPA
+  - GSuite
+  - SMTP
+  - OAuth
+  - Workflow
+  - Send Email
+  - Tutorial
+---
+
+<p>If you want to make UiPath send Gmail messages without turning your hair white then you are in the right place. This tutorial walks through package selection, authentication choices, and the actual send actions whether you prefer SMTP or the GSuite API. It is practical, slightly snarky, and technically correct.</p>
+
+<h2>Quick overview</h2>
+<p>In plain terms here is the flow you will build and test in your automation workflow:</p>
+<ul>
+  <li>Install the correct package for Gmail integration</li>
+  <li>Choose authentication that matches your risk tolerance and scale</li>
+  <li>Build a clean Sequence or Workflow for email logic</li>
+  <li>Add the Send SMTP Mail Message or GSuite Send Mail activity and configure properties</li>
+  <li>Test in a sandbox account and add error handling and retries</li>
+</ul>
+
+<h2>Step 1 Install the UiPath package</h2>
+<p>Open Manage Packages and install either UiPath.GSuite or UiPath.Mail.Activities from the official feed. The GSuite package uses Google APIs and is better for enterprise OAuth setups. The Mail package uses SMTP and is fine for simple or legacy setups. Installing the correct package now saves you from mysterious runtime failures later and from yelling at your monitor.</p>
+
+<h2>Step 2 Pick authentication</h2>
+<p>Authentication is where most people trip up. For personal or low risk testing you can use an app password when two factor authentication is enabled. For production grade automation you want OAuth with a service account and the right API scopes if you use GSuite. Follow the Google Cloud console guides for creating credentials and delegate domain wide authority if needed.</p>
+<p>Store secrets in Secure Credentials or Orchestrator assets so your robots are not hoarding passwords in plain text. Treat credentials like the fragile precious things they are.</p>
+
+<h2>Step 3 Keep your workflow tidy</h2>
+<p>Create a focused Sequence or Workflow that contains only email logic. That keeps sending separate from data processing and makes debugging much less tragic. Use arguments and variables so the workflow accepts dynamic To, Subject, Body, and Attachments values.</p>
+
+<h2>Step 4 Add and configure the send activity</h2>
+<p>Use Send SMTP Mail Message when you want SMTP. Use GSuite Send Mail when you want the Google API. Configure From, To, Subject, Body and Attachments. If you need HTML emails set the IsBodyHtml property to true. Use the Attachments collection for multiple files and validate email addresses before sending to reduce bounces.</p>
+<p>Example properties to wire up in UiPath:</p>
+<pre>To = recipientsVariable
+Subject = subjectVariable
+Body = bodyVariable
+IsBodyHtml = True or False
+Attachments = attachmentsCollection</pre>
+
+<h3>SMTP specific notes</h3>
+<p>When using SMTP ensure you have the right server, port and SSL settings for Gmail or GSuite SMTP relay. App passwords work here for simple accounts. Expect network related transient failures so design for retries.</p>
+
+<h3>GSuite API specific notes</h3>
+<p>The GSuite Send Mail activity calls Google's API which means OAuth scopes, consent and possibly domain wide delegation. This is more secure and scalable for enterprise RPA but requires setup in the Google console and a service account or OAuth client id. Store the JSON credentials in a secure place and reference them from your workflow.</p>
+
+<h2>Step 5 Test and harden</h2>
+<p>Always start with a sandbox account. Surround the send action with Try Catch and log failures. Add retry logic for transient network errors and record the SMTP or API error messages in your logs so the next human can fix it without guessing. Good error handling converts flaky automation into something you can actually rely on.</p>
+
+<h2>Tips and best practices</h2>
+<ul>
+  <li>Validate email format before sending to reduce bounce rate</li>
+  <li>Use variables so the workflow is reusable across processes</li>
+  <li>Keep attachments in a temporary folder and clean up after sending</li>
+  <li>Prefer OAuth for production level email automation with GSuite</li>
+  <li>Log successes and failures with context such as recipients and message id</li>
+</ul>
+
+<p>Follow these steps and you will have a solid UiPath email automation that sends Gmail messages reliably. It covers package installation, authentication choices, workflow design, activity configuration and testing. You can automate now and blame the network later when it misbehaves.</p>
+

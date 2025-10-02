@@ -1,0 +1,96 @@
+---
+layout: video
+title: "filezilla ftp nginx"
+description: "Step by step guide to connect FileZilla to an NGINX served FTP setup with user creation passive mode and file permission tips"
+video_host: "youtube"
+video_id: "xb108-EaGTo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M36S"
+thumbnail_url: "https://i.ytimg.com/vi/xb108-EaGTo/maxresdefault.jpg"
+content_url: "https://youtu.be/xb108-EaGTo"
+embed_url: "https://www.youtube.com/embed/xb108-EaGTo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - filezilla
+  - ftp
+  - nginx
+  - ftp setup
+  - nginx ftp
+  - file transfer
+  - linux server
+  - passive mode
+  - ftp troubleshooting
+  - server permissions
+---
+
+<h2>Overview</h2>
+<p>If you want to move files between your desktop and a Linux server using FileZilla and NGINX this guide will save you time and dignity. You will learn how to prepare the server create an FTP account set tight permissions configure passive mode open firewall ports and connect with FileZilla for secure file transfer.</p>
+
+<h2>What you need</h2>
+<ul>
+  <li>Linux server with sudo access</li>
+  <li>NGINX serving web content or static files</li>
+  <li>FTP daemon such as vsftpd or pure-ftpd</li>
+  <li>FileZilla client on your workstation</li>
+</ul>
+
+<h2>Prepare the server</h2>
+<p>Install a lightweight FTP daemon. On Debian or Ubuntu run</p>
+<pre><code>apt update && apt install vsftpd -y</code></pre>
+<p>Then enable and start the service</p>
+<pre><code>systemctl enable --now vsftpd</code></pre>
+<p>Keep NGINX in mind if it serves the same directories. Do not make the FTP user the web server user unless you enjoy permission hell.</p>
+
+<h2>Create FTP user and set permissions</h2>
+<p>Create a dedicated account for FTP access. For a simple local user try</p>
+<pre><code>adduser ftpuser</code></pre>
+<p>Place uploads in a directory owned by the FTP user and readable by NGINX if those files should be served</p>
+<pre><code>mkdir -p /var/www/uploads
+chown ftpuser /var/www/uploads
+chmod 750 /var/www/uploads</code></pre>
+<p>Use chroot or virtual users in your FTP daemon config to restrict access to the intended path.</p>
+
+<h2>Configure passive mode and firewall</h2>
+<p>Passive mode matters when clients sit behind NAT or corporate routers. Pick a port range such as 40000 to 50000 and configure those ports in your FTP daemon. Also set the server public address in the passive settings so clients can reach back to you.</p>
+<p>Example vsftpd options to edit in the daemon config file</p>
+<pre><code>pasv_enable=YES
+pasv_min_port=40000
+pasv_max_port=50000
+pasv_address=your.server.public.ip
+ssl_enable=YES</code></pre>
+<p>Open TCP port 21 and the passive range on your firewall. With UFW you can allow 21 and then use your firewall tool to allow the passive ports. With firewalld use port range syntax to add the range.</p>
+
+<h2>Set up FileZilla client</h2>
+<p>Open FileZilla and add a new site in the Site Manager. Use the server address your FTP username and password. Choose passive mode in transfer settings and select TLS if your daemon offers FTP over TLS for encrypted transfers. Save the site so you do not retype credentials like a caveman.</p>
+<ul>
+  <li>Host field is your server name or IP</li>
+  <li>Protocol is FTP</li>
+  <li>Encryption use explicit FTP over TLS if available</li>
+  <li>Logon type is Normal</li>
+</ul>
+
+<h2>Test transfer and common troubleshooting</h2>
+<p>Upload a small file to the upload directory then check that NGINX serves it if that is the goal. If transfers hang or directory listing fails check these items</p>
+<ul>
+  <li>Firewall rules for port 21 and the passive range</li>
+  <li>Passive mode settings and the public address in the FTP daemon</li>
+  <li>User permissions on the upload directory</li>
+  <li>Daemon logs for authentication or connection errors</li>
+</ul>
+<p>If TLS fails verify certificates and that the daemon is configured for explicit TLS. If you still have problems enable verbose logging in FileZilla and read the server logs like a detective who drinks too much coffee.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Install an FTP daemon such as vsftpd</li>
+  <li>Create a dedicated FTP user and set tight permissions</li>
+  <li>Configure passive mode and advertise the public IP</li>
+  <li>Open port 21 and the passive port range on the firewall</li>
+  <li>Use FileZilla with passive mode and TLS for secure file transfer</li>
+</ul>
+
+<h2>Summary</h2>
+<p>You now have a pragmatic path to connect FileZilla to an NGINX hosted file area on a Linux server. The key points are to isolate FTP users set correct server permissions configure passive mode and keep firewall rules in sync. Do that and you will transfer files without drama or mystery.</p>
+

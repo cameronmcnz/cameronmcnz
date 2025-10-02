@@ -1,0 +1,88 @@
+---
+layout: video
+title: "How to Create Jenkins Blue Ocean Pipelines"
+description: "Compact guide to set up Jenkins Blue Ocean pipelines with multibranch jobs a sample Jenkinsfile and visual pipeline runs"
+video_host: "youtube"
+video_id: "VLG1olRl5xE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M23S"
+thumbnail_url: "https://i.ytimg.com/vi/VLG1olRl5xE/maxresdefault.jpg"
+content_url: "https://youtu.be/VLG1olRl5xE"
+embed_url: "https://www.youtube.com/embed/VLG1olRl5xE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Blue Ocean
+  - CI/CD
+  - pipelines
+  - Jenkinsfile
+  - DevOps
+  - multibranch
+  - automation
+  - continuous integration
+  - pipeline tutorial
+---
+
+<p>So you want a prettier way to watch your builds fail in real time. Welcome to Blue Ocean for Jenkins, the visual layer that turns raw pipeline logs into colorful stage blocks and mild existential dread. This guide walks through installing the plugin, wiring up a multibranch pipeline, adding a Jenkinsfile, and using Blue Ocean to debug CI CD pipelines with far less guesswork.</p>
+
+<h2>Install Blue Ocean and restart Jenkins</h2>
+<p>Head to Manage Plugins in your Jenkins instance and search for Blue Ocean. Install the plugin and restart Jenkins when asked. Yes I know restarts are annoying. No I will not make them go away. The plugin adds the Blue Ocean UI and helper features that make pipeline creation less painful.</p>
+
+<h2>Create a job for your workflow</h2>
+<p>If you work on many feature branches enable a multibranch pipeline. Click New Item and pick multibranch pipeline for automatic branch discovery. If you only have one long lived branch a regular pipeline job will do the trick.</p>
+
+<h3>Why multibranch matters</h3>
+<ul>
+  <li>Automatic discovery of branches means less manual setup when a new branch appears</li>
+  <li>Branch and pull request views run the same checks as mainline branches</li>
+  <li>PR builds catch problems before merging and save you from blaming the intern</li>
+</ul>
+
+<h2>Add a Jenkinsfile at the repository root</h2>
+<p>Pipeline as code is not optional if you like reproducible builds and avoiding mystery. Create a Jenkinsfile at the repo root and keep it simple to start. For most projects a declarative example is enough to prove the concept and get fast feedback.</p>
+
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Building'
+      }
+    }
+    stage('Test') {
+      steps {
+        echo 'Testing'
+      }
+    }
+  }
+}
+</code></pre>
+
+<h2>Open Blue Ocean and connect your repository</h2>
+<p>From the Jenkins main page open the Blue Ocean link and connect the job to your repo. The visual editor turns the Jenkinsfile into readable stage blocks and gives you a replay button when something goes wrong. Click a failed stage to see logs and steps that led to the faceplant.</p>
+
+<h3>Inspect runs and fix failures</h3>
+<ul>
+  <li>Use the run screen to replay or rerun specific stages when debugging</li>
+  <li>Check console logs for the failing step and expand nested logs for details</li>
+  <li>Enable credential bindings to keep secrets out of logs and avoid accidental leaks</li>
+</ul>
+
+<h2>Branch and pull request strategies</h2>
+<p>Enable multibranch scanning so Jenkins picks up new branches automatically. Turn on pull request builds to verify feature branches before merging. Treat PR builds as gatekeepers and stop broken code from becoming mainline bad behavior.</p>
+
+<h2>Performance tips that save you time</h2>
+<ul>
+  <li>Start with a minimal Jenkinsfile to get quick feedback and iterate</li>
+  <li>Use stage parallelism where safe to reduce total build time</li>
+  <li>Cache dependencies between runs to avoid wasting CPU on the same downloads</li>
+</ul>
+
+<h2>Recap of the workflow</h2>
+<p>Install the Blue Ocean plugin and restart. Create a multibranch pipeline or pipeline job depending on your needs. Add a Jenkinsfile to the repository. Use Blue Ocean to run, visualize, and debug pipeline runs. The visual lens cuts down time spent hunting logs and speeds up iteration.</p>
+
+<p>If something breaks stay calm and open Blue Ocean first. The UI is like a map that actually helps you find the body of the problem instead of guessing. Keep your Jenkinsfile small at first and expand it as confidence grows. Happy CI CD automation and may your pipelines stay green more often than not.</p>
+

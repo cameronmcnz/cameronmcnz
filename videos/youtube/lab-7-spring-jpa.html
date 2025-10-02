@@ -1,0 +1,75 @@
+---
+layout: video
+title: "lab 7 Spring JPA"
+description: "Compact lab guide for Spring JPA showing entity mapping repositories and queries for CRUD in Spring Boot"
+video_host: "youtube"
+video_id: "fj1yJFpKsZo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M22S"
+thumbnail_url: "https://i.ytimg.com/vi/fj1yJFpKsZo/maxresdefault.jpg"
+content_url: "https://youtu.be/fj1yJFpKsZo"
+embed_url: "https://www.youtube.com/embed/fj1yJFpKsZo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - spring
+  - jpa
+  - spring jpa
+  - spring boot
+  - java
+  - hibernate
+  - jpa repository
+  - entity mapping
+  - crud
+  - tutorial
+---
+
+<p>If your idea of fun is wiring JPA repositories while caffeine works its magic then this Spring Boot lab is for you. We will map entities set up repositories implement service level transactions and verify CRUD behavior with quick tests or tiny controllers. All the usual suspects show up spring jpa hibernate jpa repository and H2 for a drama free demo.</p>
+
+<h2>Setup and dependencies</h2>
+<p>Start at Spring Initializr and include Spring Data JPA H2 and Spring Web. Add whatever JDBC driver you actually plan to use in production. Picking the right dependencies early will save you on late night debugging sessions and existential questions about why your entities refuse to join the party.</p>
+
+<h3>What to include in Maven or Gradle</h3>
+<ul>
+  <li>spring boot starter data jpa</li>
+  <li>spring boot starter web</li>
+  <li>h2 for local labs or your chosen database for real work</li>
+</ul>
+
+<h2>Entity mapping essentials</h2>
+<p>Create a Java class annotated with @Entity and mark a primary key with @Id and a generation strategy. Add sensible equals and hashCode methods and favor immutable identity where appropriate. Annotate relationships with @OneToMany or @ManyToOne when needed and be explicit about fetch type and cascade rules so Hibernate does not make surprising choices for you.</p>
+
+<h3>Common mistakes to avoid</h3>
+<ul>
+  <li>Relying on default equals and hashCode for entities with mutable identity</li>
+  <li>Leaving lazy collections uninitialized in DTOs or views</li>
+  <li>Forgetting to pick cascade rules and then wondering why deletes fail</li>
+</ul>
+
+<h2>Repository layer</h2>
+<p>Extend JpaRepository or CrudRepository and let Spring Data JPA do the heavy lifting. Derived query methods are a joy for simple lookups. For anything more complex use @Query with parameter binding. The repository usually stays tiny which is both pleasing and suspicious.</p>
+
+<h3>Finder methods and custom queries</h3>
+<p>Use method names like findByStatusOrderByCreatedAtDesc for quick filters. When you need a custom query write one with @Query and bind parameters safely. Keep an eye on performance and let the database explain plan be your harsh but honest friend.</p>
+
+<h2>Service layer and transactions</h2>
+<p>Add a @Service class and annotate write methods with @Transactional so state changes happen predictably. Put business logic here and keep controllers thin. Tests will thank you later when behavior is isolated from HTTP plumbing.</p>
+
+<h2>Expose endpoints or write tests</h2>
+<p>For manual checks add a @RestController so you can curl or use your browser to poke the app. For focused verification annotate repository tests with @DataJpaTest and mock what is not under test. Tests find subtle mapping issues before they reach production and before your users politely ask for a fix.</p>
+
+<h2>Run and verify queries</h2>
+<p>Boot the application watch the logs and use the H2 console or simple REST calls to validate create read update and delete operations and any custom queries you added. Prefer derived query methods for simple lookups and switch to @Query only when necessary. Hibernate will log SQL when you ask nicely which helps when queries behave badly.</p>
+
+<h2>Tips and final thoughts</h2>
+<ul>
+  <li>Favor explicit mappings over magical defaults</li>
+  <li>Keep repositories small and put logic in services</li>
+  <li>Test repositories with @DataJpaTest and integrate with a real database occasionally</li>
+  <li>Use sensible batch sizes for bulk operations to avoid out of memory surprises</li>
+</ul>
+
+<p>This lab walked through setting up a Spring Boot project wiring JPA mapping creating repositories implementing service level transactions and validating behavior through controllers or tests so the repository layer works as expected. You kept things pragmatic and your future self will send a thank you card or at least a slightly less annoyed commit message.</p>
+

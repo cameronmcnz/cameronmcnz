@@ -1,0 +1,93 @@
+---
+layout: video
+title: "Quick Docker Example"
+description: "Learn to build a Docker image and run a container fast with a minimal hands on example for beginners"
+video_host: "youtube"
+video_id: "vkZ6aXjHFCU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M48S"
+thumbnail_url: "https://i.ytimg.com/vi/vkZ6aXjHFCU/maxresdefault.jpg"
+content_url: "https://youtu.be/vkZ6aXjHFCU"
+embed_url: "https://www.youtube.com/embed/vkZ6aXjHFCU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - docker
+  - docker tutorial
+  - docker example
+  - docker image
+  - containers
+  - devops
+  - dockerfile
+  - docker run
+  - docker build
+  - containerization
+---
+
+<p>If you want to go from zero to container in a few commands and a little smug satisfaction this tiny Docker tutorial will hold your hand and then push you out the door. We build a minimal image for a microscopic app run it in a container and then clean up the mess like a responsible adult.</p>
+
+<h2>Create a Dockerfile</h2>
+<p>Your Dockerfile is the recipe book for your image. Keep it small and cache friendly so builds are fast and predictable. Here is a minimal example that uses a slim Python base to run a tiny HTTP server.</p>
+
+<pre><code>FROM python:3.11-slim
+WORKDIR /app
+COPY app.py .
+CMD ["python", "app.py"]
+</code></pre>
+
+<p>And a two minute app so you actually have something to run. Save this as app.py in the same folder.</p>
+
+<pre><code>from http.server import SimpleHTTPRequestHandler, HTTPServer
+
+PORT = 8000
+
+class Handler(SimpleHTTPRequestHandler):
+    pass
+
+httpd = HTTPServer(('0.0.0.0', PORT), Handler)
+print('Serving on', PORT)
+httpd.serve_forever()
+</code></pre>
+
+<h2>Build the image</h2>
+<p>Run the builder to produce a tagged image you can run locally. Tagging helps later when you inevitably have multiple versions and a questionable memory.</p>
+
+<pre><code>docker build -t myapp:1.0 .
+</code></pre>
+
+<p>Notes for the careful and the lazy. Use a small base image like alpine or python slim. Order COPY and dependency steps to make the cache work for you instead of against you. Add a .dockerignore so your build context does not include five years of logs.</p>
+
+<h2>Run the container</h2>
+<p>Start the container detached and map a port so your browser can confirm it exists. Give it a name so removing it later is not a scavenger hunt.</p>
+
+<pre><code>docker run -d --name myapp -p 8000:8000 myapp:1.0
+</code></pre>
+
+<p>If you prefer drama over convenience you can skip detached mode and stare at logs until you feel something.</p>
+
+<h2>Test and cleanup</h2>
+<p>Make sure your container is alive and serving. Then stop it and remove both container and image when you are done. This keeps your disk from becoming a hoarder.</p>
+
+<pre><code>docker ps
+# check that myapp is running
+
+curl http://localhost:8000
+# or open http://localhost:8000 in a browser
+
+docker stop myapp
+docker rm myapp
+docker rmi myapp:1.0
+</code></pre>
+
+<h3>Quick checklist for less regret</h3>
+<ul>
+  <li>Use a minimal base image to reduce attack surface and build time</li>
+  <li>Order Dockerfile steps to maximize cache reuse and avoid unnecessary rebuilds</li>
+  <li>Tag images clearly like myapp:1.0 so rollbacks are not a guessing game</li>
+  <li>Add a .dockerignore so your context is not full of junk</li>
+</ul>
+
+<p>There you go. You wrote a Dockerfile built an image ran a container and cleaned up. This sequence explains how the Dockerfile image and container relate and gives a practical starting point for containerization and devops experiments. Now go forth and containerize, but maybe not the cat.
+

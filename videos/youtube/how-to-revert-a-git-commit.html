@@ -1,0 +1,81 @@
+---
+layout: video
+title: "How to Revert a Git Commit"
+description: "Learn how to undo Git commits safely with revert reset and reflog examples and commands for shared and local branches"
+video_host: "youtube"
+video_id: "RNd4_-JyktI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M52S"
+thumbnail_url: "https://i.ytimg.com/vi/RNd4_-JyktI/maxresdefault.jpg"
+content_url: "https://youtu.be/RNd4_-JyktI"
+embed_url: "https://www.youtube.com/embed/RNd4_-JyktI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - revert
+  - reset
+  - reflog
+  - version control
+  - git commands
+  - undo commit
+  - force push
+  - branch management
+  - git tutorial
+---
+
+<p>If you pushed something that looks wrong and your teammates are watching you sweat, relax and pick the right tool for the job. This short git tutorial walks through how to undo a commit with the least drama. We cover safe fixes that keep history honest and destructive edits for solo branches when you know what you are doing. Keywords you might want to whisper at the terminal include git revert reset reflog and force push.</p>
+
+<h2>Decide if the branch is shared or private</h2>
+<p>First question to ask yourself while pretending you had a plan is whether the branch is public or private. If other people might base work on your commits then do not rewrite history. If it is a throwaway feature branch you control then history surgery is allowed, in moderation.</p>
+
+<h2>Safe undo with git revert</h2>
+<p>Use <code>git revert</code> when you want to undo a commit without lying to future readers of the history. Revert makes a new commit that applies the inverse of the target commit. The original bad commit stays in the timeline and everyone can follow along like nothing spooky happened.</p>
+<p>Example command</p>
+<p><code>git revert &lt;commit-hash&gt;</code></p>
+<p>This will open your editor to edit the revert message unless you pass a message on the command line. Be descriptive so future humans understand why the reversal happened.</p>
+
+<h3>When to use revert</h3>
+<ul>
+  <li>On shared branches where branch management and traceability matter</li>
+  <li>When you need an audit friendly record of the change and its undo</li>
+  <li>When you do not want to risk rewriting commits that others built on</li>
+</ul>
+
+<h2>Local cleanup with git reset</h2>
+<p>If the commit only exists on your laptop and you prefer a cleaner history then <code>git reset</code> is your blunt instrument. There are three useful modes to remember.</p>
+<ul>
+  <li><code>--soft</code> moves the branch pointer but keeps changes staged. Example <code>git reset --soft HEAD~1</code></li>
+  <li>Default reset without flags moves the pointer and unstages changes but keeps them in the working tree</li>
+  <li><code>--hard</code> drops work from the working tree and index. Example <code>git reset --hard HEAD~1</code> This destroys uncommitted changes so make sure you really want that</li>
+</ul>
+<p>Use reset for local history edits and cleanup. Do not use reset to hide commits that others may rely on.</p>
+
+<h3>Recover lost commits with git reflog</h3>
+<p>If you misapplied a reset and now regret life choices use <code>git reflog</code> to find the lost commit references. Reflog logs where HEAD pointed across actions so you can find the SHA you need to recover.</p>
+<p>Typical recovery steps</p>
+<ul>
+  <li>Run <code>git reflog</code> and find the commit SHA or entry you want</li>
+  <li>Create a branch to inspect the state with <code>git checkout -b recover &lt;sha&gt;</code> or restore directly with <code>git reset --hard &lt;sha&gt;</code></li>
+</ul>
+
+<h2>Pushing and collaboration</h2>
+<p>Shared branches reward caution. Avoid <code>git push --force</code> unless you and your team agreed to it beforehand. When a history rewrite is unavoidable prefer <code>git push --force-with-lease</code> to reduce the chance of stomping someone else s work.</p>
+<p>If you used <code>git revert</code> you can push normally with <code>git push</code>. If you reset local commits that were already pushed you will need a force push and a short apology message in the team chat.</p>
+
+<h2>Quick cheat sheet of git commands to undo commit</h2>
+<ul>
+  <li><code>git revert &lt;commit-hash&gt;</code> Undo while preserving history</li>
+  <li><code>git reset --soft HEAD~1</code> Move head and keep staged changes</li>
+  <li><code>git reset --hard HEAD~1</code> Drop the last commit and its changes</li>
+  <li><code>git reflog</code> Find lost commits after a messy reset</li>
+  <li><code>git checkout -b recover &lt;sha&gt;</code> Inspect or restore a lost state</li>
+  <li><code>git push --force-with-lease</code> Safer force push when you must rewrite shared history</li>
+</ul>
+
+<h2>Final recap and best practices</h2>
+<p>Use <strong>git revert</strong> on public branches to keep version control honest. Use <strong>git reset</strong> for local cleanup when you can afford to rewrite history. Keep <strong>git reflog</strong> in your back pocket for rescues after an unfortunate reset. Coordinate and prefer safer pushes when working with teammates.</p>
+<p>And remember to write revert messages that explain why the change was rolled back so future developers do not assume the worst. You may have to explain your mistakes to humans, but at least your git history will be readable and slightly less tragic.</p>
+

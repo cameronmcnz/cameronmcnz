@@ -1,0 +1,74 @@
+---
+layout: video
+title: "Push a Local Git Branch to a Remote GitHub repo"
+description: "Quick guide to push a local Git branch to a remote GitHub repo with commands for adding remote and setting upstream."
+video_host: "youtube"
+video_id: "se1WitSPKwc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M51S"
+thumbnail_url: "https://i.ytimg.com/vi/se1WitSPKwc/maxresdefault.jpg"
+content_url: "https://youtu.be/se1WitSPKwc"
+embed_url: "https://www.youtube.com/embed/se1WitSPKwc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - git-branch
+  - git-push
+  - remote-repository
+  - version-control
+  - tutorial
+  - command-line
+  - git-remote
+  - developer
+---
+
+<p>If you have local work sitting in a branch and you want to send it to GitHub without causing a small office incident follow along. This short command line tutorial covers creating or switching to a git branch staging and committing your changes adding a remote if needed and pushing the branch so other humans can review your glorious code.</p>
+
+<h2>Create or switch to a branch</h2>
+<p>Make a branch name that actually explains what you did unless you enjoy future archeological digs. To create and switch in one step run</p>
+<pre><code>git checkout -b my-branch</code></pre>
+<p>To switch to an existing branch do</p>
+<pre><code>git checkout my-branch</code></pre>
+<p>Use readable names that help your team and your future self. This is version control not treasure hunting.</p>
+
+<h2>Stage and commit changes</h2>
+<p>Stage everything or pick files like a responsible developer. On the command line use:</p>
+<ul>
+  <li><code>git add .</code> to stage all changes</li>
+  <li><code>git add path/to/file</code> to stage specific files</li>
+</ul>
+<p>Then commit with a clear message that explains what changed. For example</p>
+<pre><code>git commit -m "Describe the change briefly"</code></pre>
+<p>Good commit messages save hours of confusion later. Bad commit messages are a public service announcement for chaos.</p>
+
+<h2>Check or add a remote</h2>
+<p>If your local repository has already been linked to a remote you will see it with</p>
+<pre><code>git remote -v</code></pre>
+<p>If nothing shows up then add your GitHub repo as a remote. Replace the URL placeholder with your repo URL</p>
+<pre><code>git remote add origin &lt;your-repo-url&gt;</code></pre>
+<p>That configures the git-remote named origin which is the usual shorthand for the remote repository on GitHub.</p>
+
+<h2>Push the branch and set upstream</h2>
+<p>To publish the branch and set upstream tracking so future pushes and pulls are simpler run</p>
+<pre><code>git push -u origin my-branch</code></pre>
+<p>The -u option tells Git to remember that origin/my-branch is the upstream for your local branch. After that you can just run <code>git push</code> or <code>git pull</code> without repeating names.</p>
+
+<h3>Authentication and permissions</h3>
+<p>If GitHub refuses your push with a permission error authenticate using an SSH key or a personal access token depending on your setup. Both methods work. If you get stuck the GitHub docs have step by step guides and your keyboard can be used for pleading.</p>
+
+<h2>Quick safety tips for the command line</h2>
+<ul>
+  <li>Run <code>git status</code> before pushing to confirm you are on the right branch and have staged the intended files</li>
+  <li>If you are tempted to use force push think twice and consider rebasing locally then pushing a fresh branch</li>
+  <li>Use descriptive branch names and clear commit messages to keep the repository history useful</li>
+</ul>
+
+<h2>When collaborators appear</h2>
+<p>Once the branch is on GitHub you can open a pull request or ask a reviewer to look. Pushing a branch is the minimum viable collaboration step in modern version control. Congratulations you have shared code with the world and possibly started a lively code review conversation.</p>
+
+<p>That is all you need to push a local git-branch to a remote repository on GitHub using the command-line. Follow these steps and you will avoid the most common mistakes while keeping your workflow sane and slightly less dramatic.</p>
+

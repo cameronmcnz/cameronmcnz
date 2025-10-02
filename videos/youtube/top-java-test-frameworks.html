@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Top Java Test Frameworks"
+description: "Quick guide to top Java test frameworks with pros cons and use cases to help pick the right testing tools for modern Java projects"
+video_host: "youtube"
+video_id: "qi--cSGOCbs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M27S"
+thumbnail_url: "https://i.ytimg.com/vi/qi--cSGOCbs/maxresdefault.jpg"
+content_url: "https://youtu.be/qi--cSGOCbs"
+embed_url: "https://www.youtube.com/embed/qi--cSGOCbs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - JUnit
+  - TestNG
+  - Mockito
+  - AssertJ
+  - Spring Test
+  - Cucumber
+  - Spock
+  - WireMock
+  - Testing
+---
+
+<article>
+  <p>Welcome to the slightly chaotic world of Java testing where tools promise nirvana and sometimes deliver mere runnable code. This cheat sheet walks through the popular Java testing frameworks you will actually use in real projects. Keep JUnit for day to day unit tests and add the others where they earn their keep.</p>
+
+  <h2>Why start with JUnit 5</h2>
+  <p>JUnit 5 is the standard for unit testing in Java and for good reasons. It supports nested tests, parameterized tests, and extensions that let you hook into lifecycles. Mark test methods with @Test and use extensions for setup help and lifecycle control. If you only adopt one tool for unit tests make it JUnit 5.</p>
+
+  <h2>When TestNG makes sense</h2>
+  <p>TestNG is not trying to be JUnit. It shines when you need flexible configuration and built in parallel execution for larger suites. Use groups, listeners, and data providers when orchestration matters or when tests need fancy ordering and parallel runs.</p>
+
+  <h2>Mocking and fluent assertions</h2>
+  <p>Mockito handles mocking and stubbing so you can test units without the rest of the world crashing on your desk. Create readable mocks, stub responses, and verify interactions without drowning in boilerplate.</p>
+  <p>AssertJ gives you fluent assertions that read closer to English and fail with clearer messages. Replace brittle assert statements with chained assertions for better diagnostics and faster bug hunts.</p>
+
+  <h2>Spring Test and MockMvc for Spring apps</h2>
+  <p>Spring Test helps you load application contexts, run test slices, and exercise Spring wiring. MockMvc is the standard tool for web layer tests when you want to simulate HTTP requests without starting a real server. Use these when dependency injection and Spring features must be exercised in tests.</p>
+
+  <h2>BDD style with Cucumber</h2>
+  <p>Cucumber brings business readable testing with Gherkin feature files. It is great when non developers need to review acceptance criteria turned into executable tests. Expect more ceremony but also clearer traceability to requirements.</p>
+
+  <h2>Spock for expressive specifications</h2>
+  <p>Spock uses Groovy to deliver expressive specification style tests that read like sentences. It is excellent for data driven scenarios and behavior driven descriptions that want compact setup and clear where blocks.</p>
+
+  <h2>WireMock for HTTP isolation</h2>
+  <p>WireMock simulates HTTP services so your integration tests do not depend on flaky remote systems. Use it to stub endpoints, control response behavior, and keep tests stable and fast.</p>
+
+  <h2>Suggested stacks that do not cause regret</h2>
+  <ul>
+    <li>Core unit tests: JUnit 5 plus Mockito plus AssertJ for readable assertions</li>
+    <li>Spring projects: add Spring Test and MockMvc for slice and web layer tests</li>
+    <li>Parallel or complex suite rules: consider TestNG for advanced orchestration</li>
+    <li>Business readable acceptance tests: use Cucumber with Gherkin feature files</li>
+    <li>HTTP dependent integration tests: stub external services with WireMock</li>
+    <li>When you want expressive specs and data driven tests: reach for Spock</li>
+  </ul>
+
+  <h2>Quick rules of thumb</h2>
+  <ol>
+    <li>Start with JUnit 5 for unit testing and keep tests small and fast</li>
+    <li>Add Mockito for mocking and AssertJ for assertions that help you debug</li>
+    <li>Use Spring Test and MockMvc only when Spring features must be involved</li>
+    <li>Pick TestNG if you need built in parallel runs and complex grouping</li>
+    <li>Choose Cucumber when non technical stakeholders need readable acceptance tests</li>
+    <li>Use WireMock to avoid flaky tests that depend on remote HTTP services</li>
+  </ol>
+
+  <p>Testing is not a religion. Mix and match JUnit, TestNG, Mockito, AssertJ, Spring Test, Cucumber, Spock, and WireMock based on speed, readability, and maintenance cost. Your tests should make bugs obvious and builds predictable. If a tool makes either of those worse toss it out and try the next one.</p>
+</article>
+

@@ -1,0 +1,69 @@
+---
+layout: video
+title: "How to Pass UiPath Arguments Example"
+description: "Quick guide to passing arguments between UiPath workflows using In Out and InOut directions with mapping testing and best practices"
+video_host: "youtube"
+video_id: "wpu4vjI36pM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M19S"
+thumbnail_url: "https://i.ytimg.com/vi/wpu4vjI36pM/maxresdefault.jpg"
+content_url: "https://youtu.be/wpu4vjI36pM"
+embed_url: "https://www.youtube.com/embed/wpu4vjI36pM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - arguments
+  - Invoke Workflow File
+  - RPA
+  - workflows
+  - InOut
+  - In
+  - Out
+  - debugging
+  - automation
+---
+
+<p>You want data to move between UiPath workflows without turning your automation into a spaghetti mess. Good news, that is possible. This guide shows how to define and map UiPath arguments using In Out and InOut directions while keeping your sanity and your logs readable.</p>
+
+<h2>What UiPath arguments actually do and why they matter</h2>
+<p>Arguments are the polite way workflows exchange data. Use In for one way input, Out for one way output, and InOut when both sides need to change the same value. Pick the right direction and matching data types or you will see runtime surprises and error messages that sound like passive aggression.</p>
+
+<h2>Quick setup for main and invoked workflows</h2>
+<p>Start by creating two workflows, a main and an invoked one. In the invoked workflow open the Arguments panel and add entries with clear names like in_CustomerName out_Result or inout_Counter. Choose the data type that fits, not the first thing you find in the dropdown.</p>
+
+<h3>Step by step</h3>
+<ol>
+  <li>Create the invoked workflow and define arguments in the Arguments panel.</li>
+  <li>Use clear prefixes such as in_, out_ and inout_ to avoid guessing games later.</li>
+  <li>In the main workflow add an Invoke Workflow File activity and point it to the invoked workflow.</li>
+  <li>Open the Properties panel and click Import Arguments then map local variables to the invoked arguments.</li>
+  <li>Make sure types match between caller and callee to prevent runtime type errors.</li>
+</ol>
+
+<h2>Mapping and common pitfalls</h2>
+<p>Mapping is usually one click away but the bugs hide in the details. If you pass an application object instead of plain data you will create tight coupling between workflows and apps. Pass selectors, strings, numbers, or structured data like dictionaries and objects instead. If you must share many fields group them into a single object or dictionary to keep the argument list tidy.</p>
+
+<h2>Debugging arguments like a detective</h2>
+<p>Run the main workflow in Debug mode. Use Log Message or Write Line to print values as they move between workflows. Set breakpoints in both caller and callee, and add variables to the Watch panel to inspect runtime state. If a value is null or wrong check direction and data type first. Most bugs are just bad wiring, not sorcery.</p>
+
+<h3>Useful checks</h3>
+<ul>
+  <li>Did you import arguments in Invoke Workflow File</li>
+  <li>Are local variables assigned to receive Out values</li>
+  <li>Do the data types match exactly</li>
+  <li>Is the value mutated unexpectedly because of InOut usage</li>
+</ul>
+
+<h2>Best practices to avoid future fires</h2>
+<ul>
+  <li>Adopt naming conventions like in_, out_, inout_ to make intent obvious</li>
+  <li>Prefer passing primitive types or structured data over UI elements</li>
+  <li>Group related data into objects or dictionaries when you have many fields</li>
+  <li>Keep argument lists short to reduce coupling between workflows</li>
+</ul>
+
+<p>Follow these steps and your UiPath workflows will exchange data reliably instead of whispering secrets and then forgetting them. You will spend less time debugging and more time automating things that deserve automation.</p>
+

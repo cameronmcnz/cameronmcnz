@@ -1,0 +1,65 @@
+---
+layout: video
+title: "git status command example"
+description: "Learn how to read git status output stage changes and confirm commits with clear examples and commands for faster troubleshooting"
+video_host: "youtube"
+video_id: "LZaOsT4M6Cc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M39S"
+thumbnail_url: "https://i.ytimg.com/vi/LZaOsT4M6Cc/maxresdefault.jpg"
+content_url: "https://youtu.be/LZaOsT4M6Cc"
+embed_url: "https://www.youtube.com/embed/LZaOsT4M6Cc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git status
+  - version control
+  - git tutorial
+  - command line
+  - staging
+  - commit
+  - git workflow
+  - developer
+  - source control
+---
+
+<article>
+  <p>If you enjoy surprises you could skip this but since youre here lets use git status to avoid future screaming. This command is the polite way to ask your repository whats going on before you rewrite the timeline.</p>
+
+  <h2>Run git status at the project root</h2>
+  <p>Open a terminal in the repository root and run the command. You will see the current branch name any tracked changes and whether your local branch is ahead or behind the remote. This is the safest first move before editing files or force pushing like a monster.</p>
+  <pre><code>git status</code></pre>
+
+  <h2>Understand the three output groups</h2>
+  <p>The output groups files into three easy to ignore piles. Learn them and you will stop committing by accident.</p>
+  <ul>
+    <li><strong>Untracked files</strong> are new files that Git has never met. Add them if you want them remembered.</li>
+    <li><strong>Modified files</strong> are tracked files with changes in your working tree that are not staged yet.</li>
+    <li><strong>Changes to be committed</strong> are staged files ready to become part of history.</li>
+  </ul>
+
+  <h3>Stage exactly what you want</h3>
+  <p>Staging is choosing which changes deserve to live forever. Use git add to stage one file or many files. If you stage everything by accident you can unstage with git reset HEAD path to fix the drama.</p>
+  <pre><code>git add path/to/file
+git add .</code></pre>
+
+  <h3>Commit like a considerate human</h3>
+  <p>Once staged run git commit with a short descriptive message. Your future self will buy you coffee if the message is useful. If not expect grudges from descendants reading the log.</p>
+  <pre><code>git commit -m "Short summary of change"</code></pre>
+
+  <h2>Verify and sync with remote</h2>
+  <p>Run git status again to confirm the working tree is clean and the staging area is empty. The command will also report if you need to push or pull to sync with the remote. When things look good push to the shared repo and move on with life.</p>
+
+  <h2>Handy tips</h2>
+  <ul>
+    <li>Use git status -s for a compact summary when many files clutter the output.</li>
+    <li>Use git diff to inspect unstaged changes and git diff --staged to see what is about to be committed.</li>
+    <li>Write concise clear commit messages so blame and archaeology are less painful.</li>
+  </ul>
+
+  <p>Thats it. Run git status often and pretend you knew what you were doing the whole time.</p>
+</article>
+

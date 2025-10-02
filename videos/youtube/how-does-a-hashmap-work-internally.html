@@ -1,0 +1,67 @@
+---
+layout: video
+title: "How does a HashMap Work Internally?"
+description: "Concise guide to how Java HashMap stores and accesses key value pairs with hashing collision handling resizing and performance tips"
+video_host: "youtube"
+video_id: "xKCdp0jjZAw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT27M18S"
+thumbnail_url: "https://i.ytimg.com/vi/xKCdp0jjZAw/maxresdefault.jpg"
+content_url: "https://youtu.be/xKCdp0jjZAw"
+embed_url: "https://www.youtube.com/embed/xKCdp0jjZAw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - HashMap
+  - Java
+  - Hashing
+  - Collision Handling
+  - Resizing
+  - hashCode
+  - equals
+  - Java 8
+  - Data Structures
+  - Performance
+---
+
+<h2>What lives inside a HashMap</h2>
+<p>Think of a Java HashMap as an array of buckets that stores key value pairs. Each bucket can hold a simple linked chain of Entry objects or a balanced tree once things get messy. The main parts to remember are the table array, the entry nodes that carry key value hash and next pointers, and the plumbing that maps a key to a bucket using hashCode and a bit mask.</p>
+
+<h2>How hashing and indexing work</h2>
+<p>HashMap starts with the key's hashCode method. Java 8 then mixes that hash by xoring the high bits into the low bits with a right shift. That little trick helps spread poorly distributed hashCode implementations across the table. The bucket index is computed with a cheap bit mask like (n - 1) & hash where n is the current capacity which is always a power of two.</p>
+
+<h3>Quick math that matters</h3>
+<ul>
+  <li>Default initial capacity is 16</li>
+  <li>Default load factor is 0.75 which makes the threshold 12 by default</li>
+  <li>When size exceeds threshold the table doubles and entries are redistributed</li>
+</ul>
+
+<h2>Collision handling and treeify behavior</h2>
+<p>Collisions happen. Two keys can land in the same bucket. HashMap handles this first with a linked list. If one bucket's chain grows beyond a threshold the list becomes a tree for faster lookups. Java 8 uses TREEIFY_THRESHOLD of 8 and a MIN_TREEIFY_CAPACITY of 64. That means if a bucket has more than 8 nodes and the table is big enough it will be transformed into a balanced tree which gives you log time lookups instead of linear time nightmares.</p>
+
+<p>If the table is too small when a chain grows, HashMap prefers to resize rather than treeify. This prevents lots of tiny tables full of trees. Also note that the null key is allowed and is mapped to bucket 0 with special handling.</p>
+
+<h2>What happens on put and get</h2>
+<p>put does a few simple steps. Compute the mixed hash. Find the bucket via the mask. If the bucket is empty insert a new node. If not walk the chain checking the hash and equals for an existing key. If found replace the value. If not append a node or trigger treeification if conditions are met. If the overall size crosses the resize threshold then a resize is triggered which rehashes entries into a larger table.</p>
+
+<p>get computes the same hash and index then scans the bucket. For small chains it does sequential checks that compare hash then call equals. For treeified bins it does a tree lookup which is much faster for long chains.</p>
+
+<h2>Performance and common pitfalls</h2>
+<p>When hashCode is well distributed average time for get put and remove is constant time. If hashCode is broken or many keys collide worst case performance becomes linear. Frequent resizing is expensive because entries must be moved into a new array. Choosing a sensible initial capacity and load factor can avoid repeated resizes.</p>
+
+<p>HashMap is not thread safe. If you share a HashMap across threads without external synchronization you get race conditions and subtle bugs. Use ConcurrentHashMap for concurrent access or wrap the map with a synchronized view if you must.</p>
+
+<h2>Practical tips and takeaways</h2>
+<ul>
+  <li>Override hashCode and equals consistently and correctly to avoid surprises</li>
+  <li>Prefer immutable keys so the hash does not change after insertion</li>
+  <li>Set an initial capacity if you know the approximate size to reduce resizing cost</li>
+  <li>Use a load factor other than 0.75 only when you really understand the memory versus performance trade off</li>
+  <li>If you see many collisions consider improving the key hashing strategy or increasing the initial capacity</li>
+</ul>
+
+<p>In short, HashMap is fast and clever when you feed it sane hashCode methods and reasonable capacities. If you feed it broken hashes or mutable keys you will be rewarded with slow lookups, surprising behavior and the kind of debugging sessions that make you question your life choices.</p>
+

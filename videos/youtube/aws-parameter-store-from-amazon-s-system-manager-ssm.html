@@ -1,0 +1,72 @@
+---
+layout: video
+title: "AWS Parameter Store from Amazon's System Manager (SSM)"
+description: "SSM Parameter Store SecureString with KMS and AWS CLI steps for encrypted parameters and minimal permissions"
+video_host: "youtube"
+video_id: "DGOcxrhGqqc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/DGOcxrhGqqc/maxresdefault.jpg"
+content_url: "https://youtu.be/DGOcxrhGqqc"
+embed_url: "https://www.youtube.com/embed/DGOcxrhGqqc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - SSM
+  - Parameter Store
+  - SecureString
+  - KMS
+  - AWS CLI
+  - encryption
+  - Secrets Management
+  - IAM
+  - CloudTrail
+---
+
+<h1>Best practices for SecureString in Parameter Store with KMS and IAM</h1>
+
+<h2>Quick recap for people who skipped the meeting</h2>
+<p>SSM Parameter Store can hold plain text values if you are brave, or SecureString values if you prefer your secrets to stay secret. Use a customer managed KMS key to control rotation and access, grant only the roles that need to decrypt, and use CloudTrail to catch the suspicious stuff. This guide shows practical steps with the AWS CLI and sensible defaults so you do not end up explaining how a password leaked to the interns.</p>
+
+<h2>Step 1 Create or select a KMS key for encryption</h2>
+<p>Customer managed KMS keys give you control over rotation and key policy. Create a key and give it a friendly alias so your commands do not look like computer gibberish.</p>
+<pre><code>aws kms create-key --description 'SSM parameter key'
+aws kms create-alias --alias-name alias/ssm-params --target-key-id example-key-id</code></pre>
+<p>Use an alias for day to day commands and enable automatic rotation when appropriate. If you like drama you can rotate manually, but most teams prefer slightly less chaos.</p>
+
+<h2>Step 2 Store a SecureString parameter with the AWS CLI</h2>
+<p>Encrypt at rest by telling SSM which KMS key to use. Use the alias or the key id. Keep values out of terminal history if you are serious about security.</p>
+<pre><code>aws ssm put-parameter --name '/prod/db/password' --value 'SuperSecret123' --type SecureString --key-id alias/ssm-params</code></pre>
+<p>If you are automating this from CI avoid plain text values in logs and use parameter store put calls from ephemeral runners.</p>
+
+<h2>Step 3 Grant least privilege access via IAM and key policy</h2>
+<p>Two places control decrypt access. The KMS key policy and the IAM permissions of the role or principal. Grant the KMS decrypt permission to only the application roles that need it. Also allow the SSM service principal to use the key if needed by SSM actions.</p>
+<ul>
+  <li>Attach KMS decrypt to your application role.</li>
+  <li>Limit the key policy to the SSM service and specific IAM roles.</li>
+  <li>Avoid wildcards that invite mischief and accidental access.</li>
+</ul>
+
+<h2>Step 4 Retrieve the parameter decrypted when the app needs it</h2>
+<p>When your process runs, request the parameter with decryption enabled. This requires the role to have both ssm get permission and KMS decrypt permission at the right time.</p>
+<pre><code>aws ssm get-parameter --name '/prod/db/password' --with-decryption</code></pre>
+<p>Do not persist decrypted secrets to disk unless you have a good reason and an audit trail. Memory is ephemeral and your logs are permanent.</p>
+
+<h2>Step 5 Audit and rotate so your security team smiles</h2>
+<p>Use CloudTrail to log parameter and KMS calls. Enable KMS automatic rotation when it fits your compliance rules. Regular rotation and audits reduce the blast radius when things inevitably go wrong.</p>
+
+<h3>Practical tips and common pitfalls</h3>
+<ul>
+  <li>Use aliases for friendly CLI usage and easier key swaps.</li>
+  <li>Do not grant decrypt to broad principals. Least privilege is not negotiable.</li>
+  <li>Monitor CloudTrail for unusual get requests and configure alerts.</li>
+  <li>Keep parameter names consistent and environment specific to avoid accidental reads.</li>
+  <li>Use IAM roles for compute resources rather than embedding credentials in code.</li>
+</ul>
+
+<h3>Wrap up</h3>
+<p>Parameter Store with SecureString and KMS gives you encrypted secrets with an audit trail and controlled access. Combine AWS CLI commands for setup, tight IAM and key policies for access control, and CloudTrail plus rotation for ongoing hygiene. Follow these steps and your secrets will be safer, your ops team will be less nervous, and you will avoid awkward all hands meetings where someone explains how a password ended up in a pastebin.</p>
+

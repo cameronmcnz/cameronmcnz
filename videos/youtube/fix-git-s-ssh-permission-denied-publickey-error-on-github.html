@@ -1,0 +1,67 @@
+---
+layout: video
+title: "Fix Git's SSH Permission Denied (PublicKey) Error on GitHub"
+description: "Quick guide to fix Git SSH Permission Denied PublicKey errors on GitHub by creating keys adding to agent uploading the public key and testing the connectio"
+video_host: "youtube"
+video_id: "Irj-2tmV0JM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M37S"
+thumbnail_url: "https://i.ytimg.com/vi/Irj-2tmV0JM/maxresdefault.jpg"
+content_url: "https://youtu.be/Irj-2tmV0JM"
+embed_url: "https://www.youtube.com/embed/Irj-2tmV0JM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - ssh
+  - github
+  - permission denied
+  - publickey
+  - ssh-key
+  - ssh-agent
+  - ssh-keygen
+  - ssh debug
+  - git remote
+---
+
+<h2>Check for an existing SSH key</h2>
+<p>Before you start generating keys like a hacker in a movie montage take a deep breath and look in your home directory for an SSH folder. Typical files are <code>~/.ssh/id_rsa</code> and <code>~/.ssh/id_ed25519</code>. If one of those exists you can skip key generation and move on to adding the key to an agent and uploading the public part to GitHub.</p>
+
+<h2>Generate a modern SSH key</h2>
+<p>Use a modern algorithm so future you does not hate past you. Ed25519 is a solid choice unless your organization demands legacy keys. Run this in a terminal and follow the prompts.</p>
+<pre><code>ssh-keygen -t ed25519 -C "your_email@example.com"</code></pre>
+<p>If you prefer RSA for some reason use a large size. Otherwise accept the default file name and set a passphrase if you want an extra layer of misery protection.</p>
+
+<h2>Add the private key to an SSH agent</h2>
+<p>The SSH agent stores your unlocked key so Git can use it without you typing the passphrase every five minutes. Start the agent and add your key.</p>
+<pre><code>eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519</code></pre>
+<p>Check the agent has your key with <code>ssh-add -l</code>. If you see nothing then the agent is not running or the key was not added.</p>
+
+<h2>Upload the public key to GitHub</h2>
+<p>Copy the public key file such as <code>~/.ssh/id_ed25519.pub</code> and paste its contents into your GitHub profile under SSH and GPG keys. Give it a human readable name so the person who inherits your machine in ten years does not cry.</p>
+
+<h2>Verify your Git remote and file permissions</h2>
+<p>Make sure your repository remote is using SSH and not HTTPS. Run <code>git remote -v</code> and look for an SSH style entry described as git at github dot com followed by user slash repo dot git. If it shows HTTPS then change the remote to an SSH URL so publickey authentication is used.</p>
+<pre><code>chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_ed25519</code></pre>
+<p>Strict permissions matter because SSH will refuse to use keys that are world readable. Also be aware of multiple SSH agents or credential helpers that can interfere with which key is offered.</p>
+
+<h2>Test the SSH connection and run debug</h2>
+<p>Talk directly to GitHub to see what the server thinks of your key. The verbose flag spits out the useful garbage that tells you whether the key was offered or ignored.</p>
+<pre><code>ssh -T -v git@github.com</code></pre>
+<p>Read the debug output for lines that show which identities were tried and whether an agent supplied a key. Common failure causes include the wrong key being used missing the key on GitHub or file permission problems.</p>
+
+<h3>Troubleshooting tips</h3>
+<ul>
+  <li>Confirm the public key on GitHub matches the file on your machine</li>
+  <li>Run <code>ssh-add -l</code> to see what the agent is offering</li>
+  <li>If you use multiple keys configure <code>~/.ssh/config</code> with Host entries to force the right key for github dot com</li>
+  <li>On Windows use Git Bash or WSL and follow the same steps or use the native credential manager if you prefer a GUI trap</li>
+</ul>
+
+<h2>Recap and final thoughts</h2>
+<p>In short check for an existing SSH key generate a modern key if needed add it to an SSH agent upload the public key to GitHub ensure your Git remote uses SSH secure your file permissions and run an SSH debug session. Follow those steps and the permission denied publickey error should stop haunting your commits. If it does not then the problem is probably something silly like a mismatched key or an agent you forgot to start.</p>
+

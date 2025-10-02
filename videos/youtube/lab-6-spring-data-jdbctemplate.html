@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Lab 6 Spring Data JdbcTemplate"
+description: "Practical lab guide for Spring Data JdbcTemplate covering setup queries mapping and CRUD testing for Java developers"
+video_host: "youtube"
+video_id: "sNe37we1gKo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M5S"
+thumbnail_url: "https://i.ytimg.com/vi/sNe37we1gKo/maxresdefault.jpg"
+content_url: "https://youtu.be/sNe37we1gKo"
+embed_url: "https://www.youtube.com/embed/sNe37we1gKo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring
+  - Spring Data
+  - JdbcTemplate
+  - Java
+  - JDBC
+  - RowMapper
+  - CRUD
+  - Database
+  - Repository
+  - Testing
+---
+
+<h2>Why use JdbcTemplate when the world loves ORMs</h2>
+<p>Because sometimes you want control and not a mystery layer that rearranges your SQL like a bored chef. JdbcTemplate gives you predictable JDBC behavior with less boilerplate and fewer surprises. This guide walks through a clean workflow for Spring based data access using JdbcTemplate while keeping tests honest and your code readable.</p>
+
+<h2>Set up the project and dependencies</h2>
+<p>Add Spring JDBC support and a JDBC driver to your build. With Spring Boot you get helpers that wire up a DataSource when you provide the right driver and properties. No magic needed. This keeps the dependency list minimal and your startup time merciful.</p>
+
+<h2>Configure DataSource and JdbcTemplate</h2>
+<p>Expose a DataSource bean or let Spring Boot auto configure one from properties. Then create a JdbcTemplate bean that uses the DataSource or inject JdbcTemplate directly into your repository. Spring handles connections and resource cleanup while JdbcTemplate handles query execution and result extraction.</p>
+
+<h2>Create a domain model and repository</h2>
+<p>Use plain Java objects for rows. Keep fields simple and immutable when it makes sense. Create a repository class that holds SQL and mapping logic. This places SQL at a single, discoverable location and avoids interface indirection when you just want explicit queries.</p>
+
+<h2>Write SQL and map rows</h2>
+<p>Use straightforward SQL in repository methods. For mapping use RowMapper when you want full control and BeanPropertyRowMapper when column names match field names. Manual mapping pays back in clearer error messages and less accidental null field theft.</p>
+
+<h3>Row mapping tips</h3>
+<ul>
+  <li>Prefer RowMapper for custom conversions and defensive null handling.</li>
+  <li>Use BeanPropertyRowMapper for simple domain objects with matching names.</li>
+  <li>Log mismatched columns early so your app fails fast not slowly and mysteriously.</li>
+</ul>
+
+<h2>Implement CRUD methods</h2>
+<p>Use jdbcTemplate.update for insert update and delete operations and jdbcTemplate.query or jdbcTemplate.queryForObject for selects. Keep SQL statements readable and parameterized to avoid SQL injection and awkward debugging sessions. Translate SQL exceptions to meaningful application errors and handle the empty result case explicitly for single row queries.</p>
+
+<h3>Common method patterns</h3>
+<ul>
+  <li>Insert with generated key handling when you need the id back.</li>
+  <li>Update by id and return a boolean or affected row count to signal success.</li>
+  <li>Delete and return the row count so clients can decide if the world is sane.</li>
+</ul>
+
+<h2>Testing repositories and running scenarios</h2>
+<p>Use an embedded database like H2 for fast integration tests or Testcontainers for a closer match to production. Annotate tests with @JdbcTest for focused JDBC slices or use @SpringBootTest when wiring is needed. Seed test data per test so runs stay deterministic and your CI pipeline does not learn to hate you.</p>
+
+<h3>Test ideas</h3>
+<ul>
+  <li>Unit test RowMapper logic with a mocked ResultSet or a simple integration test row insertion.</li>
+  <li>Integration test CRUD flows with a clean database instance per test class or container.</li>
+  <li>Assert SQL error translations so your API returns sensible messages not stack trace art.</li>
+</ul>
+
+<h2>Final notes and pragmatic tips</h2>
+<p>JdbcTemplate is a great tool when you want readable SQL and direct control over mapping and transactions. Use RowMapper when you need precision and BeanPropertyRowMapper when you want convenience. Keep SQL close to the repository and tests close to the SQL. Your future self will thank you or at least send a mildly annoyed email.</p>
+
+<p>Helpful keywords in this guide include Spring Spring Data JdbcTemplate Java JDBC RowMapper CRUD Repository Database and Testing. Follow these patterns and your data layer will be efficient blunt and surprisingly pleasant to maintain.</p>
+

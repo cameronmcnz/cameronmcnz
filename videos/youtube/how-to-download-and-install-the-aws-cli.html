@@ -1,0 +1,80 @@
+---
+layout: video
+title: "How to Download and Install the AWS CLI"
+description: "Quick guide to download install and verify the AWS CLI on Windows macOS and Linux for ECS EC2 EKS and S3 workflows"
+video_host: "youtube"
+video_id: "-8TMWSMOhRI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/-8TMWSMOhRI/maxresdefault.jpg"
+content_url: "https://youtu.be/-8TMWSMOhRI"
+embed_url: "https://www.youtube.com/embed/-8TMWSMOhRI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS CLI
+  - awscli
+  - Amazon Web Services
+  - AWS
+  - ECS
+  - EC2
+  - EKS
+  - S3
+  - cloud
+  - command line
+---
+
+<h2>Quick warning</h2>
+<p>You are about to give your terminal the power to control your Amazon Web Services account. That is useful and slightly terrifying. Follow the steps below to download install configure and verify the AWS CLI so you can automate work with ECS EC2 EKS and S3 without accidentally deleting production data while yawning.</p>
+
+<h2>Choose a download method</h2>
+<p>Pick the option that matches your platform and bravery level. Package managers are the friendlier option for updates. Manual bundles are fine if you enjoy typing more than you should.</p>
+<ul>
+  <li>macOS use Homebrew and run <code>brew install awscli</code></li>
+  <li>Debian based Linux update then run <code>sudo apt update</code> and <code>sudo apt install awscli</code></li>
+  <li>Windows use the MSI installer or run <code>winget install Amazon.AWSCLI</code> if you like command line drama</li>
+  <li>Advanced or scripted installs use the official bundle or installers from the AWS docs and automation tools</li>
+</ul>
+
+<h2>Install the AWS CLI</h2>
+<p>Run the package manager command or double click the installer. Package managers handle updates which means less time wrestling dependencies and more time pretending automation is magic.</p>
+<p>If you see references to pip remember that AWS CLI v2 is distributed as native installers. Use pip only for specific legacy needs and with caution.</p>
+
+<h2>Configure credentials and default region</h2>
+<p>Once installed configure credentials with the interactive command. It will prompt for your Access Key ID Secret Access Key default region name and default output format.</p>
+<pre><code>aws configure</code></pre>
+<p>For CI pipelines set environment variables like <code>AWS_ACCESS_KEY_ID</code> and <code>AWS_SECRET_ACCESS_KEY</code>. For multi account work use named profiles and role assumption to avoid credential confusion and accidental chaos.</p>
+
+<h3>Named profiles and role assumptions</h3>
+<p>Create profiles with <code>aws configure --profile myprofile</code> and switch using <code>--profile myprofile</code>. For cross account access use <code>aws sts assume-role</code> from a trusted profile or configure role_arn entries in your config file. This keeps access tidy and auditable.</p>
+
+<h2>Verify the installation</h2>
+<p>Make sure the binary is talking to your shell and your credentials work. Two quick checks will prove it.</p>
+<ul>
+  <li>Check the binary version with <code>aws --version</code></li>
+  <li>Confirm credentials with a harmless API call like <code>aws sts get-caller-identity</code> or list S3 buckets with <code>aws s3 ls</code></li>
+</ul>
+
+<h2>Try basic AWS commands</h2>
+<p>Now that the CLI is installed you can do useful things fast. A few examples that work across common services are below.</p>
+<ul>
+  <li>List ECS clusters and tasks with <code>aws ecs list-clusters</code> and <code>aws ecs list-tasks --cluster yourCluster</code></li>
+  <li>Manage EKS kubeconfig with <code>aws eks update-kubeconfig --name yourCluster</code></li>
+  <li>Inspect EC2 with <code>aws ec2 describe-instances</code> for read only info</li>
+  <li>Work with S3 using <code>aws s3 ls</code> and <code>aws s3 cp</code> for simple transfers</li>
+</ul>
+<p>The AWS CLI makes scripting and automation much faster than clicking through the console. Treat scripts like code and include retry logic and sensible error handling so your automation does not become a fire drill.</p>
+
+<h2>Recap and best practices</h2>
+<ul>
+  <li>Prefer package managers for easy updates and less manual pain</li>
+  <li>Use named profiles for multiple accounts and roles for cross account access</li>
+  <li>Verify setup with <code>aws --version</code> and <code>aws sts get-caller-identity</code></li>
+  <li>Use environment variables in CI and avoid embedding credentials in code</li>
+  <li>Enable MFA and require it for sensitive roles to reduce the chance of an oops moment</li>
+</ul>
+
+<p>You now have a functioning AWS CLI and enough command line power to automate ECS EC2 EKS and S3 workflows. Go forth responsibly and remember that automation is a tool not a revenge plan.</p>
+

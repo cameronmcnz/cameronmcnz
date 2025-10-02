@@ -1,0 +1,57 @@
+---
+layout: video
+title: "Solid Open Closed Principle Example"
+description: "Practical Open Closed Principle example from SOLID showing patterns for building extensible and maintainable code."
+video_host: "youtube"
+video_id: "j9G-1TF9KkQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M34S"
+thumbnail_url: "https://i.ytimg.com/vi/j9G-1TF9KkQ/maxresdefault.jpg"
+content_url: "https://youtu.be/j9G-1TF9KkQ"
+embed_url: "https://www.youtube.com/embed/j9G-1TF9KkQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - SOLID
+  - Open Closed Principle
+  - OCP
+  - software design
+  - architecture
+  - polymorphism
+  - interfaces
+  - extensibility
+  - clean code
+  - refactoring
+---
+
+<h2>Why OCP matters in the real world</h2>
+<p>If your codebase looks like a set of landmines that explode when a product manager sneezes you need the Open Closed Principle from SOLID. The idea is simple and magical. Keep modules closed for modification so bugs do not proliferate. Keep them open for extension so new features arrive without scalpel surgery on working code. This matters for architecture quality, clean code and long term maintainability.</p>
+
+<h3>Step 1 Spot the fragile code</h3>
+<p>Hunt down long switch statements and nested if trees that change when business rules shift. Those are the spots that will cause regressions. If you find code that requires edits every time a new variant shows up you found technical debt in its natural habitat.</p>
+
+<h3>Step 2 Extract an abstraction</h3>
+<p>Create an interface or an abstract class that captures the behavior that varies. That abstraction becomes the stable contract the rest of the system relies on. Think of it as a parking space for behavior. The rest of the code cares about the contract not the implementation.</p>
+
+<h3>Step 3 Provide concrete implementations</h3>
+<p>For each variant implement the interface. Each class handles one responsibility so adding another behavior is a matter of adding a file not editing ten of them. This is where polymorphism shows up and does the heavy lifting for extensibility.</p>
+
+<h3>Step 4 Wire with factories or dependency injection</h3>
+<p>Use a factory or dependency injection so calling code depends on the abstraction not a concrete class. That turns behavior swaps into configuration work rather than surgery on production code. This is plain good architecture and a lifesaver during refactoring.</p>
+
+<h3>Step 5 Add new behavior by extending</h3>
+<p>Need a new rule or product variant Add a new class that implements the abstraction and register it with your wiring. No changes to existing classes means fewer regressions and calmer code reviews. Tests that target the abstraction will tell you quickly if the new implementation keeps the contract.</p>
+
+<h2>Practical tips that sound like common sense because they are</h2>
+<ul>
+<li>Prefer small focused interfaces. Large god interfaces scream refactor later.</li>
+<li>Write tests against the abstraction so every implementation proves it behaves like a citizen.</li>
+<li>Keep single responsibility in mind. Classes that do one thing are easier to extend and reason about.</li>
+<li>Use polymorphism for behavior changes instead of conditionals for simpler refactoring.</li>
+</ul>
+
+<h2>Recap and final snark</h2>
+<p>To apply OCP in your software design spot fragile code extract a clear abstraction provide concrete implementations wire dependencies via factories or DI and then add behavior by adding classes. Follow these steps and your codebase will be more extensible and easier to maintain. Your future self and your teammates will send you grateful but slightly suspicious messages because they do not trust miracles yet.</p>
+

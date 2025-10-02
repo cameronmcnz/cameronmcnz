@@ -1,0 +1,77 @@
+---
+layout: video
+title: "OCR with UiPath and Google Cloud Vision Example"
+description: "Learn how to integrate UiPath with Google Cloud Vision for reliable OCR extraction from images and PDFs in a simple example workflow."
+video_host: "youtube"
+video_id: "zRdpHd9qClU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M12S"
+thumbnail_url: "https://i.ytimg.com/vi/zRdpHd9qClU/maxresdefault.jpg"
+content_url: "https://youtu.be/zRdpHd9qClU"
+embed_url: "https://www.youtube.com/embed/zRdpHd9qClU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Google Cloud Vision
+  - OCR
+  - RPA
+  - Document Extraction
+  - Vision API
+  - Automation
+  - PDF OCR
+  - Text Recognition
+  - Tutorial
+---
+
+<h2>What this guide covers</h2>
+<p>Short version with attitude. You will learn how to wire UiPath to Google Cloud Vision for OCR and document extraction, handle PDF OCR and image text recognition, and keep your automation from turning into a bill fueled monster. This is practical RPA plus Vision API tips with a pinch of sarcasm and zero mystery.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+  <li>Google Cloud project with Vision API enabled</li>
+  <li>A service account and its JSON key file stored in a secure location</li>
+  <li>UiPath Studio with either UiPath.Web.Activities or the HTTP Request activity</li>
+  <li>Basic RPA skills and a willingness to debug messy PDFs</li>
+</ul>
+
+<h2>Secure your credentials</h2>
+<p>Create a service account that only has the permissions needed for OCR and download the JSON key file. Do not put this file in a shared folder called readable by everyone. Store the path as a UiPath secure asset or use an environment variable kept in your secret store. Treat credentials like actual secrets and not like sticky notes on your monitor.</p>
+
+<h2>Install the right UiPath pieces</h2>
+<p>Install UiPath.Web.Activities if you want built in helpers. If you prefer raw control you can use HTTP Request. Either way add a secure asset for the credential path so your workflow does not hard code keys. That keeps your auditors and your conscience calmer.</p>
+
+<h2>Workflow outline for OCR and PDF OCR</h2>
+<ol>
+  <li>Read files from a folder or queue</li>
+  <li>If the input is PDF convert pages to images using UiPath PDF activities or a library that preserves resolution</li>
+  <li>Base64 encode each image and build a Vision API request payload with the feature type DOCUMENT_TEXT_DETECTION for multipage documents or TEXT_DETECTION for simple images</li>
+  <li>Add language hints when text is not English to improve recognition</li>
+  <li>Send batch requests for multiple pages to reduce orchestration overhead</li>
+  <li>Parse the JSON response and map text to variables or data tables for downstream automation</li>
+</ol>
+
+<h3>How to call the Vision API in plain terms</h3>
+<p>Send the image content as base64 in the request body and request the right feature type. For complex documents prefer DOCUMENT_TEXT_DETECTION because it returns a fullTextAnnotation object with page and block structure. For simple snapshots TEXT_DETECTION works fine and is slightly cheaper. Keep requests small enough to avoid timeouts and group pages when it makes sense.</p>
+
+<h3>Parsing the response and mapping fields</h3>
+<p>Look for fullTextAnnotation for multi line extraction. The response contains text with hierarchical location data, so you can use bounding polygon information to build positional logic. Use that to map fields from invoices or forms into a DataTable or typed variables in your UiPath workflow. If you need word level locations check the blocks for boundingPoly coordinates and map them to your layout rules.</p>
+
+<h2>Error handling reliability and cost control</h2>
+<ul>
+  <li>Add retries with exponential backoff for quota and transient network failures</li>
+  <li>Catch and log HTTP errors and malformed JSON so you can fix the input later instead of crying at 2 a.m</li>
+  <li>Monitor quota and billing while testing to avoid surprise invoices</li>
+</ul>
+
+<h2>Preprocessing tips to improve recognition</h2>
+<p>OCR gets picky. Improve results by deskewing pages, increasing contrast, and ensuring DPI is high enough for text. Convert color scans to grayscale if color does not help. Batch a few preprocessing steps in UiPath to standardize images before sending them to the Vision API.</p>
+
+<h2>Testing and tuning</h2>
+<p>Use a representative sample of documents and keep track of accuracy per document type. Tune language hints, try different feature types, and adjust preprocessing until the trade off between cost and quality is acceptable. Map bounding boxes to fields and validate with simple rules to catch common misreads.</p>
+
+<h2>Final tips and parting sarcasm</h2>
+<p>Automating OCR with UiPath and Google Cloud Vision is not magic, it is careful setup plus iteration. Secure your keys, pick the right detection mode, parse fullTextAnnotation intelligently, and watch your usage. If it works well you will be praised, if it fails you will learn a lot. Either way you will be better at text recognition and document extraction than the poor soul who does it by hand.</p>
+

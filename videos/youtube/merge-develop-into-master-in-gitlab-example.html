@@ -1,0 +1,106 @@
+---
+layout: video
+title: "merge develop into master in GitLab example"
+description: "Merge develop into master using GitLab merge requests with CI checks reviews conflict resolution and release tagging"
+video_host: "youtube"
+video_id: "-XE0UuVOWbI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M33S"
+thumbnail_url: "https://i.ytimg.com/vi/-XE0UuVOWbI/maxresdefault.jpg"
+content_url: "https://youtu.be/-XE0UuVOWbI"
+embed_url: "https://www.youtube.com/embed/-XE0UuVOWbI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gitlab
+  - git
+  - merge
+  - develop
+  - master
+  - merge request
+  - ci
+  - branching
+  - rebase
+  - release
+---
+
+<article>
+  <p>Ready to shove your latest work from develop into master and pray the build does not explode? Good. This guide walks you through a sane GitLab merge request workflow that keeps CI happy and releases predictable. Expect a little command line, a little review drama, and fewer unexpected hotfixes.</p>
+
+  <h2>Quick checklist before you start</h2>
+  <ul>
+    <li>Make sure develop is up to date with origin</li>
+    <li>Run the test suite locally if you enjoy fewer surprises</li>
+    <li>Have CI pipelines configured on merge requests</li>
+    <li>Assign reviewers so the human parts get checked</li>
+  </ul>
+
+  <h2>Create a merge request in GitLab</h2>
+  <p>Open GitLab and create a merge request with develop as the source and master as the target. Give it a clear title and a short description so reviewers do not fall asleep. Mention any migration steps or deploy quirks up front so people do not waste time guessing.</p>
+
+  <h2>Run and check CI pipelines</h2>
+  <p>Wait for pipelines to finish and get a green status before merging. Use job logs to diagnose failures and re run failing jobs from the UI if needed. If a pipeline keeps failing, fix the tests or the job rather than hitting the merge button and hoping.</p>
+
+  <h3>Troubleshooting failing jobs</h3>
+  <ul>
+    <li>Inspect the job logs for failing commands</li>
+    <li>Reproduce the failure locally when possible</li>
+    <li>Rerun jobs in GitLab after pushing a small fix</li>
+  </ul>
+
+  <h2>Request review and collect approvals</h2>
+  <p>Assign reviewers and request approvals. Keep reviews focused on behavior and tests rather than nitpicking formatting. Small focused reviews merge faster and reduce the chance of arguments that derail the release.</p>
+
+  <h2>Resolve merge conflicts locally by rebasing or merging</h2>
+  <p>If GitLab reports conflicts you need to resolve them locally. Two common approaches are rebase and merge. Rebase keeps history linear and is nice for tidy repos. Merge preserves the original branch history.</p>
+
+  <pre><code>git fetch origin
+# Option A keep a linear history with rebase
+git checkout develop
+git rebase origin/master
+# fix conflicts, then
+# git add files and git rebase --continue
+git push --force-with-lease origin develop
+
+# Option B merge master into develop
+git checkout develop
+git merge origin/master
+# resolve conflicts, commit and push
+git push origin develop
+</code></pre>
+
+  <p>After resolving conflicts push the updated develop branch and let CI run again. Once pipelines are green and approvals are in place you can complete the merge.</p>
+
+  <h2>Merge in GitLab or do it locally</h2>
+  <p>Use the GitLab merge button to keep things simple. The platform will perform a fast forward or a merge commit depending on project settings. If you prefer doing the final merge locally use these commands.</p>
+
+  <pre><code>git checkout master
+git fetch origin
+git merge develop
+git push origin master
+</code></pre>
+
+  <h2>Tag master and create a release</h2>
+  <p>Tagging master marks the release point and makes life easier for deployment and rollbacks.</p>
+
+  <pre><code>git checkout master
+git tag -a v1.2.3 -m 'release'
+git push origin v1.2.3
+</code></pre>
+
+  <p>Alternatively use the GitLab release UI to create a nicer release page with notes and links. Either way, keep your release naming consistent so your next self does not curse you.</p>
+
+  <h2>Summary and best practices</h2>
+  <ul>
+    <li>Create a merge request from develop into master</li>
+    <li>Run and verify CI pipelines</li>
+    <li>Request focused reviews and get approvals</li>
+    <li>Resolve conflicts by rebasing or merging locally</li>
+    <li>Merge via the UI or locally and tag master for release</li>
+  </ul>
+
+  <p>Following this workflow with GitLab and git keeps your branching and release process predictable. It will not eliminate all chaos but it will reduce the number of midnight panic deploys that end with everyone blaming the CI server.</p>
+</article>
+

@@ -1,0 +1,80 @@
+---
+layout: video
+title: "git clone depth 1 example"
+description: "Learn how to use git clone depth 1 to create a shallow clone that saves time and bandwidth when full history is not needed"
+video_host: "youtube"
+video_id: "HnQCcri5hLc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M29S"
+thumbnail_url: "https://i.ytimg.com/vi/HnQCcri5hLc/maxresdefault.jpg"
+content_url: "https://youtu.be/HnQCcri5hLc"
+embed_url: "https://www.youtube.com/embed/HnQCcri5hLc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git clone
+  - shallow clone
+  - depth 1
+  - git tutorial
+  - clone example
+  - save bandwidth
+  - git fetch
+  - single branch
+  - ci optimization
+---
+
+<article>
+  <h1>Quick shallow clone strategies for CI and local experiments with depth 1</h1>
+  <p>If you want the latest commit without hauling the entire ancestry like a digital archaeologist then shallow cloning with git is your friend. This guide shows how to use git clone with depth 1 to save bandwidth and time while staying technically correct and mildly sarcastic.</p>
+
+  <h2>What a shallow clone does</h2>
+  <p>A shallow clone downloads only the most recent commits up to the depth you request. With depth 1 you get the tip of the tree and none of the dusty history. That means faster transfers cheaper disk usage and less waiting while your CI pipeline pretends to be productive.</p>
+
+  <h2>Run a shallow clone</h2>
+  <p>To perform a minimal clone replace REPO_URL with your repository address and run this command in a safe environment not your public logs.</p>
+  <pre><code>git clone --depth 1 REPO_URL</code></pre>
+  <p>This will fetch only the latest snapshot and the most recent commit metadata. Perfect for quick builds tests and poking around without downloading decades of commits.</p>
+
+  <h2>Verify the clone and check history</h2>
+  <p>Want proof that you did not accidentally import the full Church of Committers? Inspect the history with a compact log view.</p>
+  <pre><code>git log --oneline</code></pre>
+  <p>You should see a small list of recent commits. If you see hundreds then either the repo is tiny or someone lied to you about depth.</p>
+
+  <h2>Fetch more history when needed</h2>
+  <p>If your work requires more than the tip of the tree you do not have to reclone. Ask the repo politely for the rest of the timeline.</p>
+  <pre><code>git fetch --unshallow
+# or to fetch N more commits
+git fetch --depth 50</code></pre>
+  <p>These commands convert the shallow boundary into a deeper or full history. Use them when you need to bisect rebase or understand why someone made that awful commit message.</p>
+
+  <h2>Clone a single branch shallowly</h2>
+  <p>If only one branch matters use branch and single branch flags to avoid downloading other branch heads. This keeps disk and bandwidth usage low which is great for CI optimization and for humans who hate waiting.</p>
+  <pre><code>git clone --branch BRANCH --single-branch --depth 1 REPO_URL</code></pre>
+
+  <h2>Convert a shallow clone to a full clone</h2>
+  <p>Development sometimes gets real and you will need the full history for deep debugging bisecting or rewriting history responsibly. To remove the shallow restriction run this.</p>
+  <pre><code>git fetch --unshallow
+# then verify
+git log --oneline</code></pre>
+
+  <h2>When to use shallow clones in CI and when not</h2>
+  <ul>
+    <li>Use shallow clones in CI to get fast builds and save bandwidth especially for ephemeral jobs and quick tests.</li>
+    <li>Avoid shallow clones when you plan to do deep history operations like bisecting complex bugs or rewriting commits.</li>
+    <li>If you need tags annotated history or accurate blame information then prefer a deeper clone.</li>
+  </ul>
+
+  <h2>Quick checklist</h2>
+  <ul>
+    <li>To save bandwidth use git clone --depth 1 REPO_URL</li>
+    <li>To inspect what you got use git log --oneline</li>
+    <li>To add history later use git fetch --unshallow</li>
+    <li>To limit to one branch use --branch and --single-branch</li>
+  </ul>
+
+  <p>Shallow clones are a pragmatic tool for CI optimization quick experiments and conserving resources. They are not a substitute for full history when you need to dig deep. Use them wisely and remember that shortcuts are great until you need to trace why a bug appeared in 2013.</p>
+</article>
+

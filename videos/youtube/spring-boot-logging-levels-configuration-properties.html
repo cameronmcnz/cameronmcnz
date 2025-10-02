@@ -1,0 +1,83 @@
+---
+layout: video
+title: "Spring Boot Logging Levels Configuration & Properties"
+description: "Practical guide to Spring Boot logging levels configuration starter properties patterns paths and debug options for clearer logs"
+video_host: "youtube"
+video_id: "9UCwNuiBDps"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT22M39S"
+thumbnail_url: "https://i.ytimg.com/vi/9UCwNuiBDps/maxresdefault.jpg"
+content_url: "https://youtu.be/9UCwNuiBDps"
+embed_url: "https://www.youtube.com/embed/9UCwNuiBDps"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - spring boot
+  - logging
+  - logback
+  - application.properties
+  - log levels
+  - debug
+  - configuration
+  - starter properties
+  - logging pattern
+  - spring-boot-starter-logging
+---
+
+<p>So your app is noisy at 3 AM and you need to stop the chaos without reinventing the JVM or sacrificing your sleep. This guide walks through Spring Boot log levels, application properties and starter behavior with a healthy dose of sarcasm and zero mystery. You will learn how to set sensible defaults, silence the drama queens in third party libs and enable fine grained debug when an incident screams for attention.</p>
+
+<h2>Understand logging levels and when to use them</h2>
+<p>Logging levels are the traffic lights of runtime troubleshooting. Use them well and you find the bug. Use them badly and you spend nights chasing stack traces from libraries you never meant to care about.</p>
+<ul>
+  <li><strong>TRACE</strong> - The tiny font under the microscope. Use only when you need every step logged.</li>
+  <li><strong>DEBUG</strong> - Useful for dev time and careful detective work.</li>
+  <li><strong>INFO</strong> - Baseline for normal application events and startup messages.</li>
+  <li><strong>WARN</strong> - Things to watch but not panic about yet.</li>
+  <li><strong>ERROR</strong> - Real problems that need attention.</li>
+  <li><strong>OFF</strong> - Silence. May be used in extreme cases where logging is a performance hog.</li>
+</ul>
+<p>Tip - prefer package specific levels over global TRACE. Silence noisy libraries with WARN while elevating detail for the package under investigation. This keeps logs useful and your pager less grumpy.</p>
+
+<h2>Configure application properties the boring and correct way</h2>
+<p>Spring Boot reads properties from application.properties or application.yml by default. Set a global level and then raise or lower detail per package. No rebuild required for most runtime changes if you use environment or JVM properties.</p>
+<pre><code>logging.level.root=INFO
+logging.level.com.example=DEBUG
+logging.file.name=application.log
+logging.file.path=/var/log/myapp</code></pre>
+<p>The first line sets a sensible baseline. The second line gives extra detail for your app package while leaving third party libs quieter. Use logging.file.name or logging.file.path based on whether you want a specific filename or a directory.</p>
+
+<h2>Manage the logging starter and alternatives</h2>
+<p>Spring Boot includes spring-boot-starter-logging out of the box which wires up Logback. Keep it if you like sane defaults and a small learning curve. If you need fancier features switch to a Log4j2 starter but know that you then change config formats and behavior.</p>
+<ul>
+  <li>Keep spring-boot-starter-logging for default Logback support and simple configuration</li>
+  <li>Replace it with a Log4j2 starter for advanced appenders and filters</li>
+  <li>Removing or swapping starters changes which files Spring Boot will load at startup</li>
+</ul>
+
+<h2>Customize console and file patterns</h2>
+<p>Patterns control timestamp format, thread name, level, logger and message. Make them readable for humans and parsable for log collectors. Here is a minimal console pattern that works well.</p>
+<pre><code>logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} - %level - %logger - %msg%n</code></pre>
+<p>Adjust the date format and included fields to suit your log aggregation tool. If you write to files make sure the runtime container has write permission to the target path.</p>
+
+<h2>Use runtime overrides for fast debugging</h2>
+<p>When production misbehaves avoid rebuilding the artifact. Override properties at JVM startup or via environment variables. Those take precedence over the packaged application properties which is perfect for urgent investigations.</p>
+<ul>
+  <li>JVM system property example to enable trace for one package
+    <pre><code>-Dlogging.level.com.example=TRACE</code></pre>
+  </li>
+  <li>Command line or environment variables work too and are great for containers and cloud deployments</li>
+</ul>
+
+<h2>Quick troubleshooting checklist</h2>
+<ul>
+  <li>Set root to INFO and enable DEBUG only for the package under test</li>
+  <li>Use logging.file.name for a specific filename or logging.file.path for a directory layout</li>
+  <li>Keep spring-boot-starter-logging unless you need Log4j2 features</li>
+  <li>Prefer structured logs or a stable pattern when using log collectors</li>
+  <li>When you are done debugging return levels to sane values so your disk and inbox survive</li>
+</ul>
+
+<p>Follow these steps and you will have clearer logs, faster investigations and fewer midnight calls. If that sounds like magic it is not. It is just good properties and the occasional stern glare at noisy libraries.</p>
+

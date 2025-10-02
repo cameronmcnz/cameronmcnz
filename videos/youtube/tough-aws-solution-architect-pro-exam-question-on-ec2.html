@@ -1,0 +1,58 @@
+---
+layout: video
+title: "Tough AWS Solution Architect Pro Exam Question on EC2"
+description: "Compact guide to EC2 placement groups and exam logic for AWS Solution Architect Professional level"
+video_host: "youtube"
+video_id: "NHvZVeAxFc4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M1S"
+thumbnail_url: "https://i.ytimg.com/vi/NHvZVeAxFc4/maxresdefault.jpg"
+content_url: "https://youtu.be/NHvZVeAxFc4"
+embed_url: "https://www.youtube.com/embed/NHvZVeAxFc4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - EC2
+  - Placement Groups
+  - Cluster Placement
+  - Partition Placement
+  - Spread Placement
+  - Solution Architect
+  - Certification
+  - Exam Tips
+  - High Performance Computing
+---
+
+<h2>Why EC2 placement groups matter in the exam</h2>
+<p>If you want to look like you know what you are doing on exam day placement groups are the small set of options that reveal big intentions. AWS EC2 placement groups affect network performance and fault domains so the question will often hide the right answer in a single requirement. Learn these three types and you will stop guessing and start selecting like a pro.</p>
+
+<h3>Cluster placement group</h3>
+<p>Cluster placement groups pack instances into a single availability zone to get maximum network throughput and lowest latency. This is the usual high performance computing choice when workloads are tightly coupled and care about latency above everything else. One exam hard rule to remember is cluster placement group cannot span multiple availability zones. If cross AZ or multi AZ is mentioned do not pick cluster.</p>
+
+<h3>Partition placement group</h3>
+<p>Partition placement groups split your fleet into logical partitions that map to different racks or fault domains. That reduces blast radius while keeping some proximity so you get a balance between performance and fault isolation. Partition placement groups can span availability zones which makes them a favorite for stateful distributed systems when you want protection but not the full isolation of a spread.</p>
+
+<h3>Spread placement group</h3>
+<p>Spread placement groups put each instance on distinct hardware to maximize availability for a small number of critical instances. This is the move for single node databases masters or other tiny sets of components where you want them far apart. Keep in mind there are limits on how many instances you can place in a spread group so always check account quotas if the question gives big instance counts.</p>
+
+<h2>Quick exam decision checklist</h2>
+<p>Read the scenario and mark mandatory constraints first. Exam writers love throwing optional preferences in to confuse you. Use this checklist to pick cluster partition or spread without crying.</p>
+<ul>
+<li>If the requirement is low latency inside a single availability zone pick cluster placement group.</li>
+<li>If you need isolation across racks or reduced blast radius and you may span zones pick partition placement group.</li>
+<li>If you have a very small number of critical instances that must avoid shared hardware pick spread placement group.</li>
+<li>If the scenario requires cross availability zones avoid cluster placement group.</li>
+<li>Double check instance counts and account limits before choosing spread placement group.</li>
+</ul>
+
+<h2>Practical example and exam habit</h2>
+<p>If you need to show a command on scratch paper this AWS CLI example is safe and factual.</p>
+<pre><code>aws ec2 create-placement-group --group-name exam-cluster --strategy cluster</code></pre>
+
+<p>On the exam make two quick notes. One list the must have constraints. One list what is optional. That usually exposes the single requirement that decides cluster partition or spread. Practice a few scenarios involving high performance computing distributed systems and fault tolerance and you will start spotting the right choice faster than the question writer can hide it.</p>
+
+<p>Final exam day thought If you pick wrong at least you will have picked with confidence and a mild sense of superiority. Try not to gloat in the break room.</p>
+

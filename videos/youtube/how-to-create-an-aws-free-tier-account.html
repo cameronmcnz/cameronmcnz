@@ -1,0 +1,62 @@
+---
+layout: video
+title: "How to Create an AWS Free Tier Account"
+description: "Step by step guide to sign up for AWS Free Tier and start using S3 EC2 and Bedrock with security and cost tips"
+video_host: "youtube"
+video_id: "u-Qoh6ts46U"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT56S"
+thumbnail_url: "https://i.ytimg.com/vi/u-Qoh6ts46U/maxresdefault.jpg"
+content_url: "https://youtu.be/u-Qoh6ts46U"
+embed_url: "https://www.youtube.com/embed/u-Qoh6ts46U"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - Free Tier
+  - S3
+  - EC2
+  - Bedrock
+  - Cloud
+  - AWS account
+  - Signup
+  - Tutorial
+  - Beginners
+---
+
+<h2>Welcome and ground rules</h2>
+<p>Want a cloud playground without accidentally buying the moon This guide walks you through creating an AWS Free Tier account and taking your first cautious steps with S3 EC2 and Bedrock while keeping the billing gremlins at bay. It is written for beginners who like learning and dislike unexpected charges.</p>
+
+<h2>Create your AWS account</h2>
+<p>Go to the AWS console signup page and enter an email and a strong password you will actually remember or store in a password manager. Use an address you check because AWS will send confirmations and important alerts there. Yes it sounds basic but you would be amazed.</p>
+
+<h3>Verify identity and add a payment method</h3>
+<p>A credit or debit card is required for identity checks. AWS usually does not charge for Free Tier eligible resources but it will validate the card with a small authorization hold that disappears. Configure billing alerts right away so you are not surprised if something you launched was not Free Tier eligible.</p>
+
+<h3>Activate Free Tier features and read the limits</h3>
+<p>The Free Tier gives you specific monthly allowances such as 750 hours of t2.micro or t3.micro EC2 time and a few gigabytes of S3 storage for the first 12 months for new accounts. Read the usage limits for the services you plan to try and set up a budget or alarms in the billing dashboard to avoid accidental overuse.</p>
+
+<h2>Lock down access and stop using root</h2>
+<p>Do not use the root account for everyday tasks. Enable multi factor authentication on the root account and then create an IAM user for daily work. Grant that user AdministratorAccess for learning if you are comfortable but store credentials securely and rotate keys if you use programmatic access.</p>
+
+<h2>Launch a simple S3 bucket</h2>
+<p>Create a new S3 bucket with default settings for testing. Keep it private unless you actually want to host a public file. Upload a small test file and check access in the console. This is a low risk way to confirm your account works and to learn the console UI.</p>
+
+<h2>Start an EC2 micro instance</h2>
+<p>In the EC2 console launch a t2.micro or t3.micro instance that is listed as Free Tier eligible. Pick a simple Amazon Linux or Ubuntu image and use the default security group rules for testing. Connect with SSH to confirm the instance boots. Monitor hours used so you do not exceed the monthly allowance.</p>
+
+<h2>Explore Bedrock without burning money</h2>
+<p>Bedrock has neat examples in the console and SDK quick starts you can run. Try the sample calls and small requests while watching your usage and any costs. Some Bedrock features are not covered by Free Tier and will charge, so treat Bedrock like a fancy expensive toy until you understand its billing model.</p>
+
+<h2>Monitor usage and cleanup</h2>
+<ul>
+  <li>Set a budget and billing alarms in the billing console to catch surprises early.</li>
+  <li>Use the Free Tier usage alerts and check the billing dashboard weekly while you are experimenting.</li>
+  <li>Terminate test EC2 instances and delete test S3 buckets when you are done to avoid creeping costs.</li>
+</ul>
+
+<h2>Parting advice</h2>
+<p>If you follow these steps you will have a functioning AWS account ready to explore S3 EC2 and Bedrock without a surprise bill landing on your credit card. Read usage limits, lock down access, and clean up test resources. Now go provision something and behave yourself in the cloud.</p>
+

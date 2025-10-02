@@ -1,0 +1,79 @@
+---
+layout: video
+title: "Spring Hello World Example #boot #java #di #ioc"
+description: "Quick Spring Boot Hello World tutorial covering beans dependency injection and running on Tomcat for Java developers"
+video_host: "youtube"
+video_id: "SnLZ0CEEjDw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT15M18S"
+thumbnail_url: "https://i.ytimg.com/vi/SnLZ0CEEjDw/maxresdefault.jpg"
+content_url: "https://youtu.be/SnLZ0CEEjDw"
+embed_url: "https://www.youtube.com/embed/SnLZ0CEEjDw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring
+  - HelloWorld
+  - SpringBoot
+  - Java
+  - DI
+  - IoC
+  - Tomcat
+  - SpringBean
+  - Tutorial
+  - Example
+---
+
+<h2>Quick summary for people who like to ship</h2>
+<p>Want to prove that dependency injection actually works and not just in conference slides This tiny Spring Boot Hello World example uses a Spring bean and a startup runner to print or serve a greeting on embedded Tomcat It is the kind of minimal setup that teaches IoC without drama</p>
+<h3>What you need before pretending to be productive</h3>
+<ul>
+  <li>JDK 8 or later</li>
+  <li>Maven or Gradle for dependency management</li>
+  <li>Any IDE that will stop crying when you fix imports</li>
+</ul>
+<h3>Core steps you will actually follow</h3>
+<ol>
+  <li>Bootstrap a Spring Boot project using start.spring.io or your IDE and include Spring Web</li>
+  <li>Define a Spring bean with @Component or @Service that returns a greeting string</li>
+  <li>Inject that bean into a runner that implements CommandLineRunner or into a @RestController using constructor injection</li>
+  <li>Start the app by running the main method or using your build tool with the Spring Boot plugin so embedded Tomcat comes alive</li>
+  <li>Verify by watching the console for a println or by hitting the HTTP endpoint if you made a controller</li>
+</ol>
+<h3>Why this works in plain English</h3>
+<p>Spring Boot wires a bean you declare into the places you need it This is inversion of control in practice Not magic just configuration and a framework doing the heavy lifting Constructor injection keeps dependencies explicit and easy to test If your app prints Hello World it means the bean was found and injected correctly and Tomcat can serve requests</p>
+<h3>Example structure without the fluff</h3>
+<pre><code>// Greeting service as a Spring bean
+@Component
+public class GreetingService {
+    public String greet() {
+        return "Hello World"
+    }
+}
+
+// Runner that executes at startup
+@Component
+public class AppRunner implements CommandLineRunner {
+    private final GreetingService greetingService
+
+    public AppRunner(GreetingService greetingService) {
+        this.greetingService = greetingService
+    }
+
+    @Override
+    public void run(String... args) {
+        System.out.println(greetingService.greet())
+    }
+}
+</code></pre>
+<p>Use a @RestController instead of CommandLineRunner if you prefer to serve the greeting over HTTP Then inject the same GreetingService into the controller constructor and return the greeting from a handler method</p>
+<h3>Tips that save time and future regret</h3>
+<ul>
+  <li>Prefer constructor injection because testing gets less awkward and reflection gets less involved</li>
+  <li>Let Spring manage beans with @Component or @Service for simple cases</li>
+  <li>If you want a web endpoint include Spring Web so embedded Tomcat is added automatically</li>
+</ul>
+<p>This minimal example teaches the essentials of Spring Boot dependency injection IoC and lifecycle without pulling you into configuration quicksand Build on it when you are brave enough to add more features and worse dependencies</p>
+

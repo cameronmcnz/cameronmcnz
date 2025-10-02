@@ -1,55 +1,78 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you: 
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
+# ---- Site basics ----
+title: Software Development and Cloud Computing Expertise, Advice and Certification Tips
+description: A place for developers, DevOps engineers, Cloud Practitioners and AI & ML architects to share ideas and thoughts.
+email: info@mcnz.com
+url: "https://www.mcnz.com"
+baseurl: ""                # keep "" for root at apex domain
+timezone: America/Toronto
+permalink: none
 
-title: Your awesome title
-email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
 
-# Build settings
-theme: minima
+
+# Remove minima if you’re using custom layouts
+# theme: minima
+
+incremental: true
+watch: true
+
+# ---- Build & markdown ----
+markdown: kramdown
+kramdown:
+  input: GFM
+highlighter: rouge
+sass:
+  style: compressed
+
+# ---- Plugins (safe, non-intrusive)
 plugins:
-  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-redirect-from
+  - jekyll-include-cache
+  # - jekyll-feed           # enable if you have a blog
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+# ---- Include / Exclude ----
+include:
+  - ".well-known"          # lets you serve /.well-known/*
+exclude:
+  - node_modules
+  - vendor
+  - README.md
+  - package.json
+  - package-lock.json
+  - yarn.lock
+  - scripts
+  - "**/*.map"             # optional: stops maps from being copied if present
+
+
+# ---- Defaults (front-matter fallbacks) ----
+defaults:
+  - scope:
+      path: ""             # everything
+      type: exams
+    values:
+      layout: exam         # your custom layout: _layouts/exam.html
+      toc: false
+      sitemap: true
+
+  - scope:
+      path: "aws/practitioner"
+    values:
+      exam_type: "AWS"
+      exam_name: "Cloud"
+      exam_level: "Practitioner"
+
+# ---- SEO tag config (used by jekyll-seo-tag)
+logo: /assets/images/logo.png
+social:
+  name: Certification Exams Pro
+  links:
+    - https://x.com/yourhandle
+    - https://github.com/yourorg
+
+# ---- Production vs Dev overrides (optional)
+# Create _config.dev.yml and run: jekyll serve --config _config.yml,_config.dev.yml
+# Example _config.dev.yml:
+# url: "http://localhost:4000"
+# baseurl: ""
+# jekyll_env: development

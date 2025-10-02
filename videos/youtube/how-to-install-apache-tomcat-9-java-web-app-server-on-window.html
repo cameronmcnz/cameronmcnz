@@ -1,0 +1,81 @@
+---
+layout: video
+title: "How to install Apache Tomcat 9 Java web app server on Window"
+description: "Quick guide to install Apache Tomcat 9 on Windows for Java web apps with Java setup Tomcat install service and deploy a WAR fast."
+video_host: "youtube"
+video_id: "t6T_ShrP5BU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M34S"
+thumbnail_url: "https://i.ytimg.com/vi/t6T_ShrP5BU/maxresdefault.jpg"
+content_url: "https://youtu.be/t6T_ShrP5BU"
+embed_url: "https://www.youtube.com/embed/t6T_ShrP5BU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Apache Tomcat
+  - Tomcat 9
+  - Tomcat installation
+  - Java
+  - Java web app
+  - Windows
+  - Tomcat Windows
+  - JAVA_HOME
+  - deploy WAR
+  - web server
+---
+
+<article>
+  <h2>Why this exists and what you will get</h2>
+  <p>Yes this guide will get Apache Tomcat 9 running on Windows and teach you how to deploy a Java web app. Think of it as a rescue mission for impatient developers and curious sysadmins. You will install a compatible Java JDK set JAVA_HOME optionally set CATALINA_HOME choose the installer or unzip the binary register or run Tomcat start the server and drop a WAR into webapps. No black magic involved just a few clicks and some mild swearing if the PATH is wrong.</p>
+
+  <h2>Make sure Java is actually installed</h2>
+  <p>Tomcat 9 runs on the Java platform so you need a JDK not just a JRE if you plan to develop or compile. To verify open a Command Prompt and run the usual checks.</p>
+  <pre><code>java -version
+javac -version</code></pre>
+  <p>If these commands return versions you are golden. If not go grab a JDK from a trusted vendor and install it. Do not use the JRE if you want to avoid weird runtime surprises.</p>
+
+  <h2>Download Tomcat 9 binary or use the Windows installer</h2>
+  <p>Pick your adventure. The Windows service installer is friendly and sets up a service for you. The zip gives manual control which is great when you enjoy extra steps and tiny human triumphs.</p>
+  <ul>
+    <li>Installer: runs a GUI adds a Windows service and writes basic config files.</li>
+    <li>Zip archive: extract it to a clean folder like C:\tomcat9 for manual installs and fine tuning.</li>
+  </ul>
+
+  <h2>Set JAVA_HOME and optional CATALINA_HOME</h2>
+  <p>Tomcat needs to find the JDK. Windows environment variables are the polite way to tell it where Java lives. You can set them through the system settings or with setx if you like typing things in a terminal.</p>
+  <pre><code>setx JAVA_HOME "C:\Program Files\Java\jdk-11.0.12"
+setx CATALINA_HOME "C:\tomcat9"</code></pre>
+  <p>After using setx open a new Command Prompt to pick up the changes. JAVA_HOME should point at the JDK folder and CATALINA_HOME is only required for the zip style install but it makes paths clearer.</p>
+
+  <h2>Install or unzip Tomcat and configure the service</h2>
+  <p>If you used the Windows installer you probably clicked through and chose ports and a service account. If you used the zip then extract to a tidy folder and register the service if you want it to run as a Windows service.</p>
+  <pre><code>cd C:\tomcat9\bin
+service.bat install</code></pre>
+  <p>Run those commands from an elevated prompt to register the service. If service.bat is not present you may have the installer variant already in place. For manual testing just run bin\startup.bat or bin\catalina.bat run.</p>
+
+  <h2>Start Tomcat and check the web server</h2>
+  <p>Once Tomcat starts open a browser and point it at the default port. The usual address is http://localhost:8080 and you should see the Tomcat welcome page if all is well. If the page is blank or you get a port error check the logs and the server.xml Connector port attribute.</p>
+  <pre><code>bin\startup.bat
+or
+bin\catalina.bat run</code></pre>
+
+  <h2>Deploy a WAR and watch the logs</h2>
+  <p>Deploying a Java web app is as low drama as it gets. Drop yourapp.war into the webapps folder and Tomcat will explode into life by unpacking and deploying it automatically. If it fails check the logs in the logs folder for clues.</p>
+  <pre><code>copy myapp.war C:\tomcat9\webapps\
+then watch logs\catalina.*.log</code></pre>
+  <p>Common issues include wrong JAVA_HOME missing libraries and port collisions. Fix the complaint then restart Tomcat.</p>
+
+  <h3>Quick tips and realistic warnings</h3>
+  <ul>
+    <li>If port 8080 is already taken edit conf\server.xml and change the Connector port value to something that is free.</li>
+    <li>When running as a service use the services manager to start stop or configure the service account if needed.</li>
+    <li>Remember to check file permissions for the Tomcat folders if you see permission denied errors on Windows.</li>
+    <li>For production do not use the default manager or admin accounts and lock down access to the web server.</li>
+  </ul>
+
+  <h2>Summary of the essentials</h2>
+  <p>Install a compatible JDK set JAVA_HOME choose the installer or unzip Tomcat optionally set CATALINA_HOME start Tomcat check http://localhost:8080 and deploy your WAR by dropping it in webapps. You did it and now you can deploy a Java web app on Tomcat 9 running under Windows. Give yourself a small victory dance or at least a quiet nod of satisfaction.</p>
+</article>
+

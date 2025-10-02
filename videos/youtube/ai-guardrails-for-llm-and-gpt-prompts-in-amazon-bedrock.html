@@ -1,0 +1,30 @@
+---
+layout: video
+title: "AI Guardrails for LLM and GPT Prompts in Amazon Bedrock"
+description: "Practical guide to enforce AI guardrails for prompts and models on Amazon Bedrock and SageMaker using AWS Control Tower and runtime controls"
+video_host: "youtube"
+video_id: "ld1zCXhnJCY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT58S"
+thumbnail_url: "https://i.ytimg.com/vi/ld1zCXhnJCY/maxresdefault.jpg"
+content_url: "https://youtu.be/ld1zCXhnJCY"
+embed_url: "https://www.youtube.com/embed/ld1zCXhnJCY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - Amazon Bedrock
+  - SageMaker
+  - AI guardrails
+  - prompt engineering
+  - AWS Control Tower
+  - security
+  - data protection
+  - model monitoring
+  - best practices
+---
+
+<h2>Quick summary that spares no one</h2><p>If you run LLMs on Amazon Bedrock or SageMaker and you do not want awkward incident reports or regulatory bills, you need layered AI guardrails. This guide maps real world steps for account governance network and runtime controls with a sprinkle of sarcasm and no nonsense. Expect advice on AWS Control Tower Service Control Policies VPC endpoints S3 bucket policies KMS encryption prompt preprocessing and response monitoring.</p><h2>Start with account governance so developers do not reinvent fire</h2><p>Account governance is the control plane that keeps humans from creating chaos. Use AWS Control Tower to centralize accounts and apply Service Control Policies to stop risky actions before they happen. Add AWS Config rules to detect drift and enforce standards.</p><ul><li>Use Control Tower to standardize account baselines and landing zones</li><li>Apply strict SCPs so only approved services and actions are allowed</li><li>Monitor compliance with AWS Config and send alerts to a ticketing system</li></ul><p>Yes this sounds boring. It also prevents someone from running a model with full S3 access and zero judgment.</p><h2>Harden network and data paths because leaks are surprisingly loud</h2><p>Network controls stop data from casually walking out the door. Put Bedrock and SageMaker endpoints behind VPC endpoints. Lock S3 with bucket policies and require KMS encryption for all keys. That reduces accidental public buckets and suspicious egress.</p><ul><li>Use VPC endpoints for Bedrock and SageMaker endpoints so traffic stays private</li><li>Enforce strict S3 bucket policies and block public access</li><li>Require KMS encryption and proper key policies for sensitive artifacts</li></ul><p>These steps are the equivalent of locking the doors and windows before you invite the AI in for dinner.</p><h2>Least privilege is not optional</h2><p>IAM roles should be tight and boring. Create narrowly scoped roles for model invocation logging and data access. Avoid broad permissions granted for convenience unless your plan is chaos.</p><ul><li>Split duties with separate roles for deployment monitoring and data science</li><li>Use condition keys and resource ARNs to restrict access by environment</li><li>Require MFA and approval for any role that can move data between accounts</li></ul><h2>Preprocess prompts to stop secrets and weird requests at the door</h2><p>Prompt engineering is your first line of runtime defense. Run PII detectors and redact deterministically. Keep blocklists and simple classifiers that flag or reject risky prompts before they reach the model. Add a lightweight moderation gate for high risk traffic.</p><ul><li>Detect and redact PII prior to sending prompts to the model</li><li>Use deterministic redaction so logs never accidentally reveal secrets</li><li>Maintain blocklists for obvious forbidden content and a classifier for edge cases</li></ul><p>Prompt preprocessing is cheap insurance compared to a data leak apology meeting.</p><h2>Monitor responses and treat outputs like evidence</h2><p>Send inference outputs to secure storage and feed metrics to SageMaker Model Monitor or custom detectors. Look for toxicity hallucinations and data leaks. Log prompts responses and metadata with access controls so you can run a postmortem that is actually useful.</p><ul><li>Log inference inputs outputs and provenance to a secure audit store</li><li>Use SageMaker Model Monitor to detect distribution drift and unexpected behavior</li><li>Fire alarms for toxicity hallucinations or any sign of data exfiltration</li></ul><h2>Automate tests and approval gates in CI CD so humans do not forget</h2><p>Integrate prompt and model tests into your CI CD pipelines. Add approval gates for production endpoints and require security signoff for new model versions. Run synthetic adversarial prompts so you know how your system behaves when it thinks it is clever.</p><ul><li>Include unit tests for prompt transformations and PII redaction</li><li>Automate integration tests that exercise the endpoint with representative traffic</li><li>Require manual approval for new model deployments to prod</li></ul><h3>Final takeaway</h3><p>Layer account and runtime guardrails together and you get defense in depth that actually works. Use AWS Control Tower SCPs and Config for governance. Harden networks with VPC endpoints S3 rules and KMS. Apply least privilege to IAM. Preprocess prompts and monitor responses with SageMaker Model Monitor and logs. Automate tests and approval gates in CI CD and you will sleep better knowing your models are less likely to leak secrets or go off script.</p><p>If you want to be really safe add regular audits and tabletop exercises so the team practices not panicking when something goes wrong.</p>
+

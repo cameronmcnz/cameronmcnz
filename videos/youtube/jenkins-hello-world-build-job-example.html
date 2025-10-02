@@ -1,0 +1,87 @@
+---
+layout: video
+title: "Jenkins Hello World Build Job Example"
+description: "Step by step Jenkins Hello World build job tutorial for beginners showing how to create a freestyle job run a build and view console output"
+video_host: "youtube"
+video_id: "umDRrQ08Awk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M33S"
+thumbnail_url: "https://i.ytimg.com/vi/umDRrQ08Awk/maxresdefault.jpg"
+content_url: "https://youtu.be/umDRrQ08Awk"
+embed_url: "https://www.youtube.com/embed/umDRrQ08Awk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Hello World
+  - build job
+  - freestyle
+  - CI
+  - continuous integration
+  - console output
+  - Jenkins tutorial
+  - Jenkins beginner
+  - Jenkinsfile
+---
+
+<h2>Quick overview</h2>
+<p>Welcome to the tiniest possible CI triumph. This guide walks a Jenkins beginner through creating a freestyle build job that prints Hello World to the console output and runs manually or on a schedule. It is simple enough to be boring and useful enough to justify your existence as a CI human.</p>
+
+<h2>What you need first</h2>
+<ul>
+  <li>Jenkins installed and running on your host, for example localhost port 8080</li>
+  <li>An account that can create jobs</li>
+  <li>A node or agent that can run shell or Windows batch commands</li>
+</ul>
+
+<h2>Create the Hello World build job</h2>
+<ol>
+  <li>Open the Jenkins web UI and click New Item</li>
+  <li>Give the job a name like Hello World and choose Freestyle project then click OK</li>
+  <li>Under Build add a build step Execute shell for Linux agents or Windows batch command for Windows agents</li>
+  <li>Enter the command echo Hello World for Linux or echo Hello World for Windows</li>
+  <li>Save the job</li>
+</ol>
+
+<h2>Run the build and check the logs</h2>
+<p>Click Build Now to trigger a manual run. Open the build from the build history and select Console Output to see the Hello World line along with the usual build logs. If the agent is happy you will see Hello World followed by normal status messages and a build success message.</p>
+
+<h3>Quick console output sample</h3>
+<pre><code>Building on master in workspace /var/lib/jenkins/workspace/Hello World
+[workspace] Running shell script
++ echo Hello World
+Hello World
+Finished SUCCESS
+</code></pre>
+
+<h2>Optional enhancements that make you look competent</h2>
+<ul>
+  <li>Point Source Code Management to a Git repository under the job settings to pull scripts or code</li>
+  <li>Add triggers like Poll SCM or Build periodically to automate runs</li>
+  <li>Convert the job to a Pipeline and store a Jenkinsfile in the repo for version controlled build steps</li>
+</ul>
+
+<h3>A minimal declarative Jenkinsfile example</h3>
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Say Hello') {
+      steps {
+        sh 'echo Hello World'
+      }
+    }
+  }
+}
+</code></pre>
+
+<h2>Tips and best practices</h2>
+<ul>
+  <li>Prefer a Pipeline over freestyle for reproducibility and reviewability</li>
+  <li>Use declarative syntax for readability and wrap platform commands in sh or bat depending on the agent</li>
+  <li>Store the Jenkinsfile in your repo so build logic moves with code and does not live in an admin UI</li>
+</ul>
+
+<p>If you followed these steps you now have a functioning Jenkins Hello World build job that proves your CI environment is not entirely broken. From here you can add tests linting deployment steps and other horrors that make production safer and developers grateful in small doses.</p>
+

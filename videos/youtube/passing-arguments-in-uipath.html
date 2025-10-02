@@ -1,0 +1,78 @@
+---
+layout: video
+title: "Passing Arguments in UiPath"
+description: "Learn how to pass arguments between UiPath workflows with clear steps for In Out and InOut directions and clean modular automation."
+video_host: "youtube"
+video_id: "Fzpx3WB3tXk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT13M25S"
+thumbnail_url: "https://i.ytimg.com/vi/Fzpx3WB3tXk/maxresdefault.jpg"
+content_url: "https://youtu.be/Fzpx3WB3tXk"
+embed_url: "https://www.youtube.com/embed/Fzpx3WB3tXk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Arguments
+  - RPA
+  - Workflows
+  - Invoke Workflow
+  - InOut
+  - Variables
+  - Best Practices
+  - Data Passing
+  - Automation
+---
+
+<h2>Short version that still teaches you something</h2>
+<p>If your UiPath arguments act like unpaid interns handing you random data, this guide will teach them manners. You will learn how to create variables and arguments, choose the right directions for data passing, call child workflows with Invoke Workflow File, map matching types, and test with logs so you do not have to guess what broke the automation.</p>
+
+<h2>Why arguments matter in RPA and automation</h2>
+<p>Arguments are the bridges that let separate workflows talk without screaming. Good argument design makes workflows modular and predictable. Bad argument design makes your automation behave like a soap opera with missing actors and confusing backstories.</p>
+
+<h3>Core rules to remember</h3>
+<ul>
+  <li>Use In for data that goes into a workflow.</li>
+  <li>Use Out for results you want to return to the caller.</li>
+  <li>Use In Out when a child workflow needs to read and then modify the same value.</li>
+  <li>Name arguments clearly so future you does not cry during maintenance.</li>
+</ul>
+
+<h2>Step by step without the drama</h2>
+<p>Follow these practical steps when you pass arguments between UiPath workflows.</p>
+
+<ol>
+  <li><strong>Create variables and arguments</strong> Use the Arguments panel in the workflow designer. Choose descriptive names like invoiceNumberIn or processedRowsOut instead of mysterious abbreviations. Your team will thank you someday.</li>
+
+  <li><strong>Select correct argument directions</strong> In is for inputs, Out is for outputs, and In Out is for values that a child workflow needs to update. Misusing these is the fastest route to bugs that only show up in production.</li>
+
+  <li><strong>Invoke the child workflow</strong> Use Invoke Workflow File or Invoke Method to call the child workflow. Add the activity to the main sequence and open Import Arguments. This dialog is where you map the caller variables to the child arguments.</li>
+
+  <li><strong>Match types when mapping</strong> Keep types strict. Prefer DataTable or custom classes for complex data. Using Object everywhere is like playing automation roulette, and chaos usually wins.</li>
+
+  <li><strong>Set defaults and manage scope</strong> Give sensible default values where appropriate and make sure variable scope covers the activities that need them. Scopes that are too narrow create invisible gremlins at runtime.</li>
+
+  <li><strong>Test with logs and small data</strong> Log argument values before and after calls. Use simple test data first. Debugging early is cheaper than guessing why a production run exploded.</li>
+</ol>
+
+<h2>Common pitfalls and how to avoid them</h2>
+<ul>
+  <li>Mismatched types when mapping arguments. Fix by checking the argument type in both the caller and the invoked workflow.</li>
+  <li>Using Object as a catch all. Be explicit with DataTable or a custom type for clarity and safety.</li>
+  <li>Forgetting to set variable scope. If a variable is out of scope at runtime you will get errors that look mysterious.</li>
+</ul>
+
+<h2>Best practices cheat sheet</h2>
+<ul>
+  <li>Prefer In for inputs and Out for results.</li>
+  <li>Use In Out only when needed to modify values in place.</li>
+  <li>Name arguments to show intent not to win naming puzzles.</li>
+  <li>Strong type your arguments to prevent type mismatches at runtime.</li>
+  <li>Log before and after invoking workflows to verify data passing.</li>
+</ul>
+
+<h2>Final thoughts</h2>
+<p>Treat arguments like contracts between workflows. Design them with care, test them early, and enforce types and scopes. That way your UiPath automation becomes predictable and maintainable rather than a thrilling mystery with a plot twist you did not ask for. Now go make your RPA more boring and reliable, and enjoy the quiet success that follows.</p>
+

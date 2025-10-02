@@ -1,0 +1,74 @@
+---
+layout: video
+title: "UiPath Nested If Then Else Example"
+description: "Learn to build nested If Then Else workflows in UiPath with step by step guidance and practical tips for handling multiple conditions"
+video_host: "youtube"
+video_id: "vUeRlhzz0wg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M16S"
+thumbnail_url: "https://i.ytimg.com/vi/vUeRlhzz0wg/maxresdefault.jpg"
+content_url: "https://youtu.be/vUeRlhzz0wg"
+embed_url: "https://www.youtube.com/embed/vUeRlhzz0wg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - RPA
+  - IfThenElse
+  - NestedIf
+  - Workflow
+  - Automation
+  - UiPathTutorial
+  - ConditionalLogic
+  - Studio
+  - BestPractices
+---
+
+<h2>Why nested If Then Else matters in UiPath</h2>
+<p>If you need a few branches of logic without turning your workflow into a maze, nested If Then Else is the polite option. It is great for grading systems, multi stage approvals, and any conditional logic that depends on a previous decision. Use it when you want compact branching and quick results in Studio.</p>
+
+<h3>Prepare your variables and sample data</h3>
+<p>Name your variables like a grown up. Use names such as <code>score</code> or <code>status</code> so no one has to guess what <code>var1</code> means. Add sample data to test edge cases and to avoid debugging sessions that feel like séance work.</p>
+
+<h3>Basic nested pattern</h3>
+<p>Add a first If activity to check the primary condition. Then nest a second If inside the Then or Else branch to refine the decision. A simple example in UiPath terms looks like this.</p>
+<pre><code>If score &gt; 80 Then
+    Log Message "Top tier"
+Else
+    If score &gt;= 50 Then
+        Log Message "Mid tier"
+    Else
+        Log Message "Low tier"
+    End If
+End If</code></pre>
+
+<h2>Practical steps to implement</h2>
+<ul>
+  <li>Step one set up variables with clear names and types like Int32 for score and String for status</li>
+  <li>Step two drag an If activity and enter a readable expression such as score &gt; 80</li>
+  <li>Step three nest a second If inside the Then or Else branch depending on your logic</li>
+  <li>Step four add Log Message activities to every branch so the run history tells a story</li>
+  <li>Step five run tests with boundary values and unexpected inputs and add default handling for safety</li>
+</ul>
+
+<h3>Logging and readability tips</h3>
+<p>Every branch should log what happened and why. Use messages like <code>Branch fired Top tier for score 92</code> so a single go does not force you to replay the whole world. Keep expressions short and readable. If your condition needs a novel to explain it you are doing it wrong.</p>
+
+<h2>When to stop nesting and pick another tool</h2>
+<p>Nested If Then Else is neat up to about two levels. If you find yourself piling on more checks consider switching to a Switch activity or move complex paths into separate workflows that you call from the main flow. Modularization is not surrender. It is pragmatic survival.</p>
+
+<h3>Testing and edge cases</h3>
+<p>Test boundary numbers like 80 and 50 and bad inputs such as null or empty strings. Provide a default branch or a fallback assignment so the workflow does not crash unexpectedly. Good error handling saves time and reputations.</p>
+
+<h2>Quick recap and best practices</h2>
+<ul>
+  <li>Use descriptive variable names and short expressions</li>
+  <li>Log each branch so you can tell which path ran without guessing</li>
+  <li>Limit nested levels and prefer Switch or invoked workflows for complex logic</li>
+  <li>Test thoroughly with edge cases and set default handling for unexpected values</li>
+</ul>
+
+<p>Follow these UiPath tutorial practices and your If Then Else trees will stay readable and useful. Or at least you will be able to explain them to your future self without crying.</p>
+

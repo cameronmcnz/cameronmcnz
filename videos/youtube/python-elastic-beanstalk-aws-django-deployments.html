@@ -1,0 +1,88 @@
+---
+layout: video
+title: "Python Elastic Beanstalk AWS Django Deployments"
+description: "Step by step guide to deploy Django apps on AWS using Elastic Beanstalk with practical tips for beginners and common pitfalls"
+video_host: "youtube"
+video_id: "2N-L7-MAeuc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M58S"
+thumbnail_url: "https://i.ytimg.com/vi/2N-L7-MAeuc/maxresdefault.jpg"
+content_url: "https://youtu.be/2N-L7-MAeuc"
+embed_url: "https://www.youtube.com/embed/2N-L7-MAeuc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Python
+  - Django
+  - AWS
+  - Elastic Beanstalk
+  - EB CLI
+  - Deployment
+  - Web App
+  - Beginner
+  - DevOps
+  - Cloud
+---
+
+<h2>Reality check before you break production</h2>
+<p>Yes you can deploy a Django app to AWS Elastic Beanstalk and no it will not be magic. This guide walks the drama free path from local project to running web app using Python and the EB CLI. Expect one environment variable typo and a shrug later.</p>
+
+<h2>Prepare your Django project</h2>
+<p>Make sure the app runs locally in a production like mode before you send it into the cloud to make friends with load balancers. These are the must do items that spare you midnight debugging sessions.</p>
+<ul>
+  <li>Set DEBUG to False in your production settings</li>
+  <li>Add correct ALLOWED_HOSTS so Django stops yelling at HTTP requests</li>
+  <li>Verify manage commands work from the project root</li>
+  <li>Create a Procfile only if you need a custom process command</li>
+</ul>
+
+<h3>Settings and WSGI</h3>
+<p>Confirm your WSGI entry is correct like myproject.wsgi.application. Elastic Beanstalk relies on that callable to hand requests to Django. If it is wrong the site will look very dead and will stay dead until you fix it.</p>
+
+<h2>Pin dependencies and freeze the environment</h2>
+<p>Lock down your Python packages so the EB instance does not choose its own adventure. Run the freeze command and commit the output.</p>
+<pre><code>pip freeze &gt; requirements.txt</code></pre>
+<p>Requirements drive what gets installed on the instance. If you forget something like Pillow or gunicorn you will get a useful error and a useless panic.</p>
+
+<h2>Install and initialize the EB CLI</h2>
+<p>Install the EB CLI and configure AWS credentials using the usual AWS tools. Then initialize your project with a platform choice that matches your Python runtime.</p>
+<pre><code>eb init -p python-3.11 my-app</code></pre>
+<p>Pick a region when prompted and then create an environment with a friendly name.</p>
+<pre><code>eb create my-env</code></pre>
+<p>The EB CLI scaffolds config files that reduce future pain. Think of it as mild automation that will not steal your job.</p>
+
+<h2>Static files and database choices</h2>
+<p>Static files can be served from the instance using WhiteNoise or from S3 for better scaling. WhiteNoise is easier and works well for many sites.</p>
+<ul>
+  <li>Add static settings to Django settings and run collectstatic during deploy</li>
+  <li>Example command to include in build steps or run locally</li>
+</ul>
+<pre><code>python manage.py collectstatic --noinput</code></pre>
+<p>For the database pick RDS or another managed service and do not hard code credentials. Read them from environment variables so you do not commit secrets to git.</p>
+<pre><code>DATABASES from env vars and a URL parser in your settings</code></pre>
+
+<h2>Deploy and watch the app like a hawk</h2>
+<p>Deploy with a single command and then go stare at logs like it is a suspense movie.</p>
+<pre><code>eb deploy</code></pre>
+<p>Useful EB CLI commands when things go sideways</p>
+<ul>
+  <li>eb logs to fetch logs from the environment</li>
+  <li>eb status to quick check health and URL</li>
+  <li>The Elastic Beanstalk console for scaling and configuration changes</li>
+</ul>
+<p>If you see HTTP errors use eb logs and the EB health page. The cause is often a missing environment variable or a static file path that went on vacation.</p>
+
+<h3>Troubleshooting quick hits</h3>
+<ul>
+  <li>500 errors after deploy Check ALLOWED_HOSTS and the WSGI callable</li>
+  <li>Static files 404 Check collectstatic and WhiteNoise or S3 settings</li>
+  <li>Database errors Check that your DATABASES come from environment variables and that the RDS security group allows connections</li>
+  <li>Deployment fails Check requirements.txt for missing packages and verify the platform version in eb init</li>
+</ul>
+
+<h2>Final notes and bad jokes</h2>
+<p>Elastic Beanstalk is a useful managed way to run Python Django apps on AWS without building an entire orchestration system. It handles provisioning and scaling while you handle settings and that one environment variable that always tries to ruin your day. Follow these steps and you will have a production ready Django site that is slightly less likely to make you cry at 2 AM.</p>
+<p>Now go deploy and try not to break anything important. If you do break it the logs will tell you the truth and you will become a better person for it.</p>
+

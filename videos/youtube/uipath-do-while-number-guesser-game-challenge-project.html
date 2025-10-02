@@ -1,0 +1,75 @@
+---
+layout: video
+title: "UiPath Do While Number Guesser Game Challenge Project"
+description: "Build a Do While number guesser in UiPath using loops variables input validation and feedback for practice and learning automation concepts"
+video_host: "youtube"
+video_id: "CGuAo2NM2Zk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M33S"
+thumbnail_url: "https://i.ytimg.com/vi/CGuAo2NM2Zk/maxresdefault.jpg"
+content_url: "https://youtu.be/CGuAo2NM2Zk"
+embed_url: "https://www.youtube.com/embed/CGuAo2NM2Zk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - RPA
+  - Automation
+  - Do While
+  - Number Guesser
+  - Tutorial
+  - Variables
+  - Loops
+  - Practice Project
+  - Beginner
+---
+
+<h2>Build a playful UiPath Do While number guesser</h2>
+<p>Welcome to a tiny RPA game that tests user patience and your debugging skills. You will make a number guesser using a UiPath Do While loop that prompts a player until they get the secret number. This project is a great beginner practice task to learn variables loops random generation and input validation without setting your keyboard on fire.</p>
+
+<h3>Core idea</h3>
+<p>Pick a random target number. Ask the user for a guess. Compare the guess to the target. Give feedback to guess higher or lower. Repeat until the guess matches and then reveal the glory of attempt count and mild triumph.</p>
+
+<h3>What to set up</h3>
+<ul>
+  <li>targetNumber as Integer</li>
+  <li>guessedNumber as Integer</li>
+  <li>attemptCount as Integer initialized to 0</li>
+  <li>rawInput as String to hold dialog text</li>
+</ul>
+
+<h3>Random number generation</h3>
+<p>Use an Assign activity to set targetNumber to new Random().Next(1, 101) so the secret lives between 1 and 100. That is the number the user will chase like a suspiciously motivated cat.</p>
+
+<h3>Input and validation</h3>
+<p>Use an Input Dialog to capture rawInput. Parsing user text is where chaos happens so wrap parsing in a Try Catch block or use Integer.TryParse(rawInput, guessedNumber) and check the Boolean result before comparing values. If parsing fails show a friendly Message Box and loop back for another attempt.</p>
+
+<h3>Do While loop</h3>
+<p>Place a Do While activity that continues while guessedNumber <> targetNumber. The Do While ensures the dialog appears at least once which is exactly what this game needs since users do not start knowing the secret.</p>
+
+<h3>Feedback and counting</h3>
+<p>Inside the loop increment attemptCount after a successful parse and before feedback. Use If activities to compare guessedNumber and targetNumber and display messages like "Guess higher" or "Guess lower". When guessedNumber matches targetNumber exit the loop and show a final Message Box with attemptCount and a congratulatory line that is slightly less cheesy than a motivational poster.</p>
+
+<h3>Quick workflow steps</h3>
+<ol>
+  <li>Create variables with clear names</li>
+  <li>Assign targetNumber = new Random().Next(1, 101)</li>
+  <li>Start Do While with condition guessedNumber <> targetNumber</li>
+  <li>Show Input Dialog and store result in rawInput</li>
+  <li>Parse rawInput using Try Catch or Integer.TryParse</li>
+  <li>On successful parse increment attemptCount and compare numbers</li>
+  <li>Show Guess higher or Guess lower or the success message</li>
+</ol>
+
+<h3>Tips for practice</h3>
+<ul>
+  <li>Use descriptive variable names so you can remember what you did the next day</li>
+  <li>Keep parsing inside Try Catch or use TryParse to avoid ugly exceptions</li>
+  <li>Add range checks to ensure guesses stay between 1 and 100</li>
+  <li>Log attemptCount for debugging and mild bragging rights</li>
+</ul>
+
+<p>There you go. You now have a concise UiPath Do While number guesser that teaches random number generation loop structure user interaction and validation. Add it to your practice projects and enjoy watching automation behave nicely for once.</p>
+

@@ -1,0 +1,85 @@
+---
+layout: video
+title: "Lab 12 - Groovy Pipelines & Shared Libraries"
+description: "Hands on guide to Groovy Jenkins pipelines and shared libraries for reusable CI CD code and cleaner Jenkinsfiles"
+video_host: "youtube"
+video_id: "5oinW9bN2DI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT15M18S"
+thumbnail_url: "https://i.ytimg.com/vi/5oinW9bN2DI/maxresdefault.jpg"
+content_url: "https://youtu.be/5oinW9bN2DI"
+embed_url: "https://www.youtube.com/embed/5oinW9bN2DI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Groovy
+  - Pipelines
+  - Shared Libraries
+  - CI
+  - CD
+  - Jenkinsfile
+  - DevOps
+  - Pipeline as Code
+  - Continuous Integration
+---
+
+<p>If you are tired of copying the same pipeline steps like a broken record this guide will show you how to stop the madness with Groovy based shared libraries for Jenkins. You will learn how to structure a repo, author small reusable steps, load the library in a Jenkinsfile, and ship versions that humans can actually rely on. Expect practical tips and a little sarcasm where warranted.</p>
+
+<h2>Get your repo and Jenkins talking</h2>
+<p>Create a Git repository and enable the shared library integration in the Jenkins global configuration. The Jenkinsfile that consumes the library must live in a branch or repo that Jenkins can reach. Remember credentials and permissions early or the build will sulk and refuse to cooperate.</p>
+
+<h2>Library layout that will not make Jenkins cry</h2>
+<p>Follow the expected repository layout so the pipeline loader behaves. At the root of your library repo create two folders named <code>vars</code> and <code>src</code>. Put simple global step wrappers in <code>vars</code> and real Groovy classes in <code>src</code>. This is the convention Jenkins expects so you do not get mysterious runtime errors at 2 a m.</p>
+
+<h3>Example global var</h3>
+<pre><code>// vars/notifySuccess.groovy
+def call(Map args) {
+  echo "Notifying that job ${env.JOB_NAME} finished"
+  // call into helper classes in src when logic gets heavy
+}
+</code></pre>
+
+<h2>Write a Jenkinsfile that loads the library</h2>
+<p>You can load the library with the <code>@Library</code> annotation or via the global library configuration in Jenkins. A typical declarative pipeline will call the global vars as plain functions. For example use <code>notifySuccess()</code> or <code>buildApp()</code> inside your stages. Both declarative and scripted pipelines benefit from shared code but pick one style and keep it consistent.</p>
+
+<pre><code>// example Jenkinsfile
+@Library('my-shared-lib@v1') _
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        script {
+          buildApp()
+        }
+      }
+    }
+    stage('Notify') {
+      steps {
+        notifySuccess([channel: 'team-ci'])
+      }
+    }
+  }
+}
+</code></pre>
+
+<h2>Test locally and add unit tests</h2>
+<p>Test your pipeline and library locally with a Jenkins sandbox or a pipeline runner. For the Groovy classes in <code>src</code> add unit tests using Spock or JUnit. Testing on the developer workstation is less painful than deploying blind to a shared Jenkins server and watching chaos reign.</p>
+
+<h2>Versioning and publishing that people will trust</h2>
+<p>Publish releases using tags or stable branches so consumers can pin to a known good version. Keep a short changelog and update examples in the repo. If you force everyone to use master you will earn the ire of your teammates and a small mountain of support requests.</p>
+
+<h2>Best practices and pragmatic tips</h2>
+<ul>
+  <li>Keep global vars small and focused. One job per function makes debugging less tragic.</li>
+  <li>Use helper classes in <code>src</code> for heavy logic and for easier unit testing.</li>
+  <li>Document examples in the repo readme so adopters do not guess at usage.</li>
+  <li>Pin library versions in Jenkinsfiles to avoid surprise regressions.</li>
+  <li>Run tests in CI before publishing a new tag and then celebrate quietly.</li>
+</ul>
+
+<p>Shared libraries turn pipeline as code into something sane when done right. Follow the layout, write tiny reusable steps, test before you push, and version your library. Do that and your Jenkins pipelines will be more reliable and less dramatic. If nothing else you will reduce the number of times someone asks you to fix a pipeline at 3 a m.
+

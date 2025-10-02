@@ -1,0 +1,69 @@
+---
+layout: video
+title: "UiPath Do While Loop Tutorial"
+description: "Learn UiPath Do While Loop basics with step by step setup and debugging tips for reliable RPA loops"
+video_host: "youtube"
+video_id: "qxwdZResiWk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M14S"
+thumbnail_url: "https://i.ytimg.com/vi/qxwdZResiWk/maxresdefault.jpg"
+content_url: "https://youtu.be/qxwdZResiWk"
+embed_url: "https://www.youtube.com/embed/qxwdZResiWk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Do While
+  - RPA
+  - Loop
+  - Automation
+  - UiPath Tutorial
+  - DoWhile
+  - Workflow
+  - Variables
+  - Debugging
+---
+
+<article>
+  <h2>Quick overview for people who like things that stop</h2>
+  <p>If you have ever watched an automation run and wondered if it had become self aware the Do While activity is the usual suspect. In UiPath a Do While loop will run its body once and then keep looping while the condition evaluates to True. That little guarantee of a first pass matters, so plan what should happen on the initial run and what should change inside the loop to eventually break free.</p>
+
+  <h3>When to pick Do While in your RPA workflow</h3>
+  <p>Use Do While when you need at least one execution before any checks happen. Common scenarios include polling a status on a web page, retrying flaky selectors, or processing a batch until a flag flips. If your loop must never execute when a condition is false at the start pick another loop type instead.</p>
+
+  <h3>How to wire it up in UiPath</h3>
+  <ul>
+    <li>Add the Do While activity from Activities into your sequence or flowchart.</li>
+    <li>Put the actions that must repeat inside the body. Clicking, reading, writing, and incrementing counters all belong here.</li>
+    <li>Set the condition expression to a Boolean variable or expression. Examples include counter &lt; maxIterations or Not successFlag.</li>
+  </ul>
+
+  <h3>Safe patterns so your automation does not become an infinite horror</h3>
+  <p>Do While is powerful but reckless without guards. Follow these habits to keep your robot tame.</p>
+  <ul>
+    <li>Use a counter variable with a clear maxIterations value as a fail safe.</li>
+    <li>Update the condition source inside the loop so the stop criteria can change.</li>
+    <li>Include timeout checks when talking to external systems that might hang.</li>
+    <li>Use a Break activity when an early exit condition is met to avoid extra work.</li>
+  </ul>
+
+  <h3>Example pseudocode to steal and pretend you invented</h3>
+  <pre><code>counter = 0
+maxIterations = 20
+successFlag = False
+
+Do
+  ' perform actions here
+  counter = counter + 1
+  If checkSucceeded Then successFlag = True
+Loop While counter &lt; maxIterations And Not successFlag</code></pre>
+
+  <h3>Debugging and testing tips</h3>
+  <p>UiPath debugger and logs will be your friends. Step through a few iterations and watch variables in the Locals panel so you can see which value refuses to flip. Add log messages inside the loop that report counters and status flags. Good logs save you from guesswork and swear words later.</p>
+
+  <h3>Recap and final advice</h3>
+  <p>To build reliable Do While loops in UiPath set a Boolean condition, ensure the loop body updates that condition or a counter, and use safety guards to prevent runaway automation. Follow these steps and your workflows will stop when expected and not become eternal background noise.</p>
+</article>
+

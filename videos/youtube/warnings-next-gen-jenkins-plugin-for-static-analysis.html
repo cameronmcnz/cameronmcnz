@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Warnings Next Gen Jenkins Plugin for Static Analysis"
+description: "Guide to use Warnings Next Generation in Jenkins to parse static analysis tool output configure thresholds and publish clear reports"
+video_host: "youtube"
+video_id: "CGh6Ah5qg-g"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M28S"
+thumbnail_url: "https://i.ytimg.com/vi/CGh6Ah5qg-g/maxresdefault.jpg"
+content_url: "https://youtu.be/CGh6Ah5qg-g"
+embed_url: "https://www.youtube.com/embed/CGh6Ah5qg-g"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Warnings NG
+  - static analysis
+  - CI
+  - pipeline
+  - plugin
+  - code quality
+  - build
+  - parsers
+  - quality gates
+---
+
+<p>Want Jenkins to stop pretending it did a code review and actually point out the mess you introduced last night Give Warnings NG a ticket to the front lines of your CI and let it do the nagging for you</p>
+
+<h2>Install the plugin</h2>
+<p>Go to Manage Plugins in Jenkins and install Warnings NG then restart if the dashboard starts sulking. The plugin shows up in the Manage Plugins list like every other hopeful that wants to be useful.</p>
+
+<h2>Configure parsers and patterns</h2>
+<p>Open Global Tool Configuration and add either a tool specific parser or a custom pattern. Give the parser a clear name so it does not act surprised during a real run. Test with a small sample log to make sure your rules match reality and not some optimistic dream about perfect builds.</p>
+
+<h2>Add static analysis into your pipeline</h2>
+<p>Make sure your linters or compilers publish warnings to console output or to a file that the plugin can read. Most tools can emit plain text logs or report formats that Warnings NG understands.</p>
+
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage("Build") {
+      steps {
+        sh 'mvn clean verify'
+      }
+    }
+    stage("Publish") {
+      steps {
+        warnings parserName 'Java'
+      }
+    }
+  }
+}
+</code></pre>
+
+<h2>Publish warnings and dashboards</h2>
+<p>You can add the Warnings NG publisher in a freestyle job or use the warnings step in a pipeline. The plugin converts raw linter and compiler output into dashboards you can actually use instead of staring at a blinking red light and hoping for the best.</p>
+
+<h3>Why this matters for CI and code quality</h3>
+<p>Warnings NG brings static analysis into your CI flow and makes the build aware of code quality issues. That means your build can fail or mark unstable when new high severity warnings appear and your team can stop treating warnings like antique trophies.</p>
+
+<h2>Quality gates and differential analysis</h2>
+<p>Set thresholds to fail builds on new high severity warnings or to mark builds unstable when trend lines go up. Use differential analysis to focus on new warnings introduced by the current change instead of punishing developers for sins from another era.</p>
+
+<ul>
+  <li>Fail on new high severity warnings to protect main branches</li>
+  <li>Mark builds unstable for growing warning trends that need triage</li>
+  <li>Use filter paths to ignore third party or generated code</li>
+</ul>
+
+<h2>Tips and common pitfalls</h2>
+<p>Prefer parsing console output when tools do not emit stable report files. Always test parsers on a sample log to avoid surprises. If the parser cannot see the output it cannot complain on your behalf.</p>
+
+<p>Warnings NG is not magic but it is an efficient tattletale. Configure it, feed it parsers, and let your CI pipeline do the heavy lifting of enforcing code quality while you drink coffee and pretend it was all intentional.</p>
+

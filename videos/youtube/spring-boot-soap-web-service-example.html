@@ -1,0 +1,78 @@
+---
+layout: video
+title: "Spring Boot Soap Web Service Example"
+description: "Step by step guide to build a Spring Boot SOAP web service using WSDL JAXB and testing tips for Java developers"
+video_host: "youtube"
+video_id: "MIDEXcU-Bmg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT25M28S"
+thumbnail_url: "https://i.ytimg.com/vi/MIDEXcU-Bmg/maxresdefault.jpg"
+content_url: "https://youtu.be/MIDEXcU-Bmg"
+embed_url: "https://www.youtube.com/embed/MIDEXcU-Bmg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - SOAP
+  - Web Service
+  - WSDL
+  - JAXB
+  - Spring-WS
+  - XML
+  - Maven
+  - SOAPUI
+  - Java
+---
+
+<p>If you like writing the contract before the chaos then contract first SOAP in Spring Boot is your jam. This guide walks through creating a SOAP web service with WSDL driven schemas using JAXB and Spring WS, while keeping your Java code sane and your XML validators mildly pleased.</p>
+
+<h2>Project setup and dependencies</h2>
+<p>Start with a Maven or Gradle project. Use Spring Initializr if you want to save time and avoid dependency spelunking. Add Spring Web Services support and the JAXB tooling to generate Java classes from your XSD. You will need the Spring WS runtime and the JAXB build plugin so your generated classes match the WSDL schema at build time.</p>
+
+<ul>
+  <li>Spring Boot with Spring WS support</li>
+  <li>JAXB code generation plugin for Maven or Gradle</li>
+  <li>Optional utilities for testing like SOAPUI or Postman with SOAP support</li>
+</ul>
+
+<h2>Define the XSD and generate JAXB classes</h2>
+<p>Write the XSD first. Yes first. This is the contract that clients will cling to like it is a life raft. Model your request and response types and version your target namespace so future changes do not break existing clients.</p>
+
+<p>Configure the JAXB plugin in your build to run generate sources during the build. Run the build to produce Java classes that match the WSDL schema. This cuts down on nasty runtime surprises where your XML does not match what the client expects.</p>
+
+<h2>Configure Spring Web Services</h2>
+<p>Enable Spring WS support in your configuration. Register a MessageDispatcherServlet and expose a WSDL definition bean that points to your generated schema. Map the namespace properly so the WSDL endpoint is discoverable by clients.</p>
+
+<ul>
+  <li>Register MessageDispatcherServlet at a sensible path like /ws</li>
+  <li>Create a DefaultWsdl11Definition bean and reference your XSD</li>
+  <li>Ensure the WSDL is available so SOAP clients can fetch the contract</li>
+</ul>
+
+<h2>Implement endpoint and service logic</h2>
+<p>Keep endpoint classes thin. Annotate them for SOAP message handling and delegate real work to a service layer. Use Spring WS annotations such as @Endpoint and @PayloadRoot with @RequestPayload and @ResponsePayload to bind XML payloads to your generated JAXB classes.</p>
+
+<p>Design your service methods so they return typed responses and throw meaningful SOAP faults when things go wrong. Meaningful does not mean verbose. Clients prefer predictable faults over mysterious errors.</p>
+
+<h3>Nice to follow design rules</h3>
+<ul>
+  <li>Endpoint classes only route and validate</li>
+  <li>Business logic lives in a separate service bean</li>
+  <li>Use versioned namespaces in your XSD to avoid breaking clients later</li>
+</ul>
+
+<h2>Test the SOAP service</h2>
+<p>Load the WSDL into SOAPUI or Postman with SOAP support. Send requests that match the namespace and element names from your XSD. Verify response payloads and SOAP fault handling. Integration tests that load the WSDL and exercise common request and response cycles are your friend.</p>
+
+<h2>Common troubleshooting tips</h2>
+<ul>
+  <li>Wrong namespace in the request is the number one cause of sadness</li>
+  <li>If JAXB classes are not generated check your plugin configuration and run the generate sources goal</li>
+  <li>WSDL not exposed usually means servlet mapping or WSDL definition bean is missing</li>
+  <li>Use logging to inspect inbound XML when messages do not bind to JAXB types</li>
+</ul>
+
+<p>Summary The contract first approach with an XSD, JAXB code generation, Spring WS configuration and thin endpoints gives you a clean Spring Boot SOAP web service. Add versioned namespaces and integration tests to keep the peace when the API evolves. Now go write the schema first and try not to change it unless you enjoy explaining breaking changes to clients.</p>
+

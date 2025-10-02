@@ -1,0 +1,67 @@
+---
+layout: video
+title: "How to Unstage a File in Git"
+description: "Remove a file from the Git staging index using git restore or git reset with clear commands and verification steps for safer commits."
+video_host: "youtube"
+video_id: "6BEDQunZsXM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M38S"
+thumbnail_url: "https://i.ytimg.com/vi/6BEDQunZsXM/maxresdefault.jpg"
+content_url: "https://youtu.be/6BEDQunZsXM"
+embed_url: "https://www.youtube.com/embed/6BEDQunZsXM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - unstage file
+  - git restore
+  - git reset
+  - staging index
+  - git tutorial
+  - version control
+  - git status
+  - working tree
+  - git tips
+---
+
+<p>If you ever staged a file by accident and committed later with a face palm moment this guide is your damage control manual. We will use git restore and git reset to unstage files while keeping your working tree intact when possible. You will also learn how to verify the staging index so your commits do not become a museum of unfinished work.</p>
+
+<h2>Quick check of staged files</h2>
+<p>Before you start playing cleanup artist run one of these commands to see what is staged. This avoids committing half finished work and preserves professional pride.</p>
+
+<pre><code>git status
+git status --short</code></pre>
+
+<h2>Unstage a specific file</h2>
+<p>To remove a file from the staging index but keep the edits in your working tree run</p>
+
+<pre><code>git restore --staged path/to/file</code></pre>
+
+<p>If you are on an older Git version or prefer the classic command use</p>
+
+<pre><code>git reset HEAD path/to/file</code></pre>
+
+<p>Both commands achieve the same end result. The file leaves the staging index and shows up as modified in your working tree. That means you can keep editing or selectively stage only the hunks you want.</p>
+
+<h3>Verify the staging index</h3>
+<p>Always run git status or git status --short again to confirm the file is no longer staged. You want the status to show the file as modified rather than staged. If it still looks staged something went wrong and you should not rush to commit.</p>
+
+<h2>Discard working tree changes if you must</h2>
+<p>If your goal is to throw away local edits and go back to the last commit use one of these commands. Warning this is destructive and cannot be undone without backups or reflog magic.</p>
+
+<pre><code>git restore path/to/file
+# or on legacy setups
+git checkout -- path/to/file</code></pre>
+
+<h2>Practical tips to avoid future unstage drama</h2>
+<ul>
+  <li>Use git add -p to stage hunks not whole files. This keeps commits focused and less embarrassing.</li>
+  <li>Check git status before every commit to catch surprises early.</li>
+  <li>Make small commits and use feature branches for experimental work.</li>
+  <li>When in doubt run git status --short for a compact overview.</li>
+</ul>
+
+<p>Unstaging files is a simple part of version control but it saves you from messy commit histories and awkward explanations. Keep these git tips in your toolkit and your commit log will thank you later. If you break something there is always reflog magic to investigate but try not to make that a habit.</p>
+

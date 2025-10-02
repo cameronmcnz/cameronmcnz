@@ -1,0 +1,74 @@
+---
+layout: video
+title: "Simon Maple and Cameron McKenzie on WebSphere Liberty"
+description: "Practical guide to running WebSphere Liberty on Raspberry Pi with setup steps and deployment tips from Simon Maple and Cameron McKenzie."
+video_host: "youtube"
+video_id: "shqI1VX5sTY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M2S"
+thumbnail_url: "https://i.ytimg.com/vi/shqI1VX5sTY/maxresdefault.jpg"
+content_url: "https://youtu.be/shqI1VX5sTY"
+embed_url: "https://www.youtube.com/embed/shqI1VX5sTY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - WebSphere
+  - Liberty
+  - Raspberry Pi
+  - Java
+  - Simon Maple
+  - Cameron McKenzie
+  - IoT
+  - Server
+  - Linux
+  - Tutorial
+---
+
+<h2>Quick overview</h2>
+<p>Yes you can run WebSphere Liberty on a Raspberry Pi. No it will not magically become a cloud server. What you get is a compact Java server that can live on tiny hardware for IoT projects or demos. This guide walks through the essentials on a minimal Linux image with OpenJDK and Liberty runtime so you can deploy a simple WAR and tune memory like a responsible adult.</p>
+
+<h3>What you need</h3>
+<ul>
+  <li>Raspberry Pi with a reasonably fast SD card</li>
+  <li>Raspberry Pi OS or another minimal Linux image</li>
+  <li>OpenJDK installed via package manager, for example openjdk 8 jdk</li>
+  <li>WebSphere Liberty runtime downloaded and extracted to a folder such as /opt/wlp</li>
+</ul>
+
+<h3>Prepare the board</h3>
+<p>Flash a current Raspberry Pi OS image and apply updates. A slow card will make the server sad and you slow too. Then install Java with the package manager. Example commands to run from a shell with sudo rights</p>
+<pre><code>sudo apt update
+sudo apt install openjdk-8-jdk</code></pre>
+<p>Confirm the Java path and version with java -version. If you need a different OpenJDK build pick the package that matches your Pi architecture.</p>
+
+<h3>Install WebSphere Liberty</h3>
+<p>Unpack the Liberty runtime into a sensible location such as /opt/wlp. Keep the runtime owned by the user or service account you will use to run the server. Set JAVA_HOME in the profile used by your service so Liberty picks up the right JDK when it starts. A simple export example that you can place in a profile file is shown here</p>
+<pre><code>export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-armhf</code></pre>
+
+<h3>Deploy a sample app and minimal server config</h3>
+<p>Copy a WAR into the apps folder for your server profile under /opt/wlp/usr/servers. Use a tiny server.xml that enables HTTP and only the features you need. Minimality keeps startup time low and memory usage reasonable. Example server.xml</p>
+<pre><code>&lt;server&gt;
+  &lt;featureManager&gt;
+    &lt;feature&gt;servlet-3.1&lt;/feature&gt;
+  &lt;/featureManager&gt;
+  &lt;httpEndpoint host="*" httpPort="9080" /&gt;
+&lt;/server&gt;</code></pre>
+<p>Start the server with the provided script under the runtime bin folder. For a server named defaultServer the command looks like this</p>
+<pre><code>/opt/wlp/bin/server start defaultServer</code></pre>
+<p>Access the application from a browser on the same network by pointing to the Pi IP address and port 9080. If your network name resolution acts up use the numeric IP instead.</p>
+
+<h3>Logs and trouble shooting</h3>
+<p>Logs live under the server logs folder in the runtime, for example /opt/wlp/usr/servers/yourServer/logs. Monitor messages.log and console log output to diagnose startup problems or runtime exceptions. Tail them while you reproduce the issue to see the offending stack traces in real time.</p>
+
+<h3>Memory tuning and performance tips</h3>
+<ul>
+  <li>Lower JVM heap sizes to suit the modest RAM on a Pi. Try -Xmx512m and -Xms256m as starting points</li>
+  <li>Avoid heavy swapping, it will make the server feel like molasses</li>
+  <li>Disable features you do not need so Liberty uses fewer resources</li>
+</ul>
+
+<h3>Wrap up and where this fits</h3>
+<p>This tutorial gives the practical steps to run a small Java server on Raspberry Pi with Liberty and OpenJDK. It is handy for IoT prototypes, demos, and learning about running Java on constrained Linux hardware. If you want deeper tuning look at server jvm options and feature selection, and consult the Liberty documentation for advanced configuration. And if you are here because you saw a talk by Simon Maple or Cameron McKenzie you are in good company, they would approve of small servers that punch above their weight.</p>
+

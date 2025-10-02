@@ -1,0 +1,73 @@
+---
+layout: video
+title: "Jekyll Markdown and GitHub Pages"
+description: "Compact guide to use Jekyll with Markdown on GitHub Pages for a fast static site workflow and simple deployment steps."
+video_host: "youtube"
+video_id: "VDOyjwWPKs4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M37S"
+thumbnail_url: "https://i.ytimg.com/vi/VDOyjwWPKs4/maxresdefault.jpg"
+content_url: "https://youtu.be/VDOyjwWPKs4"
+embed_url: "https://www.youtube.com/embed/VDOyjwWPKs4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - jekyll
+  - markdown
+  - github pages
+  - static site
+  - front matter
+  - github
+  - pages
+  - static website
+  - site deployment
+  - tutorial
+---
+
+<h2>Why use Jekyll with GitHub Pages</h2>
+<p>Want a small static website that looks good and does not demand souls or server babysitting? Jekyll plus GitHub Pages is the polite choice. Write content in Markdown, sprinkle in YAML front matter to tell Jekyll what to do, and let GitHub host the static site for free. It is fast, simple, and annoyingly reliable.</p>
+
+<h2>Overview of the flow</h2>
+<p>High level steps that will save you from late night regrets</p>
+<ul>
+  <li>Create a repository on GitHub and pick a branch for Pages like main or gh-pages</li>
+  <li>Add a _config.yml with basic site settings and choose a supported theme</li>
+  <li>Author pages and posts in Markdown with YAML front matter at the top</li>
+  <li>Test the site locally with the Jekyll server so you do not push blind faith</li>
+  <li>Push to GitHub and enable Pages in repository settings or use Actions to build</li>
+</ul>
+
+<h3>Create the repository and pick a branch</h3>
+<p>Make a new repo on GitHub. Use main or gh-pages and be consistent. Branch confusion is the most common reason your site refuses to show up right away. Pick one branch and cling to it.</p>
+
+<h3>Configure Jekyll and pick a theme</h3>
+<p>Add a <code>_config.yml</code> file at the repo root with your site name, theme choice, and other basic settings. GitHub Pages only allows certain plugins on native builds. If your theme or workflow needs extra plugins use GitHub Actions to build the site and push the generated files to the Pages branch.</p>
+
+<h3>Write Markdown content and use front matter</h3>
+<p>Put standalone pages in the root and blog posts in <code>_posts</code>. Each file needs YAML front matter between three dashes at the top. That metadata tells Jekyll how to render files and where to put the generated pages on your static website. You will put things like title date and layout in the front matter so templates know what to do.</p>
+
+<h3>Test the site locally</h3>
+<p>Install Jekyll and Bundler on your machine. Then run the local server to preview changes before you push. Commands that usually work</p>
+<pre><code>gem install jekyll bundler
+bundle install
+bundle exec jekyll serve
+</code></pre>
+<p>Local testing catches broken layouts and missing assets so you do not have to explain a broken site to your team after pushing.</p>
+
+<h3>Deploy to GitHub Pages</h3>
+<p>Commit your files and push to the branch you chose. Then enable GitHub Pages in the repository settings and point it to that branch. If you need non supported plugins configure a GitHub Actions workflow to build the site and publish the generated static files to the Pages branch. This gives you more control over themes and steps in your site deployment.</p>
+
+<h2>Troubleshooting tips and best practices</h2>
+<ul>
+  <li>Branch is king. Double check which branch Pages is serving from</li>
+  <li>Use Actions when your theme needs plugins or a custom build step</li>
+  <li>Keep posts in <code>_posts</code> with the proper filename format so Jekyll picks them up</li>
+  <li>Preview locally to avoid the embarrassment of a broken home page after a push</li>
+  <li>Check the Actions logs and the Pages build log when things go wrong</li>
+</ul>
+
+<h2>Final notes</h2>
+<p>This tutorial covers the essentials you need to build a simple static site with Jekyll, author content in Markdown, use front matter for metadata, test locally with the Jekyll server, and deploy with GitHub Pages. Follow these steps and you will have a tidy static website with minimal fuss and barely any magic. If you want more control bring in GitHub Actions and let automation handle the heavy lifting while you sip something warm and pretend it was easy.</p>
+

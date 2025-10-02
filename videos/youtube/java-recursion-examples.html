@@ -1,0 +1,114 @@
+---
+layout: video
+title: "Java Recursion Examples"
+description: "Clear Java recursion examples with factorial Fibonacci array sum and practical tips to avoid stack overflow and improve performance"
+video_host: "youtube"
+video_id: "WdZ0kYAHAOM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M37S"
+thumbnail_url: "https://i.ytimg.com/vi/WdZ0kYAHAOM/maxresdefault.jpg"
+content_url: "https://youtu.be/WdZ0kYAHAOM"
+embed_url: "https://www.youtube.com/embed/WdZ0kYAHAOM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - recursion
+  - Java recursion
+  - factorial
+  - fibonacci
+  - array sum
+  - binary search
+  - tail recursion
+  - stack overflow
+  - programming tutorial
+---
+
+<p>Recursion in Java is like telling a story to your stack and hoping nobody interrupts. This guide covers useful Java recursion examples with real world warnings and practical fixes. We keep the math correct and skip the mystical claims about automatic tail call elimination. Read on for factorial, fibonacci, array sum, recursive binary search, and what to do when stack overflow threatens.</p>
+
+<h2>Why recursion in Java matters</h2>
+<p>Recursion is elegant and expressive. It mirrors mathematical definitions and can make code easier to reason about. It also invites stack overflow and dramatic debugging sessions if you forget base cases or feed it huge inputs. Use recursion for clarity and learning. Use iteration or memoization when you need speed or safety.</p>
+
+<h2>Factorial made readable not reckless</h2>
+<p>Factorial is the classic example. The recursive version is tiny and obvious. The pitfalls are negative input and unnecessarily deep recursion for huge n. Validate parameters and prefer iteration when performance or stack safety matters.</p>
+<pre><code>public static long factorial(int n) {
+    if (n &lt; 0) throw new IllegalArgumentException("Negative input not allowed");
+    if (n &lt;= 1) return 1;
+    return n * factorial(n - 1);
+}
+</code></pre>
+
+<h2>Fibonacci without smiling at slowness</h2>
+<p>The naive recursive fibonacci follows the math but repeats work exponentially. That is cute and painfully slow. If you need correctness and reasonable performance use memoization or an iterative approach.</p>
+<pre><code>// naive and slow
+public static long fib(int n) {
+    if (n &lt; 0) throw new IllegalArgumentException("Negative input not allowed");
+    if (n &lt;= 1) return n;
+    return fib(n - 1) + fib(n - 2);
+}
+
+// memoized version for practical use
+public static long fibMemo(int n, Long[] cache) {
+    if (cache[n] != null) return cache[n];
+    if (n &lt;= 1) cache[n] = (long) n;
+    else cache[n] = fibMemo(n - 1, cache) + fibMemo(n - 2, cache);
+    return cache[n];
+}
+
+public static long fib(int n) {
+    if (n &lt; 0) throw new IllegalArgumentException("Negative input not allowed");
+    Long[] cache = new Long[n + 1];
+    return fibMemo(n, cache);
+}
+</code></pre>
+
+<h2>Sum of an array using recursion</h2>
+<p>This is a pedagogical example that teaches the divide and conquer pattern without complex math. It shows processing one element while delegating the rest.</p>
+<pre><code>public static int sum(int[] a, int i) {
+    if (a == null) throw new IllegalArgumentException("Array cannot be null");
+    if (i >= a.length) return 0;
+    return a[i] + sum(a, i + 1);
+}
+</code></pre>
+
+<h2>Recursive binary search done carefully</h2>
+<p>Binary search is a great fit for recursion if you like thinking in halves. The important parts are correct base cases and index math to avoid off by one errors.</p>
+<pre><code>public static int binarySearch(int[] a, int target, int lo, int hi) {
+    if (a == null) throw new IllegalArgumentException("Array cannot be null");
+    if (lo &gt; hi) return -1;
+    int mid = lo + (hi - lo) / 2;
+    if (a[mid] == target) return mid;
+    if (a[mid] &gt; target) return binarySearch(a, target, lo, mid - 1);
+    else return binarySearch(a, target, mid + 1, hi);
+}
+</code></pre>
+
+<h2>Tail recursion and the stack overflow reality</h2>
+<p>Some languages optimize tail recursion and pretend Java does too. Java does not guarantee tail call elimination. If you want stack safety you will often rewrite tail recursion as a loop. Here is a tail style sum and the iterative version that you should prefer for large arrays.</p>
+<pre><code>// tail recursive style
+public static int sumTail(int[] a, int i, int acc) {
+    if (i >= a.length) return acc;
+    return sumTail(a, i + 1, acc + a[i]);
+}
+
+// equivalent iterative version that avoids deep stacks
+public static int sumIter(int[] a) {
+    int acc = 0;
+    for (int i = 0; i &lt; a.length; i++) acc += a[i];
+    return acc;
+}
+</code></pre>
+
+<h2>Quick rules to keep your stack happy</h2>
+<ul>
+    <li>Always codify base cases and validate inputs to avoid surprising recursion traps.</li>
+    <li>Use memoization for fib style problems that revisit states.</li>
+    <li>Prefer iteration when you need predictable memory use or performance.</li>
+    <li>Profile first and then optimize instead of guessing which change helps.</li>
+</ul>
+
+<h2>Summary and when to choose what</h2>
+<p>Recursion is a powerful tool in Java for clarity and expression. Use the recursive factorial and array sum for small inputs and learning. Use memoization for fibonacci or convert recursion to iteration for production when stack depth and speed matter. When in doubt measure performance and stack usage first then refactor accordingly. Now go write something recursive and only mildly self destructing.</p>
+

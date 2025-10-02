@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Spring Boot Properties & Configurations 10x Devs Must Know"
+description: "Essential Spring Boot properties and configuration practices for Java and Kotlin developers to ship safer and faster applications."
+video_host: "youtube"
+video_id: "FRAchBsYEXE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT22M10S"
+thumbnail_url: "https://i.ytimg.com/vi/FRAchBsYEXE/maxresdefault.jpg"
+content_url: "https://youtu.be/FRAchBsYEXE"
+embed_url: "https://www.youtube.com/embed/FRAchBsYEXE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - spring boot
+  - properties
+  - configuration
+  - java
+  - kotlin
+  - spring data
+  - actuator
+  - yaml
+  - configurationproperties
+  - deployment
+---
+
+<article>
+  <p>If Spring Boot config makes you feel like you are juggling flaming swords while blindfolded you are not alone. This guide is a compact tour of the properties and configuration patterns that stop surprises at runtime and keep deployments from turning into chaos therapy sessions. Expect facts and a few sarcastic asides.</p>
+
+  <h2>Where Spring looks for config and why you should care</h2>
+  <p>Spring Boot will read application.properties or application.yml from the classpath first. You can split environment concerns into profile specific files like application-dev.yml and application-prod.yml. When in doubt use command line args or environment variables to override values while debugging in containers or CI.</p>
+  <p>Remember that command line arguments and environment variables win when you need to wrestle a misbehaving app back into compliance. That behavior is deliberate and helpful unless you forgot about it during deployment.</p>
+
+  <h2>Profiles and profile specific files</h2>
+  <p>Activate a profile with spring.profiles.active=dev and layer settings by environment. Profiles make the app behave like different adults depending on where it runs. Do not mix production secrets into dev files unless you enjoy late night incident investigations.</p>
+
+  <h2>Datasource and JPA tips</h2>
+  <p>Keep datasource keys predictable and secret free in VCS. Use environment variables for credentials and inject them at runtime. Example property lines work well in a properties file.</p>
+  <pre><code>spring.datasource.url=jdbc:postgresql://db.example.local:5432/appdb
+spring.datasource.username=myuser
+spring.datasource.password=${DB_PASSWORD}</code></pre>
+  <p>For JPA schema management prefer spring.jpa.hibernate.ddl-auto=validate or none in production. Use update or create only on local developer boxes where you do not mind surprises.</p>
+
+  <h2>Server port and logging without redeploys</h2>
+  <p>Change the port with server.port=8081 when you need two apps to share a machine and they are too stubborn to negotiate. To change verbosity without rebuilding use logging.level entries like this.</p>
+  <pre><code>logging.level.org.springframework=DEBUG</code></pre>
+  <p>Environment overrides are your friend here for toggling verbosity in containers or CI runs.</p>
+
+  <h2>Actuator and security</h2>
+  <p>Actuator endpoints are lifesavers when used carefully and death traps when left open. Expose minimal endpoints with management.endpoints.web.exposure.include=health,info and lock down sensitive endpoints behind authentication and network rules. Treat actuator endpoints like admin doors not open windows.</p>
+
+  <h2>JSON and serialization settings</h2>
+  <p>Tune Jackson with properties such as spring.jackson.property-naming-strategy=SNAKE_CASE to match client expectations. This avoids writing clever custom serializers that future you will regret.</p>
+
+  <h2>Configuration binding and validation</h2>
+  <p>Group related settings with @ConfigurationProperties instead of scattering @Value across the codebase. That approach makes testing and validation much less painful and keeps config tidy when you add Kotlin data classes or Java beans.</p>
+  <p>The configurationproperties pattern plays nicely with Spring Data and typed binding. Validation annotations add a guardrail against bad deploys.</p>
+
+  <h2>Externalized config and priority</h2>
+  <p>Preferences for overrides are predictable. Command line flags and environment variables trump classpath files. Use that to your advantage in containers and CI pipelines. For a fleet of services consider a centralized config server to avoid copy paste bugs and secrets in the wrong repo.</p>
+
+  <h3>Quick checklist</h3>
+  <ul>
+    <li>Keep secrets out of VCS and prefer environment variables</li>
+    <li>Use profile specific files for dev and prod separation</li>
+    <li>Use spring.jpa.hibernate.ddl-auto=validate or none in production</li>
+    <li>Expose only needed actuator endpoints and secure them</li>
+    <li>Prefer @ConfigurationProperties for grouped settings</li>
+    <li>Consider a config server for large deployments</li>
+  </ul>
+
+  <p>Follow these patterns and your deployments will be less stressful and more boring. Boring is good in production. Now go fix that mysterious property file and tell your future self they are welcome.</p>
+</article>
+

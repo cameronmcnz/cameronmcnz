@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Java JDBC PreparedStatements Update Commands MS SQL Server"
+description: "Quick guide to running JDBC PreparedStatement update commands from Java against MS SQL Server with safe parameter binding and resource handling"
+video_host: "youtube"
+video_id: "5jr57GJ27XE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M37S"
+thumbnail_url: "https://i.ytimg.com/vi/5jr57GJ27XE/maxresdefault.jpg"
+content_url: "https://youtu.be/5jr57GJ27XE"
+embed_url: "https://www.youtube.com/embed/5jr57GJ27XE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - JDBC
+  - PreparedStatement
+  - Update
+  - MSSQL
+  - SQLServer
+  - Database
+  - SQLInjection
+  - ConnectionPool
+  - PreparedStatements
+---
+
+<article>
+  <p>If you like living dangerously you can build SQL by concatenating strings and hope for the best. If you prefer sleeping at night use PreparedStatement and stop inviting SQL injection to the party. This guide shows how to run UPDATE commands from Java against MSSQL and SQLServer the right way while keeping connections healthy and bugs scarce.</p>
+
+  <h2>Why PreparedStatement matters for updates</h2>
+  <p>PreparedStatement protects your database from SQLInjection by separating code from data. It also gives the JDBC driver a chance to do its job and may help connection pools perform better under load. In short use PreparedStatements instead of string fiddling when you run UPDATE statements in a production Database.</p>
+
+  <h2>Step by step checklist</h2>
+  <ul>
+    <li>Open a Connection from a DataSource or DriverManager. Prefer a ConnectionPool for real traffic.</li>
+    <li>Create SQL with question mark placeholders to keep parameters safe.</li>
+    <li>Bind parameters with typed setters to match column types.</li>
+    <li>Call executeUpdate and check the returned row count.</li>
+    <li>Close resources using try with resources to avoid leaks and drama.</li>
+    <li>Wrap related updates in a transaction to keep data consistent.</li>
+  </ul>
+
+  <h2>Minimal example that everyone can read and steal</h2>
+  <p>Here is a terse example that shows the flow. It omits try catch logging for clarity but keeps the important parts intact.</p>
+
+  <pre><code>String sql = "UPDATE users SET name = ? WHERE id = ?"
+try (Connection conn = dataSource.getConnection()
+     PreparedStatement ps = conn.prepareStatement(sql)) {
+    ps.setString(1, name)
+    ps.setInt(2, id)
+    int affected = ps.executeUpdate()
+    if (affected == 0) {
+        // no rows matched the WHERE clause, investigate or warn
+    }
+}</code></pre>
+
+  <h3>Notes on the example</h3>
+  <p>Use typed setters such as setString and setInt so the driver does not have to guess types. executeUpdate returns the number of rows changed which is the simplest way to confirm success. If you get zero then either the row was not found or your WHERE clause logic was optimistic.</p>
+
+  <h2>Connection pooling and real world tips</h2>
+  <p>Do not fetch a new physical connection for every request. Use a ConnectionPool or DataSource that hands you a managed Connection. That reduces latency and prevents your app from collapsing during traffic spikes.</p>
+
+  <h3>Transaction handling and multi row updates</h3>
+  <p>When multiple related updates must all succeed wrap them in a transaction. Use commit and rollback to keep the Database consistent. If one update fails roll back and handle the error like a grown up.</p>
+
+  <h2>Error handling and logging</h2>
+  <p>Catch SQLException and log SQLState and errorCode along with a human friendly message. Do not log raw parameter values in places that might expose sensitive data such as passwords.</p>
+
+  <h2>Summary and final warnings</h2>
+  <p>PreparedStatements are your friend when executing UPDATEs on SQLServer from Java with JDBC. Bind parameters, check executeUpdate return values, prefer a ConnectionPool, and use transactions when needed. Follow these steps and your application will be less likely to become an incident report.</p>
+
+  <p>Bonus tip: automated tests that assert row counts and rollback behavior are worth more than a thousand console logs.</p>
+</article>
+

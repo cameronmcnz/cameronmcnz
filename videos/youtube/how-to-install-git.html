@@ -1,0 +1,68 @@
+---
+layout: video
+title: "How to Install Git"
+description: "Step by step guide to install Git on Windows Mac and Linux with basic configuration and verification for developers"
+video_host: "youtube"
+video_id: "N-SKiqoHBnY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M54S"
+thumbnail_url: "https://i.ytimg.com/vi/N-SKiqoHBnY/maxresdefault.jpg"
+content_url: "https://youtu.be/N-SKiqoHBnY"
+embed_url: "https://www.youtube.com/embed/N-SKiqoHBnY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - install git
+  - git tutorial
+  - git install windows
+  - git install mac
+  - git install linux
+  - git config
+  - ssh key
+  - version control
+  - developer tools
+---
+
+<h2>Why Git matters and why you should care</h2>
+<p>If you write code and do not use version control you are living dangerously and will one day weep into a backup drive. Git is the industry standard for tracking changes, collaborating with others, and pretending you always knew what you were doing. This guide walks through how to install Git across Windows Mac and Linux and how to handle the basic git config and SSH key steps so your developer tools behave.</p>
+
+<h2>Choose an install method</h2>
+<p>There are two common routes. Use the native installer with a GUI if you enjoy clicking through prompts. Use the package manager if you prefer speed and less small talk. Both paths lead to the same place, which is a functioning Git on your machine.</p>
+
+<h3>Windows</h3>
+<p>For git install windows users download the official installer from git-scm.com and run the setup. Accept the defaults unless you have strong feelings about line ending handling. Yes clicking Next repeatedly is an acceptable life choice for most people.</p>
+
+<h3>macOS</h3>
+<p>For git install mac use Homebrew with <code>brew install git</code> if you have Homebrew. If you prefer a GUI installer you can get one from the same git-scm.com page. The Homebrew path is faster and less conversational.</p>
+
+<h3>Linux</h3>
+<p>For git install linux prefer your distro package manager. On Debian based systems run <code>sudo apt update</code> and <code>sudo apt install git</code>. On Fedora use <code>sudo dnf install git</code> or on CentOS use <code>sudo yum install git</code>. Package managers keep things tidy and avoid the installer small talk.</p>
+
+<h2>Verify the installation</h2>
+<p>Open a terminal or Windows command prompt and run the version command to confirm Git is present. If it prints a version number you are in business.</p>
+<pre><code>git --version</code></pre>
+
+<h2>Configure your identity so you do not commit as anonymous</h2>
+<p>Set a global user name and email so commits are attributed correctly. These are global settings that apply to all repositories on your machine unless you override them per repo.</p>
+<pre><code>git config --global user.name 'Jane Developer'
+git config --global user.email 'jane@example.com'</code></pre>
+
+<h2>Generate an SSH key and test authentication</h2>
+<p>An SSH key lets you push and pull without typing credentials every five minutes. Create an ed25519 key which is modern and compact.</p>
+<pre><code>ssh-keygen -t ed25519</code></pre>
+<p>Then copy the public key file id_ed25519.pub and add it to your hosting account. Most hosts have a web UI to paste the key. Finally test the connection with the host. For GitHub run this test command and expect a friendly message.</p>
+<pre><code>ssh -T git@github.com</code></pre>
+
+<h2>Troubleshooting and quick tips</h2>
+<ul>
+  <li>If <code>git --version</code> fails check your PATH or reinstall with the package manager.</li>
+  <li>If pushes fail check that your public key was added to the host and that the key agent is running.</li>
+  <li>If you see wrong author info use <code>git config --global user.name</code> and <code>git config --global user.email</code> to inspect current values.</li>
+  <li>Prefer HTTPS over SSH if your environment blocks SSH traffic, but SSH is better for developer ergonomics long term.</li>
+</ul>
+
+<p>This covers the essentials for installing Git and getting basic configuration and SSH authentication working. If you want to learn branching and merging next that is where things get fun and slightly chaotic in a productive way.</p>
+

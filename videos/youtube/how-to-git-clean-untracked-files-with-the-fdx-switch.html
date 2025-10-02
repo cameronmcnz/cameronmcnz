@@ -1,0 +1,64 @@
+---
+layout: video
+title: "How to git clean Untracked Files with the fdx Switch"
+description: "Learn to safely remove untracked and ignored files using git clean -fdx with a dry run and easy recovery tips"
+video_host: "youtube"
+video_id: "gaUTK3SLlhU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M14S"
+thumbnail_url: "https://i.ytimg.com/vi/gaUTK3SLlhU/maxresdefault.jpg"
+content_url: "https://youtu.be/gaUTK3SLlhU"
+embed_url: "https://www.youtube.com/embed/gaUTK3SLlhU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git clean
+  - untracked files
+  - -fdx
+  - fdx
+  - git tutorial
+  - version control
+  - remove untracked
+  - dry run
+  - git commands
+---
+
+<p>If your repository looks like a garage after a hurricane then yes you can tidy it up with a single brutal command. git clean -fdx is the nuclear option for untracked and ignored files. It works great as long as you do not accidentally vaporize something you actually needed.</p>
+
+<h2>Preview what will be removed with a dry run</h2>
+<p>Start from the repository root and ask git to show you what it would delete without touching your files. This is the reading the label before you eat the mystery sandwich step.</p>
+<pre><code>git clean -ndx</code></pre>
+<p>The -n flag runs a dry run so nothing changes. The -d flag includes untracked directories and the -x flag tells git to ignore your ignore rules and list normally ignored files as well. If the output looks like your junk pile then move on. If it looks like your life savings then stop and back up.</p>
+
+<h3>Back up anything important</h3>
+<p>Untracked files do not live in commits. That means git will not rescue them later. Copy critical files to a safe folder, create a temporary branch and add them there, or make a zip backup before you proceed. If you like drama you can skip this and hope for the best but do not blame the command.</p>
+
+<h2>Run the destructive clean when you are comfortable</h2>
+<p>When you have inspected the dry run and saved anything precious execute the removal with force. This will delete files and directories that are not tracked by git and files that match ignore rules.</p>
+<pre><code>git clean -fdx</code></pre>
+<p>Yes it is destructive. Yes it is fast. No you cannot undo it with git unless you have a backup or you had previously committed those files.</p>
+
+<h3>Verify the result</h3>
+<p>After the clean run a status check and another dry run just to be sure. Your working tree should be tidy and the dry run should show nothing to remove.</p>
+<pre><code>git status
+git clean -ndx</code></pre>
+
+<h2>Exclude patterns when you need a safety net</h2>
+<p>If some files look disposable but are secretly important use exclude patterns during the dry run and save them from the apocalypse.</p>
+<pre><code>git clean -e important.log -ndx</code></pre>
+<p>The -e flag lets you protect patterns while still previewing what else would go. This is handy for editor swap files or a local config file that you swear you will not forget about again.</p>
+
+<h2>Quick reference and what each flag does</h2>
+<ul>
+  <li>-n runs a dry run and shows candidates without deleting</li>
+  <li>-f forces removal so git will actually delete files</li>
+  <li>-d includes untracked directories</li>
+  <li>-x also removes files that match ignore rules</li>
+  <li>-e pattern excludes matching files from the operation</li>
+</ul>
+
+<p>Summary in plain English. Preview first with git clean -ndx. Back up anything you might regret losing. Run git clean -fdx to remove the clutter. Verify with git status and a final dry run. If you are still terrified make a zipped backup of the working directory and have a snack. You are allowed to be dramatic about file deletion, we all are.
+

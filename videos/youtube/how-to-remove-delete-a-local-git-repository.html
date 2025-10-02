@@ -1,0 +1,67 @@
+---
+layout: video
+title: "How to Remove & Delete a Local Git Repository"
+description: "Step by step guide to remove a local Git repository safely with commands for deleting the .git folder and keeping or restoring files."
+video_host: "youtube"
+video_id: "-sdYsDumGgM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M48S"
+thumbnail_url: "https://i.ytimg.com/vi/-sdYsDumGgM/maxresdefault.jpg"
+content_url: "https://youtu.be/-sdYsDumGgM"
+embed_url: "https://www.youtube.com/embed/-sdYsDumGgM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - remove git
+  - delete git repository
+  - local git
+  - .git folder
+  - git cleanup
+  - git tutorial
+  - git commands
+  - git backup
+  - devops
+---
+
+<p>So you want to remove git from a project folder and keep the files but lose the history and tracking. Fine. This is a practical git cleanup guide that covers backing up work first and then nuking the .git folder so your project becomes a plain old folder again. Useful for one time cleanups or when local git history is embarrassing.</p>
+
+<h2>Confirm location and make a backup</h2>
+<p>First rule of devops club is do not destroy things without a backup. Run <code>pwd</code> or check your file explorer to make sure you are in the project root. Then copy the folder or compress it to an archive. Backups are boring until they save your career.</p>
+
+<h2>Check repository status and preserve changes</h2>
+<p>Find out what git thinks of your folder with <code>git status</code>. That will list tracked and untracked files. If you have work you want to keep add and commit it or stash it. Examples of safe git commands are:</p>
+<pre><code>git status
+git add .
+git commit -m "backup commit"
+# or stash if you do not want a commit
+git stash save "backup"
+</code></pre>
+<p>Committing makes restoring later simpler. Stashing is fine for a quick save if you plan to reintroduce git soon.</p>
+
+<h2>Delete the .git folder to stop tracking</h2>
+<p>Deleting the .git folder removes all git history and local tracking but leaves your working files intact. On macOS and Linux run <code>rm -rf .git</code>. On Windows use Command Prompt with <code>rmdir /s .git</code> or PowerShell with <code>Remove-Item -Recurse -Force .git</code>. If you are nervous rename the folder instead with <code>mv .git .git-backup</code> so you can restore history later.</p>
+
+<h3>Why rename instead of delete</h3>
+<p>Renaming is reversible and cheap. If you discover you need commit history or remotes later just restore the folder and resume being tracked. If you are absolutely sure you want to delete history then remove the backup to free space.</p>
+
+<h2>Forget remote references if they exist</h2>
+<p>If your local repo had a remote and you want to drop that binding run <code>git remote remove origin</code> after restoring a temporary git folder or simply edit the .git config if you know what you are doing. Removing remotes prevents accidental pushes to a remote you meant to forget.</p>
+
+<h2>Verify the cleanup</h2>
+<p>Run <code>git status</code> from the project root to confirm you no longer have a git repo. You should see a message about not being a git repository or an error. You can also list hidden files to make sure <code>.git</code> is gone with <code>ls -la</code> or your file explorer. If the goal was to fully delete local history the absence of the .git folder means success.</p>
+
+<h2>Quick checklist for a sane git cleanup</h2>
+<ul>
+  <li>Confirm you are in the project root with <code>pwd</code></li>
+  <li>Create a backup archive or copy the folder</li>
+  <li>Save work with <code>git add</code> and <code>git commit</code> or <code>git stash</code></li>
+  <li>Remove tracking with <code>rm -rf .git</code> or Windows equivalent</li>
+  <li>Remove remote with <code>git remote remove origin</code> if needed</li>
+  <li>Verify by running <code>git status</code> and checking for a missing .git</li>
+</ul>
+
+<p>This tutorial kept the commands basic and safe for most local git cleanup tasks. If you are working in a team or with shared remotes be extra cautious. If you want to permanently delete history from a remote that is a different and more complicated process. For quick local git removal this method will do the job and spare you a week of awkward questions.</p>
+

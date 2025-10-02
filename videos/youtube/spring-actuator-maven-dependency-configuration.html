@@ -1,0 +1,84 @@
+---
+layout: video
+title: "Spring Actuator Maven Dependency Configuration"
+description: "Learn how to add Spring Boot Actuator with Maven and enable endpoints and metrics for simple monitoring and observability."
+video_host: "youtube"
+video_id: "ba3GKC0NEDE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M25S"
+thumbnail_url: "https://i.ytimg.com/vi/ba3GKC0NEDE/maxresdefault.jpg"
+content_url: "https://youtu.be/ba3GKC0NEDE"
+embed_url: "https://www.youtube.com/embed/ba3GKC0NEDE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring
+  - Actuator
+  - Maven
+  - SpringBoot
+  - Actuators
+  - Metrics
+  - Endpoints
+  - Micrometer
+  - Monitoring
+  - Configuration
+---
+
+<p>If you want your Spring Boot app to stop being the mysterious black box it currently is add Actuator with Maven and hook up Micrometer for real metrics. This short guide explains the dependency, the tiny config changes, and the quick tests so you can sleep at night knowing your endpoints actually respond.</p>
+
+<h2>Why add Actuator to your Spring Boot app</h2>
+<p>Actuator gives you ready made operational endpoints like health, info, metrics and more. It saves you from writing bespoke status endpoints at 2 a.m and then regretting everything. Pair it with Micrometer and you get a clean path to Prometheus or other monitoring backends for proper metrics and dashboards.</p>
+
+<h3>Step 1 Add the Actuator dependency to pom.xml</h3>
+<p>Drop the starter in and let Spring Boot wire the beans. Maven takes care of the rest. No rituals required besides editing your pom and hitting build.</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+
+<h3>Step 2 Expose the endpoints in application properties</h3>
+<p>Control what is visible over HTTP and what stays backstage. Running the management server on a separate port reduces the chance that a user accidentally pokes an operational endpoint for entertainment.</p>
+<pre><code>management.endpoints.web.exposure.include=health,info,metrics
+management.server.port=8081
+# disable remote shutdown unless you like chaos
+management.endpoint.shutdown.enabled=false</code></pre>
+
+<h3>Step 3 Add a Micrometer registry when exporting metrics</h3>
+<p>If you plan to ship metrics to Prometheus or another backend add the appropriate Micrometer registry dependency. Micrometer translates Spring metrics into the format your backend expects.</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;io.micrometer&lt;/groupId&gt;
+  &lt;artifactId&gt;micrometer-registry-prometheus&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+
+<h3>Step 4 Build run and verify</h3>
+<p>Package and run the app like you always do then hit the management endpoints to make sure the wiring actually works. A single curl proves everything without a full observability pipeline installed.</p>
+<pre><code>mvn package
+java -jar target/your-app.jar
+# or from the IDE
+mvn spring-boot:run
+
+# quick checks
+curl -s http://localhost:8081/actuator/health
+curl -s http://localhost:8081/actuator/metrics</code></pre>
+
+<h2>Production tips and checklist</h2>
+<ul>
+  <li>Expose only health and metrics over the network in production. Less is safer and less boring.</li>
+  <li>Keep sensitive endpoints restricted to local or secure networks or put them behind auth.</li>
+  <li>Use a dedicated management port to avoid accidental exposure to user traffic.</li>
+  <li>When exporting metrics pick the right Micrometer registry for your backend and test end to end.</li>
+</ul>
+
+<h2>Quick checklist before you call it done</h2>
+<ol>
+  <li>Actuator starter in pom.xml</li>
+  <li>Desired endpoints listed in management.endpoints.web.exposure.include</li>
+  <li>Management port set if needed</li>
+  <li>Micrometer registry added for metric export</li>
+  <li>Endpoints verified with curl or a browser</li>
+</ol>
+
+<p>That is all it takes to get basic monitoring up and running with Spring Boot Actuator and Micrometer. You get low overhead, useful metrics and a set of endpoints that tell you if the app is alive or pretending to be alive. Now go configure it properly and try not to expose everything to the internet.</p>
+

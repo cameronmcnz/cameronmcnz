@@ -1,0 +1,59 @@
+---
+layout: video
+title: "Multiversion Concurrency Control MVCC Explained"
+description: "Clear practical guide to MVCC for databases Learn how multiversion concurrency control prevents conflicts and improves isolation"
+video_host: "youtube"
+video_id: "iM71d2krbS4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M29S"
+thumbnail_url: "https://i.ytimg.com/vi/iM71d2krbS4/maxresdefault.jpg"
+content_url: "https://youtu.be/iM71d2krbS4"
+embed_url: "https://www.youtube.com/embed/iM71d2krbS4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - MVCC
+  - multiversion concurrency control
+  - database concurrency
+  - transactions
+  - isolation levels
+  - snapshot isolation
+  - PostgreSQL
+  - MySQL
+  - read consistency
+  - locking
+---
+
+<article>
+  <p>If your database had a motto it would be keep calm and avoid blocking. Multiversion concurrency control or MVCC is the trick that lets readers and writers coexist without staring each other down at the lock table. It stores multiple versions of rows so reads get a stable snapshot and writers append new versions instead of overwriting the old data. The result is fewer wait queues and fewer angry DBAs at 2 a m.</p>
+
+  <h2>Basic idea that actually works</h2>
+  <p>Think of every row as a small time machine. Each update produces a new version with metadata such as a transaction id or timestamp. A transaction sees the most recent version that was valid when it started. That gives read consistency even while other transactions are making changes, and it avoids most locking drama.</p>
+
+  <h3>What readers do</h3>
+  <p>Readers get a snapshot. They do not block writers. They read the version that was visible at their start time. That means long running analytical queries can churn through data without freezing OLTP traffic into an unproductive stupor.</p>
+
+  <h3>What writers do</h3>
+  <p>Writers create new versions. The old version sticks around until the system decides it is safe to remove it. This is cleaner than in place updates but it means storage grows if no one cleans up.</p>
+
+  <h2>Visibility and cleanup without theatrics</h2>
+  <p>Committed versions become visible to later transactions once the system agrees the new transaction is stable. Old versions are garbage collected or vacuumed when no active transaction can possibly need them. Long running transactions are the classic reason garbage collection falls behind, and yes that leads to bloat and slowdowns.</p>
+
+  <h2>Pros and cons in plain English</h2>
+  <ul>
+    <li>Pros keep reads fast and reduce locking conflicts</li>
+    <li>Cons include storage overhead and potential bloat from many versions</li>
+    <li>Monitoring long running transactions and scheduling regular garbage collection helps a lot</li>
+  </ul>
+
+  <h2>Real world notes for PostgreSQL and MySQL</h2>
+  <p>PostgreSQL implements MVCC with tuple versions and transaction ids and relies on vacuum to reclaim space. MySQL InnoDB uses undo logs and consistent read views to give similar behavior. Both can provide snapshot isolation which avoids many common anomalies but still needs careful schema and index design to avoid surprises such as write skew under weaker isolation levels.</p>
+
+  <h2>Quick experiment for curious humans</h2>
+  <p>On a dev server start a long running read transaction and then run updates in another session. Watch the version count or table bloat with the monitoring tools your database provides. It is educational and mildly terrifying until you tune the garbage collector.</p>
+
+  <p>In short MVCC is the unsung hero of database concurrency. It trades a bit of storage and housekeeping for much better read throughput and fewer lock fights. You still need to mind isolation levels and long running transactions or the house will get messy.</p>
+</article>
+

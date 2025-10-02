@@ -1,0 +1,91 @@
+---
+layout: video
+title: "Git Flow Init Example"
+description: "Quick guide to initialize git flow for a repository and manage feature release and hotfix branches with clear commands and practical tips"
+video_host: "youtube"
+video_id: "d4cDLBFbekw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M34S"
+thumbnail_url: "https://i.ytimg.com/vi/d4cDLBFbekw/maxresdefault.jpg"
+content_url: "https://youtu.be/d4cDLBFbekw"
+embed_url: "https://www.youtube.com/embed/d4cDLBFbekw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git flow
+  - git-flow
+  - branching
+  - feature branch
+  - release branch
+  - hotfix
+  - workflow
+  - version control
+  - tutorial
+---
+
+<h2>Why use git flow</h2>
+<p>If your version control life looks like a tangle of branches and regret then git flow might be the mild therapy you need. This workflow gives a clear structure for feature branch work release preparation and urgent hotfixes. It will not fix meetings that could have been emails but it will make merging less dramatic.</p>
+
+<h2>Install git flow</h2>
+<p>Install the helper with your package manager. On macOS try Homebrew and on many Linux distros use the package for your distribution. The helper is a thin wrapper that gives you consistent commands for branching and releases.</p>
+<pre><code>brew install git-flow
+# or on many Linux systems
+sudo apt install git-flow
+</code></pre>
+
+<h2>Initialize the workflow</h2>
+<p>From your main development branch run the init command and accept defaults if you like sane decisions made by a tool. Using the -d flag sets the defaults automatically and saves you the prompt drama.</p>
+<pre><code>git checkout develop
+git flow init -d
+# or if your primary branch is main
+git checkout main
+git flow init -d
+</code></pre>
+
+<h2>Pick branch names and prefixes</h2>
+<p>git flow will ask for a production branch and a development branch. A common pair is master and develop but many teams use main and develop. The helper also sets prefixes for feature release and hotfix branches so your repo does not look like a forest of nameless sticks.</p>
+
+<h2>Feature branches</h2>
+<p>Work on isolated features with predictable commands. This keeps experimental code from leaking into the main line until it is ready.</p>
+<pre><code>git flow feature start my-feature
+# do work commit push as usual
+git flow feature finish my-feature
+</code></pre>
+<p>Finishing a feature merges it back into develop and cleans up the branch. It reduces accidental merges and protects your release branch from half baked ideas.</p>
+
+<h2>Release branches</h2>
+<p>When you are ready to stabilize a set of features create a release branch. This is where final fixes and version tagging happen without blocking new feature work on develop.</p>
+<pre><code>git flow release start 1.2.0
+# fix bugs update changelog and run tests
+git flow release finish 1.2.0
+</code></pre>
+<p>Finishing a release will merge changes into production and development and create a tag for the version. Nice clean history and a satisfying tag to brag about.</p>
+
+<h2>Hotfixes</h2>
+<p>For those moments when production is on fire use a hotfix branch. This path updates the production branch and backports the fix into development without a therapy session.</p>
+<pre><code>git flow hotfix start 1.2.1
+# patch and commit
+git flow hotfix finish 1.2.1
+</code></pre>
+
+<h2>Push and collaborate</h2>
+<p>Push your feature and release branches frequently so teammates do not wander into merge nightmares. A typical sequence is to push the new branch and then open a pull request or merge request in your hosting service.</p>
+<ul>
+<li>git push origin develop</li>
+<li>git push origin master</li>
+<li>git push origin feature/my-feature</li>
+</ul>
+
+<h2>Tips and common pitfalls</h2>
+<ul>
+<li>Use git flow init -d to accept sane defaults and save time.</li>
+<li>Decide on main versus master up front and stick with it for consistent scripts and CI.</li>
+<li>Keep branches short lived to avoid giant merge conflicts that feel like cardio.</li>
+<li>git flow is a workflow not a miracle. Good planning and code review still matter.</li>
+</ul>
+
+<p>Adopting git flow neatens up branching naming and gives your team a repeatable workflow for features releases and hotfixes. It is an easy way to make version control feel slightly less like chaos and slightly more like a plan.</p>
+

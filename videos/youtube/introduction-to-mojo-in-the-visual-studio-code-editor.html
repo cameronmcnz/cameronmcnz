@@ -1,0 +1,71 @@
+---
+layout: video
+title: "Introduction to Mojo in the Visual Studio Code Editor"
+description: "Quick tutorial to set up and use Mojo in Visual Studio Code with language server setup examples debugging and workflow tips"
+video_host: "youtube"
+video_id: "OoTAHstloAg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT17M40S"
+thumbnail_url: "https://i.ytimg.com/vi/OoTAHstloAg/maxresdefault.jpg"
+content_url: "https://youtu.be/OoTAHstloAg"
+embed_url: "https://www.youtube.com/embed/OoTAHstloAg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Mojo
+  - Mojo language
+  - Visual Studio Code
+  - VS Code
+  - Language server
+  - Mojo tutorial
+  - Mojo setup
+  - Debugging Mojo
+  - Mojo REPL
+  - Programming languages
+---
+
+<h1>A practical guide to Mojo setup REPL use and VS Code debugging workflows</h1>
+<p>So you want Mojo in Visual Studio Code and you do not want to wrestle with mystery breakage. Good choice. This guide walks through the essentials for a pleasant Mojo development experience in VS Code. Expect setup tips, REPL tricks, debugging pointers, and a few sarcastic remarks when things try to be clever.</p>
+
+<h2>Step 1 Install the Mojo toolchain and a clean Python environment</h2>
+<p>First things first. Keep your experiments in a contained Python virtual environment so you do not accidentally break other projects. Create the environment and activate it like this on Unix style systems.</p>
+<pre><code>python -m venv .venv
+source .venv/bin/activate</code></pre>
+<p>On Windows use the matching activation command for your shell. Then follow the recommended installer or package manager steps for the Mojo toolchain. Running the runtime from a controlled environment avoids surprise breakage when copying examples from the web.</p>
+
+<h2>Step 2 Add the VS Code extension and enable the language server</h2>
+<p>Open the Extensions view in VS Code and search for the Mojo extension. Install it. Then enable the language server feature in the extension settings for better completions diagnostics and symbol navigation. The language server turns guesswork into suggestions so your code looks less like a ransom note.</p>
+
+<h2>Step 3 Configure workspace paths and environment</h2>
+<p>Point VS Code at your Mojo binary and any SDK folders in workspace settings. If your project needs specific environment variables add them to your launch configuration so runs and debugging happen in the same context as production or your intended target runtime. This saves time and head scratching when behavior differs between shells and the editor.</p>
+<ul>
+  <li>Set the path to the Mojo executable in workspace settings.</li>
+  <li>Add SDK or library folders to your workspace for symbol navigation.</li>
+  <li>Mirror runtime environment variables in the run configuration to get faithful behavior.</li>
+</ul>
+
+<h2>Step 4 Run a sample Mojo file and explore the REPL</h2>
+<p>Open a small example file and run it from the integrated terminal or use the REPL for quick checks. The REPL is great for probing language semantics and testing tiny kernels without rewriting files. Live feedback beats page after page of documentation when you want to know what actually happens.</p>
+<ol>
+  <li>Run a file in the integrated terminal to see real output and logs.</li>
+  <li>Drop into the REPL for fast iteration and type exploration.</li>
+  <li>Use small examples to confirm native interop and performance behavior.</li>
+</ol>
+
+<h2>Step 5 Use the VS Code debugger and basic diagnostics</h2>
+<p>Create a run and debug configuration in the Run and Debug view. Set breakpoints step through your code and inspect variables. Pair breakpoints with the language server for richer symbol hints while you examine stacks. Diagnostics and hover info help you spot type or syntax issues before they become full blown meltdowns.</p>
+
+<h2>Step 6 Experiment with performance and native features</h2>
+<p>Try tiny kernels and native function samples to see what Mojo can do. Start small and increase complexity as you confirm behavior. Benchmark simple loops and compare results. Use native features for hotspots but keep tests isolated so you never blame the wrong layer for a slow run.</p>
+
+<h3>Tips and troubleshooting</h3>
+<ul>
+  <li>If completions look broken reload the window and confirm the language server is running.</li>
+  <li>If runs differ from terminal behavior check environment variables and workspace paths.</li>
+  <li>Keep a single active virtual environment per workspace to avoid dependency confusion.</li>
+</ul>
+
+<p>That is the gist. With a clean virtual environment the VS Code extension and a working language server you get a pleasant workflow for REPL driven experiments debugging and performance trials. Now go write code that makes your future self proud and your debugger useful.</p>
+

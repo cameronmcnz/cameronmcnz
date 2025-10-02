@@ -1,0 +1,84 @@
+---
+layout: video
+title: "Configure a Docker Nginx Reverse Proxy Image and Container"
+description: "Step by step guide to build an Nginx reverse proxy Docker image and run a container for routing and TLS with clean best practices"
+video_host: "youtube"
+video_id: "ZmH1L1QeNHk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M51S"
+thumbnail_url: "https://i.ytimg.com/vi/ZmH1L1QeNHk/maxresdefault.jpg"
+content_url: "https://youtu.be/ZmH1L1QeNHk"
+embed_url: "https://www.youtube.com/embed/ZmH1L1QeNHk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - docker
+  - nginx
+  - reverse proxy
+  - docker image
+  - docker container
+  - nginx proxy
+  - devops
+  - containerization
+  - tls
+  - proxy configuration
+---
+
+<article>
+  <h2>Quick overview</h2>
+  <p>This is a hands on guide to build a lean Docker image that runs Nginx as a reverse proxy, route traffic to backend services, and handle TLS termination. If you are tired of copy paste confusion and mysterious 502s this will get you to a predictable proxy that you can version, ship, and replace without crying.</p>
+
+  <h2>What to configure first</h2>
+  <p>Start with server blocks that proxy pass requests to backends by host name or IP and port. Use upstream blocks when you have multiple backends for the same service. Add simple health checks in your upstreams if you need graceful failover. Avoid overcomplicated rewrite rules unless your app requires them. Simpler is faster to debug and less likely to explode during traffic spikes.</p>
+
+  <h3>Key proxy settings to include</h3>
+  <ul>
+    <li>Preserve X forward headers and any custom headers your apps expect</li>
+    <li>Configure timeouts so slow clients do not exhaust your worker processes</li>
+    <li>Set proper buffering and client body limits for uploads</li>
+    <li>Use upstream blocks for load balancing and simple health checks</li>
+  </ul>
+
+  <h2>Build the Docker image</h2>
+  <p>Base the image on the official Nginx image and copy your custom configuration and any static files into the image. Keep layers tidy to reduce image size and make builds faster. Use a clear tag that reflects the role and version of the proxy so your CI and deploys do not confuse which proxy is live.</p>
+  <p>Store artifacts in a registry when multiple hosts or pipelines need to pull the image. A consistent tag strategy will save you a lot of late night troubleshooting when someone rolled back to the wrong image.</p>
+
+  <h2>Run the container</h2>
+  <p>Start the container with host port mapping so Nginx can listen on the ports you need. Mount the configuration directory so you can update rules without rebuilding the image. Use a restart policy and give the container a meaningful name. Labels are helpful for monitoring, service discovery, and tooling that expects metadata.</p>
+
+  <h3>Recommended run checklist</h3>
+  <ul>
+    <li>Map ports for HTTP and HTTPS as needed</li>
+    <li>Mount the Nginx config directory and certificate directory if you manage certs outside the image</li>
+    <li>Set a restart policy to handle crashes or host reboots</li>
+    <li>Label the container for your observability stack</li>
+  </ul>
+
+  <h2>Testing and debugging</h2>
+  <p>Test proxy routes by requesting host endpoints and watching response headers and status codes. Confirm that backend services see expected forwarded headers and that proxy pass rules are applied correctly. Check Nginx logs for errors and increase verbosity while debugging. If you see unexpected 502 or 504 errors inspect upstream health and timeouts first.</p>
+  <p>Use small, repeatable tests. Curl the endpoint and inspect headers. Then call the backend directly and compare behavior. That will tell you whether the proxy is the bad actor or the backend is just having a bad day.</p>
+
+  <h2>Handling TLS</h2>
+  <p>Add certificates by mounting a directory with PEM files into the container or by running an ACME client in a companion container that manages certificates for you. Make sure Nginx can read the files and that file permissions are not playing hard to get. Keep certificate paths consistent across environments so your deployment scripts do not need a PhD in arcane paths.</p>
+
+  <h3>Certificate tips</h3>
+  <ul>
+    <li>Mount certificates as read only where possible</li>
+    <li>Confirm Nginx user has permission to read cert and key files</li>
+    <li>Automate renewal with an ACME client if you do not want certificate expiry surprises</li>
+  </ul>
+
+  <h2>Best practices summary</h2>
+  <ul>
+    <li>Keep the image small and the layers logical for fast builds</li>
+    <li>Use meaningful tags and store the image in a registry for CI and multi host deployments</li>
+    <li>Mount configs and certs so swapping containers is painless</li>
+    <li>Label containers for monitoring and discovery</li>
+    <li>Test proxy behavior and backend health before trusting production traffic</li>
+  </ul>
+
+  <p>This guide gives you the essentials to build and run an Nginx reverse proxy using Docker. Follow these steps and you will have a predictable proxy container that handles routing and TLS termination without drama. If anything goes wrong remember logs are your friend and coffee is optional but recommended.</p>
+</article>
+

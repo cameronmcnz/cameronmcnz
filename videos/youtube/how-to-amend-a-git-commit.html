@@ -1,0 +1,72 @@
+---
+layout: video
+title: "How to amend a Git commit"
+description: "Quick guide to amend the last Git commit message or content with commands and safe push practices for rewritten history"
+video_host: "youtube"
+video_id: "BRL2UFg2mWA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/BRL2UFg2mWA/maxresdefault.jpg"
+content_url: "https://youtu.be/BRL2UFg2mWA"
+embed_url: "https://www.youtube.com/embed/BRL2UFg2mWA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git commit
+  - amend
+  - git amend
+  - git rebase
+  - version control
+  - github
+  - command line
+  - force push
+  - git tutorial
+---
+
+<p>If you ever typed a commit message that made future you sigh with regret this is your survival guide. We will cover how to change the last commit message or content amend staged changes rewrite older commits and push rewritten history without summoning chaos</p>
+
+<h2>Why bother fixing commits</h2>
+<p>Sometimes you typo things sometimes you forget a file sometimes you want tidy history that does not scream amateur hour. Amending and rebasing let you clean up the mess so the git log actually tells a story and not a crime report</p>
+
+<h2>Change the last commit message</h2>
+<p>If you only need to fix the most recent commit message run this simple command</p>
+<pre><code>git commit --amend -m "Fix typo in README"
+</code></pre>
+<p>Want drama instead of a one liner omit the -m flag to open your editor. It is the same command but with more emotion</p>
+
+<h2>Add new changes into the last commit</h2>
+<p>Staged files become part of the amended commit. Stage what you need then amend without changing the message like this</p>
+<pre><code>git add path/to/file
+git commit --amend --no-edit
+</code></pre>
+<p>This replaces the last commit object so the tree matches what you staged. It is not creating a new commit so history looks tidy</p>
+
+<h2>Rewrite older commits with interactive rebase</h2>
+<p>If the problem is deeper than the last commit use interactive rebase to surgically edit history. For example to rewrite the last three commits run</p>
+<pre><code>git rebase -i HEAD~3
+</code></pre>
+<p>In the editor change pick to edit or reword for the commit you want to change. When rebase pauses apply fixes then run</p>
+<pre><code>git commit --amend
+git rebase --continue
+</code></pre>
+<p>If you need to split a commit or change files you can amend at the stop point and continue. Interactive rebase is powerful and a little dangerous when used carelessly</p>
+
+<h2>Push rewritten history without wrecking the remote</h2>
+<p>If you rewrote commits that were already pushed update the remote using safe force. Use this to avoid accidentally clobbering other peoples work</p>
+<pre><code>git push --force-with-lease origin your-branch
+</code></pre>
+<p>This is safer than plain force because it checks that the remote has not moved unexpectedly. Also tell your teammates you are rewriting history unless you enjoy passive aggressive chats in standup</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Do not rewrite shared history without telling collaborators</li>
+  <li>Use feature branches to avoid drama on main branches</li>
+  <li>If you panic use git reflog to find old states and recover commits</li>
+  <li>Prefer --force-with-lease over plain --force to reduce collisions</li>
+</ul>
+
+<p>That is the practical bit. Amend for typos amend for missing files and rebase when you want to tidy history. If things go wrong the reflog is your friend and GitHub likely has a notification calling you out. Breathe deep and fix it properly</p>
+

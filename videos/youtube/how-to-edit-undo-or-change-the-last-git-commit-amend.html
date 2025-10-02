@@ -1,0 +1,72 @@
+---
+layout: video
+title: "How to EDIT UNDO or CHANGE the last Git commit AMEND"
+description: "Edit or undo the last Git commit message using git commit --amend and safe force push options for shared repositories and clean history."
+video_host: "youtube"
+video_id: "FdRt4aTY05I"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M45S"
+thumbnail_url: "https://i.ytimg.com/vi/FdRt4aTY05I/maxresdefault.jpg"
+content_url: "https://youtu.be/FdRt4aTY05I"
+embed_url: "https://www.youtube.com/embed/FdRt4aTY05I"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git-amend
+  - git-commit
+  - version-control
+  - undo-commit
+  - force-push
+  - git-tutorial
+  - command-line
+  - devops
+  - git-best-practices
+---
+
+<article>
+  <p>If your last commit reads like a ransom note or forgets that one important file you swore you added, breathe. Git gives you tools to fix the mess without rewriting your life history. Below are practical commands and a few warnings to keep you from nuking a shared branch by accident.</p>
+
+  <h2>When to use amend and when to rewind</h2>
+  <p>Use <code>git commit --amend</code> for cosmetic fixes such as typos in the commit message or a forgotten file that you can stage and fold into the previous snapshot. Use <code>git reset</code> when the commit itself is wrong and you want to move the branch pointer back. Pick the tool that matches how attached you are to the commit.</p>
+
+  <h3>Amend the last commit message</h3>
+  <p>If the bad message never left your machine run this smooth little trick:</p>
+  <pre><code>git commit --amend -m "Better commit message here"</code></pre>
+  <p>This replaces the most recent commit message without creating a new commit object. If you omit the <code>-m</code> flag your editor will open and you can pretend you are writing poetry.</p>
+
+  <h3>Include staged changes in the previous commit</h3>
+  <p>Forgot to add a file Don't panic. Stage the files and amend the commit so the history looks like you got your life together on the first try.</p>
+  <pre><code>git add path/to/file
+git commit --amend --no-edit</code></pre>
+  <p>The <code>--no-edit</code> flag keeps the existing commit message. If you want to tweak the message at the same time use <code>git commit --amend</code> and edit the message in your editor.</p>
+
+  <h2>If you already pushed the commit</h2>
+  <p>If the commit has been pushed to a shared branch then rewriting history becomes a social problem not just a technical one. Speak up before you push changes that alter history. If you must update the remote do this more politely than a blind force push.</p>
+
+  <h3>Update the remote with safety checks</h3>
+  <pre><code>git commit --amend
+git push --force-with-lease</code></pre>
+  <p>The <code>--force-with-lease</code> option checks that the remote head is what you expect before overwriting it. That helps avoid clobbering someone else who pushed while you were crafting your perfect commit message.</p>
+
+  <h2>Completely undo the last commit</h2>
+  <p>Want to drop the commit but keep the work staged so you can fix and recommit Use <code>git reset --soft</code>. Want to throw everything away and pretend it never happened Use <code>git reset --hard</code>.</p>
+  <pre><code>git reset --soft HEAD~1   # keep changes staged
+
+git reset --hard HEAD~1    # erase commit and working copy changes</code></pre>
+  <p>Choose the method based on whether you want to preserve your working tree or start fresh. Be careful with <code>--hard</code> because it will discard uncommitted work without asking.</p>
+
+  <h2>Quick checklist for a safe amend workflow</h2>
+  <ul>
+    <li>If you never pushed then amend freely</li>
+    <li>If you pushed tell your team first and use <code>--force-with-lease</code></li>
+    <li>Prefer <code>git reset --soft</code> to edit files and create a clean commit</li>
+    <li>Use <code>git add</code> to stage forgotten files before amending</li>
+  </ul>
+
+  <h2>Final thoughts and a small cynical tip</h2>
+  <p>Amend is perfect for tiny fixes and showing off your control over time. Resets and forced pushes are for when you want to rewrite history and make people question your life choices. When in doubt communicate with your team and use <code>--force-with-lease</code> instead of raw force. Your collaborators will thank you or at least not file a formal complaint.</p>
+</article>
+

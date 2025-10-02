@@ -1,0 +1,87 @@
+---
+layout: video
+title: "GitFlow Lab 1 with a Fork and a Clone"
+description: "Learn how to fork a repo clone locally add an upstream remote and use GitFlow to create feature branches and send pull requests"
+video_host: "youtube"
+video_id: "Nwo5DAuYGok"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT32M10S"
+thumbnail_url: "https://i.ytimg.com/vi/Nwo5DAuYGok/maxresdefault.jpg"
+content_url: "https://youtu.be/Nwo5DAuYGok"
+embed_url: "https://www.youtube.com/embed/Nwo5DAuYGok"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gitflow
+  - git
+  - fork
+  - clone
+  - github
+  - branching
+  - pull request
+  - upstream
+  - origin
+  - feature branch
+---
+
+<article>
+  <p>If you want to contribute without breaking the main repo and without awkward apologies, welcome. This guide shows how to use GitFlow with a fork and a local clone, push feature branches to your fork, and open a clean pull request against upstream develop. It is short, practical, and slightly judgmental about chaotic commit histories.</p>
+
+  <h2>Why use a fork and a clone</h2>
+  <p>Forking on GitHub or another hosting service gives you a private sandbox to work in, and cloning brings that sandbox to your machine. That setup keeps origin pointing at your fork and lets you propose changes to the upstream repository with pull requests, so the maintainers do not have to babysit your local branches.</p>
+
+  <h2>Forking on the hosting service</h2>
+  <p>Use the web UI to fork the upstream repository into your personal account. This is the simplest way to avoid accidentally pushing to upstream and to keep a record of your proposed changes.</p>
+
+  <h2>Cloning the fork</h2>
+  <p>Clone your fork to start working locally. The clone will set origin to your fork by default which makes pushing straightforward.</p>
+  <pre><code>git clone git@github.com:your-username/repo.git
+cd repo</code></pre>
+
+  <h2>Pointing at upstream</h2>
+  <p>Add the original repository as the upstream remote so you can fetch changes from the official source. This is the lifeline that keeps your fork from falling behind forever.</p>
+  <pre><code>git remote add upstream git@github.com:upstream-owner/repo.git
+git fetch upstream</code></pre>
+
+  <h2>Start a feature branch</h2>
+  <p>Either use the git flow helper or make a branch manually from develop. Both work. GitFlow gives you conventions, the manual way is fine if you prefer being in control.</p>
+  <p>Using the git flow helper</p>
+  <pre><code>git flow feature start my-feature</code></pre>
+  <p>Manual branch creation from develop</p>
+  <pre><code>git checkout develop
+git checkout -b feature/my-feature</code></pre>
+  <p>Keep commits focused and atomic, and write clear messages unless you enjoy long review cycles.</p>
+
+  <h2>Pushing and opening a pull request</h2>
+  <p>Push your feature branch to origin which is your fork, then open a pull request from your fork branch to upstream develop using the web UI. Describe the change, reference issue numbers if any, and keep the review notes polite.</p>
+  <pre><code>git push origin feature/my-feature</code></pre>
+  <p>On GitHub pick your fork and branch as the source and upstream develop as the target. Add a concise summary and any test steps or screenshots that make reviewers less grumpy.</p>
+
+  <h2>Keeping your fork in sync</h2>
+  <p>Falling behind upstream is a fast track to merge conflicts and shame. Regularly fetch upstream and update your local develop branch, then push the update to your fork.</p>
+  <p>Merge workflow</p>
+  <pre><code>git fetch upstream
+git checkout develop
+git merge upstream/develop
+git push origin develop</code></pre>
+  <p>Rebase workflow when you want cleaner history</p>
+  <pre><code>git fetch upstream
+git checkout develop
+git rebase upstream/develop
+git push origin develop --force-with-lease</code></pre>
+  <p>Use rebase only if you understand the risks of rewriting history and coordinate with any collaborators who may share branches.</p>
+
+  <h2>Common gotchas and tips</h2>
+  <ul>
+    <li>Always confirm which remote is origin and which is upstream with git remote -v, because assumptions are how we break things.</li>
+    <li>If your PR needs changes, make them on the same feature branch and push to origin. The PR will update automatically.</li>
+    <li>Use meaningful branch names like feature/add-login or fix/text-typo, and avoid feature/untitled or my-fix-2 unless you enjoy confusion.</li>
+    <li>If you rebase public branches, let reviewers know since they might need to reset their local copies.</li>
+  </ul>
+
+  <h2>Wrap up</h2>
+  <p>Fork and clone, add upstream, start a feature from develop, push to origin, and open a pull request against upstream develop. Keep syncing with upstream to avoid surprise conflicts and to stay a team player. This workflow keeps the main repo tidy and gives you room to experiment without causing chaos.</p>
+</article>
+

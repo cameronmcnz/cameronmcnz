@@ -1,0 +1,67 @@
+---
+layout: video
+title: "Jenkins Installer for Windows"
+description: "Quick guide to install Jenkins on Windows using the MSI installer and get a running service with plugins and admin user"
+video_host: "youtube"
+video_id: "AHB-5L3MMTQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M0S"
+thumbnail_url: "https://i.ytimg.com/vi/AHB-5L3MMTQ/maxresdefault.jpg"
+content_url: "https://youtu.be/AHB-5L3MMTQ"
+embed_url: "https://www.youtube.com/embed/AHB-5L3MMTQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Windows
+  - Jenkins Installer
+  - MSI Installer
+  - CI CD
+  - DevOps
+  - Jenkins setup
+  - Windows service
+  - Plugins
+  - Unlock Jenkins
+---
+
+<h2>Why use the MSI and why you should care</h2>
+<p>If you are on Windows and you want Jenkins to behave like a civilized server and not a random script running in your user profile then the MSI installer is the shortcut to sanity. It sets up a Windows service, places JENKINS_HOME where a human can find it, and drops the initial admin password in a file so you do not have to perform any digital necromancy.</p>
+
+<h2>Before you click install</h2>
+<p>Checklist for minimal pain</p>
+<ul>
+  <li>Install a supported Java runtime such as Java 11 or Java 17 and set JAVA_HOME correctly</li>
+  <li>Decide whether you will use the LTS build for production stability or a newer weekly build for fresh features</li>
+  <li>Pick a port that is free on the server and make a note to open that port in the Windows firewall</li>
+  <li>Create a low privilege account for the Jenkins service or plan to use a managed service account</li>
+</ul>
+
+<h2>Run the MSI and do not panic</h2>
+<p>Right click the MSI and run as administrator. The installer will walk you through folder choices and optional components. If you are in a lab then accepting defaults usually works. For production choose a sensible installation folder and point JENKINS_HOME to a volume that is backed up.</p>
+
+<h3>Service account and port choices</h3>
+<p>The installer asks whether to run Jenkins as a service and which account to use. Please do not run Jenkins as a full administrator unless you enjoy waking up to mysterious build failures. Create a dedicated service account with least privilege and grant it rights only to the folders Jenkins needs. Confirm the listening port and ensure the Windows firewall allows inbound traffic on that port.</p>
+
+<h2>Unlock Jenkins like a detective</h2>
+<p>After installation your first browser visit will show an unlock screen. The installer will tell you where the initial admin password file lives. Look in <code>%PROGRAMFILES%\Jenkins\secrets\initialAdminPassword</code> or under your configured JENKINS_HOME in the secrets folder. Copy that long awkward string into the web form and move on with your life.</p>
+
+<h2>Install plugins and create an admin user without drama</h2>
+<p>Choose install suggested plugins to get a sensible feature set fast. After plugin installation create an admin user and store the credentials in a secrets store that you actually trust more than sticky notes. Next configure global tools such as Git and the JDK under Manage Jenkins then Global Tool Configuration so builds do not fail with the classic missing tool panic.</p>
+
+<h3>Quick plugin hygiene</h3>
+<ul>
+  <li>Only install plugins you need and keep them updated</li>
+  <li>Validate plugin compatibility on a staging Jenkins before touching production</li>
+  <li>Document plugin versions and a rollback plan because life is chaos</li>
+</ul>
+
+<h2>Post install hardening and housekeeping</h2>
+<p>Run the Jenkins service under a least privilege account and keep automated backups of the JENKINS_HOME folder. Backups preserve job history, pipeline scripts, and plugin configuration. Also configure periodic plugin and core updates on a maintenance window and test those updates on a non production instance first.</p>
+
+<h2>Wrap up and final tips</h2>
+<p>This guide covered downloading the MSI, running the installer with admin rights, choosing a safe service account, unlocking Jenkins, and installing plugins plus an admin user. The result is a Windows host that can run builds and pipelines without constantly surprising you. If you like calm servers then automate backups, avoid running as admin, and treat JENKINS_HOME like the fragile treasure it is.</p>
+
+<p>If you hit a snag consult the Jenkins logs under the service log location and the <code>secrets</code> folder before yelling at the computer. Good luck and may your pipelines be green more often than not.</p>
+

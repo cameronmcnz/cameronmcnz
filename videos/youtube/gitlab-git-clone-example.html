@@ -1,0 +1,67 @@
+---
+layout: video
+title: "GitLab git clone example"
+description: "Step by step guide to clone a GitLab repository to a local machine using git clone with SSH and HTTPS tips for smooth setup"
+video_host: "youtube"
+video_id: "l_Fj83MDJ8A"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M59S"
+thumbnail_url: "https://i.ytimg.com/vi/l_Fj83MDJ8A/maxresdefault.jpg"
+content_url: "https://youtu.be/l_Fj83MDJ8A"
+embed_url: "https://www.youtube.com/embed/l_Fj83MDJ8A"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gitlab
+  - git
+  - clone
+  - git clone
+  - ssh
+  - https
+  - git tutorial
+  - version control
+  - repositories
+  - devops
+---
+
+<h2>Quick overview</h2>
+<p>This short git tutorial shows how to clone a GitLab repository to your local machine with as little drama as possible. You will learn how to find the repository URL on GitLab pick the right access method run the git clone command and verify the local copy. This is essential for version control and basic devops work when you want a working copy of remote repositories.</p>
+
+<h2>Locate the repository URL</h2>
+<p>Open the project page on GitLab and find the Clone menu. Copy the URL shown for the access method you want. Do not reinvent the wheel by typing the URL by hand unless you enjoy debugging small tragedies.</p>
+
+<h3>Which access method should you pick</h3>
+<ul>
+  <li><strong>SSH</strong> is best if you plan to push and pull often. Add an SSH key to your GitLab profile and use an SSH agent locally to stop typing your password every minute.</li>
+  <li><strong>HTTPS</strong> is simpler for one off clones or quick checks. If your account requires stronger auth you will use your username and a personal access token rather than your account password.</li>
+</ul>
+
+<h2>Run the clone command</h2>
+<p>Open a terminal in the folder where you want the repository to live and run the basic clone command shown below. Replace REPO_URL with the URL you copied from GitLab.</p>
+
+<pre><code>git clone REPO_URL</code></pre>
+
+<p>If authentication fails read the error message and follow its hints. Common fixes include adding your SSH key to GitLab starting your SSH agent or creating a personal access token for HTTPS access. Yes it is annoying but it only needs to be done once.</p>
+
+<h2>Verify the cloned repository</h2>
+<p>Change into the new folder and confirm the contents and remote settings. Typical checks are listed below.</p>
+
+<pre><code>cd repo_name
+ls
+git status
+git remote -v</code></pre>
+
+<p>If git status looks sane and git remote -v shows your GitLab remote you are done and can start working locally. If branches look weird run git fetch and inspect branch names.</p>
+
+<h2>Troubleshooting and tips</h2>
+<ul>
+  <li>Tip Prefer SSH for regular work with pushes and pulls. It reduces password typing and looks marginally more professional.</li>
+  <li>If your SSH key is not recognized run your SSH agent and add the key with ssh-add. Then upload the public key to GitLab.</li>
+  <li>For HTTPS cloning use a personal access token if two factor is enabled or passwords are rejected.</li>
+  <li>Use git remote -v and git branch to confirm remotes and branches. These commands save time and embarrassment.</li>
+</ul>
+
+<p>That covers finding the repository URL choosing SSH or HTTPS running git clone and checking the local copy. You now have the remote repository on your machine and permission to be slightly proud of yourself.</p>
+

@@ -1,0 +1,98 @@
+---
+layout: video
+title: "Bottom Up SOAP Web Service in Eclipse Example"
+description: "Step by step guide to build a bottom up SOAP web service in Eclipse using Java and Apache CXF with deployment and testing tips."
+video_host: "youtube"
+video_id: "ve1Kuj93JnI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M30S"
+thumbnail_url: "https://i.ytimg.com/vi/ve1Kuj93JnI/maxresdefault.jpg"
+content_url: "https://youtu.be/ve1Kuj93JnI"
+embed_url: "https://www.youtube.com/embed/ve1Kuj93JnI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - SOAP
+  - Bottom Up
+  - Eclipse
+  - Apache CXF
+  - Java
+  - Web Service
+  - WSDL
+  - Maven
+  - SOAP UI
+  - Tutorial
+---
+
+<article>
+  <p>If you like writing plain old Java objects and then watching a WSDL appear like a reluctant magic trick you are in the right place. This guide walks through a bottom up SOAP web service workflow in Eclipse using Java and Apache CXF. Expect Maven dependency chores a little bit of classloader drama and enough logging to make debugging less tragic.</p>
+
+  <h2>Why bottom up for SOAP in Eclipse</h2>
+  <p>Bottom up means you start with a POJO that expresses your API and then generate or expose a WSDL from that code. It is great for fast iteration and keeping the Java model first. It also keeps the WSDL sane when you write a thoughtful API rather than trying to translate an emotional spreadsheet into XML.</p>
+
+  <h2>Project setup and Maven dependencies</h2>
+  <p>Create a standard Maven project in Eclipse and add CXF runtime dependencies. Keep versions centralized so your dependency tree does not look like modern art. At minimum include the CXF JAX WS frontend and the HTTP transport artifacts.</p>
+
+  <pre><code>&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.apache.cxf&lt;/groupId&gt;
+    &lt;artifactId&gt;cxf-rt-frontend-jaxws&lt;/artifactId&gt;
+    &lt;version&gt;3.4.4&lt;/version&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.apache.cxf&lt;/groupId&gt;
+    &lt;artifactId&gt;cxf-rt-transports-http&lt;/artifactId&gt;
+    &lt;version&gt;3.4.4&lt;/version&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+
+  <p>Include the CXF Maven plugin if you want a build time WSDL file. That helps ensure stable contracts for consumers and keeps your CI from generating different artifacts on different days.</p>
+
+  <h2>Design the POJO service</h2>
+  <p>Make a plain old Java interface that describes the contract and a class that implements it. Add JAX WS annotations like <code>@WebService</code> and <code>@WebMethod</code> on the interface or class depending on your style. Keep parameter and return types JAXB friendly so the generated WSDL does not look like a prize for an obscure dictionary contest.</p>
+
+  <h3>Example structure</h3>
+  <ul>
+    <li>com.example.service.YourService interface with <code>@WebService</code></li>
+    <li>com.example.service.impl.YourServiceImpl with business logic</li>
+    <li>Model classes that are simple and serializable by JAXB</li>
+  </ul>
+
+  <h2>Expose or generate the WSDL</h2>
+  <p>For development a quick and dirty approach is to call <code>Endpoint.publish</code> in a main method to expose the service and let CXF publish a runtime WSDL URL. For production you should generate a WSDL at build time so consumers get a stable contract and so you stop blaming the server for version drift.</p>
+
+  <h3>Runtime exposure</h3>
+  <p>Use <code>javax.xml.ws.Endpoint.publish</code> to spin up a tiny HTTP server for tests. It is fast and fine for local testing.</p>
+
+  <h3>Build time WSDL</h3>
+  <p>Configure the CXF codegen or plugin in Maven to produce a WSDL during the build. This ensures your consumers and your CI are reading from the same truth file.</p>
+
+  <h2>Deployment options</h2>
+  <p>For quick iteration use an embedded server. For realistic behavior package a WAR and deploy to Tomcat. You can wire CXF via a servlet mapping or by keeping a minimal web.xml. Choose the approach that matches your ops team patience level.</p>
+
+  <h3>Things to watch</h3>
+  <ul>
+    <li>Classloader quirks when running in servlet containers can cause mysterious NoSuchMethod errors. They love to surprise you on Fridays.</li>
+    <li>Conflicting CXF or JAX WS versions across the container and your app will make runtime life spicy. Manage versions centrally.</li>
+  </ul>
+
+  <h2>Testing the endpoint</h2>
+  <p>Fire up SOAP UI for a GUI driven test or send raw SOAP envelopes with curl or any HTTP client if you enjoy typing XML. Verify the operation responses headers and fault handling. If something looks wrong log the raw SOAP messages and read them like a confession note.</p>
+
+  <h2>Logging and troubleshooting</h2>
+  <p>Enable CXF or logging interceptors to capture inbound and outbound XML. Seeing the actual SOAP envelopes will save hours of guessing and the occasional therapy session. Pay attention to faults and HTTP status codes and confirm the WSDL matches the deployed contract.</p>
+
+  <h2>Recap and best practices</h2>
+  <ul>
+    <li>Start with clean POJOs and JAX WS annotations to keep the contract readable</li>
+    <li>Use Maven to manage CXF dependencies and plugin configuration</li>
+    <li>Expose WSDL at runtime for dev and generate WSDL at build time for production</li>
+    <li>Deploy to embedded server for dev and package a WAR for Tomcat when you need realism</li>
+    <li>Log raw SOAP messages and watch classloader issues</li>
+  </ul>
+
+  <p>Follow these steps and you will have a bottom up SOAP web service in Eclipse that is testable maintainable and slightly less likely to cause a page of blame in your team chat. You will also gain the smug satisfaction that comes from turning Java into interoperable XML and surviving to tell the tale.</p>
+</article>
+

@@ -1,0 +1,68 @@
+---
+layout: video
+title: "GitHub Action Workflows on Mac, Windows and Linux"
+description: "Learn to run GitHub Action workflows on macOS Windows and Linux runners for reliable cross platform CI and testing"
+video_host: "youtube"
+video_id: "oW5MOjv6kBo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M20S"
+thumbnail_url: "https://i.ytimg.com/vi/oW5MOjv6kBo/maxresdefault.jpg"
+content_url: "https://youtu.be/oW5MOjv6kBo"
+embed_url: "https://www.youtube.com/embed/oW5MOjv6kBo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub Actions
+  - CI
+  - macOS
+  - Windows
+  - Linux
+  - workflow
+  - matrix
+  - cross platform
+  - runners
+  - automation
+---
+
+<p>Want your tests to run on macOS Windows and Linux without pulling out your hair or selling a kidney for runner minutes? Welcome to cross platform CI with GitHub Actions. This guide will walk you through a sane matrix strategy choosing runners caching dependencies running tests and gathering artifacts so you can fix breakages instead of arguing about which OS is cursed.</p>
+
+<h2>Design a practical matrix strategy</h2>
+<p>The matrix is your best friend when it comes to testing combinations of OS versions language runtimes and env variables. Use it to run parallel jobs and reduce duplication in the workflow. Do not let it become a monster.</p>
+
+<h3>Avoid matrix explosion</h3>
+<ul>
+  <li>Start with the combinations that actually matter to your users</li>
+  <li>Use include and exclude to fine tune the matrix and keep redundant runs out</li>
+  <li>Set strategy.fail-fast to false when you want full visibility instead of an early bail out</li>
+</ul>
+
+<h2>Pick the right runners</h2>
+<p>Hosted runners are convenient and updated by GitHub which is great when you want things to just work. Self hosted runners are for custom hardware proprietary tools or when cost matters. Note that hosted macOS runners are limited and may affect billing so plan heavy mac builds carefully.</p>
+
+<h2>Install dependencies and cache them</h2>
+<p>Install language runtimes and packages early in each job. Caching package manager caches across runs speeds up pipelines and reduces wasted minutes. Typical caches include node modules pip wheels and package manager artifacts for build tools and language runtimes.</p>
+
+<h3>Cache tips that do not sound like dark magic</h3>
+<ul>
+  <li>Use a reliable cache key that includes lockfile checksums or runtime versions</li>
+  <li>Keep caches scoped so you do not restore a giant unrelated blob that slows the job down</li>
+  <li>Warm caches with scheduled runs if cold caches are killing your feedback loop</li>
+</ul>
+
+<h2>Run tests and collect artifacts</h2>
+<p>Execute the matrix so each runner runs the right config. Upload test reports logs and build artifacts so developers can see failure details without reproducing the whole job locally. Artifacts make triage less painful and more factual.</p>
+
+<h2>Inspect results and refine</h2>
+<p>Use the workflow UI to find which OS and which version failed. Narrow failures by adding short debug steps that print environment variables installed tool versions and PATH contents. Adjust environment variables or selectively rerun a single job to speed up debugging.</p>
+
+<h2>Practical rules of thumb</h2>
+<ul>
+  <li>Run a quick smoke test on every push for immediate feedback</li>
+  <li>Reserve the full matrix for pull requests or a scheduled nightly run to save minutes</li>
+  <li>Favor reproducible environments and explicit dependency versions to reduce flakiness</li>
+</ul>
+
+<p>Cross platform CI with GitHub Actions is not rocket science it is careful planning plus a few pragmatic compromises. Follow these practices for matrix strategy runner selection caching and artifact handling and you will have faster clearer more maintainable workflows. You may not become a CI hero overnight but your future self will send you a grateful meme.</p>
+

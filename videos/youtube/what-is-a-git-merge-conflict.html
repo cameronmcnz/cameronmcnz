@@ -1,0 +1,89 @@
+---
+layout: video
+title: "What is a Git Merge Conflict?"
+description: "Clear guide to Git merge conflict causes detection and resolution Learn how to spot conflict markers resolve changes and avoid future collisions"
+video_host: "youtube"
+video_id: "IY2MrpBbuZw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M36S"
+thumbnail_url: "https://i.ytimg.com/vi/IY2MrpBbuZw/maxresdefault.jpg"
+content_url: "https://youtu.be/IY2MrpBbuZw"
+embed_url: "https://www.youtube.com/embed/IY2MrpBbuZw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - merge
+  - merge conflict
+  - git conflict
+  - version control
+  - git tutorial
+  - resolve merge conflict
+  - git merge conflict
+  - git commands
+  - software development
+---
+
+<h2>Why merge conflicts are not a bug and what they mean</h2>
+<p>A Git merge conflict happens when two branches edit the same lines of a file and Git throws up its hands. It cannot guess which version you want, so it stops and asks for human judgment. This is not dramatic. It is the repo being careful. You will see conflicts when you run <code>git merge branch-name</code> or when <code>git pull</code> brings in remote work that overlaps your edits.</p>
+
+<h2>How to spot a conflicted file without crying</h2>
+<p>Run <code>git status</code> to get a tidy list of files that need attention. Conflicted files are marked as both modified and unmerged. Open any one of those files and look for the classic markers that scream for your intervention.</p>
+
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+your changes
+=======
+the other branch changes
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch-name
+</code></pre>
+
+<p>Edit between the markers to produce the content you actually want in the final file. Remove all the marker lines, save, then stage and commit the result. The commands you will use most are below.</p>
+
+<pre><code>git add path/to/file
+git commit
+</code></pre>
+
+<h2>Step by step when the situation gets real</h2>
+<ul>
+  <li>Run <code>git status</code> to see conflicted files.</li>
+  <li>Open the file and find the conflict markers.</li>
+  <li>Decide which lines to keep or combine both versions with a sensible merge.</li>
+  <li>Remove the markers, then run <code>git add</code> and <code>git commit</code>.</li>
+</ul>
+
+<h3>Quick rescue moves</h3>
+<ul>
+  <li>If the merge is a bad idea use <code>git merge --abort</code> to return to the pre merge state.</li>
+  <li>If manual editing makes you cry use <code>git mergetool</code> or a GUI client for side by side views and less soul crushing choices.</li>
+</ul>
+
+<h2>Why conflicts happen more than you wish</h2>
+<p>Common causes are overlapping edits in the same lines long lived branches and poor synchronization. Big refactors and formatting churn make conflicts much nastier. If everyone rewrites the same lines at once expect problems.</p>
+
+<h2>How to avoid conflicts most of the time</h2>
+<p>Prevention is mostly about being boring and predictable. Keep changes small and focused. Pull from main often and rebase local work onto the latest main before opening a pull request. Communicate when you plan a large refactor. If you rebase small commits instead of merging big divergent branches you lower the chance of two developers clobbering each other.</p>
+
+<h3>Practical habits that save time</h3>
+<ul>
+  <li>Run <code>git fetch</code> then rebase your feature branch on top of the latest main</li>
+  <li>Make focused commits instead of one giant change</li>
+  <li>Coordinate large API or formatting changes with your team</li>
+</ul>
+
+<h2>Final words for the living and the conflicted</h2>
+<p>Remember that a merge conflict is not an error. It is a polite request from the repository for human taste and intent. With a few commands and a little judgment you will resolve conflicts and get back to writing code that hopefully does not start another argument with Git.</p>
+
+<p>Commands cheat sheet</p>
+<pre><code>git merge branch-name
+git pull
+git status
+git add path/to/file
+git commit
+git merge --abort
+git mergetool
+git fetch
+git rebase origin/main
+</code></pre>
+

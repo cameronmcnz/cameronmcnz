@@ -1,0 +1,77 @@
+---
+layout: video
+title: "What is the Hibernate SessionFactory? How do you build it?"
+description: "Clear definition of Hibernate SessionFactory and practical steps to build one using Configuration and ServiceRegistry in Java"
+video_host: "youtube"
+video_id: "Fo11opVImo8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M1S"
+thumbnail_url: "https://i.ytimg.com/vi/Fo11opVImo8/maxresdefault.jpg"
+content_url: "https://youtu.be/Fo11opVImo8"
+embed_url: "https://www.youtube.com/embed/Fo11opVImo8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Hibernate
+  - SessionFactory
+  - Hibernate SessionFactory
+  - build SessionFactory
+  - Java ORM
+  - Configuration
+  - ServiceRegistry
+  - Session
+  - Hibernate performance
+  - ORM best practices
+---
+
+<p>If you have used Hibernate you have met the SessionFactory. It is the thread safe heavy weight bootstrap object that stores compiled mapping metadata connection pool settings and cache configuration. Create one per application or per database schema and avoid treating it like a disposable toy. Session objects are lightweight and spawned from the SessionFactory for each unit of work.</p>
+
+<h2>What the SessionFactory actually does</h2>
+
+<p>Think of the SessionFactory as the expensive setup phase you only pay once. It parses mappings loads entity metadata wires up the ServiceRegistry and sets up connection pooling and second level cache. That means startup cost is higher but each Session is cheap to create and use. It also means owning the lifecycle of the SessionFactory matters for Hibernate performance and resource stability.</p>
+
+<h2>How to build a SessionFactory in practice</h2>
+
+<p>Building a SessionFactory is a small sequence of steps that is boring but important. The core flow is to create a Configuration register entities build a ServiceRegistry and then build the SessionFactory from those bits. Do this once at application startup and close the instance on shutdown to free connections and caches.</p>
+
+<h3>Typical build steps</h3>
+
+<ol>
+  <li>Create a Configuration from hibernate.cfg.xml or set properties programmatically</li>
+  <li>Register annotated classes or mapping files so Hibernate knows how to map objects to tables</li>
+  <li>Construct a StandardServiceRegistry with connection pool settings dialect and any other properties</li>
+  <li>Call the build method on Configuration passing the ServiceRegistry to get a SessionFactory</li>
+</ol>
+
+<p>Example pseudo code that shows the flow without actual Java punctuation</p>
+
+<pre><code>Configuration cfg = new Configuration().configure()
+StandardServiceRegistry reg = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties()).build()
+SessionFactory sessionFactory = cfg.buildSessionFactory(reg)</code></pre>
+
+<p>This pseudo code omits semicolons for readability. Use proper Java syntax in real code and the correct Hibernate API for your version.</p>
+
+<h2>Runtime best practices and ORM tips</h2>
+
+<ul>
+  <li>Use one SessionFactory per database and reuse it across threads it is thread safe</li>
+  <li>Open short lived Session objects per request or per transaction do not share a Session across threads</li>
+  <li>Always use transactions for data consistency even for read operations that require repeatable reads</li>
+  <li>Tune the connection pool and the second level cache for Hibernate performance rather than creating multiple SessionFactory instances</li>
+  <li>Close the SessionFactory during application shutdown to release connections and caches</li>
+</ul>
+
+<h2>Quick checklist before you ship</h2>
+
+<ul>
+  <li>One SessionFactory per database confirmed</li>
+  <li>Entities and mappings registered and verified</li>
+  <li>ServiceRegistry configured with sensible pool settings</li>
+  <li>Second level cache configured only if you actually need it</li>
+  <li>Proper shutdown hook in place to close the SessionFactory</li>
+</ul>
+
+<p>Follow these ORM best practices and your Hibernate setup will be less likely to surprise you at 3 AM. The SessionFactory is not glamorous but it is central to performance and resource management. Treat it with respect and your application will thank you by not leaking connections or randomly timing out.</p>
+

@@ -1,0 +1,83 @@
+---
+layout: video
+title: "Advanced Spring Tutorial Spring MVC Spring Data JDBC CRUD"
+description: "Build a Spring MVC application using Spring Data and JDBC to perform CRUD operations with repositories controllers and transaction handling"
+video_host: "youtube"
+video_id: "hm61ILSjLfs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1H9M4S"
+thumbnail_url: "https://i.ytimg.com/vi/hm61ILSjLfs/maxresdefault.jpg"
+content_url: "https://youtu.be/hm61ILSjLfs"
+embed_url: "https://www.youtube.com/embed/hm61ILSjLfs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring
+  - Spring MVC
+  - Spring Data
+  - JDBC
+  - CRUD
+  - Java
+  - Spring Boot
+  - Repositories
+  - Controllers
+  - Testing
+---
+
+<h1>Build reliable CRUD APIs with Spring MVC Spring Data and JdbcTemplate</h1>
+<p>Welcome to a practical guide that will take you from vague ambition to functioning CRUD endpoints, with enough sarcasm to keep late night debugging less soul crushing. You will wire Spring MVC controllers to Spring Data repositories and use JdbcTemplate when the ORM needs help. The goal is predictable transactions, clean separation of concerns, and tests that catch your mistakes before they become production folklore.</p>
+
+<h2>Project setup and dependencies</h2>
+<p>Start with Spring Boot and add the essentials, namely the web starter and Spring Data JDBC. Bring a JDBC driver for your database and include whatever test starter you like. Use Maven or Gradle to declare dependencies and then promptly disagree with your build tool of choice.</p>
+
+<ul>
+  <li>spring-boot-starter-web for controllers and MVC wiring</li>
+  <li>spring-data-jdbc for repository patterns and simple CRUD</li>
+  <li>JdbcTemplate for raw SQL and batch work when performance matters</li>
+  <li>an in memory database for tests so you do not cry about slow feedback</li>
+</ul>
+
+<h2>Model and repository design</h2>
+<p>Define plain domain classes with the mapping annotations that Spring Data JDBC expects. Keep domain logic inside the model when it belongs there and avoid turning entities into dumping grounds for unrelated concerns. For most CRUD work, extend CrudRepository or a similar Spring Data interface and let the framework generate the basics.</p>
+
+<p>When you need complex queries that do not map well to repository methods, create a small DAO that uses JdbcTemplate. That keeps SQL visible and testable while leaving simple CRUD to repositories.</p>
+
+<h3>Practical mapping tips</h3>
+<ul>
+  <li>Keep IDs simple and let the database generate them when possible</li>
+  <li>Prefer immutable value objects for nested data to reduce surprises</li>
+  <li>Map DTOs at the edges so controllers do not expose internal shapes by accident</li>
+</ul>
+
+<h2>Service layer and transaction management</h2>
+<p>Put transaction boundaries in the service layer. Controllers should orchestrate requests and responses but not manage transactions. Annotate service methods that perform multiple repository or JDBC operations with the transaction annotation so everything commits or everything rolls back together. That way your data does not look like it went through a breakup.</p>
+
+<p>Use JdbcTemplate inside services for batch updates or complex joins that would be awkward as repository methods. JdbcTemplate gives you performance and clarity when you need raw SQL and you can still test it cleanly.</p>
+
+<h2>Controllers and DTOs</h2>
+<p>Expose REST endpoints with controllers annotated for web handling and map inputs to DTOs for validation. Validate incoming requests and transform DTOs to domain objects inside the service layer where business logic belongs. Keep controllers lean and focused on request handling, status codes, and error mapping.</p>
+
+<ul>
+  <li>Use @RestController for REST APIs and proper response bodies</li>
+  <li>Map domain objects to DTOs when returning data to avoid coupling clients to your schema</li>
+  <li>Return proper HTTP status codes and helpful error messages for clients</li>
+</ul>
+
+<h2>Testing and rollback behavior</h2>
+<p>Tests save your reputation and your sleep. Write unit tests for services and repositories and use an in memory database for fast repository testing. For integration tests that verify full CRUD workflows, start the application context and exercise endpoints or services end to end. Use transactional tests when you want automatic rollback between tests so state does not leak.</p>
+
+<p>Add a focused set of integration tests that run through create read update delete flows and assert transaction rollbacks when failures are simulated. That prevents the kind of production surprises that require a large mug and poor life decisions.</p>
+
+<h3>Quick checklist for reliable CRUD</h3>
+<ul>
+  <li>Prefer Spring Data repositories for basic CRUD to keep code minimal</li>
+  <li>Use JdbcTemplate for complex queries and performance sensitive paths</li>
+  <li>Keep transactions in services for predictable rollback behavior</li>
+  <li>Validate inputs in controllers and map to DTOs for safe API surfaces</li>
+  <li>Write unit and integration tests with an in memory database for fast feedback</li>
+</ul>
+
+<p>Follow these guidelines and your Spring MVC application will behave like a well trained intern. It will do the boring work reliably, and when something goes wrong you will at least have useful tests and a clear place to look for the mess.</p>
+

@@ -1,0 +1,73 @@
+---
+layout: video
+title: "Difference between length() and length() in Java"
+description: "Practical guide to array length and String length in Java with examples and common mistakes to avoid"
+video_host: "youtube"
+video_id: "Dz0ITPVGS0g"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M37S"
+thumbnail_url: "https://i.ytimg.com/vi/Dz0ITPVGS0g/maxresdefault.jpg"
+content_url: "https://youtu.be/Dz0ITPVGS0g"
+embed_url: "https://www.youtube.com/embed/Dz0ITPVGS0g"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - length
+  - array length
+  - String length
+  - length()
+  - array.length
+  - String.length()
+  - Java tutorial
+  - Java basics
+  - programming
+---
+
+<p>Short answer with a smirk for busy humans and tired compilers. In Java an array exposes a public final field named length so you write arrayName.length while java.lang.String exposes a method named length() so you must call stringName.length(). Try swapping them and enjoy helpful compiler feedback.</p>
+
+<h2>Quick answer and the punch line</h2>
+
+<p>Arrays use a field and Strings use a method. That is the core distinction you need for everyday Java basics and common programming tasks. The two return an int and both are extremely cheap to access. The rest is etiquette and avoiding silly compile time drama.</p>
+
+<h3>What the code looks like</h3>
+
+<pre><code>int[] arr = new int[5];
+System.out.println(arr.length); // 5
+
+String s = "hello";
+System.out.println(s.length()); // 5
+</code></pre>
+
+<h3>What breaks if you mix them up</h3>
+
+<pre><code>// Bad idea 1
+System.out.println(arr.length()); // compile error, arrays have no length() method
+
+// Bad idea 2
+System.out.println(s.length); // compile error, String has no length field
+</code></pre>
+
+<p>The errors are not mysterious. One is asking for a method that does not exist. The other is trying to access a field that is not defined on the type. Both are fixable and both are a useful reminder to read the API or let your IDE do the heavy lifting.</p>
+
+<h2>Why Java ended up like this</h2>
+
+<p>Two reasons and a bit of history. Arrays are a language level construct with a built in public final length field. java.lang.String is a regular class so it may expose behavior through methods such as length() and keep its internals private. It is a design choice not a conspiracy.</p>
+
+<h3>Practical rules for Java beginners</h3>
+
+<ul>
+  <li>Use arrayName.length for arrays and do not add parentheses</li>
+  <li>Use stringName.length() for Strings and remember the parentheses</li>
+  <li>Both return an int so you can use them in loops and conditions without conversion</li>
+  <li>Both operations are trivial from a performance perspective so stop worrying about it</li>
+</ul>
+
+<h2>Tips that save time and dignity</h2>
+
+<p>Let your IDE autocomplete tell you whether to use parentheses. If the suggestion shows parentheses then call the method. If not then access the field. Autocomplete is free brainpower. Also read the Javadoc or quick API reference if something looks ambiguous.</p>
+
+<p>In short this is a Java basics topic worth learning once. Remember the rule and you will avoid the two most common slip ups involving array length and String length. Now go write some loops and do not summon the compiler on purpose unless you enjoy a little drama.</p>
+

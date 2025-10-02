@@ -1,0 +1,88 @@
+---
+layout: video
+title: "Deploy WARs to Tomcat from Eclipse"
+description: "Quick guide to build and deploy WAR files from Eclipse to Tomcat with setup export and hot deploy steps for faster Java web development"
+video_host: "youtube"
+video_id: "CH30H46XEY0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M32S"
+thumbnail_url: "https://i.ytimg.com/vi/CH30H46XEY0/maxresdefault.jpg"
+content_url: "https://youtu.be/CH30H46XEY0"
+embed_url: "https://www.youtube.com/embed/CH30H46XEY0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Tomcat
+  - Eclipse
+  - WAR
+  - Java
+  - Deployment
+  - Webapp
+  - Maven
+  - HotDeploy
+  - ServersView
+  - Tutorial
+---
+
+<h1>Configure Tomcat in Eclipse and hot deploy WAR files for quick tests</h1>
+<p>Welcome to the pragmatic tutorial where you make Eclipse and Tomcat play nice together so your Java webapp can stop throwing tantrums on your production server. This guide covers setting up Tomcat in Eclipse, packaging a WAR with Maven or the IDE, deploying via the Servers view or by copying to the webapps folder, and enabling hot publish for faster feedback when you change code.</p>
+
+<h2>Set up Tomcat in Eclipse</h2>
+<p>Open the Servers view in Eclipse and use the New Server wizard to point at your local Tomcat installation. Match the runtime JRE to the JVM you want Tomcat to use and tweak ports if you are unlucky enough to have conflicts. This ties Eclipse server management to the Tomcat runtime so you do not have to wrestle with config files later.</p>
+
+<h3>Checklist for server setup</h3>
+<ul>
+  <li>Use New Server in Servers view and select the correct Tomcat version</li>
+  <li>Point to the Tomcat home folder or installation directory</li>
+  <li>Set the runtime JRE to the same JDK that your app targets</li>
+  <li>Change port numbers if 8080 or others are already taken</li>
+</ul>
+
+<h2>Prepare the web project</h2>
+<p>Create a Dynamic Web Project or import your Maven webapp into Eclipse. Confirm that servlets are discovered by annotations or that you have a valid web xml. Make sure project facets reflect the Java compliance level that Tomcat expects. In short do the boring but necessary setup so deployment does not surprise you later with class loader errors.</p>
+
+<h3>Notes for Maven projects</h3>
+<ul>
+  <li>Import using Existing Maven Projects or use the m2e plugin</li>
+  <li>Confirm that war packaging is set in the pom</li>
+  <li>Keep artifact names clear to avoid deployment name collisions</li>
+</ul>
+
+<h2>Build the WAR</h2>
+<p>For Maven run the standard build command from a terminal in the project folder</p>
+<pre><code>mvn package</code></pre>
+<p>If you prefer the GUI use Eclipse Export Web Archive to create a WAR file. Either way name the artifact so you can tell one webapp from the other when Tomcat is staring at multiple webapps in the webapps folder.</p>
+
+<h2>Deploy to Tomcat</h2>
+<p>You have two simple options that do not involve dark magic.</p>
+
+<h3>Deploy from Servers view</h3>
+<ul>
+  <li>Drag the web project onto the Tomcat server entry in Servers view</li>
+  <li>Start or restart the server from the same view to trigger a publish</li>
+  <li>Use automatic publishing if you want quicker updates while developing</li>
+</ul>
+
+<h3>Manual deployment</h3>
+<ul>
+  <li>Copy the WAR file to the Tomcat installation webapps folder named with your context</li>
+  <li>Restart the Tomcat process for a clean deployment</li>
+</ul>
+
+<h2>Test and troubleshoot</h2>
+<p>Open localhost on port 8080 and append your context path to confirm the app responds. If a page fails to load check the Tomcat logs for stack traces class loader errors or missing dependency messages. Common fixes include adding the missing library to WEB INF lib fixing the servlet spec mismatch or adjusting project facets to the correct Java version.</p>
+
+<h3>Quick debugging tips</h3>
+<ul>
+  <li>Look for java exceptions in catalina logs to find root causes</li>
+  <li>Delete the work directory if JSPs or compiled classes are stale</li>
+  <li>Avoid putting server libraries in WEB INF lib to prevent class loader conflicts</li>
+</ul>
+
+<h2>Enable hot publish and other practical tips</h2>
+<p>Turn on automatic publishing in the Servers view with a small interval for faster feedback when you change files. This lets you iterate without restarting Tomcat every five minutes and losing your will to live. Use Maven or Gradle for reproducible builds and ensure Eclipse uses the same JDK as the Tomcat runtime to avoid subtle compatibility issues.</p>
+
+<p>Follow these steps and you will speed up local Java web development and cut down on guesswork during troubleshooting. Now go write code and let Tomcat do the heavy lifting for a change.</p>
+

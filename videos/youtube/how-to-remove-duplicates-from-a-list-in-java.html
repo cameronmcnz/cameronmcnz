@@ -1,0 +1,60 @@
+---
+layout: video
+title: "How to Remove Duplicates from a List in Java"
+description: "Practical methods to remove duplicates from Java lists using Sets streams and LinkedHashSet for order and performance tips"
+video_host: "youtube"
+video_id: "RxOparFrxTQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M11S"
+thumbnail_url: "https://i.ytimg.com/vi/RxOparFrxTQ/maxresdefault.jpg"
+content_url: "https://youtu.be/RxOparFrxTQ"
+embed_url: "https://www.youtube.com/embed/RxOparFrxTQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Duplicates
+  - List
+  - Remove duplicates
+  - LinkedHashSet
+  - HashSet
+  - Stream API
+  - Collectors
+  - Performance
+  - Data structures
+---
+
+<p>If your Java list looks like a reunion for identical objects you did not invite then this guide is your clean up crew. We will walk through practical ways to remove duplicates from a List while preserving insertion order when you care and squeezing raw performance when you do not.</p>
+
+<h2>Quick unique extraction with HashSet</h2>
+<p>If speed is the goal and order is optional then use a HashSet for fast deduplication. Creating a HashSet from a list takes advantage of hash based lookup and gives you unique elements in roughly linear time.</p>
+<p>One simple pattern is to construct a set from the list and if you need a list back wrap it again in an ArrayList. For example use <code>new HashSet(list)</code> or when you need a list use <code>new ArrayList(new HashSet(list))</code></p>
+
+<h3>Why this is fast</h3>
+<p>HashSet offers expected O n time for insert and membership operations assuming good hashCode implementations. That makes it the go to when you want to remove duplicates from very large lists without fuss.</p>
+
+<h2>Preserve insertion order with LinkedHashSet</h2>
+<p>If someone will notice when the order changes then LinkedHashSet is your friend. It keeps insertion order while still dropping duplicates. The idiom is familiar and low ceremony.</p>
+<p>Example pattern use <code>new ArrayList(new LinkedHashSet(list))</code> to remove duplicates and keep original ordering in one line that does the job with minimal explaining required later.</p>
+
+<h2>Readable functional style with Stream distinct</h2>
+<p>If you prefer fluent code then the Stream API reads nicely and is easy to reason about. Use the Stream distinct operation and collect back to a list with Collectors.</p>
+<p>Typical usage looks like <code>list.stream().distinct().collect(Collectors.toList())</code> which is clean, expressive, and fits well in modern codebases. Expect similar performance to a set based approach with a bit of overhead from stream machinery.</p>
+
+<h2>Custom equality using a seen key filter</h2>
+<p>When uniqueness depends on a derived key rather than object equality use a seen set inside a filter. This keeps the first occurrence based on your key and drops later clones.</p>
+<p>An example pattern looks like this use a concurrent set to avoid concurrency problems then filter by adding the derived key to the seen set. For instance <code>Set seen = ConcurrentHashMap.newKeySet()</code> then <code>list.stream().filter(e -&gt; seen.add(getKey(e))).collect(Collectors.toList())</code>. This keeps the first item for each key and ignores later ones.</p>
+
+<h2>Performance and memory tips</h2>
+<ul>
+  <li>Prefer HashSet for raw speed when order is irrelevant.</li>
+  <li>Use LinkedHashSet when insertion order matters and you still want simple code.</li>
+  <li>Stream distinct is great for readability but profile if you care about micro performance.</li>
+  <li>For custom equality derive a stable key and use a seen set to filter duplicates deterministically.</li>
+  <li>Watch memory Use set based deduplication will add overhead when lists are huge so profile and consider streaming or chunking for very large data sets.</li>
+</ul>
+
+<p>In short pick HashSet for speed pick LinkedHashSet when order matters pick Stream distinct for readable code and use a seen key filter for custom equality. Now go forth and declutter your Java lists with the right data structure and a tiny bit of dignity preserved.</p>
+

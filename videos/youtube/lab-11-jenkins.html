@@ -1,0 +1,93 @@
+---
+layout: video
+title: "Lab 11 Jenkins"
+description: "Hands on Lab 11 Jenkins guide for setting up a CI CD pipeline with jobs agents and basic deployment steps"
+video_host: "youtube"
+video_id: "ei7kv7QOMC8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M16S"
+thumbnail_url: "https://i.ytimg.com/vi/ei7kv7QOMC8/maxresdefault.jpg"
+content_url: "https://youtu.be/ei7kv7QOMC8"
+embed_url: "https://www.youtube.com/embed/ei7kv7QOMC8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Lab 11
+  - Jenkins
+  - Continuous Integration
+  - Continuous Delivery
+  - CI CD
+  - Jenkins Pipeline
+  - Jenkins Agents
+  - DevOps
+  - Build Automation
+  - Deployment
+---
+
+<p>If you want a Jenkins pipeline that actually behaves and does not make you question career choices then this lab will get you there. It is a hands on guide to installing Jenkins setting up security and plugins creating a declarative pipeline adding agents running builds and deploying artifacts in a repeatable CI CD flow with a minimum of drama.</p>
+
+<h2>Setup and install Jenkins</h2>
+<p>Pick your poison package install or container image and install Jenkins on a host you control. Verify web access on port 8080 and confirm you can reach the UI. Containers are fast and disposable so they are great for labs. Packages are friendlier if you want a long lived server.</p>
+
+<h2>Configure security and essential plugins</h2>
+<p>Enable basic authentication and create an admin user. Install plugins for source control credentials and pipeline management. The usual suspects are Git Pipeline Credentials and Node labels for agents. Plugins add features and occasional mild dependency chaos so choose only what you need and update carefully.</p>
+
+<h3>Manage credentials the smart way</h3>
+<p>Put secrets in the Jenkins credential store and never paste them in job descriptions unless you enjoy accidental surprises. Use credentials by id inside the pipeline environment to keep secrets out of logs.</p>
+
+<h2>Create a declarative pipeline</h2>
+<p>Keep the pipeline simple to start and grow it as you learn. Declarative syntax is readable and pairs well with shared libraries for reusable logic.</p>
+
+<pre><code>pipeline {
+  agent any
+  environment {
+    MAVEN_CREDS = credentials('maven-cred')
+  }
+  stages {
+    stage('Build') {
+      steps {
+        sh 'mvn package'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'mvn test'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh './deploy.sh'
+      }
+    }
+  }
+}
+</code></pre>
+
+<p>The example above shows a minimal flow that builds runs tests and deploys. Replace mvn and deploy scripts with your toolchain for build automation and artifact management.</p>
+
+<h2>Add agents for isolation and scale</h2>
+<p>Use labeled agents to separate heavy builds from lightweight jobs. Configure SSH or container based agents and verify that workspace cleanup happens between runs to avoid flaky failures from leftover files. Typical agent config looks like a label driven node or a Kubernetes pod template for ephemeral workers.</p>
+
+<h2>Run builds and debug like a pro</h2>
+<ul>
+  <li>Trigger a build and inspect the console log for failures and stack traces</li>
+  <li>Use pipeline stage view and replay to iterate on the script with less cursing</li>
+  <li>Keep logs and artifacts organized so you can find the bad commit without summoning demons</li>
+</ul>
+
+<h2>Deploy and monitor</h2>
+<p>Deploy artifacts to a staging environment and add simple health checks and logs monitoring. Automate rollbacks if a release misbehaves and rehearse the playbook so the team is not inventing drama during incidents.</p>
+
+<h3>Best practices cheat sheet</h3>
+<ul>
+  <li>Store credentials in the credential store not in job text</li>
+  <li>Use agents with labels to scale builds and isolate environments</li>
+  <li>Prefer declarative pipelines for clarity and shared libraries for reuse</li>
+  <li>Keep plugins minimal and update with care</li>
+  <li>Add monitoring and automated rollback steps for safer delivery</li>
+</ul>
+
+<p>This lab covers installation configuration pipeline creation agent management build execution and deployment verification so you can go from zero to a runnable Jenkins pipeline with practical hygiene steps. If you want fewer surprises adopt pipeline libraries and automated tests for your CI CD work streams and maybe a hug from a coworker after your first successful release.</p>
+

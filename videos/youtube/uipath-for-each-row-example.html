@@ -1,0 +1,76 @@
+---
+layout: video
+title: "UiPath For Each Row Example"
+description: "Quick guide to using UiPath For Each Row to iterate a DataTable handle data conversions and avoid common errors"
+video_host: "youtube"
+video_id: "5A61BQJlRws"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M35S"
+thumbnail_url: "https://i.ytimg.com/vi/5A61BQJlRws/maxresdefault.jpg"
+content_url: "https://youtu.be/5A61BQJlRws"
+embed_url: "https://www.youtube.com/embed/5A61BQJlRws"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - For Each Row
+  - DataTable
+  - RPA
+  - Automation
+  - UiPath Tutorial
+  - DataRow
+  - Excel
+  - Debugging
+  - Error Handling
+---
+
+<h1>Step by step UiPath For Each Row guide for DataRow handling and debugging</h1>
+<p>If you want your RPA to stop crying when it meets messy spreadsheets then this UiPath tutorial is for you. We will walk through using For Each Row on a DataTable so your automation does real work instead of throwing exceptions and passive aggressive log messages. Expect practical tips about Excel, DataRow access, conversions, debugging and basic error handling with a wink and a shrug.</p>
+
+<h2>Prepare the DataTable the sane way</h2>
+<p>Start with a clean DataTable. Read Range from Excel for real data or Build Data Table for quick tests. A consistent schema keeps DBNull surprises to a minimum and makes parsing less painful. If you can, filter or trim bad rows before looping so your robot does not earn overtime by fixing garbage.</p>
+
+<h3>Name things so you can read your workflow later</h3>
+<p>Use clear names like <code>currentRow</code> for the row variable and prefer column names over indexes for readability. currentRow(0) will work, but currentRow("Email") is less likely to cause a mysterious bug at midnight.</p>
+
+<h2>Set up For Each Row and access values like a pro</h2>
+<p>Add the For Each Row activity and point the DataTable property to your prepared table. Inside the loop read values with expressions such as:</p>
+<pre><code>currentRow("Name").ToString()</code></pre>
+<p>Or by index when you must:</p>
+<pre><code>currentRow(0).ToString()</code></pre>
+<p>If you need numbers use safe parsing rather than hope and prayer:</p>
+<pre><code>Integer.Parse(currentRow("Age").ToString())
+' or safer
+Dim age As Integer
+Integer.TryParse(currentRow("Age").ToString(), age)</code></pre>
+
+<h2>Handle nulls and bad data without panicking</h2>
+<p>Spreadsheets lie. Check for DBNull up front and provide defaults. A typical pattern looks like this:</p>
+<pre><code>Dim price As Decimal
+If IsDBNull(currentRow("Price")) Then
+  price = 0D
+Else
+  price = Decimal.Parse(currentRow("Price").ToString())
+End If</code></pre>
+<p>Wrap fragile parsing in Try Catch when the data really wants to be dramatic. That keeps your automation robust and your inbox mercifully quiet.</p>
+
+<h2>Debugging and logging that actually helps</h2>
+<p>Run with breakpoints and Log Message activities to inspect values during the loop. Use Slow Step to watch the robot act. If something is broken add a message with the offending row index and a sample of values so you can point and laugh at the spreadsheet later.</p>
+
+<h3>Useful debug checklist</h3>
+<ul>
+  <li>Log the row number and key columns</li>
+  <li>Set breakpoints before conversions</li>
+  <li>Use Try Catch to capture and log parsing failures</li>
+</ul>
+
+<h2>Performance tips for big DataTable objects</h2>
+<p>For large tables filter rows before looping. DataTable.AsEnumerable with LINQ is your friend when you need to preselect rows and reduce processing time. Fetch only columns you need and prefer batch operations when possible to keep your automation fast and polite.</p>
+
+<h2>Recap and final sanity checks</h2>
+<p>This guide covered preparing a DataTable, wiring For Each Row, accessing DataRow values, safe conversions and basic error handling so your UiPath automation is less brittle and more reliable. A tiny bit of defensive coding saves many hours of debugging and a few choice curse words.</p>
+
+<p>Keep these keywords in mind when searching for help or writing documentation: UiPath, For Each Row, DataTable, DataRow, Excel, RPA, Automation, Debugging, Error Handling and UiPath Tutorial.</p>
+

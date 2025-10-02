@@ -1,0 +1,65 @@
+---
+layout: video
+title: "Introduction to Sqlite for Beginners Full Sqlite3 DB"
+description: "Learn SQLite3 basics from install to queries and schema management with clear CLI examples and practical tips"
+video_host: "youtube"
+video_id: "BNUvVDbQ0J0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M51S"
+thumbnail_url: "https://i.ytimg.com/vi/BNUvVDbQ0J0/maxresdefault.jpg"
+content_url: "https://youtu.be/BNUvVDbQ0J0"
+embed_url: "https://www.youtube.com/embed/BNUvVDbQ0J0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - SQLite
+  - Sqlite3
+  - database
+  - SQL
+  - tutorial
+  - beginner
+  - CLI
+  - schemas
+  - transactions
+  - indexes
+---
+
+<h2>Quick start with SQLite3 CLI</h2>
+<p>Tired of installing a full blown database just to store a few rows of config and regret your life choices later Use SQLite3 instead It is a zero config SQL database that lives in a single file and does exactly what you expect</p>
+<p>Open a shell and create or open a database file</p>
+<pre><code>sqlite3 mydb.db</code></pre>
+<h3>Define a table</h3>
+<p>Use plain SQL to define a schema Here is a simple users table</p>
+<pre><code>CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, email TEXT)</code></pre>
+<p>The database file stores both the schema and the rows so deployment is basically copy the file and move on with your life</p>
+<h3>Insert data safely</h3>
+<p>From a quick shell or from application code insert rows Parameter binding is your friend to avoid SQL injection</p>
+<pre><code>INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com')</code></pre>
+<p>From application code use prepared statements and bindings rather than interpolating strings It keeps things predictable and you avoid being that person who left a SQL hole in production</p>
+<h2>Queries and filters that do actual work</h2>
+<p>SELECT is all you need to get useful data Use WHERE ORDER BY and LIMIT to slice and dice</p>
+<pre><code>SELECT id, name FROM users WHERE name LIKE '%Al%' ORDER BY id LIMIT 10</code></pre>
+<h2>Transactions indexes and backups</h2>
+<p>Wrap related writes in a transaction so a crash does not leave your database in a sad state</p>
+<pre><code>BEGIN TRANSACTION
+INSERT INTO users (name, email) VALUES ('Bob', 'bob@example.com')
+COMMIT</code></pre>
+<p>Add an index to speed up common lookups</p>
+<pre><code>CREATE INDEX idx_users_email ON users (email)</code></pre>
+<p>For backups a simple copy of the database file works fine for small apps You can also use your language driver backup functions if you prefer</p>
+<h2>Schema changes and migrations</h2>
+<p>SQLite supports ALTER TABLE for basic changes For complex migrations the trick is create a new table copy rows and rename tables Keep migration scripts version controlled so your team does not blame the intern</p>
+<pre><code>ALTER TABLE users ADD COLUMN created_at TEXT</code></pre>
+<h2>Best practices and quick tips</h2>
+<ul>
+<li>Keep transactions short to avoid locking the database</li>
+<li>Use indexes on columns you filter on often but do not index everything</li>
+<li>Use PRAGMA statements for tuning when needed</li>
+<li>Version control migration scripts and test them on copies of the database</li>
+</ul>
+<h2>Recap and what to try next</h2>
+<p>This tutorial showed how to install and use SQLite3 create and populate tables run queries and manage schema and backups It is ideal for local apps prototypes and small production services where a single file database is a feature not a limitation</p>
+<p>Now go make a tiny database and feel superior to anyone running a full server for a single table</p>
+

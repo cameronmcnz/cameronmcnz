@@ -1,0 +1,61 @@
+---
+layout: video
+title: "Apache Struts Unit Testing with JUnit Tutorial"
+description: "Learn how to unit test Apache Struts actions with JUnit and mocks for fast reliable tests and better controller coverage."
+video_host: "youtube"
+video_id: "505MUXVzoJY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M29S"
+thumbnail_url: "https://i.ytimg.com/vi/505MUXVzoJY/maxresdefault.jpg"
+content_url: "https://youtu.be/505MUXVzoJY"
+embed_url: "https://www.youtube.com/embed/505MUXVzoJY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Apache Struts
+  - JUnit
+  - Unit Testing
+  - Struts2
+  - Mockito
+  - Action Testing
+  - Java
+  - Mocking
+  - Continuous Integration
+  - Maven
+---
+
+<p>So you have Struts actions that need testing and time is short. This guide walks through testing Struts2 actions with JUnit and Mockito in a way that actually saves time and sanity. No full container boot ups and no flaky tests that fail only on Fridays when the coffee runs out.</p>
+
+<h2>Set up project dependencies and fast test runner</h2>
+<p>Add JUnit and a mocking library such as Mockito to your build. If your project uses Maven include the Struts test support classes or the lightweight helpers your team prefers. Configure a test profile that runs only the fast unit tests by default so your build stays speedy and your CI stays happy.</p>
+
+<h2>Write a focused test for a single Action class</h2>
+<p>Keep tests narrow. Instantiate the Action under test as a plain object, populate the fields or setters it expects, and call the method that performs the action logic. Resist the urge to start the whole app server. Full container startup is slow and brittle and that kind of drama belongs in runtime logs not unit tests.</p>
+
+<h3>Mock HTTP parameters and service collaborators</h3>
+<p>Use Mockito to create fake request parameters session attributes and service dependencies. Options include mocking the servlet request and session or using Struts test utilities to provide a light ActionContext. The goal is to isolate controller logic from external systems so you test behavior not integration plumbing.</p>
+<ul>
+  <li>Mock form parameters and session values to simulate user input.</li>
+  <li>Mock service layer collaborators and stub their responses to cover success and error cases.</li>
+  <li>Use ArgumentCaptor when you need to inspect what was sent to a service.</li>
+</ul>
+
+<h2>Assert results and internal state</h2>
+<p>Verify the action result string that drives navigation and any changes to model properties or validation messages. Assert that validation rules fire when they should and that error messages are added when they should not be ignored. When interaction matters use Mockito verify calls to assert how the service layer was used.</p>
+
+<h2>Run tests in CI and keep them deterministic</h2>
+<p>Make tests hermetic. Do not let network calls or real database access sneak in. Use in memory stubs or dedicated test doubles. Split slow integration tests from fast unit tests with a Maven profile or tagging strategy and run the slow suite less often. Fast reliable tests on every commit keep refactoring from feeling like Russian roulette.</p>
+
+<h2>Quick checklist for Struts2 action testing</h2>
+<ul>
+  <li>Target one action per test to keep failures easy to diagnose</li>
+  <li>Mock HTTP inputs and session state so tests stay focused</li>
+  <li>Mock the service layer and assert interactions with Mockito</li>
+  <li>Avoid full container startup unless the test is marked integration</li>
+  <li>Keep CI profiles so unit tests run fast and integration runs on demand</li>
+</ul>
+
+<p>Follow these rules and your Struts action tests will be quick to write and kinder to CI. You will sleep better and your teammates will stop blaming the framework for everything.</p>
+

@@ -1,0 +1,55 @@
+---
+layout: video
+title: "Spring vs Spring Boot vs Framework What's the difference?"
+description: "Concise comparison of Spring Spring Boot and Spring Framework to guide developers on scope configuration and when to choose each option"
+video_host: "youtube"
+video_id: "Vo7YjQb-gW4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M20S"
+thumbnail_url: "https://i.ytimg.com/vi/Vo7YjQb-gW4/maxresdefault.jpg"
+content_url: "https://youtu.be/Vo7YjQb-gW4"
+embed_url: "https://www.youtube.com/embed/Vo7YjQb-gW4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring
+  - Spring Boot
+  - Spring Framework
+  - Java
+  - Microservices
+  - AutoConfiguration
+  - Dependency Injection
+  - Spring Data
+  - Configuration
+  - Techtarget
+---
+
+<h2>Short answer for people who hate long debates</h2>
+<p>If you want raw control over dependency injection and lifecycle in Java go with the Spring Framework. If you want to ship microservices fast with sensible defaults and fewer headaches pick Spring Boot. And if you need persistence security or cloud wiring bring in Spring Data Spring Security and Spring Cloud as needed. Yes it is that simple and yes you will still argue about it at code review.</p>
+
+<h2>How these parts actually differ</h2>
+
+<h3>Spring Framework</h3>
+<p>The core framework gives you dependency injection and modular components for building enterprise grade apps. Expect explicit beans manual wiring and either XML or Java based configuration. It is great when you need fine grained control over class loading lifecycle and exact bean behavior.</p>
+
+<h3>Spring Boot</h3>
+<p>Spring Boot sits on top and handles the boring plumbing. AutoConfiguration and starter dependencies reduce boilerplate. Embedded servers like Tomcat come bundled so you can run a service with one command. It follows convention over configuration which is a polite way of saying it chooses defaults for you.</p>
+
+<h3>Spring ecosystem</h3>
+<p>Spring is more than the two names above. Projects such as Spring Data and Spring Security plug into either the framework or Boot to solve persistence and security. Spring Cloud helps with distributed system patterns common in microservices.</p>
+
+<h2>Configuration and debugging</h2>
+<p>With the core framework you usually declare beans yourself so you see all the wiring. With Boot a lot of configuration is inferred by starters and auto configuration. That saves time but can hide details you might need when debugging. Learn how auto configuration works and use actuator to inspect what Boot did for you.</p>
+
+<h2>Choosing guide for real projects</h2>
+<ul>
+  <li>Use Spring Boot for prototypes microservices and teams that want speed of delivery.</li>
+  <li>Use Spring Framework when you need library style integration or strict control over lifecycle and memory footprint.</li>
+  <li>Combine Boot with Spring Data and other projects when you want cloud native features fast.</li>
+</ul>
+
+<h2>Performance note and practical tip</h2>
+<p>Performance depends more on selected dependencies than on the label Framework or Boot. Boot can be lean with careful dependency selection. If you are undecided start with Spring Boot and move parts to explicit framework style configuration when you hit a performance or control problem.</p>
+

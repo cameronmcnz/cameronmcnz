@@ -1,0 +1,84 @@
+---
+layout: video
+title: "Learn How to use the Bluesky Python API under 4 Minutes"
+description: "Quick guide to using the Bluesky Python API with simple auth examples posting and reading a timeline in under four minutes"
+video_host: "youtube"
+video_id: "iwFacCJDfbs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M54S"
+thumbnail_url: "https://i.ytimg.com/vi/iwFacCJDfbs/maxresdefault.jpg"
+content_url: "https://youtu.be/iwFacCJDfbs"
+embed_url: "https://www.youtube.com/embed/iwFacCJDfbs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Bluesky
+  - Python
+  - API
+  - atproto
+  - tutorial
+  - authentication
+  - posting
+  - timeline
+  - developer
+  - examples
+---
+
+<p>Welcome to the express Bluesky tutorial for busy developers who want to post stuff without learning a new religion. This short guide shows how to install the atproto client authenticate a user post a record and read a timeline with Python while keeping your dignity and your secrets safe.</p>
+
+<h2>Quick setup</h2>
+<p>What you need before you start</p>
+<ul>
+  <li>Python 3 installed and not haunted by broken dependencies</li>
+  <li>The atproto Python client which does the heavy lifting</li>
+  <li>A Bluesky account handle and password or a preissued token</li>
+</ul>
+
+<h2>Install the client</h2>
+<p>One command to rule out heroic builds and suffering</p>
+<pre><code>pip install atproto</code></pre>
+
+<h2>Authenticate and keep tokens</h2>
+<p>Create a client object and log in. If you want to be responsible store credentials in environment variables or a secret manager rather than littering them across your repo like confetti.</p>
+<pre><code>from atproto import Client
+
+client = Client()
+client.login('your.handle', 'your_password')</code></pre>
+<p>If you prefer tokens generate a session token once and export it to an environment variable for scripts and CI. That way you can revoke the token without changing passwords in three places.</p>
+
+<h2>Post a record</h2>
+<p>Publishing is delightfully blunt. You send a record and the API does the rest. Use plain text for quick tests then move on to richer content.</p>
+<pre><code>resp = client.create_record('text', 'Hello Bluesky from Python')
+print(resp)</code></pre>
+<p>Check the response object for the created record id or status fields as returned by your client. That id is useful if you want to edit or delete later.</p>
+
+<h2>Read the timeline</h2>
+<p>Fetching a timeline is how your app stays social without actually being social. You can read the public feed a user timeline or a specific view depending on what the client supports.</p>
+<pre><code>timeline = client.get_timeline()
+print(timeline)</code></pre>
+
+<h3>Parse only what you need</h3>
+<p>Timelines can be noisy. Extract fields like author text and created_at and ignore the rest until your app grows a personality.</p>
+
+<h2>Check responses and handle errors</h2>
+<p>APIs will fail sometimes and usually at the worst possible moment. Handle common cases with simple checks and graceful retries.</p>
+<ul>
+  <li>Authentication failed: reauthenticate or refresh your token</li>
+  <li>Rate limited: back off and try again later</li>
+  <li>Network errors: retry with exponential backoff</li>
+</ul>
+<p>Inspect status fields returned by the client and log raw responses while developing. That saves you from guessing and from inventing mysterious bugs.</p>
+
+<h2>Extras and developer tips</h2>
+<ul>
+  <li>Never hard code credentials in examples or commits</li>
+  <li>Use environment variables for tokens and config</li>
+  <li>Log responses to help with debugging but scrub secrets before sharing</li>
+  <li>Start with plain text posts then add media once the basics work</li>
+</ul>
+
+<h2>Recap</h2>
+<p>You installed the atproto client authenticated with Bluesky posted a simple record read a timeline and learned how to check responses and handle errors. This minimal workflow is ideal for small bots tools or developer experiments and will get you from zero to posting without unnecessary drama.</p>
+

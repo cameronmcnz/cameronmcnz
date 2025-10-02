@@ -1,0 +1,88 @@
+---
+layout: video
+title: "Swagger Test Spring Boot REST APIs with SpringDoc"
+description: "Add SpringDoc OpenAPI to a Spring Boot Maven project and use Swagger UI to test REST APIs quickly and visually"
+video_host: "youtube"
+video_id: "EE9vpD-AnXw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT57S"
+thumbnail_url: "https://i.ytimg.com/vi/EE9vpD-AnXw/maxresdefault.jpg"
+content_url: "https://youtu.be/EE9vpD-AnXw"
+embed_url: "https://www.youtube.com/embed/EE9vpD-AnXw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Swagger
+  - Spring Boot
+  - SpringDoc
+  - OpenAPI
+  - Maven
+  - REST API
+  - Swagger UI
+  - Java
+  - API Testing
+  - Documentation
+---
+
+<h2>Why you should care</h2>
+<p>Testing and documenting your REST API should not be a full time hobby. SpringDoc connects Spring Boot with OpenAPI and gives you a Swagger UI that lets you poke endpoints from a browser without writing curl scripts and crying. This guide shows how to add SpringDoc to a Maven project and use Swagger UI to test and document Java REST APIs.</p>
+
+<h2>What you need</h2>
+<ul>
+  <li>Java 11 or newer</li>
+  <li>Maven</li>
+  <li>A Spring Boot app with controllers</li>
+</ul>
+
+<h2>Step by step</h2>
+<ol>
+  <li>
+    <h3>Add the SpringDoc dependency</h3>
+    <p>Add the springdoc openapi ui dependency to your pom file and let Maven do its magic.</p>
+    <pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springdoc&lt;/groupId&gt;
+  &lt;artifactId&gt;springdoc-openapi-ui&lt;/artifactId&gt;
+  &lt;version&gt;1.6.15&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+  </li>
+
+  <li>
+    <h3>Configure package scanning if needed</h3>
+    <p>SpringDoc usually auto detects your controllers. If your controllers live in odd packages set a property or add a small config bean.</p>
+    <pre><code># application.properties example
+springdoc.packagesToScan=com.example.controllers</code></pre>
+    <p>Or register a bean that configures the scanner when auto detection fails.</p>
+  </li>
+
+  <li>
+    <h3>Run the app</h3>
+    <p>Start it from your IDE or run mvn spring-boot run and wait for the glorious startup messages. SpringDoc will expose the OpenAPI JSON and the Swagger UI.</p>
+  </li>
+
+  <li>
+    <h3>Open Swagger UI and try endpoints</h3>
+    <p>Visit the UI at /swagger-ui.html or at /swagger-ui/index.html depending on the version. The raw OpenAPI JSON lives at /v3/api-docs. Use the Try it button to send requests right from the browser and inspect headers and payloads.</p>
+    <ul>
+      <li>Fill in example JSON and watch how status codes and responses behave</li>
+      <li>No more guessing or sculpting curl commands in the dark</li>
+    </ul>
+  </li>
+
+  <li>
+    <h3>Harden the docs for production</h3>
+    <p>Documentation is helpful but not always something you want public. Add Spring Security rules or use Spring Boot actuator to limit access. Expose docs only in staging or require basic auth for production access.</p>
+  </li>
+</ol>
+
+<h2>Quick tips</h2>
+<ul>
+  <li>Use the latest springdoc openapi ui release for security fixes and features</li>
+  <li>Annotate controllers with request and response schemas to improve documentation</li>
+  <li>Keep example payloads realistic to speed up testing</li>
+</ul>
+
+<h2>Summary</h2>
+<p>Adding SpringDoc to a Maven based Spring Boot project is mostly dependency add run and browse. You get a friendly Swagger UI to test REST APIs and machine readable OpenAPI JSON for docs and tooling. Go forth and document responsibly.</p>
+

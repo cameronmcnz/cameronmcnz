@@ -1,0 +1,69 @@
+---
+layout: video
+title: "How to use UiPath Append Range with Excel Example"
+description: "Step by step guide to using UiPath Append Range with Excel to add rows without overwriting data and fix common problems"
+video_host: "youtube"
+video_id: "hFf3UQtJyGQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M5S"
+thumbnail_url: "https://i.ytimg.com/vi/hFf3UQtJyGQ/maxresdefault.jpg"
+content_url: "https://youtu.be/hFf3UQtJyGQ"
+embed_url: "https://www.youtube.com/embed/hFf3UQtJyGQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Append Range
+  - Excel
+  - UiPath Tutorial
+  - RPA
+  - DataTable
+  - Excel Automation
+  - Build Data Table
+  - Excel Application Scope
+  - Workbook Activities
+---
+
+<p>Think of Append Range as the polite way to add rows to an Excel sheet without bulldozing existing entries. This guide walks you through using UiPath Append Range with Excel so your robot does not act like a vandal. We will cover preparing a DataTable, choosing Excel Application Scope or Workbook activities, configuring Append Range, and troubleshooting common problems in RPA workflows.</p>
+
+<h2>Why Append Range matters in UiPath</h2>
+<p>Append Range is built to add rows from a System DataTable into a worksheet while preserving existing data. If you prefer your data to stay alive and arranged this is the activity you want. Use Build Data Table for small test tables or Read Range to read an existing sheet into a DataTable. Make sure column names match the target headers to avoid misalignment and missing values.</p>
+
+<h2>Choose the right workbook approach</h2>
+<p>UiPath offers two common approaches to work with Excel files. Use Excel Application Scope when you need Excel features or macros. Use Workbook activities when Excel is not available or when you want faster unattended runs. Workbook activities avoid COM locks and usually perform better for high volume automation.</p>
+
+<h2>Configure the Append Range activity</h2>
+<ul>
+<li>Place Append Range inside Excel Application Scope or call the Workbook Append Range activity directly</li>
+<li>Pass your DataTable variable in the DataTable field</li>
+<li>Set the SheetName string to the exact sheet name being written to</li>
+<li>Leave StartingCell blank to append after the last used row</li>
+<li>Toggle AddHeaders off if the target sheet already has headers or on if the sheet is empty</li>
+</ul>
+
+<h2>Run verify and troubleshoot</h2>
+<p>Run the workflow and open the workbook to confirm new rows appear below the existing data. If nothing shows up check these usual suspects.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+<li>DataTable has rows</li>
+<li>Column names align with target sheet headers</li>
+<li>SheetName matches exactly including case if you are on a case sensitive system</li>
+<li>File is not locked by another process or user</li>
+</ul>
+
+<h3>Common problems and fixes</h3>
+<ul>
+<li>If the file is locked close other instances of Excel or terminate the locking process responsibly</li>
+<li>If you see duplicates filter source data or use a unique key to prevent repeats</li>
+<li>For very large inserts consider batching rows or using Workbook activities to avoid heavy Excel interop overhead</li>
+<li>When appending many rows write to a temporary sheet first then move the block to the target sheet to reduce redraw and COM operations</li>
+</ul>
+
+<h2>Pro tips that save time</h2>
+<p>Log the row count before and after the append so your robot can admit success or failure. If you use Excel Application Scope be prepared for COM quirks and test the workflow in an unattended environment. And do not rely on guesswork for sheet names. Get them from a config file or enum and your future self will send you a thank you email that will probably be ignored.</p>
+
+<p>This covers creating or reading a DataTable preparing the correct workbook approach configuring Append Range and validating results while giving practical troubleshooting tips for locks duplicates and performance in RPA projects. Happy automating and try not to crash Excel with large bursts of rows.</p>
+

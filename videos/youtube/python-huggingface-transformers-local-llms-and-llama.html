@@ -1,0 +1,68 @@
+---
+layout: video
+title: "Python, Huggingface Transformers, Local LLMs and Llama"
+description: "Compact guide to run Huggingface Transformers with local LLaMA style models using Python with practical installation and inference tips."
+video_host: "youtube"
+video_id: "rZfcfgjR0Rw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT13M26S"
+thumbnail_url: "https://i.ytimg.com/vi/rZfcfgjR0Rw/maxresdefault.jpg"
+content_url: "https://youtu.be/rZfcfgjR0Rw"
+embed_url: "https://www.youtube.com/embed/rZfcfgjR0Rw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Python
+  - Huggingface
+  - Transformers
+  - Local LLMs
+  - Llama
+  - Model Inference
+  - Model Loading
+  - Quantization
+  - Acceleration
+  - Deployment
+---
+
+<h2>Quick setup and why you should care</h2>
+<p>If you like control, privacy, and pretending you can beat cloud pricing, running Local LLMs on your dev machine is the hobby for you. This guide shows how to use Python with Huggingface Transformers to load LLaMA style models, run model inference, and apply basic quantization and acceleration tricks so your laptop does not spontaneously combust.</p>
+
+<h2>Environment and installs</h2>
+<p>Start with a clean virtual environment and Python 3.9 or newer. This prevents dependency hell from bringing its entire extended family to your party. If the model is bigger than your patience, use a GPU runtime.</p>
+
+<ul>
+  <li>Make a venv and activate it, then install the essentials</li>
+  <li>Typical packages to install with pip are transformers and accelerate, and optionally bitsandbytes for 8 bit inference</li>
+  <li>bitsandbytes can save memory and reduce latency, but it has hardware and driver quirks, so test on a small model first</li>
+</ul>
+
+<h2>Acquire model weights and keep them tidy</h2>
+<p>Grab a LLaMA style model from the Huggingface hub or copy a local checkpoint. Keep weights in a predictable folder so you do not spend an hour hunting for a file named model_final_v2 that was actually model_final_v1.</p>
+
+<h2>Load tokenizer and model</h2>
+<p>Use the Transformers API to get the tokenizer and the causal LM model. The library will help with device mapping, but you still want to be aware of memory footprints.</p>
+
+<pre><code>from transformers import AutoTokenizer, AutoModelForCausalLM
+
+tokenizer = AutoTokenizer.from_pretrained('your-repo-or-path')
+model = AutoModelForCausalLM.from_pretrained('your-repo-or-path', device_map='auto')
+</code></pre>
+
+<p>device_map helps map tensors to available devices, so you do not have tensors living in the wrong timezone. For large weights, consider loading with 8 bit support if you installed bitsandbytes.</p>
+
+<h3>Inference and optimization tips</h3>
+<ul>
+  <li>Generate text with tokenizer and model.generate. Keep batch sizes small while you profile memory.</li>
+  <li>Try lower precision modes like fp16 or 8 bit quantization to reduce memory use and speed up inference, but beware of small accuracy changes.</li>
+  <li>Monitor GPU memory with nvidia-smi and tune max_length to avoid surprise out of memory errors.</li>
+  <li>Use accelerate launch to simplify multi GPU runs and device placement for longer experiments.</li>
+  <li>During development use toy models, then graduate to LLaMA style weights when your config and profiling are stable.</li>
+</ul>
+
+<h2>Deployment and practical notes</h2>
+<p>Local deployment is great for experimentation and prototyping. For production, you may still want a managed solution for scaling and monitoring. When you do go local to production, document your model loading steps, quantization settings, and how you measure latency, so future you does not curse past you.</p>
+
+<p>Summary, because people like endings. Prepare the environment, install Transformers and helpers, acquire the model, load tokenizer and model, then run inference with pragmatic optimizations. Follow these steps and you will have a reproducible workflow for Python based Local LLMs with Huggingface, capable of handling LLaMA style weights without turning your dev machine into a very expensive paperweight.</p>
+

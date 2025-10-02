@@ -1,0 +1,68 @@
+---
+layout: video
+title: "Apache Struts Debugging Tools Tutorial v2.5"
+description: "Learn practical debugging tools and workflows for Apache Struts 2.5 to trace requests inspect parameters and diagnose common errors fast"
+video_host: "youtube"
+video_id: "mJ-wfj5CWXM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M52S"
+thumbnail_url: "https://i.ytimg.com/vi/mJ-wfj5CWXM/maxresdefault.jpg"
+content_url: "https://youtu.be/mJ-wfj5CWXM"
+embed_url: "https://www.youtube.com/embed/mJ-wfj5CWXM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Apache Struts
+  - Struts 2.5
+  - debugging
+  - Java web
+  - devMode
+  - interceptors
+  - logging
+  - IDE debugging
+  - value stack
+  - request tracing
+---
+
+<h2>Why you should care about Struts debugging</h2>
+<p>If your Java web app is throwing mysterious nulls wrong types or parameter ghosts then yes you should care. Struts 2.5 gives you a decent set of tools to stop guessing and start seeing what your app actually received and did. This guide walks through practical steps to enable more feedback trace parameters attach an IDE debugger and inspect the value stack so you can fix bugs instead of composing prayers.</p>
+
+<h2>Turn on devMode and crank up logging</h2>
+<p>For local testing enable verbose framework feedback by setting the dev mode constant in your Struts config. Example XML entry to add to your config file is</p>
+<pre>&lt;constant name="struts.devMode" value="true"/&gt;</pre>
+<p>Also set your logging framework to DEBUG for Struts packages and your application packages. More debug output means fewer wild guesses when things go wrong. Focus on org.apache.struts2 and your action package to keep logs useful rather than noisy.</p>
+
+<h2>Enable debug interceptors and parameter dumps</h2>
+<p>Struts ships with interceptors that make request data visible. Add a debug interceptor or a parameter dump interceptor to the interceptor stack for the action you are troubleshooting. That will show incoming parameters and what actually bound to the action which often reveals naming mismatches missing converters or unexpected types.</p>
+
+<h3>What to look for in the dump</h3>
+<ul>
+  <li>Parameter names that do not match your action properties</li>
+  <li>Unexpected array or collection values</li>
+  <li>Blank values that should be numbers or dates</li>
+</ul>
+
+<h2>Attach an IDE debugger and set breakpoints</h2>
+<p>Logs are great but they do not show local variables or the immediate call path. Start your server with remote debugging enabled then attach from your IDE. Put breakpoints in action execute methods interceptor code and custom converters. Pause execution inspect locals and step through to see exactly where a binding or conversion fails. This beats guessing based on log timestamps.</p>
+
+<h2>Inspect the value stack and OGNL results</h2>
+<p>The value stack is the truth table for what Struts sees at runtime. Inspect the current object graph and evaluate expressions to confirm OGNL resolves the way you expect. Check action properties for nulls wrong types or values that look like they came from a different request. Often the problem is a binding mismatch rather than a logic bug.</p>
+
+<h2>Reproduce the bug and analyze stack traces</h2>
+<p>Create a minimal repro case that triggers the issue and collect full logs and stack traces. Look for the first stack frame that belongs to your code and trace back from there. Common root causes are class cast exceptions missing resources bad configuration or misnamed parameters. A focused minimal test is your friend here.</p>
+
+<h2>Quick troubleshooting checklist</h2>
+<ul>
+  <li>Enable struts.devMode for local runs</li>
+  <li>Set logger level to DEBUG for Struts and your actions</li>
+  <li>Add debug or parameter dump interceptors to the action stack</li>
+  <li>Attach an IDE debugger and set breakpoints in actions and interceptors</li>
+  <li>Inspect the value stack and OGNL evaluations</li>
+  <li>Create a minimal repro and follow the stack trace to your code</li>
+</ul>
+
+<h2>Parting advice from someone who has seen worse</h2>
+<p>Use these tools in concert rather than one at a time. Verbose logs without a value stack check will leave you squinting. A debugger without parameter dumps may miss subtle binding problems. Combine devMode logging interceptor output and IDE breakpoints and you will find most Struts 2.5 problems faster than you can say "it worked on my machine." Now go fix the bug and feel smug for exactly five minutes.</p>
+

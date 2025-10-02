@@ -1,0 +1,59 @@
+---
+layout: video
+title: "Essential Git GitLab commands The 8 you must know"
+description: "Quick guide to the eight essential GitLab command line commands every developer should master with clear examples and practical tips"
+video_host: "youtube"
+video_id: "_HU1abMFRyE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M51S"
+thumbnail_url: "https://i.ytimg.com/vi/_HU1abMFRyE/maxresdefault.jpg"
+content_url: "https://youtu.be/_HU1abMFRyE"
+embed_url: "https://www.youtube.com/embed/_HU1abMFRyE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - gitlab
+  - git commands
+  - command line
+  - version control
+  - developer
+  - tutorial
+  - git workflow
+  - git tips
+  - code management
+---
+
+<p>If you spend most of your developer life arguing with version control then this short guide is for you. Below are the eight git and GitLab commands that actually matter when you are shipping code and trying not to break the CI pipeline or your teammate's heart.</p>
+
+<h2>Why these commands matter</h2>
+<p>These commands keep your work local safe and your repo sane. Use them to clone a project, inspect what changed, stage only what belongs in a commit, record changes with a message future you will not hate, and share work with remote servers like GitLab. Follow them and you will avoid most of the grief that comes with merges and bad commit messages.</p>
+
+<h2>Commands you will use every day</h2>
+<ul>
+  <li><strong><code>git clone REPO_URL</code></strong> Get a copy of the repo on your machine and stop pretending you will work in the browser.</li>
+  <li><strong><code>git status</code></strong> See what is staged and what is not. Run this before anything else and spare yourself the embarrassment of committing temporary debug prints.</li>
+  <li><strong><code>git add FILES</code></strong> Stage only the files you mean to include. Do not drag unrelated changes along for the ride.</li>
+  <li><strong><code>git commit -m "message"</code></strong> Save a snapshot with a short clear message. Future you will judge past you mercilessly so be useful.</li>
+  <li><strong><code>git push</code></strong> Upload commits to the remote. This notifies CI and your teammates that you exist and are maybe productive.</li>
+  <li><strong><code>git pull</code></strong> Fetch and merge remote changes into your branch. Do this often to avoid dramatic merge parties.</li>
+  <li><strong><code>git branch</code></strong> List or create branches so features have names that are useful instead of cryptic.</li>
+  <li><strong><code>git checkout</code></strong> Switch branches or restore files. Use sensible names and avoid living forever on master.</li>
+  <li><strong><code>git merge BRANCH</code></strong> Bring changes together and resolve conflicts thoughtfully. Run tests before pushing merged results.</li>
+</ul>
+
+<h3>Simple workflow that does the job</h3>
+<p>1. <code>git clone</code> the repo. 2. Create a branch with <code>git branch</code> and <code>git checkout</code> or use <code>git checkout -b</code>. 3. Work and use <code>git status</code> often. 4. Stage with <code>git add</code>. 5. Commit with <code>git commit -m "clear message"</code>. 6. <code>git pull</code> to get up to date. 7. Resolve anything that breaks. 8. <code>git push</code> and open a merge request in GitLab.</p>
+
+<h3>Quick tips that save time and dignity</h3>
+<ul>
+  <li>Use descriptive branch names so reviewers do not need a decoder ring.</li>
+  <li>Keep commits focused and atomic so bisecting does not become a horror movie.</li>
+  <li>Run tests locally before pushing to avoid red CI badges and shame.</li>
+  <li>Pull frequently to reduce conflict drama and last minute panic edits.</li>
+</ul>
+
+<p>This is not rocket science. Master these commands and you will be less likely to cause merge chaos, more likely to survive code review, and able to tolerate the parts of software development that never get prettier. Now go clone something and try not to break the build.</p>
+

@@ -1,0 +1,77 @@
+---
+layout: video
+title: "How to delete both a remote and local Git branch"
+description: "Quick guide to delete a Git branch locally and on remote with safe commands and verification steps for clean repository history"
+video_host: "youtube"
+video_id: "A8MUpT9WOd0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M14S"
+thumbnail_url: "https://i.ytimg.com/vi/A8MUpT9WOd0/maxresdefault.jpg"
+content_url: "https://youtu.be/A8MUpT9WOd0"
+embed_url: "https://www.youtube.com/embed/A8MUpT9WOd0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git branch
+  - delete git branch
+  - remote branch
+  - local branch
+  - git delete
+  - git tutorial
+  - version control
+  - github
+  - git commands
+---
+
+<h2>Quick plan to avoid accidental regrets</h2>
+<p>Yes you can delete branches. No you should not do it while on the branch unless you enjoy confusing error messages. This guide walks through a safe, clean way to remove a local branch and its counterpart on the remote repository so your teammates stop asking what that weird feature branch was about.</p>
+
+<h2>Step 1 Move off the branch you want to delete</h2>
+<p>Switch to a stable branch before you try to remove the target. Deleting a branch you are currently on will either fail or make Git sulk loudly.</p>
+<pre><code>git switch main
+# or
+git checkout main</code></pre>
+
+<h2>Step 2 Delete the local branch the polite way or the rude way</h2>
+<p>Pick your temperament. The polite delete refuses to remove a branch that still has unmerged work. The rude delete forces removal whether Git likes it or not.</p>
+<ul>
+  <li>Safe delete which checks merge status</li>
+  <pre><code>git branch -d branch-name</code></pre>
+  <li>Force delete when you are absolutely sure history can go to the void</li>
+  <pre><code>git branch -D branch-name</code></pre>
+</ul>
+
+<h3>Pro tip for the cautious</h3>
+<p>If you want to double check that the branch is merged into your mainline run</p>
+<pre><code>git branch --merged</code></pre>
+<p>Only delete if your branch shows up in that list unless you have a very good reason.</p>
+
+<h2>Step 3 Delete the branch on the remote so your repo stops lying to you</h2>
+<p>Pushing a delete request removes the branch reference on the remote like origin or github. This is the part that stops the branch from showing up for other developers.</p>
+<pre><code>git push origin --delete branch-name</code></pre>
+
+<h2>Step 4 Verify and clean up stale references</h2>
+<p>Fetch with pruning to remove stale remote references from your local clone. Then inspect all refs to confirm the branch is gone.</p>
+<pre><code>git fetch --prune
+git branch -a</code></pre>
+
+<h3>When things still look like a mess</h3>
+<ul>
+  <li>If the remote still shows the branch check your remote web interface like GitHub to see if it was protected or blocked</li>
+  <li>Use <code>git fetch --prune</code> again if local metadata is stale</li>
+</ul>
+
+<h2>A few best practices so you do not become the person who deletes main</h2>
+<ul>
+  <li>Enable branch protection on important branches in your remote hosting service</li>
+  <li>Create a short pre push checklist in your team workflow to prevent accidental deletes</li>
+  <li>Use descriptive branch names so deleting the wrong one causes less drama</li>
+  <li>Prefer safe deletes and only use force when you have confirmed the history can be discarded</li>
+</ul>
+
+<h2>Recap</h2>
+<p>Move off the branch then delete locally with <code>git branch -d</code> or <code>-D</code> if you are forcing it. Push the delete with <code>git push origin --delete branch-name</code> and finish with <code>git fetch --prune</code> and <code>git branch -a</code> to verify. Be careful and set up protections so future you does not get blamed for chaos.</p>
+

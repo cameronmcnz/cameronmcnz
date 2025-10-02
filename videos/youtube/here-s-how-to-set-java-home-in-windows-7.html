@@ -1,0 +1,63 @@
+---
+layout: video
+title: "Here's how to set JAVA_HOME in Windows 7"
+description: "Quick guide to set JAVA_HOME on Windows 7 and add Java to PATH so java commands run from the command prompt"
+video_host: "youtube"
+video_id: "Vah0uzR-7EM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT18S"
+thumbnail_url: "https://i.ytimg.com/vi/Vah0uzR-7EM/maxresdefault.jpg"
+content_url: "https://youtu.be/Vah0uzR-7EM"
+embed_url: "https://www.youtube.com/embed/Vah0uzR-7EM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JAVA_HOME
+  - Windows 7
+  - set JAVA_HOME
+  - environment variables
+  - Java path
+  - JDK
+  - command prompt
+  - java installation
+  - PATH
+  - java -version
+---
+
+<h2>Quick summary for the impatient</h2>
+<p>If you want command line Java tools to stop sulking and actually run, set a system variable named JAVA_HOME that points to your JDK root and add its bin folder to your PATH. This works on Windows 7 and keeps java version chaos to a minimum.</p>
+
+<h2>Step 1 Find your Java installation</h2>
+<p>Open Explorer and look under Program Files\Java for a folder named jdk followed by a version number such as jdk1.8.0_xxx. Prefer a JDK folder rather than a JRE folder so compilers and other developer tools behave themselves.</p>
+
+<h2>Step 2 Create or update JAVA_HOME</h2>
+<p>Go to Control Panel then System then Advanced system settings then Environment Variables. In the System variables section click New if JAVA_HOME is not present or Edit if it already exists. Set the value to the full path of the JDK root for example Program Files\Java\jdk1.8.0_251 or a similarly named folder on the C drive.</p>
+
+<h3>Why a system variable and not a user variable</h3>
+<p>System variables apply to all users and to services that may invoke Java. If you only set a user variable some tools might still pick up the wrong Java and then blame you for their existential crisis.</p>
+
+<h2>Step 3 Add the JDK bin to PATH</h2>
+<p>Edit the system PATH and add %JAVA_HOME%\bin as a new entry or append it to the existing string using the standard Windows path separator. Putting %JAVA_HOME%\bin near the front ensures the JDK you just pointed to is the one command line tools find first.</p>
+
+<h2>Step 4 Verify in a new command prompt</h2>
+<p>Close any open command prompt windows and open a fresh one. Then run these commands to confirm everything is sane.</p>
+<pre><code>java -version
+echo %JAVA_HOME%</code></pre>
+
+<h2>Troubleshooting tips that actually help</h2>
+<ul>
+  <li>If java -version shows a different JDK check for multiple Java installs and make sure PATH does not contain another Java path before %JAVA_HOME%\bin.</li>
+  <li>If echo %JAVA_HOME% is empty you probably edited the wrong variable type or forgot to click OK and reopen the command prompt.</li>
+  <li>If a tool still acts up try restarting the machine so services pick up the new environment variables.</li>
+</ul>
+
+<h2>Extra tips for the control freaks</h2>
+<ul>
+  <li>Give each JDK folder a clear name if you keep several versions. That makes it painless to switch JAVA_HOME when someone demands an older compiler.</li>
+  <li>Use the JDK not the JRE unless you are only running user apps and love missing tooling.</li>
+</ul>
+
+<p>There you go. You found the JDK folder adjusted environment variables and verified the change from the command prompt. If the command line still complains go hunting for stray Java installs and remember to open a new session after making changes.</p>
+

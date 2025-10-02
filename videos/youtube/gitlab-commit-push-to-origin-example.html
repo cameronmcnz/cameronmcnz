@@ -1,0 +1,77 @@
+---
+layout: video
+title: "GitLab commit push to origin example"
+description: "Step by step GitLab example for committing and pushing to origin with clear commands and common gotchas for new Git users"
+video_host: "youtube"
+video_id: "1_ZEG7rawjc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M26S"
+thumbnail_url: "https://i.ytimg.com/vi/1_ZEG7rawjc/maxresdefault.jpg"
+content_url: "https://youtu.be/1_ZEG7rawjc"
+embed_url: "https://www.youtube.com/embed/1_ZEG7rawjc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitLab
+  - git
+  - commit
+  - push
+  - origin
+  - git tutorial
+  - git commands
+  - version control
+  - developer workflow
+  - git basics
+---
+
+<h2>Quick intro for people who prefer action over panic</h2>
+<p>So you edited a file, felt accomplished, and now you want that glorious change on GitLab where it can be admired or mercilessly reviewed. This guide covers the tiny but crucial set of git commands that move a change from your laptop to the remote named origin. Think of it as a short developer workflow for git basics that keeps version control from turning into chaos.</p>
+
+<h2>What you need first</h2>
+<ul>
+  <li>git installed and configured with your name and email</li>
+  <li>an existing GitLab repository cloned or a remote named origin set up</li>
+  <li>basic comfort with the command line or strong google skills</li>
+</ul>
+
+<h2>Step 1 Make your changes in the working directory</h2>
+<p>Open your favorite editor and change files. No ritual required. Save when ready. If you like drama you can stare at git status first, but that is optional unless you enjoy regrets.</p>
+
+<h2>Step 2 Stage what you actually want to commit</h2>
+<p>Staging is your power move. It decides what goes into the next snapshot. A common quick command is:</p>
+<pre><code>git add .</code></pre>
+<p>But if you only want a single file add it explicitly with its path. Using add dot is fast and messy depending on your life choices.</p>
+
+<h2>Step 3 Create a commit with a clear message</h2>
+<p>A concise message helps future humans and automated blame tools. Use something that explains why not what. Example:</p>
+<pre><code>git commit -m 'Describe the change'</code></pre>
+<p>If git refuses to commit check git status to see if anything is staged. That tiny command avoids most sorrow.</p>
+
+<h2>Step 4 Push the commit to origin on your branch</h2>
+<p>Push sends your local commits to the remote called origin. Replace branchname with whatever branch you are on. Example git command:</p>
+<pre><code>git push origin branchname</code></pre>
+<p>If you cloned the repo the branch name is likely the one you are working on. If in doubt run git branch to confirm.</p>
+
+<h3>Authentication and access</h3>
+<p>If git prompts for credentials you either need to set up SSH keys or a personal access token depending on your GitLab settings. This is a normal grown up thing that prevents strangers from pushing weird stuff.</p>
+
+<h2>Verify on GitLab</h2>
+<p>Open the project page on GitLab and check commits or the repository tree. If your commit is not there check the remote settings with:</p>
+<pre><code>git remote -v</code></pre>
+<p>Also confirm the branch name is correct. Most missing commits are from pushing to the wrong branch or forgetting to add files.</p>
+
+<h2>Common gotchas and how to survive them</h2>
+<ul>
+  <li>Forgetting to stage files. git commit will do nothing if nothing is staged.</li>
+  <li>Typing git add instead of git add . and losing the dot. It happens to the best of us.</li>
+  <li>Working on a different branch than you thought. git status will reveal your betrayal.</li>
+  <li>Authentication failing. Set up SSH keys or a personal access token and move on with your life.</li>
+</ul>
+
+<h2>Recap and final tip</h2>
+<p>The flow is simple edit add commit push and verify. A tiny habit to save your future self is running git status before committing. It prevents most accidental pushes and reduces the chance your team will write passive aggressive comments in merge requests.</p>
+
+<p>Now go push something sensible to origin on GitLab and try not to break anything important today.</p>
+

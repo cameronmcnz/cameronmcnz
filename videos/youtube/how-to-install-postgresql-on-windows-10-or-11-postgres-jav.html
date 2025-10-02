@@ -1,0 +1,89 @@
+---
+layout: video
+title: "How to Install PostgreSQL on Windows 10 or 11 #postgres #jav"
+description: "Step by step guide to install PostgreSQL on Windows 10 or 11 with tips for NodeJS Python and common setup checks"
+video_host: "youtube"
+video_id: "yjgUndk6954"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M49S"
+thumbnail_url: "https://i.ytimg.com/vi/yjgUndk6954/maxresdefault.jpg"
+content_url: "https://youtu.be/yjgUndk6954"
+embed_url: "https://www.youtube.com/embed/yjgUndk6954"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - PostgreSQL
+  - Windows 10
+  - Windows 11
+  - install
+  - tutorial
+  - NodeJS
+  - Python
+  - database
+  - pgAdmin
+  - setup
+---
+
+<h2>Quick overview</h2>
+<p>Yes you can get PostgreSQL running on Windows 10 or Windows 11 without summoning a ritual or a VM. This guide will walk you through downloading the official installer setting a superuser password installing pgAdmin and connecting from NodeJS and Python. Keep the default port 5432 unless you enjoy port conflicts.</p>
+
+<h2>Download and run the official Windows installer</h2>
+<p>Head to the PostgreSQL download page and grab the Windows installer for the stable release. Pick the architecture that matches your PC and save the installer somewhere you can find again when you forget where you put things.</p>
+
+<h2>Run the installer with recommended defaults</h2>
+<ol>
+  <li>Launch the installer and accept the default components unless you actually know you need extras.</li>
+  <li>The installer will create a data directory and register a Windows service for PostgreSQL so it starts with the system by default.</li>
+  <li>When prompted set a strong password for the postgres superuser and accept port 5432 unless someone else already lives on that port.</li>
+</ol>
+
+<h2>Add pgAdmin and optional tools</h2>
+<p>pgAdmin gives you a GUI so you do less typing and more clicking. StackBuilder can add drivers and extensions if a project insists on having them. Most optional components are optional in name and avoidable in practice.</p>
+
+<h2>Verify the service and test a local connection</h2>
+<p>Open the Services app and confirm the PostgreSQL service is running. If you prefer the command line try:</p>
+<pre><code>psql -U postgres</code></pre>
+<p>Use host localhost port 5432 user postgres and the password you set. If psql connects you passed the first test. If the server is not running check the Windows Event Viewer or the PostgreSQL log file in the data directory.</p>
+
+<h2>Connect from NodeJS</h2>
+<p>Install the popular client and use environment variables so your secrets do not end up in source control.</p>
+<pre><code>npm install pg
+
+# example runtime env for one off test
+PGHOST=localhost PGUSER=postgres PGPASSWORD=yourpass PGPORT=5432 node test.js
+
+# test.js
+(async function() {
+  const { Client } = require('pg')
+  const client = new Client(process.env.DATABASE_URL || process.env.PGHOST)
+  await client.connect()
+  const res = await client.query('SELECT version()')
+  console.log(res.rows)
+  await client.end()
+})()</code></pre>
+<p>Use a proper connection string in production and store it in a secrets manager or an env file that never gets checked in.</p>
+
+<h2>Connect from Python</h2>
+<p>psycopg is the modern choice for Python. Install it and use a simple connection string.</p>
+<pre><code>pip install psycopg[binary]
+
+import psycopg
+conn = psycopg.connect('host=localhost dbname=postgres user=postgres password=yourpass port=5432')
+cur = conn.cursor()
+cur.execute('SELECT version()')
+print(cur.fetchone())
+cur.close()
+conn.close()</code></pre>
+
+<h2>Troubleshooting tips</h2>
+<ul>
+  <li>If psql says authentication failed verify the password and that pg_hba.conf allows local connections. Changing config requires a server restart.</li>
+  <li>If the service will not start check disk permissions and the data directory ownership.</li>
+  <li>If NodeJS or Python cannot connect make sure the app uses the same host and port and there is no firewall blocking 5432.</li>
+</ul>
+
+<h2>Final notes</h2>
+<p>You now have PostgreSQL installed on Windows and can query it from pgAdmin NodeJS and Python. It is stable battle tested and slightly smug about ACID properties. Back up the data directory or your future self will send you a very passive aggressive email.</p>
+

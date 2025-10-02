@@ -1,0 +1,79 @@
+---
+layout: video
+title: "Hello World React Program"
+description: "Beginner friendly Hello World React program tutorial covering setup JSX component creation and rendering in a local development server"
+video_host: "youtube"
+video_id: "xjxbUHWPmOM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT16M26S"
+thumbnail_url: "https://i.ytimg.com/vi/xjxbUHWPmOM/maxresdefault.jpg"
+content_url: "https://youtu.be/xjxbUHWPmOM"
+embed_url: "https://www.youtube.com/embed/xjxbUHWPmOM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Hello World React Program
+  - React Tutorial
+  - JSX
+  - Create React App
+  - Components
+  - React DOM
+  - JavaScript
+  - Frontend Development
+  - Dev Server
+  - Beginner React
+---
+
+<p>Welcome to the tiny triumph of frontend development where we make a web page say Hello World and pretend we understood everything. This guide walks you through a beginner friendly React tutorial that uses Create React App to scaffold a project fast and renders a simple JSX component to the DOM. You will learn about components JSX and how to run the dev server so you can watch your changes live like a responsible code voyeur.</p>
+
+<h2>What you will build</h2>
+<p>A minimal React app that renders a Hello World component in your browser. It demonstrates the basic project setup with Create React App the anatomy of a functional component and how to start the dev server. Think of this as the warm up before state hooks routing and dramatic API calls.</p>
+
+<h2>Step 1 Create a new React project</h2>
+<p>Open a terminal and run the official bootstrap tool to scaffold a project. This gives you folders and scripts so you do not have to wire everything by hand.</p>
+<pre><code>npx create-react-app my-app</code></pre>
+<p>Once that finishes change into the project folder and inspect the structure. You will see src public and package json files that handle build scripts and dependencies.</p>
+
+<h2>Step 2 Edit the main component</h2>
+<p>Open src/App js and replace the placeholder markup with a tiny functional component. Functional components are short and they play nicely with modern React patterns. JSX looks like HTML but it is actually JavaScript under the hood.</p>
+<pre><code>function App() {
+  return (
+    <div className='App'>
+      Hello World
+    </div>
+  )
+}
+
+export default App</code></pre>
+<p>Remember to keep your JSX wrapped in a single parent element. If you try to return two sibling elements without a wrapper React will complain like a teacher who just found gum on the desk.</p>
+
+<h2>Step 3 Render the component in the browser</h2>
+<p>Open src index js and ensure the root file imports React DOM and renders your App component. The default bootstrap does this for you but it is worth a peek to see how React DOM ties your component tree to the actual DOM.</p>
+<pre><code>import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+)</code></pre>
+
+<h2>Step 4 Start the development server</h2>
+<p>Run the dev server and enjoy live reload as you change files. It is almost as satisfying as a perfectly timed joke.</p>
+<pre><code>npm start</code></pre>
+<p>Your browser should open and display the Hello World message. Edit src/App js and watch the page update automatically. If nothing appears check the browser devtools console for errors and stack traces.</p>
+
+<h3>Common gotchas and quick fixes</h3>
+<ul>
+  <li>Missing closing tag or a stray comma in JSX will break the compile step. Check the console it will usually point you to the file.</li>
+  <li>Forgetting export default will leave your root file wondering where the component went. Export it and move on.</li>
+  <li>JSX requires a single parent node so use a wrapper div or a fragment when needed.</li>
+</ul>
+
+<h2>What comes next</h2>
+<p>Once Hello World is working you can add state hooks to make things dynamic introduce routing to navigate between views and fetch data from APIs to make the app stop pretending. Learn more about component composition React DOM and frontend development patterns as you grow beyond the tutorial.</p>
+
+<p>If you get stuck open the browser devtools console and read the error message like a treasure map. Most problems are simple typos and forgotten exports so breathe and fix the little crimes against syntax.</p>
+

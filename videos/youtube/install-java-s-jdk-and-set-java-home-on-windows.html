@@ -1,0 +1,78 @@
+---
+layout: video
+title: "Install Java's JDK and set JAVA_HOME on Windows"
+description: "Step by step guide to install Java JDK on Windows and set JAVA_HOME so build tools and IDEs can find the correct Java"
+video_host: "youtube"
+video_id: "s_tdoS8cHe0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M47S"
+thumbnail_url: "https://i.ytimg.com/vi/s_tdoS8cHe0/maxresdefault.jpg"
+content_url: "https://youtu.be/s_tdoS8cHe0"
+embed_url: "https://www.youtube.com/embed/s_tdoS8cHe0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - JDK
+  - JAVA_HOME
+  - Windows
+  - Install
+  - Environment Variables
+  - OpenJDK
+  - Oracle JDK
+  - PATH
+  - Java Tutorial
+---
+
+<p>So you want Java on Windows and not a single mysterious build error. Good choice. This guide walks you through downloading a JDK, installing it, and setting the JAVA_HOME environment variable so your IDE and build tools stop whispering about missing Java.</p>
+
+<h2>Quick checklist before you begin</h2>
+<ul>
+  <li>Decide OpenJDK or Oracle JDK. Both work for most projects.</li>
+  <li>Choose a long term support release like 17 or 21 for stability.</li>
+  <li>Pick the x64 MSI installer for the smoothest Windows experience.</li>
+  <li>Make a mental note to run the installer as a mildly responsible adult.</li>
+</ul>
+
+<h2>Download and install the JDK</h2>
+<p>Head to the OpenJDK build page or Oracle Java download page and get the x64 MSI for the LTS version you prefer. Run the MSI and accept defaults unless you enjoy having confusing folder layouts. The installer will show the installation path near the end. Write that path down or screenshot it like you own a phone.</p>
+<p>Typical example path is <code>C:\Program Files\Java\jdk-17</code> or <code>C:\Program Files\Java\jdk-21</code>. You will need that exact folder in the next step so do not guess.</p>
+
+<h2>Set JAVA_HOME and update PATH</h2>
+<p>Windows likes environment variables and you will set JAVA_HOME so every IDE and build tool can find the correct JDK. You can do this with the GUI or from the command line if you enjoy keyboard workouts.</p>
+
+<h3>GUI method</h3>
+<ol>
+  <li>Open Start and search for <strong>Edit the system environment variables</strong>.</li>
+  <li>Click Environment Variables in the System Properties dialog.</li>
+  <li>Under User or System variables click New to add <code>JAVA_HOME</code> and paste the JDK installation folder path you noted earlier.</li>
+  <li>Edit the PATH variable and add <code>%JAVA_HOME%\bin</code> at the front so this JDK is used first.</li>
+  <li>Click OK to save and close everything. Yes, you must open a new terminal for changes to take effect.</li>
+</ol>
+
+<h3>Command line option</h3>
+<p>If you prefer not to touch the GUI use <code>setx</code> for a quick job. For a user variable run:</p>
+<pre><code>setx JAVA_HOME "C:\Program Files\Java\jdk-17"</code></pre>
+<p>To add the bin folder to your user PATH you can run:</p>
+<pre><code>setx PATH "%PATH%;%JAVA_HOME%\bin"</code></pre>
+<p>Warning do not blindly run PATH edits without understanding them. Back up your PATH if you like avoiding small tragedies.</p>
+
+<h2>Verify the installation</h2>
+<p>Open a new Command Prompt window so the new environment variables load. Then run:</p>
+<pre><code>java -version
+javac -version</code></pre>
+<p>Both commands should report the same major version number. If they match congratulations your JDK and JAVA_HOME are speaking the same language and your build tools will stop nagging.</p>
+
+<h2>Multiple JDKs and project switching</h2>
+<p>If you need more than one JDK for different projects do not edit system variables every time like it is 2003. Use one of these approaches instead</p>
+<ul>
+  <li>Project scripts that set JAVA_HOME and PATH for a terminal session when you start work.</li>
+  <li>Use a version manager inside Windows Subsystem for Linux for cleaner switching if you use WSL.</li>
+  <li>Tools and wrappers such as Jabba or other Java version managers can help on native Windows as well.</li>
+</ul>
+
+<h2>Final notes</h2>
+<p>Pick LTS releases if you want fewer surprises. Keep the JDK path exact and put <code>%JAVA_HOME%\bin</code> first in PATH to make sure the one you installed is the one the command line uses. And if anything breaks remember you can always reinstall and blame cache issues.</p>
+

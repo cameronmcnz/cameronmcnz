@@ -1,0 +1,93 @@
+---
+layout: video
+title: "Resolve GitHub Merge Conflicts"
+description: "Step by step guide to resolve GitHub merge conflicts using command line and merge editors for fast safe integration"
+video_host: "youtube"
+video_id: "mOJazBNrG-c"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M32S"
+thumbnail_url: "https://i.ytimg.com/vi/mOJazBNrG-c/maxresdefault.jpg"
+content_url: "https://youtu.be/mOJazBNrG-c"
+embed_url: "https://www.youtube.com/embed/mOJazBNrG-c"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - github
+  - git
+  - merge conflicts
+  - merge
+  - git merge
+  - conflict resolution
+  - version control
+  - cli
+  - github guide
+  - developer workflow
+---
+
+<h1>Practical git merge conflict resolution for teams and CI pipelines</h1>
+<p>If your repo had feelings it would probably file restraining orders against merge conflicts. They are inevitable but not invincible. This guide walks through a calm and slightly sarcastic path to fetch changes merge branches and resolve conflicts on the command line or with a merge tool. Follow the steps and avoid becoming the office legend who broke main.</p>
+
+<h2>Step 1 Fetch and update your local repo</h2>
+<p>Always start by getting the latest remote state. This prevents surprises and passive aggressive PR comments.</p>
+<pre><code>git fetch origin
+git status</code></pre>
+<p>git fetch origin updates remote tracking branches. git status confirms your working tree is clean. If you have uncommitted changes stash them or commit them before continuing.</p>
+
+<h2>Step 2 Switch to the branch that should receive changes</h2>
+<p>Checkout the target branch where the merge will land. Typical targets are main or develop.</p>
+<pre><code>git checkout target-branch</code></pre>
+<p>Replace target-branch with the branch name you actually use. Yes you can type faster but do not make typos here.</p>
+
+<h2>Step 3 Merge the source branch</h2>
+<p>Bring the other branch in. If Git is feeling generous this will be automatic. If not you will be introduced to conflict markers.</p>
+<pre><code>git merge source-branch</code></pre>
+<p>If the merge completes with a nice quiet message you are lucky and may celebrate quietly. If not you will see conflict messages and changed files listed by git status.</p>
+
+<h2>Understanding conflict markers</h2>
+<p>When Git cannot reconcile the changes it injects conflict markers into the file. They look like this.</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+...your current code...
+=======
+...incoming code from source branch...
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; source-branch</code></pre>
+<p>Your job is to pick, edit, or combine the bits so the file reads like sane human code again.</p>
+
+<h2>Step 4 Resolve the conflicts</h2>
+<p>You have two main options. Fix them manually or use a visual merge tool for mercy.</p>
+
+<h3>Manual resolution</h3>
+<ul>
+<li>Open each file listed by git status</li>
+<li>Remove the conflict markers and edit to produce correct code</li>
+<li>Save and run tests locally if you can</li>
+</ul>
+
+<h3>Use a merge tool</h3>
+<p>If you prefer less keyboard therapy use a GUI tool. VS Code merge editor Meld and many IDEs will show both sides and let you choose hunks. Configure a graphical tool if you like pretty diffs.</p>
+
+<h2>Step 5 Stage commit and push</h2>
+<p>Once the files read correctly stage them and finish the merge.</p>
+<pre><code>git add path/to/file1 path/to/file2
+git commit
+git push origin target-branch</code></pre>
+<p>Git commit will complete the merge commit. Use a clear message that explains what you chose and why. Future you will thank present you or at least whisper forgiveness.</p>
+
+<h2>Checklist before pushing</h2>
+<ul>
+<li>Run your test suite locally when possible</li>
+<li>Enable a graphical merge tool if you need one</li>
+<li>Write a commit message that documents the conflict resolution</li>
+<li>Verify continuous integration passes in the PR</li>
+</ul>
+
+<h2>Troubleshooting and tips</h2>
+<ul>
+<li>If you accidentally staged bad changes use git reset HEAD path to unstage a file</li>
+<li>If the merge is a mess and you want to start over run git merge --abort while the merge is in progress</li>
+<li>Prefer small frequent merges to huge scary ones that happen after a long vacation</li>
+</ul>
+
+<p>Merge conflicts are not personal attacks. They are just code trying to be important. Keep calm fetch often and make your commit messages good enough for future archaeologists. If you must, blame the test that caught the problem and move on.</p>
+

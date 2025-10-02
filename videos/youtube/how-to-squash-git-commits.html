@@ -1,0 +1,70 @@
+---
+layout: video
+title: "How to Squash Git Commits"
+description: "Step by step guide to squash Git commits for a cleaner history with safe force push tips and practical commands."
+video_host: "youtube"
+video_id: "AV7giLHy7js"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M1S"
+thumbnail_url: "https://i.ytimg.com/vi/AV7giLHy7js/maxresdefault.jpg"
+content_url: "https://youtu.be/AV7giLHy7js"
+embed_url: "https://www.youtube.com/embed/AV7giLHy7js"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - squash
+  - git rebase
+  - interactive rebase
+  - commit history
+  - git tutorial
+  - version control
+  - git tips
+  - git commands
+  - force push
+---
+
+<h2>Keep your commit history readable and avoid review shame</h2>
+<p>If your branch looks like a grocery list of tiny mistakes and experiments then you need to squash commits. This is the polite version of hiding your messy development process from future you and your teammates. Squash with git when you want a tidy commit history that actually explains what changed.</p>
+
+<h3>What squashing does and why it matters</h3>
+<p>Squashing folds multiple commits into one. That makes git log easier to scan and makes code reviews less painful. This is good for version control hygiene and your reputation.</p>
+
+<h2>Pick the commits to combine</h2>
+<p>First find the commits you want to merge together. Use a short log so you do not guess.</p>
+<pre><code>git log --oneline</code></pre>
+<p>Decide how many commits to rewrite. For the last three commits use HEAD~3 as your target range.</p>
+
+<h2>Start an interactive rebase and mark commits</h2>
+<p>Run an interactive rebase to tell git how to replay your work. This is where you pick which commits to fold.</p>
+<pre><code>git rebase -i HEAD~3</code></pre>
+<p>The editor will list commits with pick in front. Replace pick with squash to merge commit messages or with fixup to discard the subordinate message and keep the top message. Fixup is your lazy friend when you do not want to write a new message.</p>
+
+<h3>Quick example of actions</h3>
+<ul>
+  <li>pick keeps the commit as is</li>
+  <li>squash merges the commit and prompts you to combine messages</li>
+  <li>fixup merges but drops the commit message</li>
+</ul>
+
+<h2>Edit the combined commit message</h2>
+<p>After squashing git opens the editor to craft the final message. Keep the summary line concise and add an optional body for context. Explain the change so someone reading the history later will not curse you.</p>
+
+<h2>Push the rewritten history without causing drama</h2>
+<p>Once the rebase finishes the branch history has changed. To update the remote without stomping on a collaborator work use the safer force option instead of a blind force push.</p>
+<pre><code>git push --force-with-lease</code></pre>
+<p>This reduces the chance of overwriting someone else changes. If you know you are the only one working on the branch then a plain forced push still works but you are less of a hero for doing that.</p>
+
+<h2>Quick checklist to avoid disaster</h2>
+<ul>
+  <li>Run git log --oneline before and after the rewrite to confirm history looks sane</li>
+  <li>Prefer fixup when your follow up commit already contains the original message so git can auto fold it</li>
+  <li>Communicate with teammates if the branch is shared to avoid conflicts</li>
+</ul>
+
+<h2>Recap and final git tips</h2>
+<p>In short you pick a commit range run an interactive rebase mark commits as squash or fixup tidy the commit message and push with care. These git tips and git commands are standard practice for keeping a readable commit history and better reviews.</p>
+<p>Now go fold those tiny commits into something presentable. Your future self will thank you or at least stop yelling at your terminal.</p>
+

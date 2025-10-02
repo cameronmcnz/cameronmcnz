@@ -1,0 +1,68 @@
+---
+layout: video
+title: "Solve Jenkins unable to find valid certification path error"
+description: "Fix Jenkins SSL trust error by importing the server certificate into the Java keystore or using a trusted CA"
+video_host: "youtube"
+video_id: "1YQds3jnfl8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M50S"
+thumbnail_url: "https://i.ytimg.com/vi/1YQds3jnfl8/maxresdefault.jpg"
+content_url: "https://youtu.be/1YQds3jnfl8"
+embed_url: "https://www.youtube.com/embed/1YQds3jnfl8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - SSL
+  - Java
+  - keystore
+  - keytool
+  - certificate
+  - cacerts
+  - DevOps
+  - CI
+  - security
+---
+
+<p>So Jenkins is throwing that bland but terrifying message about an invalid certification path. Relax a little and get your keystore game on. This guide shows the practical steps to add the target server certificate to the Java truststore that Jenkins is using. It is the usual DevOps ritual where you fetch a certificate, drop it in the right place, and pretend you always knew what you were doing.</p>
+
+<h2>Why this happens</h2>
+<p>Jenkins runs on a Java JVM and Java trusts only certificates present in its truststore by default. If the remote service uses a certificate that Java does not recognize you will see errors mentioning an invalid certification path. This is a CI security feature doing its job even when it ruins your morning.</p>
+
+<h2>What you will do</h2>
+<ul>
+  <li>Export the server certificate from the service or browser</li>
+  <li>Copy the certificate file to the Jenkins host</li>
+  <li>Import the certificate into the Java truststore used by the Jenkins JVM</li>
+  <li>Restart Jenkins and verify the connection</li>
+</ul>
+
+<h3>1 Export the server certificate</h3>
+<p>Use the browser certificate export feature or ask the service owner for a PEM or CRT file. Browsers are surprisingly handy and do not require heroic command line skills. Save the file as server.crt or similar.</p>
+
+<h3>2 Move the certificate to the Jenkins host</h3>
+<p>Place the file in a controlled location that the Jenkins administrator owns. No stray files on the desktop. You will need shell access for the import step.</p>
+
+<h3>3 Back up the current truststore</h3>
+<p>Back up the truststore before you change it. Break stuff now and you get to explain it later.</p>
+<pre><code>cp /path/to/jre/lib/security/cacerts /path/to/jre/lib/security/cacerts.bak</code></pre>
+
+<h3>4 Import the certificate using keytool</h3>
+<p>Import the certificate into the same cacerts file that your Jenkins JVM uses. The default cacerts password is changeit unless your admin changed it for good reasons. Example command for a typical setup</p>
+<pre><code>keytool -import -alias myserver -file server.crt -keystore /path/to/jre/lib/security/cacerts -storepass changeit</code></pre>
+<p>Answer yes to trust the certificate when prompted. If the remote server presents an intermediate CA make sure you import the full chain or import the root and intermediate certs as needed.</p>
+
+<h3>5 Restart Jenkins and verify</h3>
+<p>Restart the Jenkins service so the JVM picks up the updated truststore. Use your system service tool to restart Jenkins. Then re run the failing job or access the remote resource from the Jenkins host with a browser to confirm the SSL handshake no longer fails.</p>
+
+<h2>Troubleshooting tips</h2>
+<ul>
+  <li>If the error persists check that you updated the truststore used by the actual Jenkins JVM and not some other Java on the machine</li>
+  <li>Confirm the entire certificate chain is present rather than only the leaf certificate</li>
+  <li>Verify file permissions so the Jenkins user can read the cacerts file</li>
+</ul>
+
+<p>Final tip Prefer certificates signed by a trusted CA and avoid turning off SSL checks. A proper CA signed certificate saves time and prevents future headaches for your CI and security teams. You did not really want to disable security checks anyway unless you enjoy chaos.</p>
+

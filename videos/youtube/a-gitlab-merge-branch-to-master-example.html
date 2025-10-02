@@ -1,0 +1,96 @@
+---
+layout: video
+title: "A GitLab merge branch to master example"
+description: "Step by step guide to merging a GitLab branch into master with commands merge request workflow and CI tips"
+video_host: "youtube"
+video_id: "PK8NwbyU7co"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M4S"
+thumbnail_url: "https://i.ytimg.com/vi/PK8NwbyU7co/maxresdefault.jpg"
+content_url: "https://youtu.be/PK8NwbyU7co"
+embed_url: "https://www.youtube.com/embed/PK8NwbyU7co"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gitlab
+  - merge
+  - branch
+  - master
+  - merge request
+  - ci
+  - git
+  - workflow
+  - tutorial
+  - example
+---
+
+<article>
+  <p>If you want to merge a feature branch into master on GitLab and still keep your dignity this is the practical guide. It covers keeping your branch current running CI checks opening a merge request and handling reviews with as little sorrow as possible. Yes this is a tutorial and yes you will be mildly entertained.</p>
+
+  <h2>Prepare your feature branch</h2>
+  <p>Before you push anything make sure your branch is up to date with master and your local tests actually pass. This saves time for everyone and keeps the CI pipeline from angrily failing on behalf of your future self.</p>
+  <ul>
+    <li>Pick clear commit messages and squash if your repo likes tidy history</li>
+    <li>Run unit tests and linters locally</li>
+  </ul>
+  <pre><code>git checkout feature-branch
+git fetch origin
+# either rebase or merge depending on team rules
+git rebase origin/master    # or git merge origin/master
+# run tests locally and fix anything that breaks
+git add .
+git commit -m "Add feature X with tests"
+git push origin feature-branch
+</code></pre>
+
+  <h2>Open a merge request in GitLab</h2>
+  <p>Go to the GitLab UI and create a merge request targeting master. Give a clear description reference issue numbers and assign reviewers. A short checklist helps reviewers and reduces the number of "please clarify" messages you will get.</p>
+  <p>Expect at least one reviewer to request tweaks. This is normal. They are not evil they are thorough.</p>
+
+  <h2>Fix CI failures and address review comments</h2>
+  <p>When the merge request is created GitLab will run the CI pipeline. If a job fails click the pipeline details inspect the failing job logs and fix the exact errors. Common culprits are lint failures missing test fixtures or environment mismatches.</p>
+  <ol>
+    <li>Read the job output carefully</li>
+    <li>Reproduce failures locally if possible</li>
+    <li>Commit small focused fixes and push them</li>
+  </ol>
+  <pre><code># make changes then
+git add .
+git commit -m "Fix failing test and lint issues"
+git push origin feature-branch
+</code></pre>
+
+  <h2>Merge into master when everything is green</h2>
+  <p>Only merge once reviewers have approved and the pipeline is green. Use the merge button in GitLab to respect repository settings and merge strategy. Your team might require a merge commit a fast forward or a squash merge. Follow the rule your repo has agreed on.</p>
+  <p>If you must perform the final merge locally here is a safe example workflow.</p>
+  <pre><code>git checkout master
+git pull origin master
+# merge the feature branch according to your policy
+git merge --no-ff feature-branch   # or git rebase feature-branch if needed
+git push origin master
+</code></pre>
+
+  <h2>Cleanup and tag the release</h2>
+  <p>After the merge delete the remote branch and remove the local copy so your branch list does not become a graveyard.</p>
+  <pre><code>git push origin --delete feature-branch
+git branch -d feature-branch
+# if you want a release tag
+git tag -a v1.2.3 -m "Release 1.2.3"
+git push origin --tags
+</code></pre>
+
+  <h3>Quick workflow checklist</h3>
+  <ul>
+    <li>Keep branch synced with master</li>
+    <li>Run tests locally before pushing</li>
+    <li>Open a merge request with a clear description and reviewers</li>
+    <li>Fix CI and review comments promptly</li>
+    <li>Merge only after approvals and green pipeline</li>
+    <li>Delete the branch and tag releases as needed</li>
+  </ul>
+
+  <p>Follow these steps and your GitLab merge request workflow will be functional and slightly less likely to trigger an email avalanche. If something goes wrong blame Git and then your editor.</p>
+</article>
+

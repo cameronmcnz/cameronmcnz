@@ -1,0 +1,77 @@
+---
+layout: video
+title: "60 Second Spring Boot Tutorial"
+description: "Quick 60 second Spring Boot tutorial to scaffold run and test a minimal Java REST application for beginners"
+video_host: "youtube"
+video_id: "dB3LlaF-GZA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/dB3LlaF-GZA/maxresdefault.jpg"
+content_url: "https://youtu.be/dB3LlaF-GZA"
+embed_url: "https://www.youtube.com/embed/dB3LlaF-GZA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Java
+  - Spring Initializr
+  - REST
+  - Controller
+  - Maven
+  - Tutorial
+  - Quick Start
+  - Microservices
+  - Web Starter
+---
+
+<p>If you have a minute and low tolerance for setup drama this mini guide gets a Spring Boot REST service up and running with Spring Initializr and a single controller. It is fast honest and slightly smug about how little configuration you actually need.</p>
+
+<h2>Kick off with Spring Initializr</h2>
+<p>Open start.spring.io in your browser and pick Java with the Web starter. Choose Maven or Gradle depending on your mood and download the zip. Unpack it to a folder that you can remember later or at least pretend you will remember.</p>
+
+<h3>What to include</h3>
+<ul>
+  <li>Language Java</li>
+  <li>Build tool Maven or Gradle</li>
+  <li>Dependency Spring Web</li>
+</ul>
+
+<h2>Open the project in your IDE</h2>
+<p>Import the folder as a Maven or Gradle project. Popular IDEs resolve dependencies and give you a run button so you can avoid typing too much. Let the IDE handle the boring plumbing while you plan your coffee break.</p>
+
+<h2>Create the controller class</h2>
+<p>Add a controller annotated with @RestController and a mapped method using @GetMapping that returns a string or JSON. Keep names meaningful so future maintainers do not file a formal complaint.</p>
+
+<pre><code>package com.example.demo;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloController {
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello from Spring Boot";
+    }
+}
+</code></pre>
+
+<h2>Build and run the application</h2>
+<p>Run a Maven build with mvn package then start the jar with java -jar target/myapp.jar. You can also use the IDE run action to skip the terminal theatrics. Spring Boot will start an embedded server and it will wire your beans automatically like a competent intern.</p>
+
+<h2>Call the endpoint to verify</h2>
+<p>Open your browser and visit localhost on port 8080 with the path you used in the mapping for the controller. For the example above go to the path /hello on port 8080. A successful response proves wiring and routing are working and your ego receives a small boost.</p>
+
+<h3>Quick verification checklist</h3>
+<ul>
+  <li>Project generated with Spring Initializr and dependencies present</li>
+  <li>Controller class annotated with @RestController and a @GetMapping method</li>
+  <li>Built with mvn package or via your IDE</li>
+  <li>Application started and endpoint returns the expected response</li>
+</ul>
+
+<p>Tip pick small meaningful names for controllers and endpoints and include a health endpoint early. That makes debugging integration tests and automation far less painful down the road. If you want to go from demo to microservice in five minutes add Actuator and a proper health check and then pretend you did that from the start.</p>
+

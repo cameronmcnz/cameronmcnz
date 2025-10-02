@@ -1,0 +1,73 @@
+---
+layout: video
+title: "Git Add All vs Git Add . - How to stage files"
+description: "Clear comparison of git add -A and git add . with practical guidance on when to use each for safe staging in Git"
+video_host: "youtube"
+video_id: "nNgq3wjljjs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/nNgq3wjljjs/maxresdefault.jpg"
+content_url: "https://youtu.be/nNgq3wjljjs"
+embed_url: "https://www.youtube.com/embed/nNgq3wjljjs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - git add
+  - git add -A
+  - git add .
+  - git status
+  - GitHub
+  - GitLab
+  - DevOps
+  - version control
+  - staging
+---
+
+<p>If your Git workflow had a personality test git add -A would be the eager beaver who stages everything and git add . would be the neat coworker who only touches the files in the room they are standing in. Both get the job done but they behave very differently when your repo is a sprawling mess or when you are trying to avoid committing that accidental log file.</p>
+
+<h2>How these commands behave</h2>
+
+<p>Short version in plain developer speak</p>
+
+<ul>
+  <li><strong>git add -A</strong> stages all changes across the repository. That means new files deletions and modifications from the repository root get included in the staging area.</li>
+  <li><strong>git add .</strong> stages changes only inside the current directory and its subfolders. New files and edits there get staged. Deletions outside that folder do not get picked up.</li>
+  <li><strong>git add -u</strong> updates tracked files only. It registers deletions and modifications but ignores new untracked files. Useful when you want to record removals without adding stray files.</li>
+</ul>
+
+<h3>Examples you can try without crying later</h3>
+
+<pre><code># From the repository root
+git add -A
+
+# Inside a nested folder
+git add .
+
+# If you only want updates to tracked files
+git add -u
+</code></pre>
+
+<h2>When to use each command</h2>
+
+<ul>
+  <li><strong>Use git add -A</strong> when you are at the repo root and you want a full sweep. This is the choice for big refactors or cleaning up files before a release in GitHub or GitLab pipelines.</li>
+  <li><strong>Use git add .</strong> when you are working in a single feature folder and you want to avoid touching unrelated directories. This is handy for focused commits in a busy monorepo or when practicing minimal DevOps hygiene.</li>
+  <li><strong>Use git add -u</strong> when you want deletions and edits but you do not want to accidentally add newly created files.</li>
+</ul>
+
+<h2>Practical workflow tips</h2>
+
+<ul>
+  <li>Run <code>git status</code> before you stage anything. It previews the set and reduces awkward commits and apology emails.</li>
+  <li>When unsure stage intentionally. Stage individual files or use <code>git add -p</code> to pick hunks. That keeps your history readable and your teammates grateful.</li>
+  <li>In CI or DevOps scripts prefer explicit commands from the root so automation does what you expect across environments.</li>
+  <li>Remember that adding everything can pick up files that should be ignored. Keep your .gitignore tidy and check for surprises before committing.</li>
+</ul>
+
+<h2>Final verdict</h2>
+
+<p>There is no single winner here. Use git add -A when you want a wide clean sweep. Use git add . when you want surgical focus. Use git add -u when you want to register deletions without dragging in random new files. And if you ever feel like living dangerously try <code>git status</code> first then make an informed choice. Your commit history will thank you and so will your future self.</p>
+

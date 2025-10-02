@@ -1,0 +1,82 @@
+---
+layout: video
+title: "Python AWS Elastic Beanstalk Django Deployments"
+description: "Step by step guide to deploy a Django app with Python on AWS Elastic Beanstalk for beginners with commands and config tips."
+video_host: "youtube"
+video_id: "2N-L7-MAeuc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M58S"
+thumbnail_url: "https://i.ytimg.com/vi/2N-L7-MAeuc/maxresdefault.jpg"
+content_url: "https://youtu.be/2N-L7-MAeuc"
+embed_url: "https://www.youtube.com/embed/2N-L7-MAeuc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Python
+  - Django
+  - AWS
+  - Elastic Beanstalk
+  - Deployments
+  - Beginners
+  - EB CLI
+  - WSGI
+  - DevOps
+  - Web Hosting
+---
+
+<h2>Welcome to Elastic Beanstalk without the drama</h2>
+<p>If your Django app is still living its best life on localhost it is time to move it to AWS Elastic Beanstalk and stop pretending that port 8000 is production. This guide walks through the real tasks you will do to deploy Django on Elastic Beanstalk using EB CLI and Gunicorn while keeping secrets out of your repo and rollbacks sane.</p>
+
+<h2>Prepare your Django project for production</h2>
+<p>Production means a few boring but vital changes. Make sure DEBUG is false, move sensitive keys into environment variables, and keep database settings flexible so you can point to RDS later if you want to be fancy. No hard coded credentials, no exceptions.</p>
+<ul>
+  <li>Set DJANGO_SETTINGS_MODULE to a clean production settings module.</li>
+  <li>Use environment variables for SECRET_KEY and database credentials.</li>
+  <li>Consider AWS SSM Parameter Store for secrets if you like slightly more security and extra setup work.</li>
+</ul>
+
+<h2>Dependencies and WSGI setup</h2>
+<p>Create a virtual environment and freeze dependencies so Elastic Beanstalk can reproduce your Python environment. Gunicorn is the usual WSGI server here because it behaves and shuts down when asked to.</p>
+<pre><code>python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+pip freeze &gt; requirements.txt</code></pre>
+<p>Ensure your project exposes a WSGI callable, usually in myproject/wsgi.py. Elastic Beanstalk will rely on that when starting Gunicorn.</p>
+
+<h2>Static files and collectstatic</h2>
+<p>If your instance is serving static files you will need to run collectstatic before packaging. Run this locally or let the deployment run it automatically but do not forget it. Example command that will not cause tears:</p>
+<pre><code>python manage.py collectstatic --noinput</code></pre>
+<p>If you plan to use S3 for static hosting that is a better long term option for scale and peace of mind.</p>
+
+<h2>Procfile and platform tweaks</h2>
+<p>Beanstalk looks for a Procfile to know how to run your app. Put a Procfile in the project root with the web command. The exact text should be web&#58; gunicorn myproject.wsgi so Elastic Beanstalk fires up Gunicorn with your WSGI app. You can also add .ebextensions for platform configuration and environment variables if you like infrastructure as code.</p>
+
+<h2>Initialize and create an environment with EB CLI</h2>
+<p>The EB CLI is your friend even when it s grumpy. Initialize the project with eb init and choose the Python platform, then create an environment with eb create. Typical commands you will use are:</p>
+<pre><code>eb init -p python3 my-app
+eb create my-app-env</code></pre>
+<p>Keep configuration files like Procfile and .ebextensions in the repo root so deployments are reproducible and humans can stop guessing what happened.</p>
+
+<h2>Deploy, monitor, and recover</h2>
+<p>Deploy with eb deploy and fetch logs with eb logs when something inevitably misbehaves. Use health checks in the Elastic Beanstalk console and CloudWatch logs for deeper digging. They do not replace reading the logs but they will save you from yelling at your terminal for 20 minutes.</p>
+<ul>
+  <li>Deploy command to push a new release is eb deploy.</li>
+  <li>Use eb logs to gather instance logs for debugging.</li>
+  <li>Watch health checks and CloudWatch metrics to spot slow responses or failing instances.</li>
+</ul>
+
+<h3>Rollback and release strategy</h3>
+<p>Keep deployments small and frequent so rollbacks do not feel like theatrical tragedies. Elastic Beanstalk can swap environments or let you deploy a previous version. Test migrations locally or in a staging environment before you run them on production so databases do not get surprised.</p>
+
+<h2>Quick security tips</h2>
+<ul>
+  <li>Never put secrets in your repo. Ever.</li>
+  <li>Use environment variables for runtime secrets and AWS SSM for extra protection.</li>
+  <li>Limit instance permissions with IAM roles following least privilege.</li>
+</ul>
+
+<h2>Final words for sleep deprived deployers</h2>
+<p>Deploying Django to AWS Elastic Beanstalk is mostly procedural. Prepare settings, pin dependencies, configure WSGI with Gunicorn, use a Procfile, and let EB CLI do the heavy lifting. Monitor logs and health checks and keep releases bite sized so you can recover without dramatic emails to the team. Now go deploy and try not to break production on day one.</p>
+

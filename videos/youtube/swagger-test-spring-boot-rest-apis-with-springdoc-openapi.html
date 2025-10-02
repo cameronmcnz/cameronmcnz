@@ -1,0 +1,102 @@
+---
+layout: video
+title: "Swagger Test Spring Boot REST APIs with SpringDoc OpenAPI"
+description: "Quick guide to test Spring Boot REST APIs using SpringDoc OpenAPI and Swagger UI in a Maven project Learn how to configure dependency run app and test endp"
+video_host: "youtube"
+video_id: "EE9vpD-AnXw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT57S"
+thumbnail_url: "https://i.ytimg.com/vi/EE9vpD-AnXw/maxresdefault.jpg"
+content_url: "https://youtu.be/EE9vpD-AnXw"
+embed_url: "https://www.youtube.com/embed/EE9vpD-AnXw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Swagger
+  - Spring Boot
+  - SpringDoc
+  - OpenAPI
+  - REST APIs
+  - Maven
+  - API Testing
+  - Swagger UI
+  - Java
+  - Tutorial
+---
+
+<p>If you can stand another developer tool that actually helps instead of pretending to, SpringDoc OpenAPI will generate your API spec and serve a usable Swagger UI without blood sacrifices. This guide shows how to add SpringDoc to a Maven Spring Boot project, annotate controllers for clearer docs, tweak paths when you feel picky, and run the app so you can click around instead of writing endless curl lines.</p>
+
+<h2>Quick setup with Maven</h2>
+<p>Add the SpringDoc UI dependency and let Maven do the heavy lifting. Replace x.y.z with the latest version from Maven Central.</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springdoc&lt;/groupId&gt;
+  &lt;artifactId&gt;springdoc-openapi-ui&lt;/artifactId&gt;
+  &lt;version&gt;x.y.z&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>The dependency exposes the OpenAPI JSON at /v3/api-docs and hosts the Swagger UI at /swagger-ui.html or /swagger-ui/index.html by default.</p>
+
+<h2>Annotate your controllers for better docs</h2>
+<p>Use standard Spring MVC annotations and sprinkle in OpenAPI annotations from io.swagger.v3 where it helps. The goal is readable docs not poetry.</p>
+<pre><code>import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+
+@RestController
+public class PetController {
+
+    @Operation(summary = "Find pet by id", description = "Returns a single pet")
+    @GetMapping("/pets/{id}")
+    public String getPet(
+        @Parameter(description = "ID of the pet to fetch") @PathVariable String id) {
+        return "pet " + id;
+    }
+}
+</code></pre>
+<p>Adding @Operation and @Parameter improves the generated schemas and saves future you from guessing what those endpoints actually expect.</p>
+
+<h2>Configuration tips</h2>
+<p>You can tweak where the JSON and UI live, or hide the UI in production. Put these in application.properties or application.yml depending on your preference for chaos.</p>
+<pre><code># change the JSON and UI paths
+springdoc.api-docs.path=/api-docs
+springdoc.swagger-ui.path=/docs
+
+# turn the UI off in production by setting this to false in application-prod.properties
+springdoc.swagger-ui.enabled=true
+</code></pre>
+<p>Another safe pattern is to keep the UI enabled only for non production profiles. For example add springdoc.swagger-ui.enabled=false in your production profile file, or use @Profile on configuration beans so documentation beans only load in dev and staging.</p>
+
+<h3>Keep it secure</h3>
+<ul>
+  <li>Do not expose the UI to the public internet unless you like strangers poking your endpoints.</li>
+  <li>Protect docs with basic auth or an internal gateway for non development environments.</li>
+  <li>Consider generating a static OpenAPI spec at build time if runtime exposure makes you nervous.</li>
+</ul>
+
+<h2>Run and poke the UI</h2>
+<p>Start the app the usual way.</p>
+<pre><code>mvn spring-boot:run
+# or build then run the jar
+mvn package
+java -jar target/your-app.jar
+</code></pre>
+<p>Then point a browser at</p>
+<ul>
+  <li><code>/v3/api-docs</code> to get raw JSON</li>
+  <li><code>/swagger-ui.html</code> or <code>/swagger-ui/index.html</code> to launch the interactive UI</li>
+</ul>
+
+<h2>Checklist before you call it a day</h2>
+<ul>
+  <li>Dependency added and project builds</li>
+  <li>Controller methods annotated for clear fields and examples</li>
+  <li>Paths set to your taste or left alone if you like defaults</li>
+  <li>Swagger UI disabled or protected in production</li>
+</ul>
+
+<p>That is all you need to turn your Spring Boot endpoints into a clickable playground. It saves time, reduces guesswork, and makes debugging marginally less miserable. Now go test something and try not to break production.
+

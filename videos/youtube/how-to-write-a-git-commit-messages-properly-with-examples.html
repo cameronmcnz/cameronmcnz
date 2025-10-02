@@ -1,0 +1,69 @@
+---
+layout: video
+title: "How to Write a Git Commit Messages Properly with Examples"
+description: "Clear rules and examples for writing concise Git commit messages that help code review and history reading"
+video_host: "youtube"
+video_id: "Kz2iyskwLRA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M37S"
+thumbnail_url: "https://i.ytimg.com/vi/Kz2iyskwLRA/maxresdefault.jpg"
+content_url: "https://youtu.be/Kz2iyskwLRA"
+embed_url: "https://www.youtube.com/embed/Kz2iyskwLRA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - commit messages
+  - git commit
+  - commit guidelines
+  - version control
+  - git best practices
+  - git tips
+  - code review
+  - commit style
+  - developer workflow
+---
+
+<p>If your commit history looks like a guilt list of one word crimes then this guide is for you. Clear commit messages are the duct tape that holds version control together. They help code review, speed up bug hunts with git bisect, and stop future you from making questionable life choices when reading the repo history.</p>
+
+<h2>Keep the subject short and clear</h2>
+<p>The subject is the elevator pitch for a commit. Aim for under 50 characters and use present tense verbs like Add Fix Update Remove. Think of the subject as a headline not a novel. Example:</p>
+<pre><code>git commit -m "Add user login handler"</code></pre>
+
+<h2>Separate subject and body</h2>
+<p>Put a blank line after the subject so tools and humans can breathe. The subject summarizes the what while the body explains the why. This keeps git log output readable and code reviewers less grumpy.</p>
+
+<h2>Explain why not just what</h2>
+<p>Diffs show what changed. Humans want to know why it changed. A sentence or two in the body that covers motivation, trade offs, and alternative approaches saves future archaeologists from guessing. If you fixed a hacky workaround mention the root cause and whether a follow up task is required.</p>
+
+<h2>Wrap and structure the body</h2>
+<p>Wrap lines near 72 characters so history tools display nicely. Use short bullet lists when enumerating related changes, side effects, or follow up steps.</p>
+<ul>
+  <li>One concern per line</li>
+  <li>Use bullets for lists of files or consequences</li>
+  <li>Keep sentences short and searchable</li>
+</ul>
+
+<h2>Reference tickets and note breaking changes</h2>
+<p>Link to issue numbers when relevant. A simple phrase like Closes 123 makes automation happy and reduces manual follow up. If you introduce an API change call it out clearly with a label such as BREAKING CHANGE and the impact. That keeps integrators from discovering surprises at 2 AM.</p>
+
+<h2>Favor small focused commits</h2>
+<p>Each commit should do one job. Small commits make git bisect useful and reverting painless. Massive commits stuffed with unrelated fixes lead to regret and long nights of blame allocation.</p>
+
+<h3>Quick checklist for good commit style</h3>
+<ul>
+  <li>Subject under 50 characters</li>
+  <li>Use present tense verbs</li>
+  <li>Blank line between subject and body</li>
+  <li>Explain why and any trade offs</li>
+  <li>Wrap body at about 72 characters</li>
+  <li>Reference issues with Closes or Fixes</li>
+  <li>Label breaking changes clearly</li>
+</ul>
+
+<p>Tip - use a commit message template or a pre commit hook to enforce subject length and require a body when multiple files change. That prevents the tragic one liner that haunts repositories.</p>
+
+<p>Follow these git tips and commit guidelines and your repository will thank you in reduced confusion and fewer angry code reviews. Also future you will be less likely to stab through time to fix your own mistakes.</p>
+

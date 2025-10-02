@@ -1,0 +1,71 @@
+---
+layout: video
+title: "Java Flight Recorder LinkedList vs HashSet Performance"
+description: "Learn how Java Flight Recorder exposes LinkedList versus HashSet performance pitfalls and how to fix expensive contains and allocation problems"
+video_host: "youtube"
+video_id: "6zTPiuAsMQU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M4S"
+thumbnail_url: "https://i.ytimg.com/vi/6zTPiuAsMQU/maxresdefault.jpg"
+content_url: "https://youtu.be/6zTPiuAsMQU"
+embed_url: "https://www.youtube.com/embed/6zTPiuAsMQU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Java Flight Recorder
+  - JFR
+  - LinkedList
+  - HashSet
+  - profiling
+  - performance
+  - garbage collection
+  - collections
+  - benchmarking
+---
+
+<p>If your Java app feels slow and blaming the database sounds too expensive you probably have a LinkedList doing membership checks like it owes money. Java Flight Recorder or JFR will point the finger fast. The real story is simple and ugly. LinkedList does linear scans for contains which creates lots of node objects and forces the garbage collector to work overtime. HashSet trades some hashCode and equals work for near constant time lookups and far fewer allocations for large collections.</p>
+
+<h2>How LinkedList becomes a performance trap</h2>
+
+<p>LinkedList is faithful to sequential access and insertions at the ends. It is terrible for membership heavy workloads. contains on a LinkedList is O(n) which means every call walks nodes and touches memory in a cache unfriendly way. Each node is an extra object so allocation churn goes up and garbage collection gets invited to the party.</p>
+
+<h3>Why that matters for throughput</h3>
+
+<p>More allocations mean more GC pauses or more work per cycle. That reduces application throughput and increases latency. HashSet does more CPU per lookup because of hashCode and equals but it avoids the repeated O(n) scans and the node allocations that trigger the GC machinery. For large sets HashSet wins almost every time.</p>
+
+<h2>What Java Flight Recorder will show you</h2>
+
+<p>Run JFR under a realistic load and look at method samples and allocation stacks. You will see hot contains calls in the samples and node allocations in the allocation stacks when LinkedList is guilty. If HashSet is used instead you will still see hashCode and equals activity but far fewer allocations and fewer samples tied to list traversal.</p>
+
+<h2>Common causes of the problem</h2>
+
+<ul>
+  <li>Using LinkedList for frequent contains queries</li>
+  <li>Not presizing HashSet which causes repeated rehashing and growth costs</li>
+  <li>Expensive or inconsistent hashCode and equals implementations</li>
+</ul>
+
+<h2>Quick fixes that actually work</h2>
+
+<ul>
+  <li>Replace LinkedList with HashSet when you only care about membership. Your CPU may grumble but your GC will thank you.</li>
+  <li>Use ArrayList when you need indexed reads and sequential access for better cache friendliness.</li>
+  <li>Create a HashSet with an expected size using new HashSet(expectedSize) to reduce rehashing and allocation churn.</li>
+  <li>Optimize hashCode and equals by simplifying logic or caching results when it is safe to do so.</li>
+  <li>Consider primitive friendly collections from libraries like fastutil when primitives dominate to avoid boxing overhead.</li>
+</ul>
+
+<h2>How to verify your changes with profiling</h2>
+
+<ul>
+  <li>Record a realistic load with Java Flight Recorder and save the recording.</li>
+  <li>Inspect method samples and allocation stacks to find the hottest contains calls and allocation sites.</li>
+  <li>Change the data structure or presize your collection and repeat the recording.</li>
+  <li>Compare allocation counts and sample hotspots to confirm improvement.</li>
+</ul>
+
+<p>Profiling guided changes beat random guessing unless you enjoy surprises in production. Presizing HashSet and improving hashCode often give the biggest wins for collections heavy workloads. If you want a small win with big bragging rights run JFR and point at the flame graph while colleagues guess that increasing the heap will fix everything.
+

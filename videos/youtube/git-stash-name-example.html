@@ -1,0 +1,78 @@
+---
+layout: video
+title: "git stash name example"
+description: "Learn how to name stashes in Git to save and find work in progress with clear commands and quick examples."
+video_host: "youtube"
+video_id: "yhq8xtAshZc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M42S"
+thumbnail_url: "https://i.ytimg.com/vi/yhq8xtAshZc/maxresdefault.jpg"
+content_url: "https://youtu.be/yhq8xtAshZc"
+embed_url: "https://www.youtube.com/embed/yhq8xtAshZc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git stash
+  - stash naming
+  - git tutorial
+  - version control
+  - stash push
+  - stash list
+  - stash apply
+  - stash branch
+  - developer tips
+---
+
+<p>If your stash list looks like a crime scene and you cannot remember why you saved that mess two weeks ago you need stash naming and a little discipline. This quick guide covers git stash best practices so you can stash push with intent and later stash apply without tears.</p>
+
+<h2>Why name stashes instead of winging it</h2>
+<p>Git stash is a lifesaver when you need to bail on work in progress. But unnamed stashes are like sticky notes that say remember this later and then get chewed by the office printer. Adding a short message when you stash makes stash list instantly useful and speeds up recovery in version control workflows.</p>
+
+<h2>How to create a named stash</h2>
+<p>Use a message that gives context and a tiny hint at intent. Keep it short and searchable. Try a prefix for type and a few words for the change.</p>
+<pre><code>git stash push -m 'feature/login add basic form'
+</code></pre>
+<p>This records your working tree and index with a human friendly label so stash list will show the message along with the stash reference such as stash@{0}.</p>
+
+<h3>Naming tips for developer sanity</h3>
+<ul>
+  <li>Use prefixes like feature user or fix for quick scanning</li>
+  <li>Include a tiny scope such as auth or ui if it helps</li>
+  <li>Avoid overly long messages so the list stays readable</li>
+</ul>
+
+<h2>Find and inspect stashes before you apply</h2>
+<p>Run git stash list to see what is saved. If you are uneasy about applying a stash peek at the patch so you do not merge surprises into your working tree.</p>
+<pre><code>git stash list
+
+git stash show -p stash@{0}
+</code></pre>
+<p>That show command dumps the patch for the stash reference so you can review changes before using stash apply or stash pop.</p>
+
+<h2>Restore stashed work without drama</h2>
+<p>There are two common ways to put work back. Apply keeps the stash around in case you want it later. Pop applies and then removes the stash when you are confident the change belongs in your tree.</p>
+<pre><code>git stash apply stash@{0}
+# or when sure
+git stash pop stash@{0}
+</code></pre>
+
+<h2>Create a branch from a stash when the idea grows</h2>
+<p>If the saved changes are turning into something bigger do not try to cram them back onto the wrong branch. Create a branch directly from the stash and continue working without manual juggling.</p>
+<pre><code>git stash branch feature-login stash@{0}
+</code></pre>
+<p>This checks out a new branch and applies the stashed change so you can keep feature work isolated and tidy.</p>
+
+<h2>Quick checklist for stash hygiene</h2>
+<ul>
+  <li>Push with a clear message using git stash push -m 'brief context'</li>
+  <li>Use git stash list to find the stash reference you want</li>
+  <li>Inspect with git stash show -p stash@{N} before merging</li>
+  <li>Apply or pop depending on whether you want to keep the stash</li>
+  <li>Branch from a stash when the work grows beyond a quick fix</li>
+</ul>
+
+<p>Follow these stash naming and recovery tips and your stash list will stop being a mystery box. In short be consistent with stash messages and prefer small readable labels. Your future self will thank you and maybe even stop swearing at the terminal.</p>
+

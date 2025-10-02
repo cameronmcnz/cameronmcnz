@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Find GitHub's SSH URL & Git Cloning!"
+description: "Find the SSH URL on GitHub add SSH keys test the link and clone a repository using simple commands and clear steps."
+video_host: "youtube"
+video_id: "2Md6zdmYtos"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M1S"
+thumbnail_url: "https://i.ytimg.com/vi/2Md6zdmYtos/maxresdefault.jpg"
+content_url: "https://youtu.be/2Md6zdmYtos"
+embed_url: "https://www.youtube.com/embed/2Md6zdmYtos"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub
+  - SSH
+  - git cloning
+  - ssh keys
+  - git clone
+  - command line
+  - version control
+  - developer
+  - repo
+  - ssh url
+---
+
+<p>If you are tired of typing passwords and pretending you enjoy the thrill of a failed push you do not need to suffer any longer. This short guide shows how to find a GitHub SSH URL and clone a repo using SSH keys and the command line. No ritual sacrifices required just a few clicks and a tiny bit of keyboard bravery.</p>
+
+<h2>Find the SSH URL on the repo page</h2>
+
+<ol>
+  <li>Open the repository page on GitHub where the files live.</li>
+  <li>Click the Code button near the top right of the file list and select the SSH option.</li>
+  <li>Copy the SSH link shown. It will look like this when read out loud
+    <pre><code>git at github dot com slash username slash repo dot git</code></pre>
+    Replace username and repo with your actual values before running commands.</li>
+</ol>
+
+<h2>Make or add an SSH key pair</h2>
+
+<p>If you do not already have an SSH key pair on your machine generate one. For modern security use ed25519 with a command like this</p>
+
+<pre><code>ssh-keygen -t ed25519 -C "you@example.com"</code></pre>
+
+<p>That creates a public key file that usually ends with .pub. Copy the contents of that file and add it to your GitHub account under Settings then SSH and GPG keys. Paste the key into the web form and give it a name that will not embarrass you later.</p>
+
+<h2>Test the SSH connection</h2>
+
+<p>Make sure GitHub can see your key before any dramatic cloning attempts. Run this test and expect a friendly greeting if all is well</p>
+
+<pre><code>ssh -T git@github.com</code></pre>
+
+<p>If you see a message that welcomes you then congrats. If you see a permission denied message do not panic. Check that the public key is uploaded and that your ssh agent is offering the right key.</p>
+
+<h2>Clone the repo with SSH</h2>
+
+<p>Now for the main event. Use the SSH link you copied earlier. In plain text the command looks like this</p>
+
+<pre><code>git clone git at github dot com slash username slash repo dot git</code></pre>
+
+<p>That maps to the SSH URL format GitHub provides and will clone the repository to your machine without asking for your password on every network hiccup.</p>
+
+<h2>Troubleshooting tips and common fixes</h2>
+
+<ul>
+  <li>No welcome message from the test command. Make sure your ssh agent has the key loaded and that the public key is correctly added to GitHub.</li>
+  <li>Host key prompt when connecting. Accept it if you trust the network you are on. Usually yes you do trust github com.</li>
+  <li>Permission denied. Verify you uploaded the right public key and that you are not using a different GitHub account by mistake.</li>
+  <li>Still stuck. Run ssh -v -T git@github.com for verbose output and read the logs like a mildly offended detective.</li>
+</ul>
+
+<p>That is it. You found the SSH URL you copied the right link you generated or added an SSH key and you cloned the repo. Now go write code or at least fix one typo and call it progress.</p>
+

@@ -1,0 +1,81 @@
+---
+layout: video
+title: "Free Website Hosting on AWS S3 for Static Sites on the Amazo"
+description: "Host a static site on AWS S3 using the Amazon free tier and point a custom domain with DNS for minimal cost and maximum bragging rights"
+video_host: "youtube"
+video_id: "v5MW0ErA97A"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/v5MW0ErA97A/maxresdefault.jpg"
+content_url: "https://youtu.be/v5MW0ErA97A"
+embed_url: "https://www.youtube.com/embed/v5MW0ErA97A"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS S3
+  - Static Site
+  - Free Tier
+  - Website Hosting
+  - Route 53
+  - DNS
+  - CloudFront
+  - ACM
+  - Bucket Policy
+  - DevOps
+---
+
+<p>If you want a cheap static website and a hobby that mostly involves DNS fiddling then S3 on the AWS free tier is your friend. This guide walks you through creating a matching bucket name turning on static website hosting making objects readable and pointing a custom domain with Route 53 or your registrar. If you care about HTTPS then add CloudFront and request a free certificate from ACM in the right region and bask in secure, cached glory.</p>
+
+<h2>Quick checklist for the impatient</h2>
+<ul>
+  <li>Create an S3 bucket named after your domain</li>
+  <li>Enable static website hosting and set index and error documents</li>
+  <li>Allow public read or use CloudFront for secure delivery</li>
+  <li>Upload your HTML CSS and assets</li>
+  <li>Point DNS at Route 53 or your registrar</li>
+  <li>Optional add CloudFront and ACM for HTTPS and speed</li>
+</ul>
+
+<h2>Create the bucket and enable static hosting</h2>
+<p>Pick a bucket name that exactly matches your domain for the root site. For example example.com is a good name if you own example.com. In the S3 console open bucket properties and turn on static website hosting. Set the index document to index.html and the error document to error.html or whatever tiny rage page you prefer.</p>
+
+<h3>Public access and a simple policy</h3>
+<p>By default AWS blocks public access. Turn off block public access for this bucket only if you want the S3 website endpoint to serve files directly. Then attach a policy that lets the web fetch objects. Here is a minimal example that you will adapt with your actual bucket name.</p>
+<pre><code>{
+  "Version" : "2012-10-17",
+  "Statement" : [
+    {
+      "Effect" : "Allow",
+      "Principal" : "*",
+      "Action" : [ "s3:GetObject" ],
+      "Resource" : "arn:aws:s3:::example.com/*"
+    }
+  ]
+}
+</code></pre>
+<p>That policy opens your files for browsers to fetch. If you are allergic to public buckets then skip this and use CloudFront to restrict access with an origin access identity.</p>
+
+<h2>Upload files and test</h2>
+<p>Drag and drop in the console or use the CLI. A common command looks like this</p>
+<pre><code>aws s3 sync ./public s3://example.com --acl public-read
+</code></pre>
+<p>After upload visit the bucket website endpoint in your browser. If index.html renders you win. Minify CSS and JS gzip or brotli assets locally and set cache control headers to save bandwidth and speed up visits.</p>
+
+<h2>Point the domain with DNS</h2>
+<p>If you use Route 53 create an alias A record for the root or a CNAME for the www name and point it at the S3 website endpoint or at a CloudFront distribution. If you use an external registrar add the appropriate A or ALIAS records your registrar provides. DNS changes sometimes take a nap before propagating so be patient.</p>
+
+<h2>Add HTTPS with CloudFront and ACM</h2>
+<p>S3 website endpoints do not speak HTTPS. If you want secure connections you must put CloudFront in front of the bucket. Create a CloudFront distribution and use the S3 website endpoint or S3 origin with origin access identity depending on your access pattern. Request an ACM certificate in the us-east-1 region for CloudFront to use. Attach your custom domain to the distribution and wait for the distribution to deploy.</p>
+<p>CloudFront gives global caching lower latency and HTTPS at the cost of one more AWS service to learn to love. For tiny personal projects costs are usually low but not strictly free beyond the S3 free tier storage for new accounts.</p>
+
+<h2>Troubleshooting tips and final notes</h2>
+<ul>
+  <li>Index not loading Check the index document name in bucket settings and the object key exactly matches.</li>
+  <li>403 errors Check block public access and the bucket policy or use CloudFront with an origin access identity.</li>
+  <li>HTTPS not working Make sure ACM cert is in us-east-1 for CloudFront and that the custom domain is added to the distribution.</li>
+  <li>Deploy updates Invalidating CloudFront cache helps but costs extra. Use versioned file names for cache friendly deployments.</li>
+</ul>
+<p>Summary Basically make a matching bucket enable static hosting upload files make objects readable and map your domain with DNS. Add CloudFront and ACM when you want HTTPS and faster global delivery. Congrats you have a static site hosted on AWS S3 with fewer moving parts than your last relationship.</p>
+

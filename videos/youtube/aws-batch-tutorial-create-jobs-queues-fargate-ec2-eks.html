@@ -1,0 +1,99 @@
+---
+layout: video
+title: "AWS Batch Tutorial | Create Jobs Queues Fargate EC2 EKS"
+description: "Learn to create AWS Batch jobs job definitions queues and use Fargate EC2 and EKS resources in a short practical tutorial"
+video_host: "youtube"
+video_id: "BzRUKk3A3l4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/BzRUKk3A3l4/maxresdefault.jpg"
+content_url: "https://youtu.be/BzRUKk3A3l4"
+embed_url: "https://www.youtube.com/embed/BzRUKk3A3l4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS Batch
+  - AWS
+  - Batch
+  - Fargate
+  - EC2
+  - EKS
+  - Job Definitions
+  - Job Queues
+  - Compute Environment
+  - Batch Tutorial
+---
+
+<p>If you want to run batch workloads on AWS without losing your mind, welcome. This guide walks through AWS Batch essentials with a sprinkle of sarcasm and zero hand holding. You will learn how to define jobs, wire up queues, pick a compute environment and actually submit work that finishes without a temper tantrum.</p>
+
+<h2>Quick roadmap</h2>
+<ul>
+  <li>Create a job definition that describes the container and runtime settings</li>
+  <li>Create one or more job queues and attach compute environments in priority order</li>
+  <li>Provision a compute environment using Fargate, EC2 or EKS depending on how much control you crave</li>
+  <li>Submit jobs with the Console CLI or SDKs and capture the job id for tracking</li>
+  <li>Monitor logs in CloudWatch and tune retries and autoscaling so the bills stay reasonable</li>
+</ul>
+
+<h2>Create a job definition</h2>
+<p>This is the blueprint for each run. Think container image, command, vCPU and memory. Also specify a retry strategy and the IAM role that lets the job fetch secrets or write to S3.</p>
+
+<ul>
+  <li>Container image and command overrides let you reuse one definition for many tasks</li>
+  <li>Set vCPU and memory to match actual needs, not your wishful thinking</li>
+  <li>Use environment variables and mount points for passing data into the container</li>
+  <li>Revisions let you change runtime settings without breaking older jobs</li>
+</ul>
+
+<h2>Create a job queue</h2>
+<p>Queues are the traffic cops. Attach one or more compute environments to each queue and give each an order value for priority. When you need different runtimes or priorities, use multiple queues so routing is predictable and people stop bothering you.</p>
+
+<ul>
+  <li>Higher priority queues get served first, so reflect business needs not personal bias</li>
+  <li>Separate queues for GPU work, spot instances and serverless runs makes life easier</li>
+  <li>Queue names should be clear and boring. This is not the place for creativity</li>
+</ul>
+
+<h2>Provision the compute environment</h2>
+<p>Pick the compute type that matches your workflow and patience level.</p>
+
+<h3>Fargate</h3>
+<p>Serverless container runs with no host management, great for straightforward container workloads and for people who dislike patching. You give up some low level control but gain sanity.</p>
+
+<h3>EC2</h3>
+<p>Full control of the host. Useful for custom AMIs GPU instances or spot based cost savings. If you need kernel tweaks or special drivers this is the option to choose.</p>
+
+<h3>EKS</h3>
+<p>Use EKS when you already run Kubernetes in production and want to reuse the same tooling and workflows. AWS Batch can hand off job placement to a Kubernetes cluster when that fits your architecture.</p>
+
+<h2>Submit a job and keep an eye on it</h2>
+<p>Submit jobs from the AWS Console the CLI or any supported SDK. Provide a job name the job definition and the target queue. You can pass parameters and container overrides for per run variations. Always capture the job id that AWS returns so you can track status and logs.</p>
+
+<ul>
+  <li>CLI example uses submit-job with jobName jobDefinition and jobQueue arguments</li>
+  <li>Use parameters to avoid creating many nearly identical job definitions</li>
+  <li>Container overrides let you change command vCPU or memory at submit time</li>
+</ul>
+
+<h2>Monitor logs scale and manage retries</h2>
+<p>Send container logs to CloudWatch for troubleshooting. Configure retry attempts and evaluate exit codes so jobs recover gracefully. Use the compute environment autoscaling settings so capacity follows demand and your cloud bill does not explode.</p>
+
+<ul>
+  <li>CloudWatch logs are your friend for debugging intermittent failures</li>
+  <li>Set retryAttempts and use onExitCode rules to decide when to retry or fail</li>
+  <li>Autoscaling keeps capacity sensible, but test scaling behavior before production</li>
+</ul>
+
+<h2>Practical tips and common pitfalls</h2>
+<ul>
+  <li>Permissions matter. The job role must allow actions the container performs, like S3 reads or CloudWatch puts</li>
+  <li>Spot instances save money but expect interruptions and handle retries accordingly</li>
+  <li>Fargate does not expose the host, so anything that needs custom drivers will need EC2</li>
+  <li>Version job definitions instead of copying them so you can rollback cleanly</li>
+  <li>Monitor costs and set sensible vCPU and memory limits to avoid surprise bills</li>
+</ul>
+
+<p>There you go. You can now define jobs set up queues pick a compute environment and submit workloads to AWS Batch without invoking rituals or sacrificing a test cluster. Tweak settings to match your workload and budget and enjoy the small victory of a job that finishes correctly on the first try.</p>
+

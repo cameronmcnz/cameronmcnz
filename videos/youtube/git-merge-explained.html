@@ -1,0 +1,82 @@
+---
+layout: video
+title: "Git Merge Explained"
+description: "Clear practical explanation of Git merge types conflicts and best practices for branching workflows"
+video_host: "youtube"
+video_id: "4Xvmhopgtfg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/4Xvmhopgtfg/maxresdefault.jpg"
+content_url: "https://youtu.be/4Xvmhopgtfg"
+embed_url: "https://www.youtube.com/embed/4Xvmhopgtfg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - merge
+  - git merge
+  - branches
+  - version control
+  - conflicts
+  - merge strategies
+  - fast forward
+  - squash merge
+  - git tutorial
+---
+
+<p>If you think git merge is some mystical ritual performed by wizard developers you are half right and half wrong. It is mostly boring plumbing with occasional drama when conflicts show up. This guide keeps the facts correct and the tone slightly rude so you remember what to do next time your branches try to fight.</p>
+
+<h2>What git merge actually does</h2>
+<p>At its core git merge takes changes from one branch and combines them into another branch. That sounds boring but it matters for history and collaboration. There are two common merge personalities and both are useful in version control depending on how tidy you want your history to be.</p>
+
+<h3>Fast forward</h3>
+<p>A fast forward merge happens when the branch you are merging into has not moved since you created the feature branch. Git simply advances the branch pointer so no new commit is created. This keeps history linear and neat if you do not need to preserve the branch as a separate chapter.</p>
+
+<h3>Non fast forward and merge commits</h3>
+<p>When both branches have new commits git creates a merge commit that records the union of the two histories. This preserves the context of parallel work and is useful for tracking feature branches that deserve their own narrative in the log.</p>
+
+<h2>When conflicts arrive and what to do</h2>
+<p>Conflicts are the spicy part. They happen when the same lines were changed in different ways. The steps are boring but important and they work every time.</p>
+<ul>
+  <li>Run <code>git status</code> to see the conflicted files</li>
+  <li>Edit the files and decide which code to keep</li>
+  <li>Stage your fixes with <code>git add &lt;file&gt;</code></li>
+  <li>Finish the merge with <code>git commit</code> if git did not auto commit</li>
+</ul>
+<p>If you prefer visual help use <code>git mergetool</code> which launches a GUI merge helper that is less likely to make you cry at 2am.</p>
+
+<h2>Flags and merge strategies</h2>
+<p>Want to change merge behavior Use these common options</p>
+<ul>
+  <li><code>git merge --no-ff feature-branch</code> forces a merge commit so the feature branch shows up in history</li>
+  <li><code>git merge --squash feature-branch</code> collapses the branch into a single commit and keeps history linear and tidy</li>
+</ul>
+<p>Pick the approach based on team preference and the importance of preserving branch context versus a simpler log.</p>
+
+<h2>Practical tips for fewer surprises</h2>
+<ol>
+  <li>Pull remote changes before merging with <code>git pull</code> or fetch and rebase so conflicts appear early</li>
+  <li>Run tests locally after resolving conflicts and before pushing the merge</li>
+  <li>Write clear commit messages so git log reads like a helpful diary not a mystery novel</li>
+</ol>
+
+<h2>Which to prefer in daily work</h2>
+<p>Prefer merge commits for larger feature branches that deserve a recorded history. Prefer squash merge for small cleanup branches and tiny fixes that would only add noise. Both are fine if your team agrees and follows a consistent merge strategy.</p>
+
+<h3>Quick commands summary</h3>
+<pre><code>git checkout main
+git pull
+git checkout -b feature-branch
+# work and commit locally
+git checkout main
+git merge feature-branch
+# if conflict follow the resolve workflow git status edit files git add git commit
+# alternatives
+git merge --no-ff feature-branch
+git merge --squash feature-branch
+</code></pre>
+
+<p>In short git merge is predictable when you know the rules and a little annoying when you ignore them. Keep branches small when possible run tests before pushing and pick a merge strategy that your team can actually follow. Now go merge something and try not to cause a production incident.</p>
+

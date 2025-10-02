@@ -1,0 +1,63 @@
+---
+layout: video
+title: "Create AWS SSL Certificates in Amazon Certificate Manager"
+description: "Step by step guide to request an ACM TLS certificate validate via Route53 and serve an S3 static site over HTTPS using CloudFront and DNS updates"
+video_host: "youtube"
+video_id: "TMeG69goppE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT53S"
+thumbnail_url: "https://i.ytimg.com/vi/TMeG69goppE/maxresdefault.jpg"
+content_url: "https://youtu.be/TMeG69goppE"
+embed_url: "https://www.youtube.com/embed/TMeG69goppE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - ACM
+  - Route53
+  - S3
+  - CloudFront
+  - SSL
+  - TLS
+  - DNS
+  - HTTPS
+  - Static Hosting
+---
+
+<h2>Why this exists and why you should care</h2>
+<p>Want your static website to stop freaking out browsers with scary not secure warnings and actually use HTTPS like a grown up? This guide walks you through requesting a public TLS certificate in AWS Certificate Manager using DNS validation in Route53 and then wiring that certificate to CloudFront so your S3 hosted site serves over HTTPS. It is practical, repeatable and mildly sarcastic when AWS decides to nap during a deployment.</p>
+
+<h2>Request a public certificate in ACM</h2>
+<p>Head to ACM in us east 1 because CloudFront will only accept certificates from that region. Request a public TLS certificate for the apex domain and any subdomains you care about such as www. Choose DNS validation when prompted. If your domain is managed in Route53 you can ask ACM to create the validation records automatically or copy the CNAME values and paste them into the hosted zone yourself.</p>
+
+<h3>Key points to remember</h3>
+<ul>
+  <li>Request the certificate in us east 1 for CloudFront compatibility</li>
+  <li>Add both the bare domain and common subdomains like www</li>
+  <li>Use DNS validation so AWS provides CNAME records you can add to Route53</li>
+</ul>
+
+<h2>Prepare the S3 bucket for static hosting</h2>
+<p>Create an S3 bucket named for the domain you plan to use. You can enable S3 static website hosting if you want the bucket to respond directly, but for a production ready HTTPS setup keep the bucket private and use CloudFront as the public face. Upload your site files and set an index document and an error page as needed.</p>
+<p>Do not make the bucket public if you care about security. Instead configure an origin access control or the older origin access identity so CloudFront is the only thing that can fetch objects.</p>
+
+<h2>Create the CloudFront distribution</h2>
+<p>Create a CloudFront distribution and point the origin to your S3 bucket. In the alternate domain name field add your custom domain. Then attach the ACM certificate you requested in us east 1. Set the viewer protocol policy to redirect HTTP to HTTPS so visitors get encrypted traffic even if they type an insecure URL.</p>
+<p>Configure origin access control so the bucket does not need to be public. Also pick a minimum TLS version such as TLS 1.2 to keep things modern and less embarrassing.</p>
+
+<h2>Update Route53 DNS and wait</h2>
+<p>In Route53 create an A record with alias to the CloudFront distribution domain name. If you used the apex domain create an alias record. If you used subdomains add the appropriate records. DNS and distribution deployment both take time so relax and have a beverage while things propagate.</p>
+
+<h3>Troubleshooting tips</h3>
+<ul>
+  <li>If validation shows pending check that the Route53 CNAME entries match the ACM values exactly</li>
+  <li>If the site shows mixed content search for HTTP assets and update them to use HTTPS or relative paths</li>
+  <li>If the certificate is not usable verify it is in us east 1 and that CloudFront is configured to use it</li>
+  <li>For access errors confirm the origin access control or bucket policy allows CloudFront to read objects</li>
+</ul>
+
+<h2>Wrap up</h2>
+<p>This process gives you HTTPS for a static S3 site with ACM handling certificates and CloudFront delivering content fast and securely. It is a bit of clicking and waiting but the outcome is worth it. Now go forth and serve your static site over HTTPS like someone who knows what they are doing.</p>
+

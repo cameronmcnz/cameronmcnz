@@ -1,0 +1,78 @@
+---
+layout: video
+title: "How to Install PostgreSQL on Windows 10 or 11"
+description: "Step by step guide to install PostgreSQL on Windows 10 or 11 with Node and Python testing and basic configuration"
+video_host: "youtube"
+video_id: "yjgUndk6954"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M49S"
+thumbnail_url: "https://i.ytimg.com/vi/yjgUndk6954/maxresdefault.jpg"
+content_url: "https://youtu.be/yjgUndk6954"
+embed_url: "https://www.youtube.com/embed/yjgUndk6954"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - postgres
+  - postgresql
+  - windows10
+  - windows11
+  - tutorial
+  - nodejs
+  - python
+  - database
+  - installation
+  - pgadmin
+---
+
+<h1>Complete PostgreSQL setup on Windows 10 and 11 with pgAdmin and CLI</h1>
+<p>Want a working PostgreSQL server on Windows without crying into the Event Viewer That is doable and mildly satisfying This guide walks through the download install and basic verification steps for developers using Node and Python</p>
+
+<h2>What you need before you start</h2>
+<ul>
+  <li>Admin access on the Windows machine</li>
+  <li>Internet access to grab the official installer from the PostgreSQL site or EnterpriseDB</li>
+  <li>Basic comfort with a terminal and editing a text file if you want to tweak config</li>
+</ul>
+
+<h2>Download and run the installer</h2>
+<p>Head to the PostgreSQL download page and pick the latest stable Windows package that matches your system architecture You do not have to be perfect about versions unless your production service depends on being precious</p>
+<p>Run the installer and follow the prompts Choose Typical unless you like clicking lots of checkboxes Include command line tools and pgAdmin if you prefer a GUI over terminal bravado You will be asked to set a password for the postgres superuser so pick one you can remember or stash in a password manager Treat it like a small treasure</p>
+
+<h2>Configure PATH and optional pgAdmin</h2>
+<p>Let the installer add the command line tools to PATH or add the Postgres bin folder manually so psql works from any prompt Open pgAdmin if you want a visual way to manage databases Otherwise the CLI is faster and uglier</p>
+
+<h2>Start the service and verify the server is alive</h2>
+<p>The installer can start the PostgreSQL service for you or you can use the Services app to start it later Once running open a terminal and connect as the postgres superuser</p>
+<pre><code>psql -U postgres</code></pre>
+<p>Enter the password you set during install You can run a quick check to prove the server responds</p>
+<pre><code>SELECT version()</code></pre>
+<p>If that prints the server version congratulations Postgres is listening and answering questions</p>
+
+<h2>Quick Node and Python connection test</h2>
+<p>From Node use the popular pg package and from Python use psycopg to confirm connections These are the standard libraries and work nicely for simple checks and real apps</p>
+<ul>
+  <li>Node example high level steps install pg require and create a Client then connect</li>
+  <li>Python example high level steps pip install psycopg connect with connection string and run a simple query</li>
+</ul>
+<p>Running a simple query like SELECT version() from each client proves credentials and network are fine</p>
+
+<h2>Basic security and practical production notes</h2>
+<p>For local development the default settings are usually fine If you want to allow remote access edit the listen_addresses setting in postgresql.conf and add appropriate entries and users instead of giving everyone the postgres password Remember to create dedicated users and databases for each app</p>
+<p>Open firewall rules only for the ports and hosts you need Do not fling the database open to the internet and hope nothing bad happens</p>
+<p>Set the PostgreSQL Windows service to start automatically if you want the server to come back after a reboot otherwise expect some sadness during morning standup</p>
+
+<h2>Checklist before you call it done</h2>
+<ul>
+  <li>Installer downloaded from PostgreSQL or EnterpriseDB</li>
+  <li>Superuser password set and stored</li>
+  <li>Path configured so psql is usable from a terminal</li>
+  <li>Service started and SELECT version() returned results</li>
+  <li>Optional pgAdmin installed for GUI management</li>
+  <li>Firewall and listen_addresses adjusted for any remote access</li>
+  <li>Dedicated users and databases created for your apps</li>
+</ul>
+
+<p>If you followed these steps you have a working PostgreSQL instance on Windows 10 or 11 that plays nicely with Node and Python Now go write the app and let the database quietly store your mistakes</p>
+

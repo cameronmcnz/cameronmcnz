@@ -1,0 +1,97 @@
+---
+layout: video
+title: "Locally Run Huggingface LLMs like Llama on Your Laptop or De"
+description: "Step by step guide to run Huggingface models like Llama locally on laptop or desktop using Python with privacy and performance tips"
+video_host: "youtube"
+video_id: "-Fcb7OT-uC8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M10S"
+thumbnail_url: "https://i.ytimg.com/vi/-Fcb7OT-uC8/maxresdefault.jpg"
+content_url: "https://youtu.be/-Fcb7OT-uC8"
+embed_url: "https://www.youtube.com/embed/-Fcb7OT-uC8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Huggingface
+  - Llama
+  - LocalInference
+  - Python
+  - Transformers
+  - Quantization
+  - GGUF
+  - ModelOptimization
+  - Privacy
+  - GPU
+---
+
+<p>If you want to run Huggingface models like Llama on your laptop without selling your soul to the cloud then this guide is for you. We will keep it practical and slightly cheeky while you learn LocalInference with Python and Transformers and get sensible ModelOptimization tips for GGUF and quantization.</p>
+
+<h2>What you will do</h2>
+<p>Short version you will set up an environment install core packages pick a model download it load it in Python and run prompts while measuring latency and minding privacy and thermals. All without yelling at sudo or crying into your GPU fan.</p>
+
+<h2>Setup and dependencies</h2>
+<p>Create a virtual environment and install the usual suspects for local inference. If you like drama free installs use pip and avoid unnecessary packages.</p>
+<pre><code>python -m venv venv
+venv/bin/pip install --upgrade pip
+venv/bin/pip install transformers accelerate huggingface_hub
+# optional runtime for Llama style models
+venv/bin/pip install llama-cpp-python
+</code></pre>
+
+<h2>Pick a model that matches your hardware</h2>
+<p>Be realistic about RAM and GPU memory. Smaller quantized models or GGUF builds usually behave much nicer on laptops and on CPU only machines. Search the Huggingface hub for entries that mention quantization or GGUF to narrow the field.</p>
+<ul>
+  <li>Prefer 4 bit or 8 bit quantized variants for low RAM</li>
+  <li>Use GGUF builds if you plan to run with llama cpp or similar optimized runtimes</li>
+  <li>Keep context window smaller for lower memory use</li>
+</ul>
+
+<h2>Download the model for offline runs</h2>
+<p>Grab the files locally so future runs do not ping the internet and to improve privacy. Use the hub tools or the web UI. Once the files are on disk you can avoid network surprises.</p>
+
+<h2>Minimal Python example to load and generate</h2>
+<p>This keeps to Transformers API for clarity and compatibility. It works on CPU and on GPU with device mapping.</p>
+<pre><code>from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
+
+tokenizer = AutoTokenizer.from_pretrained('model-name')
+model = AutoModelForCausalLM.from_pretrained('model-name', device_map 'auto')
+
+inputs = tokenizer('Write a short haiku', return_tensors 'pt')
+outputs = model.generate(**inputs, max_length 50)
+print(tokenizer.decode(outputs[0]))
+</code></pre>
+<p>If your environment complains about memory try loading a quantized model or using a backend like llama cpp which supports GGUF. For very constrained machines use CPU optimized builds or run with low precision.</p>
+
+<h2>Quantization and GGUF notes</h2>
+<p>Quantization is your friend for ModelOptimization. It reduces memory and can even speed up inference. GGUF is a popular file format used by some runtimes to pack quantized weights efficiently. If you see a model distributed as GGUF it is usually intended for local runtimes like llama cpp.</p>
+
+<h2>Measure latency and compare CPU to GPU</h2>
+<p>Keep it simple use Python timers and test a few sample prompts. Run warm up calls to avoid measuring cold starts.</p>
+<pre><code>import time
+start = time.perf_counter()
+_ = model.generate(**inputs, max_length 50)
+end = time.perf_counter()
+print('latency', end - start)
+</code></pre>
+<p>For repeated queries keep the model loaded between requests to avoid repeated cold starts. Batch size of one and shorter context windows save memory and power on laptops.</p>
+
+<h2>Privacy and safety</h2>
+<p>LocalInference gives you real privacy in the sense that your prompts do not leave your machine. That said check local cache files and CLI history and be mindful of logs. Also keep model provenance in mind if you are working with sensitive data.</p>
+
+<h2>Practical tips and gotchas</h2>
+<ul>
+  <li>If you have a discrete GPU use device mapping and set device_map to auto to let Transformers place layers sensibly</li>
+  <li>Try bitsandbytes or backend runtimes for 4 bit memory savings when supported</li>
+  <li>On small machines reduce max_length and the context window to avoid OOMs</li>
+  <li>Monitor system temperature and power draw on laptops because inference can get ambitious quickly</li>
+</ul>
+
+<h2>When to pick llama cpp instead of Transformers</h2>
+<p>Choose llama cpp if you want a lightweight runtime that is tuned for GGUF and local speed. It can be easier to run on CPU only laptops and for many GGUF models it will beat a naive Transformers CPU run.</p>
+
+<h2>Final words</h2>
+<p>Running Huggingface models like Llama locally is not mystical. With a small amount of setup and a few optimization tricks you can have fast LocalInference on Python with reasonable privacy and good ModelOptimization strategies. Now go try a quantized model and watch your laptop pretend it is a supercomputer for a minute or two.</p>
+

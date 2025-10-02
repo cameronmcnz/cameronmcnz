@@ -1,0 +1,96 @@
+---
+layout: video
+title: "Dependency Injection & Inversion of Control in Spring"
+description: "Learn Dependency Injection and Inversion of Control in Spring and Spring Boot with clear steps and practical examples for constructor injection and bean se"
+video_host: "youtube"
+video_id: "FHii0xjGN5g"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT29M14S"
+thumbnail_url: "https://i.ytimg.com/vi/FHii0xjGN5g/maxresdefault.jpg"
+content_url: "https://youtu.be/FHii0xjGN5g"
+embed_url: "https://www.youtube.com/embed/FHii0xjGN5g"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Dependency Injection
+  - Inversion of Control
+  - Spring
+  - Spring Boot
+  - Java
+  - DI
+  - IOC
+  - Constructor Injection
+  - Bean Configuration
+  - Tutorial
+---
+
+<h2>Why dependency injection and IoC actually matter</h2>
+<p>If your Java app creates its own objects like it is auditioning for a solo performance you are missing out on something nicer. Dependency Injection moves object creation to the Spring container so your code can stop playing factory and start being testable and readable. Inversion of Control is the design idea behind that transfer of power. Together they make Spring and Spring Boot behave like an organized kitchen rather than a chaotic food fight.</p>
+
+<h2>Quick project setup without the drama</h2>
+<p>Start a Spring Boot project with Spring Initializr or your build tool of choice. Add spring boot starter and any narrow dependencies you need. Avoid dependency bloat and the existential dread that comes with it.</p>
+
+<h2>Create a clean contract and implementations</h2>
+<p>Define a simple interface and at least one implementation. Clear boundaries are your friend. Naming matters. Avoid names that sound like they belong in a horror novel.</p>
+<pre><code>public interface GreetingService {
+    String greet();
+}
+
+@Component
+public class EnglishGreetingService implements GreetingService {
+    public String greet() {
+        return "Hello";
+    }
+}
+</code></pre>
+
+<h2>Bean configuration the Spring way</h2>
+<p>You can let Spring discover beans with annotations or declare beans explicitly in a configuration class. Both are valid. Pick the style that keeps your team from arguing at 2 a.m.</p>
+<h3>Annotation based wiring</h3>
+<p>Annotate services with @Component or higher level stereotypes. Spring will pick them up during component scan and wire them into the context.</p>
+<h3>Manual bean methods</h3>
+<pre><code>@Configuration
+public class AppConfig {
+    @Bean
+    public GreetingService frenchGreeting() {
+        return new FrenchGreetingService();
+    }
+}
+</code></pre>
+
+<h2>Constructor injection for sane wiring</h2>
+<p>Prefer constructor injection for required dependencies. It makes dependencies explicit, prevents null pointer surprises at runtime and plays nicely with testing.</p>
+<pre><code>@Component
+public class Greeter {
+    private final GreetingService service;
+
+    public Greeter(GreetingService service) {
+        this.service = service;
+    }
+
+    public void run() {
+        System.out.println(service.greet());
+    }
+}
+</code></pre>
+<p>Constructor injection signals intent to the reader and keeps your code from relying on framework magic that hides what the class needs.</p>
+
+<h2>Handling multiple implementations</h2>
+<p>When more than one bean implements the same interface use @Qualifier or @Primary to avoid ambiguity. That way Spring knows which implementation you actually wanted and you avoid runtime nastiness.</p>
+
+<h2>Test wiring and run the app</h2>
+<p>Write a unit test for small slices and use @SpringBootTest when you want the full context. A quick check that the right implementation was injected beats debugging weird nulls later on.</p>
+
+<h2>Tips and common gotchas</h2>
+<ul>
+  <li>Prefer constructor injection for mandatory dependencies and use setter injection for optional things.</li>
+  <li>Avoid field injection. It hides dependencies and makes testing harder.</li>
+  <li>Use @Primary for the default bean and @Qualifier when you need a specific one.</li>
+  <li>Keep configuration minimal to avoid dependency bloat and bewilderment.</li>
+</ul>
+
+<h2>Final words</h2>
+<p>Dependency Injection and Inversion of Control are not mystical. They are practical techniques that make Java and Spring applications easier to maintain and test. Follow these patterns and your code will thank you by being less needy and more predictable.</p>
+

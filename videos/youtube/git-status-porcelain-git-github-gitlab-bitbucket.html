@@ -1,0 +1,73 @@
+---
+layout: video
+title: "Git Status Porcelain #git #github #gitlab #bitbucket"
+description: "Quick guide to Git status porcelain format showing machine readable flags and examples for scripting and automation"
+video_host: "youtube"
+video_id: "779ZQ5GE3Jg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/779ZQ5GE3Jg/maxresdefault.jpg"
+content_url: "https://youtu.be/779ZQ5GE3Jg"
+embed_url: "https://www.youtube.com/embed/779ZQ5GE3Jg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - gitlab
+  - bitbucket
+  - gitops
+  - devops
+  - porcelain
+  - status
+  - scripting
+  - cli
+---
+
+<p>If you are writing automation that touches a git repo then porcelain is the polite way to ask for machine readable status without the drama. Porcelain output is compact and stable so your scripts do not have to guess which human friendly phrase will change next week.</p>
+
+<h2>What porcelain actually gives you</h2>
+<p>Porcelain is a stab at consistency for programmatic parsing. The simple version prints two status flags then a path. The first column is the staged state and the second column is the work tree state. That tiny format avoids the usual noise you get when humans try to describe a tree and think color is an API.</p>
+
+<h2>Quick examples you can copy and paste</h2>
+<pre><code>git status --porcelain
+# example lines
+M src/app.py
+A src/new.py
+?? README.md
+
+# for scripting use the safer variant
+git status --porcelain=v2 -z
+</code></pre>
+
+<h3>How to read the basic lines</h3>
+<ul>
+  <li>Read the first two characters as flags and the rest as the path.</li>
+  <li>Common letters include M for modified, A for added, D for deleted, R for renamed, C for copied and U for unmerged conflicts.</li>
+  <li>Question marks mean untracked files and are a great way to remind you that you forgot to add a README.</li>
+</ul>
+
+<h2>Why porcelain v2 is your friend</h2>
+<p>Porcelain v2 was designed for tooling not poetry. It gives more predictable fields and separate records for complex events like renames and copies. When filenames contain spaces or newlines the old approach becomes a fragile mess. Using the null terminated form solves that problem and keeps your automation from crying on weird filenames.</p>
+
+<h3>Parsing rules that keep your CI awake</h3>
+<ul>
+  <li>Prefer porcelain v2 with null termination. Use <code>git status --porcelain=v2 -z</code> and split on the NUL character.</li>
+  <li>Avoid ad hoc regexes that match the human summary. Those will break the minute someone adds a new status you did not expect.</li>
+  <li>Handle rename and copy records explicitly because they carry extra metadata your script may need to map source to destination.</li>
+  <li>Test parsing with tricky filenames. Spaces, unicode, and newlines are the usual suspects that bite in production.</li>
+</ul>
+
+<h2>Small checklist for robust scripts</h2>
+<ul>
+  <li>Use porcelain v2 when possible for predictable fields.</li>
+  <li>Use the -z option and split on null to handle odd filenames.</li>
+  <li>Treat the first two chars as status flags and then use the remaining fields according to the record type.</li>
+  <li>Cover renames and copies so your CI does not make bad guesses during deployments.</li>
+  <li>Run your parser locally and in CI environments like GitHub Actions, GitLab runners, or Bitbucket pipelines before relying on it for a release.</li>
+</ul>
+
+<p>In short, treat porcelain as a stable API for status output. Give your scripts predictable input and they will repay you by failing less dramatically at 3 AM. Also consider a cup of coffee for the human who still wants pretty summaries and color.</p>
+

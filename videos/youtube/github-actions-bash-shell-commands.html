@@ -1,0 +1,87 @@
+---
+layout: video
+title: "GitHub Actions Bash Shell Commands"
+description: "Learn to run Bash commands in GitHub Actions workflows with examples for error handling outputs and debugging."
+video_host: "youtube"
+video_id: "FsOtTYJ8KhQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M49S"
+thumbnail_url: "https://i.ytimg.com/vi/FsOtTYJ8KhQ/maxresdefault.jpg"
+content_url: "https://youtu.be/FsOtTYJ8KhQ"
+embed_url: "https://www.youtube.com/embed/FsOtTYJ8KhQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - github
+  - github-actions
+  - bash
+  - shell
+  - ci-cd
+  - workflows
+  - automation
+  - devops
+  - scripting
+  - debugging
+---
+
+<p>If your workflow sometimes behaves like it drank bad coffee and forgot how to build things this guide is for you. We will cover picking the right runner and shell writing multi line run blocks enforcing fail fast behavior passing data between steps and debugging like a proper human not a random guess generator. Keywords you care about include github actions bash shell ci cd workflows automation devops scripting and debugging</p>
+
+<h2>Pick the right runner and shell</h2>
+<p>Choose a runner that matches the platform you are targeting. Want Linux behavior use a Linux runner and bash. Want Windows behavior choose windows runners and a compatible shell. Different shells have different builtins and quirky parsing rules so using the expected shell avoids surprise failures that feel like witchcraft.</p>
+<p>Quick checks you can run inside a step</p>
+<pre><code>echo 'Shell is' $SHELL || echo 'Unknown shell or not set in this environment'
+bash --version</code></pre>
+
+<h2>Write multi line run steps that keep state</h2>
+<p>Group related commands in one run block so environment changes persist between commands. That avoids the classic problem where you cd into a directory and then watch in horror as the next step runs in a different place.</p>
+<pre><code>set -e
+set -o pipefail
+# now a grouped set of commands
+mkdir -p build
+cd build
+cmake ..
+make -j2
+</code></pre>
+<p>Using multiline steps also makes quoting and variable expansion simpler. Put related commands together rather than scattering them across steps like confetti.</p>
+
+<h2>Fail fast and catch pipeline errors</h2>
+<p>Start scripts with strict modes so failures stop early and give you a useful stack trace. These two lines will save you hours of staring at logs</p>
+<pre><code>set -e
+set -o pipefail
+</code></pre>
+<p>Combine that with a trap to print context when something goes wrong</p>
+<pre><code>trap 'echo Failure in step at line $LINENO' ERR
+# commands that might fail</code></pre>
+
+<h2>Pass data between steps safely</h2>
+<p>Do not parse random log lines. Use the runner provided files to write outputs and environment variables. That is the stable interface that will not betray you at 2am.</p>
+<pre><code>echo 'name=foo' >> $GITHUB_OUTPUT
+echo 'MY_VAR=some value' >> $GITHUB_ENV
+</code></pre>
+<p>Readback and reuse those values in later steps using the built in workflow syntax rather than grepping logs.</p>
+
+<h2>Debug like a responsible adult</h2>
+<p>Logs are your friend that never sleeps. Print useful context and check exit codes instead of guessing.</p>
+<pre><code>echo 'Dumping selected environment variables'
+env | sort | grep -i name || true
+# show last command status
+echo 'Last exit code' $?
+# run a small check under the same shell to reproduce surprises
+bash -lc 'env | sort | grep -i PATH'
+</code></pre>
+<p>If something weird happens add a diagnostic run block that lists files shows recent logs and prints the few environment variables you actually care about. It is faster than rewriting workflow YAML at random.</p>
+
+<h3>Recap and quick checklist</h3>
+<ul>
+  <li>Pick a runner that matches your target platform</li>
+  <li>Use bash on Linux for predictable builtin behavior</li>
+  <li>Group related commands in one run block so state persists</li>
+  <li>Enable set -e and set -o pipefail and add a trap for better errors</li>
+  <li>Pass values with $GITHUB_OUTPUT and $GITHUB_ENV rather than parsing logs</li>
+  <li>Print env and exit codes when debugging rather than guessing</li>
+</ul>
+
+<p>Follow these rules and your CI will stop surprising you with phantom failures and mysterious missing variables. It will not make your coffee but it will make your deployments less haunted.</p>
+

@@ -1,0 +1,103 @@
+---
+layout: video
+title: "Complete Java Records Tutorial"
+description: "Compact guide to Java records covering syntax constructors validation and use cases for immutable data classes"
+video_host: "youtube"
+video_id: "_xIA7vhWkLk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT20M14S"
+thumbnail_url: "https://i.ytimg.com/vi/_xIA7vhWkLk/maxresdefault.jpg"
+content_url: "https://youtu.be/_xIA7vhWkLk"
+embed_url: "https://www.youtube.com/embed/_xIA7vhWkLk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Java Records
+  - records
+  - immutable data
+  - data classes
+  - compact constructor
+  - equals
+  - hashCode
+  - pattern matching
+  - tutorial
+---
+
+<article>
+  <h2>Why records are the lazy programmer's dream</h2>
+  <p>If you have ever written a plain old data class and then stared at equals hashCode and toString like they were a bad smell you will love Java records. Records give you immutable data carriers with minimal boilerplate and clear intent. They are perfect for small domain models that hold state but do not do heavy lifting.</p>
+
+  <h2>Define a record</h2>
+  <p>Declaring a record is almost criminally simple. The compiler generates a canonical constructor component accessors and implementations of equals hashCode and toString for you.</p>
+  <pre><code>// simple 2D point
+record Point(int x int y) {
+}
+</code></pre>
+  <p>That one line creates a constructor Point(int x int y) and two accessors x() and y() without copying and pasting boilerplate. Yes it feels like cheating and yes you should use it.</p>
+
+  <h3>When to prefer records</h3>
+  <ul>
+    <li>Simple immutable data carriers</li>
+    <li>DTOs for APIs where mutability is a bug not a feature</li>
+    <li>Value objects with well defined equality based on components</li>
+  </ul>
+
+  <h2>Constructors and validation</h2>
+  <p>Records provide a canonical constructor and you can add a compact constructor to validate or normalize input without repeating types. Compact constructors let you keep the declaration tidy while enforcing invariants.</p>
+  <pre><code>// validation with a compact constructor
+record Person(String name int age) {
+    Person {
+        if (name == null || name.isBlank()) throw new IllegalArgumentException("name is required");
+        if (age < 0) throw new IllegalArgumentException("age must be non negative");
+    }
+
+    // helper method for derived values
+    String greeting() {
+        return "Hello " + name;
+    }
+}
+</code></pre>
+  <p>Use compact constructors to reject bad data up front. If your object needs lots of mutable state or complex lifecycle rules pick a normal class instead.</p>
+
+  <h2>Accessors equals hashCode and toString</h2>
+  <p>Each record component gets a public accessor with the same name as the component. The generated equals and hashCode methods use component order which makes equality predictable. The generated toString is concise and useful for debugging.</p>
+  <pre><code>Point p = new Point(1 2);
+int x = p.x();
+String s = p.toString();
+</code></pre>
+
+  <h2>Custom methods and keeping immutability</h2>
+  <p>Records are more flexible than they look. You can add static factories convenience methods and derived value helpers. Just avoid adding mutable instance fields if you care about immutability. Side effects and hidden state defeat the point of using a record.</p>
+
+  <h2>Pattern matching and deconstruction</h2>
+  <p>Records pair nicely with pattern matching for structure based code. You can deconstruct a record in an instance of check or in a switch to match by components and bind names directly.</p>
+  <pre><code>// pattern matching with record deconstruction
+Object o = new Point(3 4);
+if (o instanceof Point(int x int y)) {
+    System.out.println("x plus y is " + (x + y));
+}
+
+// switch style matching for clearer branching
+switch (o) {
+    case Point(int x int y) -> System.out.println("point " + x + "," + y);
+    default -> System.out.println("not a point");
+}
+</code></pre>
+  <p>Pattern matching features evolve across Java releases so check your target JDK version before using the newest syntax in production code.</p>
+
+  <h2>Best practices cheat sheet</h2>
+  <ul>
+    <li>Prefer records for simple immutable value objects and DTOs</li>
+    <li>Use compact constructors for validation and normalization</li>
+    <li>Avoid mutable instance fields in records</li>
+    <li>Rely on generated equals hashCode and toString unless you have a good reason not to</li>
+    <li>Use pattern matching and deconstruction to write clearer branching code</li>
+  </ul>
+
+  <h2>Final thoughts</h2>
+  <p>Records reduce boilerplate and make intent explicit. They are not a silver bullet for every design but for many simple domain models they are the right tool. Embrace them for immutable data and keep business logic in classes that do interesting work. Your future self will thank you or at least curse you less often.</p>
+</article>
+

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include mcnz/head-common.html %}
+
+    {%- assign meta_desc = page.description | default: site.description | default: page.title -%}
+    <!-- (meta + JSON-LD unchanged) -->
+
+    <style>
+      /* Keep video and content at the same width */
+      .content-wrap { max-width: 1280px; margin: 0 auto; }
+
+      .player { position: relative; aspect-ratio: 16/9; width: 100%; }
+      .player iframe, .player video { position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+      .orange-divider { background: #fbbc04; }
+      .video-title { margin-top: .75rem; }
+      .video-meta { color: #fff; font-size: .95rem; margin: 0; font-family: Courier, "Courier New", monospace; }
+      .desc { margin-top: .75rem; line-height: 1.6; }
+      .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- NAV -->
+      <div class="content-wrap">
+	  <div class="row">
+        {% include mcnz/navigation.html %}
+      </div>
+	  </div>
+
+      <!-- MAIN CONTENT, all locked to the same width -->
+      <div class="content-wrap">
+        <!-- Player -->
+        <div class="row"  style="background-color: black;">
+          <div class="col-12">
+            <div class="player" id="player">
+              {%- if page.video_host == "youtube" and page.video_id -%}
+              <iframe src="https://www.youtube.com/embed/{{ page.video_id }}?rel=0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen title="{{ page.title | escape }}"></iframe>
+              {%- elsif page.embed_url -%}
+              <iframe src="{{ page.embed_url }}" allow="autoplay; fullscreen; picture-in-picture"
+                      allowfullscreen title="{{ page.title | escape }}"></iframe>
+              {%- elsif page.content_url -%}
+              <video controls preload="metadata" poster="{{ page.thumbnail_url | absolute_url }}">
+                <source src="{{ page.content_url }}" type="video/mp4">
+              </video>
+              {%- else -%}
+              <p><strong>Video unavailable.</strong> Add <code>video_id</code> (YouTube) or <code>embed_url</code>/<code>content_url</code>.</p>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+
+        <!-- Yellow title bar (same width as player) -->
+        <div class="row mt-2" style=" background-color: #FF583B;">
+          <div class="col-12">
+            <div class="orange-divider px-3 py-2" style="height:2rem; background-color: #FF583B;" >
+              <h1 class="video-meta">
+                {{ page.title }} |
+                {%- if page.upload_date -%}
+                  Video upload date:
+                  <time datetime="{{ page.upload_date }}">{{ page.upload_date | date: "%B %d, %Y" }}</time>
+                  &nbsp;&middot;&nbsp;
+                {%- endif -%}
+                {%- if page.duration -%}
+                  Duration: {{ page.duration }} &nbsp;&middot;&nbsp;
+                {%- endif -%}
+                {%- if page.in_language -%}
+                  Language: {{ page.in_language | upcase }}
+                {%- endif -%}
+              </h1>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card (same width as player/title) -->
+        <div class="row mt-3"  >
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header bg-warning-subtle border-warning">
+                <h1 class="h5 ">{{ page.description }}</h1>
+              </div>
+              <div class="card-body">
+                <div class="card-text">{{ content }}</div>
+                <p class="card-text ">I know how you can get <a href="https://certificationexams.pro/azure/index.html">Azure Certified</a>, <a href="https://certificationexams.pro/gcp/index.html">Google Cloud Certified</a> and <a href="https://certificationexams.pro/aws/index.html">AWS Certified.</a> It's a cool <a href="https://certificationexams.pro/aws/cloud-practitioner/index.html">certification exam simulator site</a> called certificationexams.pro. Check it out, and tell them Cameron sent ya!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="visually-hidden">This is a dedicated watch page for a single video.</p>
+      </div>
+      <!-- /content-wrap -->
+
+      {% include mcnz/common-cookie-row.html %}
+
+      <!-- Footer (optional: keep full width or place inside .content-wrap if you want the same width) -->
+      <div class="row">
+        <footer class="footer py-3">
+          &nbsp;
+        </footer>
+      </div>
+    </div>
+
+    {% include bootstrap-min.html %}
+  </body>
+</html>

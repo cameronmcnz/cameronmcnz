@@ -1,0 +1,62 @@
+---
+layout: video
+title: "What should a successful HTTP PUT operation return?"
+description: "Practical guidance on what a successful HTTP PUT should return after success including status codes headers and body choices for REST APIs"
+video_host: "youtube"
+video_id: "fXu7cGDZyaA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT57S"
+thumbnail_url: "https://i.ytimg.com/vi/fXu7cGDZyaA/maxresdefault.jpg"
+content_url: "https://youtu.be/fXu7cGDZyaA"
+embed_url: "https://www.youtube.com/embed/fXu7cGDZyaA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - HTTP
+  - PUT
+  - REST API
+  - status codes
+  - 201 Created
+  - 204 No Content
+  - 200 OK
+  - ETag
+  - Location header
+  - Idempotence
+---
+
+<h2>Quick rule of thumb for successful PUT responses</h2>
+<p>PUT is idempotent which means repeating the same request should not create a mess of duplicate resources unless your server is feeling dramatic and documents that behavior. The server must clearly say whether the resource was created updated or accepted for later work. No cryptic whispering allowed.</p>
+
+<h3>Use 201 Created when a new resource was made</h3>
+<p>If the client created a new resource by sending a PUT then respond with 201 Created. Include a Location header that points to the new resource URL and you may also return the new representation in the response body for convenience. Clients like being handed the truth right away.</p>
+
+<h3>Use 200 OK when you return the updated representation</h3>
+<p>When the server updated an existing resource and wants to give the client the fresh canonical view return 200 OK with the updated representation. This is handy for clients that want an immediate snapshot for display or caching without asking twice.</p>
+
+<h3>Use 204 No Content when you only need to acknowledge success</h3>
+<p>If the update applied and there is nothing useful to return choose 204 No Content. This keeps traffic small and honest and saves clients from parsing empty mystery bodies.</p>
+
+<h3>Use 202 Accepted for asynchronous work</h3>
+<p>If the update is queued for later processing return 202 Accepted and give the client a way to check progress such as a status URL provided in the Location header or in the response body. Tell them how to check back so they do not start yelling in support channels.</p>
+
+<h2>Headers matter more than most people admit</h2>
+<p>Consistent headers are the difference between a maintainable API and heroic guesswork by client developers. Always set an ETag when you support optimistic concurrency control and expect clients to use If Match headers when they try to update a known version. Use Content Location when the representation you return comes from a different URL than the request target.</p>
+
+<h3>Avoid mixed messages</h3>
+<ul>
+  <li>Do not return 200 OK with an empty body unless you enjoy causing confusion</li>
+  <li>Do not omit Location when you create a resource</li>
+  <li>Do not forget ETag when clients need safe concurrent updates</li>
+</ul>
+
+<h2>Practical tips for API designers</h2>
+<ul>
+  <li>Pick one primary successful response for PUT across your API and stick with it. Predictability beats cleverness</li>
+  <li>Document your rule and include examples so client authors can stop guessing</li>
+  <li>If you support asynchronous updates make the status check reliable and easy to poll or subscribe to</li>
+</ul>
+
+<p>In short do not be coy. Decide whether PUT will return a representation or just a thumbs up and document the choice. Your future self and your users will thank you and your support inbox will be slightly less dramatic.</p>
+

@@ -1,0 +1,101 @@
+---
+layout: video
+title: "Install Jenkins from Docker Image & Create Pipeline"
+description: "Quick guide to run Jenkins in Docker and create a basic Jenkins pipeline using a Jenkinsfile and simple steps."
+video_host: "youtube"
+video_id: "QLHc4BnVlR0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M45S"
+thumbnail_url: "https://i.ytimg.com/vi/QLHc4BnVlR0/maxresdefault.jpg"
+content_url: "https://youtu.be/QLHc4BnVlR0"
+embed_url: "https://www.youtube.com/embed/QLHc4BnVlR0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Docker
+  - CI CD
+  - pipeline
+  - Jenkinsfile
+  - DevOps
+  - container
+  - automation
+  - docker setup
+  - tutorial
+---
+
+<p>If you want a Jenkins server that is portable enough to survive developer tantrums and cloud provider mood swings then running Jenkins inside Docker is the pragmatic choice. This guide walks through pulling the official Jenkins image starting a container with persistent storage creating a basic pipeline and keeping your Jenkinsfile in source control so pipeline changes are reviewed like actual code.</p>
+
+<h2>Why run Jenkins in Docker</h2>
+<p>Containers give you repeatable builds and faster onboarding. For DevOps teams the benefits are obvious automation friendly portable and less time spent fixing environment drift. You get a fully functional Jenkins server without wrestling with system packages or mysterious dependency conflicts.</p>
+
+<h2>Quick overview of the flow</h2>
+<ul>
+  <li>Pull the Jenkins Docker image</li>
+  <li>Start the Jenkins container with a mounted volume for persistence</li>
+  <li>Unlock Jenkins and install recommended plugins</li>
+  <li>Create a pipeline job and add a Jenkinsfile to your repo</li>
+  <li>Run the pipeline and inspect console logs for real time feedback</li>
+</ul>
+
+<h3>Pull the Jenkins Docker image</h3>
+<p>Use the official image to avoid getting surprised by unofficial forks. The LTS tag is a sensible default for most teams.</p>
+<pre><code>docker pull jenkins/jenkins:lts</code></pre>
+
+<h3>Start the Jenkins container with persistent volume</h3>
+<p>Mount a host or named volume to keep job history plugin data and config across container restarts. Expose the web UI and the agent port if you plan to use Jenkins agents in containers later.</p>
+<pre><code>docker run -d -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home --name jenkins jenkins/jenkins:lts</code></pre>
+
+<h3>Unlock Jenkins and install recommended plugins</h3>
+<p>On first start Jenkins asks for an initial admin password. You can fetch it from the container logs or by reading the file inside the running container.</p>
+<pre><code>docker logs jenkins
+# or
+docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword</code></pre>
+<p>Use the web UI to create an admin user and install the recommended plugin set unless you like custom pain. The recommended set covers most common SCM and pipeline needs.</p>
+
+<h3>Create a pipeline job and add a Jenkinsfile</h3>
+<p>In the Jenkins UI create a new pipeline project and point it to your repository or paste a pipeline script. The best practice is to put a declarative Jenkinsfile next to your code so CI lives with the repo and goes through code review.</p>
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'mvn -B -DskipTests package'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'mvn test'
+      }
+    }
+  }
+  post {
+    always {
+      archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+      junit '**/target/surefire-reports/*.xml'
+    }
+  }
+}
+</code></pre>
+
+<h3>Run the pipeline and inspect logs</h3>
+<p>Trigger a build from the dashboard or configure a webhook from your SCM provider to kick off runs on push. Watch the console output for each stage. Jenkins will tell you exactly which command failed and why the build had a temper tantrum.</p>
+
+<h2>Tips and best practices for Docker based Jenkins</h2>
+<ul>
+  <li>Keep the Jenkinsfile in the repo so CI changes are reviewed like code</li>
+  <li>Use a named volume or bind mount for /var/jenkins_home to preserve jobs and plugins</li>
+  <li>Prefer the LTS image for stability unless you enjoy living on the edge</li>
+  <li>Script plugin installation for repeatable setups in automation and onboarding</li>
+  <li>Back up your Jenkins config periodically especially before major plugin updates</li>
+</ul>
+
+<p>That is the minimal path to run Jenkins in a container and get a working CI CD pipeline up fast. It is repeatable portable and friendly for teams practicing DevOps. Now go add automation and let your CI do the boring work while you take all the credit.</p>
+

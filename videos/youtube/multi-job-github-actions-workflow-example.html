@@ -1,0 +1,58 @@
+---
+layout: video
+title: "Multi Job GitHub Actions Workflow Example"
+description: "Build multi job GitHub Actions workflows with job dependencies matrix builds artifact sharing and practical optimization tips"
+video_host: "youtube"
+video_id: "sNSncfHGxak"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M42S"
+thumbnail_url: "https://i.ytimg.com/vi/sNSncfHGxak/maxresdefault.jpg"
+content_url: "https://youtu.be/sNSncfHGxak"
+embed_url: "https://www.youtube.com/embed/sNSncfHGxak"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - github-actions
+  - multi-job
+  - workflow
+  - CI
+  - CD
+  - matrix-builds
+  - artifacts
+  - dependencies
+  - runners
+  - optimization
+---
+
+<p>If your CI feels like a lottery where the winner gets a green check and the loser gets to explain why, welcome. This guide walks through building a readable multi job GitHub Actions workflow that actually behaves. We cover how to split responsibilities into jobs pick runners control ordering use matrix builds share artifacts and speed things up with caching and conditional runs. All with fewer headaches and more predictable outcomes.</p>
+
+<h2>Pick runners and assign job responsibilities</h2>
+<p>Start by deciding what each job does. Typical job names are build test lint and deploy. Keep each job small and focused so logs are shorter and failures point to the culprit. Choose hosted runners if you like convenience and low maintenance. Choose self hosted runners when you need special hardware more RAM or a network to legacy systems. Use clear names for runs so reading logs is not an archaeological dig.</p>
+
+<h2>Control order with needs</h2>
+<p>GitHub Actions runs jobs in parallel by default which is excellent until you need a build to finish before tests run. Use the needs keyword to wire dependencies so tests run after build and deploy waits for approval or smoke tests. Dependencies keep the graph readable and prevent useless work when earlier stages fail.</p>
+
+<h2>Scale testing with a matrix strategy</h2>
+<p>Matrix builds let you run the same job across variations like multiple Node versions multiple OS targets or different Python interpreters without copy pasting job blocks. Define the parameters once and let the platform spawn the permutations. Use matrix include or matrix exclude for special cases where you need extra env settings or want to skip a combination.</p>
+
+<h2>Share artifacts and pass small outputs</h2>
+<p>When a compiler produces a binary or a bundle you want to reuse use artifacts to persist files between jobs. Upload the artifact in the producer job and download it in the consumer job. For tiny pieces of data like a hash a version number or a dynamically chosen path prefer job outputs which let downstream jobs read values without moving files around. Avoid stuffing large files into outputs. Artifacts are for files. Outputs are for small strings.</p>
+
+<h2>Optimize with caching and conditional runs</h2>
+<p>Cache dependencies to reduce build time and avoid paying CPU just to reinstall packages. Popular caching actions target node_modules pip cache or Maven local repositories. Make cache keys specific enough to avoid false hits and large enough to be effective. Combine caching with conditional runs so expensive jobs skip on documentation only commits or when a pull request only touches a tiny section of the repo. Nobody enjoys slow pipelines and wasted compute is a great way to lose developer patience.</p>
+
+<h3>Practical checklist</h3>
+<ul>
+  <li>Keep job scopes small and single purpose</li>
+  <li>Name runs and steps so logs are human readable</li>
+  <li>Use needs to enforce order and avoid wasted work</li>
+  <li>Use strategy matrix for broad but maintainable coverage</li>
+  <li>Persist build outputs with artifacts and pass small values with job outputs</li>
+  <li>Cache dependencies and skip jobs on irrelevant commits</li>
+</ul>
+
+<h2>Closing thought</h2>
+<p>Designing a multi job workflow is less about clever tricks and more about clear boundaries and predictable flow. Treat your pipeline like code and a tiny bit like therapy. When jobs are small and responsibilities are clear debugging gets faster teams get happier and deployments stop surprising you in a bad way. Now go tame that CI and let your pipelines earn their keep.</p>
+

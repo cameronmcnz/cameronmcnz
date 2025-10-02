@@ -1,0 +1,67 @@
+---
+layout: video
+title: "DB Browser SQLite Viewer Manage Data Types Insert Records"
+description: "Compact tutorial for using DB Browser for SQLite to manage data types create tables run SQL and insert records for CRUD workflows"
+video_host: "youtube"
+video_id: "mhaY9hh3Irs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M56S"
+thumbnail_url: "https://i.ytimg.com/vi/mhaY9hh3Irs/maxresdefault.jpg"
+content_url: "https://youtu.be/mhaY9hh3Irs"
+embed_url: "https://www.youtube.com/embed/mhaY9hh3Irs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - DB Browser SQLite
+  - SQLite
+  - SQL
+  - Database
+  - CRUD
+  - Create Table
+  - Insert Records
+  - Data Types
+  - SQL Tutorial
+  - Database Viewer
+---
+
+<p>Welcome to a short and honest guide to DB Browser for SQLite that will get you from zero to tinkering without setting your database on fire. You will learn how to open or create a database file inspect declared data types run a create table statement and insert records for basic CRUD work. Expect small jokes and correct SQL that actually runs.</p>
+
+<h2>Open or create a SQLite file</h2>
+<p>Use the File menu to open an existing .sqlite or to create a new database file. The left hand pane shows tables and the main area gives you tabs for Structure Browse Data and Execute SQL. Think of it as a lightweight control room that does not require a PhD in rocket surgery.</p>
+
+<h2>Inspect table structure and understand type affinity</h2>
+<p>Click the Structure tab to see column definitions. You will commonly see types like <code>INTEGER</code> <code>TEXT</code> <code>REAL</code> <code>BLOB</code> and <code>NUMERIC</code>. Remember that SQLite uses type affinity which means declared types are guidelines not prison sentences. SQLite will store values in the most appropriate internal format so an INTEGER column might hold a text value if you really insist on chaos.</p>
+
+<h3>Add or edit columns with the Structure tab</h3>
+<p>The Structure tab offers a friendly form to add or change columns. Use it for small edits and for learning what the GUI will generate. The SQL log shows the exact statements DB Browser will run so you can copy them to your toolkit and pretend you meant to do that all along.</p>
+
+<h2>Run create table statements in Execute SQL</h2>
+<p>For full control use the Execute SQL tab and type a CREATE TABLE statement. Press the run button to apply it and check the SQL log for errors or warnings. Example SQL for a simple users table that will survive most small projects is shown below</p>
+<pre><code>CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, email TEXT)</code></pre>
+<p>Note that primary key and autoincrement behave the way SQLite implements them which is usually fine unless you love surprises.</p>
+
+<h2>Insert records with Browse Data or SQL</h2>
+<p>You have two main routes for inserting data. Use the Browse Data tab select your table and click the green plus button to add a row in the grid. Edit the cells like a spreadsheet and then press the Commit or Write Changes button to save to disk. The GUI is great for quick entries and for pretending you had a plan.</p>
+<p>If you prefer typing the SQL or need repeatable inserts use Execute SQL. Example manual insert that works in the Execute SQL tab is below</p>
+<pre><code>INSERT INTO users (name,email) VALUES ('Sam Sample','sam@example.com')</code></pre>
+<p>The grid will show saved rows and the commit button will persist changes to the database file. If you forget to commit you will learn the fun lesson of lost work which we do not recommend.</p>
+
+<h2>Test updates deletes and selects</h2>
+<p>Use the SQL tab to run UPDATE DELETE and SELECT statements for testing. The grid editing tools are handy for quick fixes while SQL gives you repeatable exact results. Use transactions for grouped changes to avoid half finished edits that look like accidental modern art.</p>
+
+<h2>Export and backup</h2>
+<p>The Database menu can export table data as CSV or as SQL which is handy for backups migrations or showing off to coworkers. You can also copy SQL from the SQL log if you want a documented version of what the GUI did behind the scenes.</p>
+
+<h2>Troubleshooting tips and best practices</h2>
+<ul>
+  <li>Check the SQL log when something fails it tells you what DB Browser tried to run and why it was sad.</li>
+  <li>Use NOT NULL and UNIQUE constraints when you actually need them to avoid bad data creeping in.</li>
+  <li>Remember that SQLite type affinity means declared types do not always prevent odd values from appearing.</li>
+  <li>Use transactions for multi step changes so you do not end up with half baked updates.</li>
+  <li>Commit early and commit often when using the grid interface to avoid losing work.</li>
+</ul>
+
+<p>If you follow these steps you will be able to inspect data types create tables insert records and run CRUD operations in DB Browser for SQLite with minimal drama and a tiny boost to your self esteem.</p>
+

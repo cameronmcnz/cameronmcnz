@@ -1,0 +1,114 @@
+---
+layout: video
+title: "SQL Server JDBC Connection String URL & Create Operations"
+description: "How to build SQL Server JDBC connection URLs and perform create operations with clear examples and practical tips for robust connections"
+video_host: "youtube"
+video_id: "g8YD1xFCwoo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M56S"
+thumbnail_url: "https://i.ytimg.com/vi/g8YD1xFCwoo/maxresdefault.jpg"
+content_url: "https://youtu.be/g8YD1xFCwoo"
+embed_url: "https://www.youtube.com/embed/g8YD1xFCwoo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - SQL Server
+  - JDBC
+  - Connection String
+  - URL
+  - Create Operations
+  - Java
+  - Database
+  - Driver
+  - Tutorial
+  - Connection Pooling
+---
+
+<h1>How to build JDBC URLs for SQL Server and execute DDL in Java</h1>
+
+<p>So you want to talk to SQL Server from Java and create tables without setting anything on fire. Good plan. This short guide walks you from driver setup to a tidy create table flow using JDBC. It keeps the technical bits correct and the commentary mildly judgmental.</p>
+
+<h2>Prepare driver and dependencies</h2>
+
+<p>Grab the Microsoft JDBC driver or add it to your build system. For Maven use the official group and artifact. Pick a modern driver version to get TLS support and safer auth mechanisms.</p>
+
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;com.microsoft.sqlserver&lt;/groupId&gt;
+  &lt;artifactId&gt;mssql-jdbc&lt;/artifactId&gt;
+  &lt;version&gt;10.2.0.jre11&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>If you are on an older Java runtime pick a driver artifact that matches your JVM version. If you prefer a jar file drop it on the classpath like civilized adults.</p>
+
+<h2>Compose a proper JDBC URL</h2>
+
+<p>The SQL Server JDBC URL has a predictable shape. Replace host, port and database with your values and avoid embedding secrets into source code. Example formats you will see and use are these.</p>
+
+<pre><code>// basic form with user and password in the URL
+String url = "jdbc:sqlserver://localhost:1433;databaseName=TestDB;user=sa;password=Secret";
+
+// preferred for demo. for production use integrated auth or a secure credential provider
+</code></pre>
+
+<p>Notes and quick tips</p>
+
+<ul>
+  <li>Use integrat ed authentication or a credential vault when possible</li>
+  <li>Enable encrypt and trustServerCertificate options as needed for TLS</li>
+  <li>For high availability and read scale you can list multiple hosts in the URL according to the driver docs</li>
+</ul>
+
+<h2>Open a connection and run create statements</h2>
+
+<p>For demos you can use DriverManager. For any real app use a connection pool. Below is a minimalist example using try with resources so Java closes things for you. This is not flashy but it is honest and it works.</p>
+
+<pre><code>String url = "jdbc:sqlserver://db.example.com:1433;databaseName=ProdDB;user=appuser;password=ChangeMe"
+
+try (Connection conn = DriverManager.getConnection(url)) {
+  try (Statement stmt = conn.createStatement()) {
+    String sql = "CREATE TABLE Users (id INT PRIMARY KEY, name VARCHAR(100))"
+    stmt.executeUpdate(sql)
+  }
+} catch (SQLException e) {
+  // log error code and message and fail gracefully
+  e.printStackTrace()
+}
+</code></pre>
+
+<p>If you use a connection pool like HikariCP you get better performance and fewer late night pager notifications. Pooling saves CPU and your sanity.</p>
+
+<h3>Why not put credentials in the URL</h3>
+
+<p>Because you will forget about that file, commit it to version control and then join a long tradition of developers who learn security the hard way. Use environment variables, a secrets manager, or integrated auth when you can.</p>
+
+<h2>Handle errors and close resources</h2>
+
+<p>JDBC will throw SQLException with vendor specific codes. Catch and log the SQL state and error code so support can figure out whether it was a miss typed column or a network tantrum. Try with resources is the least dramatic way to guarantee cleanup.</p>
+
+<ul>
+  <li>Always close ResultSet Statement and Connection or use try with resources</li>
+  <li>Log SQLState and error code for debugging</li>
+  <li>Wrap SQL exceptions into your app exceptions where it makes sense</li>
+</ul>
+
+<h2>Test and tune for production</h2>
+
+<p>Do not deploy from your laptop. Run the workflow against staging and tune connection timeout, max pool size and validation query. Monitor connection usage and set sensible limits. Connection pooling is the single easiest win for production performance.</p>
+
+<h2>Quick checklist before you push</h2>
+
+<ul>
+  <li>Driver added to classpath and version verified</li>
+  <li>JDBC URL validated against staging</li>
+  <li>Credentials moved out of source code</li>
+  <li>Connection pool configured and tested</li>
+  <li>Logging captures SQLState and vendor error codes</li>
+</ul>
+
+<h2>Parting wisdom</h2>
+
+<p>JDBC is older than many of your dependencies but it still works. Build clear URLs, avoid embedding secrets and use a pool. You will create tables and maybe a small empire of microservices. Keep your connections tidy and your logs readable and you might even sleep well sometimes.</p>
+

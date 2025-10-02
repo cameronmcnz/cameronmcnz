@@ -1,0 +1,69 @@
+---
+layout: video
+title: "How to use UiPath Select Folder to get all files"
+description: "Quick UiPath guide to select a folder and retrieve all files from a directory using Directory.GetFiles and a For Each loop"
+video_host: "youtube"
+video_id: "2IA8mvgIZMI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M50S"
+thumbnail_url: "https://i.ytimg.com/vi/2IA8mvgIZMI/maxresdefault.jpg"
+content_url: "https://youtu.be/2IA8mvgIZMI"
+embed_url: "https://www.youtube.com/embed/2IA8mvgIZMI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Select Folder
+  - Directory.GetFiles
+  - Directory.EnumerateFiles
+  - RPA
+  - Automation
+  - VB.NET
+  - For Each
+  - File Processing
+  - Workflow
+---
+
+<h2>Quick overview</h2>
+<p>Want the robot to pick a folder and collect all the files like a very obedient digital raccoon? Use the Select Folder activity to get a path and then use System IO methods to pull file names. This approach works for simple jobs and scales better when you choose the enumerable pattern for huge directories.</p>
+
+<h2>Step 1 Pick the folder</h2>
+<p>Drag the Select Folder activity from the Activities panel and assign its output to a String variable named <code>folderPath</code>. No need for detective work or hard coded paths. Let the user point at the folder and call it a day.</p>
+
+<h2>Step 2 Get the files</h2>
+<p>Use an Assign activity to call the System IO methods in VB.NET. For small to medium folders the array method is fine. For large repositories prefer the enumerable method to avoid memory surprises.</p>
+<pre><code>files = Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories)
+
+filesEnumerable = Directory.EnumerateFiles(folderPath, "*.*", SearchOption.AllDirectories)</code></pre>
+<p>Use <code>SearchOption.AllDirectories</code> to recurse into subfolders or <code>SearchOption.TopDirectoryOnly</code> for single level scans. Swap the search pattern to something like <code>"*.pdf"</code> to limit results.</p>
+
+<h2>Step 3 Loop and process</h2>
+<p>Use a For Each activity. Set the TypeArgument to <code>String</code> and iterate over the array or enumerable. Typical actions include reading file content moving files or logging names for later processing.</p>
+
+<h3>Example For Each setup</h3>
+<ul>
+  <li>For Each item in <code>files</code> or <code>filesEnumerable</code></li>
+  <li>TypeArgument set to <code>String</code></li>
+  <li>Inside the loop do Read Text File Move File or custom processing activities</li>
+</ul>
+
+<h2>Filtering and LINQ fun</h2>
+<p>You can filter by extension using the search pattern in the GetFiles call or by applying LINQ after you have the list. Example without drama:</p>
+<pre><code>pdfOnly = files.Where(Function(f) Path.GetExtension(f).Equals(".pdf", StringComparison.OrdinalIgnoreCase)).ToArray()</code></pre>
+<p>LINQ gives you fancy filtering without adding 100 lines of procedural code.</p>
+
+<h2>Save results and handle errors</h2>
+<p>Store file paths in a DataTable log them or pass them to downstream workflows. Real life throws permission errors and locked files at you. Wrap file operations in Try Catch activities and handle exceptions gracefully. If performance is a worry prefer <code>Directory.EnumerateFiles</code> so you stream paths instead of slamming memory with everything at once.</p>
+
+<h2>Tips and caveats</h2>
+<ul>
+  <li>Use EnumerateFiles for very large folders to reduce memory use</li>
+  <li>Set the For Each type argument to String or you will be sad and confused</li>
+  <li>Filter with search patterns like <code>"*.xlsx"</code> or use LINQ for complex rules</li>
+  <li>Catch UnauthorizedAccessException and IO exceptions so your robot does not die dramatically</li>
+</ul>
+
+<p>There you go. A simple, reliable way to let users pick a folder and have UiPath gather every file for processing. It is polite to the system and efficient when you choose the right method. Now go automate something that used to make you cry.</p>
+

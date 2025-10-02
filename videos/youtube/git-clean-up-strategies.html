@@ -1,0 +1,82 @@
+---
+layout: video
+title: "Git clean up strategies"
+description: "Practical Git clean up strategies to remove untracked files prune branches and optimize repository history for a cleaner workflow"
+video_host: "youtube"
+video_id: "FSWFgTGTvbM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M18S"
+thumbnail_url: "https://i.ytimg.com/vi/FSWFgTGTvbM/maxresdefault.jpg"
+content_url: "https://youtu.be/FSWFgTGTvbM"
+embed_url: "https://www.youtube.com/embed/FSWFgTGTvbM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - version control
+  - git cleanup
+  - git branches
+  - git rebase
+  - git stash
+  - git gc
+  - repository maintenance
+  - git prune
+  - developer tools
+---
+
+<p>If your repository looks like a teenager's bedroom then this guide is the violent but necessary intervention. We will walk through safe Git cleanup strategies that keep your history readable and your disk usage reasonable. No magic, no made up commands, just proven version control moves that save time and dignity.</p>
+
+<h2>Start with a quick inspection and stash your WIP</h2>
+<p>Before you do anything heroic take a breath and look around. Run <code>git status</code> and <code>git diff</code> to see what is actually different. That tells you if you are about to trash something important or just a few stray temp files.</p>
+<p>If you have half finished work that you do not want to lose stash it instead of committing garbage into history. Use a descriptive message so your future self does not curse you.</p>
+<pre><code>git stash push -m 'WIP'</code></pre>
+<p>Stash keeps the working tree clean and gives you permission to run destructive commands without crying later.</p>
+
+<h2>Remove untracked files safely</h2>
+<p>Untracked files are often the main source of clutter. Do not blindly delete them. First run a dry run to preview what will be removed.</p>
+<pre><code>git clean -n -d</code></pre>
+<p>If the preview looks reasonable then remove the files with force.</p>
+<pre><code>git clean -f -d</code></pre>
+<p>The dry run shows what would be deleted so you avoid the classic facepalm moment of losing a file you actually needed.</p>
+
+<h2>Prune local branches without crying later</h2>
+<p>Branches pile up like receipts. Find branches already merged into your main branch and delete them. Replace <code>main</code> with your default branch name if needed.</p>
+<pre><code>git branch --merged main</code></pre>
+<p>That command lists merged branches. To remove a safe branch run</p>
+<pre><code>git branch -d branch-name</code></pre>
+<p>If a branch has diverged and you are absolutely sure you want it gone use</p>
+<pre><code>git branch -D branch-name</code></pre>
+<p>Always double check the branch name before using the capital D. It forces deletion even if commits would be lost.</p>
+
+<h2>Rewrite local commits the careful way</h2>
+<p>Local history can be cleaned up with interactive rebase when you want tidy commits for a pull request. But do not rebase published commits unless you enjoy merge conflicts and awkward conversations.</p>
+<p>Create a quick safety net branch before you rewrite history.</p>
+<pre><code>git branch backup</code></pre>
+<p>Then run an interactive rebase to squash, edit or reorder recent commits.</p>
+<pre><code>git rebase -i HEAD~N</code></pre>
+<p>Replace N with the number of commits to review. Follow the interactive instructions to pick, squash or reorder. If anything goes wrong you can recover from the backup branch.</p>
+
+<h2>Compress the repository and prune unused objects</h2>
+<p>Over time unreachable objects and loose data bloat the repo. Run garbage collection to compress objects and free disk space. This can take a while on very large repositories so plan accordingly.</p>
+<pre><code>git gc --aggressive --prune=now</code></pre>
+<p>Prune stale remote references to keep your repo tidy.</p>
+<pre><code>git remote prune origin .</code></pre>
+<p>Those commands reduce disk usage and speed up common operations. They are standard repository maintenance moves for teams that do not want morning slow builds.</p>
+
+<h3>Quick checklist for safe cleanup</h3>
+<ul>
+  <li>Inspect changes with <code>git status</code> and <code>git diff</code></li>
+  <li>Stash unfinished work with <code>git stash push -m 'WIP'</code></li>
+  <li>Run a dry run before removing files with <code>git clean -n -d</code></li>
+  <li>Delete merged branches after review with <code>git branch -d</code></li>
+  <li>Create a backup branch before rebasing with <code>git branch backup</code></li>
+  <li>Compress and prune with <code>git gc --aggressive --prune=now</code> and <code>git remote prune origin .</code></li>
+</ul>
+
+<h2>Automation and ongoing repository maintenance</h2>
+<p>Make cleanup boring and regular. Add a periodic job in your developer tools that runs git gc and prunes remote refs. Scripts that automate conservative cleanup save developer time and prevent the repository from looking like a dumpster.</p>
+
+<p>Final thought Keep dry runs and backups as your ritual before any destructive command. These simple patterns for git cleanup protect history and keep your team from debugging slow machines and mysterious merge nightmares.</p>
+

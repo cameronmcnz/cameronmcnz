@@ -1,0 +1,101 @@
+---
+layout: video
+title: "JavaScript and Node.js File Upload Example"
+description: "Step by step guide to implement file uploads with JavaScript and Node.js using Express and multer with practical production tips"
+video_host: "youtube"
+video_id: "qv5tKef6-8I"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT13M33S"
+thumbnail_url: "https://i.ytimg.com/vi/qv5tKef6-8I/maxresdefault.jpg"
+content_url: "https://youtu.be/qv5tKef6-8I"
+embed_url: "https://www.youtube.com/embed/qv5tKef6-8I"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JavaScript
+  - Node.js
+  - file upload
+  - multer
+  - Express
+  - multipart form data
+  - backend
+  - upload tutorial
+  - security
+  - form data
+---
+
+<h2>Why you need this guide</h2>
+<p>If you are wiring a file upload feature with JavaScript on the client and Node.js on the server you are in the right place. This guide covers Express and multer for parsing multipart form data explains how to validate file type and size and outlines storage choices for simple apps and production ready backends. It is practical and a little sarcastic but totally safe for your repo.</p>
+
+<h2>Setup Express and multer</h2>
+<p>Start by installing Express and multer with npm or yarn then add the middleware that parses multipart form data. During early development a quick in memory or test disk storage is fine. For production pick a durable location like a cloud bucket or a dedicated file server and generate safe names for uploads.</p>
+
+<h3>Minimal server sketch</h3>
+<pre><code>const express = require('express')
+const multer = require('multer')
+const upload = multer()
+const app = express()
+
+app.post('/upload', upload.single('file'), function (req, res) {
+  if (!req.file) return res.status(400).send('No file uploaded')
+  const name = req.file.originalname
+  const mime = req.file.mimetype
+  const size = req.file.size
+  // do not trust name from client
+  // store req.file.buffer or move to disk or cloud
+  res.send('Upload received')
+})
+
+app.listen(3000)</code></pre>
+<p>This shows how multer will give you a req.file object with useful fields such as originalname mimetype and size. From there you can validate and then move the bytes to disk or forward them to cloud storage.</p>
+
+<h2>Client form and graceful enhancement</h2>
+<p>For the simplest flow use a plain HTML form with enctype multipart form data and a single file input. That works without JavaScript which is great for progressive enhancement and graceful degradation.</p>
+
+<pre><code>&lt;form action="/upload" method="post" enctype="multipart/form-data"&gt;
+  &lt;input type="file" name="file"&gt;
+  &lt;button type="submit"&gt;Upload&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+<p>If you want a nicer UX use JavaScript to send the file asynchronously and show progress. Here is an XMLHttpRequest example that avoids fancy libraries and just works.</p>
+
+<pre><code>const form = document.querySelector('form')
+form.addEventListener('submit', function (e) {
+  e.preventDefault()
+  const data = new FormData(form)
+  const xhr = new XMLHttpRequest()
+  xhr.open('POST', '/upload')
+  xhr.onload = function () {
+    console.log(xhr.responseText)
+  }
+  xhr.send(data)
+})</code></pre>
+
+<h2>Validation and security essentials</h2>
+<ul>
+  <li>Check mime type and file extension but do not trust them blindly</li>
+  <li>Enforce size limits at middleware level so your server does not exhaust memory</li>
+  <li>Generate unique safe names rather than reusing the client file name</li>
+  <li>Scan for malware as part of a background job before serving files publicly</li>
+  <li>Use signed URLs or limited access routes when serving private uploads</li>
+</ul>
+
+<h2>Storage strategies that do not suck</h2>
+<p>During testing keeping files on disk is fine. For scale move to a managed object store and serve via signed URLs or a CDN. If you need server side processing like image resizing or transcoding offload that to background workers so the upload response remains snappy.</p>
+
+<h2>Notes on API responses and UX</h2>
+<p>For API style apps return JSON with status and file metadata. For classic web apps a redirect to an upload success page is often cleaner. Whichever you pick keep the upload endpoint fast and delegate heavy work to a job queue.</p>
+
+<h2>Recap and quick checklist</h2>
+<ul>
+  <li>Install Express and multer and parse multipart form data</li>
+  <li>Use a form or AJAX to post files from the browser</li>
+  <li>Validate mime type and size then generate safe file names</li>
+  <li>Store locally for dev and use cloud storage for production</li>
+  <li>Process large tasks in background so uploads stay fast</li>
+</ul>
+
+<p>There you go. You now know how to wire up a reliable file upload flow using JavaScript on the client and Node.js on the server while keeping security and UX in mind. Go forth and upload responsibly.</p>
+

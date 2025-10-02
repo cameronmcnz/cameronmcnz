@@ -1,0 +1,89 @@
+---
+layout: video
+title: "Generate Git SSH Keys That Work Everywhere"
+description: "Generate Git SSH keys that work across machines and services with secure steps agent setup and SSH config tips for cross machine use"
+video_host: "youtube"
+video_id: "neAurRskPKQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M41S"
+thumbnail_url: "https://i.ytimg.com/vi/neAurRskPKQ/maxresdefault.jpg"
+content_url: "https://youtu.be/neAurRskPKQ"
+embed_url: "https://www.youtube.com/embed/neAurRskPKQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - ssh
+  - ssh-keys
+  - ssh-agent
+  - ssh-config
+  - github
+  - gitlab
+  - security
+  - ed25519
+  - yubikey
+---
+
+<p>If your SSH keys have trust issues and your Git pushes require more begging than they should you have come to the right place. This guide walks through creating modern ed25519 keys loading them into an ssh agent and wiring them up to Git providers like GitHub and GitLab. It also covers managing multiple identities and a quick note about hardware tokens like YubiKey</p>
+
+<h2>Why ed25519 and why care about ssh agent</h2>
+<p>Use ed25519 for smaller keys and strong security without drama. A passphrase protects your private key from being trivially reused if someone finds the file. The ssh agent holds your decrypted key in memory so Git commands do not ask for your passphrase on every push or fetch. It is not magic but it is close enough</p>
+
+<h2>Quick checklist</h2>
+<ul>
+  <li>Create an ed25519 key pair</li>
+  <li>Protect the private key with a passphrase</li>
+  <li>Load the key into ssh agent</li>
+  <li>Add the public key to GitHub and GitLab</li>
+  <li>Use ssh config to tie keys to hosts</li>
+</ul>
+
+<h2>Step 1 Generate an ed25519 key pair</h2>
+<p>Run the keygen command and give the key a comment that makes sense later when you have three laptops and one ancient CI box</p>
+<pre><code>ssh-keygen -t ed25519 -C "your@email.com"</code></pre>
+<p>Accept the default file path unless you want multiple keys. Choose a passphrase you can remember or store it in a password manager. Yes this is extra work but it is good work</p>
+
+<h2>Step 2 Load the key into the ssh agent</h2>
+<p>Start the agent and add your key so the agent can answer for you during Git operations</p>
+<pre><code>eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519</code></pre>
+<p>Now Git will ask the agent for credentials and not for your soul</p>
+
+<h2>Step 3 Add the public key to Git providers</h2>
+<p>Copy the public key and paste it into the SSH keys section of each account you use. On GitHub look for SSH keys in account settings and on GitLab look for a similar SSH keys area</p>
+<pre><code>cat ~/.ssh/id_ed25519.pub
+# then copy the output and paste into provider settings</code></pre>
+
+<h2>Step 4 Manage multiple keys with ssh config</h2>
+<p>If you have separate keys for work personal and CI use an ssh config file to map hosts to identity files. This prevents the wrong key from being offered and reduces awkward access denials</p>
+<pre><code>~/.ssh/config
+
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+
+Host gitlab.com
+  HostName gitlab.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_work</code></pre>
+<p>With this in place SSH will pick the right key automatically and your push workflow will stop being rude</p>
+
+<h3>Agent forwarding and jump hosts</h3>
+<p>If you ssh to a bastion and then to a git server enable agent forwarding only when you trust the middle box. That avoids copying private keys to remote hosts and keeps your keys where they belong on your machine</p>
+
+<h2>Optional hardware token with YubiKey</h2>
+<p>If you want to be extra secure use a hardware backed key like a YubiKey. It stores the private key in hardware so it never leaves the device. The flow is similar but the tooling may ask for a PIN when you touch the token. This is great for security and slightly less convenient for forgetful people</p>
+
+<h2>Troubleshooting tips that will save time</h2>
+<ul>
+  <li>Wrong key offered by SSH Check your ssh config and remove old IdentityFile entries</li>
+  <li>ssh agent forgets keys after reboot Add your key at login or use a keychain integration if your OS supports it</li>
+  <li>Authentication still fails Verify the public key was pasted correctly and is enabled on the provider account</li>
+</ul>
+
+<h2>Wrap up</h2>
+<p>This tutorial covered creating an ed25519 key pair protecting the private key with a passphrase loading the key into ssh agent adding the public key to Git providers and using ssh config to manage multiple hosts. Follow these steps and your Git workflows will be faster less annoying and just small enough to feel smug about</p>
+

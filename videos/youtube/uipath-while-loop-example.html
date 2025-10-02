@@ -1,0 +1,78 @@
+---
+layout: video
+title: "UiPath While Loop Example"
+description: "Compact guide to building and controlling a While loop in UiPath for RPA with condition examples variable updates and common pitfalls"
+video_host: "youtube"
+video_id: "Ng2OpzEQf-4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M12S"
+thumbnail_url: "https://i.ytimg.com/vi/Ng2OpzEQf-4/maxresdefault.jpg"
+content_url: "https://youtu.be/Ng2OpzEQf-4"
+embed_url: "https://www.youtube.com/embed/Ng2OpzEQf-4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - While Loop
+  - RPA
+  - Automation
+  - UiPath Tutorial
+  - Loop Condition
+  - Assign Activity
+  - VB Expression
+  - Infinite Loop
+  - Debugging
+---
+
+<h2>Quick overview</h2>
+<p>If you want your UiPath automation to repeat work until something sensible happens you will love While loops and also hate them when they go infinite. This guide walks through a practical While loop setup for RPA with straight talk and useful debugging tips. You will see variables setup, Assign activity usage, VB expression examples, and ways to avoid the dreaded infinite loop that eats CPU and happiness.</p>
+
+<h2>Define your variables first</h2>
+<p>Start by creating clear variables. Ambiguous names are how workflows become haunted.</p>
+<ul>
+  <li><strong>counter</strong> as Integer with starting value <code>0</code>. This is your loop meter.</li>
+  <li><strong>maxRetries</strong> as Integer to enforce a safety cap.</li>
+  <li><strong>status</strong> as String for any state you want to log.</li>
+</ul>
+
+<h2>Add the While activity and set the loop condition</h2>
+<p>Drag a While activity into your sequence and give it a VB expression that matches the variable type and intent. For example use a condition like <code>counter &lt; maxRetries</code> or <code>status &lt;&gt; "Done"</code>. If the condition type is off you will get logic surprises instead of results.</p>
+
+<h2>Place work inside the loop</h2>
+<p>Put the actions the robot should repeat inside the While body. Common choices in UiPath include Click, Read CSV, Invoke Code and other activities. Add <code>Write Line</code> actions to trace progress. When interacting with the UI include short delays and robust selectors to make runs less flaky.</p>
+
+<h3>Example loop body checklist</h3>
+<ul>
+  <li>Call the API or click the UI element</li>
+  <li>Parse a row or update a file</li>
+  <li>Log iteration with <code>Write Line</code></li>
+  <li>Increment the counter with an Assign activity like <code>counter = counter + 1</code></li>
+  <li>Optionally use Break when a stopping condition is met</li>
+</ul>
+
+<h2>Guardrails to avoid an infinite loop</h2>
+<p>Never assume the loop will stop by magic. Add a safety counter or a timeout check inside the loop. An infinite loop will spike CPU and freeze schedulers which is bad for automation and for your project manager.</p>
+<ul>
+  <li>Maintain <code>counter</code> and compare to <code>maxRetries</code></li>
+  <li>Wrap risky actions in Try Catch so exceptions do not crash the whole run</li>
+  <li>Use a Break activity when an alternate stop condition is reached</li>
+</ul>
+
+<h2>Debugging and logging tips</h2>
+<p>Logging saves you from blind guessing. Use <code>Write Line</code> liberally to show the counter value and key variables inside the loop. If a run behaves oddly use breakpoints and step through so you can watch the VB expression evaluate in real time.</p>
+<ul>
+  <li>Log iteration number and key state</li>
+  <li>Test with small numbers first before scaling up</li>
+  <li>Monitor CPU usage when debugging potential infinite loops</li>
+</ul>
+
+<h2>When to use Do While instead</h2>
+<p>If the workflow must execute at least once pick Do While. It behaves similarly but checks the condition after the first iteration. Both are valid for UiPath automation depending on whether you need a guaranteed first pass.</p>
+
+<h2>Recap and quick checklist</h2>
+<p>Build While loops with clear variables use Assign activity to update counters craft correct VB expressions for the loop condition log progress and add Try Catch and a safety counter to prevent runaway automation. Follow these steps and your RPA project will be less likely to wake you up in the middle of the night.</p>
+
+<p>Now go forth and automate responsibly. Your scheduler and your CPU will thank you.</p>
+

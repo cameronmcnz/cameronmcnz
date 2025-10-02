@@ -1,0 +1,76 @@
+---
+layout: video
+title: "How to Install AWS CLI & Git on EC2 Instances"
+description: "Quick tutorial to install AWS CLI and Git on EC2 using a user data script and a simple S3 example for automated setup"
+video_host: "youtube"
+video_id: "E0IBiVZ8JZA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/E0IBiVZ8JZA/maxresdefault.jpg"
+content_url: "https://youtu.be/E0IBiVZ8JZA"
+embed_url: "https://www.youtube.com/embed/E0IBiVZ8JZA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - EC2
+  - AWS CLI
+  - Git
+  - User Data
+  - S3
+  - Amazon Linux
+  - Automation
+  - CloudInit
+  - DevOps
+---
+
+<h2>Why this exists and why you should care</h2>
+<p>If you like typing the same commands into new servers until your fingers cramp then stop reading now. If you prefer automation that does the boring work while you sip coffee and pretend to be strategic then the EC2 user data trick is your new best friend. This guide shows how to install AWS CLI and Git on EC2, fetch artifacts from S3, and keep the setup repeatable and reasonably secure for DevOps use.</p>
+
+<h2>Quick overview of the flow</h2>
+<ul>
+  <li>Choose an AMI such as Amazon Linux 2 or Ubuntu and attach an instance profile with minimal S3 permissions</li>
+  <li>Provide a user data script or cloud-init snippet that installs AWS CLI and Git and runs any extra setup</li>
+  <li>Optionally pull configuration or artifacts from S3 using the instance role</li>
+  <li>Verify versions and rely on the instance profile for credentials to avoid embedding secrets</li>
+</ul>
+
+<h3>Pick the right AMI and role</h3>
+<p>Amazon Linux 2 is convenient because yum installs the AWS CLI package straight away. Ubuntu needs apt update and apt install. Either way attach an IAM role to the EC2 instance with the least privilege needed to read the S3 objects you plan to fetch.</p>
+
+<h3>User data example that actually works</h3>
+<p>Paste this into the user data field at launch. It runs on first boot and is idempotent so a reboot will not cause chaos.</p>
+
+<pre><code>#!/bin/bash
+set -e
+# update and install on Amazon Linux 2
+yum update -y
+yum install -y aws-cli git
+
+# quick checks
+aws --version
+git --version
+
+# fetch optional setup from S3 using the instance role
+aws s3 cp s3://mybucketname/setup.sh /tmp/setup.sh || true
+bash /tmp/setup.sh || true
+</code></pre>
+
+<h3>Notes on idempotence and safety</h3>
+<p>Make your script safe to run more than once. That means using checks and defaults instead of blindly reinstalling things. Avoid embedding long lived credentials in user data. Instead rely on the attached instance profile and use minimal IAM permissions for S3 access.</p>
+
+<h3>Testing and verification</h3>
+<ul>
+  <li>After boot check aws --version and git --version</li>
+  <li>Confirm the instance can read the S3 objects it needs</li>
+  <li>Look for cloud-init logs in /var/log/cloud-init-output.log if something fails</li>
+</ul>
+
+<h2>Make it reproducible and put it under source control</h2>
+<p>Store your user data snippet and any secondary setup scripts in your repo. Treat them like code. Use CI to validate the script where practical. That way when someone asks why the server behaves a certain way you can point at a commit instead of blaming the intern or the network.</p>
+
+<h2>Final reality check</h2>
+<p>This method gets you automated installs of AWS CLI and Git on EC2 with a minimum of fuss. It avoids manual SSH installs, uses instance profiles for credentials, and plays nicely with S3 for configuration. It is not a magic wand but it is one less thing you have to babysit. Now go automate more stuff and pretend you always planned it this way.</p>
+

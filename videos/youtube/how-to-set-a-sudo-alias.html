@@ -1,0 +1,72 @@
+---
+layout: video
+title: "How to set a sudo alias"
+description: "Quick guide to add a sudo alias for faster command use with elevated privileges on Linux and macOS shells."
+video_host: "youtube"
+video_id: "mxHRlMiwICw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M37S"
+thumbnail_url: "https://i.ytimg.com/vi/mxHRlMiwICw/maxresdefault.jpg"
+content_url: "https://youtu.be/mxHRlMiwICw"
+embed_url: "https://www.youtube.com/embed/mxHRlMiwICw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - sudo
+  - alias
+  - bash
+  - zsh
+  - linux
+  - macos
+  - shell
+  - command line
+  - bashrc
+  - terminal
+---
+
+<p>Want to run your beloved shortcuts with sudo without feeling like a password punching monkey? You can make sudo expand user aliases so typed shortcuts like <code>ll</code> still work when prefixed with <code>sudo</code>. This is an interactive shell trick that works in bash and zsh on Linux and macOS. It is great for the command line but not a replacement for careful scripting or automation.</p>
+
+<h2>Edit your shell config file</h2>
+<p>Open the configuration file for the shell you use. The usual suspects are:</p>
+<ul>
+  <li><code>~/.bashrc</code> for bash</li>
+  <li><code>~/.zshrc</code> for zsh</li>
+</ul>
+<p>Use your favorite terminal editor like <code>nano</code> or <code>vim</code>. If you must, <code>code</code> or another GUI editor works too. Just do not edit system files at random unless you enjoy mystery breakage.</p>
+
+<h2>Add the sudo alias line</h2>
+<p>Insert this exact alias into the config file to allow alias expansion after the <code>sudo</code> token:</p>
+<pre><code>alias sudo='sudo '
+</code></pre>
+<p>Yes the trailing space inside the quotes is the secret sauce. That space tells the shell to expand an alias that follows the <code>sudo</code> token. Without the trailing space the shell treats the next word as a bare command and skips user aliases.</p>
+
+<h2>Reload your shell configuration</h2>
+<p>Apply the change right away by sourcing the file or starting a new terminal session. Examples:</p>
+<ul>
+  <li><code>source ~/.bashrc</code> for bash</li>
+  <li><code>source ~/.zshrc</code> for zsh</li>
+  <li>Or just close and reopen your terminal window</li>
+</ul>
+
+<h2>Test the alias and be cautious</h2>
+<p>Create a simple alias first to prove that expansion works. For example:</p>
+<pre><code>alias ll='ls -la'
+</code></pre>
+<p>Then run <code>sudo ll</code>. You should see your <code>ll</code> alias expand under sudo and then be prompted for your password as usual. If that makes you feel powerful, congratulations. If it makes you nervous, remember this is only for interactive shells.</p>
+
+<h3>Why you should not abuse this in scripts</h3>
+<p>Aliases are for humans typing at a terminal. In scripts and non interactive environments alias expansion is unpredictable across shells and remote sessions. For reliable automation prefer explicit commands or shell functions. Functions are portable and behave consistently under sudo when you export them or wrap the command properly.</p>
+
+<h3>Quick function alternative for automation</h3>
+<p>If you need a safe wrapper that behaves more predictably than aliases here is a tiny example that avoids ambiguity:</p>
+<pre><code>my_ls() {
+  ls -la "$@"
+}
+</code></pre>
+<p>You can call <code>sudo my_ls /some/path</code> if you export the function appropriately or put it in scripts that run in the right shell. Still read the manual and do not assume your environment is the same everywhere.</p>
+
+<h2>Final notes and warnings</h2>
+<p>This trick works in interactive bash and zsh sessions on Linux and macOS and is handy in the terminal for power users. It will not save you from bad habits or dangerous commands typed with sudo. Use alias expansion to save keystrokes, not to hide what commands actually do. Always prefer clear scripts or functions for automation and remote tasks.</p>
+

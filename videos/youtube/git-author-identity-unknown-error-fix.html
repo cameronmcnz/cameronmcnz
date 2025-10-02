@@ -1,0 +1,72 @@
+---
+layout: video
+title: "Git Author Identity Unknown Error Fix"
+description: "Quick guide to fix the Git Author Identity Unknown error by setting user name and email and amending commits from the command line"
+video_host: "youtube"
+video_id: "J3om_WD3GSI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT50S"
+thumbnail_url: "https://i.ytimg.com/vi/J3om_WD3GSI/maxresdefault.jpg"
+content_url: "https://youtu.be/J3om_WD3GSI"
+embed_url: "https://www.youtube.com/embed/J3om_WD3GSI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git author
+  - author unknown
+  - git error
+  - git config
+  - git commit
+  - github
+  - version control
+  - cli
+  - developer
+---
+
+<h2>Spot the problem</h2>
+<p>Sometimes git decides to play identity hide and seek and labels your commits with author unknown. This is a common git error when user name or email are not set in git config. The fix is small and your commit history will stop blaming you for being anonymous.</p>
+
+<h2>Check what git thinks about you</h2>
+<p>Run these commands in your CLI to inspect global and local identity values</p>
+<pre><code>git config --global user.name
+git config --global user.email
+git config user.name
+git config user.email</code></pre>
+<p>If any value is empty or missing that explains the author unknown entries in your git commit logs.</p>
+
+<h2>Set a global identity for daily work</h2>
+<p>Most developers should set a global name and email once and move on with life</p>
+<pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"</code></pre>
+<p>Use an email that matches your GitHub or hosting account to link commits to your profile and avoid mysterious avatars.</p>
+
+<h2>Override identity for a single repository</h2>
+<p>If a project needs a different identity set local values inside that repo</p>
+<pre><code>cd path/to/repo
+git config user.name "Repo Name"
+git config user.email "repo@example.com"</code></pre>
+
+<h2>Fix a commit that already lost its author</h2>
+<p>If a commit already shows unknown author you can correct the latest commit. Warning rewriting history can confuse collaborators so be cautious on shared branches.</p>
+<pre><code>git commit --amend --author="Your Name <you@example.com>" --no-edit</code></pre>
+<p>To change older commits use interactive rebase or a history rewrite tool such as git rebase -i or git filter-repo depending on repo size and your comfort level.</p>
+
+<h2>Push corrected history without breaking things</h2>
+<p>After you rewrite commits you must push with force but do it politely</p>
+<pre><code>git push --force-with-lease</code></pre>
+<p>This helps avoid trampling other peoples work. Communicate with your team before rewriting shared branches and prefer feature branches for experiments.</p>
+
+<h3>Quick checklist for developers</h3>
+<ul>
+<li>Check global and local git config values</li>
+<li>Set global user.name and user.email for everyday work</li>
+<li>Override identity per repository when needed</li>
+<li>Amend bad commits and use safe force push when required</li>
+<li>Match your commit email to your hosting profile for proper attribution</li>
+</ul>
+
+<p>If you want to avoid this mess forever set global values and move on. If you already rewrote history accept the tiny guilt trip and then enjoy commits that actually show your name. If anything goes wrong blame git not the timeline and ask a teammate for help.</p>
+

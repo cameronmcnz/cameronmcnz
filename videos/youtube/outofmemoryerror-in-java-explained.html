@@ -1,0 +1,79 @@
+---
+layout: video
+title: "OutOfMemoryError in Java Explained"
+description: "Understand OutOfMemoryError in Java why it happens how to diagnose memory leaks and how to fix or tune the JVM for stable apps"
+video_host: "youtube"
+video_id: "7Y67bkR977c"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M13S"
+thumbnail_url: "https://i.ytimg.com/vi/7Y67bkR977c/maxresdefault.jpg"
+content_url: "https://youtu.be/7Y67bkR977c"
+embed_url: "https://www.youtube.com/embed/7Y67bkR977c"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - OutOfMemoryError
+  - JVM
+  - Heap
+  - Memory Leak
+  - Garbage Collection
+  - Profiling
+  - jmap
+  - VisualVM
+  - Eclipse MAT
+---
+
+<h2>What it means when your JVM screams OutOfMemoryError</h2>
+<p>OutOfMemoryError is the JVM's dramatic way of saying it cannot hand out more heap memory. That means a requested allocation failed and the process is stuck staring into the void. It can be a real memory leak or just a workload that needs more headroom. Either way the symptoms are the same and the on call engineer gets a rude wake up call.</p>
+
+<h2>Usual suspects that cause heap exhaustion</h2>
+<ul>
+  <li>Long lived collections or listener lists that keep strong references to objects</li>
+  <li>A too small maximum heap setting via -Xmx for the real workload</li>
+  <li>Large temporary buffers or arrays during batch processing</li>
+  <li>Native memory pressure from direct byte buffers or JNI code</li>
+  <li>Metaspace growth from excessive class loading or leaking class loaders</li>
+  <li>Too many threads each with large stacks</li>
+</ul>
+
+<h2>How to diagnose without throwing darts at the console</h2>
+<p>Diagnosis follows two truths. First watch how the GC behaves. Second capture a heap image when the problem happens and read it like forensic evidence. Start with lightweight checks and then escalate to heap dumps and profilers.</p>
+
+<h3>Quick monitoring</h3>
+<ul>
+  <li>Watch GC logs with jstat or your JVM flags to see frequent full GC cycles and rising used heap.</li>
+  <li>Check OS level memory to spot native pressure using top or ps or equivalent on your platform.</li>
+  <li>Use jcmd with the process id and ask for GC or native memory reports to get JVM side metrics.</li>
+</ul>
+
+<h3>Heap dump and analysis</h3>
+<p>When the crash occurs capture a heap dump. jcmd PID GC.heap_dump filename works reliably on modern JDKs. Then open the hprof in VisualVM or Eclipse MAT. In MAT look at the dominator tree and sort by retained size to find the biggest memory holders. Those are your prime suspects.</p>
+
+<h3>Profiling for allocation hotspots</h3>
+<p>Sampling profilers or allocation profilers will show which code paths create the most objects. That helps find short lived but very heavy allocation fronts or places where objects accumulate due to logic errors.</p>
+
+<h2>Practical fixes that actually stop the pager from vibrating</h2>
+<ul>
+  <li>Increase heap with -Xmx if the workload legitimately needs more memory. This is a valid band aid but not a long term cure by itself.</li>
+  <li>Fix leaks by dropping unnecessary strong references, use weak references when appropriate, and clear caches on lifecycle boundaries.</li>
+  <li>Reduce cache sizes or switch to memory efficient collections for heavy data sets.</li>
+  <li>Tune garbage collector choices based on whether you want throughput or low pause times.</li>
+  <li>Investigate native memory and JNI or direct buffer handling when the heap looks fine but the process still runs out of memory.</li>
+  <li>Limit concurrent threads or reduce thread stack sizes when thread count is the problem.</li>
+  <li>Set a sensible MaxMetaspaceSize to avoid unbounded metaspace growth when class unloading is not keeping up.</li>
+</ul>
+
+<h2>Tips and troubleshooting checklist</h2>
+<ul>
+  <li>Take the heap dump under real load for accurate results. The largest retained sets will point to the real memory hogs.</li>
+  <li>Use Eclipse MAT dominator tree to find the object graphs holding onto memory.</li>
+  <li>Use VisualVM or a commercial profiler to find allocation hotspots before they become leaks.</li>
+  <li>Prefer jcmd for production heap dumps when possible. It is less intrusive than some older tools.</li>
+  <li>When in doubt increase observability so you stop fixing symptoms and start fixing root causes.</li>
+</ul>
+
+<p>If you like a predictable system and fewer 3 AM alarms then fix the leak not just the heap size. Extra RAM makes you feel better for a night but it does not stop bad memory habits. Now go capture a dump and find the culprit that is hoarding your objects like they are bitcoin.</p>
+

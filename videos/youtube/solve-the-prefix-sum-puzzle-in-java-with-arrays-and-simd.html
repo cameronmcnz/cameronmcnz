@@ -1,0 +1,89 @@
+---
+layout: video
+title: "Solve the prefix sum puzzle in Java with Arrays and SIMD"
+description: "Fast Java prefix sum guide using Arrays Vectors and SIMD for speed and clarity with practical code and benchmarking"
+video_host: "youtube"
+video_id: "g0z2L0bJ6xM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT17M42S"
+thumbnail_url: "https://i.ytimg.com/vi/g0z2L0bJ6xM/maxresdefault.jpg"
+content_url: "https://youtu.be/g0z2L0bJ6xM"
+embed_url: "https://www.youtube.com/embed/g0z2L0bJ6xM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - prefix sum
+  - prefixsum
+  - arrays
+  - Vector API
+  - SIMD
+  - performance
+  - benchmarking
+  - parallel
+  - optimization
+---
+
+<p>If you have ever needed running totals in Java and felt your code moving at the speed of molasses, this guide is for you. We will start with a clear and correct scalar baseline then move to array level tweaks and Vector API based SIMD style optimizations that actually improve performance while staying readable and testable. Expect some sarcasm and a few useful tricks.</p>
+
+<h2>What is a prefix sum and why care</h2>
+<p>Prefix sum produces an array p where p[i] is the sum of a[0] through a[i]. It is outrageously useful for cumulative statistics parallel algorithms and other problems where partial aggregates matter. If you start with a correct naive solution you can measure improvements without fooling yourself.</p>
+
+<h2>Baseline scalar loop and correctness</h2>
+<p>Start by proving the math. A tiny pseudocode baseline makes intent obvious and gives you a correctness oracle for later tests.</p>
+<pre><code>p[0] = a[0]
+for i from 1 to n minus 1 do
+  p[i] = p[i minus 1] + a[i]
+</code></pre>
+<p>Use primitive int or long arrays for best raw speed when you can overwrite input. Java bounds checks and object overhead are often why slow code looks slow. If safety matters write into a separate buffer and validate results.</p>
+
+<h2>In place arrays and simple optimizations</h2>
+<p>When memory matters overwrite the input array in place. That avoids allocating an output buffer and reduces GC pressure. Also prefer primitive arrays to boxed types and avoid extra bounds checks by writing straightforward loops. Warming up the JVM is not cheating. It is how you get realistic measurements.</p>
+
+<h2>Use the Java Vector API for lane level parallelism</h2>
+<p>The Vector API lets you operate on multiple lanes of data per instruction and maps to SIMD units on the CPU. The trick is to perform lane wise adds inside a vector then handle the carry between chunks. This lowers loop overhead and extracts parallelism without assembly.</p>
+<p>A high level sketch of the pattern looks like this</p>
+<pre><code>while enough elements remain do
+  load vector v from input
+  compute prefix per lane inside v using lane shifts and add
+  add previous chunk carry to every lane of v
+  store v to output
+  update carry with last lane of v
+end while
+use scalar fallback for remaining elements
+</code></pre>
+<p>The per vector prefix is a small sequence of vector shifts and adds. That is the SIMD minded trick that turns lane adds into a full chunk prefix. After you compute the intra vector prefix you still need to propagate the last lane to the next vector iteration.</p>
+
+<h2>SIMD minded tricks that help</h2>
+<ul>
+  <li>Use the widest species that your hardware supports to amortize loop overhead and reduce branch pressure.</li>
+  <li>Perform intra vector prefix with shift and add steps to create a local running total inside the vector.</li>
+  <li>Carry the last lane value to the next vector iteration by broadcasting it and adding it to the next loaded vector.</li>
+  <li>Fall back to a scalar loop for the tail elements to keep correctness simple.</li>
+  <li>Reduce bounds checks by working in blocks and only checking once per chunk.</li>
+</ul>
+
+<h2>Benchmarking and verification</h2>
+<p>Measure on realistic data with warm up and multiple runs. Compare small and large inputs to find the crossover point where vectorized code is worth the extra complexity. Always validate sums against the naive baseline to avoid subtle bugs.</p>
+<p>Simple benchmarking recipe</p>
+<ul>
+  <li>Warm up the JVM with a few iterations of each implementation</li>
+  <li>Run many iterations and take median or trimmed mean</li>
+  <li>Test varied input sizes to find where SIMD helps</li>
+  <li>Verify output against the scalar baseline each time</li>
+</ul>
+
+<h3>Quick checklist before you ship</h3>
+<ul>
+  <li>Correctness verified against naive solution</li>
+  <li>Tail handling tested for small arrays</li>
+  <li>Benchmarks include warm up and several sizes</li>
+  <li>Use primitive arrays when possible for best performance</li>
+  <li>Document assumptions about overflow and signedness</li>
+</ul>
+
+<h2>Parting advice</h2>
+<p>Vectorizing prefix sums is rewarding but subtle. Start small prove correctness then optimize. The Vector API gives you SIMD style parallelism without jumping into native code and it plays nicely with readable Java. If you need max single core throughput combine wider species careful carry handling and good benchmarking practice. And if your program still runs slow you can always blame the data set.</p>
+

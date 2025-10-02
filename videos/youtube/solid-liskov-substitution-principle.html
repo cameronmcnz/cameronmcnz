@@ -1,0 +1,103 @@
+---
+layout: video
+title: "SOLID Liskov Substitution Principle"
+description: "Clear explanation of Liskov Substitution Principle with example failures and practical fixes for robust object oriented design and cleaner inheritance."
+video_host: "youtube"
+video_id: "24QmNA64cd0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/24QmNA64cd0/maxresdefault.jpg"
+content_url: "https://youtu.be/24QmNA64cd0"
+embed_url: "https://www.youtube.com/embed/24QmNA64cd0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - SOLID
+  - Liskov Substitution Principle
+  - LSP
+  - OOP
+  - Object Oriented Design
+  - Design Principles
+  - Code Quality
+  - Refactoring
+  - Software Architecture
+  - Programming Best Practices
+---
+
+<p>If your class hierarchy looks like a wildlife documentary gone wrong you are probably violating the Liskov Substitution Principle. That is the fancy rule that says a subclass must behave like its parent so callers do not get unwelcome surprises. Behold the sad truth of broken polymorphism and then learn how to stop the madness.</p>
+
+<h2>What Liskov actually means</h2>
+<p>In plain programming language the rule is simple. If code expects a base type it should be able to use any subtype without changing correctness. If a subclass refuses to do what callers rely on you have a design bug not a mysterious runtime mood swing.</p>
+
+<h3>Classic failing example</h3>
+<pre><code>class Bird
+  def fly
+    return "flying"
+  end
+end
+
+class Penguin &lt; Bird
+  def fly
+    raise "CannotFlyException"
+  end
+end
+</code></pre>
+<p>Forcing a penguin to inherit flight is a design smell. Tests will fail, developers will grumble, and maintainability will take a long nap.</p>
+
+<h2>How to fix it without crying</h2>
+<p>The goal is to align types with real capabilities not hopeful inheritance. Here are practical edits that actually help.</p>
+<ul>
+  <li>Design by behavior not by concrete species. Model what an object does rather than what it is.</li>
+  <li>Split roles into focused interfaces or abstract classes so only flyers implement flying behavior.</li>
+  <li>Use composition when a capability cannot be shared across a whole hierarchy. Give objects behaviors instead of inheriting them blindly.</li>
+  <li>Keep method contracts stable across the hierarchy. Do not strengthen preconditions and do not weaken postconditions in subclasses.</li>
+  <li>Write contract tests that exercise the base type against each subclass to catch violations early.</li>
+</ul>
+
+<h3>Example refactor idea</h3>
+<p>Instead of forcing every bird to have fly you might introduce a separate role object or interface for flying. Something like this in pseudocode keeps responsibilities clear.</p>
+<pre><code>class Bird
+  def speak
+    return "chirp"
+  end
+end
+
+module Flyable
+  def fly
+    return "flying"
+  end
+end
+
+class Sparrow &lt; Bird
+  include Flyable
+end
+
+class Penguin &lt; Bird
+  # no Flyable included
+end
+</code></pre>
+
+<h2>Tests that behave like good citizens</h2>
+<p>One killer habit is to add a set of contract tests that every subtype must pass. That way a future refactor that breaks a contract trips an alarm instead of causing a production nightmare.</p>
+<pre><code>def test_base_contract(obj)
+  # ensure methods that callers depend on behave consistently
+  assert obj.respond_to?(:speak)
+  # if object is supposed to fly then test flying behavior
+  if obj.respond_to?(:fly)
+    assert_equal "flying", obj.fly
+  end
+end
+</code></pre>
+
+<h2>Short checklist before you hit merge</h2>
+<ul>
+  <li>Can every subtype honor the base class contract</li>
+  <li>Are behaviors split into focused interfaces or modules</li>
+  <li>Did you prefer composition when inheritance smells wrong</li>
+  <li>Do you have contract tests that run for each subclass</li>
+</ul>
+
+<p>Follow these rules and your hierarchies will stop telling lies. LSP is not just a rule to recite at code review it is the guardrail that keeps polymorphism useful and predictable. Write code that keeps promises and you will spend less time debugging and more time pretending you knew what you were doing all along.</p>
+

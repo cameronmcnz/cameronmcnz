@@ -1,0 +1,64 @@
+---
+layout: video
+title: "Install Java on Windows"
+description: "Quick guide to download and install Java on Windows and set JAVA_HOME and PATH so compilers and tools run properly"
+video_host: "youtube"
+video_id: "KQhuf06o-zw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M47S"
+thumbnail_url: "https://i.ytimg.com/vi/KQhuf06o-zw/maxresdefault.jpg"
+content_url: "https://youtu.be/KQhuf06o-zw"
+embed_url: "https://www.youtube.com/embed/KQhuf06o-zw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Windows
+  - JDK
+  - Install Java
+  - JAVA_HOME
+  - PATH
+  - Java tutorial
+  - Command Prompt
+  - OpenJDK
+  - javac
+---
+
+<p>If you want Java on Windows with the least drama and maximum caffeine savings this guide will walk you through downloading a JDK installing it setting environment variables and confirming everything actually works. Yes you will need admin rights once or twice. No you do not need to sacrifice a hard drive.</p>
+
+<h2>Pick the right JDK build</h2>
+<p>Choose a build provider such as Oracle or an OpenJDK build like Eclipse Temurin or Amazon Corretto. For most people pick a long term support build to avoid surprises in the middle of a sprint. Download the Windows x64 installer for the JDK version you want and save it somewhere you can find later.</p>
+
+<h2>Run the installer</h2>
+<p>Right click the downloaded installer and run as administrator. Follow the prompts. Default install locations are fine for most developers. The installer will create a JDK home folder that we will reference from environment variables later.</p>
+
+<h2>Set JAVA_HOME environment variable</h2>
+<p>Open System Properties then Advanced then Environment Variables. Create a new user or system variable named JAVA_HOME and set the value to the JDK home folder path. For example C\Program Files\Java\jdk-17. Using JAVA_HOME avoids hard coding full paths inside scripts and keeps life sane.</p>
+
+<h2>Add the JDK bin folder to PATH</h2>
+<p>Edit the PATH variable and add %JAVA_HOME%\bin near the front so java and javac run from your chosen JDK. Save and close the dialog. Restart any open Command Prompt or PowerShell windows so they pick up the change.</p>
+
+<h3>Why put %JAVA_HOME%\bin at the front</h3>
+<p>Windows resolves executables by scanning PATH from left to right. Placing your JDK near the front ensures your tools use the JDK you just installed rather than an ancient Java from whatever random app installed years ago.</p>
+
+<h2>Verify the installation</h2>
+<p>Open a new Command Prompt or PowerShell window and run the following commands to confirm both the runtime and compiler are correct.</p>
+<ul>
+  <li><code>java -version</code></li>
+  <li><code>javac -version</code></li>
+</ul>
+<p>Both commands should show the installed JDK version. If a different version appears run <code>where java</code> and <code>where javac</code> to see which executables are being found and adjust PATH order or uninstall the other JDK.</p>
+
+<h2>Troubleshooting and practical tips</h2>
+<ul>
+  <li>Prefer OpenJDK builds such as Temurin for simpler licensing and fewer surprises.</li>
+  <li>Keep JAVA_HOME pointed at a single JDK to avoid confusion. If you must use multiple JDKs use explicit paths in scripts or CI to be clear.</li>
+  <li>If you still get the wrong version check for other Java installs that may have modified PATH or system variables.</li>
+  <li>On Windows use <code>where java</code> to locate which java executable is being used and adjust PATH accordingly.</li>
+  <li>Restart terminals and IDEs after changing environment variables so they pick up the new values.</li>
+</ul>
+
+<p>This guide covered downloading a JDK running the installer setting JAVA_HOME updating PATH and verifying command line tools. Follow these steps and your Windows machine will be ready to compile and run Java programs and to play nicely with IDEs and build tools. If anything goes sideways come back here and read it again while you drink something strong.
+

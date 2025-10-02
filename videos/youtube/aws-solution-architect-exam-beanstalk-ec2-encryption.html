@@ -1,0 +1,71 @@
+---
+layout: video
+title: "AWS Solution Architect Exam Beanstalk EC2 Encryption"
+description: "Compact guide to an exam style question about Beanstalk EC2 encryption EBS IOPS EKS ECS and S3 with practical objective mapping and tips"
+video_host: "youtube"
+video_id: "48v7F6izj00"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT58S"
+thumbnail_url: "https://i.ytimg.com/vi/48v7F6izj00/maxresdefault.jpg"
+content_url: "https://youtu.be/48v7F6izj00"
+embed_url: "https://www.youtube.com/embed/48v7F6izj00"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - SolutionArchitect
+  - Beanstalk
+  - EC2
+  - EBS
+  - Encryption
+  - IOPS
+  - EKS
+  - ECS
+  - S3
+---
+
+<h2>Service roles and who actually does the work</h2>
+<p>Elastic Beanstalk deploys your app to a managed fleet of EC2 instances. That means Beanstalk often handles scaling and deployment concerns while the EC2 instance owns the instance attached storage. If the exam asks which layer controls storage think EC2 and EBS. If it asks about managed deployments think Beanstalk and its environment tiers.</p>
+
+<h2>Encryption at rest made boring and clear</h2>
+<p>When the question says protect data at rest it usually expects you to pick EBS encryption for disks attached to instances and S3 server side encryption for object storage. If compliance or audit trails matter the safe answer is a customer managed KMS key. KMS gives rotation and logging that auditors pretend not to hate.</p>
+
+<h3>Quick rules to remember</h3>
+<ul>
+  <li>Instance disk data means EBS with encryption enabled and KMS CMKs where required</li>
+  <li>Object storage means S3 SSE with SSE S3 or SSE KMS depending on audit needs</li>
+  <li>Pick customer managed KMS keys when the question mentions compliance or key rotation</li>
+</ul>
+
+<h2>EBS performance and IOPS choices</h2>
+<p>IOPS matter when the workload is database heavy or does a lot of random IO. On exams the gp3 volume often shows up as the clever answer because it separates baseline throughput and IOPS from capacity. That means you can tune performance without paying for extra storage you do not need.</p>
+
+<h3>Choose the right volume type</h3>
+<ul>
+  <li>gp2 is simple but ties IOPS to size</li>
+  <li>gp3 lets you set IOPS and throughput independently from capacity so it is commonly correct for optimizations</li>
+  <li>io1 or io2 are for very high IOPS requirements such as production databases</li>
+</ul>
+
+<h2>Containers and orchestration choices</h2>
+<p>If the objective explicitly mentions Kubernetes pick EKS. If the objective wants tighter AWS managed integration or an easier learning curve pick ECS. Beanstalk can still deploy containers but if the question requires native Kubernetes features pick EKS without blinking.</p>
+
+<h2>Exam answering strategy that does not rely on memorizing memes</h2>
+<p>Map each objective line in the question to a concrete capability. If an answer talks about managed deployment and the objective does not require container orchestration then Beanstalk is likely the winner. If an answer talks about disk encryption and the resource is an instance attached disk then pick EBS with KMS. If it talks about object encryption pick S3 SSE.</p>
+
+<h3>A quick decision checklist</h3>
+<ul>
+  <li>If the resource is an EC2 instance think EBS for block storage</li>
+  <li>If the resource is objects think S3 and pick the appropriate SSE option</li>
+  <li>If the question mentions Kubernetes pick EKS</li>
+  <li>If the question mentions deep AWS integration or simplicity pick ECS</li>
+  <li>If compliance or audit is a factor pick customer managed KMS keys</li>
+</ul>
+
+<h2>Final tip that actually wins points</h2>
+<p>When a question mixes Beanstalk and EC2 stop and read the resource type. Match EBS to instance disks and S3 to objects. That simple pattern scores more points than frantically reciting every service name. Also breathe. The exam is testing your ability to map objectives to capabilities not how loud you can shout AWS service names.</p>
+
+<p>Now go practice some questions and try not to overthink a gp3 answer when the question is about audit logs. You will thank yourself later when the exam questions stop sounding like riddles and start sounding like work.</p>
+

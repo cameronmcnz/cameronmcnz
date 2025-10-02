@@ -1,0 +1,70 @@
+---
+layout: video
+title: "Jenkins Hello World Pipeline Example"
+description: "Learn how to build a basic Jenkins Hello World pipeline using a simple Jenkinsfile and run a stage to learn core pipeline concepts."
+video_host: "youtube"
+video_id: "5wsd_DncdwA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M54S"
+thumbnail_url: "https://i.ytimg.com/vi/5wsd_DncdwA/maxresdefault.jpg"
+content_url: "https://youtu.be/5wsd_DncdwA"
+embed_url: "https://www.youtube.com/embed/5wsd_DncdwA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - pipeline
+  - Hello World
+  - CI
+  - CD
+  - Jenkinsfile
+  - Declarative Pipeline
+  - Groovy
+  - DevOps
+  - Tutorial
+---
+
+<p>If you want to teach Jenkins to say Hello World and then graduate to actual work that builds things then this tiny tutorial will get you there without emotional damage. We will create a pipeline job add a Jenkinsfile and run a simple declarative pipeline that prints Hello World and runs a single stage. After that you can add tests builds and deployments when you are feeling brave.</p>
+
+<h2>What you will do</h2>
+<p>Follow a short path from blank Jenkins to a working pipeline that you can extend. This is for CI beginners people who like readable pipelines and for the curious who want to poke at a Jenkinsfile before committing it to a repo.</p>
+
+<h2>Step 1 Create the job</h2>
+<p>Open Jenkins and click New Item. Give the job a name and choose Pipeline as the type. For real work connect a source repository via Pipeline script from SCM. For fast iteration use the Pipeline script area in the web UI so you can tweak and rerun until the code behaves or you cry.</p>
+
+<h2>Step 2 Add a Jenkinsfile</h2>
+<p>Place a file named Jenkinsfile at the repository root or paste the same script into the job. Here is a minimal declarative example that does exactly what you expect and nothing more.</p>
+
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Hello') {
+      steps {
+        echo 'Hello World'
+      }
+    }
+  }
+}
+</code></pre>
+
+<h2>Step 3 Run and observe</h2>
+<p>Build the job and open the console output. You will see Hello World printed which proves the pipeline ran. Console logs are the fastest way to debug pipeline mistakes or to confirm that your echo is not lying to you.</p>
+
+<h2>Step 4 Extend the pipeline</h2>
+<p>Once the Hello stage is working add stages for build test and deploy. Use post blocks for cleanup notifications and failure handling. Keep stage steps small and focused so debugging does not feel like archaeology.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Put Jenkinsfile at repo root or use Pipeline script from SCM</li>
+  <li>Start with agent any and a single stage to validate the flow</li>
+  <li>Use console output to confirm behavior and to find typos fast</li>
+  <li>Add post blocks for archiving artifacts cleanup and notifications</li>
+</ul>
+
+<h2>Tips and sanity saving tricks</h2>
+<p>Try the Blue Ocean plugin or the Pipeline Stage View to get a visual of stage execution. While experimenting keep the pipeline script in the web UI for faster feedback before you commit a Jenkinsfile to a branch. When you are ready convert simple scripts into a declarative pipeline that uses shared libraries and parameterized builds for production grade CI and CD.</p>
+
+<p>There you go. A small Jenkinsfile a single Hello World stage and a clear path to more stages tests and deployments. Now go break something safely in a test job and then fix it like a pro.</p>
+

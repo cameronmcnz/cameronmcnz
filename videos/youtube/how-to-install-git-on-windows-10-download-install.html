@@ -1,0 +1,96 @@
+---
+layout: video
+title: "How to Install Git on Windows 10 | Download Install"
+description: "Quick step by step guide to download install and configure Git on Windows 10 for beginners and developers"
+video_host: "youtube"
+video_id: "9CAwvKiLICs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT36M26S"
+thumbnail_url: "https://i.ytimg.com/vi/9CAwvKiLICs/maxresdefault.jpg"
+content_url: "https://youtu.be/9CAwvKiLICs"
+embed_url: "https://www.youtube.com/embed/9CAwvKiLICs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - Windows 10
+  - Install Git
+  - Git tutorial
+  - Version control
+  - Git configuration
+  - SSH keys
+  - Git Bash
+  - Git for Windows
+  - Developer tools
+---
+
+<h1>Practical Windows 10 Git setup with Bash SSH keys and credential tips</h1>
+
+<p>If you want version control without losing your sanity this guide walks you through installing Git on Windows 10 with the minimal drama and the maximum amount of developer dignity. Expect sensible defaults, a few jokes, and commands that actually work.</p>
+
+<h2>Grab the right package and run the installer</h2>
+
+<p>Download Git for Windows from the official site and pick the 64 bit build for most modern machines. Avoid random mirrors unless you enjoy mystery. Run the downloaded installer with administrator rights so it can update PATH and add the shell components without whining.</p>
+
+<ul>
+  <li>Choose the default editor or use your favorite text editor if you insist.</li>
+  <li>Pick Git Bash for a Unix like shell experience on Windows 10 that does not pretend to be PowerShell.</li>
+  <li>Accept the recommended line ending handling unless you are stuck in a legacy project that demands weird settings.</li>
+</ul>
+
+<h2>Configure who you are so commits stop being anonymous</h2>
+
+<p>Open Git Bash or your terminal of choice and set your global identity. This prevents commit messages from being credited to Mystery Person.</p>
+
+<pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"</code></pre>
+
+<p>If you use HTTPS remove the hassle by enabling the credential helper. For example run</p>
+
+<pre><code>git config --global credential.helper manager-core</code></pre>
+
+<p>This stores credentials securely so you do not have to type your password every time you breathe.</p>
+
+<h2>Or use SSH keys for the classy workflow</h2>
+
+<p>SSH keys are cleaner and less annoying than passwords. Generate an ed25519 key pair and copy the public key to your Git host.</p>
+
+<pre><code>ssh-keygen -t ed25519</code></pre>
+
+<p>Then add the public key to GitHub GitLab or your private server via the web UI. After that authenticate by key instead of by memory.</p>
+
+<h2>Verify the install and try a quick test repo</h2>
+
+<p>Confirm Git is visible in your terminal by running</p>
+
+<pre><code>git --version</code></pre>
+
+<p>Create a tiny test repo to make sure committing actually works</p>
+
+<pre><code>mkdir git-test
+cd git-test
+git init
+echo "hello" > README.md
+git add README.md
+git commit -m "Initial commit"</code></pre>
+
+<p>If a command fails check that Git is on PATH or reinstall with the default options to fix any missing bits.</p>
+
+<h3>Quick checklist for a working Git setup</h3>
+
+<ul>
+  <li>Installed Git for Windows 64 bit where appropriate</li>
+  <li>Selected Git Bash for a friendly shell</li>
+  <li>Set git config user.name and user.email globally</li>
+  <li>Enabled credential helper or added SSH keys</li>
+  <li>Verified git --version and made a test commit</li>
+</ul>
+
+<h2>Final advice that will save you time and dignity</h2>
+
+<p>Use SSH keys if you can. Keep global configuration minimal and project specific settings in .gitconfig when needed. If something breaks check PATH or reinstall using the recommended installer options and try not to panic.</p>
+
+<p>Follow these steps and you will be ready to clone push and manage repositories on Windows 10 like a responsible developer who still has time for coffee.</p>
+

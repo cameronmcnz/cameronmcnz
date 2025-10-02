@@ -1,0 +1,93 @@
+---
+layout: video
+title: "Spring & Spring Boot ConfigurationProperties Tutorial"
+description: "Learn how to bind lists maps and nested classes with ConfigurationProperties in Spring and Spring Boot with practical steps and examples."
+video_host: "youtube"
+video_id: "SpaTMoPqjE0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT21M0S"
+thumbnail_url: "https://i.ytimg.com/vi/SpaTMoPqjE0/maxresdefault.jpg"
+content_url: "https://youtu.be/SpaTMoPqjE0"
+embed_url: "https://www.youtube.com/embed/SpaTMoPqjE0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - spring
+  - spring boot
+  - configurationproperties
+  - binding
+  - lists
+  - maps
+  - nested
+  - prefix
+  - properties
+  - tutorial
+---
+
+<h2>Quick overview</h2>
+<p>If you hate scattering string literals all over your code and enjoy typed safety with a side of mild smugness this guide shows how to bind configuration properties in Spring and Spring Boot using @ConfigurationProperties. You will see how to handle lists maps nested classes and prefix based binding while keeping your app readable and testable.</p>
+
+<h2>Define the config class</h2>
+<p>Create a plain Java class and annotate it with @ConfigurationProperties(prefix = "app"). You can use traditional setters and getters or prefer constructor based binding with @ConstructorBinding if you like immutable objects and fewer surprises at runtime.</p>
+<pre><code>@ConfigurationProperties(prefix = "app")
+public class AppConfig {
+    private List<String> items
+    private Map<String, String> settings
+    private Security security
+
+    public static class Security {
+        private boolean enabled
+        private List<String> roles
+    }
+
+    // add getters or use constructor binding
+}
+</code></pre>
+
+<h2>Register and enable binding</h2>
+<p>Spring needs to know where to find that class. You have options depending on how tidy or lazy you feel.</p>
+<ul>
+    <li>Use @EnableConfigurationProperties(AppConfig.class) on a configuration class if you like explicit wiring</li>
+    <li>Add @ConfigurationPropertiesScan on your main application class to let Spring pick up annotated classes automatically</li>
+    <li>Annotate the config class with @Component for quick results when you are in a hurry</li>
+</ul>
+
+<h2>Working with lists maps and nested types</h2>
+<p>Collections and nested groups are first class citizens. Use List for ordered collections and Map for keyed data. Nest related settings into a static inner class to keep things organized.</p>
+<pre><code>app.items[0]=alpha
+app.items[1]=beta
+app.settings.mode=fast
+app.security.enabled=true
+app.security.roles[0]=USER
+app.security.roles[1]=ADMIN
+</code></pre>
+<p>Spring Boot relaxed binding will map hyphens underscores and camel case to your fields so app-settings or app_settings will still land in the right place without manual gymnastics.</p>
+
+<h2>Test and verify the binding</h2>
+<p>Inject the config class into a test or component and assert the expected values. If a list or map looks empty check the property keys the field types and whether the class was registered for binding before blaming Spring.</p>
+
+<h3>Example verification approach</h3>
+<ul>
+    <li>Load the test context with @SpringBootTest or with a slice that includes configuration properties</li>
+    <li>Autowire the AppConfig and assert items size settings and nested flags</li>
+    <li>If a value is missing check prefix typos and whether you used constructor binding without matching constructor parameters</li>
+</ul>
+
+<h2>Common gotchas</h2>
+<ul>
+    <li>Empty list or map often means a typo in property keys or wrong field type</li>
+    <li>Not picking up the class means you forgot @EnableConfigurationProperties or @ConfigurationPropertiesScan is not active</li>
+    <li>Constructor based binding will fail if constructor parameters do not match property names</li>
+</ul>
+
+<h2>Best practices</h2>
+<ul>
+    <li>Prefer constructor binding for immutable configuration classes it reduces accidental mutation</li>
+    <li>Use @ConfigurationPropertiesScan so you do not have to register every single config class by hand</li>
+    <li>Group related values inside nested classes to keep properties tidy and easier to document</li>
+</ul>
+
+<p>Final thought If you follow these steps you get typed configuration that plays nicely with Spring Boot and reduces the chance of runtime surprises. Also you get to stop using mysterious string keys in ten different classes which will make future you mildly grateful and present you slightly smug.
+

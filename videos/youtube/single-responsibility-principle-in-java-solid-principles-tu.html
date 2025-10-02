@@ -1,0 +1,72 @@
+---
+layout: video
+title: "Single Responsibility Principle in Java (SOLID Principles Tu"
+description: "Learn how to apply Single Responsibility Principle in Java for cleaner classes and easier maintenance with practical steps and examples."
+video_host: "youtube"
+video_id: "MPp4A4F6rQI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M9S"
+thumbnail_url: "https://i.ytimg.com/vi/MPp4A4F6rQI/maxresdefault.jpg"
+content_url: "https://youtu.be/MPp4A4F6rQI"
+embed_url: "https://www.youtube.com/embed/MPp4A4F6rQI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - SOLID
+  - Single Responsibility Principle
+  - SRP
+  - clean code
+  - refactoring
+  - object oriented
+  - software design
+  - unit testing
+  - best practices
+---
+
+<p>Most Java classes do two things badly. One thing is fine. Two things is a personality crisis. This guide walks through the Single Responsibility Principle from SOLID and shows how to stop classes from trying to be a web server, logger, and business analyst all at once. Expect practical refactoring moves, unit testing tips, and fewer mysterious bugs.</p>
+
+<h2>Spot the design smells</h2>
+<p>Start by naming the reasons a class might change. If a class handles business rules and logging then there are at least two reasons to edit it. If changing persistence forces edits in unrelated methods then the class is guilty. Naming reasons to change is the fastest way to spot where SRP will buy you sanity and fewer merge conflicts.</p>
+
+<h2>Refactor in five small moves</h2>
+<ol>
+  <li><strong>Identify responsibilities</strong>
+    <p>Read the class and write down what it is responsible for. Business logic, validation, logging, persistence, UI glue. If the list has more than one item it is time to split.</p>
+  </li>
+  <li><strong>Extract into dedicated classes</strong>
+    <p>Move each responsibility into its own class. For example move order validation into OrderValidator and persistence into OrderRepository. The original class becomes a coordinator rather than a kitchen sink.</p>
+  </li>
+  <li><strong>Define clear interfaces for roles</strong>
+    <p>Expose behavior with interfaces such as PaymentProcessor so that replacements and testing are trivial. Interfaces act like promises. They prevent surprise behavior and make mocking pleasant.</p>
+  </li>
+  <li><strong>Prefer composition</strong>
+    <p>Assemble behavior from small pieces by injecting OrderValidator and PaymentProcessor into OrderService rather than adding more methods to OrderService. Composition encourages reuse and reduces coupling.</p>
+  </li>
+  <li><strong>Refactor with tests</strong>
+    <p>Write unit tests for business rules, then refactor with those tests in place. Tests give you permission to change and keep refactor regressions from being sneak attacks.</p>
+  </li>
+</ol>
+
+<h3>Why interfaces win for testing</h3>
+<p>When behavior is expressed as an interface unit testing gets easier. Mock or stub the PaymentProcessor and focus tests on OrderService logic. Testing becomes about behavior not about how many lines of code you rearranged.</p>
+
+<h3>Composition keeps merge conflicts chill</h3>
+<p>Smaller focused classes mean fewer people editing the same file. That reduces merge conflicts and makes reviews faster. Also it makes stepping through a debugger less tragic and future feature work less heroic.</p>
+
+<h2>Unit testing and refactoring strategy</h2>
+<p>Write tests around business rules and use interfaces to isolate external systems. When you refactor run the tests and let them scream if something broke. If you need to change logging then that change should not touch classes that compute prices. If it does then split logging out first.</p>
+
+<h2>Quick checklist for SRP in Java</h2>
+<ul>
+  <li>Can you name separate reasons this class changes</li>
+  <li>Does the class combine business logic and infrastructure code</li>
+  <li>Are there obvious candidate classes like OrderValidator and OrderRepository</li>
+  <li>Do interfaces exist to make dependencies mockable in unit testing</li>
+  <li>Will composition let you reuse parts instead of copy paste</li>
+</ul>
+
+<p>The Single Responsibility Principle is not a rigid law. Treat it like a design compass that points toward simplicity and maintainability. Apply SRP with common sense, write tests, and enjoy fewer bugs and less code drama. Your future self will send you a thank you note or at least fewer angry comments in the commit log.</p>
+

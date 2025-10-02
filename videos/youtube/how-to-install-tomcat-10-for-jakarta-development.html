@@ -1,0 +1,80 @@
+---
+layout: video
+title: "How to Install Tomcat 10 for Jakarta Development"
+description: "Step by step guide to install Tomcat 10 for Jakarta EE development on Windows Linux and Mac with quick configuration and deploy tips"
+video_host: "youtube"
+video_id: "0YZzAQKGtvo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M6S"
+thumbnail_url: "https://i.ytimg.com/vi/0YZzAQKGtvo/maxresdefault.jpg"
+content_url: "https://youtu.be/0YZzAQKGtvo"
+embed_url: "https://www.youtube.com/embed/0YZzAQKGtvo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Tomcat 10
+  - Apache Tomcat
+  - Jakarta EE
+  - Java
+  - Installation
+  - Deploy WAR
+  - Server setup
+  - Startup scripts
+  - Windows Tomcat
+  - Linux Tomcat
+---
+
+<h2>Why this guide exists and why you should care</h2>
+<p>You want a local Apache Tomcat 10 server for Jakarta EE development, and you want it to start without throwing a tantrum. This guide walks you through downloading Tomcat 10, verifying Java, unpacking files, configuring a manager user and ports, deploying a sample WAR, and starting the server on Windows Linux or Mac. It is short on fluff and long on practical steps with a pinch of sarcasm for morale.</p>
+
+<h2>Download Tomcat 10</h2>
+<p>Get the binary distribution from the Apache Tomcat mirrors. Pick the core zip or tar archive that matches your operating system. If you enjoy reading documentation grab the docs and examples too for emotional support.</p>
+
+<h3>Pick the right archive</h3>
+<p>Linux and Mac normally use the tar.gz file. Windows users will want the zip. No need to overthink it.</p>
+<pre><code>tar xzf apache-tomcat-10.x.tar.gz on Unix like systems
+unzip apache-tomcat-10.x.zip on Windows
+</code></pre>
+
+<h2>Install Java</h2>
+<p>Tomcat 10 requires Java 11 or later. Yes that means JDK not some mystery runtime you half installed five years ago. Install Java using your platform package manager or the vendor installer. Then confirm the install with a single command and no drama.</p>
+<pre><code>java -version
+</code></pre>
+<p>Set JAVA_HOME to the root of your JDK. On Linux add it to your shell profile or systemd unit. On Windows set the environment variable to your JDK install folder such as C drive Program Files Java jdk 11. If you skip this step Tomcat will sulk and give vague errors.</p>
+
+<h2>Unpack and place server files</h2>
+<p>Extract the archive to a sensible location like your home directory or a system level folder. The Tomcat home will contain conf lib bin logs webapps and work folders. Keep it somewhere you can find later without divine intervention.</p>
+
+<h2>Configure users and ports</h2>
+<p>To use the manager app add a user in conf/tomcat-users.xml with the expected roles. Use manager-gui for the web based manager and admin-gui if you want the admin pages. Make sure the XML stays well formed because parsers do not suffer fools.</p>
+<pre><code>&lt;tomcat-users&gt;
+  &lt;role rolename="manager-gui" /&gt;
+  &lt;role rolename="admin-gui" /&gt;
+  &lt;user username="dev" password="changeit" roles="manager-gui,admin-gui" /&gt;
+&lt;/tomcat-users&gt;
+</code></pre>
+<p>If port 8080 is already in use by another app change the Connector port in conf/server.xml to an unused number. Search for Connector port and edit the value. No magic here just plain port swapping.</p>
+
+<h2>Deploy and start the server</h2>
+<p>There are two boringly simple ways to deploy your WAR. Option one drop the WAR into the webapps folder and let Tomcat auto deploy it. Option two enable the manager app and upload the WAR with the web UI once you added the manager user.</p>
+<pre><code>Deploy by copying MyApp.war into webapps
+Start Tomcat with the provided script
+bin/startup.sh on Unix
+bin\startup.bat on Windows
+</code></pre>
+<p>Logs live in the logs folder. If Tomcat complains check the log files for stack traces and missing class errors. On Unix you may have a logs/catalina.out file to tail. Debugging is 10 percent logic and 90 percent reading the logs while swearing softly.</p>
+
+<h2>Troubleshooting and quick tips</h2>
+<ul>
+  <li>Permissions Make sure the user running Tomcat can read conf and write logs and webapps</li>
+  <li>Environment Verify JAVA_HOME and your PATH if startup fails</li>
+  <li>Ports If 8080 is busy change conf/server.xml or stop the offending process</li>
+  <li>Manager app If the manager UI is missing check tomcat-users.xml for typos or wrong roles</li>
+  <li>Deploy WAR If auto deploy does not work try copying the exploded app to webapps and watch the logs</li>
+</ul>
+
+<h2>Final words for the courageous</h2>
+<p>Follow these steps and you will have a running Tomcat 10 instance ready for Jakarta EE development and local testing. If things break consult the logs and remind yourself that servers only misbehave when humans try to make them useful. Now go deploy a WAR and pretend you are in charge.</p>
+

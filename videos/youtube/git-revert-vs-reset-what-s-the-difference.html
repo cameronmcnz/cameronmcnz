@@ -1,0 +1,80 @@
+---
+layout: video
+title: "Git revert vs reset What's the difference?"
+description: "Clear comparison of Git revert and Git reset with examples when to use each and how to recover lost commits."
+video_host: "youtube"
+video_id: "LQ1NTTjI3ZU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M15S"
+thumbnail_url: "https://i.ytimg.com/vi/LQ1NTTjI3ZU/maxresdefault.jpg"
+content_url: "https://youtu.be/LQ1NTTjI3ZU"
+embed_url: "https://www.youtube.com/embed/LQ1NTTjI3ZU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - revert
+  - reset
+  - git revert
+  - git reset
+  - version control
+  - git commands
+  - reflog
+  - force push
+  - git tips
+---
+
+<p>Welcome to the git choose your weapon guide. Both git revert and git reset can fix mistakes. One does it politely and leaves a trail for teammates to admire. The other runs around changing history and may cause a panic worthy of a group chat. Use the right tool and avoid awkward stand up meetings.</p>
+
+<h2>Quick summary you can read between meetings</h2>
+<p>In plain terms git revert creates a new commit that undoes the effects of a previous commit while git reset moves the branch pointer and optionally rewrites the index and working tree. Revert preserves public history and is safe on shared branches. Reset rewrites history and is best for local cleanup before you push.</p>
+
+<h2>What each command actually does</h2>
+<ul>
+  <li><strong>git revert</strong> makes a new commit that applies the inverse of a target commit. History stays linear and human readable. Your collaborators will thank you or at least not rage quit.</li>
+  <li><strong>git reset</strong> moves HEAD to another commit. With modes that affect index and working tree you can change what is staged and what lives on disk. It rewrites history so use it on branches that are still private.</li>
+</ul>
+
+<h3>Reset modes and what they mean</h3>
+<ul>
+  <li><code>--soft</code> moves the branch pointer only. Good if you want to combine commits into a better commit message or tidy things up before you push.</li>
+  <li><code>--mixed</code> moves the branch pointer and resets the index. Your working tree remains, but staged changes are cleared.</li>
+  <li><code>--hard</code> moves the branch pointer and resets index and working tree. This one throws away uncommitted changes like it never cared about your late night edits.</li>
+</ul>
+
+<h2>Examples that you can paste into your terminal</h2>
+<pre><code>git revert <commit_hash>
+
+git reset --soft HEAD~1
+git reset --mixed HEAD~1
+git reset --hard HEAD~1
+</code></pre>
+
+<h2>Safety and collaboration rules</h2>
+<p>If a commit has already been pushed to a remote prefer revert. Rewriting public history with reset usually forces a push and that can orphan commits and confuse collaborators. In other words be prepared for people to blame the git workflow and not read the README.</p>
+
+<h3>Rescue options when you panic</h3>
+<ul>
+  <li><strong>git reflog</strong> is your best friend after a scary reset. It records where HEAD has been so you can find lost commits and restore them with git checkout or another reset.</li>
+  <li>If you accidentally reset a public branch expect to coordinate a force push and explain why to your team. Apologies and a small cake might help.</li>
+</ul>
+
+<h2>Decision cheat sheet</h2>
+<ul>
+  <li>Shared branch and visible commits choose <strong>git revert</strong>. Safe and polite.</li>
+  <li>Local cleanup before pushing choose <strong>git reset</strong>. Tidy history without nasty surprises for others.</li>
+  <li>Multiple surgical edits consider interactive rebase for rewriting a sequence of commits before anything is public.</li>
+</ul>
+
+<h2>Final git tips and best practices</h2>
+<ul>
+  <li>When in doubt make a throwaway branch and try commands there first.</li>
+  <li>Use git reflog if something goes missing.</li>
+  <li>When you must rewrite public history be explicit with teammates and be ready to force push with care.</li>
+  <li>Remember that revert keeps history honest and reset gives you a fresh canvas. Both are valid tools depending on whether you want to avoid drama or curate perfection.</li>
+</ul>
+
+<p>Now go forth and fix commits responsibly. And if you do break something at least make it a teachable moment.</p>
+

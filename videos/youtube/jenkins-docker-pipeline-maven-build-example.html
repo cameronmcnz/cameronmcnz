@@ -1,0 +1,92 @@
+---
+layout: video
+title: "Jenkins Docker Pipeline Maven Build Example"
+description: "Step by step guide to run Maven builds in Jenkins using Docker agents and pipeline for reproducible CI runs"
+video_host: "youtube"
+video_id: "czt4lUfqNyg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M5S"
+thumbnail_url: "https://i.ytimg.com/vi/czt4lUfqNyg/maxresdefault.jpg"
+content_url: "https://youtu.be/czt4lUfqNyg"
+embed_url: "https://www.youtube.com/embed/czt4lUfqNyg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Docker
+  - Maven
+  - Pipeline
+  - CI
+  - Jenkinsfile
+  - Docker Agent
+  - Build Automation
+  - Continuous Integration
+  - DevOps
+---
+
+<h2>Why this exists</h2>
+<p>If you have ever watched a build pass on your laptop and then melt down in CI, welcome to the club. This guide shows how to make Jenkins run Maven builds inside Docker so results stop depending on which developer fed the build server last. It is about reproducible CI, predictable build automation, and fewer blame games in your DevOps standups.</p>
+
+<h2>Quick checklist before you start</h2>
+<ul>
+  <li>Install Docker on the machine that runs your Jenkins agents</li>
+  <li>Install the Jenkins Docker plugin and restart Jenkins if needed</li>
+  <li>Give the Jenkins user permission to talk to Docker so builds do not fail for boring permission reasons</li>
+  <li>Decide how to cache Maven dependencies to keep build times reasonable</li>
+</ul>
+
+<h3>Why grant Docker access to Jenkins</h3>
+<p>Running the pipeline is not a magic spell. Jenkins needs permission to create and remove containers. If Docker commands fail you will waste time debugging the build instead of fixing the code that actually broke.</p>
+
+<h2>Minimal Jenkinsfile that keeps things simple</h2>
+<p>Here is a compact declarative Jenkinsfile that runs Maven inside a Docker agent. It uses a standard Maven image to keep the environment consistent across runs.</p>
+
+<pre><code>pipeline {
+  agent { docker { image 'maven 3 jdk 8' } }
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'mvn -B clean package'
+      }
+    }
+    stage('Publish Test Results') {
+      steps {
+        junit 'target/surefire-reports/*.xml'
+      }
+    }
+  }
+  post {
+    always {
+      cleanWs()
+    }
+  }
+}
+</code></pre>
+
+<p>Notes about the snippet above, because I know you will ask. Using the Maven image ensures the same JDK and Maven version across CI runs. The checkout step uses the repository configured for the job. The junit step gives you nice test reports in the Jenkins UI instead of making you squint through console logs.</p>
+
+<h2>Archive artifacts and keep history</h2>
+<p>After the build produces JARs or WARs, use the archive artifacts feature in the pipeline or the UI to store binary outputs. This provides a quick way to download artifacts from past builds and it fingerprints files so you can trace which commit produced which binary. If you prefer a code example for archiving you can add the archiveArtifacts step in the pipeline configuration.</p>
+
+<h2>Speed up builds with Maven caching</h2>
+<p>Maven downloads a lot of jars. Let it cache them so your CI does not cry every morning. You can mount a persistent volume for the Maven local repository or use a host directory mount. The exact method depends on your Jenkins agent setup, whether you run agents as containers or on VMs, and how much disk you want to sacrifice to speed.</p>
+
+<ul>
+  <li>If you use Docker agents, persist the Maven cache across containers to avoid repeated downloads</li>
+  <li>If you run agents on VMs, store .m2 at a shared path that agents can access</li>
+  <li>Consider a repository manager like Nexus or Artifactory if you want to be fancy and not depend on the internet</li>
+</ul>
+
+<h2>Test failures and cleanup</h2>
+<p>Fail fast on broken tests. Use the junit publisher so test failures become clear pipeline failures and not a cryptic exit code. Also make cleanup a habit. Remove temporary containers and workspace files to avoid flaky runs and disk exhaustion. The cleanWs step in the post block is your friend unless you enjoy manual cleanup jobs.</p>
+
+<h2>Summary and recommended next steps</h2>
+<p>In short, use a Jenkinsfile with a Docker agent to run Maven builds for consistent CI. Make sure Docker is installed and accessible to Jenkins, cache Maven dependencies to speed builds, publish test reports with the junit step, and archive artifacts for traceability. This pattern brings order to your build automation, reduces surprises in continuous integration, and keeps your DevOps life slightly less chaotic.</p>
+

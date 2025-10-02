@@ -1,0 +1,68 @@
+---
+layout: video
+title: "Java Autoboxing & Unboxing of Primitive Types Performance Im"
+description: "Understand why Java autoboxing and unboxing can hide allocations and slow code and how to avoid boxing overhead for better performance"
+video_host: "youtube"
+video_id: "XK0WSi-cpVw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M19S"
+thumbnail_url: "https://i.ytimg.com/vi/XK0WSi-cpVw/maxresdefault.jpg"
+content_url: "https://youtu.be/XK0WSi-cpVw"
+embed_url: "https://www.youtube.com/embed/XK0WSi-cpVw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Autoboxing
+  - Unboxing
+  - Performance
+  - Primitives
+  - JVM
+  - Microbenchmarking
+  - Memory
+  - Collections
+  - Optimization
+---
+
+<h1>Practical JVM tips to avoid boxing overhead and shrink memory use</h1>
+<p>If your Java code is quietly allocating a small forest of wrapper objects while you sleep, welcome to the autoboxing party. That convenience of writing int where Integer is expected can feel like magic until your profiler shows up like an angry parent. This quick guide explains what is happening under the hood, where the performance hits hide, and how to fix them without becoming a relic who writes everything in C.</p>
+
+<h2>What autoboxing and unboxing actually do</h2>
+<p>Autoboxing converts a primitive value such as int into its wrapper class Integer when the compiler decides the code needs an object. Unboxing does the reverse, turning a wrapper back into a primitive. The compiler inserts these conversions automatically when APIs, generics, or varargs require objects rather than raw primitives. The problem is these conversions often create short lived wrapper objects, which use heap memory and add pressure to the garbage collector.</p>
+
+<h2>Common slow scenarios</h2>
+<ul>
+  <li>Looping where a primitive is boxed on every iteration, which creates many tiny objects that add up quickly</li>
+  <li>Using wrapper types as map keys or collection elements for hot data, which inflates memory use due to object headers and references</li>
+  <li>APIs that force varargs or generics into wrapper forms, especially when called in tight paths</li>
+  <li>Benchmarks that do not account for JVM warm up and steady state, giving you false confidence</li>
+</ul>
+
+<h2>Performance notes you should actually remember</h2>
+<p>Every new wrapper allocation costs CPU cycles and memory. The JVM offers small integer caching for Integer values between negative 128 and 127 which can hide problems in narrow tests, but relying on that is brittle and misleading. Boxing inside tight loops can easily dominate runtime and hide behind code that otherwise looks clean and innocent.</p>
+<p>Wrapper objects also add per element overhead because the JVM stores object headers and references instead of compact primitive values. That can blow up memory use and increase GC frequency when collections grow.</p>
+
+<h2>Practical fixes that do not require wizardry</h2>
+<ul>
+  <li>Prefer primitives for counters and hot loops, because they are lean and mean</li>
+  <li>Use primitive arrays when storage density and throughput matter, these avoid any boxing</li>
+  <li>Consider libraries that implement primitive collections when you need lists or maps with many elements, for example fastutil or Trove</li>
+  <li>Review code that crosses API boundaries, since conversions often happen at method parameters or return types</li>
+  <li>Avoid unnecessary use of wrapper types in streams and collectors when a primitive stream is available</li>
+</ul>
+
+<h2>Benchmarking and verification tips</h2>
+<p>Microbenchmarking in Java requires a proper harness to avoid warm up surprises and JVM optimizations that confuse the results. Use a dedicated framework that handles warm up and steady state measurements when you want to know if boxing is the real hotspot. Also use profiling tools to confirm that boxing is responsible for the cost, rather than guessing based on intuition or sympathy for the coder.</p>
+
+<h2>Quick checklist to find and fix boxing pain</h2>
+<ul>
+  <li>Search for wrapper class usage in hot code paths, these are the likely suspects</li>
+  <li>Replace wrapper based collections with primitive arrays or specialized libraries when needed</li>
+  <li>Audit public APIs and method signatures that force callers to box and unbox frequently</li>
+  <li>Use a profiler to confirm the hotspot before refactoring, you will thank yourself later</li>
+</ul>
+
+<p>Automatic conversion is convenient and fine for prototypes or low traffic code. High performance systems need awareness, a few pragmatic changes, and occasional profiling surgery. Treat autoboxing like sugar, not a food group, and your JVM will run happier and with fewer GC interruptions.</p>
+

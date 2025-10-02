@@ -1,0 +1,93 @@
+---
+layout: video
+title: "Learn Jenkins Fast! A Simple Jenkins CI Tutorial for Beginne"
+description: "Practical Jenkins CI tutorial for beginners covering setup pipelines Jenkinsfile plugins agents and automated builds in clear steps"
+video_host: "youtube"
+video_id: "OXP8YBPBdgw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1H44M34S"
+thumbnail_url: "https://i.ytimg.com/vi/OXP8YBPBdgw/maxresdefault.jpg"
+content_url: "https://youtu.be/OXP8YBPBdgw"
+embed_url: "https://www.youtube.com/embed/OXP8YBPBdgw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - CI
+  - Continuous Integration
+  - Pipeline
+  - Jenkinsfile
+  - DevOps
+  - Automation
+  - Build
+  - Agents
+  - Beginners
+---
+
+<h2>Welcome to Jenkins without the scary parts</h2>
+<p>If you are new to Jenkins and CI but not new to the idea of things breaking at 3 a m this is your friendly guide. We will get a Jenkins server running, add a pipeline that lives with your code, hook up source control so builds start automatically, scale work across agents, and send notifications so humans can either celebrate or panic on cue.</p>
+
+<h2>Install Jenkins</h2>
+<p>Pick an install method that fits your environment. Use a package manager on a personal VM, spin up a container for quick tests, or grab a cloud image when you are too tired to babysit installs. Follow the official quick start for a secure baseline and unlock the web console for the next steps.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Choose package manager container or cloud image</li>
+  <li>Set admin user and basic security settings</li>
+  <li>Block anonymous access unless you enjoy chaos</li>
+</ul>
+
+<h2>Configure plugins and credentials</h2>
+<p>Enable plugins for pipeline support and your SCM. Common choices include Git support and pipeline integration. Add credentials for repository access and container registries so builds do not rely on someone typing a password at 2 a m.</p>
+
+<h2>Create a pipeline job and store a Jenkinsfile in your repo</h2>
+<p>Prefer declarative pipeline syntax for readability and for the poor soul who inherits this project. Store the Jenkinsfile next to your code so the pipeline follows branches and pull requests without mysterious outside config.</p>
+
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh 'mvn -B -DskipTests package'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'mvn test'
+      }
+    }
+  }
+  post {
+    success {
+      echo 'Build succeeded'
+    }
+    failure {
+      echo 'Build failed'
+    }
+  }
+}
+</code></pre>
+
+<h2>Connect source control and trigger builds</h2>
+<p>Use webhooks when possible for instant feedback. If webhooks are impossible then use SCM polling. Set up feature branch builds so issues get caught before they merge into main. This is how you avoid the classic broken mainline party.</p>
+
+<h2>Scale with agents</h2>
+<p>Agents distribute work across machines and keep builds from stepping on each other. Use ephemeral agents via containers to avoid state creep between runs. If you need more power add more agents and let them pick up jobs automatically.</p>
+
+<h3>Agent tips</h3>
+<ul>
+  <li>Use containers for consistent build environments</li>
+  <li>Prefer ephemeral agents for test isolation</li>
+  <li>Label agents for specialized builds like windows or gpu</li>
+</ul>
+
+<h2>Notifications and observability</h2>
+<p>Add notifications to Slack email or Teams so the team knows when a build succeeds or fails. Review console logs for failing stages and add focused tests so the same bug does not sneak in repeatedly. Build history and test reports are your friends, even if they sometimes lie to you.</p>
+
+<h2>Recap and next steps</h2>
+<p>This guide covered getting a Jenkins server up, adding plugins and credentials, creating a pipeline with a checked in Jenkinsfile, wiring up source control triggers, scaling with agents, and adding notifications. Follow these steps to move from zero to a working CI workflow that actually helps your DevOps automation instead of making more work.</p>
+
+<p>Tip Keep your pipelines declarative keep builders ephemeral and keep feedback fast. Your future self will thank you or at least stop yelling at the monitor as often.</p>
+

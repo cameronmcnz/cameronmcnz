@@ -1,0 +1,99 @@
+---
+layout: video
+title: "How to Convert a Java String to int or long Primitive Type"
+description: "Fast guide to parse Java String to int and long using parseInt parseLong valueOf and safe parsing tips for real world code"
+video_host: "youtube"
+video_id: "sJ5ECR8UiKM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M52S"
+thumbnail_url: "https://i.ytimg.com/vi/sJ5ECR8UiKM/maxresdefault.jpg"
+content_url: "https://youtu.be/sJ5ECR8UiKM"
+embed_url: "https://www.youtube.com/embed/sJ5ECR8UiKM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - String to int
+  - String to long
+  - Integer.parseInt
+  - Long.parseLong
+  - NumberFormatException
+  - valueOf
+  - tryParse
+  - primitive types
+  - parsing tips
+---
+
+<p>So you have a Java String and you want an int or a long. Welcome to the thrilling world of parsing where bad input will ruin your day. This quick guide gives parsing tips to convert a Java String to primitive types in Java while avoiding NumberFormatException and the usual debugging curse words.</p>
+
+<h2>Quick rules to keep your code from exploding</h2>
+<ul>
+  <li>Use Integer.parseInt when you need a primitive int.</li>
+  <li>Use Long.parseLong when values can exceed int range.</li>
+  <li>Catch NumberFormatException when input is untrusted.</li>
+  <li>Use valueOf when you need a wrapper like Integer for collections.</li>
+  <li>Create a tryParse helper to stop copy pasting try catch everywhere.</li>
+</ul>
+
+<h2>Parsing a decimal String to int</h2>
+<p>The simplest case is a well behaved decimal string. Integer.parseInt does exactly what it says. If the string is not a valid int Java throws NumberFormatException which is the language's way of saying do not feed it garbage.</p>
+
+<pre><code>int n = Integer.parseInt("123");</code></pre>
+
+<p>Keep this in mind. If the input contains non digits or the numeric value is outside the int range you will hit NumberFormatException. Which is fair. You fed it bad data.</p>
+
+<h2>Parsing larger values to long</h2>
+<p>When your numbers get bolder use Long.parseLong. It behaves like Integer.parseInt but for long primitive types so it covers bigger values.</p>
+
+<pre><code>long l = Long.parseLong("1234567890123");</code></pre>
+
+<p>Pick the primitive types based on expected magnitude. If you accidentally choose int and then receive a phone number or timestamp you did not intend to parse you will learn about integer overflow the hard way.</p>
+
+<h2>Handle NumberFormatException gracefully</h2>
+<p>Try catch is not exciting but it is effective. Wrap parsing calls that rely on user input or external data in a targeted catch block.</p>
+
+<pre><code>try {
+    int n = Integer.parseInt(s);
+    // use n
+} catch (NumberFormatException e) {
+    // handle bad input, show user friendly message or fallback
+}</code></pre>
+
+<p>Use specific catch blocks so you do not accidentally mask other bugs. Logging the offending string is helpful unless you are trying to preserve privacy or hide evidence.</p>
+
+<h2>When to use valueOf and boxed types</h2>
+<p>If you need an object rather than a primitive for collections or APIs then use valueOf. It returns the wrapper type and can benefit from caching for small values.</p>
+
+<pre><code>Integer boxed = Integer.valueOf("123");
+Long boxedLong = Long.valueOf("1234567890123");</code></pre>
+
+<p>valueOf will still throw NumberFormatException for invalid input. It is not magic, it only wraps the same parsing logic in an object.</p>
+
+<h2>Make a tryParse helper to reduce boilerplate</h2>
+<p>If you are tired of repeating try catch everywhere write a small helper. Return null or Optional to indicate invalid input depending on your style and null tolerance.</p>
+
+<pre><code>static Integer tryParseInt(String s) {
+    try {
+        return Integer.parseInt(s);
+    } catch (NumberFormatException e) {
+        return null; // or use Optional<Integer>
+    }
+}
+
+static java.util.Optional<Integer> tryParseIntOptional(String s) {
+    try {
+        return java.util.Optional.of(Integer.parseInt(s));
+    } catch (NumberFormatException e) {
+        return java.util.Optional.empty();
+    }
+}</code></pre>
+
+<p>Use Optional when you want callers to handle absence explicitly. Use null when you are writing quick scripts and have a death wish.</p>
+
+<h2>Recap and best practices</h2>
+<p>To convert a Java String to int or long primitive types use Integer.parseInt and Long.parseLong when you trust the input. Catch NumberFormatException for untrusted data. Use valueOf when you need wrapper types. Consider a tryParse helper to make parsing code readable and reduce repeated try catch blocks.</p>
+
+<p>Follow these parsing tips and your runtime surprises will drop, which means fewer frantic searches through stack traces at 2 a m. You are welcome.</p>
+

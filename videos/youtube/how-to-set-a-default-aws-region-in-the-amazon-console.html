@@ -1,0 +1,62 @@
+---
+layout: video
+title: "How to Set a Default AWS Region in the Amazon Console"
+description: "Quick guide to set a default AWS region in the Management Console so ECS EKS and Bedrock open in the preferred region on login"
+video_host: "youtube"
+video_id: "w0tZ4jBX0m0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT46S"
+thumbnail_url: "https://i.ytimg.com/vi/w0tZ4jBX0m0/maxresdefault.jpg"
+content_url: "https://youtu.be/w0tZ4jBX0m0"
+embed_url: "https://www.youtube.com/embed/w0tZ4jBX0m0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - Amazon
+  - Management Console
+  - Default Region
+  - ECS
+  - EKS
+  - Bedrock
+  - Cloud
+  - Tutorial
+  - Login Settings
+---
+
+<p>If you are tired of accidentally launching resources in the wrong region and paying for someone else s cloud vacation then this is for you. The AWS Management Console lets each user pick a default region so services like ECS EKS and Bedrock open where you expect them to. No magic is involved just a few clicks and less facepalm.</p>
+
+<h2>Quick steps to set your default region</h2>
+
+<ol>
+  <li>Sign in to the AWS Management Console with your usual credentials and confirm the account menu appears in the top right.</li>
+  <li>Open the account menu and choose the entry labeled either Login user settings or Console preferences. The wording may vary by console version but you are looking for user specific defaults.</li>
+  <li>Find the Default region dropdown and pick the region you actually want to use. Regions show both friendly names and codes so choose the one where most of your deployments will run.</li>
+  <li>Click Save or Update to persist the change.</li>
+  <li>Verify the result by opening a service page such as ECS EKS or Bedrock and check the region shown in the console header matches your new default.</li>
+</ol>
+
+<h3>What this actually changes</h3>
+
+<p>Setting a default region only affects the console view for that user. Your resources do not move and your permissions do not change. Administrative scripts and CI pipelines should still specify a region explicitly to avoid surprises during deployments. Think of this as a convenience for clicking humans not a substitute for automation best practices.</p>
+
+<h3>Tips and useful tricks</h3>
+
+<ul>
+  <li>Bookmark a service URL that includes the region code to force a page to open in the desired region for frequent workflows. For example use console.aws.amazon.com/ecs/home?region=us-east-1 as a bookmark.</li>
+  <li>If you use SSO or multiple accounts check each account and user profile. Default region is per user per console session so it will not span accounts automatically.</li>
+  <li>Choose the region by code when you need precise behavior. The friendly name is fine for casual use but the code removes ambiguity.</li>
+</ul>
+
+<h3>Common gotchas</h3>
+
+<p>If the default region does not stick try clearing browser cache or signing out and back in. Browser extensions and corporate SSO flows can sometimes interfere with saved preferences. If problems persist contact your account administrator or check the AWS console release notes for interface changes.</p>
+
+<h2>Verify with ECS EKS or Bedrock</h2>
+
+<p>Open a service page and look at the region in the console header. If it matches your chosen default you are done. If not double check Login user settings or Console preferences and repeat the save. This step avoids launching a cluster in a region you did not expect.</p>
+
+<p>That s it. You have reduced the risk of accidental deployments and saved yourself from a future billing surprise. You can get back to writing cloud infra or blaming the intern depending on who is on call today.</p>
+

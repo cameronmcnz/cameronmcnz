@@ -1,0 +1,62 @@
+---
+layout: video
+title: "AWS Login to the Amazon Web Services Management Console"
+description: "Quick guide for logging into the AWS Management Console and accessing S3 EC2 EKS ECS AMI and core cloud services"
+video_host: "youtube"
+video_id: "3vWPeGAlASY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT51S"
+thumbnail_url: "https://i.ytimg.com/vi/3vWPeGAlASY/maxresdefault.jpg"
+content_url: "https://youtu.be/3vWPeGAlASY"
+embed_url: "https://www.youtube.com/embed/3vWPeGAlASY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - Login
+  - Management Console
+  - S3
+  - EC2
+  - EKS
+  - ECS
+  - AMI
+  - MFA
+  - IAM
+---
+
+<p>Logging into the AWS Management Console should not feel like solving a riddle while cliff climbing. Still, if you want to get to S3 buckets or fire up an EC2 instance without accidentally nuking production, follow this tidy path. This short guide walks through signing in, using MFA and SSO, navigating to services like S3 EC2 EKS ECS and AMI, and tightening security without falling asleep.</p>
+
+<h2>Quick sign in steps</h2>
+<p>Follow these actions to get into the console fast and with fewer facepalms.</p>
+<ul>
+  <li>Go to aws.amazon.com and choose the console link in the top right of the page.</li>
+  <li>Enter the correct account alias or account ID for IAM users so you do not try to log into the wrong account.</li>
+  <li>Sign in with your IAM username and password or use root credentials only if you actually own the account.</li>
+  <li>If your company uses single sign on use the portal link your admins gave you and stop guessing which login to use.</li>
+  <li>Complete multi factor authentication with an authenticator app or a hardware key for real protection.</li>
+  <li>Pin commonly used services to the console home to save clicks when you are tired and desperate.</li>
+</ul>
+
+<h3>MFA and SSO made boring and effective</h3>
+<p>MFA prevents credential replay and forces attackers to bring more than a leaked password to the party. Use an authenticator app or a hardware key. If your org offers SSO use it. SSO reduces password sprawl and keeps access centralized which is nice for auditors and annoying for attackers.</p>
+
+<h2>Navigate like a human who knows what they are doing</h2>
+<p>The search field at the top of the console is your teleportation device. Type S3 to jump to buckets. Type EC2 to find instances. Type EKS or ECS to reach your clusters and tasks. Use resource type filters to hone in on the exact item you need. Pin the services you use every day so your morning ritual is less tragic.</p>
+
+<h2>Security best practices that actually matter</h2>
+<p>Do not use long lived access keys on developer machines. Prefer IAM roles for compute services and temporary credentials for humans. Grant least privilege rather than infinite power. Rotate keys when they are no longer fresh. Enable CloudTrail to record account activity so you can find who did what when something breaks.</p>
+<ul>
+  <li>Enable MFA for every privileged user and for the root user if you must keep it active.</li>
+  <li>Use IAM roles for EC2 EKS and ECS workloads instead of embedding keys in AMI images or code.</li>
+  <li>Store secrets in a secrets manager rather than in a config file or sticky note.</li>
+  <li>Bookmark the switch role URL for cross account work to avoid logging into the wrong account by accident.</li>
+  <li>Turn on CloudTrail and consider sending logs to a central account or to an external SIEM for real visibility.</li>
+</ul>
+
+<h2>Recap and a tiny checklist</h2>
+<p>Open the console. Sign in with the correct identity. Use MFA and SSO where available. Jump to S3 EC2 EKS ECS or AMI with the search field. Pin what you need. Use IAM roles and rotate keys. Enable CloudTrail and store secrets properly. These steps cut risk and make daily cloud chores less painful.</p>
+
+<p>Final thought Do not treat the root account like a coworker with permanent keys. Lock it down and only summon it for truly special occasions. Now go log in and be marginally less terrified of the cloud.</p>
+

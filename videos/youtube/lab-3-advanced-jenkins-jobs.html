@@ -1,0 +1,59 @@
+---
+layout: video
+title: "Lab 3 - Advanced Jenkins Jobs"
+description: "Advanced Jenkins job techniques for pipelines parameters credentials shared libraries triggers and testing to improve CI CD workflows"
+video_host: "youtube"
+video_id: "pDctkvTZOGo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M10S"
+thumbnail_url: "https://i.ytimg.com/vi/pDctkvTZOGo/maxresdefault.jpg"
+content_url: "https://youtu.be/pDctkvTZOGo"
+embed_url: "https://www.youtube.com/embed/pDctkvTZOGo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - CI
+  - CD
+  - Pipeline
+  - Multibranch
+  - Parameters
+  - Credentials
+  - SharedLibrary
+  - Triggers
+  - Automation
+---
+
+<h2>Quick primer for people who hate surprises</h2>
+<p>Yes this is another Jenkins guide but this one aims to save you time and sleep instead of creating needless panic. Put a Jenkinsfile in your repo and use declarative pipeline syntax to define build test and deploy stages. Keep that Jenkinsfile in version control so branch behavior stays predictable and humans stop making changes in the dark.</p>
+
+<h2>Why multibranch pipelines matter</h2>
+<p>Multibranch pipelines remove the manual babysitting. Jenkins will scan branches and create jobs for each one automatically. That keeps CI consistent across feature branches and means fewer one off jobs cluttering your dashboard like digital junk drawers.</p>
+
+<h2>Parameters and secure credentials</h2>
+<p>Add parameters to let pipelines behave differently per environment or per experiment. Use parameters for environment selection feature toggles and build flags so you do not need to change pipeline code just to test something new.</p>
+<p>Do not paste secrets into the job. Store keys and tokens in the Jenkins credentials store and reference them by their ID inside the pipeline. Use the recommended credential wrappers available in Pipeline to inject secrets into environment variables only at runtime. Scope credentials to the minimum necessary permissions and audit who can use them.</p>
+
+<h2>Shared libraries for less copy paste</h2>
+<p>If you find yourself repeating the same steps across repos move them into a shared library. Put helper steps and global variables in that library so your Jenkinsfiles stay short and readable. Shared libraries are configured in Jenkins global settings and provide a single place to fix things when CI goes sideways.</p>
+
+<h2>Triggers notifications and testing</h2>
+<p>Use webhooks to trigger builds on push events and configure branch or pull request checks for faster feedback. Scheduled runs can catch flakes that only appear on certain days. Add notifications to chat or email so failures do not rely on someone staring at a dashboard like an anxious background process.</p>
+<p>Validate pipeline changes before they reach production. Use Jenkinsfile linting tools or run changes in a disposable test job. If your Jenkins has a pipeline linter use it. If not run a quick dry run in a sandbox instance or a sample repo to avoid surprises.</p>
+
+<h3>Hardening checklist</h3>
+<ul>
+  <li>Limit agent access to named labels and avoid using wide open agents</li>
+  <li>Give credentials the least privilege needed to do their job</li>
+  <li>Audit job definitions and restrict who can update pipeline jobs</li>
+  <li>Use timeouts and retry strategies to avoid runaway builds</li>
+  <li>Keep a small sample repository for experiments and plugin trials</li>
+</ul>
+
+<h2>Practical tips that do not waste time</h2>
+<p>Store pipelines next to code so CI evolves with the app. Extract common logic into a SharedLibrary or a shared vars folder so new repos inherit good defaults. Add parameters for toggles instead of editing pipelines for each change. Configure webhook triggers and lightweight checks to keep CI fast and informative.</p>
+
+<p>Follow these patterns and you will get reproducible builds fewer late night alerts and a CI CD pipeline that behaves like an obedient automation system rather than a drama magnet. Now go break things in a sandbox not in production.
+

@@ -1,0 +1,95 @@
+---
+layout: video
+title: "Maven Build in GitHub Actions Example"
+description: "Run Maven builds in GitHub Actions with a clear workflow setup caching and artifact steps for faster CI and reliable Java builds"
+video_host: "youtube"
+video_id: "vBEcTN5lwJc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M26S"
+thumbnail_url: "https://i.ytimg.com/vi/vBEcTN5lwJc/maxresdefault.jpg"
+content_url: "https://youtu.be/vBEcTN5lwJc"
+embed_url: "https://www.youtube.com/embed/vBEcTN5lwJc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Maven
+  - GitHub Actions
+  - CI
+  - Java
+  - Workflow
+  - Caching
+  - Artifacts
+  - Continuous Integration
+  - DevOps
+  - Build
+---
+
+<h2>Quick setup for Maven in GitHub Actions</h2>
+<p>So you want a predictable Java build that does not waste everyone's morning. Good news, GitHub Actions and Maven get along just fine when you set up a workflow that checks out code, picks a JDK, caches dependencies, runs tests and then packages or uploads artifacts. This short guide gives a practical workflow you can copy and adapt without sacrificing your sanity.</p>
+
+<h3>Why caching and a stable JDK matter</h3>
+<p>CI speed is mostly about not downloading the internet over and over. Cache Maven dependencies to skip repeated jar downloads. Locking the Java runtime avoids those mysterious failures that only show up on Monday mornings when the universe is already tired. Caching plus a consistent JDK yields faster and more reproducible continuous integration runs for Java projects.</p>
+
+<h3>What to include in your workflow</h3>
+<ul>
+  <li>Workflow YAML under <code>.github/workflows</code> so contributors do not play hide and seek</li>
+  <li>actions/checkout to get your source</li>
+  <li>actions/setup-java to set a specific Java version and optionally enable built in caching</li>
+  <li>A cache step for <code>~/.m2/repository</code> if you prefer explicit control</li>
+  <li>Maven goals that match your stage like <code>test</code> or <code>package</code></li>
+  <li>Optional upload of build artifacts or test reports for later inspection</li>
+</ul>
+
+<h3>Example workflow using setup java cache</h3>
+<p>This example is compact and uses setup-java's maven cache option for convenience. Tweak java-version and goals to match your project.</p>
+<pre><code>name: CI
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+          cache-dependency-path: '**/pom.xml'
+      - name: Build with Maven
+        run: mvn -B -V test package
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: target/*.jar
+</code></pre>
+
+<h3>Alternative explicit cache step</h3>
+<p>If you like full control or have a multi module repo you can use actions/cache to store the local Maven repository. Use a key that includes runner os, java version and a hash of your pom files to prevent stale dependencies.</p>
+<pre><code>      - uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+</code></pre>
+
+<h3>Practical tips that actually help</h3>
+<ul>
+  <li>Use <code>mvn -B</code> for non interactive runs and consistent logs</li>
+  <li>Fail fast on tests to keep broken code from wandering into main branches</li>
+  <li>Include the OS and java version in your cache key to avoid weird breakage
+  and mismatched artifacts</li>
+  <li>Upload test reports and jars so debugging is easier than yelling at logs</li>
+  <li>If your CI is slow profile the build to find the real offender before blaming Maven</li>
+</ul>
+
+<h3>Troubleshooting without tears</h3>
+<p>If dependencies are not restored check the key and the paths. Make sure your pom files are included in the hash when you base the cache key on them. If tests pass locally but fail in CI check the Java version and system locale. Small differences can produce dramatic Monday level surprises.</p>
+
+<p>Follow these steps and your GitHub Actions workflow will give faster, clearer CI feedback for Java projects. You will also earn the quiet respect of anyone who has waited for a build while clutching a cold cup of coffee.</p>
+

@@ -1,0 +1,65 @@
+---
+layout: video
+title: "What is a VPC in AWS? Virtual Private Cloud"
+description: "Quick guide to AWS VPC basics public subnets security groups and internet gateways with practical design tips"
+video_host: "youtube"
+video_id: "UDt9A9bQL1w"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/UDt9A9bQL1w/maxresdefault.jpg"
+content_url: "https://youtu.be/UDt9A9bQL1w"
+embed_url: "https://www.youtube.com/embed/UDt9A9bQL1w"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - VPC
+  - Virtual Private Cloud
+  - Public Subnets
+  - Security Groups
+  - Internet Gateway
+  - NAT Gateway
+  - Subnetting
+  - Cloud Networking
+  - AWS Networking
+---
+
+<h2>VPC basics</h2>
+<p>If you imagine AWS as a party and you want to control who gets in and who drinks the punch then a VPC is your velvet rope. A Virtual Private Cloud is an isolated virtual network where you place instances databases and other AWS resources. You pick a CIDR block like 10.0.0.0/16 to define the address space and then carve it into subnets for different roles.</p>
+
+<h2>Public subnets and the internet gateway</h2>
+<p>Public subnets are the people with the VIP wristbands. They get direct internet access via an Internet Gateway. To make a subnet public add a route to 0.0.0.0/0 in the subnet route table that points to the Internet Gateway attached to the VPC. Typical uses are load balancers NAT gateways and bastion hosts.</p>
+
+<h3>Quick checklist for a public subnet</h3>
+<ul>
+  <li>Create subnet across availability zones for resilience</li>
+  <li>Attach an Internet Gateway to the VPC</li>
+  <li>Add 0.0.0.0/0 route in the public route table to the Internet Gateway</li>
+  <li>Use security groups to control instance level traffic</li>
+</ul>
+
+<h2>Private subnets and NAT gateway</h2>
+<p>Put sensitive stuff like app servers in private subnets so they are not directly reachable from the internet. For those servers to reach out and download OS updates use a NAT Gateway in a public subnet. The private route table sends outbound traffic to the NAT Gateway which lets instances talk out while keeping inbound access blocked.</p>
+<p>Warning the NAT Gateway is convenient but not free. If you like surprises check your bill after heavy egress traffic.</p>
+
+<h2>Security groups and network ACLs</h2>
+<p>Security Groups are stateful virtual firewalls attached to instances. Think of them as the bouncers who remember who they let in. Define inbound and outbound rules by port protocol and source or destination. Security Groups apply at the instance level and usually replace host based firewalls for basic protection.</p>
+<p>Network ACLs operate at the subnet level and are stateless. They are useful for additional subnet protection or for audit friendly deny rules but treat them like a second line of defense and not a replacement for good Security Group hygiene.</p>
+
+<h2>Subnetting and availability zones</h2>
+<p>Design with multiple availability zones to survive hardware failures or AWS Tuesday maintenance windows. Allocate CIDR ranges conservatively so you do not run out of addresses and plan subnet sizes by role. For example a small private subnet for database servers might be /24 while a public subnet for load balancers can be smaller or larger depending on scale.</p>
+
+<h2>Best practices that do not require heroics</h2>
+<ul>
+  <li>Use least privilege in Security Group rules do not open SSH to 0.0.0.0/0 unless you enjoy surprise visitors</li>
+  <li>Name and tag resources by role and availability zone so you can actually remember what you built</li>
+  <li>Test access with minimal temporary rules then tighten once verification is complete</li>
+  <li>Consider NACLs only when you need subnet level controls or an audit trail</li>
+  <li>Monitor VPC flow logs for unexpected traffic patterns</li>
+</ul>
+
+<h2>Final thought</h2>
+<p>AWS networking is not magic and a VPC is not invincible. Design predictable CIDR ranges split workloads into public and private subnets use an Internet Gateway for public access and NAT Gateway for controlled outbound traffic and treat Security Groups like the primary way to enforce least privilege. Do that and your cloud network will behave a lot better than your last attempt to fix a weekend outage.
+

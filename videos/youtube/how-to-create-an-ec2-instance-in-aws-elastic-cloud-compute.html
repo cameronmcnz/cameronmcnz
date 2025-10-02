@@ -1,0 +1,98 @@
+---
+layout: video
+title: "How to Create an EC2 Instance in AWS Elastic Cloud Compute"
+description: "Step by step guide to launch an EC2 instance configure security groups set VPC subnets and deploy Apache on AWS"
+video_host: "youtube"
+video_id: "eji2fVEQC5Q"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M1S"
+thumbnail_url: "https://i.ytimg.com/vi/eji2fVEQC5Q/maxresdefault.jpg"
+content_url: "https://youtu.be/eji2fVEQC5Q"
+embed_url: "https://www.youtube.com/embed/eji2fVEQC5Q"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - EC2
+  - Elastic Compute Cloud
+  - Security Groups
+  - VPC
+  - Subnet
+  - Apache
+  - AWS Tutorial
+  - Cloud Deployment
+  - Server Setup
+---
+
+<h2>Why this guide exists and why you will thank it later</h2>
+<p>You want an EC2 instance that serves web pages, not mysterious error pages at 3 a m. This short tutorial walks through picking an AMI and instance type configuring VPC and subnet rules creating a security group provisioning a key pair and deploying Apache on the instance. Think of it as the bare metal bits of cloud deployment without the hand wringing.</p>
+
+<h2>Quick overview of the plan</h2>
+<ul>
+  <li>Choose AMI and instance type suitable for your workload</li>
+  <li>Place the instance in the right VPC and subnet for public or private access</li>
+  <li>Create a security group that allows SSH for you and HTTP for visitors</li>
+  <li>Generate or upload a key pair and launch the instance</li>
+  <li>SSH in and install Apache to serve your content</li>
+</ul>
+
+<h3>Pick an AMI and instance type</h3>
+<p>For testing use a modern Amazon Linux or Ubuntu AMI. If you do not want to pay much use t2 or t3 class instances for small workloads. For production scale up to the compute family that matches your CPU and memory needs. Your choice affects cost and performance so pick with a little thought not just optimism.</p>
+
+<h3>Configure network with VPC and subnet</h3>
+<p>Either pick an existing VPC or make a new one for isolation. Choose a public subnet if you want a public IP and direct internet access via an internet gateway. Choose a private subnet if you plan to place the server behind a load balancer or NAT gateway. Yes the internet can wait while you do this properly.</p>
+
+<h3>Create and attach a security group</h3>
+<p>Security groups are stateful and act like the polite bouncer for your instance. At a minimum add rules that allow:</p>
+<ul>
+  <li>SSH on TCP port 22 from your admin IP only</li>
+  <li>HTTP on TCP port 80 from 0.0.0.0/0 if you are hosting a public website</li>
+</ul>
+<p>Narrow SSH to your IP range unless you enjoy random logins from strangers and bots. For extra safety consider restricting HTTP to a load balancer or using HTTPS with a certificate.</p>
+
+<h3>Create key pair and launch the instance</h3>
+<p>Generate a key pair in the AWS console or upload your public key when launching. Download the private key and store it somewhere safe. If you lose it you lose easy SSH access unless you set up other access methods like a Systems Manager session or a rescue image. Also do not name the key pair "password123" unless you like irony.</p>
+
+<h3>Connect to your EC2 instance</h3>
+<p>Once the instance is running find the public IP or public DNS and connect with SSH using the private key. Example for Amazon Linux use the right username for your AMI. Typical commands look like this</p>
+<pre><code>ssh -i mykey.pem ec2-user@PUBLIC_IP</code></pre>
+<p>On Ubuntu the username is often ubuntu. If SSH fails check the security group rules and the instance public IP. Also make sure the key permissions are correct locally with chmod 400 mykey.pem.</p>
+
+<h3>Install and start Apache web server</h3>
+<p>Update packages and install Apache based on your Linux family. Commands you might run include these. Copy them into your terminal and try not to panic.</p>
+<pre><code># Debian and Ubuntu family
+sudo apt update &amp;&amp; sudo apt install -y apache2
+
+# RHEL and Amazon Linux family
+sudo yum update -y &amp;&amp; sudo yum install -y httpd
+
+# Start and enable the service
+sudo systemctl start apache2   # Debian variants
+sudo systemctl enable apache2
+
+sudo systemctl start httpd     # RHEL variants
+sudo systemctl enable httpd</code></pre>
+<p>Visit the instance public IP in a browser and you should see the Apache default page. If not check firewall and security group settings and the service status.</p>
+
+<h2>Quick checklist before you call it done</h2>
+<ul>
+  <li>AMI and instance type chosen with cost in mind</li>
+  <li>VPC and subnet set for public or private access as intended</li>
+  <li>Security group allows SSH only from admin IP and HTTP or HTTPS as needed</li>
+  <li>Key pair saved in a safe place and tested for SSH access</li>
+  <li>Apache installed started and serving the default page</li>
+</ul>
+
+<h2>Next steps for production readiness</h2>
+<p>If you want to move beyond minimal setup consider these improvements</p>
+<ul>
+  <li>Use HTTPS with a certificate from AWS Certificate Manager or Let Encrypt</li>
+  <li>Harden SSH with key policies and disable password auth</li>
+  <li>Put instances behind an Elastic Load Balancer and use autoscaling</li>
+  <li>Apply IAM roles and security best practices for cloud deployment</li>
+</ul>
+
+<p>There you go a functional EC2 server running Apache with basic VPC and security group setup. It is not a fortress yet but it will deliver pages and let you iterate toward a properly hardened cloud deployment. Now go make something people will actually read.</p>
+

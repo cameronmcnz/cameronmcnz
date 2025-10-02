@@ -1,0 +1,79 @@
+---
+layout: video
+title: "Stop Using Setter Injection Constructor Injection is Better"
+description: "Why constructor injection is better than setter injection in Spring Boot Learn benefits like immutability clearer dependencies and easier testing"
+video_host: "youtube"
+video_id: "UAPUcQiy72o"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M35S"
+thumbnail_url: "https://i.ytimg.com/vi/UAPUcQiy72o/maxresdefault.jpg"
+content_url: "https://youtu.be/UAPUcQiy72o"
+embed_url: "https://www.youtube.com/embed/UAPUcQiy72o"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Constructor Injection
+  - Setter Injection
+  - Dependency Injection
+  - Java
+  - DI Best Practices
+  - Unit Testing
+  - Immutability
+  - Lombok
+  - Spring Framework
+---
+
+<p>If your Spring Boot app uses setter injection everywhere you might enjoy surprises at runtime and tests that hate you. Constructor injection forces required dependencies to show up at creation time which makes your Java code easier to reason about and your unit tests far less dramatic.</p>
+
+<h2>What constructor injection actually gives you</h2>
+<p>Think of constructor injection as the blunt honesty of dependency injection. Required services become constructor parameters and you can mark fields final for immutability. That means fewer null pointer surprises and no need to hunt down mysterious mutations at 2am.</p>
+
+<h3>Minimal example that does the job</h3>
+<pre><code>public class OrderService {
+  private final PaymentService paymentService
+  public OrderService(PaymentService paymentService) {
+    this.paymentService = paymentService
+  }
+}
+</code></pre>
+<p>This is the version you want to read in code reviews. The dependency sits right where you expect it. IDE navigation is happier and unit testing is straightforward because you can new up OrderService with a mock or fake PaymentService.</p>
+
+<h2>Why setter injection tempts you and why it fails you</h2>
+<p>Setter injection looks cute at first. Short methods, quick wiring, and a false sense of flexibility. The catch is hidden dependencies that may be null unless someone remembered to call the setter. That leads to mutable fields which encourage accidental state changes and surprising runtime behavior.</p>
+
+<h3>Setter example that makes your life harder</h3>
+<pre><code>public class OrderService {
+  private PaymentService paymentService
+  public void setPaymentService(PaymentService paymentService) {
+    this.paymentService = paymentService
+  }
+}
+</code></pre>
+
+<h2>Lombok and Spring Framework life hacks</h2>
+<p>If constructor boilerplate makes you groan try Lombok. Adding RequiredArgsConstructor to a Spring component saves typing while keeping the safety of constructor wiring.</p>
+<pre><code>@RequiredArgsConstructor
+@Component
+public class OrderService {
+  private final PaymentService paymentService
+}
+</code></pre>
+<p>This pattern plays nicely with Spring Boot and preserves immutability and clear dependency contracts.</p>
+
+<h2>What to do when constructors create cycles</h2>
+<p>Spring may refuse some cycles when you wire everything via constructors. That is not a bug. It is a design smell telling you to rethink the coupling. In those rare cases refactor to break the cycle, introduce a factory or provider, or extract a new service that reduces the mutual dependency. Do not reach for setter injection as a band aid because that just hides the real problem.</p>
+
+<h2>Practical DI best practices for Java and Spring Boot</h2>
+<ul>
+  <li>Prefer constructor injection for mandatory dependencies and mark fields final for immutability</li>
+  <li>Use setter injection only for truly optional collaboration that may be absent at runtime</li>
+  <li>Leverage Lombok RequiredArgsConstructor to reduce ceremony while keeping safety</li>
+  <li>When you see a constructor cycle treat it as a signal to refactor not as an excuse for mutable wiring</li>
+  <li>Write unit tests by newing up the class with mocks or fakes to keep tests fast and obvious</li>
+</ul>
+
+<p>Bottom line if you care about safer Spring Framework code, cleaner DI, and happier unit testing, favor constructor injection. Setter injection has its place but it should not be the default. Your future self will send thanks and maybe a sarcastic trophy.</p>
+

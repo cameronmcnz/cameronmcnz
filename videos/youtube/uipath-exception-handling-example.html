@@ -1,0 +1,72 @@
+---
+layout: video
+title: "UiPath Exception Handling Example"
+description: "Learn UiPath exception handling with try catch finally rethrow and logging for more robust workflows"
+video_host: "youtube"
+video_id: "Yy-IEHLIjzo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M25S"
+thumbnail_url: "https://i.ytimg.com/vi/Yy-IEHLIjzo/maxresdefault.jpg"
+content_url: "https://youtu.be/Yy-IEHLIjzo"
+embed_url: "https://www.youtube.com/embed/Yy-IEHLIjzo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Exception Handling
+  - RPA
+  - Try Catch
+  - Finally
+  - Logging
+  - Rethrow
+  - Best Practices
+  - Workflow
+  - Error Handling
+---
+
+<h2>Quick guide to UiPath exception handling that does not suck</h2>
+<p>If your UiPath workflows were people they would faint at the first sign of a network hiccup. This guide teaches them basic adulting skills so they stop screaming in the logs. You will learn how to identify risky activities wrap them with Try Catch log meaningful context and decide whether to recover or fail loudly so humans can fix things.</p>
+
+<h3>Identify the usual troublemakers</h3>
+<p>Not every activity deserves the full bodyguard treatment. Focus on actions that do IO calls interact with remote systems or parse unpredictable data streams. These are the ones that will cause your workflow to implode at 2 a m when the API decides to be dramatic.</p>
+<ul>
+  <li>HTTP requests and web API calls</li>
+  <li>File system reads and writes</li>
+  <li>Database operations and transactions</li>
+  <li>Parsing free form text or user supplied data</li>
+  <li>Invoking external applications or COM automation</li>
+</ul>
+
+<h3>Wrap risky actions with Try Catch</h3>
+<p>Put the risky sequence inside a Try Catch activity. The Try block runs normal logic. The Catch block gets your exceptions so the workflow does not abort like a melodramatic toaster. This lets you attempt recovery retry or fall back to a safe default value.</p>
+
+<h3>Use specific catch blocks for precise recovery</h3>
+<p>Do not be lazy and catch System.Exception like it is a safety net for your coding sins. Target exceptions such as System.Net.WebException or System.FormatException to implement useful recovery steps. Specific catches keep critical problems visible so an actual human can intervene when needed.</p>
+
+<h3>Log context and choose a recovery strategy</h3>
+<p>Logs are your crime scene photos. Always record the exception message the stack trace and custom context like invoice number or user id. After logging pick one of these moves</p>
+<ul>
+  <li>Retry with exponential backoff for transient network errors</li>
+  <li>Continue with a default value when data is optional</li>
+  <li>Escalate by rethrowing when the error needs human attention</li>
+</ul>
+
+<h3>Use Finally and Rethrow when you mean it</h3>
+<p>Finally is for cleanup tasks like closing applications releasing resources or deleting temp files. It runs whether the Try block succeeded or failed. Use Rethrow to propagate the original exception so support teams get a full picture of what went wrong. That preserved stack trace is the difference between guessing and solving.</p>
+
+<h3>Test negative scenarios and iterate</h3>
+<p>Create unit style test cases that simulate network failures malformed data and permission errors. Run those tests often. Robust exception handling is not set and forget. It evolves as your workflow meets new real world nonsense.</p>
+
+<h3>Quick best practices cheat sheet</h3>
+<ul>
+  <li>Identify risky activities and limit Try Catch to those areas</li>
+  <li>Prefer specific exception types over generic catch alls</li>
+  <li>Log rich context to speed up incident investigation</li>
+  <li>Use Finally for cleanup and Rethrow to preserve details</li>
+  <li>Automate negative tests and iterate based on failures</li>
+</ul>
+
+<p>Follow these patterns and your UiPath bots will fail less like soap operas and more like professionals. You will get clearer logs faster root cause analysis and fewer 3 a m alerts asking what went wrong. That is a win for everyone and a small mercy for your support team.</p>
+

@@ -1,0 +1,71 @@
+---
+layout: video
+title: "UiPath Anchor Base Tutorial"
+description: "Learn UiPath Anchor Base activity to find elements reliably using anchors and relative selectors for robust automation workflows"
+video_host: "youtube"
+video_id: "rjtHXD2nI8Q"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M0S"
+thumbnail_url: "https://i.ytimg.com/vi/rjtHXD2nI8Q/maxresdefault.jpg"
+content_url: "https://youtu.be/rjtHXD2nI8Q"
+embed_url: "https://www.youtube.com/embed/rjtHXD2nI8Q"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Anchor Base
+  - RPA
+  - Selectors
+  - UiPath Studio
+  - Find Relative
+  - Automation
+  - Screen Scraping
+  - Robotic Process Automation
+  - Tutorial
+---
+
+<p>If your UiPath workflow treats moving buttons like they are hiding on purpose you are not alone. Anchor Base exists to stop that drama by binding a stable neighbor to the element you actually want. This keeps selectors honest and automation less fragile in real life RPA projects.</p>
+
+<h2>Get the project ready in UiPath Studio</h2>
+<p>Open UiPath Studio and create a sequence or flowchart. Make sure the target application is visible while you work. Trust me it helps and it also makes selector tuning less tragic. From the Activities panel drag the Anchor Base activity into your designer. Thats the container that will save your selectors from chaos.</p>
+
+<h2>How Anchor Base actually works</h2>
+<p>Anchor Base has two parts. One holds the stable anchor that rarely moves and the other runs the action that interacts with the target control. Inside the Anchor Base you will usually use Find Relative to point at the moving target based on the fixed anchor.</p>
+
+<h3>Pick a solid anchor</h3>
+<p>Good anchors are things that do not vanish whenever a user resizes a window or the layout does a dramatic reshuffle. Examples include</p>
+<ul>
+  <li>Labels that sit next to inputs</li>
+  <li>Static icons or headers</li>
+  <li>Field names or nearby text that is rendered reliably</li>
+</ul>
+<p>A strong anchor reduces reliance on brittle coordinates and makes your selector logic easier to maintain in production.</p>
+
+<h2>Use Find Relative and tune selectors</h2>
+<p>Place a Find Relative inside the Anchor Base. Pick a direction and an offset that matches the UI layout and then fine tune the selector. Work through these steps</p>
+<ol>
+  <li>Indicate the anchor element with the Anchor Base target selector.</li>
+  <li>Use Find Relative to indicate the target element based on direction and offset.</li>
+  <li>Open the selector editor and test variations. Use wildcards for parts that change often and avoid greedy patterns that match too much.</li>
+  <li>Enable logging of selector values if you need to debug why something failed at runtime.</li>
+</ol>
+
+<h3>When a control is not a normal control</h3>
+<p>For non standard controls or images consider combining OCR with Anchor Base. OCR can grab text when selectors are useless and anchors help narrow the search area so OCR has less room to hallucinate.</p>
+
+<h2>Run tests and handle edge cases</h2>
+<p>Run your workflow in debug mode and watch how selectors behave across different window sizes and screens. Add retry scopes and sensible timeouts for flaky UIs. If an element occasionally moves to a different side of the anchor adjust your Find Relative strategy or add additional anchors for fallback.</p>
+
+<h2>Quick troubleshooting checklist</h2>
+<ul>
+  <li>Is the anchor stable across screens and sizes</li>
+  <li>Are you using wildcards only where needed</li>
+  <li>Did you test with the selector editor and logging enabled</li>
+  <li>Have you added retry scopes and timeouts for intermittent failures</li>
+  <li>Would OCR plus anchor reduce false negatives for this control</li>
+</ul>
+
+<p>Recap for your RPA sanity. Add Anchor Base in UiPath Studio. Choose a rock solid anchor. Use Find Relative to target the moving element. Tune selectors and test everything until it stops being dramatic. Do that and your automation will stop breaking every time the UI sneezes.</p>
+

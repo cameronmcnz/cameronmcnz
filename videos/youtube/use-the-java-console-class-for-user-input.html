@@ -1,0 +1,99 @@
+---
+layout: video
+title: "Use the Java Console Class for User Input"
+description: "Learn how to use the Java Console class to read lines and secure passwords handle parsing and fallback for terminal input"
+video_host: "youtube"
+video_id: "3cBk69Poyd0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M4S"
+thumbnail_url: "https://i.ytimg.com/vi/3cBk69Poyd0/maxresdefault.jpg"
+content_url: "https://youtu.be/3cBk69Poyd0"
+embed_url: "https://www.youtube.com/embed/3cBk69Poyd0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - java
+  - console
+  - user input
+  - System.console
+  - readLine
+  - readPassword
+  - terminal
+  - security
+  - java tutorial
+  - input handling
+---
+
+<p>If you write Java that talks to humans in a terminal you will need System.console for proper user input handling and password security. This guide explains how to get a Console instance read lines prompt for a masked password parse numbers and fall back when the console is not available. Yes it is boring but also useful and slightly less likely to explode than unvalidated input.</p>
+
+<h2>Why prefer Console for terminal input</h2>
+<p>The java.io.Console class was made for interactive terminal sessions. It gives you readLine for normal text input and readPassword for sensitive input that does not echo. That matters for security and for avoiding awkward office moments when a password parade happens on screen.</p>
+
+<h2>Get a Console instance</h2>
+<p>Call System.console and check for null. If you get null you are probably running inside an IDE or a GUI that fakes stdin. In that case either run the program from a real terminal or use a fallback like Scanner for basic interaction.</p>
+<pre><code>// Example init without the fluff
+Console console = System.console()</code></pre>
+<p>Never assume console is non null. Always check before calling methods on it.</p>
+
+<h2>Read a line with a prompt</h2>
+<p>Use readLine to print a prompt and wait for the user to type. It is synchronous and simple. Handle a null return which indicates end of stream.</p>
+<pre><code>// Ask for a name
+String name = console.readLine("Enter name ")
+if (name == null) {
+  // handle end of input gracefully
+}</code></pre>
+
+<h2>Read a password securely</h2>
+<p>readPassword returns a char array so you can zero the memory after use. That is better than leaving an immutable String in the heap where it can linger and be read by accident or an overenthusiastic debugger.</p>
+<pre><code>// Masked password prompt
+char[] pw = console.readPassword("Password ")
+if (pw != null) {
+  // use the password for authentication
+  java.util.Arrays.fill(pw, '\u0000') // clear after use
+}
+</code></pre>
+<p>Yes clearing the char array looks like paranoia. It is reasonable paranoia.</p>
+
+<h2>Parse and validate numeric input</h2>
+<p>Console gives you text. Convert it to numbers with the usual wrapper parse methods and catch NumberFormatException to ask the user again. Validation is your friend. Treat all input as hostile until proven innocent.</p>
+<pre><code>// Read and parse an integer age
+int age = 0
+while (true) {
+  String line = console.readLine("Age ")
+  if (line == null) break
+  try {
+    age = Integer.parseInt(line)
+    break
+  } catch (NumberFormatException e) {
+    System.out.println("Please enter a valid number")
+  }
+}
+</code></pre>
+
+<h2>Fallback when Console is not available</h2>
+<p>If System.console returns null use Scanner as a fallback for interactive input in environments such as IDE consoles or automated test shells. Scanner is fine for casual input but it does not support masked passwords so handle sensitive prompts differently in those environments.</p>
+<pre><code>// Simple fallback
+Scanner sc = new Scanner(System.in)
+String name = sc.nextLine()
+</code></pre>
+
+<h3>Fallback password strategies</h3>
+<ul>
+  <li>Use an environment variable or configuration file for automated runs</li>
+  <li>Prompt in the surrounding tooling rather than in the JVM when possible</li>
+  <li>Consider a terminal emulator that supports masking if you must run in an IDE</li>
+</ul>
+
+<h2>Best practices cheat sheet</h2>
+<ul>
+  <li>Always check System.console for null before using it</li>
+  <li>Prefer readPassword for secrets and clear the char array after use</li>
+  <li>Validate numeric input and handle NumberFormatException</li>
+  <li>Use Scanner only as a fallback and do not rely on it for secure input</li>
+  <li>Run interactive code from a real terminal when you want full Console features</li>
+</ul>
+
+<p>Summary quick and dirty The Console API gives you focused tools for user input and security in terminal apps. Use readLine for normal text use readPassword for masked secrets parse carefully and always have a fallback path for environments where System.console is null. You do not need to be a hero but you should try not to be an avoidable security headache.</p>
+

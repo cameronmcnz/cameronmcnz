@@ -1,0 +1,78 @@
+---
+layout: video
+title: "How to Generate GitHub SSH Keys"
+description: "Quick guide to create SSH keys for GitHub add the public key to the account and test secure git access from a local machine"
+video_host: "youtube"
+video_id: "Z-HNfaYZ4Dc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT19M15S"
+thumbnail_url: "https://i.ytimg.com/vi/Z-HNfaYZ4Dc/maxresdefault.jpg"
+content_url: "https://youtu.be/Z-HNfaYZ4Dc"
+embed_url: "https://www.youtube.com/embed/Z-HNfaYZ4Dc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - github
+  - ssh
+  - ssh-keys
+  - git
+  - security
+  - ssh-agent
+  - ssh-keygen
+  - public-key
+  - developer
+  - ssh-setup
+---
+
+<p>If you are tired of typing your password every time git nags you then SSH keys are the tiny miracle you need. This guide walks through generating a modern ed25519 key, loading it into the ssh agent, adding the public key to your GitHub account, and testing the connection. Expect slightly less frustration and marginally more security.</p>
+
+<h2>Quick reality check</h2>
+<p>First do not overwrite something that already works. Check for existing identities in the default SSH folder so you do not accidentally retire a key that still pushes critical code.</p>
+<pre><code>ls -al ~/.ssh</code></pre>
+
+<h2>Create a modern SSH key</h2>
+<p>ed25519 gives you a small fast key with strong crypto. Use ssh-keygen and give it a helpful comment like your email. Use a passphrase if you do not enjoy living dangerously.</p>
+<pre><code>ssh-keygen -t ed25519 -C "your_email@example.com"</code></pre>
+<p>When prompted pick a file name if you want multiple keys for different accounts. A passphrase is optional but recommended because a stolen private key with no passphrase is the developer equivalent of leaving your front door open and the welcome mat out.</p>
+
+<h2>Load the private key into the ssh agent</h2>
+<p>The ssh agent holds your unlocked keys so you do not have to type the passphrase for every git operation. Start the agent and add your key.</p>
+<pre><code>eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519</code></pre>
+<p>On macOS you can integrate with the keychain and on Linux use your desktop keyring for persistence. If you reboot and the agent forgot your key that is normal, so add it again or configure auto loading per your platform.</p>
+
+<h2>Add the public key to your GitHub account</h2>
+<p>Copy the public key and paste it into the GitHub web UI under SSH and GPG keys. Give the key a clear title so you do not have to play treasure hunt later.</p>
+<pre><code>cat ~/.ssh/id_ed25519.pub</code></pre>
+<p>Use distinct titles like Work Laptop or Home Desktop so you can revoke one key without setting the world on fire.</p>
+
+<h2>Test the SSH connection</h2>
+<p>Verify that GitHub knows your key and that authentication actually works before pushing anything important. You should see a friendly confirmation message or a polite refusal if something is wrong.</p>
+<pre><code>ssh -T git@github.com</code></pre>
+<p>If the host is unknown accept the host key when prompted or add it to known hosts first with ssh-keyscan. If GitHub responds with a short welcome you are all set.</p>
+
+<h3>Troubleshooting and practical tips</h3>
+<ul>
+  <li>File permissions matter. Keep your private key private with chmod 600 ~/.ssh/id_ed25519</li>
+  <li>Use a ssh config file to manage multiple keys and accounts. Example entry</li>
+</ul>
+<pre><code>cat >> ~/.ssh/config <<EOF
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+EOF</code></pre>
+<ul>
+  <li>Do not commit your private key to any repo ever. That is not a joke.</li>
+  <li>Rotate keys occasionally and remove old keys from your GitHub account for neatness and security.</li>
+  <li>If you see permission denied check that the right key is loaded in your agent and that GitHub shows the matching public key.</li>
+  <li>If you use multiple GitHub accounts set different Host aliases in your config to keep identities from colliding.</li>
+</ul>
+
+<h3>Why this helps</h3>
+<p>Using SSH keys removes password prompts and cuts down on leaked credentials. The private key stays on your machine and GitHub only needs the public key to verify you. That means safer pushes pulls and less time retyping passwords while you stare into the void.</p>
+
+<p>If you want a one line summary without the snark here it is. Generate an ed25519 key add it to the ssh agent upload the public key to GitHub and test the connection. Then go do something more exciting than typing a password three times a day.</p>
+

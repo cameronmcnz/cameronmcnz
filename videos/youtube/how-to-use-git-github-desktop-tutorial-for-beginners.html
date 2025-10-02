@@ -1,0 +1,80 @@
+---
+layout: video
+title: "How to Use Git & GitHub Desktop Tutorial for Beginners"
+description: "Step by step beginner guide to using Git and GitHub Desktop for version control and repo management with a GUI"
+video_host: "youtube"
+video_id: "MaqVvXv6zrU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT34M4S"
+thumbnail_url: "https://i.ytimg.com/vi/MaqVvXv6zrU/maxresdefault.jpg"
+content_url: "https://youtu.be/MaqVvXv6zrU"
+embed_url: "https://www.youtube.com/embed/MaqVvXv6zrU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - GitHub
+  - GitHub Desktop
+  - Version Control
+  - Beginner Guide
+  - Git Tutorial
+  - Commit
+  - Branching
+  - Pull Request
+  - Repository
+---
+
+<p>If you want version control without the command line angst this guide will show you how to use Git and GitHub Desktop like a civilized human. We will cover installing the tools configuring your identity creating or cloning a repository making commits branching pushing code and opening pull requests. Yes you will learn the parts that actually matter and I will make a few sarcastic asides along the way.</p>
+
+<h2>Install Git and GitHub Desktop</h2>
+<p>Start by downloading Git for your operating system and then install GitHub Desktop. Git provides the engine under the hood and GitHub Desktop gives you a friendly GUI to do the common tasks faster. If you love the terminal you can keep using it and nothing will explode. If you do not love the terminal you will still get to look like you know what you are doing.</p>
+
+<h3>Why both tools matter</h3>
+<ul>
+  <li>Git gives you full control over history and advanced features.</li>
+  <li>GitHub Desktop speeds up everyday workflows like committing branching and pushing.</li>
+  <li>Use the GUI for speed and the CLI for the edge cases when you want to look elite.</li>
+</ul>
+
+<h2>Configure your identity</h2>
+<p>Tell Git who you are so your commits do not show up as the mysterious anonymous human. Run these commands in a terminal or paste them into your preferred shell.</p>
+<pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+</code></pre>
+<p>GitHub Desktop also has settings for theme and default branch if you want to click rather than type. Make sure your email matches the address on your GitHub account if you want contributions to link back to your profile.</p>
+
+<h2>Create a repository or clone an existing one</h2>
+<p>Open GitHub Desktop and choose New Repository to start local work or choose Clone Repository to copy a remote project to your machine. The app will show untracked files and the repository tree so you can see what is going on without incantations.</p>
+
+<h2>Make changes then stage and commit</h2>
+<p>Edit files in your favorite editor. When you are ready return to GitHub Desktop and stage selected files. Add a commit message that explains why you made the change not just what you changed. Good commit messages are a gift to your future self and everyone else who inherits your code.</p>
+<pre><code>git add .
+git commit -m "Fix user input validation and add tests"
+</code></pre>
+<p>If you prefer the GUI click the checkboxes for the files add a clear message and hit Commit to master or to whatever branch you are on.</p>
+
+<h2>Push changes and work on branches</h2>
+<p>Click Push origin in GitHub Desktop to send local commits to GitHub. For new work create a branch for a feature or fix and switch between branches from the branch menu. Branching keeps the main branch clean and production ready which is nice for everyone except chaos.</p>
+<ul>
+  <li>Create a branch with the app or use the command line with git checkout -b feature-name</li>
+  <li>Push the branch to origin and open a pull request on GitHub</li>
+</ul>
+
+<h2>Open a pull request and merge</h2>
+<p>After you push a branch open a pull request on GitHub to request review and run any automated checks. Once approved use the merge button to combine the work into main then pull the updated main branch back to your machine. If there are conflicts resolve them locally or with the web editor and commit the result.</p>
+
+<h3>Quick checklist before opening a pull request</h3>
+<ul>
+  <li>Run tests and linters locally</li>
+  <li>Write a short description of why the change matters</li>
+  <li>Keep the commits tidy or squash them when merging</li>
+</ul>
+
+<h2>Troubleshooting and tips</h2>
+<p>If you see merge conflicts do not panic. Open the conflicting files resolve the differences commit the result and push the branch again. If history feels messy consider an interactive rebase from the command line to clean it up before pushing. Remember the GUI will not hide bugs but it will make you feel better while you hunt them down.</p>
+
+<h2>Wrap up and best practices</h2>
+<p>Use clear commit messages branch for features and use pull requests for review. Keep your local and remote branches in sync and delete feature branches after merging to avoid digital clutter. With GitHub Desktop you get an approachable workflow for daily version control tasks and with Git you keep the power when you need it. Now go commit something useful and do not forget to give your commits names that future you will not curse.</p>
+

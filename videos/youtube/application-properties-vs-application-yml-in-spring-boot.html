@@ -1,0 +1,81 @@
+---
+layout: video
+title: "application.properties vs application.yml in Spring Boot?"
+description: "Quick guide to choosing application.properties or application.yml in Spring Boot with pros cons examples and practical advice for configuration"
+video_host: "youtube"
+video_id: "QM9j_Cdk0Q8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT13M48S"
+thumbnail_url: "https://i.ytimg.com/vi/QM9j_Cdk0Q8/maxresdefault.jpg"
+content_url: "https://youtu.be/QM9j_Cdk0Q8"
+embed_url: "https://www.youtube.com/embed/QM9j_Cdk0Q8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - application.properties
+  - application.yml
+  - YAML
+  - Java
+  - Spring
+  - Configuration
+  - Profiles
+  - Best Practices
+  - Properties vs YAML
+---
+
+<p>If your team argues about application.properties versus application.yml you are not alone. Both files are first class citizens in Spring Boot and Spring will happily read either from the classpath. The real difference is formatting and ergonomics not some mystical badge of honor.</p>
+
+<h2>Quick summary you can actually use</h2>
+<p>Short version with a wink. Use application.properties when you want flat key value pairs that are compact and familiar. Use application.yml when you need nested maps or lists and you dislike repeated prefixes. Both support profiles and both bind to @ConfigurationProperties or @Value the same way.</p>
+
+<h2>Format and structure</h2>
+<p>Properties files are simple. One key equals one value. They work well for small, flat settings and for legacy tools that expect equals sign parsing.</p>
+<pre><code>server.port=8080
+spring.datasource.username=dbuser
+</code></pre>
+<p>YAML gives you hierarchy with indentation which is easier to read when things get nested or when lists enter the party.</p>
+<pre><code>server:
+  port: 8080
+spring:
+  datasource:
+    username: dbuser
+</code></pre>
+
+<h3>Lists and maps without tears</h3>
+<p>YAML wins for readability when you have arrays or nested maps. You can still use indexed properties in .properties but the verbosity climbs fast.</p>
+<pre><code># YAML list example
+app:
+  servers:
+    - host: s1.example.com
+      port: 9001
+    - host: s2.example.com
+      port: 9002
+
+# Properties equivalent
+app.servers[0].host=s1.example.com
+app.servers[0].port=9001
+app.servers[1].host=s2.example.com
+app.servers[1].port=9002
+</code></pre>
+
+<h2>Profiles and precedence in Spring Boot</h2>
+<p>Profiles work the same no matter the file format. Put profile specific values in files named application-dev.properties or application-dev.yml and Spring will pick the one that matches the active profile. Spring Environment resolves placeholders and binds values to beans using the same rules for both formats.</p>
+
+<h2>Debugging configuration like a detective</h2>
+<p>Stop blaming the build system. Enable startup debug so Spring tells you which file supplied a property. Start the app with --debug or set debug=true and inspect the startup logs. This saves time and elbow grease.</p>
+
+<h2>Practical best practices</h2>
+<ul>
+  <li>Prefer YAML for deep nesting and lists to keep configs readable.</li>
+  <li>Prefer properties for tiny apps and when tooling expects flat keys.</li>
+  <li>Keep secret handling out of plain files and use a vault or environment variables.</li>
+  <li>Use profile specific files rather than huge conditional blocks when possible.</li>
+  <li>Consistency beats cleverness. Pick one format per project unless you have a good reason.</li>
+</ul>
+
+<h2>Real world pick guide</h2>
+<p>If most of your configuration is flat and your CI or old scripts parse equals signs stick with application.properties. If your config has nested maps, lists, or you want fewer noisy prefixes choose application.yml. Either choice is supported by Spring so aim for a setup that makes the next developer smile and not cry.</p>
+

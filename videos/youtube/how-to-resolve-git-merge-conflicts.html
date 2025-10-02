@@ -1,0 +1,96 @@
+---
+layout: video
+title: "How to resolve Git merge conflicts"
+description: "Practical step by step guide to find inspect and fix Git merge conflicts using commands and simple merge tools to keep a clean repository history"
+video_host: "youtube"
+video_id: "1ogxIf6tXrY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M22S"
+thumbnail_url: "https://i.ytimg.com/vi/1ogxIf6tXrY/maxresdefault.jpg"
+content_url: "https://youtu.be/1ogxIf6tXrY"
+embed_url: "https://www.youtube.com/embed/1ogxIf6tXrY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - merge conflicts
+  - version control
+  - git merge
+  - conflict resolution
+  - git tutorial
+  - developer workflow
+  - merge tool
+  - git commands
+  - code collaboration
+---
+
+<p>Merge conflicts in Git are like traffic jams in a city that promised to be driverless by 2025. They happen, they are annoying, and they will not go away just because you stare at the terminal hard enough. This guide will walk you through detecting, inspecting, resolving, and verifying merge conflicts with real git commands and a pinch of sarcasm to keep you awake.</p>
+
+<h2>Spot the problem files</h2>
+<p>After a failed <code>git merge</code> or a rough <code>git pull</code> run <code>git status</code> and let Git do the heavy lifting. It will list unmerged paths so you do not play guessing games or consult a crystal ball.</p>
+
+<pre><code>git status</code></pre>
+
+<h2>Inspect what actually collided</h2>
+<p>Use <code>git diff</code> to see the differences and <code>git diff --name-only</code> to get a short list of affected files. Open the file to see conflict markers that look like a tiny legal dispute inside your source code.</p>
+
+<pre><code>git diff --name-only
+
+# conflict markers inside a file look like this
+<<<<<<< HEAD
+your changes here
+=======
+incoming changes here
+>>>>>>> feature/branch</code></pre>
+
+<h3>Quick ways to compare</h3>
+<ul>
+<li>Use <code>git diff</code> to read changes in the terminal.</li>
+<li>Use <code>git mergetool</code> to launch a visual merge tool for the faint of heart or the attention challenged.</li>
+<li>Use <code>git log --merge</code> when you want to inspect commits involved in the conflict.</li>
+</ul>
+
+<h2>Decide how to resolve the conflict</h2>
+<p>You have options, none of them involve chanting. Pick the one that fits your situation.</p>
+
+<ul>
+<li>Manual edit. Open the file. Remove the conflict markers. Keep the code you want. Test it or cry softly.</li>
+<li>Take one side. If you trust local changes use <code>git checkout --ours path</code>. If you prefer incoming work use <code>git checkout --theirs path</code>. These are blunt instruments but useful sometimes.</li>
+<li>Use a merge tool. For visual diffs and smarter conflict resolution launch <code>git mergetool</code>. It will show both sides and let you compose the final version.</li>
+</ul>
+
+<h2>Mark as resolved and commit</h2>
+<p>Once you have removed markers and shaped the file, tell Git you are done by staging the files. This is Git s way of nodding and moving on.</p>
+
+<pre><code>git add path/to/resolved_file
+# once all files are staged
+git commit</code></pre>
+
+<p>Git will usually prepare a merge commit message for you. Keep it honest and short. Your future self will either be grateful or very judgmental.</p>
+
+<h2>Test everything and push</h2>
+<p>Run your test suite and a couple of manual checks as needed. Passing tests beat a smug commit message any day. When you are happy push the fixed branch with <code>git push</code> and share the peace with your team.</p>
+
+<pre><code>git push</code></pre>
+
+<h2>Pro tips to avoid repeat drama</h2>
+<ul>
+<li>Enable automatic reuse of old resolutions with <code>git config --global rerere.enabled true</code>. Git will remember how you resolved similar conflicts earlier and save you time.</li>
+<li>Communicate in your developer workflow. Smaller merge windows and more frequent pulls reduce the chance of giant conflicts.</li>
+<li>Use feature branches and a consistent merge strategy. Rebase can keep history tidy but only if your team agrees on the rules.</li>
+<li>Prefer a good merge tool when the files are complex. Your eyeballs will thank you later.</li>
+</ul>
+
+<h2>Minimal checklist</h2>
+<ol>
+<li>Run <code>git status</code> to find conflicts</li>
+<li>Inspect with <code>git diff</code> or a merge tool</li>
+<li>Edit or choose a side with <code>git checkout --ours</code> or <code>git checkout --theirs</code></li>
+<li>Stage with <code>git add</code> and commit the merge</li>
+<li>Run tests and push the branch</li>
+</ol>
+
+<p>Resolve conflicts with a little patience and a tiny bit of dignity. Your repository will survive and your teammates will forget what happened, at least until the next feature branch collides with reality.</p>
+

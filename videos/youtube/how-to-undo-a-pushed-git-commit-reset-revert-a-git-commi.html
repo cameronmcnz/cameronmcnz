@@ -1,0 +1,93 @@
+---
+layout: video
+title: "How to Undo a Pushed Git Commit - Reset & Revert a Git Commi"
+description: "Learn how to safely undo a pushed Git commit using reset or revert and avoid breaking shared history."
+video_host: "youtube"
+video_id: "mSrxBJaJwGA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M25S"
+thumbnail_url: "https://i.ytimg.com/vi/mSrxBJaJwGA/maxresdefault.jpg"
+content_url: "https://youtu.be/mSrxBJaJwGA"
+embed_url: "https://www.youtube.com/embed/mSrxBJaJwGA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git revert
+  - git reset
+  - undo commit
+  - force push
+  - version control
+  - git tutorial
+  - git history
+  - git best practices
+  - push after reset
+---
+
+<p>If you pushed a commit and immediately started sweating, welcome to the club. This guide will help you undo a pushed Git commit with minimal drama. We will cover when to pick git revert versus git reset, how to push safely after a reset, and how to check that you did not accidentally erase someone else life work. Keep version control sane and your coworkers calmer than before.</p>
+
+<h2>Assess the situation</h2>
+<p>First question to ask yourself while breathing into a paper bag: has the bad commit been shared with others? If the answer is yes, do not rewrite history on the shared branch unless you like awkward team messages and merge conflicts. If the branch is private and you are the only one working on it, a history rewrite may be fine.</p>
+
+<h3>Quick decision guide</h3>
+<ul>
+  <li>Shared branch or main branch, prefer git revert and preserve history</li>
+  <li>Private feature branch and you know what you are doing, git reset then force push can work</li>
+  <li>When in doubt, revert. Your teammates will thank you silently or with passive aggressive emojis</li>
+</ul>
+
+<h2>Use git revert to make a reversing commit</h2>
+<p>git revert is the safe route. It creates a new commit that undoes the changes from the bad commit while leaving history intact. No mysterious rewrites, no missing commits, and fewer angry pings in chat.</p>
+<pre><code>git revert <commit-hash>    # creates a new commit that reverses the target commit
+git push origin your-branch</code></pre>
+<p>Use this on shared branches to avoid rewriting history. If the commit touched multiple files or needs manual resolution, Git will open your editor or show conflicts for you to fix.</p>
+
+<h2>Use git reset when rewriting history is acceptable</h2>
+<p>Reset is more forceful. It moves your branch pointer and can remove commits from the branch history. This is fine on feature branches that only you use, and risky everywhere else.</p>
+<pre><code>git reset --hard <commit-hash>    # move branch back and replace working tree
+# then push the rewritten branch to remote
+git push --force-with-lease origin your-branch</code></pre>
+<p>Never do a plain force push without telling people. Force with lease reduces the chance of clobbering someone else work by checking for upstream changes first.</p>
+
+<h2>Push after reset and stay out of trouble</h2>
+<ul>
+  <li>Prefer git push --force-with-lease to a plain force push</li>
+  <li>If someone did push to the branch in the meantime, the lease will stop the push and prompt a manual check</li>
+  <li>Explain why you rewrote history in your team chat and link to the commit range if useful</li>
+</ul>
+
+<h2>Verify the remote state</h2>
+<p>Always confirm the remote is how you expect. Don't trust faith or hope. Use these commands to inspect the remote branch history and to fetch any updates.</p>
+<pre><code>git fetch origin
+git log --oneline origin/your-branch
+# or compare local and remote
+git log --oneline your-branch..origin/your-branch</code></pre>
+
+<h2>Practical tips and etiquette</h2>
+<ul>
+  <li>If unsure prefer revert since it preserves history and avoids surprises</li>
+  <li>Communicate before and after a force push to reduce emergency reactions</li>
+  <li>Use clear commit messages when reverting so future humans know why the reversal happened</li>
+  <li>Consider protecting important branches to prevent accidental force pushes</li>
+</ul>
+
+<h2>Recap and quick cheat sheet</h2>
+<p>git revert creates a new reversing commit and keeps history. Use it on shared branches for safety. git reset rewrites history and requires a force push afterwards. Use git push --force-with-lease if you must push after a reset. Always fetch and inspect the remote after any change and tell your team what you did.</p>
+
+<h3>Cheat sheet commands</h3>
+<pre><code># safe revert on shared branch
+git revert <commit-hash>
+git push origin your-branch
+
+# history rewrite on private branch
+git reset --hard <commit-hash>
+git push --force-with-lease origin your-branch
+
+# verify remote
+git fetch origin
+git log --oneline origin/your-branch</code></pre>
+
+<p>Now go forth and undo with care. If you made a mistake again, at least you will be better prepared and funnier in the apology message.</p>
+

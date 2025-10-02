@@ -1,0 +1,74 @@
+---
+layout: video
+title: "Fix Java Not Recognized as an Internal Command Error"
+description: "Fix Java not recognized error on Windows by setting JAVA_HOME and updating PATH then verify with the java command."
+video_host: "youtube"
+video_id: "Ee5bLPDD9Q4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M54S"
+thumbnail_url: "https://i.ytimg.com/vi/Ee5bLPDD9Q4/maxresdefault.jpg"
+content_url: "https://youtu.be/Ee5bLPDD9Q4"
+embed_url: "https://www.youtube.com/embed/Ee5bLPDD9Q4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - java not recognized
+  - PATH
+  - JAVA_HOME
+  - JDK
+  - Windows
+  - environment variables
+  - command prompt
+  - fix java
+  - java troubleshooting
+---
+
+<p>If Windows keeps telling you java is not recognized as a command do not panic yet. This is one of those environment variable dramas that has a simple fix and a lot of melodrama. Follow a few tidy steps in the System Settings and your command prompt will stop ghosting the java executable.</p>
+
+<h2>Quick status check</h2>
+<p>Open a command prompt and run the basic sanity checks. These do not require admin powers and they will tell you whether Windows sees any java at all.</p>
+<pre><code>java -version
+where java
+</code></pre>
+<p>If java -version prints a version you are mostly fine. If you get a message saying java is not recognized or nothing useful appears then java is not on your PATH and you need to continue.</p>
+
+<h2>Find the JDK bin folder</h2>
+<p>Locate the JDK installation. Typical places are under Program Files or wherever your installer decided to dump things. The executable you want lives in the bin folder inside the JDK root.</p>
+<ul>
+  <li>Example path to check: C drive\Program Files\Java\jdk-11.0.2\bin</li>
+  <li>Remember the root folder is the JDK folder not the bin folder when you set JAVA_HOME</li>
+</ul>
+
+<h2>Set JAVA_HOME as a system variable</h2>
+<p>Open System Settings then Advanced system settings then Environment Variables. In the System variables section add a new variable named JAVA_HOME and point it to the JDK root folder you found earlier.</p>
+<ol>
+  <li>Click New in System variables</li>
+  <li>Enter JAVA_HOME as the variable name</li>
+  <li>Paste the JDK root folder as the value for the variable</li>
+</ol>
+<p>Many developer tools prefer JAVA_HOME to a raw PATH entry so this step is useful and not just for bragging rights.</p>
+
+<h2>Update PATH to include the JDK bin folder</h2>
+<p>Edit the System PATH variable and add %JAVA_HOME%\bin at the end of the list. If you prefer you can add the absolute path to the bin folder instead. The UI will handle path separators so you do not need to type anything cryptic.</p>
+<p>Make sure you added the bin folder and not the root JDK folder by mistake. java.exe lives inside bin and Windows needs that directory on the PATH for the java command to work from any command prompt.</p>
+
+<h2>Restart command prompt and verify</h2>
+<p>Close any open command windows and open a new one so the updated environment variables take effect. Run java -version again. If the wrong version shows up run where java to see all java executables on PATH.</p>
+<pre><code>where java
+</code></pre>
+<p>If where java lists a copy in some other folder you likely have a conflicting installation. Remove the older entry from PATH or uninstall the stray JRE to stop the confusion.</p>
+
+<h2>Quick troubleshooting tips</h2>
+<ul>
+  <li>If no java appears then you probably do not have a JDK installed. Download and install the correct JDK from a trusted vendor and repeat the steps.</li>
+  <li>User variables versus system variables matters. Put java on the System variables if you want it available to all users on the PC.</li>
+  <li>Order matters in PATH. An earlier entry will win if there are duplicates so move your JDK entry higher if needed.</li>
+  <li>Run where java to locate competing executables and fix them by editing environment variables or uninstalling the old runtime.</li>
+  <li>Check whether you are using a 32 bit versus 64 bit JDK if some programs complain about architecture mismatches.</li>
+</ul>
+
+<p>That is it. Set JAVA_HOME, add the bin folder to PATH, reopen your command prompt and enjoy a world where java responds when you ask it to. If it still complains then the JDK is probably missing or you have another installation messing with PATH. Either way you now know where to poke.</p>
+

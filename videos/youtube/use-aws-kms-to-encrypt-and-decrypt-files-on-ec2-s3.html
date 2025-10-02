@@ -1,0 +1,93 @@
+---
+layout: video
+title: "Use AWS KMS to Encrypt and Decrypt Files on EC2 S3"
+description: "Practical guide to use AWS KMS for file encryption and decryption on EC2 and S3 with symmetric and asymmetric keys using the AWS CLI and best practices."
+video_host: "youtube"
+video_id: "JjqS3BrF90g"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M37S"
+thumbnail_url: "https://i.ytimg.com/vi/JjqS3BrF90g/maxresdefault.jpg"
+content_url: "https://youtu.be/JjqS3BrF90g"
+embed_url: "https://www.youtube.com/embed/JjqS3BrF90g"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS KMS
+  - KMS
+  - EC2
+  - S3
+  - AWS CLI
+  - encryption
+  - symmetric keys
+  - asymmetric keys
+  - SSE KMS
+  - key management
+---
+
+<h2>Why you should care about KMS and not pretend encryption is automatic</h2>
+<p>If you store data on EC2 or S3 and you are not using AWS KMS you are either a brave hero or someone who enjoys explaining to auditors what went wrong. This guide walks through creating and choosing keys, attaching policies, encrypting and decrypting with the AWS CLI, and testing rotation and audit logging. It keeps technical details intact and doles out sarcasm as needed.</p>
+
+<h2>Create or pick the right KMS key</h2>
+<p>Go to the AWS console or use the AWS CLI to create a key. Pick symmetric for standard file encryption where speed and simplicity matter. Pick asymmetric when you actually need public key operations like signing or encryption without sharing the private key.</p>
+<pre><code># Symmetric example
+aws kms create-key --description "Files for project X" --key-usage ENCRYPT_DECRYPT
+
+# Asymmetric example for signing or public key ops
+aws kms create-key --description "Signing key" --key-usage SIGN_VERIFY --customer-master-key-spec RSA_2048
+</code></pre>
+<p>Name the key with a clear alias so future you does not cry during incident response.</p>
+
+<h2>Set key policy and grant IAM permissions</h2>
+<p>Attach a key policy that lets the principals you trust use the key. Then ensure the EC2 instance role or IAM user has kms:Encrypt and kms:Decrypt plus any S3 permissions you will need. If you forget this step the CLI will politely fail and you will stare at the screen.</p>
+<ul>
+  <li>Allow EC2 instance role to call KMS and S3 as appropriate</li>
+  <li>Consider using grants for temporary, limited access</li>
+  <li>Test with the least privilege you think might work then tighten it</li>
+</ul>
+
+<h2>Encrypt files on EC2 with the AWS CLI</h2>
+<p>You have two realistic options. Server side encryption with S3 if you trust Amazon to handle keys at rest. Or client side encryption when you want control over the ciphertext on disk.</p>
+<h3>Client side symmetric encryption example</h3>
+<pre><code># Encrypt a file and save the ciphertext
+aws kms encrypt --key-id alias/YourKey --plaintext fileb://example.txt --query CiphertextBlob --output text | base64 --decode > example.txt.encrypted
+</code></pre>
+<p>Explanation in human speak. KMS returns a base64 encoded CiphertextBlob. The pipeline decodes it and saves a binary ciphertext file that you can safely store in S3 or locally.</p>
+
+<h2>Use SSE KMS for S3 or client side data keys if you are picky</h2>
+<p>If you want Amazon to do the heavy lifting use S3 server side encryption with KMS. Upload like this and the object will be stored encrypted with your KMS key.</p>
+<pre><code># SSE KMS upload to S3
+aws s3 cp example.txt s3://your-bucket/ --sse aws:kms --sse-kms-key-id alias/YourKey
+</code></pre>
+<p>If you need more control then use KMS to generate a data key and do local encryption. That looks like calling GenerateDataKey, using the returned plaintext to encrypt locally, and storing the encrypted data key with the ciphertext.</p>
+
+<h2>Decrypt files on EC2 or when retrieving from S3</h2>
+<p>If you used client side encryption call KMS decrypt and base64 decode to get the plaintext back. If you used SSE KMS just download the object with the role that has permissions and Amazon will decrypt it for you transparently.</p>
+<pre><code># Client side decrypt
+aws kms decrypt --ciphertext-blob fileb://example.txt.encrypted --query Plaintext --output text | base64 --decode > example.txt.recovered
+
+# Download object encrypted with SSE KMS
+aws s3 cp s3://your-bucket/example.txt ./example.txt
+</code></pre>
+<p>Yes it really is that simple when you have the right permissions. No you do not get a medal for copying files with the AWS CLI.</p>
+
+<h2>Test key rotation and audit logging</h2>
+<p>Enable automatic rotation for symmetric KMS keys to keep long lived keys from getting bored and obsolete. Manually rotate asymmetric keys only if your use case requires it. Then verify CloudTrail shows Encrypt and Decrypt calls so audits are less terrifying.</p>
+<ul>
+  <li>Enable key rotation for symmetric keys in the console or via the API</li>
+  <li>Use CloudTrail to search for kms Encrypt and kms Decrypt events</li>
+  <li>Confirm the EC2 role can decrypt and S3 objects are served decrypted when expected</li>
+</ul>
+
+<h2>Quick checklist before you walk away</h2>
+<ul>
+  <li>Choose symmetric vs asymmetric correctly based on your workload</li>
+  <li>Set key policies and IAM roles so services can actually use the key</li>
+  <li>Decide between SSE KMS and client side encryption for control tradeoffs</li>
+  <li>Test decrypt and verify CloudTrail logs show activity</li>
+  <li>Enable rotation and monitor audit logs so your future self is smug</li>
+</ul>
+
+<p>There you go. You now have a practical and slightly snarky guide to KMS on EC2 and S3 that will keep your secrets secure and your auditors calmer. If anything fails consult the CLI error messages they are blunt but honest.</p>
+

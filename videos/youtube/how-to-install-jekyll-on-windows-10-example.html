@@ -1,0 +1,76 @@
+---
+layout: video
+title: "How to Install Jekyll on Windows 10 Example"
+description: "Step by step guide to install Jekyll on Windows 10 using RubyInstaller MSYS2 and gems for local static site development"
+video_host: "youtube"
+video_id: "7QVGUzjqdKE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M49S"
+thumbnail_url: "https://i.ytimg.com/vi/7QVGUzjqdKE/maxresdefault.jpg"
+content_url: "https://youtu.be/7QVGUzjqdKE"
+embed_url: "https://www.youtube.com/embed/7QVGUzjqdKE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jekyll
+  - Windows 10
+  - Ruby
+  - RubyInstaller
+  - MSYS2
+  - Bundler
+  - Static site
+  - Command line
+  - Tutorial
+  - Web development
+---
+
+<p>So you want a static site that does not require finger crossing every time you push code. Good choice. This guide walks through installing Jekyll on Windows 10 using RubyInstaller, MSYS2, and Bundler so you can build and serve a local static site without weeping into the terminal.</p>
+
+<h2>What you will need</h2>
+<p>Short list so you do not get surprised halfway through</p>
+<ul>
+  <li>Windows 10</li>
+  <li>RubyInstaller for Windows with the MSYS2 development toolchain enabled</li>
+  <li>Basic comfort with the command line</li>
+</ul>
+
+<h2>Install Ruby and enable MSYS2</h2>
+<p>Download RubyInstaller for Windows from the official site and run the installer. When the installer asks to set up the MSYS2 development toolchain agree to it. That toolchain provides the native libraries some gems need to compile.</p>
+<p>After installation open a new command prompt that has Ruby on the PATH. If the installer included the ridk helper you can run the helper to finish MSYS2 setup. Restart your terminal after the installation steps so environment changes take effect.</p>
+
+<h3>Quick verification commands</h3>
+<pre><code>ruby -v
+gem -v
+</code></pre>
+<p>If ruby and gem return versions you are ready to install Jekyll.</p>
+
+<h2>Install Jekyll and Bundler</h2>
+<p>Keep calm and run the gem command. Bundler keeps your gem versions from surprising you later.</p>
+<pre><code>gem install jekyll bundler
+</code></pre>
+<p>If gem compilation fails check that MSYS2 was installed and that you restarted the command prompt after Ruby installation. If native extensions fail open the MSYS2 shell and update packages with the package manager. A common fix is running the MSYS2 shell and updating with pacman.</p>
+
+<h2>Create and serve a new Jekyll site</h2>
+<p>The generator scaffolds everything so you can stop imagining the folders and actually have them. Replace mysite with your preferred name.</p>
+<pre><code>jekyll new mysite
+cd mysite
+bundle install
+bundle exec jekyll serve
+</code></pre>
+<p>Bundler ensures consistent versions across systems. The last command starts a local server. Open the address shown in the terminal in your browser to view the site. If the page does not load check the terminal for errors and fix any missing gems or permission issues.</p>
+
+<h2>Troubleshooting tips that actually help</h2>
+<ul>
+  <li>If gem install fails make sure MSYS2 was installed and the terminal was restarted after Ruby installation</li>
+  <li>If native extensions fail open the MSYS2 shell and run the package manager updates with pacman to refresh libraries</li>
+  <li>If you hit repeated native build errors consider using Windows Subsystem for Linux for a smoother Unix like build environment</li>
+  <li>Read the terminal output it is grumpy but truthful and often tells you exactly what is wrong</li>
+</ul>
+
+<h2>Wrap up and final snark</h2>
+<p>This guide covered installing Ruby and MSYS2 in Windows 10 installing Jekyll and Bundler creating a new site and serving it locally. Follow the commands above and check terminal messages for clues if something goes sideways. And if you get tired of native build surprises try WSL for fewer headaches.</p>
+
+<p>Now go create a static site that looks expensive but was built with minimal suffering.</p>
+

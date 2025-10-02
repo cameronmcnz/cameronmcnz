@@ -1,0 +1,70 @@
+---
+layout: video
+title: "How to use Git Remote Add Origin"
+description: "Learn to connect a local Git repo to a remote with git remote add origin and push branches fast and reliably"
+video_host: "youtube"
+video_id: "jq1ROBgmEzw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT24M38S"
+thumbnail_url: "https://i.ytimg.com/vi/jq1ROBgmEzw/maxresdefault.jpg"
+content_url: "https://youtu.be/jq1ROBgmEzw"
+embed_url: "https://www.youtube.com/embed/jq1ROBgmEzw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git remote
+  - git remote add origin
+  - git push
+  - github
+  - git tutorial
+  - version control
+  - git commands
+  - git init
+  - branch management
+---
+
+<p>So you made a local Git repo and now you want to shove it onto a remote without summoning demons. Good plan. This guide walks you through registering a remote named origin and pushing your branch so GitHub or your favorite host can admire your code.</p>
+
+<h2>Get the local repo ready</h2>
+<p>If you do not already have a repository run git init or check with git status. Stage and commit your work so you have something worth sending into the cloud.</p>
+<pre><code>git init
+git add .
+git commit -m "Initial commit"
+</code></pre>
+<p>If you already had commits you are fine to skip the init step and proceed to adding a remote.</p>
+
+<h2>Add the remote called origin</h2>
+<p>The command is straightforward. Replace the placeholder with the URL your hosting service gave you. You can use HTTPS or SSH depending on how you authenticate.</p>
+<pre><code>git remote add origin [remote URL]</code></pre>
+<p>That registers the name origin and points it at the remote repository. No magic, just a friendly pointer so Git knows where to push and fetch.</p>
+
+<h2>Push a branch and set upstream</h2>
+<p>If your main branch is called main do this. If it is master or something else replace main with that branch name.</p>
+<pre><code>git push -u origin main</code></pre>
+<p>The -u flag sets the upstream so future pushes are as lazy as you want them to be. After this you can run git push and Git will know where to send commits for that branch.</p>
+
+<h3>Other useful push scenarios</h3>
+<ul>
+  <li>To push a different branch use git push -u origin your-branch-name</li>
+  <li>To push tags use git push origin --tags</li>
+</ul>
+
+<h2>Verify everything is actually connected</h2>
+<p>Make sure origin points where you expect it to point.</p>
+<pre><code>git remote -v
+git branch -vv</code></pre>
+<p>The first command lists remotes and their URLs. The second shows what upstream each branch is tracking. Both are quick sanity checks before you rage at Git.</p>
+
+<h2>Troubleshooting that will save time and dignity</h2>
+<ul>
+  <li><strong>Authentication errors</strong> usually mean your credentials or SSH keys are not set up. Fix credentials or add the right SSH key to your hosting account.</li>
+  <li><strong>Permission denied</strong> means your account does not have access to the remote repository. Check settings on GitHub or your host and ask for access if you need it.</li>
+  <li><strong>Push rejected</strong> often happens when the remote has commits you do not. Bring your branch up to date and rebase or merge first. A simple approach is git pull --rebase then git push.</li>
+</ul>
+
+<h2>Quick recap</h2>
+<p>Initialize or confirm your local repo, add a remote with git remote add origin, push your branch with git push -u origin main, and verify with git remote -v and git branch -vv. If something fails check credentials and bring your branch up to date before trying again. Now go forth and push, and try not to break the build.</p>
+

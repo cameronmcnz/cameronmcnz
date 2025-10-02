@@ -1,0 +1,81 @@
+---
+layout: video
+title: "AWS Solution Architect Question Beanstalk EC2 Encryption"
+description: "Quick guide to AWS exam concepts covering Beanstalk EC2 EBS IOPS EKS ECS S3 and encryption objectives with practical exam tips"
+video_host: "youtube"
+video_id: "48v7F6izj00"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT58S"
+thumbnail_url: "https://i.ytimg.com/vi/48v7F6izj00/maxresdefault.jpg"
+content_url: "https://youtu.be/48v7F6izj00"
+embed_url: "https://www.youtube.com/embed/48v7F6izj00"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - Solution Architect
+  - Beanstalk
+  - EC2
+  - EBS
+  - IOPS
+  - EKS
+  - ECS
+  - S3
+  - Encryption
+---
+
+<h1>Study guide for mapping Beanstalk EC2 storage performance and KMS choices</h1>
+<p>Short version without the exam sweat. Elastic Beanstalk will spin up EC2 instances for you when you use the standard platform. If the prompt mentions containers or orchestration then consider ECS or EKS. Otherwise do not assume a container layer unless the question says it.</p>
+
+<h2>What Elastic Beanstalk actually does</h2>
+<p>Elastic Beanstalk is a deployment helper that wires EC2, load balancers and auto scaling together so you can pretend the cloud does all the heavy lifting. For exam scenarios remember two things. First Beanstalk defaults to autoscaled EC2 instances on standard platforms. Second choose a container service only when the question asks for containers or orchestration like ECS or EKS.</p>
+
+<h2>EBS volume choices and performance trade offs</h2>
+<p>Not all storage is created equal. Pick a volume type that matches the workload or the exam will ding your answer for being unrealistic or needlessly expensive.</p>
+<ul>
+  <li><strong>gp3</strong> is the sensible default for most workloads. You can increase baseline IOPS and throughput without changing volume size which keeps the cost versus performance balance sane.</li>
+  <li><strong>io1 and io2</strong> are the go to when a scenario demands sustained high IOPS or tight latency. Use them when random IO is heavy and the question does not punish cost.</li>
+  <li><strong>Throughput optimised HDD</strong> types are for large sequential reads and writes. Avoid them for random database IO unless the question points you that way.</li>
+  <li><strong>Instance store</strong> is ephemeral storage. If the exam wants persistence or backups do not pick instance store unless the scenario explicitly says ephemeral is okay.</li>
+</ul>
+
+<h3>Quick EBS picks</h3>
+<ul>
+  <li>Heavy random IOPS pick a provisioned IOPS volume unless cost is penalised.</li>
+  <li>General purpose pick gp3 for flexibility and lower fuss.</li>
+  <li>Ephemeral scratch data can live on instance store but do not use it for durable data.</li>
+</ul>
+
+<h2>Encryption and KMS guidance</h2>
+<p>Exam questions love pretending keys are a personality contest. If ownership and granular key policies matter choose a customer managed KMS key. If the question wants simplicity and you do not need fine grained control then AWS managed keys or SSE S3 can be the answer.</p>
+<ul>
+  <li><strong>KMS customer managed keys</strong> are for organisations that want control over rotation key policies and IAM grants.</li>
+  <li><strong>SSE S3</strong> is the easy server side option for S3 objects when you do not need key policy control.</li>
+  <li><strong>SSE KMS</strong> sits in the middle and gives you more control than SSE S3 while still being managed by AWS.</li>
+  <li><strong>Client side encryption</strong> is for cases where the exam demands that keys never leave the client environment.</li>
+  <li>Encrypted EBS snapshots stay encrypted when copied if the same key is used. If you rekey while copying then the snapshot will be encrypted with the new key.</li>
+</ul>
+
+<h2>Mapping performance and security to the right service</h2>
+<p>When answering multiple choice questions do the mapping before you pick an option. Match performance needs to EBS types and match security needs to KMS choices. If the scenario mixes Beanstalk and containers ask yourself whether a container orchestration layer is actually required.</p>
+
+<h2>Exam tips and traps to avoid</h2>
+<ul>
+  <li>Watch for answers that propose unencrypted backups or using instance store for durable storage. Those are almost always wrong unless the scenario explicitly allows them.</li>
+  <li>If the question mentions heavy random IOPS pick a provisioned IOPS volume unless cost is explicitly a scoring factor.</li>
+  <li>When the scenario demands key ownership pick a customer managed CMK and state that you control key policies.</li>
+  <li>Do not assume Beanstalk uses containers just because modern apps use them. Look for explicit container language in the prompt.</li>
+</ul>
+
+<h2>Final checklist before you mark the answer</h2>
+<ul>
+  <li>Did you match the workload to gp3 or to a provisioned IOPS type?</li>
+  <li>Does the solution require persistent storage or is ephemeral allowed?</li>
+  <li>Who owns the encryption keys and does that match the key type chosen?</li>
+  <li>Are containers required or is Beanstalk on EC2 the simpler correct answer?</li>
+</ul>
+
+<p>Use this cheat sheet in practice questions. Be precise about IOPS throughput and key ownership and you will survive the exam with less soul crushing second guessing. Also breathe. Cloud exams are mostly memory plus logic plus a tiny bit of luck.</p>
+

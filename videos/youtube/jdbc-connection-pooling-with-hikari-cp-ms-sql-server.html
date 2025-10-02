@@ -1,0 +1,114 @@
+---
+layout: video
+title: "JDBC Connection Pooling with Hikari CP & MS SQL Server"
+description: "Compact guide to set up Hikari CP for JDBC pooling with Microsoft SQL Server covering config best practices tuning and common pitfalls"
+video_host: "youtube"
+video_id: "17Xl01CcZUM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M21S"
+thumbnail_url: "https://i.ytimg.com/vi/17Xl01CcZUM/maxresdefault.jpg"
+content_url: "https://youtu.be/17Xl01CcZUM"
+embed_url: "https://www.youtube.com/embed/17Xl01CcZUM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JDBC
+  - HikariCP
+  - SQL Server
+  - Connection Pooling
+  - Java
+  - DataSource
+  - Performance
+  - Tuning
+  - Database
+  - Spring Boot
+---
+
+<p>If your Java app treats database connections like disposable party favors you will hit trouble. HikariCP gives you a sane JDBC connection pool that actually behaves and does not pretend to be magic. This guide shows how to wire HikariCP up to Microsoft SQL Server and keep the database from staging a revolt.</p>
+
+<h2>Why use HikariCP for SQL Server</h2>
+<p>Short answer: it is fast, light, and predictable. Long answer: HikariCP minimizes overhead when acquiring and releasing JDBC connections and exposes the knobs you need to tune actual throughput. That matters more than creating new connections on demand like it is 1999.</p>
+
+<h2>Step 1 Add the dependencies</h2>
+<p>Make sure the runtime has both the Microsoft JDBC driver and HikariCP. For Maven add dependency entries to your pom.xml. For Gradle add implementation lines to your build file.</p>
+
+<pre><code>&lt;!-- Maven examples --&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;com.zaxxer&lt;/groupId&gt;
+  &lt;artifactId&gt;HikariCP&lt;/artifactId&gt;
+  &lt;version&gt;5.0.1&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+  &lt;groupId&gt;com.microsoft.sqlserver&lt;/groupId&gt;
+  &lt;artifactId&gt;mssql-jdbc&lt;/artifactId&gt;
+  &lt;version&gt;12.2.0.jre11&lt;/version&gt;
+&lt;/dependency&gt;
+
+# Gradle example
+# implementation 'com.zaxxer:HikariCP:5.0.1'
+# implementation 'com.microsoft.sqlserver:mssql-jdbc:12.2.0.jre11'
+</code></pre>
+
+<h2>Step 2 Create and configure HikariDataSource</h2>
+<p>Use HikariConfig or create a HikariDataSource directly. Point it at the Microsoft DataSource implementation for best compatibility and avoid repeatedly composing long JDBC URLs in code.</p>
+
+<pre><code>// Java example
+HikariConfig cfg = new HikariConfig();
+cfg.setDataSourceClassName("com.microsoft.sqlserver.jdbc.SQLServerDataSource");
+cfg.addDataSourceProperty("user", "yourUser");
+cfg.addDataSourceProperty("password", "yourPassword");
+cfg.addDataSourceProperty("serverName", "db-host");
+cfg.addDataSourceProperty("databaseName", "mydb");
+cfg.setMaximumPoolSize(20);
+cfg.setConnectionTimeout(30000);
+cfg.setIdleTimeout(600000);
+
+HikariDataSource ds = new HikariDataSource(cfg);
+</code></pre>
+
+<p>Bind the DataSource into your DAOs so they call ds.getConnection() instead of new DriverManager calls. Frameworks such as Spring Boot will accept a HikariDataSource bean and wire the pool automatically. If you wire things manually remember to close the DataSource on shutdown to avoid orphaned sockets.</p>
+
+<h2>Step 3 Spring Boot notes</h2>
+<p>Spring Boot uses HikariCP by default when it finds the dependency. Typical properties go into application.properties or application.yml and are sane defaults. Override them when your workload needs it.</p>
+
+<pre><code># application.properties example
+spring.datasource.url=jdbc:sqlserver://db-host;databaseName=mydb
+spring.datasource.username=yourUser
+spring.datasource.password=yourPassword
+spring.datasource.hikari.maximum-pool-size=15
+spring.datasource.hikari.connection-timeout=30000
+</code></pre>
+
+<h2>Tuning tips that do not require faith</h2>
+<ul>
+  <li>Set maximumPoolSize to the number of concurrent DB threads you expect plus a small safety margin.</li>
+  <li>Adjust connectionTimeout and idleTimeout based on real latency measurements, not gut feelings.</li>
+  <li>Too many connections will slam the SQL Server and slow everything down, so less can be more.</li>
+  <li>If connection acquisition failures show up in logs you are likely hitting pool or DB limits, not mysterious app karma.</li>
+</ul>
+
+<h3>Quick rules of thumb</h3>
+<ul>
+  <li>If your CPU on the DB server is pegged lower the pool size and optimize queries and indexes.</li>
+  <li>If threads are frequently queuing increase pool size a little and monitor.</li>
+  <li>Watch latency not connection counts as your single source of truth.</li>
+</ul>
+
+<h2>Monitoring and diagnostics</h2>
+<p>Expose metrics with Micrometer or JMX so you can see active connections idle connections and waiting threads. HikariCP exposes useful MBeans and Meter bindings that integrate with most observability stacks. Logs often tell the story when acquisition times spike or connections time out.</p>
+
+<h2>Summary and parting advice</h2>
+<p>Steps in one line for those who skim and pretend they read it</p>
+<ul>
+  <li>Add driver and HikariCP</li>
+  <li>Configure HikariDataSource with SQL Server DataSource class name and credentials</li>
+  <li>Inject the pool into your code or let Spring Boot do it</li>
+  <li>Tune maximumPoolSize connectionTimeout and idleTimeout based on metrics</li>
+  <li>Monitor and close the DataSource on shutdown</li>
+</ul>
+
+<p>Remember the goal is predictable latency and efficient database resource use not heroic connection creation on demand. If the database is the bottleneck you will get better returns from query tuning and indexing than from cranking up the pool size and hoping for the best.</p>
+

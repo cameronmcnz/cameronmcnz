@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Fix jvm.dll missing server JVM error SonarQube"
+description: "Quick tutorial to resolve jvm.dll missing or missing server JVM errors when running SonarQube on Windows by fixing Java installation and paths"
+video_host: "youtube"
+video_id: "IHqg-nKOV7M"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M39S"
+thumbnail_url: "https://i.ytimg.com/vi/IHqg-nKOV7M/maxresdefault.jpg"
+content_url: "https://youtu.be/IHqg-nKOV7M"
+embed_url: "https://www.youtube.com/embed/IHqg-nKOV7M"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - SonarQube
+  - jvm.dll
+  - Windows
+  - Java
+  - JDK
+  - JAVA_HOME
+  - 64-bit
+  - wrapper.conf
+  - error fix
+  - debugging
+---
+
+<p>So SonarQube refused to start and Windows threw a dramatic message about jvm.dll being missing or a server JVM that vanished into the void. Relax, this is usually not the end of the world. It is a classic case of architecture mismatch or the service wrapper pointing at the wrong Java install. Follow these steps and your SonarQube will stop ghosting you.</p>
+
+<h2>Quick check to prove something broke</h2>
+<p>Open a Command Prompt and run the usual suspects to see what Java the system actually knows about.</p>
+<pre><code>java -version
+where java</code></pre>
+<p>If <code>java -version</code> shows a 32 bit runtime while your SonarQube is the 64 bit build you will get the missing jvm.dll or missing server JVM error. The Windows service wrapper cannot load a 32 bit jvm into a 64 bit process. That is not a metaphor.</p>
+
+<h2>Install a matching 64 bit JDK or JRE</h2>
+<p>Download a vendor supported 64 bit JDK or JRE that matches SonarQube requirements. Pick the 64 bit installer. If you already have a Java install but it is 32 bit then uninstall or avoid it. SonarQube needs a 64 bit jvm.dll living inside a 64 bit Java install.</p>
+
+<h2>Set JAVA_HOME and update PATH so things stop guessing</h2>
+<p>Create or update the environment variable named <code>JAVA_HOME</code> to point at the Java install folder. Then make sure the Java bin is first on PATH so the service and startup scripts find the right java executable.</p>
+<pre><code>setx JAVA_HOME "Program Files\Java\jdk1.8.0_xxx"
+setx PATH "%JAVA_HOME%\bin;%PATH%"</code></pre>
+<p>On Windows services the environment in use can be different from your interactive shell. If the SonarQube service is installed make sure the service account sees the same JAVA_HOME and PATH, or skip to the wrapper step below.</p>
+
+<h2>Force the SonarQube wrapper to use the right Java</h2>
+<p>If the service still picks the wrong java then stop trusting guesswork. Edit the file in the SonarQube <code>conf</code> folder named <code>wrapper.conf</code> and set the wrapper command to the full path of the 64 bit java.exe. That removes the mystery and prevents Windows from loading the wrong jvm.dll.</p>
+<pre><code># look for a property like this in conf\wrapper.conf
+wrapper.java.command=Program Files\Java\jdk1.8.0_xxx\bin\java.exe</code></pre>
+<p>Save the file and make sure you edited the copy that the installed service actually uses. Some installers copy config files around so double check which folder your service points at.</p>
+
+<h2>Run the right startup script or restart the service</h2>
+<p>If you run SonarQube by hand use the batch file in the proper platform bin folder. For a 64 bit Windows install that is the <code>bin\windows-x86-64</code> folder. If you run SonarQube as a Windows service stop and start the service so the wrapper reloads the new settings.</p>
+<pre><code>net stop SonarQube
+net start SonarQube
+rem or run .\bin\windows-x86-64\StartSonar.bat</code></pre>
+
+<h2>Extra debugging tips when jvm.dll still plays hide and seek</h2>
+<ul>
+  <li>Run <code>where java</code> to see every java.exe on PATH. Remove older entries that point at 32 bit installs.</li>
+  <li>Check the Java release bitness in the <code>java -version</code> output. Look for 64 bit keywords or missing bits that betray a 32 bit build.</li>
+  <li>Open the wrapper logs to see which path it tried to load. Logs will show the actual command line the wrapper used to start Java.</li>
+  <li>If SonarQube uses a Windows service created by a wrapper exe confirm that the wrapper executable matches your SonarQube package architecture. The wrapper and SonarQube packaging usually match but it is worth a peek.</li>
+</ul>
+
+<h3>Short checklist to finish like a pro</h3>
+<ul>
+  <li>Confirm 64 bit Java is installed</li>
+  <li>Set JAVA_HOME to the 64 bit install</li>
+  <li>Put %JAVA_HOME%\bin early on PATH</li>
+  <li>Edit conf\wrapper.conf to use the full Java path if needed</li>
+  <li>Restart the SonarQube service or run the correct StartSonar.bat</li>
+</ul>
+
+<p>If you followed these steps and SonarQube still complains about missing jvm.dll then post the wrapper log and <code>java -version</code> output. Most likely the problem is an unexpected Java somewhere on PATH or a wrapper pointing at an old config. Fix that and the server JVM will stop sulking.</p>
+

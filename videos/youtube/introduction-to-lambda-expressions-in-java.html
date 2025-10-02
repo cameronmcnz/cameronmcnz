@@ -1,0 +1,67 @@
+---
+layout: video
+title: "Introduction to Lambda Expressions in Java"
+description: "Quick practical guide to Java lambda expressions with examples and tips for functional interfaces streams and method references"
+video_host: "youtube"
+video_id: "edKhc5TG_ME"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M28S"
+thumbnail_url: "https://i.ytimg.com/vi/edKhc5TG_ME/maxresdefault.jpg"
+content_url: "https://youtu.be/edKhc5TG_ME"
+embed_url: "https://www.youtube.com/embed/edKhc5TG_ME"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Lambda Expressions
+  - Functional Programming
+  - Java 8
+  - Streams
+  - Method References
+  - Functional Interface
+  - Code Examples
+  - Tutorial
+  - Programming
+---
+
+<p>If your Java code looks like it was written by a committee that loved typing more than clarity you are in the right place. This short tutorial shows how lambda expressions in Java 8 let you write clearer functional programming style code while still behaving like a good, obedient JVM citizen.</p>
+
+<h2>Why functional interfaces matter</h2>
+<p>A lambda is just an implementation of a functional interface. That means the interface has a single abstract method. Think Runnable or Predicate&lt;T&gt; and not a sprawling interface that cries for mercy. Mark custom interfaces with @FunctionalInterface to document intent and fail fast if someone ruins the contract.</p>
+
+<h3>Common functional interfaces</h3>
+<ul>
+  <li>Runnable for no args and no return</li>
+  <li>Predicate&lt;T&gt; for boolean tests</li>
+  <li>Function&lt;T, R&gt; for mapping a value</li>
+  <li>Consumer&lt;T&gt; for side effects</li>
+  <li>Comparator&lt;T&gt; for sorting logic</li>
+</ul>
+
+<h2>Lambda syntax without the ceremony</h2>
+<p>Basic shape is tiny and readable. Parameter list then arrow then body. For example a simple adder looks like this</p>
+<pre><code>(a, b) -> a + b</code></pre>
+<p>When types are obvious the compiler fills them in so you can skip noise. Use a single expression for short returns and braces with an explicit return when you need multiple statements and existential dread.</p>
+
+<h2>Method references and streams in practice</h2>
+<p>If your lambda only calls an existing method prefer the method reference style for brevity and clarity. In prose that reads as ClassName methodName or instance methodName when appropriate. When method reference is awkward write the equivalent lambda like s -> s.toLowerCase().</p>
+
+<p>Combine lambdas with the Streams API for real power. Examples that do not insult your future self include</p>
+<ul>
+  <li>Sort a list with a comparator written as a lambda: <pre><code>list.sort((a, b) -> a.compareTo(b))</code></pre></li>
+  <li>Filter items with a predicate: <pre><code>list.stream().filter(s -> s.startsWith("x")).collect(Collectors.toList())</code></pre></li>
+  <li>Map values with a function: <pre><code>list.stream().map(s -> s.length()).collect(Collectors.toList())</code></pre></li>
+</ul>
+
+<h2>Small exercises to get good</h2>
+<ol>
+  <li>Replace an anonymous inner class with a lambda and notice how your eyes stop bleeding</li>
+  <li>Try swapping a lambda for a method reference and see if readability improves</li>
+  <li>Profile a hot stream pipeline to learn when expressive code matters more than micro optimizations</li>
+</ol>
+
+<h2>Summary and tip</h2>
+<p>Lambda expressions in Java 8 let you express intent with less boilerplate while keeping behavior explicit. Use functional interfaces for single abstract methods, prefer concise lambdas for short logic and switch to method references when the lambda is just a pass through. And remember avoid accidental capture of variables unless you enjoy debugging at 2 a m.</p>
+

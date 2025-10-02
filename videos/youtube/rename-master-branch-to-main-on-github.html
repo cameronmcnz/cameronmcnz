@@ -1,0 +1,83 @@
+---
+layout: video
+title: "Rename Master Branch to Main on GitHub"
+description: "Quick guide to rename master branch to main on GitHub with steps to update local clones CI and collaborators"
+video_host: "youtube"
+video_id: "DHFl7D9A2SQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT46S"
+thumbnail_url: "https://i.ytimg.com/vi/DHFl7D9A2SQ/maxresdefault.jpg"
+content_url: "https://youtu.be/DHFl7D9A2SQ"
+embed_url: "https://www.youtube.com/embed/DHFl7D9A2SQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - rename-branch
+  - main-branch
+  - master-to-main
+  - git-branch
+  - git-tutorial
+  - version-control
+  - devops
+  - git-cli
+---
+
+<article>
+  <p>If you are tired of typing master and feeling like the ghost of outdated names is judging your commit history you can change the default branch to main without summoning chaos. This guide walks through the rename with practical git and GitHub tips and a touch of sarcasm. It covers branch protection update local clones CI and deployment fixes and the polite announcement to your teammates.</p>
+
+  <h2>Why change master to main</h2>
+  <p>Short version. It modernizes your repo name and avoids awkward language in tutorials and automation. Longer version. It is a low risk configuration change that affects settings and scripts more than file history. This is a version control housekeeping task not a refactor of the universe.</p>
+
+  <h2>Quick checklist before you start</h2>
+  <ul>
+    <li>Audit the repo for references to master using repo search or grep</li>
+    <li>Note any branch protection rules pull request rules and required status checks</li>
+    <li>Tell CI owners deploy admins and anyone who manages environment settings</li>
+    <li>Have the team agree on a day or time to reduce surprise merge conflicts</li>
+  </ul>
+
+  <h2>Step by step</h2>
+
+  <h3>Step 1 change the default branch on GitHub</h3>
+  <p>Use the repository settings on GitHub to pick a new default branch name called main. If you prefer the command line and have the GitHub CLI installed run the gh command to switch the default branch name with the git cli experience.</p>
+  <pre><code>gh repo edit --default-branch main</code></pre>
+
+  <h3>Step 2 update branch protection rules</h3>
+  <p>Branch protection rules do not follow a rename automatically. Go to the branch protection section and change rules that referenced master so they now apply to main. Check required reviews required status checks and any admins overrides to avoid blocked merges after the change.</p>
+
+  <h3>Step 3 update local clones</h3>
+  <p>On each developer machine run these commands to preserve history and set the proper upstream. Yes this works and no you do not need to reclone unless you love doing things the hard way.</p>
+  <pre><code>git fetch origin
+git branch -m master main
+git checkout main
+git pull
+git push -u origin main
+# optional remove the old remote branch
+git push origin --delete master</code></pre>
+  <p>These commands rename the local branch set the new tracking branch and optionally delete the old remote branch once everyone is on main.</p>
+
+  <h3>Step 4 update CI deployment and automation</h3>
+  <p>Search your CI pipeline YAML files deployment scripts and automation for any literal master references. Common places are workflow triggers environment branch filters and deploy policies. Update those references to main and run a pipeline to confirm nothing explodes.</p>
+  <p>If you use GitHub Actions update workflow triggers that reference branch names and check protected environment rules that might block deployments for the new branch.</p>
+
+  <h3>Step 5 notify collaborators and clean up</h3>
+  <p>Communication is the part where you avoid the blame game. Send a message with the exact commands above and the time you did the rename. Suggest team members run the local clone commands and point them to any updated CI docs.</p>
+  <p>Run a search to catch hidden references after the rename. For example run a quick grep across the repo to find any remaining master mentions.</p>
+  <pre><code>git grep -n "master"
+# or from the shell
+grep -R "master" .</code></pre>
+
+  <h2>Final tips from someone who has seen this go sideways</h2>
+  <ul>
+    <li>Do the rename when traffic and deploys are low</li>
+    <li>Keep a short rollback plan like recreating the old branch name if something truly breaks</li>
+    <li>Update documentation and READMEs so future devs do not stare at ancient instructions</li>
+  </ul>
+
+  <p>Renaming master to main is mostly about configuration and communication. Follow the steps above audit your CI and automation and tell the team. You will keep history intact and avoid awkward deploy failures that happen when a pipeline is still looking for a branch that no longer exists.</p>
+</article>
+

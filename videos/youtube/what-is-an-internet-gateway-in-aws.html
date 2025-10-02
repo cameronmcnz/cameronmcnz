@@ -1,0 +1,70 @@
+---
+layout: video
+title: "What is an Internet Gateway in AWS?"
+description: "Clear explanation of what an Internet Gateway does in an AWS VPC and how route tables subnets and NAT interact for internet access"
+video_host: "youtube"
+video_id: "RpYd01VPaSY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/RpYd01VPaSY/maxresdefault.jpg"
+content_url: "https://youtu.be/RpYd01VPaSY"
+embed_url: "https://www.youtube.com/embed/RpYd01VPaSY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - Internet Gateway
+  - VPC
+  - Subnet
+  - NAT
+  - Route Table
+  - Public Subnet
+  - Private Subnet
+  - Cloud Networking
+  - VPC Flow Logs
+---
+
+<h2>What an Internet Gateway actually does</h2>
+<p>If your VPC were a gated community the Internet Gateway would be the main exit gate that the HOA forgot to lock. It attaches to a VPC and becomes the route target for traffic leaving public subnets. That means when your instance wants to talk to the wider internet the route table sends it this way and the gateway forwards traffic out and back. It is stateful so replies to connections you start are allowed back in automatically.</p>
+
+<h2>How to make a subnet public without losing your mind</h2>
+<p>Three things must line up for direct internet access to work. First your subnet needs a route for 0.0.0.0/0 that targets the Internet Gateway. Second the instance must have a public IP or an Elastic IP. Third your security groups and network ACLs must allow the traffic you want. If any of these are missing you will not be famous on the internet.</p>
+
+<pre><code>Sample route table entry for a public subnet
+Destination 0.0.0.0/0    Target igw-12345678</code></pre>
+
+<h3>Quick facts that save troubleshooting time</h3>
+<ul>
+  <li>The Internet Gateway does not NAT private IPs. If your instance only has a private IP it cannot be reached directly.</li>
+  <li>For private subnets use a NAT Gateway or a NAT instance in a public subnet when you need outbound internet access.</li>
+  <li>Internet Gateways have no hourly charge but normal AWS data transfer fees still apply.</li>
+</ul>
+
+<h2>Public subnet versus private subnet in plain speak</h2>
+<p>Public subnet means the route table sends 0.0.0.0/0 at the Internet Gateway and instances have public IPs. Private subnet means no direct route to the Internet Gateway so instances are invisible to inbound internet traffic. If you only need outbound access use a NAT Gateway instead of giving every instance a public IP. This keeps your attack surface smaller and your blood pressure lower.</p>
+
+<h2>Common pitfalls that cause hair loss</h2>
+<ul>
+  <li>Forgetting to assign a public IP to the instance and then wondering why nothing can reach it from the internet.</li>
+  <li>Pointing the route to a NAT Gateway when you expected direct inbound access. The NAT will do outbound only and hide private IPs.</li>
+  <li>Overly permissive security groups that feel convenient now but will haunt you later.</li>
+</ul>
+
+<h2>Debugging tips that actually help</h2>
+<p>Enable VPC Flow Logs to see where packets get dropped. The logs show source and destination pairs along with accept or reject decisions. Treat them like breadcrumbs left by your traffic rather than a bedtime story.</p>
+
+<h3>Checklist for internet connectivity</h3>
+<ul>
+  <li>Internet Gateway attached to the correct VPC</li>
+  <li>Route table entry for 0.0.0.0/0 pointing to the IGW for public subnets</li>
+  <li>Public IP or Elastic IP on instances that need inbound access</li>
+  <li>Security groups and NACLs configured to allow desired ports</li>
+  <li>Use NAT Gateway for private subnet outbound traffic when possible</li>
+  <li>Monitor VPC Flow Logs when things go sideways</li>
+</ul>
+
+<h2>Final word of wisdom</h2>
+<p>Mark subnets as public only when you really need direct internet access. For services that only need to reach out use a NAT Gateway in a public subnet rather than exposing instances. Keep security groups tight and treat VPC Flow Logs as your forensic backup when the network decides to be dramatic.</p>
+

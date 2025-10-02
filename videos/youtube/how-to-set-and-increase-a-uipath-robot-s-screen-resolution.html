@@ -1,0 +1,66 @@
+---
+layout: video
+title: "How to set and increase a UiPath robot's screen resolution"
+description: "Quick guide to set and raise UiPath robot screen resolution for reliable UI automation on headless or remote machines."
+video_host: "youtube"
+video_id: "b8m6x4uKPR4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M9S"
+thumbnail_url: "https://i.ytimg.com/vi/b8m6x4uKPR4/maxresdefault.jpg"
+content_url: "https://youtu.be/b8m6x4uKPR4"
+embed_url: "https://www.youtube.com/embed/b8m6x4uKPR4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - robot
+  - screen resolution
+  - RPA
+  - display
+  - remote desktop
+  - headless
+  - virtual machine
+  - automation
+  - resolution settings
+---
+
+<h2>Why screen resolution matters for UiPath robots</h2>
+<p>UiPath UI automation is simple when the desktop behaves. On remote or headless Windows machines the desktop can vanish or change size and then your robot starts clicking ghosts. If the screen resolution or DPI is wrong the selector coordinates shift and your automation becomes a flaky drama. Fix the display and the robot stops improvising.</p>
+
+<h2>Step one Make a live remote display session</h2>
+<p>When you first connect use Remote Desktop or another remote client and pick a display size like 1920x1080 before you log in. That creates a real framebuffer so UiPath sees the same coordinates you expect while developing and debugging. If you use RDP keep in mind that disconnecting can change how the session presents a desktop.</p>
+
+<h3>Quick why this helps</h3>
+<p>If the remote client tells Windows to use a certain resolution the desktop layout matches your screenshots and selectors. That reduces misplaced clicks and wrong element bounds.</p>
+
+<h2>Step two Adjust Windows display settings</h2>
+<p>On the Windows machine open Display settings and set the resolution and scale to match your remote client. Use 100 percent scale for the cleanest pixel mapping unless your app needs larger UI elements. If controls look blurry tweak the scale and retest.</p>
+
+<h2>Step three Keep a display when nobody is logged in</h2>
+<p>Headless machines love to pretend they do not exist once no one is logged in. To keep a stable desktop try one of these approaches</p>
+<ul>
+  <li>Plug in a cheap HDMI dummy display adapter so Windows always has a framebuffer.</li>
+  <li>Enable a virtual display in the hypervisor if you run a VM. Many VM platforms expose a display setting that keeps the framebuffer alive.</li>
+  <li>Use a virtual display driver or a lightweight VNC server that creates a persistent desktop for UI automation.</li>
+</ul>
+<p>All of these options stop Windows from collapsing the desktop when the physical monitor is gone. That keeps UiPath from chasing moving targets.</p>
+
+<h2>Step four Test the robot in an interactive session</h2>
+<p>Run your UiPath process while someone or something is logged in and watch where clicks land. If actions miss their mark increase resolution or adjust selectors and try again. If the robot runs as a Windows service switch it to run under a logged in user account. Services do not provide a real interactive desktop for UI automation and that is why clicks vanish into the void.</p>
+
+<h3>Hands on checklist</h3>
+<ul>
+  <li>Use a consistent resolution across dev, test and production machines</li>
+  <li>Match Windows display settings with your remote client's resolution and scale</li>
+  <li>Keep a framebuffer on headless or unattended machines with a dummy plug or VM setting</li>
+  <li>Run automation under an interactive user account not a service when doing UI automation</li>
+  <li>Retest after any change to confirm selectors and clicks still land correctly</li>
+</ul>
+
+<h2>Extra pragmatic tips for RPA reliability</h2>
+<p>If possible design automations to rely less on absolute screen coordinates. Use robust selectors and element anchors so a small DPI or resolution shift does not end your run. For truly headless tasks prefer APIs or background automation where possible. When UI automation is required follow the steps above to keep your robots from playing pin the tail on the window.</p>
+
+<p>Follow these practices and your UiPath robot will behave more like a predictable RPA machine and less like a confused gremlin. Debug with the same resolution the unattended device will use and adjust scale factors until everything lines up. Happy automating and may your clicks land where they belong.</p>
+

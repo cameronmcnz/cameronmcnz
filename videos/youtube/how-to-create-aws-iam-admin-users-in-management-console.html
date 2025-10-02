@@ -1,0 +1,72 @@
+---
+layout: video
+title: "How to Create AWS IAM Admin Users in Management Console"
+description: "Quick guide to create AWS IAM admin users using the AWS Management Console with secure permissions and MFA best practices."
+video_host: "youtube"
+video_id: "hgMHyrBBblI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT58S"
+thumbnail_url: "https://i.ytimg.com/vi/hgMHyrBBblI/maxresdefault.jpg"
+content_url: "https://youtu.be/hgMHyrBBblI"
+embed_url: "https://www.youtube.com/embed/hgMHyrBBblI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - IAM
+  - Admin Users
+  - Management Console
+  - MFA
+  - Permissions
+  - Groups
+  - Root Account
+  - S3
+  - Security
+---
+
+<h2>Why bother creating an admin user instead of living dangerously</h2>
+<p>If you enjoy heart palpitations and dramatic password resets then keep using the root account for daily tasks. If you prefer not to cry into your keyboard at 3 a m make an IAM admin user and treat the root account like a rare artifact. Creating a dedicated admin user improves security and lets you delegate tasks without handing over the nuclear keys.</p>
+
+<h2>Sign in and find the IAM dashboard</h2>
+<p>Sign in as the root user only when you absolutely must or use an existing administrator account for regular setup. From the AWS Management Console search for IAM and open the dashboard where users, groups, roles and policies live together in mild chaos.</p>
+
+<h2>Create the user and choose access type</h2>
+<ol>
+  <li><strong>Click Create user</strong> and pick console access for humans or programmatic access for code and automation.</li>
+  <li><strong>Name the user clearly</strong> like admin billing or admin infra so future you does not guess who had the keys.</li>
+</ol>
+
+<h2>Attach policies and prefer least privilege</h2>
+<p>You can attach the AWS managed policy named AdministratorAccess to give everything to a user in one click. That is convenient and dangerous in equal measure. Better practice is to assign scoped permissions or put the user in a group that grants only the required permissions. Think of AdministratorAccess as a blunt instrument and least privilege as a scalpel. For example if this admin only needs to manage S3 then give S3 permissions rather than everything.</p>
+
+<h3>Using groups</h3>
+<p>Groups make life easier. Create an administrators group and attach the necessary policies there. Add users to the group so permissions are consistent and auditable.</p>
+
+<h2>Enable MFA and strong password rules</h2>
+<p>Multifactor authentication stops credential theft from turning into a full blown disaster. Enable MFA for the new admin user and enforce a strong password policy in the IAM password settings. Hardware tokens or authenticator apps work well and do not require you to whisper secret codes into Slack.</p>
+
+<h2>Verify the new admin account</h2>
+<ol>
+  <li>Log out and sign in with the new admin credentials.</li>
+  <li>Confirm access to IAM and to any other required services such as S3.</li>
+  <li>Test tasks you expect this admin to perform so you do not discover missing permissions during a fire drill.</li>
+</ol>
+
+<h2>Lock up the root account</h2>
+<p>After verification stop using the root account for daily tasks and store root credentials securely. Consider storing them offline and enable MFA for the root user too. Less frequent use means fewer opportunities for mistakes and fewer opportunities for attackers.</p>
+
+<h2>Quick best practices checklist</h2>
+<ul>
+  <li>Create named admin users rather than sharing credentials</li>
+  <li>Use groups to manage permissions at scale</li>
+  <li>Prefer least privilege over AdministratorAccess when possible</li>
+  <li>Require MFA for all admin users and for the root account</li>
+  <li>Test access to services like IAM and S3 before calling it done</li>
+  <li>Audit and rotate credentials regularly</li>
+</ul>
+
+<h2>Wrap up</h2>
+<p>Creating an AWS IAM admin user in the Management Console is simple and worth the two minutes it takes. Follow these steps for better security and fewer 2 a m panics. You keep your root account under lock and keep the rest of your team doing actual work without playing admin roulette.</p>
+

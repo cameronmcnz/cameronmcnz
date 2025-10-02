@@ -1,0 +1,64 @@
+---
+layout: video
+title: "Git config file locations on Windows and Ubuntu"
+description: "Quick guide to where Git stores system global and local config files on Windows and Ubuntu and how to view and edit each one"
+video_host: "youtube"
+video_id: "5R0i3OBuUp8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M34S"
+thumbnail_url: "https://i.ytimg.com/vi/5R0i3OBuUp8/maxresdefault.jpg"
+content_url: "https://youtu.be/5R0i3OBuUp8"
+embed_url: "https://www.youtube.com/embed/5R0i3OBuUp8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - gitconfig
+  - windows
+  - ubuntu
+  - configuration
+  - dotfiles
+  - local config
+  - global config
+  - system config
+  - git commands
+---
+
+<article>
+  <p>If you want to blame Git for weird behavior you noticed this morning you should first know where it reads its settings. Git has three levels of configuration that stack and fight for dominance. This guide shows where those files live on Ubuntu and Windows and how to inspect and change them without causing your dotfiles to mutiny.</p>
+
+  <h2>Quick map of git configuration levels</h2>
+  <p>Git reads settings from three places in this order from weakest to strongest. Think of it as a family feud where the repo wins.</p>
+  <ul>
+    <li>System config applies to every user on the machine and provides defaults for all repos. This is system config.</li>
+    <li>Global config applies to one user account and is usually where you store name, email and general preferences. This is global config and often lives with your dotfiles.</li>
+    <li>Local repo config is inside a single repository and overrides the other two. Use this for repo specific remotes and hooks.</li>
+  </ul>
+
+  <h2>Where to look on Ubuntu</h2>
+  <p>System config file path is <code>/etc/gitconfig</code>. The per user file is <code>~/.gitconfig</code>. Repository specific settings live in <code>.git/config</code> inside the repository root. Yes that file will win arguments with your global config every time.</p>
+
+  <h2>Where to look on Windows</h2>
+  <p>On Windows system config often lives in the Program data area used by the installer. A common path is <code>%PROGRAMDATA%/Git/config</code> or in the Git installation folder under Program Files. Your user level settings are in <code>%USERPROFILE%/.gitconfig</code>. Repo local config is still <code>.git/config</code> inside each repo.</p>
+
+  <h3>Show exactly which file provided each setting</h3>
+  <p>If you are tired of guessing run this command and let Git do your detective work.</p>
+  <pre><code>git config --list --show-origin</code></pre>
+  <p>It prints each setting and the file it came from. This saves hours of head scratching and blame shifting.</p>
+
+  <h2>Edit safely with git commands</h2>
+  <p>Do not edit config files by hand unless you like syntax errors and regret. Use git commands to keep things sane. Examples are</p>
+  <ul>
+    <li><code>git config --global user.name "Your Name"</code></li>
+    <li><code>git config --global user.email "you@example.com"</code></li>
+    <li>For repo only changes run the command in the repo or add <code>--local</code> when needed</li>
+  </ul>
+
+  <h2>Troubleshooting tips</h2>
+  <p>If a value refuses to change run <code>git config --list --show-origin</code> to find the source. Then change the right level using <code>--system</code> or <code>--global</code> as appropriate. Back up any config file before manual edits to avoid accidental chaos.</p>
+
+  <p>Knowing these locations will speed up debugging of authentication oddities and merge mystery behavior. Now go fix the thing and then take the credit when it starts working.</p>
+</article>
+

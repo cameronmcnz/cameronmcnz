@@ -1,0 +1,70 @@
+---
+layout: video
+title: "Create an embedded Open Liberty executable JAR for WebSphere"
+description: "Step by step guide to package an embedded Open Liberty executable JAR for WebSphere using Maven with practical configuration and testing tips."
+video_host: "youtube"
+video_id: "jDKFpzm7nfQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M55S"
+thumbnail_url: "https://i.ytimg.com/vi/jDKFpzm7nfQ/maxresdefault.jpg"
+content_url: "https://youtu.be/jDKFpzm7nfQ"
+embed_url: "https://www.youtube.com/embed/jDKFpzm7nfQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Open Liberty
+  - WebSphere
+  - executable JAR
+  - embedded server
+  - Maven
+  - Java
+  - microservices
+  - packaging
+  - deployment
+  - DevOps
+---
+
+<h2>Why bundle the server with your app</h2>
+<p>Short answer, to avoid that awkward meeting where someone says the server on prod is different from dev. An executable JAR that contains the Open Liberty runtime gives you a self contained artifact that runs without an external installed server. For Java microservices and DevOps pipelines, that means fewer surprises and faster rollbacks when things go sideways.</p>
+
+<h2>Add the Open Liberty runtime and the Maven plugin</h2>
+<p>Edit pom.xml to include the Open Liberty runtime dependency and the liberty maven plugin so server classes travel with your application code. Also add any feature dependencies your app needs, such as servlet support or JAX RS. The goal is a bootable jar that carries its own embedded server and required features.</p>
+
+<h3>What to include in pom.xml</h3>
+<ul>
+  <li>Add the Open Liberty runtime dependency entry so the runtime jars end up on the classpath.</li>
+  <li>Add the liberty maven plugin to the build plugins so Maven can assemble the runnable archive.</li>
+  <li>List any Open Liberty features your app uses as dependencies so they start with the embedded server.</li>
+</ul>
+
+<h2>Configure the embedded server</h2>
+<p>Create server.xml fragments for the settings you need, for example feature list, http endpoints and logging. Point the liberty maven plugin at the server.xml you want included and set the packaging goal that produces a runnable archive. This configuration controls which features start and which ports open when the jar runs.</p>
+
+<h3>Keep configuration flexible</h3>
+<ul>
+  <li>Externalize environment specific values so you can swap production and staging without rebuilding.</li>
+  <li>Use overlays or environment variables for different profiles in CI and CD.</li>
+</ul>
+
+<h2>Build the executable JAR and test locally</h2>
+<p>Use the normal Maven lifecycle to assemble the jar. A typical command is</p>
+<pre><code>mvn clean package</code></pre>
+<p>The liberty maven plugin will copy server artifacts and assemble a bootable jar that contains the Open Liberty runtime and your application code. Test the artifact on a developer machine with</p>
+<pre><code>java -jar target/myapp.jar</code></pre>
+<p>Verify endpoints, health checks and logs. Local testing reduces the risk of surprises during packaging and deployment.</p>
+
+<h2>Deploy to WebSphere or an artifact repository</h2>
+<p>If you deploy to WebSphere use the server deployment tooling or run the jar on infrastructure that supports the Java runtime. Alternatively publish the executable JAR to your artifact repository and let your CI CD pipeline pull it into the target environment. The artifact is portable and fits most deployment workflows.</p>
+
+<h3>DevOps tips</h3>
+<ul>
+  <li>Treat the jar as an immutable artifact and promote the same file from staging to production.</li>
+  <li>Keep secrets and large environment specifics out of the jar and load them at runtime.</li>
+  <li>Consider containerizing the executable JAR for consistent runtime environments and easier orchestration.</li>
+</ul>
+
+<h2>Recap and final wheeze</h2>
+<p>The process is straightforward and useful. Add Open Liberty dependencies and the liberty maven plugin, configure the embedded server with server.xml fragments, build a runnable jar with mvn clean package, test it locally, and deploy to WebSphere or your artifact repo. You end up with an executable JAR that makes deployment simpler and less likely to surprise anyone who likes being blamed for outages.</p>
+

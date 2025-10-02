@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Route 53, AWS Beanstalk, Domain Names, DNS, Alias Records a"
+description: "Learn how to map domains to Elastic Beanstalk using Route 53 Alias records and CNAME entries in Amazon hosted zones"
+video_host: "youtube"
+video_id: "mQTl9XhpiVw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/mQTl9XhpiVw/maxresdefault.jpg"
+content_url: "https://youtu.be/mQTl9XhpiVw"
+embed_url: "https://www.youtube.com/embed/mQTl9XhpiVw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Route 53
+  - AWS
+  - Elastic Beanstalk
+  - DNS
+  - CNAME
+  - Alias Record
+  - Hosted Zone
+  - Domain Mapping
+  - DNS Propagation
+  - AWS Tutorial
+---
+
+<p>If your app is running on AWS Elastic Beanstalk and your domain still points at a sad old parked page you deserve better. This guide walks through mapping a domain in Route 53 to your Beanstalk environment using Alias records for the apex and CNAME entries for subdomains. No magic spells required just a few clicks and some mild impatience while DNS does its thing.</p>
+
+<h2>What you need before you start</h2>
+<p>Get these ducks in a row before you touch DNS</p>
+<ul>
+  <li>An AWS account with the Elastic Beanstalk environment up and healthy</li>
+  <li>A hosted zone for your domain in Route 53</li>
+  <li>The Beanstalk environment endpoint or the Application Load Balancer DNS name</li>
+  <li>Access to your domain registrar to confirm the name servers if needed</li>
+</ul>
+
+<h2>Quick steps to map the domain</h2>
+<p>Short version first for the impatient types</p>
+<ol>
+  <li>Confirm the registrar points the domain to the Route 53 name servers</li>
+  <li>Find the environment CNAME or the ALB DNS name in the Elastic Beanstalk console</li>
+  <li>Create an Alias A record for the apex domain pointing to the load balancer when available</li>
+  <li>Create a CNAME for the www subdomain pointing to the environment CNAME or CDN</li>
+  <li>Lower TTL while testing then raise it later to reduce DNS lookups</li>
+  <li>Verify with dig or nslookup and then load the app URL</li>
+</ol>
+
+<h2>Step one Verify hosted zone and name servers</h2>
+<p>Open the Route 53 hosted zone for your domain and copy the name servers listed there. Go to your registrar and make sure those name servers are set. If the registrar still points at another DNS provider the domain will behave like that provider owns it, which is not the mood you want.</p>
+
+<h2>Step two Find the Beanstalk endpoint or ALB DNS name</h2>
+<p>In the Elastic Beanstalk console note the environment CNAME such as myapp-env.elasticbeanstalk.com. If your environment uses an Application Load Balancer use the ALB DNS name as the Alias target. Route 53 can alias directly to AWS resources and that avoids extra DNS hops and surprises.</p>
+
+<h2>Step three Create the apex Alias record</h2>
+<p>Create an A record for the root domain with Alias enabled and point it at the load balancer. This gets around the classic restriction that you cannot create a CNAME at the apex. During setup use a modest TTL to speed testing and updates.</p>
+
+<h2>Step four Add a CNAME for www</h2>
+<p>Add a CNAME record for the www subdomain that targets the Beanstalk environment CNAME. If you put a CDN in front of your app then point both the apex Alias and the www entry at the CDN instead. That is the standard setup for most production architectures.</p>
+
+<h2>Step five Test and wait like a civilized person</h2>
+<p>DNS changes can be annoyingly patient. Use commands such as <code>dig example.com +short</code> and <code>dig www.example.com +short</code> or <code>nslookup</code> to confirm resolution. If things do not match your expected targets check TTL values and name server settings at the registrar. Small TTLs help during testing and then increase the TTL once everything is stable.</p>
+
+<h3>Troubleshooting tips</h3>
+<ul>
+  <li>If the apex does not resolve check that you used Alias with an A record rather than a CNAME</li>
+  <li>If www goes to the wrong place confirm the CNAME targets the correct environment CNAME or CDN hostname</li>
+  <li>If propagation seems slow check previous TTLs and be patient because DNS is not in a hurry</li>
+</ul>
+
+<h2>Wrap up and final thoughts</h2>
+<p>Mapping Route 53 to Elastic Beanstalk is mostly administrative muscle memory. Use Alias records for the apex and CNAME for subdomains, point to the ALB when you have one, and verify with dig or nslookup. Lower TTL while testing and then raise it when you are confident. Now go sip something celebratory while the internet slowly agrees with you.</p>
+

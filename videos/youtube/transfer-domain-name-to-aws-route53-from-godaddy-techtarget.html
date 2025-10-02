@@ -1,0 +1,78 @@
+---
+layout: video
+title: "Transfer Domain Name to AWS Route53 from GoDaddy #techtarget"
+description: "Step by step guide to transfer a domain from GoDaddy to AWS Route53 with unlock auth code DNS checks and approval"
+video_host: "youtube"
+video_id: "7y-oiCbwLUI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M13S"
+thumbnail_url: "https://i.ytimg.com/vi/7y-oiCbwLUI/maxresdefault.jpg"
+content_url: "https://youtu.be/7y-oiCbwLUI"
+embed_url: "https://www.youtube.com/embed/7y-oiCbwLUI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - Route53
+  - GoDaddy
+  - domain transfer
+  - DNS
+  - authorization code
+  - nameservers
+  - domain lock
+  - hosted zone
+  - transfer guide
+---
+
+<h1>Step by step GoDaddy to Route53 domain transfer and DNS checklist</h1>
+<p>Moving a domain is like moving apartments while the plants and mail still arrive at the old place. Do it right and nobody notices. Do it wrong and you get a week of awkward email failures and frantic ticket opening. This guide walks you through the GoDaddy to AWS Route53 domain transfer with the practical steps and tiny moral support you did not ask for.</p>
+
+<h2>Quick checklist before you start</h2>
+<ul>
+  <li>Turn off domain lock at GoDaddy and disable WHOIS privacy</li>
+  <li>Obtain the authorization code also known as the EPP code</li>
+  <li>Confirm the registrant email is correct for approval messages</li>
+  <li>Check the 60 day transfer restriction after registration or prior transfer</li>
+  <li>Lower TTL values ahead of any nameserver changes to reduce propagation pain</li>
+  <li>Create a Route53 hosted zone and prepare your DNS records if Route53 will host DNS</li>
+</ul>
+
+<h2>Prepare the domain at GoDaddy</h2>
+<p>Log in to your GoDaddy account and find the domain management panel. Turn off the domain lock and disable WHOIS privacy if it is enabled. If you skip privacy you will not miss the approval email and you will not need to play email detective.</p>
+<p>Copy the authorization code from the domain settings. This is sometimes called the EPP code or transfer key. Keep it handy because Route53 will ask for it when you start the transfer.</p>
+
+<h2>Check eligibility and contact details</h2>
+<p>Make sure the domain is not in a 60 day hold from recent registration or a previous transfer. Also verify the registrant email address is current because approval requests land there. If the email is wrong you end up calling support which is less fun than it sounds.</p>
+
+<h2>Request the transfer in AWS Route53</h2>
+<p>Open the Route53 console and choose transfer domain. Enter the domain name and paste the authorization code. Select contact settings and choose whether to keep privacy protection. Review the transfer fees and accept them to start the process.</p>
+<p>You can decide whether Route53 should host DNS right away or if you want to keep your existing DNS provider. If you plan to move DNS to Route53 create the hosted zone first and import or recreate records before changing nameservers.</p>
+
+<h3>Approvals and timing</h3>
+<p>Watch the registrant email for approval requests. Some registrars and domains proceed automatically but many require the registrant to click a link to approve. Typical transfers complete within a few days but allow up to 5 or 7 days if things are slow.</p>
+
+<h2>Move DNS and nameservers without downtime</h2>
+<p>If your goal is to use Route53 as the DNS host create a hosted zone and add all records before you change nameservers. You can export zone data or manually recreate records. Lower TTL values a day or two before switching to speed up propagation.</p>
+<ul>
+  <li>Create a hosted zone in Route53 that matches your domain</li>
+  <li>Import or recreate A records CNAMEs MX TXT and other records</li>
+  <li>When records are ready update nameservers at the registrar to the Route53 NS values</li>
+  <li>Validate with dig or nslookup to confirm the new nameservers are serving your records</li>
+</ul>
+
+<h2>Validate the transfer and clean up</h2>
+<p>After Route53 reports the transfer as complete check your DNS records and nameserver configuration. Confirm your website and email work from multiple networks. If something is missing restore from your backup or the old DNS provider.</p>
+<p>Most registrars reenable domain lock automatically so expect that. Double check WHOIS contact details and consider enabling privacy protection in Route53 if you want it.</p>
+
+<h2>Troubleshooting tips</h2>
+<ul>
+  <li>If the transfer stalls check the registrant email first</li>
+  <li>If DNS looks wrong verify you updated the correct nameserver set for the domain</li>
+  <li>If email breaks check MX and SPF records and confirm they migrated to Route53</li>
+  <li>If you see long propagation delays wait a little while and check TTL values</li>
+</ul>
+
+<p>This transfer guide covers the full path from GoDaddy prep through Route53 transfer and DNS validation. Follow the steps and you should get through with minimal downtime and a few smug thoughts about how you handled it like a pro.</p>
+

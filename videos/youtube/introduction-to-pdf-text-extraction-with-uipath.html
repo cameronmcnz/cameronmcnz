@@ -1,0 +1,73 @@
+---
+layout: video
+title: "Introduction to PDF Text Extraction with UiPath"
+description: "Learn how to extract text from native and scanned PDFs using UiPath with practical steps for parsing and saving structured data."
+video_host: "youtube"
+video_id: "Zl3HMpdcsXA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M2S"
+thumbnail_url: "https://i.ytimg.com/vi/Zl3HMpdcsXA/maxresdefault.jpg"
+content_url: "https://youtu.be/Zl3HMpdcsXA"
+embed_url: "https://www.youtube.com/embed/Zl3HMpdcsXA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - PDF
+  - Text Extraction
+  - OCR
+  - Read PDF Text
+  - Read PDF With OCR
+  - Regex
+  - RPA
+  - Automation
+  - Tutorial
+---
+
+<h2>Quick summary for people who love automation</h2>
+<p>If your document intake looks like a paper apocalypse you can automate the boring part with UiPath. This article shows how to extract text from native PDFs and scanned files using Read PDF Text and Read PDF With OCR. You will see how to set up the project choose an OCR engine and convert messy text into structured fields with regex or string methods. It is practical and slightly therapeutic.</p>
+
+<h2>Setup your UiPath project</h2>
+<p>Create a new process in UiPath Studio and add the UiPath.PDF.Activities package plus an OCR provider such as Tesseract or Google Cloud Vision. Package versions matter so pick ones that match your robot runtime. Grant any cloud keys if you use a hosted OCR service and keep credentials out of plain text. Yes you will thank yourself later.</p>
+
+<h2>Native PDFs use Read PDF Text</h2>
+<p>For text based PDFs use the Read PDF Text activity. Point it at the file path and it returns a plain string. That string often contains headers footers and random line breaks that you will want to trim and normalize before parsing. Split lines by newline characters or run a simple Replace to unify whitespace.</p>
+
+<h2>Scanned PDFs use Read PDF With OCR</h2>
+<p>When pages are images use Read PDF With OCR and pick an OCR engine. OCR is imperfect so treat its output like a noisy witness. Improve recognition by preprocessing images before feeding them to the OCR engine. Typical tweaks include increasing DPI removing speckle and deskewing pages. If recognition quality is critical try a better engine or a cloud provider with higher accuracy.</p>
+
+<h3>OCR tips</h3>
+<ul>
+  <li>Raise DPI to 300 or 400 for small text</li>
+  <li>Run a despeckle or median filter to clean noise</li>
+  <li>Binarize or enhance contrast for low quality scans</li>
+  <li>Crop to the region of interest when possible to reduce false positives</li>
+</ul>
+
+<h2>Parsing and extracting fields with regex and string methods</h2>
+<p>Once you have a single string use Matches or simple string operations to pull out invoice numbers dates totals and other fields. Regex is your friend but treat it with respect. For consistent layouts anchor based selection or fixed position parsing can be far more robust than fragile patterns.</p>
+
+<pre>Example regex patterns you can try
+Invoice number pattern
+Invoice Number\s*(\w+)
+
+Date patterns
+(\d{4}-\d{2}-\d{2})
+(\d{1,2}/\d{1,2}/\d{2,4})
+
+Amount pattern
+Total\s*\$?\s*(\d+[\.,]?\d{2})
+</pre>
+
+<p>Use the Matches activity to extract groups and then validate them with simple checks. For amounts parse the captured text to a numeric type and handle both comma and dot decimals. For dates normalize them to a single format before writing to a database or CSV.</p>
+
+<h2>Output persistence and error handling</h2>
+<p>Write the parsed results to CSV a spreadsheet or directly to a database. Add Try Catch blocks around file reads parsing and OCR calls. Log failures and push items that fail confidence checks to a manual review queue. This fallback saves the robot from making embarrassing mistakes and saves auditors from rage.</p>
+
+<h2>Scaling and performance notes</h2>
+<p>For batches run parallel For Each with a reasonable degree of parallelism to avoid exhausting CPU or OCR API quotas. Cache OCR clients where allowed and reuse sessions. Monitor memory when processing large files and break big PDFs into pages when needed.</p>
+
+<p>Wrap up with a pragmatic workflow and you will have a reliable document intake pipeline that handles native and scanned PDFs uses regex or anchored parsing for structure and falls back to manual review when confidence is low. Automation will not cure all paperwork but it will stop the photocopier from winning.</p>
+

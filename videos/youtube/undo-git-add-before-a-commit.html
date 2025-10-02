@@ -1,0 +1,88 @@
+---
+layout: video
+title: "Undo Git Add Before a Commit"
+description: "Learn safe ways to unstage changes from Git before committing with clear commands and tips for tracking and recovery."
+video_host: "youtube"
+video_id: "aFwOi31HM2g"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M2S"
+thumbnail_url: "https://i.ytimg.com/vi/aFwOi31HM2g/maxresdefault.jpg"
+content_url: "https://youtu.be/aFwOi31HM2g"
+embed_url: "https://www.youtube.com/embed/aFwOi31HM2g"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - unstage
+  - git reset
+  - git restore
+  - git add
+  - git commit
+  - staging area
+  - version control
+  - git stash
+  - command line
+---
+
+<h2>Why you should care about the staging area</h2>
+<p>The staging area is where Git politely asks what you mean to commit and what was a momentary lapse of judgement. Look before you commit and you avoid that 2am rollback while muttering swear words. Use <code>git status</code> and <code>git diff --staged .</code> to see exactly what is queued up for the next commit. It is the best way to stop surprise commits and preserve your reputation with reviewers and future you.</p>
+
+<h2>Preview staged changes</h2>
+<p>First do the boring but necessary checks. Run these commands in the command line to confirm what is staged and what is not.</p>
+<ul>
+  <li><code>git status</code> to get a quick summary</li>
+  <li><code>git diff --staged</code> to inspect staged diffs</li>
+  <li><code>git diff</code> to inspect unstaged edits</li>
+</ul>
+<p>Seeing the diffs will prevent accidental commits of debug prints and other crimes against production.</p>
+
+<h2>Unstage a single file</h2>
+<p>If you added a file by mistake and want to leave the file changes in your working tree for more tinkering use the modern command</p>
+<pre><code>git restore --staged filename</code></pre>
+<p>It removes the file from the staging area but keeps your edits in place. If you prefer the old school option use</p>
+<pre><code>git reset HEAD filename</code></pre>
+<p>Both commands do the same practical thing. Choose whichever makes you feel more cultured.</p>
+
+<h2>Unstage everything at once</h2>
+<p>When you staged too much and need a fresh start you can unstage everything in the current directory. Run one of these</p>
+<ul>
+  <li><code>git restore --staged .</code></li>
+  <li><code>git reset HEAD .</code></li>
+</ul>
+<p>Remember that the dot means current directory so double check you are in the right place before nuking your staging area. This will not discard your working changes, it only clears what is queued for commit.</p>
+
+<h2>Discard working changes if you really mean it</h2>
+<p>If you do want to throw away local edits entirely use</p>
+<pre><code>git restore filename</code></pre>
+<p>That restores the file from the index or HEAD depending on context. Use this only when you know you are fine losing local edits. If you feel even a tiny sliver of doubt keep reading.</p>
+
+<h2>Stash when you want an escape hatch</h2>
+<p>If you are unsure and want to hide your changes for a while stash them. Stashing is the developer version of sticking things in a closet and hoping they do not explode later. Useful commands</p>
+<ul>
+  <li><code>git stash push</code> to save work</li>
+  <li><code>git stash pop</code> to restore the most recent stash</li>
+  <li><code>git stash list</code> to see your stash items</li>
+</ul>
+<p>Stash is a small life insurance policy for developer mistakes. Use it before performing aggressive cleans.</p>
+
+<h2>Work smarter with hunks and tests</h2>
+<p>If you want fine grained control stage hunks instead of whole files. This keeps commits focused and makes reviews and reverts much less painful.</p>
+<ul>
+  <li><code>git add -p</code> to stage hunks interactively</li>
+  <li><code>git diff --staged</code> to confirm staged content</li>
+</ul>
+<p>Smaller commits mean fewer mysteries later and fewer awkward explanations to teammates.</p>
+
+<h3>Quick recap for the tired</h3>
+<ul>
+  <li>Inspect before committing with <code>git status</code> and <code>git diff --staged</code></li>
+  <li>Unstage a file with <code>git restore --staged filename</code> or <code>git reset HEAD filename</code></li>
+  <li>Unstage everything with <code>git restore --staged .</code> or <code>git reset HEAD .</code></li>
+  <li>Discard working edits with <code>git restore filename</code> only when you are sure</li>
+  <li>Stash changes with <code>git stash</code> if you want a safety net</li>
+</ul>
+
+<p>Follow these steps and the next person who opens your repo will either be grateful or suspicious. Both outcomes beat the alternative shock of discovering a commit full of accidental debug code.</p>
+

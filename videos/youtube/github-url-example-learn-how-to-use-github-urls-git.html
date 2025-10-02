@@ -1,0 +1,77 @@
+---
+layout: video
+title: "GitHub URL Example | Learn how to use GitHub URLs & Git"
+description: "Learn how to read GitHub repository URLs and use Git to clone branch and push changes with clear examples and common gotchas"
+video_host: "youtube"
+video_id: "_eqDQw7B3cE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT13M19S"
+thumbnail_url: "https://i.ytimg.com/vi/_eqDQw7B3cE/maxresdefault.jpg"
+content_url: "https://youtu.be/_eqDQw7B3cE"
+embed_url: "https://www.youtube.com/embed/_eqDQw7B3cE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub
+  - Git
+  - URLs
+  - clone
+  - push
+  - SSH
+  - HTTPS
+  - repository
+  - branches
+  - version control
+---
+
+<p>Reading GitHub URLs should not feel like decoding ritual magic. This short guide makes the URL anatomy boring and practical so you can clone push and branch without dramatic surprises. We will cover URL parts choosing HTTPS or SSH cloning creating branches and pushing changes back to the repository while keeping version control sane.</p>
+
+<h2>Anatomy of a GitHub URL</h2>
+<p>Look at the address bar when you are on a repo page. The important parts are the domain owner and repository name. Extra path segments usually point to files folders or indicate a branch view.</p>
+<pre><code>Example shown in a browser bar
+https//github.com/owner/repo
+</code></pre>
+<ul>
+  <li><strong>Domain</strong> is github.com which tells you this is a GitHub repository.</li>
+  <li><strong>Owner</strong> is the user or org name that holds the repo.</li>
+  <li><strong>Repository</strong> is the project name that you will clone or fork.</li>
+  <li><strong>Path and branch</strong> appear after the repo name. You might see tree slash branch or blob slash branch slash path which tells you which branch and file the page is showing.</li>
+</ul>
+
+<h2>Choose HTTPS or SSH for cloning</h2>
+<p>Pick the method that fits your workflow. HTTPS is simple and works with a username and a personal access token for pushes. SSH uses a key pair and avoids typing credentials every time which is nicer if you push often.</p>
+<ul>
+  <li><strong>HTTPS</strong> is easy for one off clones or when you do not want to manage SSH keys.</li>
+  <li><strong>SSH</strong> is convenient for frequent pushes once you have an SSH key added to your GitHub account.</li>
+</ul>
+<p>If you are not sure which to use start with HTTPS then switch to SSH later when you are tired of typing tokens. To avoid scary human error read the clone URL carefully. The clone field shows the address format to use.</p>
+
+<h2>Clone the repository and make a branch</h2>
+<p>Once you copy the clone address run the clone command from your terminal and then make a feature branch. Keep branch names clear and commit messages short and meaningful.</p>
+<pre><code>git clone https//github.com/owner/repo.git
+cd repo
+# create a feature branch
+git checkout -b feature/my-change
+# make edits then stage and commit
+git add .
+git commit -m 'brief description of change'
+# push branch to remote and set upstream
+git push -u origin feature/my-change
+</code></pre>
+<p>The push command above makes the branch appear on GitHub so you can open a pull request for review. If you used HTTPS Git may ask for your username and personal access token. If you used SSH and see permission denied publickey follow the SSH key setup docs and add your public key to your GitHub account.</p>
+
+<h3>Create the pull request and merge</h3>
+<p>On GitHub click compare and pull request pick reviewers write a clear description and submit. After review merge the branch if everything passes CI and behaves itself. Delete the remote branch to keep the repository tidy or leave it if your team likes rainy day experiments.</p>
+
+<h3>Troubleshooting tips</h3>
+<ul>
+  <li>If you cloned the wrong branch check with git branch and git checkout to switch to the desired branch.</li>
+  <li>If authentication fails with HTTPS you probably need a personal access token not your account password. Create one with the scopes you actually need.</li>
+  <li>If SSH fails check that your ssh agent is running and that your public key is registered on GitHub. Use ssh -T git@github.com to test the connection.</li>
+  <li>Use git remote -v to inspect the remote URL and confirm if it is an HTTPS or an SSH address.</li>
+</ul>
+
+<p>That is it. You now know where owner and repo live in a GitHub URL how to pick HTTPS or SSH how to clone branch and push and a few troubleshooting moves to save your day. Go write code or at least open a pull request and pretend you did.</p>
+

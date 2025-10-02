@@ -1,0 +1,92 @@
+---
+layout: video
+title: "How to run your Spring Boot JAR file from the command line"
+description: "Quick guide to build run and manage a Spring Boot JAR from the command line including background run and basic runtime options"
+video_host: "youtube"
+video_id: "4kXvasQP8sw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M11S"
+thumbnail_url: "https://i.ytimg.com/vi/4kXvasQP8sw/maxresdefault.jpg"
+content_url: "https://youtu.be/4kXvasQP8sw"
+embed_url: "https://www.youtube.com/embed/4kXvasQP8sw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - spring boot
+  - jar
+  - java
+  - command line
+  - maven
+  - gradle
+  - nohup
+  - systemd
+  - linux
+  - deployment
+---
+
+<article>
+  <p>If you like tiny wars with the command line and want your Spring Boot app to live outside an IDE this guide is for you. You will learn how to build a runnable JAR with maven or gradle run it with the Java launcher keep it running in the background and hand it off to a proper process manager like systemd when you get tired of babysitting logs.</p>
+
+  <h2>Build the runnable JAR</h2>
+  <p>Use Maven or Gradle to produce a runnable artifact. Pick whichever build tool your team swears by during standup.</p>
+  <pre><code>mvn clean package
+./gradlew bootJar
+</code></pre>
+  <p>The artifact will usually land in target or build/libs and will be named something like myapp.jar. Move to that folder before firing up the JVM.</p>
+
+  <h2>Run the app with java</h2>
+  <p>Start the app with the Java launcher. This is the simple fast way to test locally or run in a dev VM.</p>
+  <pre><code>cd target
+java -jar myapp.jar
+java -jar myapp.jar --server.port=8081
+</code></pre>
+  <p>You can override Spring Boot properties on the fly by passing them as arguments as shown above. It is perfectly fine to be lazy in development.</p>
+
+  <h3>Pass JVM options and environment variables</h3>
+  <p>Set JVM flags and Spring profiles on the same line if you like your life compact.</p>
+  <pre><code>SPRING_PROFILES_ACTIVE=prod JAVA_OPTS="-Xmx512m" java $JAVA_OPTS -jar myapp.jar
+</code></pre>
+
+  <h2>Run in the background and capture logs</h2>
+  <p>If you want the app to keep running after you close the terminal use nohup or hand it to a real process manager. Nohup is quick and dirty and very popular with exhausted devs.</p>
+  <pre><code>nohup java -jar myapp.jar > app.log 2>&1 &
+</code></pre>
+  <p>Check the running process with standard Linux tools and stop it when needed.</p>
+  <pre><code>ps aux | grep myapp.jar
+kill PID
+</code></pre>
+
+  <h2>Move to systemd when you stop liking surprises</h2>
+  <p>For anything beyond light duty use systemd. It restarts your app it rotates logs better and it prevents 3 a m wake up calls when the JVM trips over a stray comma.</p>
+  <pre><code>[Unit]
+Description=My Spring Boot App
+After=network.target
+
+[Service]
+User=spring
+Environment=SPRING_PROFILES_ACTIVE=prod
+ExecStart=/usr/bin/java -jar /opt/myapp/myapp.jar
+SuccessExitStatus=143
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+  <p>Drop the file in /etc/systemd/system then run systemctl daemon-reload and systemctl enable --now myapp.service to let systemd take over. This gives you sane restarts log handling and integration with your OS.</p>
+
+  <h2>Quick checklist for deployment on Linux</h2>
+  <ul>
+    <li>Build with maven or gradle and locate the JAR in target or build/libs</li>
+    <li>Run with java -jar and pass Spring properties as args for quick tweaks</li>
+    <li>Use nohup for quick background runs and capture logs in a file</li>
+    <li>Use systemd for production style process management and auto restart</li>
+    <li>Consider containers or managed services for large scale deployments</li>
+  </ul>
+
+  <h2>Parting wisdom</h2>
+  <p>All of this covers development and light production needs without orchestration tools. If you want fewer angry pager messages and more sleep use a container platform or a managed service. You will thank yourself later and so will whoever is on call the next night.</p>
+</article>
+

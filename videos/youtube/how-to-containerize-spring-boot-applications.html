@@ -1,0 +1,67 @@
+---
+layout: video
+title: "How to Containerize Spring Boot applications"
+description: "Step by step guide to containerize Spring Boot apps using Docker best practices for small images fast startup and reliable deployment"
+video_host: "youtube"
+video_id: "Fw_F5-UGgHQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M4S"
+thumbnail_url: "https://i.ytimg.com/vi/Fw_F5-UGgHQ/maxresdefault.jpg"
+content_url: "https://youtu.be/Fw_F5-UGgHQ"
+embed_url: "https://www.youtube.com/embed/Fw_F5-UGgHQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Docker
+  - Containerization
+  - Dockerfile
+  - Java
+  - Maven
+  - Gradle
+  - Microservices
+  - Containers
+  - DevOps
+---
+
+<h1>Build small Spring Boot Docker images that start fast in production</h1>
+<p>Ready to move your Spring Boot service from laptop hero to containerized citizen of the cloud The plan is simple and practical with a little bit of ruthless trimming to keep images small and startups speedy This guide covers the build artifact setup multi stage image design JVM tuning local verification and registry publishing for CI friendly workflows</p>
+<h2>Make a reproducible executable jar</h2>
+<p>Use Maven or Gradle and enable the Spring Boot packaging plugin so you get a single artifact that contains classes and dependencies That way the container only needs one file to run the app and you avoid shipping build tools into production</p>
+<ul>
+  <li>With Maven run mvn clean package and use the Spring Boot maven plugin to repackage the jar</li>
+  <li>With Gradle run gradle bootJar which produces the executable jar</li>
+  <li>Prefer deterministic builds so your image can be reproduced by CI and by your future self who will be grateful</li>
+</ul>
+<h2>Use a multi stage Dockerfile to keep images tiny</h2>
+<p>Build in one stage and run in another The build stage uses Maven or Gradle to assemble the jar The final stage copies the jar into a small runtime image like a slim Java runtime or a distroless base The idea is to avoid shipping compilers or build caches into your runtime image</p>
+<ul>
+  <li>Stage one runs the build and emits the jar into a build output folder</li>
+  <li>Stage two copies that jar into a minimal runtime image and sets the command to run Java with the jar</li>
+</ul>
+<h3>Quick note on layered jars</h3>
+<p>Spring Boot supports layered jars which let Docker cache layers for dependencies independently from your code This speeds up iterative builds and reduces CI network bill shock</p>
+<h2>Tune the JVM for containers</h2>
+<p>Containers are not magical They still need sensible JVM flags Use environment variables to pass options so the same image adapts across environments Use either JAVA_OPTS or JAVA_TOOL_OPTIONS to supply flags at runtime</p>
+<ul>
+  <li>Set a reasonable heap with an xmx flag to avoid OOM surprises</li>
+  <li>Enable container awareness which modern JVMs do by default but double check for older versions</li>
+  <li>Prefer server mode for faster throughput when latency is not the main villain</li>
+</ul>
+<h2>Build the image and verify locally</h2>
+<p>From your project root run the docker build command with a clear tag name for reproducibility For example run docker build with a tag such as myapp latest This gives you a simple image name to use in local tests and in CI</p>
+<p>Run the container locally and map ports to test endpoints Use curl or a browser to check health and logs Verify that logging and health endpoints behave the same as on your laptop</p>
+<h2>Publish to a registry and integrate with CI</h2>
+<p>Push images to an authenticated registry and use immutable tags for releases Avoid the classic latest trap which is an invitation to surprise rollbacks Use your CI pipeline to build the jar run tests build the image and push a versioned image that your deployment system can rely on</p>
+<h2>Checklist and parting sarcasm</h2>
+<ul>
+  <li>Produce a single executable jar with Maven or Gradle</li>
+  <li>Use a multi stage Dockerfile to separate build from runtime</li>
+  <li>Tune the JVM with environment variables so images remain portable</li>
+  <li>Validate locally before you unleash onto the staging herd</li>
+  <li>Push versioned images to a registry and let CI do the heavy lifting</li>
+</ul>
+<p>Follow these steps and you will get smaller images faster startups and fewer surprises when you move services from a developer laptop into containers in production Also you will have fewer meetings about why the app worked on one machine and not on another and that is worth the effort</p>
+

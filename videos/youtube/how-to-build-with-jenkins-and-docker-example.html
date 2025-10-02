@@ -1,0 +1,101 @@
+---
+layout: video
+title: "How to build with Jenkins and Docker example"
+description: "Compact tutorial to build Docker images with Jenkins pipelines run tests and push images for CI pipeline best practices and tips"
+video_host: "youtube"
+video_id: "Y160f9-xZY4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M11S"
+thumbnail_url: "https://i.ytimg.com/vi/Y160f9-xZY4/maxresdefault.jpg"
+content_url: "https://youtu.be/Y160f9-xZY4"
+embed_url: "https://www.youtube.com/embed/Y160f9-xZY4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Docker
+  - CI/CD
+  - Pipeline
+  - Build Automation
+  - Dockerfile
+  - Jenkinsfile
+  - Continuous Integration
+  - Containerization
+  - DevOps
+---
+
+<h2>Quick overview of the workflow</h2>
+<p>If you want repeatable builds that do not trash your build host and actually run tests before you ship a container you are in the right place. This guide walks through using Jenkins pipelines and Docker to build images run unit tests and push artifacts to a registry while keeping secrets out of public logs. Yes it will still feel magical the first time it works.</p>
+
+<h2>What you need before you start</h2>
+<ul>
+  <li>Source code in a Git repository next to a Dockerfile that defines the build steps</li>
+  <li>A host or VM with Docker installed and a running Jenkins service</li>
+  <li>Jenkins credentials stored in the Jenkins credential store for registry access</li>
+</ul>
+
+<h2>Prepare the repo and Dockerfile</h2>
+<p>Keep your Dockerfile layers small and cache friendly. That usually means copy only what you need early on and avoid copying the entire source before running dependency installation. For local sanity checks run a local build with a command like</p>
+<pre><code>docker build -t myapp .</code></pre>
+<p>If that fails you can iterate quickly on the Dockerfile before you make the Jenkins pipeline try to fail in public.</p>
+
+<h2>Install Docker and Jenkins the sensible way</h2>
+<p>Install the Docker engine on the build host and run Jenkins as a service. Give the Jenkins user access to the Docker socket or add Jenkins to a Docker group so the Jenkins process can run containers without a fist fight with permissions. If you prefer isolation run agent containers or use a Kubernetes plugin to keep things tidy.</p>
+
+<h2>Create a declarative Jenkinsfile</h2>
+<p>Write a Jenkinsfile with stages for checkout build test and push. Declarative syntax keeps humans and Jenkins happy. Use a Docker agent for a consistent build environment and run tests inside containers so your host stays clean.</p>
+
+<h3>Minimal example Jenkinsfile</h3>
+<pre><code>pipeline {
+  agent { docker { image 'docker' } }
+  environment {
+    DOCKER_USER = credentials('docker-user-id')
+    DOCKER_PASS = credentials('docker-pass-id')
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        sh 'git clone repo.git .'
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'docker build -t myapp .'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'docker run --rm myapp npm test'
+      }
+    }
+    stage('Push') {
+      steps {
+        sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin registry.example.com'
+        sh 'docker push registry.example.com/myapp'
+      }
+    }
+  }
+}
+</code></pre>
+<p>This is intentionally minimal. Replace the image string with a real build image for your stack and bind the Jenkins credentials to names that match your credential ids.</p>
+
+<h2>Use a Docker agent for reproducible builds</h2>
+<p>Running the agent inside a container gives you a clean environment each build. The Docker plugin or Kubernetes plugin are both common choices depending on whether you run a single build host or a cluster. Pick images that contain the build tools you need or build a small helper image and reuse it across pipelines.</p>
+
+<h2>Run the pipeline and push safely</h2>
+<p>Execute the pipeline to make sure the image builds and tests pass. Use credentials from the Jenkins store and never hard code registry passwords. The example above logs into the registry with environment bound credentials and then pushes the image. Test the whole flow with a private registry first before hitting the public one.</p>
+
+<h2>Common gotchas and quick tips</h2>
+<ul>
+  <li>If Jenkins cannot talk to Docker check socket permissions or the Docker group membership for the Jenkins user</li>
+  <li>Keep layers cache friendly to make incremental builds faster</li>
+  <li>Run unit tests inside the build container to avoid host drift and flaky failures</li>
+  <li>Store credentials in Jenkins and bind them into the pipeline to avoid leaking secrets</li>
+  <li>Move from local testing to a shared Jenkins server once the pipeline is stable</li>
+</ul>
+
+<h2>Wrap up</h2>
+<p>Combining Jenkins and Docker gives you a CI pipeline that moves code from repo to container images while running tests in a controlled environment. It takes a little setup but once your Jenkinsfile behaves the whole team wins and you can spend less time debugging builds and more time blaming production for vague reasons.</p>
+

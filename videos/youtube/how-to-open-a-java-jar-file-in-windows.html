@@ -1,0 +1,76 @@
+---
+layout: video
+title: "How to Open a Java JAR File in Windows"
+description: "Quick guide to open and run Java JAR files on Windows including installing Java file association and using the command line"
+video_host: "youtube"
+video_id: "_grm9JtsFSQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M18S"
+thumbnail_url: "https://i.ytimg.com/vi/_grm9JtsFSQ/maxresdefault.jpg"
+content_url: "https://youtu.be/_grm9JtsFSQ"
+embed_url: "https://www.youtube.com/embed/_grm9JtsFSQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - JAR
+  - Windows
+  - Run JAR
+  - java -jar
+  - JRE
+  - JDK
+  - File association
+  - Command Prompt
+  - Troubleshooting
+---
+
+<p>If JAR files on Windows feel like cursed relics from a bygone era you are not alone. This guide walks you through installing a Java runtime installing a file association and running JARs from Command Prompt with troubleshooting tips that actually fix problems instead of producing vague error messages.</p>
+
+<h2>Install a Java runtime and verify it works</h2>
+<p>You need a working JRE or JDK before anything else. Grab a build from Adoptium or Oracle depending on what you prefer. If you are developing pick the JDK otherwise the JRE is fine for running apps.</p>
+<pre><code>java -version</code></pre>
+<p>Run that in a Command Prompt to confirm Java is on the machine. If it prints a version you are good to go. If it does not then the installer did not finish or your PATH is not set up right.</p>
+
+<h2>Associate .jar files with the Java launcher</h2>
+<p>If you like double clicking instead of typing then associate JAR files with Java. Right click the .jar file choose Open with then Choose another app and point to the Java runtime executable. For GUI programs pick <code>javaw.exe</code> to avoid a stray console window. Check Always use this app to open .jar files to keep the behavior permanent.</p>
+
+<h2>Run a JAR from Command Prompt for more control</h2>
+<p>Command line is useful for logs debugging and control. Open Command Prompt change directory to the folder that contains the JAR and run:</p>
+<pre><code>java -jar MyApp.jar
+# or for GUI apps
+javaw -jar MyApp.jar</code></pre>
+<p>Use <code>javaw -jar</code> when you do not want a console window. Use the regular <code>java -jar</code> if you need console output for troubleshooting.</p>
+
+<h2>Troubleshooting the usual suspects</h2>
+<p>Here are the errors you will see and how to fix them without sacrificing a goat.</p>
+
+<h3>No main manifest attribute</h3>
+<ul>
+  <li>Open the JAR with an archive tool like 7 Zip or WinRAR.</li>
+  <li>Inspect <code>META-INF/MANIFEST.MF</code> and confirm a <code>Main-Class</code> entry exists and points to the correct class.</li>
+  <li>If it is missing rebuild the JAR with the correct manifest or set your build tool to include the main class.</li>
+</ul>
+
+<h3>Version mismatch errors</h3>
+<ul>
+  <li>If the JAR was compiled for a newer Java major version install that version or recompile the app targeting an older release.</li>
+  <li>Check the version with <code>java -version</code> and compare to the app requirements.</li>
+</ul>
+
+<h3>Permission and unblock issues</h3>
+<ul>
+  <li>If you get permission denied run Command Prompt as administrator or change file permissions.</li>
+  <li>If Windows blocks the file right click the JAR choose Properties and click Unblock if present.</li>
+</ul>
+
+<h2>Extra tips that make life easier</h2>
+<ul>
+  <li>Create a simple batch file to launch your JAR with any required arguments so you do not have to remember command line flags.</li>
+  <li>If your app needs environment variables set them in a wrapper script or system environment so Java sees them.</li>
+  <li>When debugging enable verbose logging in the app or run with <code>java -jar MyApp.jar</code> to catch exceptions printed to stdout.</li>
+</ul>
+
+<p>That is the whole thing. Install a runtime associate the file type and run the JAR either by double click or from Command Prompt. When things go wrong check the manifest check the Java version and check permissions. With these steps JARs on Windows will behave more like software and less like dark magic.</p>
+

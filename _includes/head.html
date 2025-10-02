@@ -1,0 +1,28 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+
+
+<!-- include bootstrap-styles.html -->
+{% include styles.html %}
+
+
+{%- assign raw_desc = page.description -%}
+{%- assign cleaned_desc = raw_desc | strip_html | strip_newlines | strip -%}
+
+{%- if cleaned_desc and cleaned_desc != "" -%}
+  {%- assign final_desc = cleaned_desc -%}
+{%- else -%}
+  {%- assign fallback_terms = "Practice Certification Exams Practice Tests Mock Azure Google GCP AWS Solution Architect Answers Questions AI ML Solution Architect DevOps Developer Cloud Practitioner Professional Associate Data Engineer" -%}
+  {%- assign final_desc = fallback_terms -%}
+{%- endif -%}
+
+
+
+
+{%- assign final_desc = final_desc | truncate: 150, "" | escape -%}
+<meta name="description" content="{{ final_desc }}">
+<title>{{ page.title | default: site.title }}</title>
+
+
+

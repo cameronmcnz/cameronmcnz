@@ -1,0 +1,120 @@
+---
+layout: video
+title: "JDBC Tutorial for Beginners (Java Database Connectivity)"
+description: "Learn JDBC basics for Java connecting to MySQL PostgreSQL SQL Server and H2 with examples on drivers connections statements transactions and pooling"
+video_host: "youtube"
+video_id: "03rDqI6lxdI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1H4M18S"
+thumbnail_url: "https://i.ytimg.com/vi/03rDqI6lxdI/maxresdefault.jpg"
+content_url: "https://youtu.be/03rDqI6lxdI"
+embed_url: "https://www.youtube.com/embed/03rDqI6lxdI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JDBC
+  - Java
+  - MySQL
+  - PostgreSQL
+  - SQLServer
+  - H2
+  - Database
+  - PreparedStatement
+  - ConnectionPooling
+  - DriverManager
+---
+
+<h2>Why JDBC still matters</h2>
+<p>JDBC is the standard bridge between Java and databases like MySQL, PostgreSQL, SQL Server and H2. ORMs are cute and helpful, but when you need predictable performance, explicit transactions and fewer surprises, JDBC is the plumbing you learn to love. Or at least tolerate.</p>
+
+<h2>Add the JDBC driver and dependency</h2>
+<p>Most modern build tools and IDEs fetch the driver when you declare the dependency. If your build tool does not want to cooperate, you can always grab the vendor jar and shove it on the classpath like a barbarian.</p>
+
+<h3>Example Maven dependencies</h3>
+<pre><code>&lt;!-- MySQL --&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;mysql&lt;/groupId&gt;
+  &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+  &lt;version&gt;8.0.33&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;!-- PostgreSQL --&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
+  &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
+  &lt;version&gt;42.6.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<h2>Obtain a Connection with DriverManager or a DataSource</h2>
+<p>Legacy code often uses DriverManager directly. That works, but for production you want a DataSource with connection pooling. Also note many drivers auto register themselves so Class.forName is usually optional now, but people still call it for nostalgia and superstition.</p>
+
+<pre><code>Class.forName("com.mysql.cj.jdbc.Driver");
+try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "user", "pass")) {
+  // use conn
+}
+</code></pre>
+
+<h2>PreparedStatement for safety and speed</h2>
+<p>PreparedStatement prevents SQL injection and can improve performance by letting the driver cache execution plans. Use it instead of concatenating user input like a caveman.</p>
+
+<pre><code>String sql = "SELECT id, name FROM users WHERE email = ?";
+try (PreparedStatement ps = conn.prepareStatement(sql)) {
+  ps.setString(1, email);
+  try (ResultSet rs = ps.executeQuery()) {
+    while (rs.next()) {
+      int id = rs.getInt("id");
+      String name = rs.getString("name");
+      // map to objects or whatever you do with rows
+    }
+  }
+}
+</code></pre>
+
+<h2>Transactions and error handling</h2>
+<p>Wrap related statements in a transaction so you do not end up with partial updates and mysterious data guilt. Turn off auto commit, commit on success, rollback on failure, and always restore the original state if you changed it.</p>
+
+<pre><code>conn.setAutoCommit(false);
+try {
+  // multiple statements that must succeed together
+  conn.commit();
+} catch (SQLException ex) {
+  conn.rollback();
+  throw ex;
+} finally {
+  conn.setAutoCommit(true);
+}
+</code></pre>
+
+<h2>Connection pooling for real apps</h2>
+<p>If your app opens a new connection for every request you will learn the painful difference between local testing and production. Use a pool early. HikariCP is lightweight and fast and it plays nice with most JDBC drivers.</p>
+
+<pre><code>HikariConfig config = new HikariConfig();
+config.setJdbcUrl("jdbc:postgresql://db:5432/mydb");
+config.setUsername("user");
+config.setPassword("pass");
+HikariDataSource ds = new HikariDataSource(config);
+
+try (Connection conn = ds.getConnection()) {
+  // cheap to obtain, cheap to return
+}
+</code></pre>
+
+<h2>Quick checklist of best practices</h2>
+<ul>
+  <li>Prefer PreparedStatement over Statement to avoid injection and improve performance</li>
+  <li>Always close ResultSet Statement and Connection. Try with resources makes this painless</li>
+  <li>Use transactions for multi statement operations and rollback on errors</li>
+  <li>Introduce connection pooling before your app meets real traffic</li>
+  <li>Limit result sets and avoid SELECT star when you do not actually need every column</li>
+  <li>Store credentials in environment variables or a secret manager not in code</li>
+  <li>Map SQL types explicitly to Java types to avoid surprises with nulls and time zones</li>
+</ul>
+
+<h2>Parting advice</h2>
+<p>JDBC is not glamorous but it is reliable. Learn the basics now and your future self will send you a thankful snarky email. Use DriverManager for simple scripts, switch to a DataSource with connection pooling for production, and always treat SQL input like a suspicious guest.</p>
+
+<p>Now go write some queries and try not to corrupt the database on your first commit.</p>
+

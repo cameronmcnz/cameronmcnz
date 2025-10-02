@@ -1,0 +1,65 @@
+---
+layout: video
+title: "AWS Solution Architect Professional Blue Green AMIs EC2"
+description: "Quick guide to blue green deployment with AMIs and EC2 for AWS Solution Architect Professional exam prep and real world deployment patterns"
+video_host: "youtube"
+video_id: "hNarb554Aiw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT56S"
+thumbnail_url: "https://i.ytimg.com/vi/hNarb554Aiw/maxresdefault.jpg"
+content_url: "https://youtu.be/hNarb554Aiw"
+embed_url: "https://www.youtube.com/embed/hNarb554Aiw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - BlueGreenDeployment
+  - AMI
+  - EC2
+  - AutoScaling
+  - ALB
+  - Route53
+  - LaunchTemplate
+  - ImmutableInfrastructure
+  - AWSExam
+---
+
+<h2>Quick summary</h2>
+<p>If your idea of uptime is not apologizing to customers at 2 a m then blue green deployment is your friend. With AWS this pattern means baking a golden AMI from a configured EC2 instance and launching a new Auto Scaling group from a Launch Template. Verify the new fleet in a private test target group and then flip traffic at the ALB or shift weights with Route 53. If the new version blows up you flip back and terminate the bad group later.</p>
+
+<h2>Why this works</h2>
+<p>This is immutable infrastructure done right. You do not patch running servers. You build a known good AMI, tag it, and deploy it. Launch Templates keep instance settings consistent across Auto Scaling groups so drift becomes a boring exam question. ALB target groups give you health checked traffic switching that is fast and reversible. Route 53 weighted records buy you a slow roll if you like living dangerously but cautiously.</p>
+
+<h2>Step by step</h2>
+<ul>
+  <li>Create a build instance and bake a golden AMI with your dependencies and configuration. Use tools like Packer or EC2 Image Builder if you want fewer late night surprises.</li>
+  <li>Create or update a Launch Template so the new ASG inherits consistent instance type networking and user data.</li>
+  <li>Launch a new Auto Scaling group from the new AMI and register its instances in a separate ALB target group that is not yet serving production traffic.</li>
+  <li>Run smoke tests and integration tests against that target group or in a private test subnet so you do not accidentally expose unfinished features.</li>
+  <li>When tests pass swap ALB listeners to the new target group or move Route 53 weights from old to new for a gradual rollout.</li>
+  <li>Monitor health checks and metrics. If things go sideways flip traffic back to the previous target group and let the old ASG take over again.</li>
+  <li>Scale down and clean up the old ASG after you confirm stability and tag AMIs and launch history for quick audits and rollbacks.</li>
+</ul>
+
+<h3>Notes on health and testing</h3>
+<p>Always enable ALB health checks so the load balancer will only send traffic to healthy instances. Registering instances in a private test target group prevents accidental exposure. Keep smoke tests fast and integration tests focused. If your tests are slow they will make deployments boring and then someone will make a risky manual shortcut.</p>
+
+<h3>When to use Route 53 weights</h3>
+<p>If you want to drip traffic to the new release or validate behavior under real traffic use Route 53 weighted records. This gives you an easy rollback path by restoring weights. For instant cutovers the ALB target group swap is simpler and reversible in seconds.</p>
+
+<h2>Automation and best practices</h2>
+<ul>
+  <li>Automate AMI creation and verification in your CI pipeline so builds are repeatable and less human.</li>
+  <li>Keep AMI version tags and Launch Template revisions so rollbacks are a matter of clicking not guesswork.</li>
+  <li>Prefer immutable deployments over in place updates to reduce configuration drift and weird state that only shows up in production.</li>
+  <li>Use Auto Scaling groups for instance health replacement and predictable capacity behavior.</li>
+</ul>
+
+<h2>Exam friendly checklist</h2>
+<p>If you are studying for AWS certs remember to mention zero downtime, quick rollback, immutable infrastructure, Launch Templates, Auto Scaling groups, ALB target groups and AMI versioning when describing a blue green pattern. That sequence tends to make graders smile and reduces the chance of a surprise question about what went wrong.</p>
+
+<h2>Parting wisdom</h2>
+<p>Blue green with AMIs, EC2 and Auto Scaling is boring in the best way. It reduces surprises, makes rollbacks easy and keeps your post mortems short. Automate the bake and test steps and you will have reliable deployments that do not need a firefighter on standby. That is the point of infrastructure design and also the thing that impresses hiring managers.</p>
+

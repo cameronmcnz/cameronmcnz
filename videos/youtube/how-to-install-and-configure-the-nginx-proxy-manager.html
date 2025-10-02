@@ -1,0 +1,91 @@
+---
+layout: video
+title: "How to Install and Configure the Nginx Proxy Manager"
+description: "Step by step guide to install and configure Nginx Proxy Manager on a Docker host for reverse proxy and SSL management"
+video_host: "youtube"
+video_id: "QasSXtWy--A"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M30S"
+thumbnail_url: "https://i.ytimg.com/vi/QasSXtWy--A/maxresdefault.jpg"
+content_url: "https://youtu.be/QasSXtWy--A"
+embed_url: "https://www.youtube.com/embed/QasSXtWy--A"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - nginx
+  - nginx proxy manager
+  - proxy
+  - reverse proxy
+  - docker
+  - docker compose
+  - letsencrypt
+  - ssl
+  - server
+  - tutorial
+---
+
+<h2>Quick reality check</h2>
+<p>If your server could talk it would say please stop opening ports without a plan. If your server could also get you certificates without drama you would have Nginx Proxy Manager in front of your apps already. This guide shows how to set up Nginx Proxy Manager on Docker using Docker Compose to manage reverse proxy rules and get LetsEncrypt SSL certificates with minimal fuss and only mild swearing.</p>
+
+<h2>What you will need</h2>
+<ul>
+  <li>A server with Docker and Docker Compose installed</li>
+  <li>A reserved DHCP lease or a static IP for the host</li>
+  <li>Ports 80 and 443 reachable from the internet for certificate issuance unless you use DNS challenge</li>
+  <li>A domain and DNS control for the hostnames you plan to proxy</li>
+</ul>
+
+<h2>Prepare the host</h2>
+<p>Update packages, install Docker and Docker Compose and create a folder to hold persistent data. Use a dedicated folder so you do not accidentally delete your cat photos when cleaning volumes.</p>
+
+<h3>Checklist</h3>
+<ul>
+  <li>Create a data folder for nginx proxy manager and the database</li>
+  <li>Reserve a static IP or set a DHCP lease</li>
+  <li>Open firewall for ports 80 and 443 and for the admin UI port which is commonly 81</li>
+</ul>
+
+<h2>Create the Docker Compose file</h2>
+<p>You will need two main services in Compose. One runs Nginx Proxy Manager and the other runs a supported database such as MariaDB. Map persistent volumes for both the application data and the database data. Expose the admin UI on the chosen port and forward ports 80 and 443 for proxy traffic and certificate issuance.</p>
+
+<h3>What to map</h3>
+<ul>
+  <li>Persistent volume for Nginx Proxy Manager config and letsencrypt data</li>
+  <li>Persistent volume for the database data folder</li>
+  <li>Ports for admin UI and HTTP and HTTPS</li>
+</ul>
+
+<h2>Start containers and verify</h2>
+<p>Run Docker Compose with the detached option and watch the logs for database migrations and service startup. If you see a container failing to start check filesystem permissions on the data folders and confirm the database is reachable from the proxy manager container. Logs are your friend here.</p>
+
+<h3>Common commands</h3>
+<ul>
+  <li>docker compose up -d to start services</li>
+  <li>docker compose logs -f to follow logs</li>
+  <li>docker compose ps to confirm containers are running</li>
+</ul>
+
+<h2>Complete the initial web UI setup</h2>
+<p>Open a browser and go to the admin UI on port 81 of your server. The default admin account is very well known so change the email and password immediately. Configure a default email for LetsEncrypt notifications and choose your preferred challenge method. If you plan to use HTTP challenge make sure ports 80 and 443 are not blocked by your ISP or provider firewall.</p>
+
+<h2>Add proxy hosts</h2>
+<p>For each service add a proxy host by giving the external domain name and the internal IP and port where the backend listens. Choose the forward scheme and enable WebSocket support when your app uses live connections. You can set custom nginx directives if you need unusual behavior but keep it simple at first.</p>
+
+<h3>Certificate options</h3>
+<ul>
+  <li>Use LetsEncrypt to request SSL certificates from the UI</li>
+  <li>Choose HTTP challenge when your server is reachable on ports 80 and 443</li>
+  <li>Use DNS challenge when your provider needs that or when you want wildcard certificates</li>
+</ul>
+
+<h2>Troubleshooting tips</h2>
+<p>If certificate issuance fails check that the domain resolves to your public IP and that ports 80 and 443 are open. If the proxy manager container cannot reach the database check network settings and credentials. Permission errors often mean the host user running Docker does not own the data folder. Change ownership or adjust mount options accordingly.</p>
+
+<h2>Maintenance and backups</h2>
+<p>Keep your Compose file and volume paths backed up. LetsEncrypt certificates renew automatically but check renewal logs occasionally. When upgrading Nginx Proxy Manager read the release notes and back up the database first. If things go sideways a clean restore from a known good backup is a blessed thing.</p>
+
+<h2>Final words</h2>
+<p>Nginx Proxy Manager removes a lot of the pain of managing reverse proxies and certificates but it is not magic. Keep good backups, lock down your admin UI, and only open ports you actually need. Now go forward and proxy like a mildly responsible network god.</p>
+

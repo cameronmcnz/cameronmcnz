@@ -1,0 +1,105 @@
+---
+layout: video
+title: "Spring Boot, JPA and Hibernate Example"
+description: "Hands on Spring Boot example showing JPA and Hibernate setup for CRUD operations and configuration best practices"
+video_host: "youtube"
+video_id: "xwygpWZoVt8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT49M16S"
+thumbnail_url: "https://i.ytimg.com/vi/xwygpWZoVt8/maxresdefault.jpg"
+content_url: "https://youtu.be/xwygpWZoVt8"
+embed_url: "https://www.youtube.com/embed/xwygpWZoVt8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - JPA
+  - Hibernate
+  - Spring Data JPA
+  - CRUD
+  - REST API
+  - Entity Mapping
+  - Transaction Management
+  - Database Configuration
+  - SQL Logging
+---
+
+<p>If you want a working backend that does CRUD without drama this guide walks through using Spring Boot with JPA and Hibernate. You will learn how to set up the project configure the datasource map entities handle transactions and expose a polite REST API that does not lie to you about HTTP status codes.</p>
+
+<h2>Setup and dependencies</h2>
+
+<p>Start a Maven or Gradle project from start.spring.io or from your favorite IDE wizard. Add these essentials</p>
+
+<ul>
+  <li>spring-boot-starter-data-jpa for Spring Data JPA integration</li>
+  <li>the JDBC driver for your chosen database like H2 Postgres or MySQL</li>
+  <li>optional Flyway or Liquibase for schema migrations</li>
+</ul>
+
+<p>Example application properties for a quick in memory test</p>
+
+<pre><code>spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.username=sa
+spring.datasource.password=
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.ddl-auto=update
+</code></pre>
+
+<h2>Entity mapping basics</h2>
+
+<p>Use @Entity on your domain classes and mark the primary key with @Id and @GeneratedValue. Map columns with @Column when you need custom names or constraints. Relationships matter a lot so think before you type. A lazy @ManyToOne is the polite default. An eager collection is a trap that leads to N plus one horror stories.</p>
+
+<h3>Small example</h3>
+
+<pre><code>@Entity
+public class Book {
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  private String title;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Author author;
+}
+</code></pre>
+
+<h2>Repositories and Spring Data JPA</h2>
+
+<p>Extend JpaRepository or CrudRepository so Spring Data JPA generates the boring query code for you. Want custom queries fine use @Query or a query method name. Keep repositories focused on persistence not revenge fantasies.</p>
+
+<h2>Service layer and transaction management</h2>
+
+<p>Put transactional business logic in @Service classes and annotate transactional boundaries with @Transactional. Read only transactions can help performance and make your intent clear. Do not call repository methods from controllers directly unless your controller enjoys inconsistency and despair.</p>
+
+<ul>
+  <li>Use @Transactional on methods that modify data</li>
+  <li>Mark read only operations with @Transactional(readOnly = true) when appropriate</li>
+  <li>Avoid long running transactions that lock rows while you send emails</li>
+</ul>
+
+<h2>REST controllers for CRUD</h2>
+
+<p>Create controllers with mapping methods for create read update and delete. Return ResponseEntity to control HTTP status codes and payloads. Validate input and return 400 for user mistakes not 500 unless you enjoy debugging at 3 AM.</p>
+
+<h2>Devops friendly tips and SQL logging</h2>
+
+<p>Enable SQL logging during development with spring.jpa.show-sql true and format SQL for readability. Use Flyway or Liquibase for schema migrations so your database does not mutate like a gremlin after a deploy. Monitor logs to catch N plus one queries early and use fetch joins or entity graphs to fix them.</p>
+
+<h2>Final checklist</h2>
+
+<ol>
+  <li>Project created with correct dependencies</li>
+  <li>Datasource and JPA properties configured</li>
+  <li>Entities mapped with attention to relationships</li>
+  <li>Repositories extend JpaRepository for CRUD</li>
+  <li>Service layer handles transactions</li>
+  <li>REST controllers expose endpoints with proper status codes</li>
+  <li>SQL logging and migrations enabled for stable development</li>
+</ol>
+
+<p>Follow these steps and you will have a maintainable Spring Boot app using JPA and Hibernate that handles CRUD without melodrama. If something breaks the logs will tell the story and you will be the hero who reads them.</p>
+

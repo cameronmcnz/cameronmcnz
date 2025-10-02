@@ -1,0 +1,71 @@
+---
+layout: video
+title: "Git Status Command"
+description: "Quick guide to git status showing tracked untracked staged and modified files and how to use the command effectively"
+video_host: "youtube"
+video_id: "srFaEE2hYLc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/srFaEE2hYLc/maxresdefault.jpg"
+content_url: "https://youtu.be/srFaEE2hYLc"
+embed_url: "https://www.youtube.com/embed/srFaEE2hYLc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git status
+  - version control
+  - staging area
+  - untracked files
+  - modified files
+  - git commands
+  - git tutorial
+  - developer tools
+  - source control
+---
+
+<p>If your repository had a daily check in meeting git status is the blunt instrument that tells the truth. It inspects the working tree and the staging area and then politely ruins your plans by showing untracked files and modified files you forgot about. This short git tutorial will help you read the output and act before you make an oops commit.</p>
+
+<h2>Run git status in the repo root</h2>
+<p>Open a terminal in your project root and run</p>
+<pre><code>git status</code></pre>
+<p>The command prints branch information and file states. The output separates untracked files modified files and staged files so the current state of the repo is obvious even when your brain is not cooperating.</p>
+
+<h2>Read the sections the right way</h2>
+<p>Look for headings like Changes to be committed and Changes not staged for commit. Files under the first heading are staged and ready for commit. Files under the second heading have edits in the working tree that have not been added to the staging area.</p>
+
+<h3>Staged versus modified files</h3>
+<p>Staged files are what will be recorded in the next commit. Modified files are changes you still have a chance to fix or hide. If you want to build a clean history use git add wisely and review the staged area before committing.</p>
+
+<h2>Handle untracked files and ignore noise</h2>
+<p>Untracked files show up when a file exists in the working tree but has not been added to the index. Add them with</p>
+<pre><code>git add path/to/file</code></pre>
+<p>Or keep clutter out of the way with a .gitignore file. Ignored files do not appear in the normal status output which keeps your focus on files that matter for the next commit.</p>
+
+<h2>Stage specific hunks when you care about quality</h2>
+<p>If you want surgical commits use</p>
+<pre><code>git add -p</code></pre>
+<p>This walks you through hunks and lets you stage only the parts you intend. After staging run git status again to confirm the staged section matches the changes you wanted to capture.</p>
+
+<h2>Use short and machine friendly formats for speed and scripting</h2>
+<p>When speed matters try the concise two column output</p>
+<pre><code>git status -s</code></pre>
+<p>To see branch and upstream info in one shot use</p>
+<pre><code>git status --branch</code></pre>
+<p>When writing scripts choose</p>
+<pre><code>git status --porcelain=v2</code></pre>
+<p>The porcelain v2 format is stable for machine parsing and will save you from brittle shell hacks later.</p>
+
+<h2>Quick checklist before committing</h2>
+<ul>
+  <li>Run git status to see branch and file states</li>
+  <li>Confirm staged files are exactly what you intend</li>
+  <li>Use .gitignore to hide editor and build artifacts</li>
+  <li>Use git add -p for focused commits</li>
+  <li>Use git status -s or --porcelain=v2 when speed or scripts matter</li>
+</ul>
+
+<p>A quick status check prevents accidental commits and keeps history readable which future developers will thank you for and which present you will appreciate when you are debugging less. If you want to feel like a responsible version control citizen run git status often and pretend you always planned it that way.</p>
+

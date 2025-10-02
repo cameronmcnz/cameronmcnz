@@ -1,0 +1,93 @@
+---
+layout: video
+title: "Docker Compose Example with Apache"
+description: "Learn how to run Apache with Docker Compose using a simple compose file for fast local development and testing"
+video_host: "youtube"
+video_id: "-2qv1xh3CFs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M9S"
+thumbnail_url: "https://i.ytimg.com/vi/-2qv1xh3CFs/maxresdefault.jpg"
+content_url: "https://youtu.be/-2qv1xh3CFs"
+embed_url: "https://www.youtube.com/embed/-2qv1xh3CFs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - docker
+  - docker compose
+  - apache
+  - httpd
+  - containers
+  - devops
+  - compose file
+  - docker tutorial
+  - containerization
+  - web server
+---
+
+<article>
+  <p>Want a tiny web server that behaves like a staging box but does not require a forklift? Welcome to running Apache inside containers with Docker Compose. This quick docker tutorial shows a minimal compose file and the steps you actually need to get an httpd based web server serving your files, with live edits and sane defaults for local development.</p>
+
+  <h2>What you will build</h2>
+  <p>In short you will define a service in a compose file that runs Apache httpd, map a host port so your browser can reach it, mount your site files for live editing, start the stack with docker compose up, and verify with curl or a browser. This is basic containerization for devops friendly local testing.</p>
+
+  <h2>Minimal compose file explained</h2>
+  <p>Below is a compact docker compose example that works for local development. It uses a bind mount for live edits. Use a named volume instead when you need persistence across recreations.</p>
+
+  <pre><code>version: "3.8"
+services:
+  web:
+    image: httpd:2.4
+    ports:
+      - "8080:80"
+    volumes:
+      - ./site:/usr/local/apache2/htdocs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+</code></pre>
+
+  <h3>Key bits you should not ignore</h3>
+  <ul>
+    <li>image: use an official Apache image like httpd so you get predictable behavior and security updates.</li>
+    <li>ports: map container port 80 to a host port such as 8080 so you can hit the server from your browser.</li>
+    <li>volumes: a bind mount like ./site gives instant feedback when you edit files on your laptop.</li>
+    <li>healthcheck: optional but useful for automation and making sure the container is actually serving content.</li>
+  </ul>
+
+  <h2>Commands you will actually run</h2>
+  <p>Open a terminal in the directory with your compose file and run these. Yes it is that simple.</p>
+  <pre><code># start in the foreground
+docker compose up
+
+# start detached
+docker compose up -d
+
+# follow logs
+docker compose logs -f web
+
+# graceful teardown
+docker compose down
+
+# quick test from the host
+curl http://localhost:8080/
+</code></pre>
+
+  <h2>Troubleshooting and tips</h2>
+  <ul>
+    <li>If you see port already in use pick another host port like 8888. Ports are a shared resource and they have feelings.</li>
+    <li>When files you change in ./site do not appear, confirm the bind mount path and file permissions. Containers cannot read things they are not allowed to read.</li>
+    <li>Prefer a named volume for data that must survive recreating containers. Bind mounts are great for development but not a backup strategy.</li>
+    <li>Use docker compose logs web or docker compose logs -f web to follow output when something goes wrong. The logs will be passive aggressive but honest.</li>
+  </ul>
+
+  <h2>Security and production notes</h2>
+  <p>This setup is for local development and testing. For production deploys think about hardened images, proper TLS termination, configuration management, and running behind a reverse proxy. Also do not rely on bind mounts for sensitive data unless you enjoy surprises.</p>
+
+  <h2>Wrap up</h2>
+  <p>You now have the blueprint to run an Apache httpd web server inside containers using docker compose. The workflow is: author a compose file, map ports, mount content for live edits, bring the stack up, and verify it serves pages. It is a small step toward reproducible environments and better devops hygiene without overengineering the setup.</p>
+</article>
+

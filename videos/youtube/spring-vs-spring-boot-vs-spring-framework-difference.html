@@ -1,0 +1,68 @@
+---
+layout: video
+title: "Spring vs Spring Boot vs Spring Framework Difference?"
+description: "Compare Spring Spring Boot and the Spring Framework roles features and when to pick each for Java projects."
+video_host: "youtube"
+video_id: "Vo7YjQb-gW4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M20S"
+thumbnail_url: "https://i.ytimg.com/vi/Vo7YjQb-gW4/maxresdefault.jpg"
+content_url: "https://youtu.be/Vo7YjQb-gW4"
+embed_url: "https://www.youtube.com/embed/Vo7YjQb-gW4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring
+  - Spring Boot
+  - Spring Framework
+  - Java
+  - Dependency Injection
+  - Auto Configuration
+  - Microservices
+  - Spring MVC
+  - Actuator
+  - Starters
+---
+
+<h2>Quick answer and why people argue about it</h2>
+<p>Yes they sound the same and yes meetings will be needlessly confused. In short Spring is the big umbrella term developers use when they do not want to be specific. Spring Framework is the core set of libraries that gives you dependency injection aspect oriented programming and modules like Spring MVC Spring Data and Spring Security. Spring Boot sits on top as an opinionated layer that adds auto configuration starters an embedded server and production features such as the Actuator.</p>
+
+<h2>What each one actually does</h2>
+
+<h3>Spring as the ecosystem</h3>
+<p>When someone says Spring they could mean anything from the core DI container to a collection of projects maintained by the Spring team. It is a convenient shorthand that causes confusion on purpose.</p>
+
+<h3>Spring Framework</h3>
+<p>This is the foundation. You get inversion of control dependency injection AOP and a modular design so teams can pick only what they need. It exposes low level hooks for custom wiring lifecycle management and fine grained control. If you like to wire beans by hand or need predictable behavior in a platform component this is your playground.</p>
+
+<h3>Spring Boot</h3>
+<p>Think convention over configuration. Spring Boot packages starters like spring-boot-starter-web to get you running quickly. Auto configuration reduces boilerplate so prototypes and microservices appear like rabbits after rain. It embeds a server so you can run a jar directly and includes production ready features such as the Actuator for monitoring and health checks.</p>
+
+<h2>Key technical differences that matter</h2>
+<ul>
+  <li><strong>Dependency injection</strong> is provided by the Spring Framework and is used by Boot as well.</li>
+  <li><strong>Auto configuration</strong> is a Spring Boot feature that guesses sensible defaults so you do not have to.</li>
+  <li><strong>Starters</strong> group dependencies into convenient bundles like spring-boot-starter-web or spring-boot-starter-data-jpa.</li>
+  <li><strong>Actuator</strong> gives you endpoints for health metrics and monitoring in Boot based services.</li>
+  <li><strong>Spring MVC and other modules</strong> are parts of the framework that Boot can configure for you automatically.</li>
+</ul>
+
+<h2>When to pick which one</h2>
+<ul>
+  <li><strong>Pick Spring Boot</strong> when you need fast delivery sensible defaults and an easy path to running a microservice. Good for prototypes small services and teams that want less ceremony.</li>
+  <li><strong>Pick Spring Framework</strong> when you need maximum control minimal magic or you are building platform level components where predictability matters.</li>
+  <li><strong>Mix both</strong> when you need control in some layers and convenience in others. Spring Boot builds on the framework and never truly replaces it.</li>
+</ul>
+
+<h2>Practical tips that save regret</h2>
+<ul>
+  <li>Start a new service with Spring Boot starters and the Actuator for faster feedback.</li>
+  <li>If you are working on a platform or integrating with legacy systems use the framework level for explicit wiring and lifecycle control.</li>
+  <li>Use spring-boot-starter-web for Spring MVC apps and include spring-boot-starter-actuator for production hooks.</li>
+</ul>
+
+<h2>Final verdict with a tiny shrug</h2>
+<p>Spring Framework gives you the toolbox. Spring Boot hands you a power drill with the bit already installed and a cup of coffee. Both are useful depending on whether you want to tune every screw or just get the damn thing built. Choose the right balance for Java dependency injection microservices and production readiness and your future self will thank you or at least stop yelling at the build logs.</p>
+

@@ -1,0 +1,85 @@
+---
+layout: video
+title: "Jenkins Home Directory What is JENKINS_HOME and How to Set"
+description: "Quick guide to JENKINS_HOME what the directory does and how to set the environment variable on Linux Docker and systemd"
+video_host: "youtube"
+video_id: "3znTQFLviwQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M53S"
+thumbnail_url: "https://i.ytimg.com/vi/3znTQFLviwQ/maxresdefault.jpg"
+content_url: "https://youtu.be/3znTQFLviwQ"
+embed_url: "https://www.youtube.com/embed/3znTQFLviwQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - JENKINS_HOME
+  - CI
+  - DevOps
+  - Jenkins setup
+  - systemd
+  - Docker
+  - Linux
+  - backup
+  - permissions
+---
+
+<article>
+  <p>If Jenkins had a secret closet it would be called JENKINS_HOME. This is the filesystem location where Jenkins keeps its config plugins jobs build artifacts and logs. Get this wrong and you will learn what panic feels like after a plugin update.</p>
+
+  <h2>Where Jenkins stores things by default</h2>
+  <p>Default locations depend on how you installed Jenkins and how much you like surprises.</p>
+  <ul>
+    <li>Package installs on Linux usually use <code>/var/lib/jenkins</code></li>
+    <li>Single user installs often create <code>~/.jenkins</code> in the user home</li>
+    <li>Containers have an internal path that you should map to a host mount so your data does not evaporate when the container dies</li>
+  </ul>
+
+  <h2>Quick examples that do not require a magic wand</h2>
+  <h3>Temporary shell session</h3>
+  <pre><code>export JENKINS_HOME=/var/lib/jenkins</code></pre>
+
+  <h3>Make it persistent under systemd</h3>
+  <p>Create an override so the service always starts with the correct environment. Run this and edit the file that opens.</p>
+  <pre><code>systemctl edit jenkins</code></pre>
+  <p>Add these lines to the override file and save.</p>
+  <pre><code>[Service]
+Environment=JENKINS_HOME=/var/lib/jenkins</code></pre>
+  <p>Then reload systemd and restart Jenkins so it reads the new path.</p>
+  <pre><code>systemctl daemon-reload
+systemctl restart jenkins</code></pre>
+
+  <h3>Docker run example that keeps your data</h3>
+  <p>Use an explicit environment variable and a bind mount so your builds survive container churn.</p>
+  <pre><code>docker run -d \
+  -e JENKINS_HOME=/var/jenkins_home \
+  --mount type=bind,source=/host/jenkins_home,target=/var/jenkins_home \
+  jenkins/jenkins:lts</code></pre>
+
+  <h2>Permissions and moving JENKINS_HOME</h2>
+  <p>Permissions matter more than charm. The user that runs the Jenkins process must own the directory and have read write access. If you are using the packaged service that user is usually named jenkins. Set ownership and permissions before starting Jenkins on the new path.</p>
+  <pre><code>chown -R jenkins.jenkins /var/lib/jenkins
+chmod -R 750 /var/lib/jenkins</code></pre>
+  <p>To move an existing JENKINS_HOME stop Jenkins copy the data preserve ownership and restart. Using rsync or cp with archive mode will keep timestamps permissions and links intact.</p>
+  <pre><code>systemctl stop jenkins
+rsync -a /old/jenkins_home/ /var/lib/jenkins/
+chown -R jenkins.jenkins /var/lib/jenkins
+systemctl start jenkins</code></pre>
+
+  <h2>Which environment setting wins</h2>
+  <p>Environment variables that are part of the process beat casual exports you typed into a shell after the service started. That means your systemd unit or Docker run command determines the actual JENKINS_HOME used by the running process. Do not rely on transient shell exports if you want predictable storage.</p>
+
+  <h2>Backups and safety tips</h2>
+  <ul>
+    <li>Back up JENKINS_HOME before you tinker with plugins or upgrades. A simple tar or rsync backup is a lifesaver.</li>
+    <li>Pick a stable path outside temporary directories and outside user home folders that might disappear.</li>
+    <li>Use an explicit environment entry in systemd or explicit options in your container runtime rather than hoping for the best.</li>
+    <li>Test restores on a separate instance before you trust them in production.</li>
+  </ul>
+
+  <h2>Final words for the brave</h2>
+  <p>JENKINS_HOME is not mystical. Treat it like the single source of truth for your Jenkins instance. Set it explicitly mount it from a host for containers keep permissions tidy and back it up. Do that and you will sleep slightly better when Jenkins decides to be dramatic.</p>
+</article>
+

@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Setup a Bluesky Personal Data Server on AWS"
+description: "Step by step guide to deploy a Bluesky Personal Data Server on AWS with cost security and backup tips for a reliable home for social data."
+video_host: "youtube"
+video_id: "_TpPTJP56ng"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT23M49S"
+thumbnail_url: "https://i.ytimg.com/vi/_TpPTJP56ng/maxresdefault.jpg"
+content_url: "https://youtu.be/_TpPTJP56ng"
+embed_url: "https://www.youtube.com/embed/_TpPTJP56ng"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Bluesky
+  - Personal Data Server
+  - PDS
+  - AWS
+  - EC2
+  - Postgres
+  - TLS
+  - DNS
+  - Backups
+  - DevOps
+---
+
+<p>So you want to host your own Bluesky Personal Data Server and feel the warm glow of owning your social graph. Good. This guide walks through a practical AWS focused deployment that keeps things secure stable and reasonably sane for DevOps humans.</p>
+
+<h2>Prepare account domain and region</h2>
+<p>Start by making sure your AWS account has billing enabled and pick a region near your users for lower latency. Register a domain or use Route 53 hosted zones to manage DNS. Yes you will have to type your domain into places more than once. That is normal.</p>
+
+<h2>Choose compute and object storage</h2>
+<p>Decide whether to run the PDS on an EC2 instance or in containers. For a small personal install a t3 or t4g instance plus an attached EBS volume is fine. For production lean toward a load balanced container service or a well sized EC2 fleet behind an ALB.</p>
+<ul>
+  <li>Media and blobs belong in S3 or S3 compatible object storage with lifecycle rules for old media.</li>
+  <li>Attach an EBS volume for app state or use ephemeral volumes if you enjoy pain.</li>
+  <li>Consider a load balancer when you want TLS termination with ACM certificates and easy horizontal scaling.</li>
+</ul>
+
+<h2>Provision Postgres for metadata and users</h2>
+<p>Use RDS for managed Postgres backups failover and minor maintenance if the budget allows. If you must run Postgres on an instance tune shared buffers work mem and autovacuum settings for your expected load and set up regular base backups and WAL shipping. Either approach is fine as long as you have automated snapshots and tested restores.</p>
+
+<h2>Install the PDS software</h2>
+<p>Clone the upstream repository and follow the official configuration examples. Run the service inside a container or as a systemd unit to ensure automatic restarts. A simple systemd unit plus journald logs will save your life during debugging.</p>
+<pre><code>sudo systemctl enable my-pds.service
+sudo systemctl start my-pds.service
+</code></pre>
+
+<h2>Configure DNS and TLS</h2>
+<p>Point your domain at the public endpoint or at an ALB. Use ACM certificates for traffic handled by AWS load balancers or use a free certificate provider if you are self terminating. Make sure your TLS chain is complete and HSTS is set if you like sleeping at night.</p>
+
+<h2>Secrets and configuration</h2>
+<p>Keep keys and secrets out of git. Use AWS Secrets Manager or Parameter Store with strict IAM policies. If you store environment variables in files restrict file permissions and rotate secrets on a schedule that matches your fear tolerance.</p>
+
+<h2>Run the service and add monitoring</h2>
+<p>Deploy a monitoring stack early. CloudWatch is the path of least resistance on AWS. If you prefer open source stack a lightweight Prometheus plus node exporter and Alertmanager works well. Track CPU disk usage response times and error rates. Add alerts for high error rates low disk and failing backups.</p>
+
+<h2>Backups and disaster recovery</h2>
+<p>Automate database snapshots or use RDS automated backups. For self managed Postgres use base backups and WAL archiving. Snapshot EBS volumes for instance state and keep media in S3 with lifecycle rules to expire old objects. Crucially test restores on a staging instance so actual failures do not become surprising adventures.</p>
+
+<h3>Example backup checklist</h3>
+<ul>
+  <li>Daily database backups and WAL retention that covers your recovery point objective</li>
+  <li>Regular EBS snapshots for the instance images and attached volumes</li>
+  <li>S3 lifecycle rules for media and cross region replication for critical assets</li>
+  <li>Automated restore drills on a staging environment</li>
+</ul>
+
+<h2>Maintenance and runbook</h2>
+<p>Keep a short runbook that lists how to rotate certificates how to recover the database and how to reattach object storage. Document common failure modes and where your logs live. If you are the only one who knows the password write it down in a vault and then complain about password managers later.</p>
+
+<h2>Summary</h2>
+<p>Deploying a Bluesky Personal Data Server on AWS is mostly about choosing sensible defaults for compute storage and Postgres setting up TLS and DNS and then automating backups and monitoring. With systemd or containers plus S3 and RDS you get a stable stack that is manageable by one person and scalable when your user base finally materializes. Now go deploy and then promptly test your restores like a responsible adult.</p>
+

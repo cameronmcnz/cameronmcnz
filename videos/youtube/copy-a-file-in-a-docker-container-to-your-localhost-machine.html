@@ -1,0 +1,72 @@
+---
+layout: video
+title: "Copy a file in a Docker container to your localhost machine"
+description: "Quick guide to copy a file from a Docker container to a local machine using docker commands and a tar fallback method."
+video_host: "youtube"
+video_id: "TLvo8D17LXY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M0S"
+thumbnail_url: "https://i.ytimg.com/vi/TLvo8D17LXY/maxresdefault.jpg"
+content_url: "https://youtu.be/TLvo8D17LXY"
+embed_url: "https://www.youtube.com/embed/TLvo8D17LXY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - docker
+  - docker cp
+  - docker exec
+  - copy file
+  - container to host
+  - localhost
+  - devops
+  - tutorial
+  - file transfer
+  - command line
+---
+
+<p>If you ever needed to yank a file out of a running Docker container and put it on your local machine then good news you are not alone and this guide will save you a few cursed minutes. We will show the quick path with docker cp and the fallback that actually works when things get weird.</p>
+
+<h2>Step one Find the container</h2>
+<p>First identify the container name or id that holds the file. No guessing unless confidence is a personality trait.</p>
+<pre><code>docker ps</code></pre>
+<p>Note the container name or numeric id from the CONTAINER column. That is the handle for every command that follows.</p>
+
+<h2>Step two Try the docker cp approach</h2>
+<p>The fast path is to use the docker provided copy command. The syntax expects the container name then the word colon then the path inside the container then the destination on your host. If the container is accessible from your CLI this is the easiest route.</p>
+<p>In words this looks like</p>
+<pre><code>docker cp CONTAINER_NAME then the word colon then /path/to/file then /host/destination</code></pre>
+<p>If that format works for you then congratulations. If the container is missing tools or the engine is being temperamental keep reading for the reliable fallback.</p>
+
+<h2>Step three Use a tar stream when docker cp is not an option</h2>
+<p>This is the dependable trick for containers with minimal tooling. It streams the file out via standard streams and extracts on the host. It avoids container filesystem quirks and works even with stripped down images.</p>
+<pre><code>docker exec my_container tar cf - /path/to/file | tar xf - -C /host/destination</code></pre>
+<p>Replace my_container with the name or id you found earlier and replace the paths with your actual file paths. The first tar runs inside the container and writes a tar stream to stdout. The second tar on the host reads that stream and extracts into your destination.</p>
+
+<h3>Why this trick is your new best friend</h3>
+<ul>
+  <li>It does not rely on special Docker client features beyond docker exec.</li>
+  <li>It handles files and directories and preserves filenames reliably.</li>
+  <li>It works when the container refuses to play nice or when docker cp is unavailable.</li>
+</ul>
+
+<h2>Step four Verify and fix ownership</h2>
+<p>Once the file lands on your host check it and adjust permissions if the container wrote it as root. This is normal and expected.</p>
+<pre><code>ls -l /host/destination/yourfile
+sha256sum /host/destination/yourfile
+sudo chown $USER /host/destination/yourfile</code></pre>
+<p>Use the checksum to compare against a checksum generated inside the container if you want extra certainty.</p>
+
+<h2>Optional tip Mount a host directory when copying is frequent</h2>
+<p>If you find yourself doing this dance often start the container with a bind mount so files appear on the host as they are created. The runtime flag maps a host directory to a container directory by using hostdir then the word colon then containerdir. That way you avoid repeated copy commands and future episodes of mild frustration.</p>
+
+<h2>Quick troubleshooting notes</h2>
+<ul>
+  <li>Permission denied on the host Try chown or run the command with sudo.</li>
+  <li>File not found Double check the path inside the container by running a shell or using docker exec to ls the path.</li>
+  <li>Container gone If the container has exited you can still use docker cp on the stopped container name or id or restart a temporary container with the same volume to retrieve files.</li>
+</ul>
+
+<p>There you go. Use docker cp when it behaves and use the tar stream when the world insists on being annoying. Either way you now have a plan that rescues files and saves dignity.</p>
+

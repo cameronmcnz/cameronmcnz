@@ -1,0 +1,81 @@
+---
+layout: video
+title: "How to clone merge build and follow GitFlow Workflow"
+description: "Step by step guide to clone from GitHub merge with Git build with Maven and follow GitFlow for predictable team releases"
+video_host: "youtube"
+video_id: "rjzh8vmzJH8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT25M8S"
+thumbnail_url: "https://i.ytimg.com/vi/rjzh8vmzJH8/maxresdefault.jpg"
+content_url: "https://youtu.be/rjzh8vmzJH8"
+embed_url: "https://www.youtube.com/embed/rjzh8vmzJH8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - maven
+  - gitflow
+  - merge
+  - clone
+  - ci
+  - branches
+  - workflow
+  - devops
+---
+
+<h2>Quick reality check</h2>
+<p>This is a no fluff guide to cloning a GitHub repo creating short lived feature branches merging them into develop cutting releases tagging master and building with Maven while your CI watches like a nervous referee. If you want predictable releases and less merge pain this workflow will save you time and dignity.</p>
+
+<h2>Clone the repo and start somewhere that is sane</h2>
+<p>Copy the repo and land on your machine. Replace the placeholder with your repo address and do not paste your password in public chat.</p>
+<pre><code>git clone &lt;repo-url&gt;
+cd repo</code></pre>
+
+<h2>Create a feature branch and do the work</h2>
+<p>Work should happen off develop not master. Make feature branches small and focused so code review does not turn into archaeology.</p>
+<pre><code>git checkout -b feature/my-feature develop</code></pre>
+<p>Make changes then stage and commit with a clear message that explains the why not the how.</p>
+<pre><code>git add .
+git commit -m "Describe change clearly"
+git push origin feature/my-feature</code></pre>
+
+<h3>Open a pull request and let CI do its thing</h3>
+<p>Create a PR on GitHub to merge feature into develop. Use the PR for code review and to run your CI pipeline. Treat failing CI as feedback not a personality flaw.</p>
+
+<h2>Merge strategies and conflict handling</h2>
+<p>When the PR is approved merge into develop using your chosen strategy. If conflicts appear do not panic. Pull develop into your branch or rebase carefully and rerun tests locally to avoid surprises in CI.</p>
+
+<h2>Cut a release and tag it for posterity</h2>
+<p>When develop is ready create a release branch. This lets you stabilize without blocking new features.</p>
+<pre><code>git checkout -b release/1.0 develop
+git checkout master
+git merge release/1.0
+git tag -a v1.0.0 -m "Release 1.0.0"
+git push origin master --tags</code></pre>
+<p>Tags give you traceability and a reason to celebrate small wins.</p>
+
+<h2>Build with Maven and verify artifacts</h2>
+<p>Run a local build to catch obvious failures before CI chews your lunch.</p>
+<pre><code>mvn clean install</code></pre>
+<p>Your CI pipeline should run the same build steps and tests. Green CI means humans can breathe easier and deployments are less dramatic.</p>
+
+<h2>Cleanup and repository hygiene</h2>
+<p>Delete merged branches to keep the branch list manageable. This is the digital equivalent of washing dishes.</p>
+<pre><code>git branch -d feature/my-feature
+git push origin --delete feature/my-feature</code></pre>
+
+<h2>Best practices that do not require magic</h2>
+<ul>
+  <li>Keep feature branches small frequent and focused to reduce merge conflicts</li>
+  <li>Use meaningful commit messages so future you is not haunted by mystery commits</li>
+  <li>Run tests locally before pushing to avoid noisy CI failures</li>
+  <li>Prefer pull requests for review and automated checks to enforce quality</li>
+  <li>Integrate CI with your GitHub workflow to get fast feedback and safer releases</li>
+</ul>
+
+<h2>Final thoughts</h2>
+<p>Follow this GitFlow style sequence clone branch commit push open a PR merge cut a release tag and build with Maven. The payoff is predictable releases smoother collaboration and fewer merge nightmares. Now go do the work and try not to break production in creative ways.</p>
+

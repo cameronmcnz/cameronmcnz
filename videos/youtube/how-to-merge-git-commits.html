@@ -1,0 +1,67 @@
+---
+layout: video
+title: "How to Merge Git Commits"
+description: "Step by step guide to combine multiple Git commits into a clean single commit using interactive rebase reset and amend"
+video_host: "youtube"
+video_id: "TgBLi1J5mQk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M0S"
+thumbnail_url: "https://i.ytimg.com/vi/TgBLi1J5mQk/maxresdefault.jpg"
+content_url: "https://youtu.be/TgBLi1J5mQk"
+embed_url: "https://www.youtube.com/embed/TgBLi1J5mQk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git rebase
+  - squash commits
+  - git reset
+  - git amend
+  - interactive rebase
+  - force push
+  - version control
+  - git tutorial
+  - clean history
+---
+
+<p>If your git history looks like a messy diary of tiny mistakes and awkward experiments you do not need to live with it. This guide shows how to fold noisy commits into a single neat commit using interactive rebase, soft reset, amend and a cautious force push. It is accurate, a little snarky, and will save future you from regret.</p>
+
+<h2>When to merge commits</h2>
+<p>Merge commits when several small commits represent one logical change. That keeps version control readable and makes bisecting less painful. Do not rewrite commits that others rely on unless you like awkward team meetings.</p>
+
+<h2>Interactive rebase method</h2>
+<p>This is the classic approach when you want control over which commits get combined and how the commit message looks.</p>
+<ol>
+  <li>Pick the range of commits to clean up. For the last three commits run <code>git rebase -i HEAD~3</code>.</li>
+  <li>An editor opens with lines that start with <code>pick</code>. Change the extra lines to <code>squash</code> or <code>s</code> to fold them into the first commit.</li>
+  <li>Save and close the editor. Git will prompt to merge commit messages. Tweak the final message or accept the default.</li>
+  <li>If you need to abort at any time run <code>git rebase --abort</code> and breathe.</li>
+</ol>
+
+<h2>Soft reset method</h2>
+<p>If you hate text editors or you just want a quick fold without line by line fiddling use a soft reset. This moves the commits back into the index so you can make one new commit.</p>
+<pre><code>git reset --soft HEAD~2
+git commit -m "New combined message"</code></pre>
+<p>This is handy for simple merges of recent commits.</p>
+
+<h2>Tweak the tip with amend</h2>
+<p>Want to change the message of the commit you just created or update its contents without creating new history noise use amend.</p>
+<pre><code>git commit --amend --no-edit</code></pre>
+<p>Drop <code>--no-edit</code> if you want to rewrite the message. The amend command replaces the tip with a new commit object so the ID changes.</p>
+
+<h2>Pushing rewritten history safely</h2>
+<p>If the branch is on a remote you must update it with a force push. Use the safer form which checks for unexpected remote changes first.</p>
+<pre><code>git push --force-with-lease</code></pre>
+<p>Communicate with your teammates before doing this. Surprise history rewrites are only fun for the person doing them.</p>
+
+<h3>Quick safety net</h3>
+<ul>
+  <li>Create a temporary branch before you rewrite history for an easy rollback with <code>git branch backup-before-squash HEAD</code>.</li>
+  <li>Or note the current commit id with <code>git rev-parse HEAD</code> so you can find it in reflog if needed.</li>
+</ul>
+
+<h2>Final thoughts</h2>
+<p>Squeeze the noise out of your commit history when it helps clarity. Use interactive rebase for granular control, soft reset for quick fixes and amend for small tweaks. Always keep a backup or a note of the original ref and warn your team before you push rewritten history to a shared remote. Your future self will thank you or at least be less annoyed.</p>
+

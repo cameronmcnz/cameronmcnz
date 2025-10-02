@@ -1,0 +1,93 @@
+---
+layout: video
+title: "Java Spring Boot Docker AWS EKS Deployment Tutorial"
+description: "Step by step guide to build a Java Spring Boot app Dockerize push to Amazon ECR and deploy to AWS EKS with practical tips"
+video_host: "youtube"
+video_id: "kQTFQJm4qis"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/kQTFQJm4qis/maxresdefault.jpg"
+content_url: "https://youtu.be/kQTFQJm4qis"
+embed_url: "https://www.youtube.com/embed/kQTFQJm4qis"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Spring Boot
+  - Docker
+  - AWS
+  - EKS
+  - Kubernetes
+  - ECR
+  - kubectl
+  - CI CD
+  - Deployment
+---
+
+<h2>Overview</h2>
+<p>Ready to take a Spring Boot jar and make it suffer through a full cloud dream sequence You will build the artifact package it into a Docker image push that image to Amazon ECR provision an EKS cluster and let Kubernetes do its thing while you sip something caffeinated This guide keeps the steps practical and a little sarcastic while staying accurate</p>
+
+<h2>Build the Spring Boot artifact</h2>
+<p>Use Maven or Gradle to create a runnable jar that will be the thing inside your container You do not need wizardry just a reliable build</p>
+<pre><code>mvn clean package
+# or
+gradle build</code></pre>
+<p>Grab the produced jar from target or build libs This is your deliverable for the container stage</p>
+
+<h2>Create a Docker image</h2>
+<p>Keep the Dockerfile minimal and predictable Use an OpenJDK base copy the jar and set the entry point</p>
+<pre><code>FROM openjdk 11 jre
+COPY target myapp jar
+ENTRYPOINT java -jar myapp jar</code></pre>
+<p>Build the image locally and test it before touching cloud registries</p>
+<pre><code>docker build -t myapp .
+docker run --rm -p 8080 8080 myapp</code></pre>
+
+<h2>Publish the image to Amazon ECR</h2>
+<p>Create a repository authenticate Docker with AWS and push the image The AWS CLI will do the heavy lifting</p>
+<pre><code>aws ecr create-repository --repository-name myapp
+aws ecr get-login-password | docker login --username AWS --password-stdin 123456789012.dkr.ecr.us east 1.amazonaws.com
+docker tag myapp 123456789012.dkr.ecr.us east 1.amazonaws.com/myapp
+docker push 123456789012.dkr.ecr.us east 1.amazonaws.com/myapp</code></pre>
+<p>Use your account id and region Replace placeholders carefully and ensure your IAM user can push images</p>
+
+<h2>Prepare an EKS cluster and configure kubectl</h2>
+<p>Provision a cluster with eksctl or the AWS console If you use eksctl the command is simple and forgettable in a good way</p>
+<pre><code>eksctl create cluster --name my cluster --region us east 1 --nodes 2</code></pre>
+<p>Then tell kubectl which cluster to talk to</p>
+<pre><code>aws eks update kubeconfig --name my cluster --region us east 1</code></pre>
+<p>Make sure the node group can pull from ECR either by using an instance role that has the ECR pull policy or by attaching the right permissions at creation time</p>
+
+<h2>Apply Kubernetes manifests to deploy the app</h2>
+<p>Create a Deployment and Service manifest that reference the ECR image Use readiness and liveness probes for production safety Then apply the manifests</p>
+<pre><code>kubectl apply -f deployment yaml
+kubectl apply -f service yaml
+kubectl get pods --watch</code></pre>
+<p>Wait for pods to reach ready state and check logs if something smells wrong</p>
+
+<h2>Test and scale the deployment</h2>
+<p>Expose the service using a LoadBalancer type or an ingress depending on your cluster setup Hit the app with a few requests and observe behavior</p>
+<ul>
+  <li>Scale manually with kubectl scale to simulate load</li>
+  <li>Enable Horizontal Pod Autoscaler to let Kubernetes handle surges</li>
+  <li>Use kubectl describe and kubectl logs to troubleshoot</li>
+</ul>
+<pre><code>kubectl scale deployment my app --replicas 5
+kubectl autoscale deployment my app --min 2 --max 10 --cpu percent 80</code></pre>
+
+<h2>Quick checklist for a non tragic deploy</h2>
+<ul>
+  <li>Build artifact with Maven or Gradle</li>
+  <li>Use a small and reproducible Dockerfile</li>
+  <li>Push image to ECR with correct permissions</li>
+  <li>Provision EKS and update kubeconfig</li>
+  <li>Apply manifests and use probes</li>
+  <li>Test scaling and set up autoscaling if needed</li>
+</ul>
+
+<h2>Recap and parting truth</h2>
+<p>You just moved a Spring Boot jar into a container registry and told Kubernetes to run it in AWS EKS That is the core workflow CI CD pipelines and more advanced security like IRSA or private registries are next level topics but the basics will get traffic flowing and give you something to blame when things go sideways</p>
+<p>Remember to automate the repetitive bits with your CI CD system and keep an eye on logs metrics and permissions Happy deploying and may your pods stay ready</p>
+

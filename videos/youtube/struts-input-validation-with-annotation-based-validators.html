@@ -1,0 +1,80 @@
+---
+layout: video
+title: "Struts Input Validation with Annotation Based Validators"
+description: "Learn Struts input validation with annotation based validators for cleaner action classes and easy rule maintenance with examples and testing tips."
+video_host: "youtube"
+video_id: "4bHvqfO_zM8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M21S"
+thumbnail_url: "https://i.ytimg.com/vi/4bHvqfO_zM8/maxresdefault.jpg"
+content_url: "https://youtu.be/4bHvqfO_zM8"
+embed_url: "https://www.youtube.com/embed/4bHvqfO_zM8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Struts
+  - Struts2
+  - Validation
+  - Annotations
+  - Java
+  - Web Development
+  - MVC
+  - Validators
+  - Form Validation
+  - Best Practices
+---
+
+<p>If your forms are a legal minefield and your users keep discovering new ways to type garbage into fields then annotation based validation in Struts can be your seat belt and airbag at once. Keep rules next to the action code so reviewers do not need a treasure hunt to find why an email was required or why a name had to be 2 characters minimum.</p>
+
+<h2>Why use annotation based validators</h2>
+<p>Annotations make validation visible during code review and reduce the chance that someone forgets a check in the template. They are great for small to medium form sets and for teams that like their rules close to the business logic. Built in validators cover most needs so you avoid writing lots of repetitive XML files.</p>
+
+<h2>Quick checklist to get started</h2>
+<ul>
+  <li>Add validation annotations to getters or fields in your action class</li>
+  <li>Enable annotation processing in your Struts setup by adding the validator module or plugin and turning on scanning</li>
+  <li>Prefer built in validators for common checks and write a custom validator when the rules get weird</li>
+  <li>Handle errors with field messages and map the failure result back to the original form page</li>
+  <li>Test with unit tests and a few manual cases so users do not file bug reports that read like horror stories</li>
+</ul>
+
+<h3>Step 1 Add annotations near properties</h3>
+<p>Put annotations on the getter or the field so the rule lives with the code it protects. Reviewers and future you will thank you. Example for a required email field that also enforces format.</p>
+<pre><code>@RequiredStringValidator(fieldName="email", message="Email required")
+@EmailValidator(fieldName="email", message="Email format invalid")
+public String getEmail() {
+    return email
+}
+</code></pre>
+
+<h3>Step 2 Turn on annotation scanning in your project</h3>
+<p>Most projects only need to add the validation support library to the classpath and enable annotation processing in the Struts configuration. The framework will then scan action classes for validation metadata and run those validators during the Validation phase. If your build system needs a dependency update then add the validation module that matches your Struts version.</p>
+
+<h3>Step 3 Use built in validators or write a custom one</h3>
+<p>Built in validators cover required values length regex and email checks for most forms. When business rules get quirky implement a custom validator class by extending FieldValidatorSupport and overriding the validate method. Keep complex logic out of your action methods and out of the view.</p>
+<pre><code>public class MyCustomValidator extends FieldValidatorSupport {
+    @Override
+    public void validate(Object object) {
+        // perform validation and call addFieldError if needed
+    }
+}
+</code></pre>
+
+<h3>Step 4 Report errors in a user friendly way</h3>
+<p>Use addFieldError to attach messages to specific fields and map a failure result back to the original form page. Showing a friendly message and focusing the first invalid field will cut down on help desk tickets and passive aggressive emails.</p>
+
+<h3>Step 5 Test the rules</h3>
+<p>Write unit tests that exercise your action validation and add a few manual test cases that mimic edge case input. Automated tests help catch regressions faster than letting QA or users file bug reports. Adjust message text and severity based on user feedback.</p>
+
+<h2>Best practices and tips</h2>
+<ul>
+  <li>Prefer annotations for small to medium forms because proximity improves readability</li>
+  <li>Use built in validators where possible to avoid custom maintenance</li>
+  <li>When you must write a custom validator keep it focused single responsibility and covered by tests</li>
+  <li>Keep error messages actionable and non judgemental so users do not feel like they failed at life</li>
+</ul>
+
+<p>This walkthrough covered how to add annotation based validators to Struts action classes enable the validator subsystem choose between built in and custom validators manage error feedback and test validation rules so forms behave predictably and code stays maintainable. Now go fix those forms and enjoy slightly fewer support tickets.</p>
+

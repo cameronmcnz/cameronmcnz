@@ -1,0 +1,93 @@
+---
+layout: video
+title: "AWS EC2 User Data Script Sample Tutorial"
+description: "Learn how to use EC2 user data scripts to install packages start services restart instances and capture logs during launch"
+video_host: "youtube"
+video_id: "-dYXW0Rh7b8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/-dYXW0Rh7b8/maxresdefault.jpg"
+content_url: "https://youtu.be/-dYXW0Rh7b8"
+embed_url: "https://www.youtube.com/embed/-dYXW0Rh7b8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - EC2
+  - User Data
+  - CloudInit
+  - Linux
+  - Startup Script
+  - Bootstrapping
+  - Shell Script
+  - Init Scripts
+  - Logging
+---
+
+<h2>Quick warning before you get cute</h2>
+<p>User data is the little magic wand AWS hands to you when an EC2 instance first wakes up. Use it to install packages run a startup script boot strap your app and write logs so you do not end up guessing why the server is sulking. This guide covers AWS EC2 user data for Linux with CloudInit friendly tips and real world logging advice.</p>
+
+<h2>Why user data matters on first boot</h2>
+<p>When an instance boots the cloud platform hands your script to either cloud init or the distro init system. The script runs as root so it can install software enable services and touch files that normal users cannot. That power is useful and also terrifying if you do not log output or enable debugging.</p>
+
+<h2>Core steps for a reliable startup script</h2>
+<ul>
+  <li>Create a plain text shell script with a shebang so the runtime knows what to do</li>
+  <li>Use the package manager that matches your Linux distro such as apt for Debian and Ubuntu or yum dnf for RHEL based systems</li>
+  <li>Redirect stdout and stderr to a persistent log file so troubleshooting is possible</li>
+  <li>Enable and start services with systemctl or the distro init commands you trust</li>
+  <li>Verify logs from the console or over SSH and reboot only when necessary</li>
+</ul>
+
+<h2>Sample user data script you can copy and test</h2>
+<pre><code>#!/bin/bash
+# simple EC2 user data to install nginx log output and reboot if needed
+exec > /var/log/user-data.log 2>&1
+set -x
+
+# update and install for Debian and Ubuntu
+if command -v apt-get >/dev/null 2>&1; then
+  apt-get update -y
+  apt-get install -y nginx
+elif command -v yum >/dev/null 2>&1; then
+  yum update -y
+  yum install -y nginx
+fi
+
+systemctl enable nginx
+systemctl start nginx
+
+echo "Hello from root user" > /var/www/html/index.html
+# reboot only if you actually need to complete a package driven kernel update
+# reboot
+</code></pre>
+<p>This is minimal but practical. It detects whether apt or yum exists and uses the right package manager. It sends all output to /var/log/user-data.log and turns on bash tracing with set -x so you can see what failed if things go sideways.</p>
+
+<h3>Notes about CloudInit and init scripts</h3>
+<p>CloudInit reads user data and decides how to run it. On many images a plain shell script works out of the box. Some AMIs expect cloud init directives. If your distro includes CloudInit you can also use cloud init syntax to write files or run commands with nicer lifecycle control. Do not confuse CloudInit with the package manager though. They play together but are not the same thing.</p>
+
+<h3>Debugging tips that save time</h3>
+<ul>
+  <li>Check system console output from the EC2 console when you cannot SSH in</li>
+  <li>Always redirect stdout and stderr to a log file so you do not play the guessing game</li>
+  <li>Use set -x early in the script for verbose command tracing</li>
+  <li>Test locally in a disposable VM before launching lots of instances</li>
+  <li>If a reboot interrupts your work comment out reboot until you confirm the flow</li>
+</ul>
+
+<h2>Logging and auditing best practices</h2>
+<p>Put logs somewhere persistent so they survive reboots and so automation can collect them. /var/log/user-data.log is conventional but you can forward logs to CloudWatch Logs or a centralized log server for real production setups. Logging makes debugging less fun but far faster.</p>
+
+<h2>Final checklist before you launch</h2>
+<ul>
+  <li>Script begins with a shebang and is plain text</li>
+  <li>All output is redirected to a log file</li>
+  <li>Package manager commands match the Linux distro</li>
+  <li>Services are enabled and started with systemctl or the distro equivalent</li>
+  <li>You tested the script on an instance or VM first</li>
+</ul>
+
+<p>There you go. Use this to bootstrap EC2 instances with CloudInit friendly startup scripts that install packages enable services and log what happened. Your future self will thank you and your ops team will suspect witchcraft if you do it right.</p>
+

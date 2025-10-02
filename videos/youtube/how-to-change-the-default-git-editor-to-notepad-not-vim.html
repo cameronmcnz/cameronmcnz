@@ -1,0 +1,78 @@
+---
+layout: video
+title: "How to change the default Git editor to Notepad++ not Vim"
+description: "Set Notepad++ as the default Git editor on Windows so commit messages open in Notepad++ instead of Vim using a simple Git config command."
+video_host: "youtube"
+video_id: "YLxdkcT6H4g"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M11S"
+thumbnail_url: "https://i.ytimg.com/vi/YLxdkcT6H4g/maxresdefault.jpg"
+content_url: "https://youtu.be/YLxdkcT6H4g"
+embed_url: "https://www.youtube.com/embed/YLxdkcT6H4g"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - notepad++
+  - windows
+  - git config
+  - core.editor
+  - tutorial
+  - commit messages
+  - editor setup
+  - stop vim
+  - developer tools
+---
+
+<p>If Vim keeps hijacking your commit messages and you secretly want a friendly GUI that does not judge your grammar Notepad++ is the obvious escape route. This short guide shows how to set Notepad++ as the default Git editor on Windows so commit messages open in a window you can actually navigate.</p>
+
+<h2>What you need before you start</h2>
+<p>Keep these simple checks in your back pocket</p>
+<ul>
+  <li>Notepad++ installed and working</li>
+  <li>Git installed and available from your terminal</li>
+  <li>If Notepad++ is not on your PATH be ready to use its full program path or an environment variable that points to it</li>
+</ul>
+
+<h2>Set Notepad++ as the Git editor</h2>
+<p>Open a terminal that can run Git commands and run the following command. It tells Git to launch Notepad++ for commit messages and to open a fresh window so you are not greeted by last week's chaos.</p>
+
+<pre><code>git config --global core.editor "notepad++ -multiInst -nosession"</code></pre>
+
+<p>The flags mean open a new Notepad++ instance and do not restore the previous session. That keeps your commit editing focused and less dramatic.</p>
+
+<h3>If Notepad++ is not on PATH</h3>
+<p>Use a full path in quotes. A safe option is to reference the Program Files environment variable like this when you need to be explicit.</p>
+
+<pre><code>git config --global core.editor "%ProgramFiles%\\Notepad++\\notepad++.exe" -multiInst -nosession</code></pre>
+
+<p>Replace the path above if you installed to a different folder. The idea is the same make Git run the executable you want.</p>
+
+<h2>Test that it actually works</h2>
+<p>Make a quick commit that triggers an editor window. The simplest way is to run a commit without a message flag so Git will open the configured editor.</p>
+
+<pre><code>git add .
+git commit</code></pre>
+
+<p>If Notepad++ opens you win. If something else opens check your PATH and the core.editor value with this command.</p>
+
+<pre><code>git config --global --get core.editor</code></pre>
+
+<h2>Troubleshooting tips that save time</h2>
+<ul>
+  <li>If you do not see Notepad++ use the where command in a Windows terminal to find the executable path</li>
+  <li>If Git still opens Vim check your global and repo level config because local settings can override global ones</li>
+  <li>If you prefer another editor set core.editor to that program for example code with its wait flag works well for VS Code</li>
+</ul>
+
+<h2>How to undo it if you change your mind</h2>
+<p>Reverting is painless. Either unset the core.editor or replace it with something else.</p>
+
+<pre><code>git config --global --unset core.editor</code></pre>
+
+<pre><code>git config --global core.editor "code --wait"</code></pre>
+
+<p>That is it. You have stopped Vim from opening your commit messages and given Notepad++ the job. Enjoy commits in a familiar window and save yourself a few minutes and a little keyboard angst each day.</p>
+

@@ -1,0 +1,70 @@
+---
+layout: video
+title: "If __name__==\"__main__\" in Python What does it do?"
+description: "Learn why Python scripts use if __name__ == \"__main__\" to control module execution and avoid running code on import"
+video_host: "youtube"
+video_id: "OmtdMCIGXrg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M41S"
+thumbnail_url: "https://i.ytimg.com/vi/OmtdMCIGXrg/maxresdefault.jpg"
+content_url: "https://youtu.be/OmtdMCIGXrg"
+embed_url: "https://www.youtube.com/embed/OmtdMCIGXrg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - python
+  - __name__
+  - __main__
+  - python main
+  - python modules
+  - module execution
+  - script vs module
+  - python imports
+  - python testing
+  - python tutorial
+---
+
+<p>If you have ever copied a quick demo or a throwaway test into a Python file and then cursed when imports started doing weird things welcome to the world of the main guard. The expression <code>__name__ == "__main__"</code> is the polite way to say run this code only when the file is executed as the program and not when it is imported as a module.</p>
+
+<h2>What actually happens</h2>
+<p>Python gives every module a built in variable called <code>__name__</code>. When you run a file directly the interpreter sets that variable to <code>"__main__"</code>. When another file imports the module Python sets <code>__name__</code> to the module name instead. The check <code>if __name__ == "__main__"</code> is a gate that prevents code from running on import.</p>
+
+<h2>Why bother with the guard</h2>
+<ul>
+  <li><strong>Keep tests safe</strong> Place quick demos or sanity checks inside the guard so importing the module does not execute test code.</li>
+  <li><strong>Provide a command line entry point</strong> You can parse arguments and call a <code>main</code> function so the same file works as a library and a script.</li>
+  <li><strong>Avoid surprise side effects</strong> Top level file IO or network calls during import make things flaky for other modules and for testing.</li>
+</ul>
+
+<h2>Minimal example</h2>
+<p>Replace top level prints with a clear entry point. This pattern is test friendly and plays nicely with importers and test runners.</p>
+
+<pre><code>def main():
+    print("Running as a script")
+    # parse args and run program logic here
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+<h3>Notes about module execution</h3>
+<p>If you run a module with <code>python -m yourpackage.module</code> Python will execute it as a script and set <code>__name__</code> to <code>"__main__"</code>. That lets packages act as convenient command line tools without rewriting code.</p>
+
+<h2>Common gotchas</h2>
+<ul>
+  <li>Forgetting the guard means side effects run on import and tests break mysteriously.</li>
+  <li>Using top level argument parsing will try to eat sys.argv during imports so keep parsing inside <code>main</code>.</li>
+  <li>Unit test frameworks import modules to inspect them so avoid running code at import time.</li>
+</ul>
+
+<h2>Quick checklist</h2>
+<ul>
+  <li>Define a <code>main</code> function that contains runnable behavior</li>
+  <li>Call <code>main()</code> from inside the guard</li>
+  <li>Keep module level code limited to definitions and safe initialization</li>
+</ul>
+
+<p>In short treat the guard as an on off switch for script behavior. Use it and your modules will behave like polite citizens in the python ecosystem whether you are teaching a tutorial using python main examples or building reusable python modules for production and testing.</p>
+

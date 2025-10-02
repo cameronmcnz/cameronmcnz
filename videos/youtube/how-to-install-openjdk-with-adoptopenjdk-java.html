@@ -1,0 +1,73 @@
+---
+layout: video
+title: "How to install OpenJDK with AdoptOpenJDK Java"
+description: "Step by step guide to install OpenJDK using AdoptOpenJDK on Linux macOS and Windows with commands and verification tips"
+video_host: "youtube"
+video_id: "MsiEpD5hEv8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M44S"
+thumbnail_url: "https://i.ytimg.com/vi/MsiEpD5hEv8/maxresdefault.jpg"
+content_url: "https://youtu.be/MsiEpD5hEv8"
+embed_url: "https://www.youtube.com/embed/MsiEpD5hEv8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - OpenJDK
+  - AdoptOpenJDK
+  - Java
+  - install
+  - tutorial
+  - Linux
+  - macOS
+  - Windows
+  - JAVA_HOME
+  - JDK
+---
+
+<h2>Quick warning and what you actually need</h2>
+<p>Installing OpenJDK from AdoptOpenJDK is one of those tasks that sounds boring until some tool refuses to run and you realize JAVA_HOME is not set. This guide tells you which package to pick, how to install it on Linux macOS or Windows, and how to stop your shell from forgetting Java after a reboot.</p>
+
+<h2>Pick JDK or JRE and choose a version</h2>
+<p>If you plan to compile code or run build tools use the JDK. If you only run Java apps the JRE might be enough. For most developers pick an LTS release for stability unless you are chasing a shiny new feature. Yes the temptation is real but stability is a thing.</p>
+
+<h2>Get AdoptOpenJDK for your platform</h2>
+
+<h3>Linux</h3>
+<p>On Debian and Ubuntu you can use the distro packages for OpenJDK with:</p>
+<pre><code>sudo apt update
+sudo apt install openjdk-11-jdk</code></pre>
+<p>If you prefer AdoptOpenJDK binaries download the tar archive from the AdoptOpenJDK distributions page and extract it into a system JVM folder or a user directory if you do not want to use sudo.</p>
+
+<h3>macOS</h3>
+<p>Homebrew users can install an AdoptOpenJDK cask or download the DMG from the AdoptOpenJDK site. The installer will place the JDK in the usual macOS location so tools can find it.</p>
+
+<h3>Windows</h3>
+<p>Grab the MSI for AdoptOpenJDK and run the graphical installer like a responsible desktop user. You can pick system wide installation or a single user install if you lack admin rights.</p>
+
+<h2>Installing from archives and common tips</h2>
+<p>If you have a tar or zip archive extract it into a sensible location such as a standard JVM directory on the platform or a folder under your home directory. Use elevated privileges for system locations or keep it under your user path if you prefer less drama.</p>
+
+<h2>Set JAVA_HOME and update PATH</h2>
+<p>Point JAVA_HOME to the root of the AdoptOpenJDK folder. Add the bin directory to your PATH so java and javac are available in terminals. Persist these lines in your shell profile for Linux and macOS or in Windows system environment settings for a permanent setup.</p>
+<pre><code># bash example
+export JAVA_HOME="/path/to/adoptopenjdk"
+export PATH="$JAVA_HOME/bin:$PATH"
+
+# verify
+java -version
+javac -version</code></pre>
+
+<h2>Verify the installation</h2>
+<p>Run java -version and javac -version. The vendor and version should match what you installed. If they do not match then either PATH has an old Java earlier in the chain or JAVA_HOME is pointing at the wrong folder. Fix one of those and take a bow.</p>
+
+<h2>Troubleshooting tips that save time</h2>
+<ul>
+<li>If commands still show the wrong Java run which java or where java to find the binary being used.</li>
+<li>On macOS check /Library/Java/JavaVirtualMachines for installed JDKs.</li>
+<li>On Windows confirm the system PATH and JAVA_HOME in the Environment Variables dialog instead of relying on the command prompt only.</li>
+</ul>
+
+<p>There you go. You installed AdoptOpenJDK and taught your computer to remember it. Now go write some Java code or at least run a hello world and enjoy the small victory.</p>
+

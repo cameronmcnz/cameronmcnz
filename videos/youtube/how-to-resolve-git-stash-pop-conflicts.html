@@ -1,0 +1,76 @@
+---
+layout: video
+title: "How to Resolve Git Stash Pop Conflicts"
+description: "Quick guide to apply a stash handle merge conflicts and keep saved changes safe during recovery and commits"
+video_host: "youtube"
+video_id: "0LLYV0BablE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M38S"
+thumbnail_url: "https://i.ytimg.com/vi/0LLYV0BablE/maxresdefault.jpg"
+content_url: "https://youtu.be/0LLYV0BablE"
+embed_url: "https://www.youtube.com/embed/0LLYV0BablE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git stash
+  - stash pop
+  - merge conflicts
+  - resolve conflicts
+  - git tutorial
+  - version control
+  - git apply
+  - git stash apply
+  - developer tips
+---
+
+<p>If you ever used git stash and then thought everything would be fine, welcome to the club. When a stash clashes with the current branch you can either quietly cry or handle it like a developer who knows what they are doing. This short guide shows how to inspect a stash safely apply a stash and resolve merge conflicts without losing your saved work.</p>
+
+<h2>Inspect the stash before you touch anything</h2>
+<p>Start by looking at what you actually saved. That avoids surprises and the classic regret move where you lose work because you popped the wrong stash.</p>
+<pre><code>git stash list</code></pre>
+<p>To peek at the top stash patch use this</p>
+<pre><code>git stash show -p stash@{0}</code></pre>
+<p>This shows the diffs so you can decide if that stash belongs in a museum or should be reapplied to your working tree.</p>
+
+<h2>Apply the stash safely</h2>
+<p>If you want to be cautious use apply because it keeps the stash entry around. Use pop only when you are confident nothing will go wrong.</p>
+<pre><code>git stash apply stash@{0}</code></pre>
+<p>If that command succeeds you get the saved changes back and the stash still exists. If it fails you will see conflict markers in files and git status will list unmerged paths.</p>
+
+<h2>When conflicts show up</h2>
+<p>Expect conflict markers inside files. They look obvious and ugly. Open each conflicted file and choose what to keep.</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+current branch code
+=======
+stashed changes
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; stash</code></pre>
+
+<h3>Resolve conflicts step by step</h3>
+<ol>
+  <li>Edit each conflicted file and remove the marker lines. Decide whether to keep the current branch code the stashed changes or a mix of both.</li>
+  <li>After you finish editing run git add on each file to mark it resolved</li>
+</ol>
+<pre><code>git status
+git add path/to/file</code></pre>
+<p>When all conflicts are staged create a commit that documents the fix. Keep the message short and human readable.</p>
+<pre><code>git commit -m "Resolve stash conflict"</code></pre>
+
+<h2>What to do with the stash entry</h2>
+<p>If you used git stash apply and the stash content is no longer needed drop it. If you used git stash pop the stash is usually gone already unless the apply failed.</p>
+<pre><code>git stash drop stash@{0}
+# or when you are truly sure
+git stash clear</code></pre>
+
+<h2>Troubleshooting and quick tips</h2>
+<ul>
+  <li>Prefer git stash apply over git stash pop when you are unsure. That way you do not lose the stash if something goes wrong.</li>
+  <li>Use git stash show -p to inspect patches before applying. It saves time and dignity.</li>
+  <li>If a complex conflict is blocking you try applying the stash to a fresh branch and resolve there. Then cherry pick or merge the result back.</li>
+  <li>Remember that conflict markers are just text. Your job is to make the file make sense again and then stage it.</li>
+</ul>
+
+<p>Follow these steps and you will survive stash apply conflicts without accidentally deleting work. You can be tidy about it or chaotic and apologize later. Either way you will have fewer surprises and more commit messages that explain why things were fixed.</p>
+

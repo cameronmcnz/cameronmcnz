@@ -1,0 +1,75 @@
+---
+layout: video
+title: "UiPath Extract PDF Text & Save to Excel Example"
+description: "Extract text from PDFs with UiPath and export structured data to Excel in a few practical steps with tips and error handling"
+video_host: "youtube"
+video_id: "Fuy6a_IqcTU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT17M20S"
+thumbnail_url: "https://i.ytimg.com/vi/Fuy6a_IqcTU/maxresdefault.jpg"
+content_url: "https://youtu.be/Fuy6a_IqcTU"
+embed_url: "https://www.youtube.com/embed/Fuy6a_IqcTU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - PDF extraction
+  - Excel
+  - RPA
+  - Read PDF Text
+  - Read PDF With OCR
+  - DataTable
+  - Regular Expressions
+  - Automation
+  - Excel Application Scope
+---
+
+<h2>Why this workflow matters and why you will do it anyway</h2>
+<p>If you have a pile of PDFs and a keyboard that hates manual copy and paste then this guide is for you. We will use UiPath to read PDF content and push structured data into Excel. This saves time and makes your boss stop asking if you enjoy repetitive work. Keywords you will see along the way include UiPath, PDF extraction, Read PDF Text, Read PDF With OCR, DataTable, Regular Expressions, and Excel Application Scope.</p>
+
+<h2>Setup and pick the right activities</h2>
+<p>Start a fresh UiPath project and open Manage Packages. Install UiPath.PDF.Activities and UiPath.Excel.Activities so that Read PDF Text and Excel Application Scope show up in your activities panel. That is the backbone of this automation.</p>
+
+<h3>Read PDF Text when the PDF is searchable</h3>
+<p>Use Read PDF Text for native PDFs that contain selectable text. It is fast and reliable when the text is already present. Set the file path and inspect the output string variable before you get fancy with parsing.</p>
+
+<h3>Read PDF With OCR when the page is a scanned mess</h3>
+<p>Use Read PDF With OCR for scanned images or when the text behaves like a mystery. Pick an OCR engine that fits your language and performance needs and test with a few sample pages. Be prepared to tweak scale and retries if your scans look like someone used a photocopier over a thunderstorm.</p>
+
+<h2>Parsing strategies and extracting fields</h2>
+<p>Parsing depends on how consistent your documents are. For neat, fixed layout files a simple Split and Trim approach will do wonders. For invoices and semi structured reports regular expressions will be your friend. Test patterns interactively to avoid broken rows.</p>
+
+<h3>Common extraction patterns</h3>
+<ul>
+  <li>Split lines by Environment.NewLine or by page markers for multi page files</li>
+  <li>Use Trim and Replace to remove extra whitespace and stray characters</li>
+  <li>Apply Regular Expressions to capture dates amounts and identifiers</li>
+</ul>
+
+<p>Sample regex patterns that often help</p>
+<pre><code>date pattern \d{2}/\d{2}/\d{4}
+amount pattern \$\d+(?:\.\d{2})?
+invoice id pattern [A-Z0-9\-]{5,}</code></pre>
+
+<h2>Build a DataTable and populate rows</h2>
+<p>Create a DataTable using Build Data Table or an Assign activity with a new System.Data.DataTable. Add columns that match the Excel layout you want. During your file loop use Add Data Row to append each parsed record. Keep the parsing and the row creation separate to make debugging less painful.</p>
+
+<h2>Save to Excel with Excel Application Scope</h2>
+<p>Wrap the Excel operations in Excel Application Scope then use Write Range to dump the DataTable into a worksheet. If you do not care about Excel formatting write a CSV with Write CSV and be grateful for the speed. Remember that Excel files can get locked if multiple robots or users touch the same file at once.</p>
+
+<h2>Error handling and testing</h2>
+<p>Wrap Read PDF Text Read PDF With OCR and Excel writes in Try Catch blocks and log any exceptions. Build a small test set that includes clean examples bad scans and edge cases that break your parsing. Test incrementally and inspect intermediate variables to see where things go sideways.</p>
+
+<h2>Troubleshooting tips and performance notes</h2>
+<ul>
+  <li>If OCR misses text try a different engine or preprocess images to increase contrast</li>
+  <li>Use a regex tester when crafting patterns to avoid accidental greedy matches</li>
+  <li>Trim and validate fields before adding them to the DataTable to prevent malformed Excel rows</li>
+  <li>For bulk processing consider batching writes or using CSV to avoid many small Excel opens</li>
+  <li>Log file names and row counts so you can prove the robot did not invent data</li>
+</ul>
+
+<p>That is the practical roadmap. Install the packages choose the right reader parse reliably build a DataTable and write to Excel. Add error handling and tests and you will have an RPA process that extracts PDF text and exports tidy data to Excel without eating your weekend. Congratulations you have automated at least one tedious task today.</p>
+

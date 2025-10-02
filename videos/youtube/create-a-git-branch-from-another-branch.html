@@ -1,0 +1,77 @@
+---
+layout: video
+title: "Create a Git Branch From Another Branch"
+description: "Learn how to create a new Git branch from a different branch with simple commands for local and remote workflows and common gotchas."
+video_host: "youtube"
+video_id: "a2OSRBz107I"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M36S"
+thumbnail_url: "https://i.ytimg.com/vi/a2OSRBz107I/maxresdefault.jpg"
+content_url: "https://youtu.be/a2OSRBz107I"
+embed_url: "https://www.youtube.com/embed/a2OSRBz107I"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - branching
+  - git-branch
+  - git-checkout
+  - git-switch
+  - version-control
+  - git-tutorial
+  - git-commands
+  - workflow
+  - developer
+---
+
+<h2>Why start a branch from another branch</h2>
+<p>So you want a branch that borrows history from some other branch and behaves like it always belonged to that lineage. Good idea. This is a standard git branching task that keeps your work based on the exact commit you want. It is essential for clean feature work in version control and for a sane developer workflow.</p>
+
+<h2>Refresh remote refs</h2>
+<p>Before you try anything clever, make sure your local git knows what the remote thinks. Otherwise you will create a branch from an outdated commit and then explain yourself to the team.</p>
+<pre><code>git fetch origin</code></pre>
+<p>This updates remote refs without touching your working tree. It is safe and boring in the best possible way.</p>
+
+<h2>Switch to the base branch</h2>
+<p>Pick the branch you want to base your new branch on and switch to it. You can use the classic command or the newer, slightly more polite command.</p>
+<pre><code>git checkout other-branch
+# or on newer Git versions
+git switch other-branch</code></pre>
+<p>Confirm the base branch contains the commit you want to inherit. If it does not, either wait or communicate. Merge conflicts do not respect schedules.</p>
+
+<h2>Create the new branch from the chosen base</h2>
+<p>Now create a branch that points at that base. You can create and check it out in one go. Pick whichever command makes you feel younger or more modern.</p>
+<pre><code>git checkout -b new-branch other-branch
+# or
+git switch -c new-branch other-branch
+# if the base is only on the remote
+git checkout -b new-branch origin/other-branch</code></pre>
+<p>At this moment the new branch points to the tip of the chosen base. Congratulations, you have a child branch. Treat it nicely.</p>
+
+<h2>Push the new branch to the remote</h2>
+<p>Share the branch so collaborators can see your masterpiece or your mess. The upstream flag makes future life easier.</p>
+<pre><code>git push -u origin new-branch
+# after the first push you can just run
+git push</code></pre>
+
+<h2>Verify history and tidy up</h2>
+<p>Look at the history to make sure you actually started where you thought you did. The graph view is compact and honest.</p>
+<pre><code>git log --oneline --graph --decorate new-branch</code></pre>
+<p>If the base has moved on since you started then rebase the feature branch onto the updated base. This keeps history linear and slightly less chaotic.</p>
+<pre><code>git rebase other-branch</code></pre>
+
+<h3>Quick workflow checklist</h3>
+<ul>
+  <li>git fetch origin to update remote refs</li>
+  <li>git checkout other-branch or git switch other-branch to move to the base</li>
+  <li>git checkout -b new-branch other-branch or git switch -c new-branch other-branch to create and check out</li>
+  <li>git push -u origin new-branch to publish</li>
+  <li>git log --oneline --graph --decorate new-branch to inspect</li>
+</ul>
+
+<h3>Final tips for developers</h3>
+<p>If you need to delete a local branch after it is merged use git branch -d branch-name. If you need to remove a remote branch use git push origin --delete branch-name. Keep your branch names short and meaningful and write commit messages like you expect someone else to read them. Odds are they will.</p>
+<p>This short git tutorial covers the practical git-commands you need for creating a branch from another branch in a reliable workflow. Follow these steps and you will avoid most awkward PR explanations.</p>
+

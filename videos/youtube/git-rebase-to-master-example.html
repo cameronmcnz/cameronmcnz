@@ -1,0 +1,88 @@
+---
+layout: video
+title: "Git rebase to master example"
+description: "Clear example showing how to rebase a feature branch onto master with commands conflict handling and safe push tips"
+video_host: "youtube"
+video_id: "k74B8sc3pRo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M0S"
+thumbnail_url: "https://i.ytimg.com/vi/k74B8sc3pRo/maxresdefault.jpg"
+content_url: "https://youtu.be/k74B8sc3pRo"
+embed_url: "https://www.youtube.com/embed/k74B8sc3pRo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - rebase
+  - git rebase
+  - master branch
+  - feature branch
+  - merge conflicts
+  - git tutorial
+  - version control
+  - command line
+  - git workflow
+---
+
+<h2>Quick overview</h2>
+<p>Rebase your feature branch onto master to keep a linear commit history and to apply the latest master branch changes to your work. This is a git workflow trick that looks neat in a log and causes mild panic when done accidentally on a shared branch. Follow these steps and you will be fine most of the time.</p>
+
+<h2>Before you start</h2>
+<p>Make sure your working tree is clean. Run git status and either stash or commit uncommitted changes. This avoids surprises and also spares your future self from cryptic error messages.</p>
+
+<h2>Step by step</h2>
+<ol>
+  <li>
+    <strong>Update local master</strong>
+    <p>Switch to master and pull the latest updates from origin so your base is current.</p>
+    <pre><code>git checkout master
+git pull --ff-only origin master</code></pre>
+  </li>
+  <li>
+    <strong>Switch back to your feature branch</strong>
+    <p>Either use checkout or switch. Take your pick.</p>
+    <pre><code>git checkout feature-branch
+# or
+git switch feature-branch</code></pre>
+  </li>
+  <li>
+    <strong>Rebase onto master</strong>
+    <p>Replay your feature commits on top of the updated master history. History appears linear and tidy. Clean, like someone who actually writes tests.</p>
+    <pre><code>git rebase master</code></pre>
+  </li>
+  <li>
+    <strong>Resolve conflicts if they happen</strong>
+    <p>If git stops with merge conflicts open the files, fix the problems, stage the fixes then continue the rebase. If the situation gets bleak use the abort option to go back.</p>
+    <pre><code># after fixing files
+git add path/to/file
+git rebase --continue
+
+# if things are too wild
+git rebase --abort</code></pre>
+  </li>
+  <li>
+    <strong>Push the rewritten branch</strong>
+    <p>Because rebase rewrites commits you will need to force push. Use the safer option to avoid trampling other peoples work.</p>
+    <pre><code>git push --force-with-lease origin feature-branch</code></pre>
+  </li>
+</ol>
+
+<h2>Common pitfalls and how to avoid them</h2>
+<ul>
+  <li><strong>Rewriting shared history</strong> Rebase rewrites commits. If others are working on the same branch coordinate first or you will make enemies on the team.</li>
+  <li><strong>Force push with care</strong> Use --force-with-lease to reduce the risk of overwriting remote work. It is not magic but it helps.</li>
+  <li><strong>Conflicts</strong> Merge conflicts are not a crime. They are a conversation between code changes. Read both sides and decide which one is right.</li>
+</ul>
+
+<h3>Pro tip</h3>
+<p>If you want to squash or edit commits while rebasing try an interactive rebase. It lets you clean up commit history before pushing.</p>
+<pre><code>git rebase --interactive master</code></pre>
+
+<h2>When to avoid rebase</h2>
+<p>If the feature branch is shared and people are basing work on it prefer merge. Rebase is best for local cleanup and making history pleasant to look at during code review. If you like surprises then go ahead. If you like coworkers then coordinate first.</p>
+
+<h2>Summary</h2>
+<p>Rebasing a feature branch onto master keeps history linear and brings in the latest master branch changes. The basic flow is prepare local repo, update master, checkout the feature branch, run git rebase master, resolve conflicts then push with --force-with-lease. Use interactive rebase for squashing and always communicate when rewriting shared history. Now go forth and rebase responsibly or at least convincingly.</p>
+

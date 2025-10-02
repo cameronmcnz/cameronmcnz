@@ -1,0 +1,65 @@
+---
+layout: video
+title: "Intro to Jekyll Themes and Layout Creation in GitHub Pages"
+description: "Learn how to create Jekyll themes and custom layouts for GitHub Pages with practical steps for templates assets and deployment."
+video_host: "youtube"
+video_id: "nDvpk3qXi0k"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M40S"
+thumbnail_url: "https://i.ytimg.com/vi/nDvpk3qXi0k/maxresdefault.jpg"
+content_url: "https://youtu.be/nDvpk3qXi0k"
+embed_url: "https://www.youtube.com/embed/nDvpk3qXi0k"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jekyll
+  - GitHub Pages
+  - themes
+  - layouts
+  - Liquid
+  - static site
+  - front matter
+  - web development
+  - site design
+  - deployment
+---
+
+<p>If you want a tidy static site that does not look like it was stitched together by a panicked hedgehog then build a proper Jekyll theme. This guide walks through creating layouts, using Liquid templates, organizing assets and preparing your theme for GitHub Pages deployment. Technical bits stay accurate and useful. The snark is optional but recommended.</p>
+
+<h2>Plan your theme folder layout</h2>
+<p>Start with a predictable folder structure. The usual suspects are:</p>
+<ul>
+  <li>_layouts for top level templates like default or post</li>
+  <li>_includes for reusable fragments such as header, nav and footer</li>
+  <li>assets for CSS, JS and images so the theme stays portable</li>
+</ul>
+<p>Keeping templates small and reusable prevents copy paste chaos and makes maintenance bearable.</p>
+
+<h2>Create layouts and include reusable chunks</h2>
+<p>Place HTML templates in the _layouts folder. A common file is default.html which wraps page content with document head and footer markup. Use Liquid tags to inject page content and site data using expressions like {{ content }} and {{ site.title }}. That makes your theme flexible and lets you change a header in one place instead of a hundred places.</p>
+
+<h3>Use _includes for repeated bits</h3>
+<p>Navigation, social links and footers belong in _includes. Then call them from layouts with include statements so you avoid duplicating HTML. Smaller templates mean faster debugging and fewer late night regrets.</p>
+
+<h2>Organize assets for portability</h2>
+<p>Keep CSS and JavaScript in an assets folder and reference files with relative paths. That helps the theme work when moved between repos or used as a gem based theme. Avoid absolute paths that will break when the site is deployed under a baseurl.</p>
+
+<h2>Configure the site with front matter and _config.yml</h2>
+<p>Every page or post needs a front matter block to select a layout and set page specific variables. The front matter is that small YAML block at the top of a file. Edit _config.yml to set global options such as baseurl and other flags that control behavior. Test different settings locally before committing to avoid surprises on the live site.</p>
+
+<h2>Preview locally and deploy to GitHub Pages</h2>
+<p>Run the site locally with the jekyll serve command to preview changes. Local testing saves the embarrassment of broken pages on the public site. When you are happy push changes to the branch configured for GitHub Pages. GitHub Pages will build the site and your theme will appear if the repo and branch settings match what GitHub Pages expects.</p>
+
+<h2>Quick checklist for a maintainable theme</h2>
+<ul>
+  <li>Use _layouts and _includes from the start</li>
+  <li>Keep markup small and prefer includes over copy paste</li>
+  <li>Store assets in a dedicated folder and use relative links</li>
+  <li>Use Liquid to pull in site variables and page content</li>
+  <li>Test locally with jekyll serve before pushing</li>
+</ul>
+
+<p>Follow those steps and you get a reusable Jekyll theme that plays nicely with GitHub Pages. You will also avoid the kind of layout rot that haunts abandoned projects. Now go make something that does not embarrass your future self.</p>
+

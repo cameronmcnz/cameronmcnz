@@ -1,0 +1,62 @@
+---
+layout: video
+title: "Spring Boot Actuator Endpoints"
+description: "Learn how to enable and use Spring Boot Actuator endpoints for health env heapdump threaddump metrics and logging with clear steps and tips"
+video_host: "youtube"
+video_id: "z16fBE-k1oQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M24S"
+thumbnail_url: "https://i.ytimg.com/vi/z16fBE-k1oQ/maxresdefault.jpg"
+content_url: "https://youtu.be/z16fBE-k1oQ"
+embed_url: "https://www.youtube.com/embed/z16fBE-k1oQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - spring boot
+  - actuator
+  - health
+  - metrics
+  - heapdump
+  - threaddump
+  - env
+  - logging
+  - monitoring
+  - java
+---
+
+<h2>Overview</h2>
+<p>Think of Spring Boot Actuator as the app intern that knows way too much but at least tells the truth. It gives you production ready endpoints to check health, inspect configuration, grab metrics, and pull diagnostic dumps when things go sideways. This guide covers how to enable the endpoints, expose only what you need, and use the useful ones without leaking your app to the internet or summoning chaos.</p>
+
+<h2>Add the actuator dependency and enable web exposure</h2>
+<p>Add the spring boot starter actuator dependency to your build tool and you get a set of endpoints for free. After that enable web exposure for the endpoints you actually plan to use so you do not accidentally hand control of your app to anyone who finds an open port.</p>
+<pre><code>management.endpoints.web.exposure.include=health,metrics,env,heapdump,threaddump,loggers</code></pre>
+
+<h2>Expose and secure endpoints</h2>
+<p>Defaults are conservative and hidden for a reason. Only expose endpoints you need and protect them with authentication and role based authorization. Optionally run the management server on a separate port to isolate admin traffic from public traffic.</p>
+
+<h2>Key endpoints and how to use them</h2>
+<ul>
+  <li><strong>/actuator/health</strong> for basic status checks. Great for load balancers and surprise free deployment checks.</li>
+  <li><strong>/actuator/env</strong> to inspect active configuration and see property values. Use with care in production since secrets can get very chatty.</li>
+  <li><strong>/actuator/metrics</strong> to query meter values exposed by Micrometer. This is the entry point for Prometheus scraping and other monitoring stacks.</li>
+  <li><strong>/actuator/heapdump</strong> to get a JVM heap snapshot. This produces a large binary file that you analyze offline with tools like jvisualvm or Eclipse MAT. Do this during maintenance windows unless you enjoy panicked on call messages.</li>
+  <li><strong>/actuator/threaddump</strong> to capture thread stacks. Handy when debugging deadlocks or thread leaks. Collect multiple dumps over time to spot slow moving problems.</li>
+  <li><strong>/actuator/loggers</strong> to view and change logging levels at runtime. Useful for silencing noisy packages or turning the lights on for an obscure bug.</li>
+</ul>
+
+<h2>Logging and metric export</h2>
+<p>Use Micrometer to bridge Actuator metrics to your monitoring system. Prometheus is a common choice for scraping metrics and Grafana works well for dashboards and alerts. Keep metric cardinality sane or your storage will become a sad museum of useless time series.</p>
+
+<h2>Practical tips and safety practices</h2>
+<ul>
+  <li>Keep actuator endpoints off public networks. Put them behind a VPN or internal firewall and require roles for admin actions.</li>
+  <li>Limit exposure in production. Expose health and metrics for monitoring and keep sensitive endpoints restricted.</li>
+  <li>Prefer maintenance windows for heavy operations like heapdump. If you must run them in production use isolated debug hosts to avoid resource contention.</li>
+  <li>Rate limit and audit access to management endpoints so a curious developer does not DDOS your JVM by accident.</li>
+</ul>
+
+<h3>Wrap up</h3>
+<p>Spring Boot Actuator is a powerful toolbox for monitoring and debugging. Add the starter, expose what you need, lock down the rest, and use heapdump and threaddump responsibly. With a little care you can get great visibility without inviting chaos.</p>
+

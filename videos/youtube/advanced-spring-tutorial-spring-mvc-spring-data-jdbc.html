@@ -1,0 +1,30 @@
+---
+layout: video
+title: "Advanced Spring Tutorial | Spring MVC Spring Data JDBC"
+description: "Build a full CRUD application with Spring MVC Spring Data and JDBC using practical steps and clean architecture tips for production ready code."
+video_host: "youtube"
+video_id: "hm61ILSjLfs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1H9M4S"
+thumbnail_url: "https://i.ytimg.com/vi/hm61ILSjLfs/maxresdefault.jpg"
+content_url: "https://youtu.be/hm61ILSjLfs"
+embed_url: "https://www.youtube.com/embed/hm61ILSjLfs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring
+  - Spring MVC
+  - Spring Data
+  - JDBC
+  - CRUD
+  - Java
+  - REST
+  - Database
+  - Spring Boot
+  - Tutorial
+---
+
+<h2>Project setup and dependencies</h2><p>Start by creating a Maven or Gradle project with Spring Boot and keep versions aligned so your dependency tree does not stage a rebellion. Add starters for web, data and JDBC and choose an embedded database for local runs. H2 is great for quick feedback and PostgreSQL or MySQL will save you from optimistic assumptions in production.</p><h3>Maven or Gradle</h3><p>Pick the build tool you tolerate most. Use the Spring Boot parent or plugin so you avoid wrestling with transient version conflicts. Let the build tool manage common versions and focus on writing useful code instead of dependency spelunking.</p><h2>Domain model and data access</h2><p>Design clear entity or domain classes that represent your tables. Decide between Spring Data repositories for developer speed and JdbcTemplate when you need raw SQL and a little extra control. Spring Data gives you CRUD methods, pagination and query derivation while JdbcTemplate gives you full SQL power for heavy queries.</p><ul><li>Create repository interfaces that extend CrudRepository or use JdbcTemplate with RowMapper implementations</li><li>Annotate data access classes with @Repository and keep SQL central</li><li>Prefer named queries or explicit SQL for complex joins to avoid accidental surprises</li></ul><h2>Service layer and transactions</h2><p>Put business logic in @Service classes and mark transactional boundaries with @Transactional. This keeps controllers thin and ensures rollback behavior is predictable when something goes sideways. Keep transactions short and avoid long running work inside transactional methods.</p><h2>Controllers and REST routes</h2><p>Use @RestController for JSON APIs and map endpoints with @GetMapping, @PostMapping, @PutMapping and @DeleteMapping. Validate incoming payloads with bean validation annotations and return DTOs instead of exposing internal models. Thin controllers are polite controllers.</p><h3>Mapping and DTOs</h3><p>Translate domain models to DTOs with simple mappers or libraries such as ModelMapper or MapStruct for larger projects. DTOs help you evolve the database without breaking client expectations and they make versioning less painful.</p><h2>CRUD operations and testing</h2><p>Implement create, read, update and delete endpoints and back them with repository methods or JdbcTemplate calls. Write unit tests that use Mockito to mock repositories and write integration tests with H2 or Testcontainers when you need a realistic database environment. Use MockMvc to exercise the web layer without starting every motor.</p><ul><li>Unit tests catch logic mistakes</li><li>Integration tests catch wiring and SQL issues</li><li>End to end tests catch the kinds of user behavior that make you sigh</li></ul><h2>Deployment and best practices</h2><p>Manage schema changes with Flyway or Liquibase so production surprises are rarer than Mondays. Configure a connection pool such as HikariCP and monitor queries with Micrometer and your favorite metrics backend. Centralize exception handling with @ControllerAdvice and log what matters without drowning in noise.</p><p>Avoid chatty queries and N plus 1 problems by using joins and batch operations. Keep transactions short and profile slow queries when performance sours. Use sensible connection and statement timeouts so bad queries do not bring the service down for everyone.</p><h2>Final notes</h2><p>Follow clean layering, write tests and treat migrations like safety belts. The result will be a maintainable Spring application that scales from prototypes to slightly terrifying production loads. When something does break you will at least have clear logs and a blameworthy slow query to point at with confidence.</p><p>Tip Use Flyway or Liquibase to manage schema changes</p>
+

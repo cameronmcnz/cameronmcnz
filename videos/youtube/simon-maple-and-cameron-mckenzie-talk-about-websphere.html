@@ -1,0 +1,66 @@
+---
+layout: video
+title: "Simon Maple and Cameron McKenzie Talk About WebSphere"
+description: "Highlights of Simon Maple and Cameron McKenzie discussing running WebSphere Liberty on Raspberry Pi with practical tips for Java and deployment"
+video_host: "youtube"
+video_id: "shqI1VX5sTY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M2S"
+thumbnail_url: "https://i.ytimg.com/vi/shqI1VX5sTY/maxresdefault.jpg"
+content_url: "https://youtu.be/shqI1VX5sTY"
+embed_url: "https://www.youtube.com/embed/shqI1VX5sTY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Simon Maple
+  - Cameron McKenzie
+  - WebSphere Liberty
+  - Raspberry Pi
+  - Java
+  - OpenJDK
+  - IBM
+  - Embedded Java
+  - IoT
+  - Server
+---
+
+<p>Simon Maple and Cameron McKenzie proved something delightful and slightly weird. WebSphere Liberty will run on a Raspberry Pi and still behave like a real server rather than a charming paperweight. If you like tiny hardware with ambitious server dreams this is your jam.</p>
+
+<h2>Why this matters</h2>
+<p>Raspberry Pi machines are cheap and power frugal. WebSphere Liberty is compact and modular. Put them together and you get a low cost lab for microservices experiments edge computing demos and embedded Java prototypes. You will not be setting throughput world records here but you will learn what matters when Java meets tiny flash storage and limited RAM.</p>
+
+<h3>What you need</h3>
+<ul>
+  <li>A Raspberry Pi with at least 512 MB of RAM and a reliable SD card or USB boot drive</li>
+  <li>OpenJDK 7 or OpenJDK 8 installed and verified with <code>java -version</code></li>
+  <li>WebSphere Liberty runtime downloaded and unpacked onto the Pi</li>
+  <li>Your WAR files or a minimal server.xml that enables only the features you need such as servlet and webProfile</li>
+</ul>
+
+<h3>Install and start without tears</h3>
+<p>Keep it simple. Use a lightweight profile and avoid loading every feature under the sun. Drop WARs into the dropins folder for a quick demo or edit server.xml for a tidier production like setup. Create a small server and keep the JVM heap conservative so the Pi does not thrash swap and cry.</p>
+
+<pre><code>sudo apt-get update
+sudo apt-get install openjdk-8-jdk
+# unpack Liberty into a folder on the Pi
+# create or edit server.xml to enable only required features
+wlp/bin/server start
+# check the HTTP endpoint on port 9080 for a running application
+</code></pre>
+
+<h3>Tuning tips that actually help</h3>
+<ul>
+  <li>Set a small maximum heap to avoid swapping and unpredictable response times</li>
+  <li>Minimize disk writes to protect the SD card and improve reliability</li>
+  <li>Use lightweight monitoring tools to watch free memory and CPU usage</li>
+  <li>Prefer dropins for quick testing and explicit feature config for repeatable setups</li>
+</ul>
+
+<h2>Use cases that make sense</h2>
+<p>Proof of concept demos microservices prototypes educational labs and simple edge services. The Pi is great for dev testing and lessons in constraint driven design. Expect modest throughput but impressive flexibility for hands on learning.</p>
+
+<h2>Parting advice from two sensible humans</h2>
+<p>Simon Maple and Cameron McKenzie walked through this setup because developers learn faster when they can touch the hardware. Tune the JVM conserve writes and enjoy the absurd joy of a full featured Java server running on something the size of a deck of cards.</p>
+

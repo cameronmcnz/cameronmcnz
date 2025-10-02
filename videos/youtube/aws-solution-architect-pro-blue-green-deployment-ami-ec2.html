@@ -1,0 +1,65 @@
+---
+layout: video
+title: "AWS Solution Architect Pro Blue Green Deployment AMI EC2"
+description: "Quick guide on Blue Green deployment using AMIs and EC2 for AWS Solution Architect Professional exam prep"
+video_host: "youtube"
+video_id: "hNarb554Aiw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT56S"
+thumbnail_url: "https://i.ytimg.com/vi/hNarb554Aiw/maxresdefault.jpg"
+content_url: "https://youtu.be/hNarb554Aiw"
+embed_url: "https://www.youtube.com/embed/hNarb554Aiw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - Blue Green
+  - AMI
+  - EC2
+  - Auto Scaling
+  - ALB
+  - Route53
+  - Immutability
+  - Solution Architect
+  - Exam Prep
+---
+
+<h1>Immutable EC2 blue green strategy with AMIs ALB and Route53 for exams</h1>
+<p>Short version for humans and exam takers who like coffee and worry. Blue green deployment with AMIs and EC2 gives you predictable, immutable releases. You build a golden AMI, spin up a fresh Auto Scaling group, attach it to the load balancer for staging, shift traffic gradually and then retire the old group when the metrics stop yelling at you.</p>
+
+<h2>Build the golden AMI</h2>
+<p>Start with a validated instance. Run your tests, apply security patches, and then bake an AMI so your servers are identical little soldiers. Using a prebaked AMI enforces immutability and prevents surprise configuration drift that will ruin your afternoon.</p>
+<pre><code>aws ec2 create-image --instance-id i-12345678 --name app-v2 --no-reboot</code></pre>
+<p>Or use EC2 Image Builder for repeatable pipelines that do the heavy lifting for you. Tag AMIs with semantic versions and put build metadata in the AMI description so rollback is not an archaeological dig.</p>
+
+<h2>Provision a new Auto Scaling group</h2>
+<p>Launch a new Auto Scaling group that uses the new AMI. Use launch templates and keep versions so rollback is a simple switch back to a previous template version instead of a tragic reinstallation ritual.</p>
+<ul>
+  <li>Set proper health checks</li>
+  <li>Keep cooldowns and scaling policies sane</li>
+  <li>Make sure instance role and security groups are correct</li>
+</ul>
+
+<h3>Attach to ALB and test like a paranoid engineer</h3>
+<p>Attach the new group to an Application Load Balancer target group for staging. Run smoke tests and synthetic checks against the new target group before moving production traffic. If you do not have automated tests here then I assume you like living dangerously.</p>
+
+<h2>Shift traffic and cleanup</h2>
+<p>Move traffic gradually while watching health checks, latency, and error rates. Use weighted target groups in the ALB or Route53 weighted records to split traffic. Increase weight slowly and monitor logs and metrics. If something breaks route traffic back to the old target group and troubleshoot.</p>
+<p>Once the new fleet is healthy reduce the old Auto Scaling group size and then decommission it to save money. Remember to deregister instances from the target group and remove stale resources that quietly bill you every month.</p>
+
+<h2>Rollback and exam prep tips</h2>
+<p>If rollback is needed switch the ALB or Route53 weights back to the old target group or old DNS record. Because you used versioned launch templates the rollback should be quick. If you find yourself rebuilding from scratch you forgot to bake the AMI properly.</p>
+<ul>
+  <li>Tag AMIs and use semantic versioning to make rollbacks fast</li>
+  <li>Keep health checks strict so bad nodes do not get traffic</li>
+  <li>Automate smoke tests against the staging target group</li>
+  <li>Use CloudWatch alarms and dashboards for quick triage</li>
+</ul>
+
+<h2>Why this pattern matters for the Solution Architect exam and real life</h2>
+<p>Blue green with AMIs shows immutability, safe traffic shifting, rollback capability, and use of ALB Auto Scaling and Route53. Those are the keywords your brain and the exam committee both like. And in real life this pattern limits blast radius and keeps your managers marginally happier.</p>
+
+<p>Final honest tip Stop naming AMIs thingy_final_final and use a version number. Your future self will thank you and any proctor who reviews your architecture answers will stop sighing.</p>
+

@@ -1,0 +1,73 @@
+---
+layout: video
+title: "threads"
+description: "Quick guide to threads for developers covering concepts race conditions synchronization and best practices"
+video_host: "youtube"
+video_id: "b00cRu7HKGs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M59S"
+thumbnail_url: "https://i.ytimg.com/vi/b00cRu7HKGs/maxresdefault.jpg"
+content_url: "https://youtu.be/b00cRu7HKGs"
+embed_url: "https://www.youtube.com/embed/b00cRu7HKGs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - threads
+  - multithreading
+  - concurrency
+  - parallelism
+  - race conditions
+  - synchronization
+  - thread pool
+  - context switching
+  - CPU bound
+  - IO bound
+---
+
+<h2>What a thread actually is</h2>
+<p>A thread is a lightweight sequence of programmed instructions that runs inside a process and shares the same memory space. That shared memory makes communication fast and debugging fun if you enjoy surprises. Threads let you do work in parallel while keeping one address space which makes IPC cheap but mistakes costly.</p>
+
+<h3>Why use threads at all</h3>
+<p>Threads are great for IO bound tasks like serving web requests reading and writing files and waiting on network calls. For CPU heavy tasks you might be better off with separate processes when your language uses a global interpreter lock such as Python. Threads reduce overhead compared to full processes but they come with context switching cost and synchronization duty.</p>
+
+<h3>Race conditions and synchronization</h3>
+<p>Race conditions occur when two or more threads access the same data without coordination. The result is usually wrong data and sometimes a bug that shows up only in production at 3 AM. Synchronization primitives include locks mutexes and atomic operations. Use them to prevent corruption and to invite new problems like deadlock when you mix them without a plan.</p>
+
+<h3>Keep critical sections tiny</h3>
+<ul>
+  <li>Lock only the data you must protect</li>
+  <li>Avoid holding locks while doing IO</li>
+  <li>Prefer atomic operations for simple counters</li>
+</ul>
+
+<h3>Thread pools and higher level abstractions</h3>
+<p>Spawn threads directly for a toy or a demo. For anything resembling real life use a thread pool or a task queue. Let the runtime handle pooling scheduling and lifecycle while you focus on business logic and blaming your coworker for the vague requirements.</p>
+
+<pre><code>Thread t = new Thread(runnable)
+t.start()
+</code></pre>
+<p>The example above shows the minimal creation and start pattern. Production code must handle exceptions lifecycle and graceful shutdown. Use join with timeouts and explicit shutdown signals to avoid orphan threads that linger like bad ideas.</p>
+
+<h3>Common pitfalls to avoid</h3>
+<ul>
+  <li>Shared mutable state without locks</li>
+  <li>Busy waiting instead of proper signaling</li>
+  <li>Forgetting to shut down thread pools</li>
+  <li>Holding locks in the wrong order which invites deadlock</li>
+</ul>
+
+<h3>Profiling tracing and debugging</h3>
+<p>Profiling and tracing reveal where threads spend their time which locks are contended and where context switching is frequent. These tools save hours and mild panic. When performance is poor look for blocking calls lock contention and unnecessary wake ups.</p>
+
+<h3>Practical rules</h3>
+<ul>
+  <li>Prefer tasks and thread pools over raw thread management</li>
+  <li>Use processes for CPU bound work when a GIL is present</li>
+  <li>Keep critical sections as short as humanly possible</li>
+  <li>Design shutdown and error handling from the start</li>
+</ul>
+
+<p>Threads are powerful and reliable when treated with respect and a little paranoia. Use higher level concurrency frameworks when possible and remember that race conditions are like gremlins they multiply if you feed them shared mutable state.</p>
+

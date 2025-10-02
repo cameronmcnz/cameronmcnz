@@ -1,0 +1,64 @@
+---
+layout: video
+title: "Performance Costs of Synchronized Methods in Java"
+description: "Understand how synchronized methods affect Java performance using JDK Mission Control and JVM Flight Recorder with practical profiling advice."
+video_host: "youtube"
+video_id: "1LUae4wSZyM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M39S"
+thumbnail_url: "https://i.ytimg.com/vi/1LUae4wSZyM/maxresdefault.jpg"
+content_url: "https://youtu.be/1LUae4wSZyM"
+embed_url: "https://www.youtube.com/embed/1LUae4wSZyM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - synchronized
+  - JVM
+  - JDK Mission Control
+  - JFR
+  - profiling
+  - performance
+  - lock contention
+  - monitor
+  - AtomicInteger
+---
+
+<p>If your Java app feels like it is wading through molasses under load, synchronized methods are a usual suspect. The JVM makes single threaded life cheap, but when threads start arguing over the same monitor, Java will escalate that tiny polite lock into something heavier and slower. That escalated lock means more CPU, more thread stalls, and a bigger headache for your SLA.</p>
+
+<h2>What actually happens when a synchronized method gets hot</h2>
+<p>At low contention the JVM uses thin locks which are fast and stingy with CPU. With contention the runtime inflates the monitor, which brings in operating system assistance and context switches. The visible signs are higher CPU time, frequent thread parking, and long wait durations rather than mysterious memory leaks or random crashes.</p>
+
+<h3>Quick checklist for symptoms</h3>
+<ul>
+  <li>High rate of monitor enter and monitor exit events in traces</li>
+  <li>Many threads in blocked or parked state</li>
+  <li>Throughput drops as concurrency increases</li>
+</ul>
+
+<h2>Measure first, guess later</h2>
+<p>Do not remove synchronized declarations like you are pruning a bonsai without a plan. Record a production like workload with JFR, then open that recording in JDK Mission Control. Flight Recorder captures monitor events and thread state transitions so you can see how often a monitor is contended and how long threads wait. That is the data driven part you are allowed to enjoy.</p>
+
+<h3>Simple measurement workflow</h3>
+<ol>
+  <li>Record while exercising the application with a realistic load</li>
+  <li>Open the recording in JDK Mission Control and inspect monitor events and thread states</li>
+  <li>Find hotspots where synchronized methods or blocks dominate wait time</li>
+  <li>Iterate on changes and remeasure until performance targets are met</li>
+</ol>
+
+<h2>Practical fixes that actually help</h2>
+<p>If the hotspot is just a tiny counter update, swapping a synchronized method for an AtomicInteger or a LongAdder often fixes things with little drama. For more complex shared state consider finer grained locks or a StampedLock with optimistic reads. Partitioning state so threads work on different buckets is also a low cost win.</p>
+
+<pre><code>public synchronized void increment() { count++; }</code></pre>
+
+<p>That one line can be fine for single threaded usage or low traffic, but it becomes a bottleneck under high concurrency. Try this instead when appropriate</p>
+
+<pre><code>private final AtomicInteger count = new AtomicInteger();
+public void increment() { count.incrementAndGet(); }</code></pre>
+
+<h2>Final note from the profiler with a smirk</h2>
+<p>Profiling with JFR and JDK Mission Control gives you the facts. Optimize where the data points, not your intuition, recommend changes. If synchronized is localized, replace the hotspot with an atomic or a finer grained design and measure again. If you skip measurement you are gambling with production and nobody likes losing to blind confidence.</p>
+

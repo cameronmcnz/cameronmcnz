@@ -1,0 +1,35 @@
+---
+layout: video
+title: "CRUD Operations in Sqlite3"
+description: "Learn how to create an Sqlite3 database create tables insert select update and delete records with clear commands and examples"
+video_host: "youtube"
+video_id: "Tmg0AyBx7Mk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT15M4S"
+thumbnail_url: "https://i.ytimg.com/vi/Tmg0AyBx7Mk/maxresdefault.jpg"
+content_url: "https://youtu.be/Tmg0AyBx7Mk"
+embed_url: "https://www.youtube.com/embed/Tmg0AyBx7Mk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - sqlite3
+  - CRUD
+  - SQL
+  - create table
+  - insert
+  - select
+  - update
+  - delete
+  - sqlite database
+  - database tutorial
+---
+
+<article><h1>Hands on Sqlite3 tutorial with examples for create insert select update delete</h1><p>Welcome to the tiny world of Sqlite3 where your database is a single file and your mistakes are mostly accidental file copies. This short database tutorial walks through create table insert select update and delete steps with real commands you can copy paste and then feel slightly proud about.</p><h2>Create a database and a table</h2><p>Sqlite3 stores everything in a file so creating a database is as thrilling as making a new file. From your shell run the sqlite3 command to open or create a file and then declare a table schema.</p><pre><code>sqlite3 mydb.db</code></pre><p>Inside the sqlite prompt create a users table</p><pre><code>CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, email TEXT)</code></pre><p>This produces a persistent sqlite database that is perfect for small projects prototypes and tests. No server to babysit and no mysterious background processes to blame.</p><h2>Insert records and use transactions for speed</h2><p>To add data use simple insert statements. If you have many rows wrap them in a transaction to avoid slow per row commits.</p><pre><code>BEGIN TRANSACTION
+INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com')
+INSERT INTO users (name, email) VALUES ('Bob', 'bob@example.com')
+COMMIT</code></pre><p>Batch inserts are much faster and let you rollback if you test something wildly wrong. Yes rollback is your friend when you forget a WHERE clause in an earlier query.</p><h2>Querying data with select</h2><p>Reading data is done with select statements. Use WHERE to filter and LIMIT when you only want a preview and not an existential crisis.</p><pre><code>SELECT * FROM users
+SELECT id, name FROM users WHERE email LIKE '%example.com' LIMIT 10</code></pre><h2>Update and delete without drama</h2><p>When values change update them carefully. Always check the WHERE clause to avoid surprising mass updates. Deleting is the nuclear option but sometimes necessary.</p><pre><code>UPDATE users SET email = 'new@example.com' WHERE id = 1
+DELETE FROM users WHERE id = 1</code></pre><p>Tip do a select with the same WHERE first to confirm the rows you will affect. Sql mistakes are dramatic but reversible if you used transactions or have a backup.</p><h3>Enable foreign key support</h3><p>Sqlite supports foreign keys but they are off by default. Enable them at runtime to maintain integrity.</p><pre><code>PRAGMA foreign_keys = ON</code></pre><h2>Practical tips and checklist</h2><ul><li>Back up the database file before big changes since backups are just file copies</li><li>Use transactions for grouped writes to improve performance</li><li>Prefer parameterized queries in application code to avoid SQL injection and silly bugs</li><li>Verify changes with select queries before exiting the sqlite prompt</li><li>Exit the CLI with .exit when you are done</li></ul><p>That is the core of CRUD in Sqlite3 create insert select update delete plus a few survival tips. You now have the basics to build a small sqlite database and not wreck it on the first day. Go forth and store some data responsibly.</p></article>
+

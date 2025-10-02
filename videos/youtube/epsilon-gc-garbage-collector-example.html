@@ -1,0 +1,83 @@
+---
+layout: video
+title: "Epsilon GC Garbage Collector Example"
+description: "Overview of Epsilon GC in OpenJDK covering behavior use cases and how to run experiments for performance and memory testing"
+video_host: "youtube"
+video_id: "x7rWWuMzbb8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M48S"
+thumbnail_url: "https://i.ytimg.com/vi/x7rWWuMzbb8/maxresdefault.jpg"
+content_url: "https://youtu.be/x7rWWuMzbb8"
+embed_url: "https://www.youtube.com/embed/x7rWWuMzbb8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Epsilon GC
+  - Garbage Collector
+  - OpenJDK
+  - Java GC
+  - No op GC
+  - Java performance
+  - GC benchmarking
+  - OutOfMemoryError
+  - GC diagnostics
+  - Heap management
+---
+
+<p>If you ever wanted to watch memory allocation behave like a toddler in a candy store then Epsilon GC is your new best friend. This no op garbage collector does not reclaim memory and it keeps allocating until the heap runs out. That makes it a great baseline for GC benchmarking and Java performance investigations when you want to measure pure allocation cost without the background noise of pausetime reclamation.</p>
+
+<h2>Why Epsilon GC matters for benchmarking</h2>
+<p>Epsilon GC is a no op GC that performs no garbage reclamation. In practice that means your application will allocate normally and the JVM will not try to free anything. The JVM continues until an OutOfMemoryError stops the party. That behavior is useful when you want a clean baseline to profile allocation hotspots and compare raw allocation overhead between runtimes or collectors.</p>
+
+<h2>Set up a stress workload</h2>
+<p>Build a simple Java program that allocates objects quickly. A tight loop that creates large arrays or many short lived objects will do. The goal is steady allocation pressure so the lack of GC activity makes a measurable difference in timings.</p>
+
+<h3>Example pattern</h3>
+<pre><code>for (int i = 0; i &lt; 10_000_000; i++) {
+    byte[] b = new byte[1024];
+    // keep a subset referenced sometimes to vary lifetime
+    if (i % 1000 == 0) retained.add(b);
+}
+</code></pre>
+
+<h2>Start OpenJDK with Epsilon</h2>
+<p>Launch the JVM with the Epsilon option and a fixed heap. For example run your jar like this and capture logs.</p>
+<pre><code>java -XX:+UseEpsilonGC -Xmx1g -XX:+PrintGCDetails -XX:+HeapDumpOnOutOfMemoryError -jar yourapp.jar &gt; out.log 2&gt;&amp;1
+</code></pre>
+<p>The important parts are the UseEpsilon flag and the heap cap. You can include GC diagnostics to record heap state at failure and to help with postmortem analysis.</p>
+
+<h2>What to watch for</h2>
+<ul>
+  <li>Steady allocation with no GC pauses until an OutOfMemoryError occurs</li>
+  <li>Heap dumps created by HeapDumpOnOutOfMemoryError for post run analysis</li>
+  <li>Application timings that reflect raw allocation cost rather than reclamation overhead</li>
+</ul>
+
+<h2>How to interpret results</h2>
+<p>If your goal is micro benchmarking or to measure allocator efficiency then Epsilon can reduce noise from background GC threads. If your aim is production reliability then do not use Epsilon. No cleanup means no long lived service.</p>
+
+<h3>When Epsilon is useful</h3>
+<ul>
+  <li>Baseline allocation cost for Java performance tuning</li>
+  <li>GC benchmarking and regression testing of allocation paths</li>
+  <li>Spotting allocation hotspots without pauses getting in the way</li>
+</ul>
+
+<h3>When Epsilon is not useful</h3>
+<ul>
+  <li>Any production workload that needs continuous uptime</li>
+  <li>Memory constrained environments where reclaim is required</li>
+</ul>
+
+<h2>Practical checklist</h2>
+<ul>
+  <li>Make a repeatable allocation workload</li>
+  <li>Run with -XX:+UseEpsilonGC and a fixed -Xmx value</li>
+  <li>Enable GC diagnostics and heap dump on OOM</li>
+  <li>Compare timings against other collectors to see the real impact</li>
+</ul>
+
+<p>In short, Epsilon GC is a brutal but useful tool. Use it for controlled experiments in OpenJDK when you want a clean measurement of allocation behavior and Java performance. Do not use it if you want a system that survives past the first memory cliff.</p>
+

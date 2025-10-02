@@ -1,0 +1,85 @@
+---
+layout: video
+title: "Your Git Commit History with Git Log and Reflog"
+description: "Learn how to inspect commit history and recover lost commits using git log and git reflog with clear commands for developers and DevOps."
+video_host: "youtube"
+video_id: "l9pm8p84OkM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/l9pm8p84OkM/maxresdefault.jpg"
+content_url: "https://youtu.be/l9pm8p84OkM"
+embed_url: "https://www.youtube.com/embed/l9pm8p84OkM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - gitlab
+  - git log
+  - reflog
+  - version control
+  - devops
+  - git recovery
+  - python
+  - java
+---
+
+<p>If your repository ever makes you sweat then git log and git reflog are the cooling towel you did not know you needed. This guide walks through reading the commit graph finding specific changes and even dragging lost commits back from the void. No drama just a little controlled chaos and an emergency plan for your branches.</p>
+
+<h2>Quick visual history</h2>
+<p>When you want a compact picture of what happened use the graph view. It shows branch tips merge points and commit messages without forcing you to read a novel.</p>
+<pre><code>git log --oneline --graph --decorate --all</code></pre>
+<p>This is the go to for a fast mental model of the repo. The graph characters show merges and branches the decorate part shows refs like origin main and your local heads and the oneline format keeps it readable when you are sleep deprived.</p>
+
+<h3>What to look for</h3>
+<ul>
+  <li>Branch tips and merge commits to understand how history converged</li>
+  <li>Dangling commits that are not reachable from any branch</li>
+  <li>Refs with strange names that hint at temporary work or aborted rebases</li>
+</ul>
+
+<h2>Filter like a detective</h2>
+<p>If the graph is a forest of noise narrow it down with filters. Useful flags include time author and grep searches. This helps when you are hunting for a fix in a Python file or trying to find who touched that Java test.</p>
+<pre><code>git log --since='2 weeks ago'
+git log --author='Alice'
+git log --grep='bugfix'
+git log -S'functionName' -G'pattern'</code></pre>
+<p>Use these to zero in on the commit that introduced the behavior you need to revert or inspect. Combining flags is fine and often necessary when you are playing detective.</p>
+
+<h2>Reflog saves your life</h2>
+<p>Reflog records where HEAD and branch tips moved locally. It is not shared with remotes and it is not forever but it is usually enough to rescue a deleted branch or an aborted rebase.</p>
+<pre><code>git reflog</code></pre>
+<p>Entries look like HEAD@{3} and include a short hash. Read top to bottom for recent moves. If you see the commit you want note the hash or the reflog entry.</p>
+
+<h2>Recovering lost commits</h2>
+<p>Found the hash in reflog Good news. Turn that orphan into a branch or cherry pick it into a current branch.</p>
+<pre><code>git checkout -b recover <HASH>
+# or
+git cherry-pick <HASH>   # from your current branch</code></pre>
+<p>Checkout with a new branch is the safest first move. It gives you a sandbox and avoids rewriting other histories by accident.</p>
+
+<h3>If you rewrote or squashed things</h3>
+<p>Interactive rebase is your tidy tool. Use it to squash reorder or edit old commits. If you must get rid of mistakes locally do the rebase then push carefully.</p>
+<pre><code>git rebase -i <base>
+# to force push after you have coordinated with your team
+git push --force-with-lease origin your-branch</code></pre>
+<p>Force pushing is not a crime if you warned people first. If you do it unannounced be prepared to answer angry messages and possibly merge conflicts from teammates.</p>
+
+<h2>Cleaning up and maintenance</h2>
+<p>Once you recover what you need tidy up. You can expire reflog entries and run garbage collection if you are maintaining long lived repos but be careful. Expiring reflogs too aggressively removes your safety net.</p>
+<pre><code>git reflog expire --expire=90.days --all
+git gc --prune=now</code></pre>
+<p>These commands help maintain repository size but only run them when you understand the consequences and you are allowed to touch repo history.</p>
+
+<h2>Recap and safety tips</h2>
+<ul>
+  <li>Use git log with graph and decorate to map the commit history quickly</li>
+  <li>Filter logs by author time or content when you are hunting for specific changes</li>
+  <li>Run git reflog to see recent HEAD moves and recover lost commits</li>
+  <li>Create a recovery branch or cherry pick hashes instead of blundering around</li>
+  <li>Coordinate before you rewrite history and prefer force with lease not blind force</li>
+</ul>
+<p>That is it. You now know how to inspect history recover lost commits and tidy the graph like a mildly competent repo surgeon. Keep reflog settings sensible avoid reckless garbage collection and when in doubt make a branch first and panic later.</p>
+

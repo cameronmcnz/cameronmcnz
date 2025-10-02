@@ -1,0 +1,91 @@
+---
+layout: video
+title: "UiPath Remove or Delete Empty Rows Example"
+description: "Quick UiPath guide to find and delete empty Excel rows using DataTable filtering and activities for cleaner automation workflows"
+video_host: "youtube"
+video_id: "pD50eAZcaWA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M47S"
+thumbnail_url: "https://i.ytimg.com/vi/pD50eAZcaWA/maxresdefault.jpg"
+content_url: "https://youtu.be/pD50eAZcaWA"
+embed_url: "https://www.youtube.com/embed/pD50eAZcaWA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - RPA
+  - DataTable
+  - Excel
+  - Empty Rows
+  - Delete Rows
+  - Remove Rows
+  - Automation
+  - Filters
+  - Tutorial
+---
+
+<p>If your UiPath automation chokes on blank lines in Excel you are not alone. Empty rows are the little gremlins of RPA they hide in spreadsheets and break your happy flow. This short tutorial shows reliable ways to detect and remove empty rows from an Excel sheet using DataTable operations and core UiPath activities so your automation runs like it was fed coffee.</p>
+
+<h2>Quick steps summary</h2>
+
+<ul>
+  <li>Prepare a project and place the sample Excel file in a known folder</li>
+  <li>Read the sheet into a DataTable using Read Range</li>
+  <li>Remove empty rows with DataTable filters or with a bottom up delete loop</li>
+  <li>Write the cleaned DataTable back with Write Range and AutoFit if you care about looks</li>
+  <li>Test on sample data and save the process</li>
+</ul>
+
+<h2>Read workbook into a DataTable</h2>
+
+<p>Use Read Range from the Excel or Workbook package and store the result in a variable named <code>dt</code> or any sensible name that future you will thank you for. Make sure the spreadsheet has named columns or at least predictable headers. Working with a DataTable is cleaner than string parsing drama.</p>
+
+<h2>Filter empty rows using DataTable methods</h2>
+
+<p>The cleanest approach is to use DataTable filtering and then CopyToDataTable. If one column defines whether a row is empty use a Select expression and replace the original table with the filtered result.</p>
+
+<h3>Single column example</h3>
+
+<pre><code>dt = dt.Select("Not (ColumnName Is Null Or ColumnName = '')").CopyToDataTable()</code></pre>
+
+<p>This keeps rows where ColumnName is not null and not empty. It is fast and elegant when one column determines whether a row is meaningful.</p>
+
+<h3>Multiple columns example</h3>
+
+<p>If emptiness means several columns are blank build a combined filter. For example if ColA and ColB both must be blank to count as an empty row use an expression like this and then CopyToDataTable.</p>
+
+<pre><code>dt = dt.Select("(Not (ColA Is Null Or ColA = '')) Or (Not (ColB Is Null Or ColB = ''))").CopyToDataTable()</code></pre>
+
+<p>If you need to consider a row empty only when all relevant fields are blank build the expression with And instead of Or. If CopyToDataTable fails because no rows match wrap the logic with a check on the result length to avoid runtime exceptions.</p>
+
+<h2>Alternative method using a delete loop</h2>
+
+<p>Sometimes filters are awkward for mixed types or complex blank rules. In that case use a loop that deletes rows from the bottom up. Deleting from bottom to top avoids skipping rows when indexes shift. This works both inside a DataTable loop or by using Delete Range or Delete Row activities against the Excel sheet.</p>
+
+<ul>
+  <li>Get the row count with <code>dt.Rows.Count</code></li>
+  <li>Loop i from dt.Rows.Count - 1 down to 0</li>
+  <li>Check the relevant columns on <code>dt.Rows(i)</code> and call <code>dt.Rows.RemoveAt(i)</code> when the row is empty</li>
+  <li>When deleting in Excel use the Delete Row or Delete Range activity targeting the sheet and use the Excel row number that matches your DataTable index plus header offset</li>
+</ul>
+
+<p>Tracking indexes avoids the classic off by one chaos and keeps your automation deterministic. This approach is more code heavy but gives fine control for edge cases.</p>
+
+<h2>Write cleaned DataTable back to Excel</h2>
+
+<p>Use Write Range to overwrite the original sheet or write to a new sheet if you want a rollback. If presentation matters use AutoFit on the range after writing because stakeholders will judge success by neat columns.</p>
+
+<h2>Tips and gotchas</h2>
+
+<ul>
+  <li>Test with a copy of the file before touching production spreadsheets</li>
+  <li>When using Select and CopyToDataTable handle the case where no rows match to avoid exceptions</li>
+  <li>Prefer readable column names to avoid cryptic expressions in the filter</li>
+  <li>Use the Workbook package for file based work and the Excel package when you need Excel specific activities</li>
+  <li>Log the number of rows removed so you can prove the bot did something useful</li>
+</ul>
+
+<p>Fixing empty rows is one of those boring but essential RPA chores. Do it once cleanly and your downstream logic will stop staging dramatic exits. Now go remove those blank rows like the automation hero you are.</p>
+

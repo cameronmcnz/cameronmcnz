@@ -1,0 +1,80 @@
+---
+layout: video
+title: "git undo commits example"
+description: "Practical guide to undo commits in Git using reset revert and reflog with safety notes and recovery tips for shared branches."
+video_host: "youtube"
+video_id: "rPP-EXSm4fw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M28S"
+thumbnail_url: "https://i.ytimg.com/vi/rPP-EXSm4fw/maxresdefault.jpg"
+content_url: "https://youtu.be/rPP-EXSm4fw"
+embed_url: "https://www.youtube.com/embed/rPP-EXSm4fw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - undo commits
+  - git reset
+  - git revert
+  - reflog
+  - git tutorial
+  - version control
+  - force push
+  - soft reset
+  - hard reset
+---
+
+<h2>Quick truth about undoing commits</h2>
+<p>You made a commit and then promptly regretted everything. Happens to the best of us and to many of us repeatedly. This short Git tutorial walks through safe and destructive ways to undo commits and how to rescue work that wandered off a cliff. We cover git reset and git revert plus how to use reflog to find a lost commit. Read on before you rewrite shared history and earn a collection of angry messages.</p>
+
+<h2>Inspect history first</h2>
+<p>Before you perform any heroics look at the commit history so you know which commit needs mercy. Run a compact log to find the hash and confirm the target.</p>
+<pre><code>git log --oneline</code></pre>
+<p>Keep calm and copy the SHA you need. Mistakes are reversible as long as you know where to look.</p>
+
+<h2>Undo last commit but keep your changes staged</h2>
+<p>If you only need to fix the commit message or add a missing file use a soft reset. HEAD moves back but your index and working tree stay intact.</p>
+<pre><code>git reset --soft HEAD~1
+# amend or create a fresh commit</code></pre>
+<p>This is perfect when the commit was premature but the work itself is fine.</p>
+
+<h2>Throw away the last commit and the working tree</h2>
+<p>When the previous commit is garbage and you do not care about the working tree do a hard reset. This rewrites history and resets files to match the target commit. Warning do not do this on a shared branch unless everyone agreed and bought snacks.</p>
+<pre><code>git reset --hard HEAD~1</code></pre>
+
+<h2>Undo a commit that has already been pushed</h2>
+<p>For public history prefer git revert which creates a new commit that reverses the changes. This keeps the timeline honest and keeps teammates alive.</p>
+<pre><code>git revert &lt;SHA&gt;
+git push</code></pre>
+<p>If you are working alone on a branch and willing to accept the diplomatic fallout you can rewrite history locally and force push. Expect questions and possible rage.</p>
+<pre><code>git reset --hard &lt;SHA&gt;
+git push --force</code></pre>
+
+<h2>Recover a lost commit with reflog</h2>
+<p>Git keeps a trail of where HEAD has been. If you lost a commit due to a reset or a bad merge use reflog to find the missing SHA and then bring it back.</p>
+<pre><code>git reflog
+# find the SHA
+git reset --hard &lt;SHA&gt;
+# or cherry pick back onto your branch
+git cherry-pick &lt;SHA&gt;</code></pre>
+
+<h3>When to prefer revert over reset</h3>
+<ul>
+  <li>Shared branches and mainline work use git revert to avoid breaking collaborators</li>
+  <li>Private or feature branches may safely use reset plus force push with care</li>
+  <li>Use reflog to recover commits after you panic and hit a button</li>
+</ul>
+
+<h2>Quick cheat sheet</h2>
+<ul>
+  <li>Inspect history git log --oneline</li>
+  <li>Keep changes staged git reset --soft HEAD~1</li>
+  <li>Discard changes git reset --hard HEAD~1</li>
+  <li>Reverse a pushed commit git revert &lt;SHA&gt; then git push</li>
+  <li>Recover lost work git reflog then git reset or git cherry-pick</li>
+</ul>
+
+<p>Version control is a safety net and also a place to practice humility. Use git revert on public branches, treat git reset as a scalpel, and consult reflog when you need a tiny miracle. Now go fix that commit message and try not to make the same mistake in the next dramatic commit spree.</p>
+

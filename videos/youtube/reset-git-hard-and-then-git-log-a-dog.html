@@ -1,0 +1,79 @@
+---
+layout: video
+title: "Reset Git Hard and then git log a dog"
+description: "Learn how to run git reset --hard safely then inspect commit history with git log in a playful clear tutorial for developers."
+video_host: "youtube"
+video_id: "gGKmK4bwXsg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M47S"
+thumbnail_url: "https://i.ytimg.com/vi/gGKmK4bwXsg/maxresdefault.jpg"
+content_url: "https://youtu.be/gGKmK4bwXsg"
+embed_url: "https://www.youtube.com/embed/gGKmK4bwXsg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git reset
+  - git log
+  - git reset --hard
+  - git reflog
+  - version control
+  - git tutorial
+  - developer tips
+  - git history
+  - branch management
+---
+
+<p>If you ever typed <code>git reset --hard</code> and felt the sudden urge to apologize to your repository you are in the right place. This short, slightly sarcastic git tutorial shows how to prepare the working tree before a hard reset then use <code>git log</code> and <code>git reflog</code> to inspect and recover git history when things get dramatic.</p>
+
+<h2>Prepare the working tree the boring but useful way</h2>
+<p>Think of this as the safety net you should have raised before doing something destructive. Use <code>git status</code> to see what is staged and what is untracked. If you have uncommitted work that you care about stash it or commit it.</p>
+
+<ul>
+  <li>Check status with <code>git status</code></li>
+  <li>Stash uncommitted changes with <code>git stash</code> if you want to preserve work without committing</li>
+  <li>Or commit to a quick local branch if you prefer an explicit record</li>
+</ul>
+
+<p>Pro tip for the boldly lazy: create a throwaway branch before doing risky things. Branch management is the duct tape of version control.</p>
+
+<h2>Perform the hard reset and know what it does</h2>
+<p>When you run <code>git reset --hard &lt;commit&gt;</code> you move HEAD to that commit and force the index and working tree to match. That is efficient and merciless. Expect uncommitted changes to vanish unless they were stashed or committed first.</p>
+
+<pre><code>git reset --hard &lt;commit-hash-or-ref&gt;</code></pre>
+
+<p>This is great when you want to undo a messy experiment and get back to a known state. This is terrible when you ran it without looking. That is also why branches exist.</p>
+
+<h2>Inspect history with git log like a curious detective</h2>
+<p><code>git log</code> is the flashlight for your commit history. Use a compact view to see relationships between branches and commits without scrolling for an hour.</p>
+
+<ul>
+  <li>Graphical compact view: <code>git log --graph --oneline --decorate</code></li>
+  <li>Limit output when history is long: <code>git log -n 20</code></li>
+  <li>Search messages or authors with <code>git log --grep=&quot;text&quot;</code> if you remember something about the commit</li>
+</ul>
+
+<p>Make <code>git log</code> actually fun by experimenting with formats and aliases. You will spend less time guessing which branch did what and more time pretending you always planned it that way.</p>
+
+<h2>Recover a commit with git reflog when you forgot you were a hero</h2>
+<p>The reflog records where HEAD has been. If you accidentally nuked something with a hard reset it often holds the key to redemption.</p>
+
+<pre><code>git reflog
+git reset --hard &lt;reflog-hash&gt;
+# or create a branch at the hash
+git branch rescue &lt;reflog-hash&gt;</code></pre>
+
+<p>Browse the reflog to find the pointer you need. Then either reset back to it or create a branch to preserve that state. The reflog is like the repository memory after a night you do not fully remember.</p>
+
+<h2>Quick recap and developer tips</h2>
+<ul>
+  <li>Check <code>git status</code> and stash or commit before running <code>git reset --hard</code></li>
+  <li>Use <code>git log --graph --oneline --decorate</code> to inspect git history quickly</li>
+  <li>Search the reflog with <code>git reflog</code> to recover lost HEAD positions</li>
+  <li>Create a branch for risky experiments and practice branch management</li>
+</ul>
+
+<p>Final note for the brave and exhausted: <code>git reset --hard</code> is powerful and irreversible on uncommitted changes. Use it with the respect it demands and a backup if you can stomach the extra steps. Follow these developer tips and you will avoid most small tragedies and enjoy fewer frantic searches for lost commits.</p>
+

@@ -1,0 +1,77 @@
+---
+layout: video
+title: "Here are the differences between GitHub and Git"
+description: "Clear differences between Git and GitHub for developers Learn local version control remote hosting workflows commands and when to use each"
+video_host: "youtube"
+video_id: "9Ov8Fn8qlaM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M42S"
+thumbnail_url: "https://i.ytimg.com/vi/9Ov8Fn8qlaM/maxresdefault.jpg"
+content_url: "https://youtu.be/9Ov8Fn8qlaM"
+embed_url: "https://www.youtube.com/embed/9Ov8Fn8qlaM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - GitHub
+  - version control
+  - git vs github
+  - git commands
+  - pull request
+  - branching
+  - repository
+  - remote
+  - collaboration
+---
+
+<p>Think of Git as the cranky librarian for your source code, keeping every awkward typo and brilliant refactor safe on your machine. Think of GitHub as the trendy coworking cafe that stores those books, adds espresso, and lets your team point at pages and argue about them in public. Both are useful, and neither will fix your merge conflicts for you.</p>
+
+<h2>What Git actually does</h2>
+<p>Git is a distributed version control system that lives on your computer. It snapshots files, records commits, and remembers branches and tags. That means you can branch whenever you want, try something reckless, and then roll back when reality hits.</p>
+
+<p>Common low level commands you already sort of know are:</p>
+<ul>
+  <li><code>git init</code> to start a repository</li>
+  <li><code>git add</code> to stage changes</li>
+  <li><code>git commit</code> to record a snapshot</li>
+  <li><code>git branch</code> to create or list branches</li>
+  <li><code>git checkout</code> or <code>git switch</code> to move between branches</li>
+</ul>
+
+<p>All of those run locally by default. That is why Git is great for fast experiments and offline work. It does not need GitHub to do its job, and it will quietly survive without your internet connection.</p>
+
+<h2>What GitHub brings to the party</h2>
+<p>GitHub is a cloud hosting service built on top of Git that adds collaboration, review, and automation features. It provides remote repositories, pull requests for code review, issue trackers for complaining about bugs, webhooks and integrations for continuous integration and deployment, and a web UI for humans who prefer clicking to typing.</p>
+
+<p>GitHub also introduces social concepts like forking and pull requests which help manage outside contributions. Instead of emailing patches like it is 1998, people open pull requests, reviewers add comments, and maintainers press a button to merge once the tests pass or their caffeine kicks in.</p>
+
+<h3>How to move work between your machine and the cloud</h3>
+<ul>
+  <li><code>git clone &lt;repo&gt;</code> to copy a remote repository to your laptop</li>
+  <li><code>git push</code> to send commits from local branches to a remote</li>
+  <li><code>git pull</code> to fetch and merge updates from a remote branch</li>
+  <li><code>git fetch</code> when you just want to see what changed without touching your working tree</li>
+</ul>
+
+<h3>Common collaboration models</h3>
+<ul>
+  <li>Feature branch workflow where each task gets its own branch and a pull request for review</li>
+  <li>Fork and pull request where external contributors fork the repo, work independently, and submit pull requests</li>
+  <li>Trunk based development for teams that like small, frequent merges and a lot of automated testing</li>
+</ul>
+
+<h2>When to use each</h2>
+<p>Use Git whenever you are managing history on your machine, trying stuff out, or doing surgical commits. Use GitHub when you want remote hosting, collaboration, code review, or CI pipeline triggers. They are not interchangeable, they are complementary. Git is the engine, GitHub is the dashboard with flashy lights.</p>
+
+<h2>Quick tips for not ruining things</h2>
+<ul>
+  <li>Use the command line for precise Git operations and use the web interface for reviewing pull requests and issues</li>
+  <li>Protect important branches with rules and required checks so someone does not merge the thing that breaks production right before lunch</li>
+  <li>Keep your commit messages clear and the diffs small so reviewers do not need a PhD in archaeology to understand your work</li>
+  <li>If your company blocks GitHub consider self hosted alternatives like GitLab or Gitea for hosting and CI</li>
+</ul>
+
+<p>In short, Git handles version control and local history, while GitHub adds hosting and collaboration features that are useful for teams. Use both and you will be able to blame someone else when a merge goes wrong.</p>
+

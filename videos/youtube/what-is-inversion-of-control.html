@@ -1,0 +1,87 @@
+---
+layout: video
+title: "What is Inversion of Control?"
+description: "Clear explanation of Inversion of Control with examples benefits and common patterns for developers seeking cleaner decoupled code"
+video_host: "youtube"
+video_id: "37eHZza5aBk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT25M43S"
+thumbnail_url: "https://i.ytimg.com/vi/37eHZza5aBk/maxresdefault.jpg"
+content_url: "https://youtu.be/37eHZza5aBk"
+embed_url: "https://www.youtube.com/embed/37eHZza5aBk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Inversion of Control
+  - IoC
+  - Dependency Injection
+  - DI
+  - Service Locator
+  - Software Design
+  - Programming
+  - Architecture
+  - Spring Framework
+  - Angular
+---
+
+<p>Inversion of Control or IoC is the polite way of telling your app that the framework is running the show now. Think of the Hollywood rule dont call us we will call you and then imagine that rule applied to object creation and lifecycle management. The framework decides when to make things and when to nudge them into action while your code supplies the parts the framework plugs in.</p>
+
+<h2>What IoC actually looks like in the wild</h2>
+
+<p>IoC shows up in a few recognizable costumes. They all let you avoid newing up everything yourself which is great until you forget who created what and debugging becomes a group exercise in blaming the container.</p>
+
+<ul>
+  <li><strong>Dependency Injection</strong> through constructors or setters. This is the most explicit option and the easiest to test because you can hand in mocks without drama.</li>
+  <li><strong>Service Locator</strong> where code asks a registry for what it needs at runtime. It keeps your parameter lists short but it can hide dependencies like a magician hides a rabbit.</li>
+  <li><strong>Framework callbacks and lifecycle hooks</strong> used by plugin systems and frameworks such as Spring Framework and Angular. The framework calls your code at defined points so you get lifecycle magic without the mess.</li>
+</ul>
+
+<h3>How they differ and why it matters</h3>
+
+<p>Dependency Injection or DI is about giving objects what they need up front. Constructor injection is the most honest approach. If a class cant function without a service make that dependency required in the constructor. That helps tests and saves hours of squinting at stack traces.</p>
+
+<p>Service Locator hides dependencies behind a registry. It looks convenient until you need to trace who asked for what. For small apps it might be fine. For anything that grows you will regret the hidden wiring.</p>
+
+<p>Framework callbacks are perfect for plugins and lifecycle tasks. Frameworks like the Spring Framework and Angular provide well documented hooks. Use them but keep callback code tiny so lifecycle complexity does not metastasize.</p>
+
+<h2>Benefits and trade offs</h2>
+
+<p>IoC buys you looser coupling and better testability. Centralized lifecycle management is another perk. The price is indirection and sometimes hidden dependencies if you let auto wiring run wild. There is no free lunch in software architecture so pick the trade offs that match your team and codebase size.</p>
+
+<ul>
+  <li>Pros. Easier mocking and testing, clearer separation of concerns, better modularity.</li>
+  <li>Cons. Extra indirection, risk of hidden dependencies, container complexity when overused.</li>
+</ul>
+
+<h3>Practical rules of thumb</h3>
+
+<ul>
+  <li>Prefer explicit constructor injection for required dependencies. Your tests will thank you and so will your future self.</li>
+  <li>Use a lightweight container or manual wiring for small projects. Heavy containers are a hammer not a sewing kit.</li>
+  <li>Avoid Service Locator for core business logic. Reserve it for edge cases or legacy code you are not allowed to refactor.</li>
+  <li>Keep framework callbacks focused and small. One task per hook keeps lifecycle debugging from turning into a treasure hunt.</li>
+</ul>
+
+<h2>Tiny example you can actually read</h2>
+
+<pre><code>function main(service) {
+  service.execute()
+}
+
+// prefer constructor injection when possible
+class Worker {
+  constructor(repo) {
+    this.repo = repo
+  }
+  run() {
+    this.repo.save()
+  }
+}
+</code></pre>
+
+<p>In Spring Framework you get annotations and containers that wire beans for you and in Angular the DI system handles component providers. Both are tools not magic. Use the explicit patterns for clearer tests and the heavy framework features when they actually simplify your architecture.</p>
+
+<p>If you want tidy, debuggable code favor explicit DI and small containers. If you want convenience go ahead and use the framework features but be ready to read stack traces with a strong coffee and a healthy dose of suspicion.</p>
+

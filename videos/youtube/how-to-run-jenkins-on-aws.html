@@ -1,0 +1,68 @@
+---
+layout: video
+title: "How to run Jenkins on AWS"
+description: "Step by step guide to deploy Jenkins on AWS EC2 with security group setup installation and basic pipeline tips"
+video_host: "youtube"
+video_id: "GJyWBrmUBm0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M34S"
+thumbnail_url: "https://i.ytimg.com/vi/GJyWBrmUBm0/maxresdefault.jpg"
+content_url: "https://youtu.be/GJyWBrmUBm0"
+embed_url: "https://www.youtube.com/embed/GJyWBrmUBm0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - AWS
+  - EC2
+  - CI CD
+  - DevOps
+  - Jenkins tutorial
+  - Jenkins on AWS
+  - Pipeline
+  - Infrastructure
+  - Security
+---
+
+<h2>Why this exists and why you should care</h2>
+<p>If you want a CI CD server that does the heavy lifting without drama then Jenkins on AWS EC2 is a sensible choice. This guide walks you from a blank console to a running Jenkins instance that your team can actually use. Expect a little setup, a little security, and a lot less crying when builds fail.</p>
+
+<h2>Plan before you provision</h2>
+<p>Pick an Ubuntu AMI and a sensible instance size. A t3.small or t3.medium will do for small teams. Choose a key pair for SSH access and put the instance in a subnet that the team can reach. Remember this is infrastructure not performance art. Think backups and disk space now so you do not mourn later.</p>
+
+<h3>Network and security group basics</h3>
+<ul>
+  <li>Open port 22 for SSH but limit it to admin IP addresses only.</li>
+  <li>Allow TCP port 8080 for Jenkins from trusted networks. If you expose 8080 to the world make sure you have authentication and monitoring in place.</li>
+  <li>Consider using an application load balancer with HTTPS termination for public traffic and better TLS handling.</li>
+</ul>
+
+<h2>Boot, SSH, and prepare the instance</h2>
+<p>SSH into the instance with your chosen key. Run package updates and install a modern Java runtime so Jenkins has something to stand on. For Ubuntu that looks like running apt update and then installing openjdk 11 or newer.</p>
+<pre><code>sudo apt update
+sudo apt install -y openjdk-11-jdk
+</code></pre>
+<p>Install Jenkins from the package manager if you want the systemd integration. If you prefer a quick test you can run the jenkins war with java -jar. Either way enable and start the service so it survives reboots.</p>
+
+<h2>Unlock the UI and get comfortable</h2>
+<p>When Jenkins first starts you will need the initial admin password from the Jenkins home folder. On most installs that is in /var/lib/jenkins/secrets/initialAdminPassword. Use that to finish the web setup. You can install the suggested plugins if you want a fast start or pick a minimal set for a tidy server that does not grow wings.</p>
+
+<h2>Users, credentials, and pipelines</h2>
+<p>Create an admin user and then configure credentials for accessing git repositories and other services. Use the Jenkins credentials store not plain text environment variables. Set up a sample pipeline to validate the flow and to catch integration surprises early.</p>
+
+<h2>Make it resilient and less embarrassing</h2>
+<ul>
+  <li>Attach an EBS volume for job workspaces and large artifacts so the root disk does not fill up.</li>
+  <li>Assign an IAM role to the instance if Jenkins needs to call AWS APIs, for example to upload artifacts to S3 or to run CodeBuild steps.</li>
+  <li>Back up the Jenkins home folder regularly to avoid painful rebuilds when things inevitably break.</li>
+</ul>
+
+<h2>Production tips and security reminders</h2>
+<p>For production deployments put Jenkins behind an application load balancer with HTTPS. Use security groups and network ACLs to limit access. Keep plugins to a minimum and patch regularly. If a plugin asks for more permissions than seems reasonable do not be that person who clicks accept without reading.</p>
+
+<h2>Recap and next steps</h2>
+<p>In short launch an EC2 instance, lock down the network, install Java and Jenkins, start the service, unlock the UI and configure users and credentials. Add persistent storage, an IAM role and an ALB for a hardened setup. Then automate the rest with infrastructure as code so future you can relax a little more.</p>
+<p>If you want I can walk through example commands for a specific Ubuntu version or sketch a basic pipeline that runs tests and deploys artifacts. No pressure but that would be the next logical step.</p>
+

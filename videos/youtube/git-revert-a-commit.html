@@ -1,0 +1,74 @@
+---
+layout: video
+title: "Git Revert a Commit"
+description: "Quick guide on using git revert to safely undo a commit and keep project history intact"
+video_host: "youtube"
+video_id: "qdL8uaz_-n0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/qdL8uaz_-n0/maxresdefault.jpg"
+content_url: "https://youtu.be/qdL8uaz_-n0"
+embed_url: "https://www.youtube.com/embed/qdL8uaz_-n0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git revert
+  - undo commit
+  - version control
+  - git tutorial
+  - git commands
+  - revert commit
+  - github
+  - git workflow
+  - developer tips
+---
+
+<h2>Why revert and not erase</h2>
+<p>If you pushed something bad and your teammates are already building on it do the polite thing and revert instead of rewriting public history. git revert creates a new commit that undoes an earlier commit while keeping the project history intact and audit friendly. That means no surprise force pushes and fewer angry Slack messages.</p>
+
+<h2>Find the guilty commit</h2>
+<p>First locate the commit hash you want to undo. A concise log helps you avoid guessing games and blame by committee.</p>
+<pre><code>git log --oneline</code></pre>
+<p>Copy the short hash for the offending commit. If you prefer a visual history use your GUI client but the CLI is faster when caffeine is low.</p>
+
+<h2>Run git revert</h2>
+<p>To create a new commit that undoes the change run this.</p>
+<pre><code>git revert &lt;commit-hash&gt;</code></pre>
+<p>If you need to revert multiple commits you can supply a range or revert them one by one.</p>
+<pre><code>git revert &lt;start-hash&gt;..&lt;end-hash&gt;</code></pre>
+<p>If you want to stage a combined set of undo changes and edit the result before committing use the no commit flag.</p>
+<pre><code>git revert --no-commit &lt;start-hash&gt;..&lt;end-hash&gt;</code></pre>
+<p>Reverting a merge commit is a bit special. Tell git which parent to keep with the parent number flag.</p>
+<pre><code>git revert -m 1 &lt;merge-commit-hash&gt;</code></pre>
+
+<h2>Resolve conflicts and finish the job</h2>
+<p>If conflicts appear treat them like mild paperwork. Open the conflicted files fix the content to the desired state then stage and finish.</p>
+<pre><code>git add &lt;file&gt;
+git commit   # only needed when you used --no-commit or to finish manual edits</code></pre>
+<p>Use git status and git diff to see what is happening. Conflicts are not personal and will not be invited to Thanksgiving.</p>
+
+<h2>Push the revert so everyone sees it</h2>
+<p>Once the revert commit exists push it to the remote so the team gets the correction.</p>
+<pre><code>git push</code></pre>
+<p>This keeps the branch linear and auditable which is exactly what future you will thank present you for.</p>
+
+<h3>Quick workflow rules of thumb</h3>
+<ul>
+  <li>Prefer git revert on public branches to avoid rewriting shared history</li>
+  <li>Use git reset for local experiments that have not been pushed</li>
+  <li>Use interactive rebase on private branches when you want a neat commit history</li>
+  <li>Write a clear revert message so future archaeologists know what went wrong</li>
+</ul>
+
+<h3>Short pitfalls checklist</h3>
+<ul>
+  <li>Reverting a merge requires the -m parent flag</li>
+  <li>git revert does not delete commits it only adds a correcting commit</li>
+  <li>If you revert then force push you will still cause trouble so avoid that</li>
+</ul>
+
+<p>There you go. Revert when you need to correct public history and keep your repo sensible. If you are cleaning up local mistakes use reset or rebase depending on how tidy you want the log to look. Now go fix that bug and try not to break anything else this week.</p>
+

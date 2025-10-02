@@ -1,0 +1,73 @@
+---
+layout: video
+title: "Installing Java 7 & Configuring JAVA_HOME Env Variable"
+description: "Step by step guide to install Java 7 and set JAVA_HOME on Windows and Linux for development and build tools"
+video_host: "youtube"
+video_id: "trtkDkxJcD8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M51S"
+thumbnail_url: "https://i.ytimg.com/vi/trtkDkxJcD8/maxresdefault.jpg"
+content_url: "https://youtu.be/trtkDkxJcD8"
+embed_url: "https://www.youtube.com/embed/trtkDkxJcD8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java 7
+  - JAVA_HOME
+  - install Java
+  - environment variable
+  - JDK
+  - Windows Java
+  - Linux Java
+  - set JAVA_HOME
+  - development setup
+  - command line
+---
+
+<h2>Overview</h2>
+<p>You need Java 7 and the JAVA_HOME variable set for some stubborn legacy build or a tool that refuses to move on. This guide gets you the JDK, shows how to install it on Windows and Linux, walks through setting JAVA_HOME and verifies the setup from the command line. Yes this still matters in the year of newer Java versions.</p>
+
+<h2>Get the Java 7 JDK</h2>
+<p>Download the JDK from the Oracle archive or use a trusted package repository. If a modern Java is acceptable pick that instead to save yourself future pain. On Linux the system package manager is the easiest option when available.</p>
+
+<h2>Install the JDK</h2>
+<h3>Windows</h3>
+<p>Run the installer and follow the wizard like a functioning human. If you prefer scripts you can install the MSI or unpack an archive and then set environment variables with the command shown later. A common installation path looks like</p>
+<pre><code>C\Program Files\Java\jdk1.7.0_xx</code></pre>
+
+<h3>Linux</h3>
+<p>Use your distro package manager or extract a tarball into a predictable location. Example for Debian style systems</p>
+<pre><code>sudo apt-get install openjdk-7-jdk</code></pre>
+<p>If you manually unpacked a tarball move the JDK folder to a stable path such as <code>/usr/lib/jvm</code> so tools can rely on it.</p>
+
+<h2>Set JAVA_HOME</h2>
+<h3>Windows</h3>
+<p>Open System Properties and Advanced Environment Variables and add a new system variable named JAVA_HOME with the path to your JDK. For scripted installs use the setx command shown here</p>
+<pre><code>setx JAVA_HOME "C\Program Files\Java\jdk1.7.0_xx"</code></pre>
+<p>Important note that the new value only appears in new shells. Close and reopen any command prompt windows or restart your IDE to make it notice the change.</p>
+
+<h3>Linux</h3>
+<p>Edit your shell profile such as <code>~/.bashrc</code> or a system profile script and add an export line. Example</p>
+<pre><code>export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64</code></pre>
+<p>Save and reload the profile with a new shell or with <code>source ~/.bashrc</code> if you must avoid a reboot. Yes you will still have to reopen terminals.</p>
+
+<h2>Verify the installation</h2>
+<p>Confirm the JDK is usable and that the environment variable points at the right place. Run these commands in the appropriate shell</p>
+<pre><code>java -version
+# on Linux
+echo $JAVA_HOME
+# on Windows in cmd
+echo %JAVA_HOME%</code></pre>
+<p>If <code>java -version</code> prints a Java 7 runtime and the echo output shows the JDK path you are golden. If not double check the path and remember Windows paths differ from Linux paths. Mixing them is a fast path to confusion.</p>
+
+<h2>Troubleshooting and tips</h2>
+<ul>
+<li>If a build still uses the wrong Java check for tool specific settings or bundled runtimes that override JAVA_HOME.</li>
+<li>In CI set JAVA_HOME in the runner configuration or use container images that already include the right JDK.</li>
+<li>If you can, plan a migration off Java 7 to a supported release to avoid security and compatibility grief later.</li>
+</ul>
+
+<p>This guide covered obtaining the JDK installing it on Windows and Linux setting JAVA_HOME and verifying the setup. Follow the platform specific steps and keep your paths sensible unless you enjoy debugging path related drama.</p>
+

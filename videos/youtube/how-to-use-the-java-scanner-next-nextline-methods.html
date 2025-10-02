@@ -1,0 +1,86 @@
+---
+layout: video
+title: "How to use the Java Scanner next & nextLine methods"
+description: "Learn when to use next and nextLine with Scanner in Java and how to avoid common newline problems when reading string input from console"
+video_host: "youtube"
+video_id: "e1ceaKbouno"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M8S"
+thumbnail_url: "https://i.ytimg.com/vi/e1ceaKbouno/maxresdefault.jpg"
+content_url: "https://youtu.be/e1ceaKbouno"
+embed_url: "https://www.youtube.com/embed/e1ceaKbouno"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Scanner
+  - next
+  - nextLine
+  - String input
+  - console input
+  - newline bug
+  - input tutorial
+  - programming
+  - developer tips
+---
+
+<p>If you have ever asked a Java program for a number and then suddenly gotten an empty string when you asked for a name you are not cursed. You hit the classic Scanner newline bug. This guide explains what Scanner next and nextLine actually do and how to avoid the hollow string surprise with simple, reliable patterns.</p>
+
+<h2>What next and nextLine actually do</h2>
+<p>Keep it short and nerdy. Scanner next reads the next token separated by whitespace. That means one word or one token with no spaces. Scanner nextLine reads the remainder of the current line up to the newline character. That means a full line including spaces. Use next for single word input and nextLine for full line input such as addresses or sentences.</p>
+
+<pre><code>Scanner scan = new Scanner(System.in)
+String token = scan.next()
+String full = scan.nextLine()
+</code></pre>
+
+<h2>Where the newline bug shows up</h2>
+<p>The gotcha happens when you mix numeric reads like nextInt or nextDouble with nextLine. Numeric reads stop before the newline and leave that newline sitting in the input buffer. When you call nextLine right after a numeric read you just consume that leftover newline which returns an empty string. It looks like the program forgot how to read a name. It did not forget. It was polite and consumed your leftover newline.</p>
+
+<h3>Minimal failing example</h3>
+<pre><code>System.out.println("Enter age")
+int age = scan.nextInt()
+System.out.println("Enter name")
+String name = scan.nextLine()  // name becomes empty string
+</code></pre>
+
+<h2>Fix patterns that actually work</h2>
+<p>Pick one of these depending on your style and the scale of your code.</p>
+
+<ul>
+  <li><strong>Discard the leftover newline</strong> Read the number then call an extra nextLine to move past the leftover newline before reading the real line.</li>
+  <li><strong>Use line based input and parse</strong> Always read lines with nextLine and convert them using Integer.parseInt or Double.parseDouble. This avoids buffer surprises and makes input validation nicer.</li>
+  <li><strong>Keep one Scanner for System.in</strong> Create a single Scanner and reuse it for every read. Closing System.in can cause pain during testing or in larger apps.</li>
+</ul>
+
+<h3>Working example with discard</h3>
+<pre><code>System.out.println("Enter age")
+int age = scan.nextInt()
+scan.nextLine()  // discard leftover newline
+System.out.println("Enter name")
+String name = scan.nextLine()
+</code></pre>
+
+<h3>Working example by parsing lines</h3>
+<pre><code>System.out.println("Enter age")
+String ageLine = scan.nextLine()
+int age = Integer.parseInt(ageLine)
+System.out.println("Enter name")
+String name = scan.nextLine()
+</code></pre>
+
+<h2>Quick checklist for fewer surprises</h2>
+<ul>
+  <li>Use next for tokens and nextLine for full lines</li>
+  <li>When mixing nextInt or nextDouble with nextLine add a discard nextLine right after numeric reads</li>
+  <li>Prefer reading full lines and parsing when you want robust console input handling</li>
+  <li>Keep a single Scanner on System.in and close it only when the app is truly done</li>
+</ul>
+
+<h2>Parting wisdom</h2>
+<p>The Scanner newline bug is not a bug in Java it is a feature of how token based and line based reads interact. Once you know the pattern you can avoid the empty string surprise and write console input that behaves like an adult. If you want to be extra tidy parse lines and validate inputs so users do not test your patience with letters where numbers belong.</p>
+
+<p>Happy debugging and may your input buffers be forever clean.</p>
+

@@ -1,0 +1,66 @@
+---
+layout: video
+title: "How to Use the Git Log Graph Command by Example"
+description: "Learn git log --graph with practical examples to visualize commit history and branch structure using concise flags for clearer CLI graphs"
+video_host: "youtube"
+video_id: "OOHjsjX4XJ4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M40S"
+thumbnail_url: "https://i.ytimg.com/vi/OOHjsjX4XJ4/maxresdefault.jpg"
+content_url: "https://youtu.be/OOHjsjX4XJ4"
+embed_url: "https://www.youtube.com/embed/OOHjsjX4XJ4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git log
+  - git log graph
+  - version control
+  - git tutorial
+  - commit history
+  - branch visualization
+  - CLI
+  - developer tools
+  - git tips
+---
+
+<article>
+  <p>If your commit history looks like a Jackson Pollock painting and you need to explain it to your team or to future you who will regret everything, git log --graph is the ASCII map you need. It draws a tree of branches and merges right in your terminal so you can stop guessing and start blaming the right commit.</p>
+
+  <h2>Start with the raw graph</h2>
+  <p>Open a terminal inside a repository and run the plain command to see the basics. This prints an ASCII art tree next to the full commit messages so you can spot merges and branch lines at a glance.</p>
+  <pre><code>git log --graph</code></pre>
+  <p>It is intentionally ugly but useful. Think of it as the bones of your commit history without any prettifying filters.</p>
+
+  <h2>Make it compact and readable</h2>
+  <p>When you want less noise use these flags to turn the forest into a readable map. Short ids and branch names appear next to messages and scrolling becomes less painful.</p>
+  <pre><code>git log --graph --oneline --decorate</code></pre>
+  <p>That command gives you one line per commit with branch and tag labels. It is the go to view for quick audits and the occasional archaeology session.</p>
+
+  <h2>Show everything at once</h2>
+  <p>If you want to see every local ref including branches that are asleep you can add the all flag. This reveals where branches diverge and where merges land so you can stop blaming the wrong branch.</p>
+  <pre><code>git log --graph --oneline --decorate --all</code></pre>
+
+  <h2>Limit the graph to a file or path</h2>
+  <p>Need to investigate when a specific file changed without wading through unrelated commits Use a path at the end of the command to filter history to that file.</p>
+  <pre><code>git log --graph --oneline --decorate -- path/to/file</code></pre>
+  <p>This helps with bug hunts and audits when only a subset of the repo matters.</p>
+
+  <h3>Combine nice defaults for a clean timeline</h3>
+  <p>If you want a compact snapshot that is easy to paste into a review or a ticket use a combo that adds dates and a compact layout. The date format makes recent work pop and helps spot ancient crimes in the history.</p>
+  <pre><code>git log --graph --oneline --decorate --all --date=short</code></pre>
+
+  <h2>Practical tips for using the graph</h2>
+  <ul>
+    <li>Use the graph view in your CLI as a quick branch visualization tool when you do merges or rebase drama</li>
+    <li>Paste the compact output into a review to show context without a novel length dump</li>
+    <li>Combine with grep or path filtering when hunting a single change in a big repo</li>
+  </ul>
+
+  <p>This is a small git tutorial on one feature that pays back immediately in clarity. If you are using developer tools and version control daily these git tips will save time and reduce the number of times you whisper why did this happen under your breath.</p>
+
+  <p>Pro tip Save a small alias in your shell for the combo you like so you can call it without typing a novel. Your future self will thank you with fewer confused commits.</p>
+</article>
+

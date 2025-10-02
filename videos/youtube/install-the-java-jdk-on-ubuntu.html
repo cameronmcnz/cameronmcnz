@@ -1,0 +1,72 @@
+---
+layout: video
+title: "Install the Java JDK on Ubuntu"
+description: "Quick guide to install Java JDK on Ubuntu using apt and manage multiple versions for development and production use"
+video_host: "youtube"
+video_id: "RBgjSHj6qx0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M35S"
+thumbnail_url: "https://i.ytimg.com/vi/RBgjSHj6qx0/maxresdefault.jpg"
+content_url: "https://youtu.be/RBgjSHj6qx0"
+embed_url: "https://www.youtube.com/embed/RBgjSHj6qx0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - JDK
+  - Ubuntu
+  - OpenJDK
+  - Install Java
+  - update-alternatives
+  - apt
+  - Linux
+  - Java tutorial
+  - setup
+---
+
+<article>
+  <h2>Quick overview and prerequisites</h2>
+  <p>Tired of Java hiding on your Ubuntu box like it owes you money? This guide gets a JDK installed, verifies it, and sets the system default when multiple versions show up for dinner. We use apt and update alternatives and there is an optional path for vendor builds. No drama, just working Java.</p>
+
+  <h2>Refresh apt and install OpenJDK</h2>
+  <p>First make sure the package list is up to date so apt knows what is available. Run this like you mean it.</p>
+  <pre><code>sudo apt update</code></pre>
+  <p>Then install a JDK package for development. Use OpenJDK 17 for a modern runtime or OpenJDK 11 for long term support. Example commands:</p>
+  <pre><code>sudo apt install openjdk-17-jdk
+# or
+sudo apt install openjdk-11-jdk</code></pre>
+  <p>Apt will pull dependencies and install binaries in the usual places so you can stop guessing where java lives.</p>
+
+  <h2>Verify the installation</h2>
+  <p>Check both the runtime and the compiler so you do not get surprised during the build.</p>
+  <ul>
+    <li><code>java -version</code></li>
+    <li><code>javac -version</code></li>
+  </ul>
+  <p>The version and vendor will appear in the output so you know which Java is actually working for you.</p>
+
+  <h2>Select the default Java with update alternatives</h2>
+  <p>If you have multiple Java versions installed tell the system which one to use. The update alternatives tool is the polite way to do this.</p>
+  <pre><code>sudo update-alternatives --config java
+sudo update-alternatives --config javac</code></pre>
+  <p>Pick the number that matches the path you want. Run both commands so the runtime and compiler agree. Yes this step matters and yes it will save you time later.</p>
+
+  <h2>Optional vendor builds and Oracle JDK</h2>
+  <p>Some older or vendor specific apps demand a particular JDK build. Download the Debian package from the vendor site and install it with dpkg or use a trusted PPA for easier updates. Example:</p>
+  <pre><code>sudo dpkg -i package.deb
+sudo apt install -f</code></pre>
+  <p>Only follow this route when you have to. Most modern servers and dev machines are perfectly happy with OpenJDK.</p>
+
+  <h3>Set JAVA_HOME and common tips</h3>
+  <p>If Java still behaves like a cryptic puzzle check environment variables such as JAVA_HOME and the system PATH. A common place to set JAVA_HOME system wide is the environment file.</p>
+  <pre><code>sudoedit /etc/environment
+# add or update
+JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64</code></pre>
+  <p>Then log out or open a new shell or run <code>source /etc/environment</code> to pick up the change.</p>
+
+  <h2>Final notes and recommendations</h2>
+  <p>Prefer LTS releases for production servers and make sure your build tools and runtime match. After these steps your Ubuntu machine should have a working JDK ready to compile and run Java applications. If things still misbehave audit PATH entries and remove the ones that are pointing at ancient versions. You earned this tiny win.</p>
+</article>
+

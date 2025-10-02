@@ -1,0 +1,117 @@
+---
+layout: video
+title: "Spring Boot Configuration Properties #techtarget"
+description: "Guide to Spring Boot configuration properties binding validation and usage for typed configuration classes and safer external configuration"
+video_host: "youtube"
+video_id: "N7CAAJ9fDWc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT21M23S"
+thumbnail_url: "https://i.ytimg.com/vi/N7CAAJ9fDWc/maxresdefault.jpg"
+content_url: "https://youtu.be/N7CAAJ9fDWc"
+embed_url: "https://www.youtube.com/embed/N7CAAJ9fDWc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Configuration Properties
+  - ConfigurationProperties
+  - application.yml
+  - application.properties
+  - Property Binding
+  - Bean Validation
+  - ConfigurationPropertiesScan
+  - Constructor Injection
+  - Externalized Configuration
+---
+
+<p>Do you enjoy debugging typos in config at 2 AM No me neither. Spring Boot gives you a way to map externalized configuration to real typed beans so you stop guessing about keys and types and start catching problems before users do</p>
+
+<h2>Why typed configuration matters</h2>
+<p>Plain strings in code are cute until someone changes a property name and nothing blows up until production. Typed configuration brings these benefits</p>
+<ul>
+  <li>Compile friendly names and types instead of brittle string lookups</li>
+  <li>Cleaner injection into services using constructor injection</li>
+  <li>Fail fast on invalid values when you add Bean Validation</li>
+</ul>
+
+<h2>Step 1 Create a properties class</h2>
+<p>Create a POJO to hold the settings you want bound from application.properties or application.yml Annotate it with <code>@ConfigurationProperties</code> and give it a prefix that groups the keys</p>
+<pre><code>@ConfigurationProperties(prefix = "app")
+public class AppProperties {
+  private String host
+  private Integer port
+  private Security security = new Security()
+
+  public static class Security {
+    private boolean enabled
+    private String role
+    // getters and setters or use constructor injection
+  }
+
+  // getters and setters or a constructor that accepts all fields
+}</code></pre>
+
+<h2>Step 2 Enable binding</h2>
+<p>You can enable binding in one of two common ways Pick what fits your app</p>
+<ul>
+  <li>Register the class explicitly with <code>@EnableConfigurationProperties(AppProperties.class)</code> on a configuration class</li>
+  <li>Or let Spring Boot scan for configuration properties by adding <code>@ConfigurationPropertiesScan</code> to your main application class</li>
+</ul>
+<pre><code>@SpringBootApplication
+@ConfigurationPropertiesScan
+public class DemoApplication {
+  public static void main(String[] args) {
+    SpringApplication.run(DemoApplication.class, args)
+  }
+}</code></pre>
+
+<h2>Step 3 Supply values in application.properties</h2>
+<p>Use <code>application.properties</code> for simple equals style keys or use application.yml if you prefer indentation Either works as long as your keys match the prefix and property names</p>
+<pre><code>app.host=example.com
+app.port=8080
+app.security.enabled=true
+app.security.role=ADMIN</code></pre>
+
+<h2>Step 4 Add validation so startup fails fast</h2>
+<p>Put <code>@Validated</code> on the properties class and sprinkle Bean Validation annotations on fields to enforce rules at startup No need to wait for a null pointer to tell you that a config value is missing</p>
+<pre><code>@ConfigurationProperties(prefix = "app")
+@Validated
+public class AppProperties {
+  @NotBlank
+  private String host
+
+  @Min(1)
+  private Integer port
+
+  // getters and setters
+}</code></pre>
+
+<h2>Step 5 Inject the properties with constructor injection</h2>
+<p>Constructor injection keeps things testable and avoids global state If you must use the values in a service just inject the typed bean</p>
+<pre><code>@Service
+public class ConnectionService {
+  private final AppProperties props
+
+  public ConnectionService(AppProperties props) {
+    this.props = props
+  }
+
+  public void connect() {
+    String host = props.getHost()
+    int port = props.getPort()
+    // use host and port to build clients or connections
+  }
+}</code></pre>
+
+<h2>Tips that save time and hair</h2>
+<ul>
+  <li>Add the spring boot configuration processor to your build so IDEs can offer autocompletion and validation for configuration keys</li>
+  <li>Prefer maps or nested classes for grouped settings to keep things tidy</li>
+  <li>Avoid static access to properties unless you enjoy debugging global state</li>
+</ul>
+
+<h2>Summary</h2>
+<p>Make a POJO annotated with <code>@ConfigurationProperties</code> enable binding with either <code>@EnableConfigurationProperties</code> or <code>@ConfigurationPropertiesScan</code> supply values in application.properties add Bean Validation with <code>@Validated</code> and inject the typed settings via constructor injection Do this and your app will be marginally less likely to surprise you on a Monday morning</p>
+

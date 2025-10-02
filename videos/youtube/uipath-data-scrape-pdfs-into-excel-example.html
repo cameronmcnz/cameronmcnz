@@ -1,0 +1,81 @@
+---
+layout: video
+title: "UiPath Data Scrape PDFs into Excel Example"
+description: "Compact UiPath guide for scraping tables from PDFs and exporting to Excel with practical steps and quick tips."
+video_host: "youtube"
+video_id: "k5eG8vc8u_8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M2S"
+thumbnail_url: "https://i.ytimg.com/vi/k5eG8vc8u_8/maxresdefault.jpg"
+content_url: "https://youtu.be/k5eG8vc8u_8"
+embed_url: "https://www.youtube.com/embed/k5eG8vc8u_8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Data Scraping
+  - PDF
+  - Excel
+  - RPA
+  - Automation
+  - DataTable
+  - Read PDF Text
+  - Write Range
+  - OCR
+---
+
+<p>Yes you can make stubborn PDF tables behave and land neatly in Excel without crying into the keyboard. This guide walks through a simple UiPath workflow that extracts table data from PDFs and writes a tidy DataTable into an Excel workbook. Expect Read PDF Text or Read PDF With OCR for raw content, the Data Scraping wizard for structured rows, and Write Range to lock it into a file.</p>
+
+<h2>What you need before you begin</h2>
+<ul>
+  <li>UiPath Studio with a new process ready</li>
+  <li>Install UiPath.PDF.Activities and UiPath.Excel.Activities and the OCR package if you plan to handle scans</li>
+  <li>A PDF viewer that UiPath can interact with and a sample PDF that actually looks like a table</li>
+</ul>
+
+<h2>Quick overview of the workflow</h2>
+<p>At a high level the flow is:</p>
+<ul>
+  <li>Open the PDF or load it into a viewer</li>
+  <li>Use Read PDF Text when text is selectable or Read PDF With OCR for scanned pages</li>
+  <li>Run the Data Scraping wizard and capture the table into a DataTable</li>
+  <li>Clean and convert columns in the DataTable</li>
+  <li>Use Excel Application Scope and Write Range to save the sheet</li>
+</ul>
+
+<h3>Step 1 Create the project and add the packages</h3>
+<p>Create a new process and install the PDF and Excel activities. If your PDFs are scans add an OCR provider too. Clear naming helps when the project grows beyond a hopeful demo, so name things like ReadPdfActivity and ExcelWriteActivity to avoid future confusion.</p>
+
+<h3>Step 2 Choose how to read the PDF</h3>
+<p>If the PDF has selectable text use Read PDF Text for speed and accuracy. If it is a scanned image use Read PDF With OCR and pick an engine that matches the document language. This choice affects accuracy and runtime cost so pick wisely.</p>
+
+<h3>Step 3 Use the Data Scraping wizard to capture the table</h3>
+<p>Open the PDF in a viewer that UiPath can interact with and launch the Data Scraping wizard. Click the first visible cell and then the next one so the wizard can detect the repeating pattern. The wizard will try to capture all similar rows and return a DataTable. Save the result to a variable named extractedTable or another memorable name so the workflow reads like documentation.</p>
+
+<h3>Step 4 Clean the DataTable</h3>
+<p>Tables from PDFs are messy in a sophisticated way. Use simple cleaning steps to fix whitespace and convert types. Common operations include:</p>
+<ul>
+  <li>Trim string columns with row("ColumnName") = row("ColumnName").ToString.Trim</li>
+  <li>Convert numeric text with Convert.ToInt32 or Int32.Parse after trimming</li>
+  <li>Use a For Each row in extractedTable to apply conversions or use LINQ and DataTable select if you prefer fewer activities</li>
+</ul>
+<p>For stubborn formatting quirks a short Invoke Code or a few Assign activities will get things into shape without drama.</p>
+
+<h3>Step 5 Write the DataTable to Excel</h3>
+<p>Add an Excel Application Scope and then a Write Range activity. Set AddHeaders to true so your column names survive the trip. Overwrite an existing sheet during testing so you do not accumulate mystery files named output 1 output 2 and so on.</p>
+
+<h2>Run and verify</h2>
+<p>Run the workflow and open the workbook. Check that numeric columns are numeric and that dates and amounts parsed correctly. If rows are missing check whether the Data Scraping wizard matched the visual pattern or whether you need OCR or a different viewer.</p>
+
+<h2>Troubleshooting tips and common pitfalls</h2>
+<ul>
+  <li>If the Data Scraping wizard misses rows try increasing the visible area or scroll the viewer so the wizard can detect the pattern across multiple pages</li>
+  <li>If OCR gives garbage try a different OCR engine or improve image quality with preprocessing before OCR</li>
+  <li>If conversions fail log the raw values and inspect for stray characters like non breaking spaces or currency symbols</li>
+</ul>
+
+<h2>Final thoughts</h2>
+<p>This is a practical pattern for UiPath RPA when you need PDF to Excel automation. You will alternate between mild triumph and gentle cursing but the result is worth it. Keep your DataTable named clearly keep your conversions simple and write to Excel with confidence. If the PDF fights back there are always more robust parsing approaches but this workflow covers most sane cases.</p>
+

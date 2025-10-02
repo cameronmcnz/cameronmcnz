@@ -1,0 +1,66 @@
+---
+layout: video
+title: "How Git no-ff Merges Work"
+description: "Clear explanation of Git no ff merge behavior and why a merge commit appears even when a fast forward is possible. Practical branching tips."
+video_host: "youtube"
+video_id: "aLhYYHTmNvs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M16S"
+thumbnail_url: "https://i.ytimg.com/vi/aLhYYHTmNvs/maxresdefault.jpg"
+content_url: "https://youtu.be/aLhYYHTmNvs"
+embed_url: "https://www.youtube.com/embed/aLhYYHTmNvs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git merge
+  - no-ff
+  - merge commit
+  - fast forward
+  - feature branch
+  - git history
+  - version control
+  - git tips
+  - git workflow
+---
+
+<p>Git has a habit of taking the easy route when it can. Fast forward merges move the branch pointer and call it a day. If you prefer your feature work to have a visible spine and not fade into the main timeline like a mystery subplot then use a no ff merge. This forces Git to create a merge commit that ties the feature branch back to main with two parents and a clean, auditable node in the graph.</p>
+
+<h2>What happens when you run a no ff merge</h2>
+<p>In plain terms a normal fast forward happens when main has no new commits since the branch point. Git simply advances the main pointer and nobody notices the branch ever existed. A git merge --no-ff overrides that shortcut and creates a dedicated merge commit that lists both the main tip and the feature tip as parents. The commit graph then shows the feature as a bounded set of commits instead of a linear extension.</p>
+
+<pre><code>git checkout main
+git merge --no-ff feature
+git log --oneline --graph --decorate
+</code></pre>
+
+<p>Run that log command and you will see the merge commit with two parents. The graph view makes the separation obvious and answers the eternal workplace question about why that extra commit was added.</p>
+
+<h3>Why teams choose no ff merges</h3>
+<ul>
+  <li>Clear audit trail for a whole feature rather than scattered commits</li>
+  <li>Easier to revert an entire feature by targeting the merge commit with git revert -m 1</li>
+  <li>Better context for reviewers who want to see the grouped work as a unit</li>
+  <li>Explicit grouping helps release notes and blame for when a change landed</li>
+</ul>
+
+<h3>When no ff is annoying</h3>
+<ul>
+  <li>A busier history with extra merge commits may reduce readability for tiny fixes</li>
+  <li>Visual graphs become fuller which some people call messy and others call informative</li>
+  <li>For trivial hotfixes a fast forward may be simpler and keeps history linear</li>
+</ul>
+
+<h2>Practical tips for tidy no ff merges</h2>
+<p>Use descriptive merge messages so the merge commit actually tells a story. Name your feature branches clearly and keep changes scoped. If group level context matters then opt for no ff. If you want the absolute minimal history then let fast forward do its thing for short lived edits.</p>
+
+<ul>
+  <li>Always run git log --graph --oneline --decorate to inspect the shape of history</li>
+  <li>Use git revert -m 1 &lt;merge commit hash&gt; to back out a whole feature if needed</li>
+  <li>Combine no ff merges with clear branch names and detailed messages for best results</li>
+</ul>
+
+<p>You can think of no ff merges as putting a helpful signpost in your repository that says feature starts here and ends there. It makes the timeline a little fuller but gives you a much better map when somebody asks what happened and why. Or when a future you needs to undo that bright idea from two months ago and wants to do it without crying.</p>
+

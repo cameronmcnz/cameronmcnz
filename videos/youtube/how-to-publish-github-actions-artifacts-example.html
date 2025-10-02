@@ -1,0 +1,69 @@
+---
+layout: video
+title: "How to publish GitHub Actions artifacts example"
+description: "Publish GitHub Actions artifacts step by step guide for upload download retention and reuse in workflows and jobs"
+video_host: "youtube"
+video_id: "Zcsk_Nzv-aU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M55S"
+thumbnail_url: "https://i.ytimg.com/vi/Zcsk_Nzv-aU/maxresdefault.jpg"
+content_url: "https://youtu.be/Zcsk_Nzv-aU"
+embed_url: "https://www.youtube.com/embed/Zcsk_Nzv-aU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub Actions
+  - artifacts
+  - upload artifact
+  - download artifact
+  - workflows
+  - CI
+  - DevOps
+  - retention
+  - build artifacts
+  - automation
+---
+
+<h1>Workflow tips for uploading downloading and managing build artifacts across runs</h1>
+<p>Want to make build outputs live past the ephemeral runner and stop redoing work like a caffeinated hamster on a treadmill Yes this guide walks through publishing artifacts from GitHub Actions and then reusing them across jobs and workflows with enough sarcasm to keep you awake</p>
+
+<h2>Create the workflow file and pick your moments</h2>
+<p>Start by adding a YAML file under <code>.github/workflows</code>. Define the events that trigger the workflow and split work into jobs with clear names so a future contributor does not weep loudly.</p>
+
+<h2>Upload an artifact with the upload action</h2>
+<p>Add a step that runs the actions upload artifact action. Give the artifact a descriptive name and point it at the path that contains your build output. Once uploaded the artifact persists after the job finishes and waits politely for the next step or workflow to claim it.</p>
+
+<h3>Quick checklist for uploads</h3>
+<ul>
+  <li>Pick a name that tells you what the artifact actually is including branch or build id</li>
+  <li>Set the path to the folder or file you actually need and not the whole repo unless you enjoy clutter</li>
+  <li>Decide retention days up front to avoid surprise storage bills</li>
+</ul>
+
+<h2>Download the artifact with the download action</h2>
+<p>In a later job use the actions download artifact action and refer to the same name. The action restores files to the runner file system so the next steps can test package or publish them. If the names match the right artifact is restored even if multiple artifacts exist.</p>
+
+<h2>Share artifacts across jobs and across workflows</h2>
+<p>Within a single workflow upload in one job and download in another to move files between runners. For workflow to workflow sharing consider the artifact API or create a release when you need longer term cross run persistence across repositories. Both approaches are reliable when you need to hand artifacts off to other workflows or teams.</p>
+
+<h3>When to use the artifact API or a release</h3>
+<ul>
+  <li>Use the artifact API for automation that needs programmatic access across workflows</li>
+  <li>Use a GitHub release when you want a human friendly downloadable package or long term storage</li>
+</ul>
+
+<h2>Naming patterns and retention settings that save lives</h2>
+<p>A stable naming pattern makes troubleshooting less miserable. Include the branch and the run id in the name so builds do not overwrite each other. For example use a pattern like <code>myapp-${{ github.ref }}-run-${{ github.run_id }}</code>. Short lifetimes reduce storage costs and keep the artifact list from turning into a hoarders jubilee.</p>
+
+<h2>Common pitfalls and how to avoid them</h2>
+<ul>
+  <li>Uploading huge folders by accident. Be selective and compress when reasonable</li>
+  <li>Using ambiguous names like build or output. Be explicit and avoid ambiguity drama</li>
+  <li>Expecting artifacts to be eternal. Set retention and clean up old runs</li>
+</ul>
+
+<h2>Final notes and a tiny pep talk</h2>
+<p>Adding upload and download steps to your workflows is the simplest way to let jobs pass files around without reinventing the wheel. Name artifacts clearly set reasonable retention and pick the right sharing method for your use case. Do that and your CI will behave like a reliable coworker instead of a diva.</p>
+

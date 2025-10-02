@@ -1,0 +1,115 @@
+---
+layout: video
+title: "Example of a Jenkins Maven Integration Pipeline for Java Bui"
+description: "Compact guide to create a Jenkins pipeline that runs Maven builds tests and archives Java artifacts for continuous integration"
+video_host: "youtube"
+video_id: "B1hoNEoaf7U"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M46S"
+thumbnail_url: "https://i.ytimg.com/vi/B1hoNEoaf7U/maxresdefault.jpg"
+content_url: "https://youtu.be/B1hoNEoaf7U"
+embed_url: "https://www.youtube.com/embed/B1hoNEoaf7U"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Maven
+  - Java
+  - Continuous Integration
+  - CI
+  - CD
+  - Jenkinsfile
+  - Pipeline
+  - Build Automation
+  - Unit Testing
+---
+
+<p>If you like reproducible builds and not being woken up by angry teammates then this is the guide for you. We will wire Jenkins and Maven together to build Java code, run unit tests, and produce artifacts you can actually locate later. Expect practical steps and a little sarcasm to keep things readable.</p>
+
+<h2>Install Jenkins and required plugins</h2>
+<p>Pick a supported Jenkins version and install the essentials. The Pipeline plugin and Git plugin are non negotiable unless you own a time machine. Add any SCM or notification plugins your team uses and keep the server updated for security.</p>
+<ul>
+  <li>Install the Pipeline plugin and Git plugin</li>
+  <li>Add plugins for your artifact repo or cloud storage when needed</li>
+  <li>Run Jenkins as a service and restrict admin access to people who will not panic at the first red build</li>
+</ul>
+
+<h3>Install Maven and configure a global tool in Jenkins</h3>
+<p>You can install Maven on the build host or declare a Maven tool in Jenkins global tool configuration. Pointing builds to a consistent Maven installation keeps things predictable and less theatrical.</p>
+<ul>
+  <li>Install a stable Maven version on the agent or configure it under Manage Tools</li>
+  <li>Keep a small settings.xml with locked repositories to avoid surprises</li>
+</ul>
+
+<h2>Create a pipeline job and connect source control</h2>
+<p>Create a pipeline job and grant the credential minimal permissions. Do not hand the build system superuser keys unless you enjoy cleaning up disasters.</p>
+<ul>
+  <li>Use a dedicated service account or deploy key with read only access for checkout</li>
+  <li>Prefer branch or multibranch pipelines to avoid manual job creation for every branch</li>
+</ul>
+
+<h2>Write a Jenkinsfile</h2>
+<p>Use declarative pipeline syntax and call Maven with the goals that match your workflow. For full test runs use mvn clean verify and for quick artifact builds use mvn clean package. Publish JUnit reports so failed tests are easy to find.</p>
+<pre><code>pipeline {
+  agent any
+  tools {
+    maven "M3"
+    jdk "JDK11"
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'mvn clean package'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'mvn test'
+        junit 'target/surefire-reports/*.xml'
+      }
+    }
+    stage('Archive') {
+      steps {
+        archiveArtifacts 'target/*.jar'
+      }
+    }
+  }
+  post {
+    always {
+      echo 'Pipeline finished'
+    }
+    failure {
+      echo 'Failure detected check console output and test reports'
+    }
+  }
+}
+</code></pre>
+
+<h2>Add credentials and artifact storage</h2>
+<p>Store credentials in Jenkins credentials and give the pipeline only what it needs. For artifacts use a repository manager such as Nexus or Artifactory, or use Jenkins archiveArtifacts for simple cases. Either way document where jars and reports end up so no one has to guess.</p>
+<ul>
+  <li>Use repository managers for long term artifact retention and metadata</li>
+  <li>Use archiveArtifacts for quick CI snapshots and debugging</li>
+  <li>Keep credentials scoped to the minimum required operations</li>
+</ul>
+
+<h2>Run the pipeline and inspect results</h2>
+<p>Trigger the pipeline and read the console output like a detective. Stage views and JUnit reports make failures obvious. Logs will show Maven test failures and stack traces, which is annoying but useful.</p>
+
+<h2>Tips and best practices</h2>
+<ul>
+  <li>Maintain a small deterministic settings.xml and lock dependency versions to avoid build bit rot</li>
+  <li>Use clean verify for full CI runs and clean package for local or faster checks</li>
+  <li>Publish test reports and store artifacts so you are not digging through old workspaces later</li>
+  <li>Keep build scripts simple and readable so the next person is not cursed for eternity</li>
+</ul>
+
+<p>This setup yields reproducible Java builds, clearer CI feedback, and fewer late night messages. It will not make your coffee but it will make your releases less terrifying.</p>
+

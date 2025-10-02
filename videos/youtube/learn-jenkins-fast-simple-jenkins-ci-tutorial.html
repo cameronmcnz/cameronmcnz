@@ -1,0 +1,105 @@
+---
+layout: video
+title: "Learn Jenkins Fast! Simple Jenkins CI Tutorial"
+description: "Quick beginner friendly Jenkins CI guide for installation pipeline creation plugin management and automated builds"
+video_host: "youtube"
+video_id: "OXP8YBPBdgw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1H44M34S"
+thumbnail_url: "https://i.ytimg.com/vi/OXP8YBPBdgw/maxresdefault.jpg"
+content_url: "https://youtu.be/OXP8YBPBdgw"
+embed_url: "https://www.youtube.com/embed/OXP8YBPBdgw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Continuous Integration
+  - CI
+  - Pipeline
+  - Jenkinsfile
+  - DevOps
+  - Automation
+  - Git
+  - Tutorial
+  - Beginner
+---
+
+<h2>Why bother with Jenkins if you like manual toil</h2>
+<p>If you are new to Jenkins or Continuous Integration and you enjoy spending evenings pushing builds by hand then this guide will ruin your hobby. For everyone else Jenkins gives you automated builds pipeline as code and repeatable CI that plays nicely with Git and your DevOps workflow. This is a practical beginner friendly tutorial that walks through install basic setup a Declarative Pipeline and connecting webhooks for automated runs.</p>
+
+<h2>Quick overview of what we will do</h2>
+<ul>
+  <li>Install Jenkins on a server or run it in Docker</li>
+  <li>Complete the initial setup and add recommended plugins</li>
+  <li>Add credentials and configure global tools like JDK Maven and Docker</li>
+  <li>Create a Declarative Pipeline in a Jenkinsfile and test builds</li>
+  <li>Connect a Git repository and add webhooks for automation</li>
+</ul>
+
+<h2>Install Jenkins and get to the web UI</h2>
+<p>Install Jenkins on Linux with the official package or use the Jenkins docker image for a predictable environment. After install open the Jenkins web UI on port 8080 and follow the setup wizard to unlock the instance and install recommended plugins. Yes that wizard will ask for an admin user and a password that lives in a file so copy it and move on.</p>
+
+<h2>Initial configuration and plugin selection</h2>
+<p>The setup wizard covers most common plugins but you will likely add more for GitHub GitLab pipeline utilities and build tools. Add credentials to the Jenkins credentials store for Git access and any build servers. Then tell Jenkins where your global tools live such as JDK Maven and Docker so pipeline steps do not all have to guess the JDK version.</p>
+
+<h2>Create a Declarative Pipeline with a Jenkinsfile</h2>
+<p>Store a Jenkinsfile in your project repository and treat it like source code. Declarative Pipeline syntax is friendly for beginners and readable for everyone else. Define stages for checkout build test and deploy and reuse shared libraries for logic you do not want to rewrite four times.</p>
+
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'mvn -B -DskipTests package'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'mvn test'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Deploy step here'
+      }
+    }
+  }
+}</code></pre>
+
+<h3>Notes about the Jenkinsfile</h3>
+<ul>
+  <li>Keep the Jenkinsfile in the same repo as your code for reproducible pipelines</li>
+  <li>Start with simple stages and add complexity as you gain confidence</li>
+  <li>Use shared libraries when multiple projects need the same logic</li>
+</ul>
+
+<h2>Connect a Git repository and enable webhooks</h2>
+<p>Add your repository URL and credentials to your job or use Multibranch Pipeline to let Jenkins discover branches and pull requests automatically. Configure webhooks on GitHub or GitLab so pushes and PR events trigger a build. Multibranch saves you from making a million nearly identical jobs which is a nice change from the dark ages.</p>
+
+<h2>Run builds monitor logs and fix what breaks</h2>
+<p>You can run a build manually or push a change to trigger automation. Watch the console logs for failures and adjust stages as needed. Console logs are blunt but effective truth machines. Keep build steps idempotent and avoid relying on ephemeral local state.</p>
+
+<h2>Post build notifications and feedback loops</h2>
+<p>Configure post build notifications to Slack email or other channels so the team knows when a build greets success or sputters. Fast feedback keeps bugs small and arguments fewer. Use credential binding for secret values and never commit passwords to Git unless you like trouble.</p>
+
+<h2>Scaling and next steps</h2>
+<p>When one Jenkins controller is not enough add agents that run jobs on dedicated nodes or in containers. Use pipeline libraries to centralize shared logic and consider Blue Ocean or other UI plugins if you want prettier build graphs. For heavy workloads look at distributed builds and build caching strategies.</p>
+
+<h2>Recap and a few pro tips</h2>
+<ul>
+  <li>Install Jenkins via package or Docker and open the UI on port 8080</li>
+  <li>Use the setup wizard and install recommended plugins</li>
+  <li>Store a Jenkinsfile in your repo and prefer Declarative Pipeline for clarity</li>
+  <li>Use Multibranch Pipeline for automatic branch and PR builds</li>
+  <li>Add credentials to the credentials store and use binding for secrets</li>
+</ul>
+
+<p>Jenkins is not magic but it is powerful automation for CI and DevOps. Treat your pipelines as code add tests and keep builds fast. Now go create a pipeline and pretend you did not enjoy the debugger ride.</p>
+

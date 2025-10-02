@@ -1,0 +1,85 @@
+---
+layout: video
+title: "Deploy Docker Containers to Amazon EKS Clusters"
+description: "Step by step guide to deploy Docker containers to Amazon EKS using eksctl kubeconfig YAML and ECR for images"
+video_host: "youtube"
+video_id: "YSvNovhyJjM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/YSvNovhyJjM/maxresdefault.jpg"
+content_url: "https://youtu.be/YSvNovhyJjM"
+embed_url: "https://www.youtube.com/embed/YSvNovhyJjM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Docker
+  - Amazon EKS
+  - eksctl
+  - kubeconfig
+  - ECR
+  - Kubernetes
+  - kubectl
+  - YAML
+  - Deployment
+  - Cloud
+---
+
+<p>So you built a Docker image and now you want it to live its best life on Amazon EKS. This guide walks through the practical steps that actually matter. You will build and tag an image, push it to ECR, create a reproducible EKS cluster with eksctl and a YAML file, update kubeconfig so kubectl can talk to the cluster, apply Deployment and Service manifests, and check that your pods did not throw a tantrum during startup.</p>
+
+<h2>Why this flow works</h2>
+<p>Keeping the image in Amazon ECR makes Kubernetes pulls predictable. Defining the cluster with eksctl YAML gives you repeatability and fewer surprises. Updating kubeconfig means your local kubectl is not guessing which cluster to bug. The rest is just Kubernetes doing its scheduling magic and you hoping your container image has fewer bugs than your last weekend project.</p>
+
+<h2>Build the Docker image</h2>
+<p>Use a Dockerfile and aim for a compact image with a meaningful tag. Multi stage builds are your friend if you want small images and faster pulls on worker nodes.</p>
+<pre><code>docker build -t my-app:1.0 .</code></pre>
+<p>Tip do not commit large secrets into the image unless you enjoy regretting life choices.</p>
+
+<h2>Push the image to Amazon ECR</h2>
+<p>Create the ECR repository and push your image so nodes can pull it when Kubernetes schedules pods. A common sequence looks like this.</p>
+<pre><code>aws ecr create-repository --repository-name my-app
+aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 123456789012.dkr.ecr.us-west-2.amazonaws.com
+docker tag my-app:1.0 123456789012.dkr.ecr.us-west-2.amazonaws.com/my-app:1.0
+docker push 123456789012.dkr.ecr.us-west-2.amazonaws.com/my-app:1.0</code></pre>
+<p>Now ECR is the single source of truth for image pulls. Breathe a little easier.</p>
+
+<h2>Create the EKS cluster with eksctl</h2>
+<p>Declare the cluster in a YAML file so your cluster comes up the same way next week or next year when you try to reproduce a bug. A minimal cluster file contains node group, region, and basic networking info. Then run eksctl to create it.</p>
+<pre><code>eksctl create cluster -f cluster.yaml</code></pre>
+<p>The YAML can include managed node groups IAM roles and any labels you want on the nodes. If you like reproducibility this is where it starts to feel like adulting.</p>
+
+<h2>Update kubeconfig so kubectl can talk to the cluster</h2>
+<p>Tell your workstation which cluster to use. This writes kubeconfig so kubectl knows where to send requests.</p>
+<pre><code>aws eks update-kubeconfig --name my-cluster --region us-west-2</code></pre>
+<p>Now kubectl get pods will actually talk to your new cluster instead of pretending to be useful.</p>
+
+<h2>Deploy your manifests</h2>
+<p>Create Kubernetes YAML for a Deployment and Service that reference the ECR image. Keep manifests small and declarative. An example Deployment spec points to the ECR image URL and sets replicas and ports.</p>
+<pre><code>kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml</code></pre>
+<p>Kubernetes will schedule pods on available nodes and pull the image from ECR. If the image does not exist or permissions are wrong you will see image pull errors which is less fun than you hoped.</p>
+
+<h3>Example checklist</h3>
+<ul>
+  <li>Deployment references 123456789012.dkr.ecr.region.amazonaws.com/my-app:1.0</li>
+  <li>Service exposes the correct port</li>
+  <li>Service type matches your needs ClusterIP NodePort or LoadBalancer</li>
+</ul>
+
+<h2>Verify and debug</h2>
+<p>Check status and logs to make sure pods are not silently sulking.</p>
+<pre><code>kubectl get pods
+kubectl get svc
+kubectl logs deployment/my-app</code></pre>
+<p>If pods are stuck in ImagePullBackOff verify the image URL ECR repo and IAM permissions. If nodes are not Ready check node logs and cloud provider limits. Expect a short wait while images download and nodes initialize. Coffee is allowed and encouraged.</p>
+
+<h2>Final notes and gotchas</h2>
+<ul>
+  <li>ECR requires either an IAM role on nodes or a pull secret so nodes can authenticate to the registry.</li>
+  <li>Use tags for immutable references and avoid using latest in production unless you like mystery bugs.</li>
+  <li>Keep your cluster YAML under version control so you can roll back or recreate the cluster without summoning chaos.</li>
+</ul>
+
+<p>If you followed these steps you built a Docker image pushed it to ECR created an EKS cluster with eksctl updated kubeconfig and deployed manifests with kubectl. Now relax a bit or go break something on purpose and learn from it.</p>
+

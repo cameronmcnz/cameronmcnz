@@ -1,0 +1,67 @@
+---
+layout: video
+title: "Setup Login to Tomcat Manager without 401 403 errors"
+description: "Quick guide to configure Tomcat Manager and avoid 401 and 403 errors when logging in to the Manager web interface"
+video_host: "youtube"
+video_id: "PU73QmFuiag"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M23S"
+thumbnail_url: "https://i.ytimg.com/vi/PU73QmFuiag/maxresdefault.jpg"
+content_url: "https://youtu.be/PU73QmFuiag"
+embed_url: "https://www.youtube.com/embed/PU73QmFuiag"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Tomcat
+  - Tomcat Manager
+  - 401 error
+  - 403 error
+  - tomcat users
+  - manager gui
+  - server authentication
+  - webapp security
+  - Java web server
+  - server admin
+---
+
+<h2>Quick summary for the impatient server admin</h2>
+<p>401 means Tomcat does not like your credentials. 403 means Tomcat does not like where you are coming from. If you want the manager GUI to stop yelling at you follow these steps and do not use passwords like password123 unless you enjoy chaos.</p>
+
+<h2>Add a manager user the right way</h2>
+<p>Edit conf/tomcat-users.xml and add a role and a user entry for the manager GUI. A minimal example looks like this</p>
+<pre>&lt;role rolename="manager-gui" /&gt;
+&lt;user username="admin" password="YourStrongPasswordHere" roles="manager-gui" /&gt;</pre>
+<p>Make the password strong and never commit that file to a public repo. If your Tomcat is managed by a package or automation tool check that tool first so your changes do not get overwritten.</p>
+
+<h2>Restart Tomcat and reload the realm</h2>
+<p>You must restart the server so the realm picks up tomcat-users.xml. Use systemctl restart tomcat if you installed Tomcat as a service or use bin/shutdown.sh and bin/startup.sh for manual installs. A restart is the usual reason people still see 401 errors after they added a user.</p>
+
+<h3>Why 401 keeps happening</h3>
+<ul>
+  <li>No matching user or wrong password. Double check the username and role names.</li>
+  <li>The user lacks the manager-gui role. Manager needs that role to grant access to the GUI.</li>
+</ul>
+
+<h2>Check manager webapp restrictions and 403 causes</h2>
+<p>Some Tomcat distributions block the manager GUI to remote hosts by default. Look for a RemoteAddrValve in webapps/manager/META-INF/context.xml or conf/Catalina/localhost/manager.xml. If there is a rule only allowing 127.0.0.1 that will give you a 403 when you try to connect from elsewhere.</p>
+
+<h3>Network gotchas</h3>
+<ul>
+  <li>If Tomcat is bound to a specific address or running behind a reverse proxy the request remote address may not be what Tomcat expects. That can trigger a 403.</li>
+  <li>When using a proxy ensure RemoteIpValve is configured so Tomcat can read the real client IP from standard headers.</li>
+</ul>
+
+<h2>Accessing the Manager GUI</h2>
+<p>Point your browser to http://localhost:8080/manager/html on the server host or use your server hostname and port. Enter the username and password you added. If you still get a 401 check catalina.out and the manager logs for realm errors.</p>
+
+<h2>Final hardening tips</h2>
+<ul>
+  <li>Restrict manager access to trusted hosts with a RemoteAddrValve rather than leaving it open to the internet.</li>
+  <li>Do not reuse your manager credentials in applications or source control.</li>
+  <li>If using a reverse proxy require client auth or IP restrictions there as well.</li>
+</ul>
+
+<p>Follow these steps and you will resolve most Tomcat Manager 401 and 403 problems. If trouble persists read the logs and recheck any proxy or firewall rules that may rewrite headers or mask client addresses.</p>
+

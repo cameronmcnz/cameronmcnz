@@ -1,0 +1,70 @@
+---
+layout: video
+title: "jdbc"
+description: "Compact guide to JDBC for Java developers connecting to relational databases and running safe queries"
+video_host: "youtube"
+video_id: "1vGeRWzjQt8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M37S"
+thumbnail_url: "https://i.ytimg.com/vi/1vGeRWzjQt8/maxresdefault.jpg"
+content_url: "https://youtu.be/1vGeRWzjQt8"
+embed_url: "https://www.youtube.com/embed/1vGeRWzjQt8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - jdbc
+  - java
+  - database
+  - sql
+  - driver
+  - connection
+  - preparedstatement
+  - resultset
+  - transactions
+  - connectionpool
+---
+
+<h2>What JDBC actually gives your Java app</h2>
+<p>JDBC is the plain spoken bridge between Java and relational databases. It is not glamorous. It does not promise unicorn features. What it does promise is a reliable way to open a connection run SQL and walk a ResultSet without burning the server down. If you care about correct queries transactions and resource cleanup then you care about JDBC.</p>
+
+<h2>The usual workflow that actually works</h2>
+<p>The flow is comfortingly short and boring which is a feature not a bug. Load the driver if you must open a connection use PreparedStatement run queries or updates process the ResultSet and close things. You can do it by hand or let try with resources do the heavy lifting.</p>
+
+<pre><code>Connection conn = DriverManager.getConnection(url, user, password)
+PreparedStatement ps = conn.prepareStatement("select id, name from users where email = ?")
+ps.setString(1, email)
+ResultSet rs = ps.executeQuery()
+while (rs.next()) {
+    int id = rs.getInt("id")
+    String name = rs.getString("name")
+    // map to domain object
+}
+rs.close()
+ps.close()
+conn.close()
+</code></pre>
+
+<p>That snippet is conceptual not sacred. In real code use try with resources to avoid leaking connections when Murphy visits your production box.</p>
+
+<h3>PreparedStatement beats string concatenation every day</h3>
+<p>PreparedStatement provides parameter binding which blocks SQL injection and often gives the driver a chance to optimize repeated queries. Treat it as non negotiable for any user supplied values. Yes it feels repetitive. Yes it is worth it.</p>
+
+<h3>ResultSet basics and mapping</h3>
+<p>ResultSet is a forward only cursor by default. Call typed getters like getInt and getString and map columns to your domain objects. Avoid relying on column positions unless you like debugging brittle code after schema changes.</p>
+
+<h2>Transactions and connection management</h2>
+<p>For transactions setAutoCommit(false) then commit when your unit of work succeeds and rollback on errors. Log enough context to debug without putting credentials in the logs. If you are building anything beyond a toy app use a connection pool. Opening and closing raw connections is expensive and noisy. Connection pooling keeps the database happy and your latency reasonable.</p>
+
+<h3>Common pitfalls and a short checklist</h3>
+<ul>
+  <li>Always use PreparedStatement for user inputs</li>
+  <li>Prefer try with resources for automatic cleanup</li>
+  <li>Use a connection pool in production not raw DriverManager calls</li>
+  <li>Handle SQLExceptions with useful context and no secrets</li>
+  <li>Explicitly commit or rollback when setAutoCommit is false</li>
+</ul>
+
+<p>JDBC is low level but stable. Learn driver choice connection management prepared statements and resource cleanup and you avoid hours of debugging and the occasional production incident. If you want fewer lines of boilerplate consider a lightweight library or a micro ORM to centralize error handling and mapping. That said knowing JDBC well makes everything else easier to reason about.</p>
+

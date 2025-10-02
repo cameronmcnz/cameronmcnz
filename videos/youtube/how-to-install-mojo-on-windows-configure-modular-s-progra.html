@@ -1,0 +1,71 @@
+---
+layout: video
+title: "How to install Mojo on Windows || Configure Modular's Progra"
+description: "Step by step guide to install Mojo on Windows configure Modular's programming language and create your first app"
+video_host: "youtube"
+video_id: "2O8yMwMs7Z8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT21M22S"
+thumbnail_url: "https://i.ytimg.com/vi/2O8yMwMs7Z8/maxresdefault.jpg"
+content_url: "https://youtu.be/2O8yMwMs7Z8"
+embed_url: "https://www.youtube.com/embed/2O8yMwMs7Z8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Mojo
+  - Modular
+  - Mojo on Windows
+  - install mojo
+  - mojo tutorial
+  - programming language
+  - mojo app
+  - developer guide
+  - WSL
+  - setup
+---
+
+<article>
+  <p>So you want to run Mojo on Windows. Brave choice but totally doable. This short guide will get the Mojo toolchain installed, the PATH configured, a tiny mojo app created, and a successful run confirmed. Expect a little clicking, a little command line, and a small victory dance when your Hello message shows up.</p>
+
+  <h2>Prepare the system</h2>
+  <p>Before you start throw on the basics. Mojo likes a modern development environment. At minimum have a supported Python version installed and access to a developer command prompt.</p>
+  <p>If you want fewer surprises pick the Windows Subsystem for Linux. WSL gives you a Unix like shell and makes many tooling steps smoother if you come from Linux or macOS.</p>
+
+  <h2>Install the Mojo toolchain</h2>
+  <p>Follow the Modular documentation to grab the official distribution or use the installer if one is provided. The installer will place the compiler and package manager on your system so you can actually write and run code instead of staring at the README.</p>
+  <p>After the installer finishes open a terminal and confirm the basics with a quick version check. If the command responds you are past the first hurdle.</p>
+  <pre><code>mojo --version</code></pre>
+
+  <h2>Configure environment variables</h2>
+  <p>Make the mojo command available globally by adding the toolchain bin folder to your PATH. You can do this from Windows system settings which is the safe option, or from an elevated terminal if you like living dangerously.</p>
+  <p>Example using the setx command in a command prompt with admin rights. Replace the path with your actual install path.</p>
+  <pre><code>setx PATH "%PATH%;C:\path\to\mojo\bin"</code></pre>
+  <p>Close and reopen your terminal after changing PATH so the new value takes effect.</p>
+
+  <h2>Create a new project and write a simple Mojo app</h2>
+  <p>Create a project folder and put a single source file in it named main.mojo. A minimal project is perfectly fine while you are learning.</p>
+  <pre><code>mkdir my_mojo_app
+cd my_mojo_app
+notepad main.mojo</code></pre>
+  <p>Put a tiny example in main.mojo. Keep it short so compile and run cycles are fast while you learn the language and tools.</p>
+  <pre><code># main.mojo
+print("Hello from Mojo on Windows")</code></pre>
+
+  <h2>Run and verify</h2>
+  <p>From the project folder run the runtime command to compile and execute the file. You will usually see a build step followed by the program output.</p>
+  <pre><code>mojo run main.mojo</code></pre>
+  <p>If you still want to confirm the toolchain is healthy use the version command again and check that the output matches what the installer promised.</p>
+
+  <h3>Troubleshooting tips</h3>
+  <ul>
+    <li>If mojo is not found double check PATH and restart your terminal session.</li>
+    <li>If the run fails read the logs. Missing libraries or runtime errors usually tell you what is wrong.</li>
+    <li>If you used WSL remember the toolchain installed in Windows may not be available inside a WSL distro and vice versa. Install inside the environment you plan to run from.</li>
+    <li>When in doubt consult the Modular docs and the mojo tutorial pages for platform specific notes.</li>
+  </ul>
+
+  <p>There you go. You installed Mojo on Windows, configured a usable development setup, wrote a tiny mojo app, and ran it. Now go build something that makes your coffee or at least prints something clever.</p>
+</article>
+

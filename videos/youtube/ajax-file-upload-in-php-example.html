@@ -1,0 +1,131 @@
+---
+layout: video
+title: "Ajax File Upload in PHP Example"
+description: "Learn how to upload files with Ajax and PHP using FormData XHR and server side validation for smooth user experience and progress feedback"
+video_host: "youtube"
+video_id: "GJeRvHVUSco"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M30S"
+thumbnail_url: "https://i.ytimg.com/vi/GJeRvHVUSco/maxresdefault.jpg"
+content_url: "https://youtu.be/GJeRvHVUSco"
+embed_url: "https://www.youtube.com/embed/GJeRvHVUSco"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Ajax
+  - PHP
+  - File Upload
+  - FormData
+  - XMLHttpRequest
+  - Progress Bar
+  - Validation
+  - Security
+  - Uploads
+  - Backend
+---
+
+<p>Want to upload files without making the user watch the whole page reload like it is 2003 and patience is a virtue? This guide shows how to use Ajax with FormData and XMLHttpRequest to send files to a PHP backend while keeping progress feedback, validation and basic security in place. It is practical and mildly entertaining when servers behave themselves.</p>
+
+<h2>Quick form and minimal HTML</h2>
+<p>Keep the HTML tiny and polite. The browser does the heavy lifting for file picking. Hook into submit and prevent the annoying full page refresh.</p>
+
+<pre><code>&lt;form id="uploadForm" enctype="multipart/form-data"&gt;
+  &lt;input id="fileInput" name="file" type="file" /&gt;
+  &lt;button type="submit"&gt;Upload&lt;/button&gt;
+&lt;/form&gt;
+&lt;progress id="progress" max="100" value="0"&gt;0&lt;/progress&gt;
+&lt;div id="status"&gt;Waiting for your file&lt;/div&gt;</code></pre>
+
+<h2>Client side script using FormData and XMLHttpRequest</h2>
+<p>FormData is literally made for this. XMLHttpRequest gives progress events so you can show a progress bar and avoid angry support tickets.</p>
+
+<pre><code>document.getElementById('uploadForm').addEventListener('submit', function e
+  e.preventDefault()
+  var fileInput = document.getElementById('fileInput')
+  if ! fileInput.files.length
+    document.getElementById('status').textContent = 'No file selected'
+    return
+  var fd = new FormData()
+  fd.append('file', fileInput.files[0])
+
+  var xhr = new XMLHttpRequest()
+  xhr.open('POST', '/upload.php', true)
+
+  xhr.upload.addEventListener('progress', function ev
+    if ev.lengthComputable
+      var percent = Math.round(ev.loaded / ev.total * 100)
+      document.getElementById('progress').value = percent
+      document.getElementById('status').textContent = 'Uploading ' + percent + '%'
+  )
+
+  xhr.onreadystatechange = function
+    if xhr.readyState == 4
+      try
+        var res = JSON.parse(xhr.responseText)
+        if res.success
+          document.getElementById('status').textContent = 'Uploaded as ' + res.name
+        else
+          document.getElementById('status').textContent = 'Upload failed ' + res.message
+      catch err
+        document.getElementById('status').textContent = 'Unexpected server response'
+
+  xhr.send(fd)
+)</code></pre>
+
+<h3>Notes on the client side</h3>
+<ul>
+  <li>Do not set a Content Type header when you send FormData. Let the browser set the boundary and mime info for you.</li>
+  <li>Progress events fire on xhr.upload so listen there not on xhr itself for upload progress.</li>
+  <li>Use JSON responses so the client can handle success or error without guessing.</li>
+</ul>
+
+<h2>Server side handling in PHP</h2>
+<p>The server must check for a file, validate it and then move it to a safe place. The following is minimal and focused on the important checks that stop curious exploits and confused users.</p>
+
+<pre><code>&lt;?php
+if isset($_FILES['file']) and $_FILES['file']['error'] == 0
+  $name = basename($_FILES['file']['name'])
+  $size = $_FILES['file']['size']
+  $tmp = $_FILES['file']['tmp_name']
+
+  if $size > 5 * 1024 * 1024
+    echo json_encode(array('success' => false, 'message' => 'File too large'))
+    exit
+
+  $finfo = finfo_open(FILEINFO_MIME_TYPE)
+  $mime = finfo_file($finfo, $tmp)
+  finfo_close($finfo)
+
+  $allowed = array('image/png', 'image/jpeg', 'application/pdf')
+  if ! in_array($mime, $allowed)
+    echo json_encode(array('success' => false, 'message' => 'Disallowed file type'))
+    exit
+
+  $safe = uniqid('up_', true) . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', $name)
+  $dest = __DIR__ . '/uploads/' . $safe
+
+  if move_uploaded_file($tmp, $dest)
+    echo json_encode(array('success' => true, 'name' => $safe, 'orig' => $name))
+  else
+    echo json_encode(array('success' => false, 'message' => 'Could not move file'))
+else
+  echo json_encode(array('success' => false, 'message' => 'No file received'))
+?&gt;</code></pre>
+
+<h3>Server side checklist</h3>
+<ul>
+  <li>Validate file size and MIME type not just client claims.</li>
+  <li>Sanitize file name and generate a unique server name to prevent overwrites.</li>
+  <li>Store uploads outside the web root if possible and serve via a small proxy script for access control.</li>
+  <li>Consider virus scanning and rate limits for public upload endpoints.</li>
+</ul>
+
+<h2>Putting it all together</h2>
+<p>Flow recap in plain human language. The browser builds FormData with the file and sends it over XMLHttpRequest. The server checks size and mime type then moves the file to a controlled location and responds with JSON. The client reads that JSON and updates the UI and progress bar. If something goes wrong the user sees a useful message not a cryptic 500 page.</p>
+
+<p>Pro tip Give each saved file a generated unique name and keep the original name in your database. That avoids accidental overwrites and keeps an audit trail if you need to explain why someone uploaded a 23 megabyte cat photo to an expense form.</p>
+
+<p>There you go. A tidy Ajax upload with FormData, progress UI, and server side checks so your uploads behave like adults.</p>
+

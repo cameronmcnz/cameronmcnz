@@ -1,0 +1,81 @@
+---
+layout: video
+title: "Screen Scrape Multiple PDF Files with UiPath Example"
+description: "Step by step guide to screen scrape multiple PDF files with UiPath using OCR selectors loops and export to CSV for reliable data extraction"
+video_host: "youtube"
+video_id: "OLTW85hCF10"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M57S"
+thumbnail_url: "https://i.ytimg.com/vi/OLTW85hCF10/maxresdefault.jpg"
+content_url: "https://youtu.be/OLTW85hCF10"
+embed_url: "https://www.youtube.com/embed/OLTW85hCF10"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - PDF
+  - screen scraping
+  - OCR
+  - automation
+  - RPA
+  - data extraction
+  - selectors
+  - workflow
+  - tutorial
+---
+
+<p>If you have a pile of PDFs and the patience of a saint you could open them one by one and copy paste like a heroic but inefficient worker ant. Or you could let UiPath do the heavy lifting and pretend you always planned this level of automation. This guide shows how to screen scrape multiple PDF files with UiPath using OCR, selectors and a loop based workflow to extract clean data for downstream use.</p>
+
+<h2>Prepare your UiPath project and sample files</h2>
+<p>Create a new project and drop all your sample PDF files into a single folder. Add a DataTable variable to hold extracted rows. Name it something sensible so your future self does not rage quit. Include a few PDF variations so your workflow learns to be less brittle.</p>
+
+<h3>Common variables to create</h3>
+<ul>
+  <li>DataTable resultsTable for aggregated rows</li>
+  <li>String filePath to hold the current file path</li>
+  <li>Dictionary or individual variables for parsed fields</li>
+</ul>
+
+<h2>Pick the right read method</h2>
+<p>Not all PDFs are created equal. Pick the method that matches the content and avoid brute force OCR when native text is available.</p>
+
+<h3>When to use what</h3>
+<ul>
+  <li>Use Read PDF Text for text based PDFs. It reads actual text and is faster with fewer errors.</li>
+  <li>Use Get OCR Text or Read PDF With OCR for scanned or image based PDFs where there is no selectable text.</li>
+  <li>Use screen scraping with Click and Type Into when you must mimic a human interaction or when selectors are needed to anchor elements on screen.</li>
+</ul>
+
+<h3>Tips on OCR quality</h3>
+<p>Pick a language specific OCR model to reduce errors. Tweak the OCR engine settings and consider a light image preprocess step if the scans are noisy. OCR is great until it invents words that never existed.</p>
+
+<h2>Capture selectors and anchors like a pro</h2>
+<p>When labels remain stable use Anchor Base to reliably find fields. Good selectors make your workflow resilient to layout changes. Bad selectors will make you curse the UI and the PDF creator.</p>
+
+<h2>Parse the raw text and map fields</h2>
+<p>Once you have raw text use regex or simple string splitting to extract structured fields. For tables detect consistent delimiters or use coordinate based scraping if the table is fixed on the page. Normalize date formats, trim stray whitespace and handle missing values up front.</p>
+
+<h2>Loop through files and build the DataTable</h2>
+<p>Use a For Each activity to iterate files from the input folder. Inside the loop perform the read, parse and normalize steps. Append each parsed row to the DataTable. Use Try Catch around risky steps and log file names that fail so human review can save the day.</p>
+
+<ul>
+  <li>Standardize field names and formats inside the loop for easy aggregation</li>
+  <li>Validate extracted rows and drop empty entries</li>
+  <li>Log warnings for files with low OCR confidence or parsing anomalies</li>
+</ul>
+
+<h2>Save aggregated results</h2>
+<p>When the loop completes use Write CSV or Write Range to export the DataTable to disk. Excel friendly formats make downstream processing simpler. If you need a review step write a temporary CSV with a subset of rows first so you can inspect a sample without opening the full data set.</p>
+
+<h2>Troubleshooting and common pitfalls</h2>
+<ul>
+  <li>Prefer native PDF text reading whenever possible because OCR will invent text and ruin your day</li>
+  <li>Watch out for inconsistent label wording across files that breaks simple selectors</li>
+  <li>If a table shifts by a few pixels use relative anchors or coordinate adjustments rather than brittle absolute positions</li>
+  <li>Keep a log of failed files and the error reason so you do not have to re hunt for problems later</li>
+</ul>
+
+<p>Recap. Set up a project folder, choose the correct read method, capture robust selectors, apply OCR only when needed, loop over files, normalize and validate extracted fields, then export your clean data for downstream automation. Follow these steps and you will have more time for things that do not involve copy paste and existential PDFs.
+

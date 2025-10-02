@@ -1,0 +1,70 @@
+---
+layout: video
+title: "Modern SOAP Web Services in Java with Jakarta EE"
+description: "Build modern SOAP web services in Java using Jakarta EE with practical steps examples testing and deployment tips for developers"
+video_host: "youtube"
+video_id: "U_8HOJOvVcs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M41S"
+thumbnail_url: "https://i.ytimg.com/vi/U_8HOJOvVcs/maxresdefault.jpg"
+content_url: "https://youtu.be/U_8HOJOvVcs"
+embed_url: "https://www.youtube.com/embed/U_8HOJOvVcs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jakarta EE
+  - SOAP
+  - Java
+  - JAX-WS
+  - Web Services
+  - WSDL
+  - JAXB
+  - SoapUI
+  - Maven
+  - WS-Security
+---
+
+<h2>Overview</h2>
+<p>SOAP is not dead yet and neither are your legacy clients. This guide walks through building resilient SOAP web services on Jakarta EE while sparing you the dependency archaeology and the usual despair. You will set up a project with Maven or Gradle generate bindings from a WSDL implement an endpoint deploy and test and add WS Security and monitoring so your service behaves in production.</p>
+
+<h2>Project setup with Maven and Jakarta libraries</h2>
+<p>Start by choosing Maven or Gradle and add Jakarta XML Web Services and JAXB dependencies that match your target application server. Pick Payara Open Liberty or WildFly for quick Jakarta EE integration and avoid mixing versions unless you enjoy spending weekends debugging classloader fights.</p>
+
+<h3>Dependency tips</h3>
+<ul>
+  <li>Keep Jakarta XML Web Services and JAXB versions in sync to avoid runtime surprises.</li>
+  <li>Use the server provided implementations when possible to reduce the size of your deployments.</li>
+  <li>Manage versions with a dependency management section so upgrades are predictable and less like Russian roulette.</li>
+</ul>
+
+<h2>Design the contract first</h2>
+<p>Prefer a contract first approach if you want long term compatibility with a variety of clients. Design the WSDL and XSDs and then generate Java bindings with wsimport or your Jakarta tooling equivalent. Generated classes enforce message format and minimize the glorious chaos that happens when clients invent new XML names and expect your service to guess their intentions.</p>
+
+<h2>Implement the endpoint</h2>
+<p>Annotate your service with the @WebService annotation from JAX WS and implement clean business methods. Use SOAP handlers for header processing logging and cross cutting concerns so your core logic does not turn into a maintenance monster.</p>
+
+<h3>Separation of concerns</h3>
+<ul>
+  <li>Keep service logic in plain Java classes and call them from the annotated endpoint.</li>
+  <li>Use handlers for authentication correlation ids and logging so tests remain focused.</li>
+  <li>Write unit tests for business code and integration tests that exercise the published WSDL.</li>
+</ul>
+
+<h2>Deploy and test like a responsible adult</h2>
+<p>Deploy the WAR or EAR to your server and verify the published WSDL. Test with SoapUI Postman or curl using XML payloads and inspect envelopes namespaces and bindings. Automated integration tests that call the WSDL will save hours of future swearing when a client update breaks something.</p>
+
+<h2>Secure and monitor your service</h2>
+<p>Apply WS Security policies for authentication signatures and encryption and always run your service over HTTPS. Add access controls and use server metrics logs and traces for runtime visibility. Monitoring helps you spot slow operations before angry customers become your new product managers.</p>
+
+<h3>Security checklist</h3>
+<ul>
+  <li>Use WS Security for message level signing and encryption when required by clients.</li>
+  <li>Protect transport with TLS and configure strong cipher suites on the server.</li>
+  <li>Log at the right level so you can debug problems without leaking secrets.</li>
+</ul>
+
+<h2>Final thoughts</h2>
+<p>Following these steps produces a maintainable SOAP service on Jakarta EE that your team can actually support. You will have a clear contract a testable implementation proper security and monitoring and the occasional smug feeling that comes from doing old tech well.</p>
+

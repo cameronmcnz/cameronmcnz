@@ -1,0 +1,86 @@
+---
+layout: video
+title: "Jenkins Artifactory Integration Tutorial Uploading JARs"
+description: "Configure Jenkins to upload JARs to Artifactory using plugin pipelines credentials and simple build steps"
+video_host: "youtube"
+video_id: "AlaRlwCekY0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M22S"
+thumbnail_url: "https://i.ytimg.com/vi/AlaRlwCekY0/maxresdefault.jpg"
+content_url: "https://youtu.be/AlaRlwCekY0"
+embed_url: "https://www.youtube.com/embed/AlaRlwCekY0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Artifactory
+  - JARs
+  - CI
+  - CD
+  - Pipeline
+  - Plugin
+  - Maven
+  - Upload
+  - DevOps
+---
+
+<p>If you want your JARs to stop living on developer laptops and start living in Artifactory where they belong, this guide helps you wire Jenkins to publish artifacts cleanly. It covers the plugin install, server and credential setup, freestyle and pipeline options, upload patterns, and verification. You will keep CI and CD traceability and avoid commit mystery jars.</p>
+
+<h2>Quick checklist to get started</h2>
+<ul>
+  <li>Jenkins with admin access and the Jenkins plugin manager</li>
+  <li>JFrog Artifactory server and a repository for your JARs</li>
+  <li>Account credentials that can upload to the target repo</li>
+  <li>A build tool like Maven or Gradle to produce the JARs</li>
+  <li>Optional pipeline knowledge to automate the whole thing</li>
+</ul>
+
+<h2>Install the Artifactory plugin in Jenkins</h2>
+<p>Open the Jenkins plugin manager and install the Artifactory plugin. This adds build steps and pipeline helpers so Jenkins can talk to Artifactory without duct tape or ritual sacrifice. Restart if prompted and verify the plugin shows up under installed plugins.</p>
+
+<h2>Configure the Artifactory server and credentials</h2>
+<p>Go to the global configuration for the Artifactory plugin and add your Artifactory server entry. Then add credentials in the Jenkins credentials store. Use a service account or API key instead of a personal password for safer automation. Make sure the credentials have push permissions to the target repository.</p>
+
+<h2>Create a job or pipeline</h2>
+<p>You can do this one of two ways</p>
+<ul>
+  <li>Freestyle job. Add the Artifactory deploy or publish step in post build actions. Good for simple builds or GUI lovers.</li>
+  <li>Pipelines via Jenkinsfile. Recommended for CI CD workflows and versioned pipelines. The plugin exposes helpers you can call from scripted or declarative pipelines to upload artifacts and capture build info.</li>
+</ul>
+
+<h2>How to add the upload step</h2>
+<p>Tell the pipeline or job which JAR files to push and where to push them. Use file patterns to avoid uploading the wrong binary by accident. Define the target repo name so artifacts land where intended. For pipelines use the plugin helper name or the server upload helper that the plugin provides.</p>
+
+<h3>Example upload spec described in plain terms</h3>
+<p>Instead of showing exact code which may vary by plugin version, here is the structure to provide</p>
+<ul>
+  <li>pattern equals target/*.jar to match the built JARs</li>
+  <li>target equals libs-release-local/myapp to choose the repository path</li>
+  <li>optionally set properties or metadata to tag the upload with build number and commit id</li>
+</ul>
+
+<h2>Use the Maven or Gradle integration when applicable</h2>
+<p>If your project builds with Maven or Gradle use the Artifactory resolver and publisher steps. These capture full build info which makes traceability and dependency resolution much nicer in CI and CD pipelines. The publisher will upload artifacts and record resolved dependencies so you can answer questions like which commit produced which JAR.</p>
+
+<h2>Verify the upload and metadata</h2>
+<p>After a run check Artifactory for the uploaded JARs. Confirm checksums and that build info lists the artifact. If you enabled build info collection you should see the connection between commit, build number, and the published JAR. If something did not land where expected check file patterns and target repo names first then permissions.</p>
+
+<h2>Troubleshooting tips</h2>
+<ul>
+  <li>Authentication failures usually mean wrong credentials or missing permissions</li>
+  <li>Empty uploads often mean your file pattern did not match the artifact path</li>
+  <li>Missing build info means you used a naive upload step instead of the plugin publisher or resolver</li>
+</ul>
+
+<h2>Best practices to avoid future pain</h2>
+<ul>
+  <li>Collect build info so your DevOps team can trace artifacts back to builds and commits</li>
+  <li>Tag uploads with build numbers and commit ids so rollbacks and audits are easier</li>
+  <li>Use service accounts and API keys for CI CD automation rather than personal credentials</li>
+  <li>Prefer pipeline based publishes for reproducible builds and version controlled Jenkinsfiles</li>
+</ul>
+
+<p>Follow these steps and your Jenkins pipelines will deliver JARs to Artifactory reliably. You will get traceable binaries, fewer mysterious failures, and the faint satisfaction of knowing your CI and CD pipelines are not a house of cards. Now go build something that does not explode in production.
+

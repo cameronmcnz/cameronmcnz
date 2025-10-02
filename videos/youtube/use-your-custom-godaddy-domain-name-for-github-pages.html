@@ -1,0 +1,71 @@
+---
+layout: video
+title: "Use Your Custom Godaddy Domain Name for Github Pages"
+description: "Guide to point a GoDaddy domain to Github Pages using DNS A records and CNAME and enable HTTPS for a custom static site"
+video_host: "youtube"
+video_id: "qJSM8oCB3mU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M5S"
+thumbnail_url: "https://i.ytimg.com/vi/qJSM8oCB3mU/maxresdefault.jpg"
+content_url: "https://youtu.be/qJSM8oCB3mU"
+embed_url: "https://www.youtube.com/embed/qJSM8oCB3mU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GoDaddy
+  - Github Pages
+  - Custom Domain
+  - DNS
+  - CNAME
+  - A record
+  - HTTPS
+  - Static Site
+  - Deployment
+  - Domain Setup
+---
+
+<h2>Why bother with this guide</h2>
+<p>If you bought a flashy GoDaddy domain and now want your static site hosted on GitHub Pages to wear it like a crown this tutorial is for you. It covers the DNS and domain setup steps you need to point GoDaddy to GitHub Pages, add a CNAME, create A records, and get HTTPS working for your custom domain. Yes it takes a little patience while certificates provision, but it beats gifting your visitors an ugly username.github.io address.</p>
+
+<h2>What you will do in this setup</h2>
+<ul>
+  <li>Enable GitHub Pages for your repository and tell GitHub which domain to use</li>
+  <li>Add a CNAME file or enter a custom domain in repository settings</li>
+  <li>Add four A records at GoDaddy for the apex root</li>
+  <li>Add a CNAME record for the www host pointing to your GitHub Pages address</li>
+  <li>Enable HTTPS from the Pages settings and wait for certificate provisioning</li>
+</ul>
+
+<h2>Prepare the GitHub repository</h2>
+<p>Go to your repository settings and enable GitHub Pages from the branch or folder you are using for deployment. For user and organization pages the site will normally be at username.github.io. For project pages the repo name helps form the URL. Either create a file called <code>CNAME</code> at the repository root with a single line that contains your custom domain or enter the same domain in the Pages settings. This tells GitHub which custom domain belongs to the site.</p>
+
+<h3>Quick note on user versus project pages</h3>
+<p>User and org sites do not include the repo name in the URL, while project pages usually do. The CNAME file method works in both cases. If you need the www host to point to your project page the CNAME should point to username.github.io or to the full repo domain if required.</p>
+
+<h2>Update GoDaddy DNS records</h2>
+<p>Open the GoDaddy DNS panel for the domain and add the following records for the apex root domain. Use all four A records to avoid regional failures and to match what GitHub Pages expects.</p>
+<pre><code>A 185.199.108.153
+A 185.199.109.153
+A 185.199.110.153
+A 185.199.111.153
+</code></pre>
+<p>Then add a CNAME record for the <code>www</code> host that points to your GitHub Pages address such as <code>username.github.io</code>. This makes www resolve to your static site deployment handled by GitHub Pages.</p>
+
+<h2>Enable HTTPS and wait for the certificate</h2>
+<p>Return to the GitHub Pages settings and enable HTTPS for the custom domain. GitHub will provision a certificate for your domain automatically. This can take minutes or occasionally hours depending on DNS propagation and certificate issuance. Keep refreshing the Pages settings page to see the status.</p>
+
+<h2>Test everything and set up forwarding if needed</h2>
+<p>Try visiting both the apex domain and the www host in a browser. If the root domain does not redirect to www and you prefer visitors to see the www address you can use GoDaddy forwarding to route root traffic to the www host so the visible address matches the HTTPS certificate. Make sure the certificate status in GitHub Pages shows as active before you consider it done.</p>
+
+<h2>Troubleshooting and tips</h2>
+<ul>
+  <li>If certificate provisioning fails wait for DNS to fully propagate and then try enabling HTTPS again</li>
+  <li>Flush your local DNS cache or test with a private window if you see old behavior</li>
+  <li>Remember to remove any conflicting records that might break your CNAME or A records</li>
+  <li>Keep your CNAME file in the repository root so GitHub knows the canonical domain</li>
+</ul>
+
+<p>There you go. With the right A records, a CNAME, and a little patience for HTTPS provisioning your GoDaddy domain will serve your GitHub Pages static site like a pro. Now go enjoy your custom domain and pretend it was easy all along.</p>
+

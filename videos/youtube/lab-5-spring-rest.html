@@ -1,0 +1,111 @@
+---
+layout: video
+title: "Lab 5 Spring REST"
+description: "Compact lab guide to build a Spring Boot REST API covering models controllers repositories and testing in a hands on way"
+video_host: "youtube"
+video_id: "l-zkJFB4zkc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT20M10S"
+thumbnail_url: "https://i.ytimg.com/vi/l-zkJFB4zkc/maxresdefault.jpg"
+content_url: "https://youtu.be/l-zkJFB4zkc"
+embed_url: "https://www.youtube.com/embed/l-zkJFB4zkc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - REST API
+  - Java
+  - Spring MVC
+  - JPA
+  - Hibernate
+  - RESTful
+  - API Testing
+  - Postman
+  - H2 Database
+---
+
+<p>If you want a small REST API that actually works and does not explode on first request you are in the right place. This playful lab walks you from an empty Spring Boot project to a testable RESTful API with persistence and minimal suffering. Keywords you will see along the way include Spring Boot, Spring MVC, JPA, Hibernate, H2 database, Postman and API testing.</p>
+
+<h2>What you will build</h2>
+<p>A simple resource API that can list items fetch a single item create new items and delete items. The API uses Spring Boot for wiring Spring MVC for request handling JPA and Hibernate for persistence and H2 as an in memory database for fast feedback. Tests use MockMvc or TestRestTemplate so you do not ship regressions to production by accident.</p>
+
+<h2>Project setup and dependencies</h2>
+<p>Create the project with Spring Initializr or a Maven archetype and include these starters</p>
+<ul>
+  <li><code>spring-boot-starter-web</code> for controllers and JSON handling</li>
+  <li><code>spring-boot-starter-data-jpa</code> for JpaRepository support</li>
+  <li><code>com.h2database h2</code> for an in memory database during the lab</li>
+  <li>Optionally add <code>spring-boot-starter-test</code> for testing helpers</li>
+</ul>
+
+<h2>Domain model and repository</h2>
+<p>Define a simple domain class Item with fields like id name and description. Annotate id with @Id and @GeneratedValue and add JPA annotations as needed. Keep domain objects focused on persistence and not on shaping API payloads.</p>
+
+<p>Create a repository interface</p>
+<pre><code>public interface ItemRepository extends JpaRepository<Item Long> { }
+</code></pre>
+
+<p>This gives you CRUD methods without writing SQL or pretending to enjoy boilerplate.</p>
+
+<h2>Controller and endpoints</h2>
+<p>Implement a controller annotated with @RestController and map endpoints under /api/items. Use ResponseEntity for predictable HTTP codes and validation annotations like @Valid and @NotBlank for input checks.</p>
+<pre><code>@RestController
+@RequestMapping("/api/items")
+public class ItemController {
+
+  private final ItemRepository repo;
+
+  public ItemController(ItemRepository repo) {
+    this.repo = repo;
+  }
+
+  @GetMapping
+  public ResponseEntity<List<Item>> list() {
+    return ResponseEntity.ok(repo.findAll());
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<Item> get(@PathVariable Long id) {
+    return repo.findById(id)
+      .map(ResponseEntity::ok)
+      .orElseGet(() -> ResponseEntity.notFound().build());
+  }
+
+  @PostMapping
+  public ResponseEntity<Item> create(@Valid @RequestBody Item item) {
+    Item saved = repo.save(item);
+    return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
+    repo.deleteById(id);
+    return ResponseEntity.noContent().build();
+  }
+}
+</code></pre>
+
+<h2>Persistence and H2 console</h2>
+<p>Configure application.properties to point to H2 and to enable the console for quick inspection. Example properties look like this</p>
+<pre><code>spring.datasource.url=jdbc:h2:mem:labdb
+spring.datasource.driver-class-name=org.h2.Driver
+spring.h2.console.enabled=true
+spring.jpa.hibernate.ddl-auto=update
+</code></pre>
+
+<p>Use CommandLineRunner or SQL data files to seed the database so you can stop manually creating data with a hammer and a curl request.</p>
+
+<h2>Testing and tools</h2>
+<p>Write integration tests with MockMvc or TestRestTemplate to exercise your endpoints and to catch regressions before your users do. Use Postman or curl when you want manual verification or to flex on your teammates.</p>
+<ul>
+  <li>MockMvc is great for controller slice tests</li>
+  <li>TestRestTemplate helps for full application tests with embedded server</li>
+</ul>
+
+<h2>Design tips for grown up APIs</h2>
+<p>Keep controller methods focused on request handling. Move business rules into service classes when logic grows. Design DTOs to separate API contracts from internal domain classes. That avoids accidental data leaks and makes versioning less painful.</p>
+
+<p>Follow these patterns faithfully and you will leave the lab with a small production ready pattern and fewer hair loss incidents.</p>
+

@@ -1,0 +1,83 @@
+---
+layout: video
+title: "How to List, Switch and Checkout Git Branches"
+description: "Quick guide to list switch and checkout Git branches with examples for git branch git switch and git checkout"
+video_host: "youtube"
+video_id: "iO4QjPUkGJk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M43S"
+thumbnail_url: "https://i.ytimg.com/vi/iO4QjPUkGJk/maxresdefault.jpg"
+content_url: "https://youtu.be/iO4QjPUkGJk"
+embed_url: "https://www.youtube.com/embed/iO4QjPUkGJk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - branches
+  - git-branch
+  - git-checkout
+  - git-switch
+  - version-control
+  - tutorial
+  - github
+  - cli
+  - branching
+---
+
+<p>If you ever wanted to look like you know what version control is without actually panicking in front of your team this tutorial will help. We cover how to list branches switch between them create new ones and pull single files from another branch using the git CLI. No magic unicorns just practical commands and a hint of sarcasm.</p>
+
+<h2>List branches and find the thing you lost</h2>
+<p>Want to see what branches exist in your repo without guessing wildly The git branch family of commands is your friend. By default git branch prints local branches only which is usually all you need until someone pushes a half finished feature to origin and you regret trusting humans.</p>
+
+<pre><code>git branch                # show local branches
+git branch -a             # show local and remote refs
+git branch -r             # show remote branches only</code></pre>
+
+<p>Use -a when the repo is a mess and curiosity gets the better of you. The output shows which branch HEAD points to with an asterisk. That pointer is how git knows what code is checked out in your working tree.</p>
+
+<h3>Why remote refs matter</h3>
+<p>Seeing remote branches helps when you want to check out a branch that exists on github but not yet locally. It also prevents the classic awkward moment where you assume a branch exists and then realize it is only in someone else s fork.</p>
+
+<h2>Switch branches without drama</h2>
+<p>Switching branches changes your working tree and moves HEAD. Prefer the modern command git switch because it reads like plain English and makes your intent obvious. The old git checkout still works and will stare at you from legacy scripts like a forgotten dependency.</p>
+
+<pre><code>git switch feature-branch    # switch to an existing branch
+git checkout feature-branch  # older command that still works</code></pre>
+
+<p>If you need to toggle back to the branch you were just on use the dash shortcut. It is shockingly convenient when you are pretending to multitask.</p>
+
+<pre><code>git switch -    # go back to previous branch
+git checkout -   # older form doing the same thing</code></pre>
+
+<h2>Create a branch and check it out in one step</h2>
+<p>Creating a branch and moving HEAD in a single command saves a keystroke and some dignity. Use -c with git switch or -b with git checkout depending on your git version and mood.</p>
+
+<pre><code>git switch -c new-branch   # create and switch in modern git
+git checkout -b new-branch # create and switch with the classic command</code></pre>
+
+<p>Pick clear names for branches so future you does not have to invent excuses at code review. Good examples are feature/authentication fix/login-bug or chore/update-deps. Bad examples are stuff or temp or finally.</p>
+
+<h2>Restore a single file from another branch when things go wrong</h2>
+<p>If a recent change broke the site and only one file needs rescue you do not need to reset the whole branch. Use git checkout with a double dash and a path or use git restore on newer git versions which is less ambiguous.</p>
+
+<pre><code>git checkout main -- path/to/file                # classic way to get a file from main
+git restore --source=main path/to/file           # preferred on modern git</code></pre>
+
+<p>The double dash ensures git treats the next token as a path and not a branch name which avoids nasty surprises in your working tree.</p>
+
+<h3>When to prefer git restore</h3>
+<p>git restore was added to separate restore intent from the multipurpose checkout command. If your git is recent prefer git restore for single file operations and git switch for branch changes. Legacy commands still exist and will keep working for a long time because of historical inertia.</p>
+
+<h2>Quick reference and final tips</h2>
+<ul>
+  <li>List local branches use git branch</li>
+  <li>See remote branches use git branch -a or git branch -r</li>
+  <li>Switch branches use git switch branch-name or the older git checkout branch-name</li>
+  <li>Create and switch use git switch -c name or git checkout -b name</li>
+  <li>Restore a file from another branch use git restore or git checkout with a double dash</li>
+</ul>
+
+<p>This short tutorial covered how to list existing branches switch between them create new branches and recover files across branches using the git CLI. Use these commands on your local machine or on github clones to tame branching chaos and keep version-control slightly less terrifying.</p>
+

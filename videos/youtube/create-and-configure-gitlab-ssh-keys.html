@@ -1,0 +1,92 @@
+---
+layout: video
+title: "Create and Configure GitLab SSH Keys"
+description: "Quick tutorial on generating SSH keys and adding the public key to GitLab for secure push pull and CI access"
+video_host: "youtube"
+video_id: "5Ck07BJDXTE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M22S"
+thumbnail_url: "https://i.ytimg.com/vi/5Ck07BJDXTE/maxresdefault.jpg"
+content_url: "https://youtu.be/5Ck07BJDXTE"
+embed_url: "https://www.youtube.com/embed/5Ck07BJDXTE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitLab
+  - SSH
+  - ssh-keygen
+  - ssh-agent
+  - ssh-add
+  - SSH config
+  - git
+  - DevOps
+  - security
+  - tutorial
+---
+
+<p>Think of SSH keys as your gatekeeper to GitLab minus the small talk and awkward passwords. This short guide walks you through generating a modern key pair registering the public key with GitLab and using ssh agent tricks to avoid typing your way into madness. It is a practical DevOps tutorial for people who care about security but also have deadlines.</p>
+
+<h2>Generate an SSH key pair</h2>
+<p>Use a modern key type for better security and less drama. Ed25519 is a good default because it is secure and tiny. If you prefer RSA for compatibility that works too but pick at least 3072 bits.</p>
+
+<pre><code>ssh-keygen -t ed25519 -C "your_email@example.com"</code></pre>
+
+<p>Press Enter to accept the default path unless you want a custom file name. Add a passphrase if you want an extra lock on the private key. Leave it blank when you need unattended automation for pipelines.</p>
+
+<h2>Add the public key to your GitLab profile</h2>
+<p>Copy the public key and paste it into the GitLab web console under Profile Settings then SSH Keys. On Unix like systems do this to view the key.</p>
+
+<pre><code>cat ~/.ssh/id_ed25519.pub</code></pre>
+
+<p>Give the key a clear title that future you can scan without a panic attack. Include host or purpose like work laptop or ci runner.</p>
+
+<h2>Start the SSH agent and add your private key</h2>
+<p>Let the agent hold your private key so you are not typing your passphrase a dozen times. On a Unix like shell run these commands.</p>
+
+<pre><code>eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519</code></pre>
+
+<p>On Windows use the OpenSSH agent service or a GUI key manager such as the one bundled with Git for Windows. The goal is the same. Make the agent cache the key so git push and git pull stop sounding like a broken elevator.</p>
+
+<h2>Optional SSH config for juggling accounts</h2>
+<p>If you have personal and work accounts or multiple GitLab instances a simple SSH config picks the right key per host. Create or edit the file at ~/.ssh/config and set permissions to user only.</p>
+
+<pre><code>Host gitlab.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+
+Host gitlab-work
+  HostName gitlab.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_work</code></pre>
+
+<p>Then use git remote set-url or add a remote that points to the correct Host entry. This prevents accidental pushes from the wrong account when you are juggling identities like a tired circus performer.</p>
+
+<h2>Test the connection and use with repositories</h2>
+<p>Verify GitLab recognizes your key with a test authentication. You will get a friendly or at least informative message if things work.</p>
+
+<pre><code>ssh -T git@gitlab.com</code></pre>
+
+<p>A successful auth will show a welcome message. After that add SSH remotes or update existing ones and push or pull as usual. Example remote form is git@gitlab.com:username/repo.git but the ssh test uses the git at host syntax.</p>
+
+<h3>Troubleshooting tips</h3>
+<ul>
+  <li>If SSH says permission denied check that the public key was copied correctly and that you added the right one to your GitLab account.</li>
+  <li>If the wrong key is used confirm your ~/.ssh/config points to the right IdentityFile and that ssh agent is not offering the wrong key first.</li>
+  <li>If you see host key warnings verify the known hosts entry and confirm you are talking to the real gitlab host and not that weird network appliance.</li>
+  <li>If SSH agent refuses to add the key check file permissions on the private key. It should be readable only by your user.</li>
+</ul>
+
+<h2>Recap and quick security pointers</h2>
+<ul>
+  <li>Generate a modern key with ssh-keygen and prefer ed25519 when possible.</li>
+  <li>Add the public key to GitLab under Profile Settings then SSH Keys with a clear title.</li>
+  <li>Use ssh agent and ssh-add to cache keys for smoother git operations.</li>
+  <li>Use an SSH config file to handle multiple accounts and avoid accidental pushes.</li>
+  <li>Keep private keys private and consider passphrases for better security.</li>
+</ul>
+
+<p>There you go. Secure GitLab SSH access without the drama and with enough sarcasm to keep you awake while you finish the merge request.</p>
+

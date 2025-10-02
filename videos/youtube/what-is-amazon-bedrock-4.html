@@ -1,0 +1,81 @@
+---
+layout: video
+title: "What is Amazon Bedrock?"
+description: "Beginner friendly guide to Amazon Bedrock for generative AI use cases model selection deployment and secure integration on AWS"
+video_host: "youtube"
+video_id: "loOIG0-cL3Q"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT18M26S"
+thumbnail_url: "https://i.ytimg.com/vi/loOIG0-cL3Q/maxresdefault.jpg"
+content_url: "https://youtu.be/loOIG0-cL3Q"
+embed_url: "https://www.youtube.com/embed/loOIG0-cL3Q"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Amazon Bedrock
+  - AWS Bedrock
+  - Generative AI
+  - Foundation Models
+  - Amazon Titan
+  - Model Deployment
+  - AI API
+  - Prompt Engineering
+  - Cloud AI
+  - Security and Compliance
+---
+
+<h1>A practical guide to model selection and deployment on AWS Bedrock</h1>
+<p>Amazon Bedrock is the AWS service that lets you run foundation models without babysitting servers or pretending you understand Kubernetes. It gives developers a single AI API to call into Amazon Titan and other third party models so you can prototype features, test prompts, and ship production workloads with less hair loss. If you want embeddings, chat assistants, summarization, or code generation, Bedrock handles hosting, scaling, routing and moderation so your team can focus on product not infrastructure.</p>
+
+<h2>What AWS Bedrock offers</h2>
+<p>Think of Bedrock as a model highway. It manages model deployment, low latency managed API endpoints, version control for prompts and responses, and enterprise features for security and compliance. The platform exposes model selection and parameter tuning so you can trade cost for quality and creativity, and it includes response moderation and logging for auditability.</p>
+
+<h3>Core capabilities</h3>
+<ul>
+  <li>Unified AI API to call Amazon Titan and third party foundation models</li>
+  <li>Managed endpoints for production grade latency and scaling</li>
+  <li>Prompt and response versioning for reproducibility</li>
+  <li>Embedding generation for semantic search and retrieval augmentation</li>
+  <li>Security and compliance features such as VPC integration, encryption, and audit logging</li>
+</ul>
+
+<h2>Practical workflow for building with Bedrock</h2>
+<p>Yes there are steps. No they are not optional if you like your app to behave in production. Here is a practical path to go from idea to running model in your service.</p>
+
+<ul>
+  <li>Request access and provision IAM roles so API credentials are least privilege and rotate like they should</li>
+  <li>Choose a foundation model based on task and cost. Higher quality models may cost more per call so test with representative prompts</li>
+  <li>Create prompts and tune parameters such as temperature and max tokens to balance creativity and accuracy</li>
+  <li>Call the Bedrock API from application code using AWS SDKs or standard REST calls for integration</li>
+  <li>Monitor usage, model performance and spend with observability and budget alerts to avoid surprise invoices</li>
+</ul>
+
+<p>Step two is important because prompt engineering changes effective cost and model choice affects latency and hallucination tendencies. Step three will save you grief since a tuned prompt can cut error rates and billable token counts.</p>
+
+<h2>Typical use cases that actually ship</h2>
+<ul>
+  <li>Chat assistants and virtual agents with tuned prompts and response moderation</li>
+  <li>Document summarization and knowledge extraction using embeddings for search and retrieval</li>
+  <li>Code generation and developer productivity tools that call models from CI or editor plugins</li>
+  <li>Search augmentation and reranking using vector embeddings for better relevance</li>
+</ul>
+
+<h2>Security and compliance best practices</h2>
+<p>If your data is sensitive, do not casually send everything to the cloud and hope for the best. Use fine grained IAM policies to limit who can call models and provision keys with AWS KMS for encryption at rest. Encrypt data in transit and at rest and enable audit logging so you can prove what happened to security auditors who enjoy paperwork more than anyone should.</p>
+<p>Prefer preprocessing inside a customer controlled VPC before sending queries to Bedrock when possible. That keeps sensitive transforms under your control and reduces exposure. Also use the platform moderation features to filter policy violating outputs before they reach users.</p>
+
+<h2>Cost and maintenance notes</h2>
+<p>Models and pricing change often. Expect the model catalog to update and new Titan or partner models to appear. Balance cost with quality by running benchmarks on representative workloads and set alerts for spend. Managed endpoints reduce ops work but still need observability so you can spot latency regressions and token inflation.</p>
+
+<h2>Tips for prompt engineering that will not make you cry</h2>
+<ul>
+  <li>Start with clear instruction and examples when you can</li>
+  <li>Test on a representative dataset to catch hallucinations before customers do</li>
+  <li>Lower temperature for deterministic replies and raise it when you want creative answers</li>
+  <li>Limit max tokens to control cost and output size</li>
+</ul>
+
+<p>Amazon Bedrock is not magic, but it is a useful managed platform for teams that want to build generative AI without reinventing model hosting. Use it to prototype faster, then apply security and cost controls before you hit scale and the bills arrive.</p>
+

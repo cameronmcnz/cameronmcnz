@@ -1,0 +1,79 @@
+---
+layout: video
+title: "What is a Git Commit?"
+description: "Quick clear definition of a git commit how snapshots work and basic commands for developers using GitHub GitLab or BitBucket"
+video_host: "youtube"
+video_id: "xd6a9bf6ZqA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/xd6a9bf6ZqA/maxresdefault.jpg"
+content_url: "https://youtu.be/xd6a9bf6ZqA"
+embed_url: "https://www.youtube.com/embed/xd6a9bf6ZqA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - GitHub
+  - GitLab
+  - BitBucket
+  - DevOps
+  - GitOps
+  - Python
+  - JavaScript
+  - Java
+  - Commit
+---
+
+<article>
+  <p>If you thought commits were mysterious acts of digital magic performed by senior devs at midnight you are partly right and partly wrong. A git commit is not a spell. It is a compact snapshot of the files you told Git to track. That snapshot records what changed who made the change a timestamp and a unique hash that helps make the history navigable instead of chaotic.</p>
+
+  <h2>What a commit actually records</h2>
+  <p>Short version is simple long version is still simple but with more words. Each commit contains</p>
+  <ul>
+    <li>A tree of the tracked files that were included in the snapshot</li>
+    <li>An author and committer identity so you know who to politely blame</li>
+    <li>A timestamp so you can time travel poorly</li>
+    <li>A unique SHA hash that identifies the snapshot</li>
+    <li>A pointer to one or more parent commits which builds your project history</li>
+  </ul>
+
+  <h2>How to create a commit without losing your mind</h2>
+  <p>The canonical workflow uses the staging area. Pick the changes you want stage them and then create a snapshot. Commands look like this</p>
+  <pre><code>git add path/to/file.py
+git commit -m "Fix parser bug"</code></pre>
+  <p>Do not use the commit message to retype the code. Say why you changed things not what you typed. Use present tense write focused messages and bundle related changes together. Small atomic commits make reviews and rollbacks far less dramatic.</p>
+
+  <h3>Good commit habits</h3>
+  <ul>
+    <li>Make commits small and focused so a reviewer does not need a lecture to understand them</li>
+    <li>Use present tense like Fix parser bug not Fixed parser bug</li>
+    <li>Group related edits together and avoid mixing formatting and logic changes in one snapshot</li>
+    <li>Commit frequently so you have more checkpoints and less panic</li>
+  </ul>
+
+  <h2>Peek at history when you need to investigate</h2>
+  <p>Git gives you simple commands to inspect the past. Use git log to see a history and use git show to inspect a single snapshot. Examples</p>
+  <pre><code>git log --oneline
+
+git show HEAD
+
+git show commit-hash</code></pre>
+  <p>These commands work the same whether your repo lives on GitHub GitLab or BitBucket. Match the commit hash in your pull request or merge request and you are ready to comment with style.</p>
+
+  <h2>Branches workflows and where commits fit in</h2>
+  <p>Branches let you isolate features or fixes. Work on a branch commit often then open a pull request when the feature is ready for review. Teams using DevOps or GitOps practices rely on clear commit history to automate CI CD and deployment checks so good commit hygiene matters outside your local machine.</p>
+  <p>Whether you are writing Python JavaScript or Java the same rules apply. Clear commits mean faster code reviews less painful debugging and a nicer-looking history when someone asks what happened at 3 a m on a Wednesday.</p>
+
+  <h3>Quick checklist before you push</h3>
+  <ul>
+    <li>Does the message explain why</li>
+    <li>Are related changes grouped together</li>
+    <li>Is each commit small enough to review in a few minutes</li>
+    <li>Did you run tests or linters that CI will run anyway</li>
+  </ul>
+
+  <p>Commits are not time travel but they are the backbone of collaborative development. Treat them with respect and a little sarcasm and your repo will thank you later.</p>
+</article>
+

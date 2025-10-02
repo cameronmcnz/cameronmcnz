@@ -1,0 +1,72 @@
+---
+layout: video
+title: "How to Change a Git Commit Message"
+description: "Compact guide to change a Git commit message using amend rebase and safe force push tips for shared repositories."
+video_host: "youtube"
+video_id: "FA2ag50dxU4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/FA2ag50dxU4/maxresdefault.jpg"
+content_url: "https://youtu.be/FA2ag50dxU4"
+embed_url: "https://www.youtube.com/embed/FA2ag50dxU4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - commit message
+  - git amend
+  - interactive rebase
+  - git push
+  - force with lease
+  - git tutorial
+  - version control
+  - git tips
+  - developer workflow
+---
+
+<p>You wrote a miserable commit message and you want to fix it without summoning chaos. Welcome to the fine art of editing Git commit messages. This short guide shows how to amend the most recent commit, reword older commits with interactive rebase, and update a remote branch using force with lease so you look responsible while still getting your perfectionism satisfied.</p>
+
+<h2>Quick fix for the last commit</h2>
+<p>If the sin is fresh and the commit has not been shared yet you can replace the message in one command. This is the round the clock espresso of git tips.</p>
+<pre><code>git commit --amend -m 'Better commit message here'</code></pre>
+<p>If you prefer to compose like a tragic poet run the command without a message to open your editor.</p>
+<pre><code>git commit --amend</code></pre>
+<p>This method edits the last commit object. It is safe when you have not pushed to a shared remote. If you pushed already skip to the pushed history section below.</p>
+
+<h2>Reword older commits with interactive rebase</h2>
+<p>For tidy local history use interactive rebase. It lets you scan N commits and change the messages where needed. It is the tool for cleaning up a messy developer workflow without pulling the whole repo apart.</p>
+<pre><code>git rebase -i HEAD~N</code></pre>
+<p>In the editor change the word <code>pick</code> to <code>reword</code> or <code>r</code> next to the commit you want to change. Save and close the editor. Git will pause at each reword entry and prompt you for a new commit message.</p>
+
+<h3>Short checklist for rebase</h3>
+<ul>
+  <li>Count commits accurately with <code>git log --oneline</code></li>
+  <li>Use rebase on local branches where you are the only editor of history</li>
+  <li>Test the branch after rebase to avoid surprises in the developer workflow</li>
+</ul>
+
+<h2>Updating pushed commits without starting a war</h2>
+<p>Once you have amended or rebased and the history you want is local you can update the remote branch. Do not use plain force unless you enjoy conflicts and awkward Slack messages. Use force with lease to reduce accidental overwrites of other peoples work.</p>
+<pre><code>git push --force-with-lease origin branch-name</code></pre>
+<p>The lease option checks that the remote branch has not moved since you last fetched. If someone else pushed in the meantime the push will be rejected and you will not clobber their commit. That is the polite version of force push.</p>
+
+<h3>Practical safety steps</h3>
+<ul>
+  <li>Run <code>git fetch origin</code> and inspect <code>git log origin/branch-name --oneline</code> before you push</li>
+  <li>Communicate with teammates when you rewrite shared history</li>
+  <li>Create a backup branch if you want to be dramatic but safe <code>git branch backup-before-rewrite</code></li>
+</ul>
+
+<h2>Common pitfalls and fixes</h2>
+<ul>
+  <li>If rebase produces conflicts resolve them and continue with <code>git rebase --continue</code></li>
+  <li>If you decide you made it worse abort the rebase with <code>git rebase --abort</code></li>
+  <li>If your force push is rejected fetch again merge or rebase the remote changes then retry the workflow</li>
+</ul>
+
+<h2>Final thoughts and quick tips</h2>
+<p>Changing commit messages is a small act of cleanliness. On local branches you are free to rewrite until you are content. Once commits are pushed treat history like shared furniture, not a private diary. Prefer <code>--force-with-lease</code> over plain force. It keeps other contributors safe and preserves workplace harmony.</p>
+<p>Keywords you can brag about later in PRs include git, commit message, git amend, interactive rebase, git push, force with lease, git tutorial, version control, and git tips. Now go fix that typo and pretend you meant it all along.</p>
+

@@ -1,0 +1,84 @@
+---
+layout: video
+title: "Jenkins and GitHub Example"
+description: "Step by step guide to connect GitHub with Jenkins for automated builds tests and webhooks"
+video_host: "youtube"
+video_id: "N8CqwzXgoFc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT25M35S"
+thumbnail_url: "https://i.ytimg.com/vi/N8CqwzXgoFc/maxresdefault.jpg"
+content_url: "https://youtu.be/N8CqwzXgoFc"
+embed_url: "https://www.youtube.com/embed/N8CqwzXgoFc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - GitHub
+  - CI
+  - CD
+  - pipeline
+  - webhook
+  - Jenkinsfile
+  - automation
+  - devops
+  - build
+---
+
+<p>If your goal is to stop manually kicking builds like a medieval blacksmith then welcome. This guide walks through connecting GitHub to Jenkins so pushes trigger CI and CD pipeline runs. Expect a few setup steps a little bit of credential juggling and the satisfaction of automation doing what humans do wrong.</p>
+
+<h2>What you need before you start</h2>
+<p>Keep it simple and practical. You will need a Jenkins server running LTS or in a container a GitHub repo with code and a Jenkinsfile and an account that can create webhooks and tokens. Also have a separate admin user for Jenkins because accidents happen.</p>
+
+<h2>Install Jenkins and required plugins</h2>
+<p>Install Jenkins using the LTS package or a container image. Add these plugins from the plugin manager.</p>
+<ul>
+  <li>Pipeline plugin or Blue Ocean pipeline tools</li>
+  <li>GitHub integration or GitHub Branch Source plugin</li>
+  <li>Credentials plugin</li>
+</ul>
+<p>Secure the admin account and enable agents if you want parallel builds. No magic here just plugins and a web UI.</p>
+
+<h2>Create a GitHub repository and add a Jenkinsfile</h2>
+<p>Initialize the repo with a simple project and push from your local machine. Add a Jenkinsfile at the repo root that defines stages such as build test and deploy. Treat the Jenkinsfile as the contract between source control and CI. Start small and then grow complicated later when you are ready for regret plus learning.</p>
+
+<h2>Add credentials to Jenkins</h2>
+<p>Create credentials in Jenkins for either a username and a GitHub personal access token or an SSH key. Store those in the Jenkins credentials store and reference the credential IDs in the pipeline checkout steps. Never paste secrets in job configuration or in pipeline logs. Secrets and logs do not mix well.</p>
+
+<h2>Create the Jenkins pipeline job</h2>
+<p>Use a Multibranch Pipeline when you want branch aware pipelines and automatic job creation. If you are simple and proud use a single Pipeline job that points to the repo and the Jenkinsfile. Point the job at the repo and choose the credentials created earlier. Test with a harmless echo or a tiny build command before unleashing full build steps on the world.</p>
+
+<h2>Configure the GitHub webhook</h2>
+<p>In your repository settings add a webhook pointing to your Jenkins webhook endpoint for GitHub. For most installations the path looks like jenkins.example.com/github-webhook/ and Jenkins will accept JSON payloads. Choose events for push and pull request so Jenkins reacts when code arrives. This is better than polling and much less passive aggressive.</p>
+
+<h2>Run and debug the pipeline</h2>
+<p>Trigger a push and watch the console log in Jenkins. Expect at least one failure because humans and CI are both learning. Use these troubleshooting tips.</p>
+<ul>
+  <li>Check the console output for the failing stage</li>
+  <li>Verify the credentials ID used by the checkout step</li>
+  <li>Inspect the job workspace on the agent to confirm files exist</li>
+  <li>Try a stripped down pipeline with a simple shell echo to verify hooks and triggers</li>
+</ul>
+
+<h3>Common fixes</h3>
+<ul>
+  <li>Webhook not firing check that the webhook URL is reachable by GitHub and that Jenkins has the right endpoint path</li>
+  <li>Authentication errors regenerate a personal access token or check SSH key permissions</li>
+  <li>Branch not detected use Multibranch Pipeline and confirm branch indexing runs</li>
+</ul>
+
+<p>Once the pipeline runs reliably you can add test stages artifact publishing and deployment steps. Keep credentials in the credentials store and reference them by ID in the Jenkinsfile. Automation will not replace judgement but it will catch the boring mistakes and let your team focus on the interesting ones.</p>
+
+<h3>Cheat sheet</h3>
+<ul>
+  <li>Install Jenkins LTS and add Pipeline and GitHub plugins</li>
+  <li>Create repo add Jenkinsfile with build test deploy stages</li>
+  <li>Add credentials as PAT or SSH key in Jenkins credentials</li>
+  <li>Create a Pipeline or Multibranch job and point it to the repo</li>
+  <li>Add a webhook in GitHub to the Jenkins webhook endpoint for push and pull request events</li>
+  <li>Trigger and debug using console output workspace and small test steps</li>
+</ul>
+
+<p>Go forth and automate. If something breaks you will learn a lot and curse elegantly while fixing it.</p>
+

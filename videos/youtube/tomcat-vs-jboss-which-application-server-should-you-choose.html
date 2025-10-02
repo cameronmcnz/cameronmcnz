@@ -1,0 +1,82 @@
+---
+layout: video
+title: "Tomcat vs JBoss Which Application Server Should You Choose?"
+description: "Compare Tomcat and JBoss to choose the best Java application server for performance features memory and deployment needs."
+video_host: "youtube"
+video_id: "_pvzcxrKWAs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M26S"
+thumbnail_url: "https://i.ytimg.com/vi/_pvzcxrKWAs/maxresdefault.jpg"
+content_url: "https://youtu.be/_pvzcxrKWAs"
+embed_url: "https://www.youtube.com/embed/_pvzcxrKWAs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Tomcat
+  - JBoss
+  - Application Server
+  - Java EE
+  - WildFly
+  - Servlet Container
+  - Java
+  - Deployment
+  - Microservices
+  - Performance
+---
+
+<h2>Quick verdict without the corporate fluff</h2>
+<p>If you want something lean that handles servlets and static pages with minimal fuss pick Tomcat. If you need a full Jakarta EE stack with EJB transactions messaging clustering and an admin console go with JBoss WildFly. One is a focused servlet container and the other is a full blown application server. Both are fine depending on what your app actually needs not what your manager heard at a conference.</p>
+
+<h2>What Tomcat brings to the table</h2>
+<p>Tomcat is a lightweight servlet container built for running WAR based web apps. It focuses on HTTP request processing the servlet API and JSP support. Expect fast startup lower memory usage and less to manage. That makes Tomcat a favorite for microservices Spring Boot deployments and stateless web front ends where speed and small footprint matter.</p>
+
+<h3>Pros for Tomcat</h3>
+<ul>
+  <li>Lower memory overhead and faster startup</li>
+  <li>Simpler deployments and straightforward logging</li>
+  <li>Great for Spring based apps and basic servlet workloads</li>
+</ul>
+
+<h3>When Tomcat might annoy you</h3>
+<ul>
+  <li>No built in EJB or full Jakarta EE services</li>
+  <li>No native JMS provider or advanced transaction management</li>
+  <li>You will add libraries or middleware if you need enterprise features</li>
+</ul>
+
+<h2>What JBoss WildFly brings to the party</h2>
+<p>JBoss WildFly is a full application server with Jakarta EE support. Think EJB distributed transactions JMS messaging built in security management and clustering tools for enterprise scale deployments. It gives you managed services out of the box so apps that depend on container provided resources will breathe easier.</p>
+
+<h3>Pros for JBoss WildFly</h3>
+<ul>
+  <li>Full Jakarta EE implementation for legacy and complex apps</li>
+  <li>Built in transaction management messaging and clustering</li>
+  <li>Rich management consoles and administrative tooling</li>
+</ul>
+
+<h3>When JBoss WildFly might make you sigh</h3>
+<ul>
+  <li>Higher memory needs and longer startup time</li>
+  <li>More configuration and a steeper learning curve</li>
+  <li>Overkill for simple stateless microservices</li>
+</ul>
+
+<h2>Performance is not a religion</h2>
+<p>Raw benchmarks are useless if they do not match your workload. Tomcat often wins on simple servlet throughput because it has less glue running in the background. WildFly may need more RAM yet handles distributed transactions and clustered sessions out of the box. Real world performance depends on JVM tuning GC choices thread pools and the shape of your requests.</p>
+
+<h2>Operational checklist before you pick</h2>
+<ul>
+  <li>List required features. If you need EJB JMS or container managed transactions put WildFly on the shortlist.</li>
+  <li>Prototype both servers with containers and a representative workload. Measure response time memory usage and startup cost.</li>
+  <li>Consider developer workflow and CI pipelines. Smaller surface area means faster feedback loops.</li>
+  <li>Plan for monitoring and JVM tuning. No server will behave magically without metrics and configuration.</li>
+</ul>
+
+<h2>Migration and future proofing</h2>
+<p>Choosing the wrong server now can mean painful refactors later. If your app might grow into distributed transactions or heavy middleware integration start with WildFly. If you want fast iteration and low ops overhead start with Tomcat. If you are still voting based on noise from the last meetup run both in containers with a representative load and choose by numbers not hype.</p>
+
+<h2>Final tip</h2>
+<p>There is no universal winner. Match requirements to capabilities and measure. Your CI will thank you and your future self will stop writing apologetic commit messages. If you must be dramatic pick the one that reduces future toil not the one with the flashiest slide deck.</p>
+

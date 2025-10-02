@@ -1,0 +1,77 @@
+---
+layout: video
+title: "git init bare example"
+description: "Learn how to create a bare Git repository as a central remote using git init --bare and a simple push workflow for sharing code."
+video_host: "youtube"
+video_id: "gANGTPn2Ybo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M34S"
+thumbnail_url: "https://i.ytimg.com/vi/gANGTPn2Ybo/maxresdefault.jpg"
+content_url: "https://youtu.be/gANGTPn2Ybo"
+embed_url: "https://www.youtube.com/embed/gANGTPn2Ybo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - bare
+  - git init
+  - bare repository
+  - remote
+  - push
+  - clone
+  - central repo
+  - git tutorial
+  - version control
+---
+
+<p>If you want a no nonsense central repo that will not accidentally mess with anyone s working copy then a bare Git repository is your friend. It stores all the branches and history but does not have a working tree. That makes it perfect for a shared central repo that teams push to and clone from. Yes it sounds boring and stable on purpose.</p>
+
+<h2>What a bare repository actually is</h2>
+<p>A bare repository holds the Git database only. There is no checked out files to trip over. Use it when you want a central remote on a server or a local folder to act like a remote. This is standard version control hygiene if you like avoiding accidental overwrites and weird merge surprises.</p>
+
+<h2>Set up the bare repository</h2>
+<p>Make a dedicated folder that will live as the central store. Keeping it local is great for examples and for a quick central repo on a shared machine.</p>
+<pre><code>mkdir project.git
+cd project.git
+git init --bare</code></pre>
+<p>The command above initializes a repository without a working tree. That means no files to modify there, only Git objects and refs. Practical and safe.</p>
+
+<h2>Create a normal working repository</h2>
+<p>Now create a normal project where developers will edit files and commit. This is what you will push from.</p>
+<pre><code>git init myproject
+cd myproject
+echo "Hello README" > README.md
+git add README.md
+git commit -m "initial commit"</code></pre>
+
+<h2>Link the working repo to the bare repo and push</h2>
+<p>Add the bare repo as a remote and push your branch. If your Git uses main replace master with main in the commands below.</p>
+<pre><code>git remote add origin ../project.git
+git push origin master</code></pre>
+<p>Local path remotes are great for examples and for simple central repositories on a single server. For a real server you would use an SSH or HTTP remote instead but the workflow is the same.</p>
+
+<h2>Clone or fetch from the central repo</h2>
+<p>Other developers or automation can now clone that central store and get a normal working tree.</p>
+<pre><code>git clone ../project.git cloned
+cd cloned
+git status</code></pre>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Use git init --bare to create a bare repository for sharing</li>
+  <li>Keep a normal working repository locally to make commits</li>
+  <li>Add the bare repo as a remote and push your branches</li>
+  <li>Clone the bare repo to get a working tree on other machines</li>
+</ul>
+
+<h3>Tips for grown up repos</h3>
+<ul>
+  <li>Keep branch protections or server side hooks so people do not push broken code</li>
+  <li>Use hooks to enforce checks if you want automation to be mean but fair</li>
+  <li>Consider setting up SSH access and proper permissions for multi user servers</li>
+</ul>
+
+<p>That is the whole ritual. You made a central repo that will not accidentally stomp a developer s working tree. It is simple and reliable and about as dramatic as a sensible filing cabinet. If you want more advanced server setups look into Git hosting like Gitea or GitLab but for many projects a bare repository is all you need to share code and keep sane version control.</p>
+

@@ -1,0 +1,65 @@
+---
+layout: video
+title: "How to Install Java and set JAVA_HOME on Windows 11"
+description: "Step by step guide to install Java and set JAVA_HOME on Windows 11 for developers and tools that need a correct environment variable."
+video_host: "youtube"
+video_id: "zKaKIOO9iwg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M3S"
+thumbnail_url: "https://i.ytimg.com/vi/zKaKIOO9iwg/maxresdefault.jpg"
+content_url: "https://youtu.be/zKaKIOO9iwg"
+embed_url: "https://www.youtube.com/embed/zKaKIOO9iwg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - JDK
+  - JAVA_HOME
+  - Windows 11
+  - Environment Variables
+  - Install Java
+  - Set JAVA_HOME
+  - OpenJDK
+  - Command Prompt
+  - Developer Setup
+---
+
+<article>
+  <p>So you need Java to work and Windows 11 is in charge. Welcome to the thrilling world of JDK installers and environment variables. This guide walks you through installing a JDK and setting a persistent JAVA_HOME so your build tools stop whining.</p>
+
+  <h2>Pick the right JDK build</h2>
+  <p>Choose an official build from Oracle or an OpenJDK vendor. For most Windows 11 machines pick the x64 installer and favor a recent long term support release if your projects care about stability. If your project needs the latest features then grab the current release instead. No shady downloads please.</p>
+
+  <h2>Run the installer like a human with admin rights</h2>
+  <p>Launch the downloaded installer and follow the prompts. If it asks for administrator approval give it to the installer or right click and run as administrator. The installer will copy files and update the registry in the background so try not to interrupt it.</p>
+
+  <h2>Find and record the installation folder</h2>
+  <p>Pay attention to the folder path displayed during setup. Typical installs put Java under Program Files\Java\jdk-17.0.2 or similar. That exact folder is what you will set as JAVA_HOME so copy it down or remember it like it is your new pet.</p>
+
+  <h2>Set JAVA_HOME in System Environment Variables</h2>
+  <p>Open Windows search and type Edit the system environment variables then open Environment Variables in System Properties. Under System variables click New and create a variable named JAVA_HOME with the full JDK folder path as the value. This makes the JDK location visible to developer tools and build systems.</p>
+
+  <h2>Add the JDK bin folder to Path</h2>
+  <p>In the same Environment Variables dialog edit the Path system variable and add a new entry with</p>
+  <pre><code>%JAVA_HOME%\bin</code></pre>
+  <p>Place that entry above any older Java entries so the system prefers the version you just installed. Ordering matters here and no amount of sighing will change that.</p>
+
+  <h2>Verify using the Command Prompt</h2>
+  <p>Open a new Command Prompt window so it picks up the refreshed environment variables. Run these commands and expect matching version output.</p>
+  <pre><code>java -version
+javac -version</code></pre>
+  <p>If the versions are different from what you installed then remove old Java entries from Path or log out and log back in to force a refresh. A reboot will also help when in doubt.</p>
+
+  <h2>Troubleshooting tips for the stubborn cases</h2>
+  <ul>
+    <li>If commands say command not found check that %JAVA_HOME% points to the JDK root and that %JAVA_HOME%\bin is in Path.</li>
+    <li>If your IDE still uses an old JRE reconfigure the IDE runtime or update its bundled JDK setting.</li>
+    <li>For systems with multiple users set JAVA_HOME as a system variable so services and other accounts can see it too.</li>
+  </ul>
+
+  <h3>Quick recap</h3>
+  <p>Download a trusted JDK, run the installer with admin rights, record the installation folder, set JAVA_HOME as a system environment variable, add %JAVA_HOME%\bin to Path and verify with java -version and javac -version in Command Prompt. Now your developer setup should stop complaining and you can get back to writing code or pretending you will.</p>
+</article>
+

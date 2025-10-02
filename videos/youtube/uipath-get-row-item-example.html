@@ -1,0 +1,77 @@
+---
+layout: video
+title: "UiPath Get Row Item Example"
+description: "Learn how to use UiPath Get Row Item to read cell values from a DataTable or Excel with clear steps and tips."
+video_host: "youtube"
+video_id: "b54CbbGwN24"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M55S"
+thumbnail_url: "https://i.ytimg.com/vi/b54CbbGwN24/maxresdefault.jpg"
+content_url: "https://youtu.be/b54CbbGwN24"
+embed_url: "https://www.youtube.com/embed/b54CbbGwN24"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Get Row Item
+  - DataTable
+  - Excel
+  - For Each Row
+  - RPA
+  - UiPath Tutorial
+  - Automation
+  - Variables
+  - Error Handling
+---
+
+<article>
+  <p>If you ever wanted to extract a single cell from a DataTable without starting a small fire in your workflow designer this guide will help. We will use the UiPath Get Row Item activity like a competent automation artist and avoid the common traps that make RPA projects cry.</p>
+
+  <h2>Prepare your DataTable</h2>
+  <p>First step is honest work. Use Read Range from Excel or Build DataTable to load your data into a DataTable variable such as <code>dt</code>. This gives you a predictable input for all the automation fun ahead.</p>
+  <p>Why this matters for UiPath and RPA is simple. A clean DataTable beats random cell references when column order changes or someone renames a sheet to something dramatic.</p>
+
+  <h2>Loop through rows with For Each Row</h2>
+  <p>Drop a For Each Row activity and set the row variable to <code>row</code>. This is the stable loop context that lets Get Row Item target a specific row without guessing its mood.</p>
+
+  <h2>Use Get Row Item inside the loop</h2>
+  <p>Put Get Row Item inside the For Each Row body and set TargetRow to <code>row</code>. The activity reads one column value from that row and returns it as an Object type unless you configured otherwise.</p>
+  <p>Set either ColumnName or ColumnIndex to tell Get Row Item which cell you want. ColumnName is the safer pick for most Excel and DataTable based automation because it survives column reordering.</p>
+
+  <h3>Example property values</h3>
+  <pre><code>' Inside the For Each Row loop
+' Get Row Item properties
+TargetRow = row
+ColumnName = "CustomerName"
+Output = cellValue  ' variable of type Object or String
+
+' Avoid using ColumnIndex unless the file structure is guaranteed
+  </code></pre>
+
+  <h2>Assign to variables and convert types</h2>
+  <p>Save the output to a variable like <code>cellValue</code>. If you need a string call <code>cellValue.ToString</code> at the moment you need it. This avoids surprises when the underlying DataTable stores numbers or DBNull.</p>
+  <p>Example check when you need to compare or parse</p>
+  <pre><code>If String.IsNullOrEmpty(cellValue.ToString) Then
+  ' handle empty case
+Else
+  Dim textValue = cellValue.ToString.Trim()
+  ' continue processing
+End If
+  </code></pre>
+
+  <h2>Handle types and error handling</h2>
+  <p>Wrap risky parsing or conversions in a Try Catch activity to stop a single bad cell from crashing your entire automation. Common issues include DBNull values and unexpected types when users sneak in numbers or blank cells.</p>
+  <ul>
+    <li>Prefer ColumnName over ColumnIndex to avoid brittle workflows</li>
+    <li>Use Trim on strings to remove invisible whitespace that breaks comparisons</li>
+    <li>Check for DBNull or use If String.IsNullOrEmpty before parsing</li>
+    <li>Cast explicitly when you expect numeric or date types to keep logic predictable</li>
+  </ul>
+
+  <h2>Quick recap and practical tips</h2>
+  <p>To repeat without monotony follow these steps in your UiPath automation. Read Range or Build DataTable to get <code>dt</code>. For Each Row with <code>row</code>. Put Get Row Item inside the loop and choose ColumnName when possible. Assign the output to a variable and call <code>ToString</code> when you need a string. Wrap parsing in Try Catch and add simple null checks for robust error handling.</p>
+  <p>Follow these pointers and your RPA flows will be easier to maintain and less likely to explode during demo time. You are welcome.</p>
+</article>
+

@@ -1,0 +1,72 @@
+---
+layout: video
+title: "UiPath Invalid Machine Key Error Fix"
+description: "Fix UiPath Invalid Machine Key error with clear steps to copy and register the machine key in Orchestrator and troubleshoot common causes"
+video_host: "youtube"
+video_id: "YyuB_qOC8ec"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M25S"
+thumbnail_url: "https://i.ytimg.com/vi/YyuB_qOC8ec/maxresdefault.jpg"
+content_url: "https://youtu.be/YyuB_qOC8ec"
+embed_url: "https://www.youtube.com/embed/YyuB_qOC8ec"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Invalid Machine Key
+  - Orchestrator
+  - Robot
+  - Machine Key
+  - UiPath Studio
+  - UiPath Assistant
+  - Troubleshooting
+  - Automation
+  - Error Fix
+---
+
+<p>Got an invalid machine key error while trying to connect a UiPath Robot to Orchestrator? Take a deep breath and then follow this practical playbook. This guide keeps the drama low and the fixes high.</p>
+
+<h2>Quick checklist to try first</h2>
+<ul>
+  <li>Copy the machine key from the Orchestrator Machines page</li>
+  <li>Paste the key into UiPath Assistant or the Robot Tray under Orchestrator settings and try to connect</li>
+  <li>Confirm the local host name matches the Orchestrator machine name</li>
+  <li>Remove duplicate machine records from the tenant</li>
+  <li>Restart the UiPath Agent service and try again</li>
+  <li>Check firewall rules and enforce TLS 1.2 or higher</li>
+  <li>If needed delete and recreate the machine record and generate a fresh key</li>
+  <li>After success assign the Robot to the correct environment and confirm a license</li>
+</ul>
+
+<h2>Step by step walkthrough</h2>
+
+<h3>1 Get the correct machine key</h3>
+<p>Open Orchestrator and navigate to the Machines page. Open the machine entry that matches your workstation and copy the value labeled machine key. That secret string is what allows a Robot to register with Orchestrator. Yes it is small and easy to miscopy. Treat it like a fragile egg.</p>
+
+<h3>2 Paste the key and attempt registration</h3>
+<p>Open UiPath Assistant or the Robot Tray and go to Orchestrator settings. Paste the copied key into the Machine Key field and press connect. If you get an invalid machine key error the copy step likely failed or the wrong machine record is being targeted.</p>
+
+<h3>3 Verify machine name and remove duplicate entries</h3>
+<p>Run hostname in a command prompt to get the local host name. Compare that value to the machine name in Orchestrator. Duplicate names cause conflicts and weird registration behavior. Remove any extra machine entries from the tenant if a rogue registration exists.</p>
+
+<h3>4 Restart the Robot service and check network and TLS</h3>
+<p>Restart the UiPath Agent service on the workstation and then attempt registration again. If registration still fails check firewall rules and TLS settings. Older TLS versions may be refused by a modern Orchestrator, so make sure TLS 1.2 or higher is enabled.</p>
+
+<h3>5 Recreate the machine record when registration still fails</h3>
+<p>If registration continues to fail delete the existing machine entry in Orchestrator and create a new machine or use a machine template. Generate a fresh machine key and try registering again with that new key. Fresh keys often fix stale or corrupted records.</p>
+
+<h3>6 Assign environment and license and confirm registration</h3>
+<p>After the Robot shows as connected add it to the correct environment and verify that a license is available in the tenant. A missing environment assignment can look like a registration failure when the real issue is placement.</p>
+
+<h2>Troubleshooting tips that actually help</h2>
+<ul>
+  <li>Watch for trailing spaces when copying the key</li>
+  <li>Make sure you are operating in the correct tenant if you manage multiple tenants</li>
+  <li>Check UiPath Studio and Assistant versions for compatibility with your Orchestrator release</li>
+  <li>If you are stuck gather Robot and Orchestrator logs before escalating to support</li>
+</ul>
+
+<p>Follow these steps and most invalid machine key errors will clear up like a morning fog. If not then escalate with logs and a calm face. Your automation future depends on it.</p>
+

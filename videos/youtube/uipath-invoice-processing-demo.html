@@ -1,0 +1,70 @@
+---
+layout: video
+title: "UiPath Invoice Processing Demo"
+description: "Step by step demo for building UiPath invoice processing using Document Understanding OCR validation and export for faster accounts payable automation"
+video_host: "youtube"
+video_id: "DGD-R5vhcm4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT17M5S"
+thumbnail_url: "https://i.ytimg.com/vi/DGD-R5vhcm4/maxresdefault.jpg"
+content_url: "https://youtu.be/DGD-R5vhcm4"
+embed_url: "https://www.youtube.com/embed/DGD-R5vhcm4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - RPA
+  - Invoice Processing
+  - Document Understanding
+  - OCR
+  - Accounts Payable
+  - Automation
+  - Machine Learning Extractor
+  - Validation Station
+  - Workflow Design
+---
+
+<h2>Quick summary</h2>
+<p>Want to turn a paper avalanche into neat rows of data without hiring extra humans to type like caffeine possessed creatures? This guide shows how to build an end to end invoice processing workflow in UiPath using Document Understanding, OCR, a machine learning extractor, and a Validation Station for the moments when machines get dramatic.</p>
+
+<h3>What this workflow does</h3>
+<p>It ingests invoices, extracts fields like vendor name, invoice date, line items, and total amount, routes low confidence fields for human review, and exports validated data to CSV, ERP, or a database. You keep the audit trail and the AP team keeps the power to smack bots that misread a total.</p>
+
+<h3>Step 1. Gather a representative invoice set</h3>
+<p>Collect invoices from different vendors, layouts, and image qualities. Variation is the model teacher. Include scanned PDFs, photos, and edge cases like missing totals or odd fonts. The more chaos you expose the model to, the fewer surprises at month end.</p>
+
+<h3>Step 2. Start a UiPath project and add packages</h3>
+<p>Create a new UiPath project and install Document Understanding and OCR packages. Organize your workflows into ingestion, processing, validation, and export so it looks like a real product and not the weekend hack you are quietly proud of.</p>
+
+<h3>Step 3. Choose OCR and extractor strategy</h3>
+<p>Pick an OCR engine that balances accuracy and cost. For predictable suppliers, templates can be fast and reliable. For mixed layouts use the machine learning extractor to generalize across formats. Apply preprocessing like image cleaning, deskew, and noise removal to improve recognition rates.</p>
+
+<h3>Step 4. Train the machine learning extractor</h3>
+<p>Label training documents with the fields you need and run training cycles. Test against a held out set and track field level metrics such as precision, recall, and confidence. Iterate until accuracy meets your business thresholds. Log confidence scores to decide what goes to human review.</p>
+
+<h3>Step 5. Add a Validation Station for human oversight</h3>
+<p>Route low confidence fields to the Validation Station for human review. Send questionable records to accounts payable specialists and record reviewer corrections so you can retrain and improve the model. This prevents automation from becoming a chaos machine that breaks at peak volumes.</p>
+
+<h3>Step 6. Export and handle exceptions</h3>
+<p>Map extracted fields to your target system and export to CSV, ERP, or a database. Build exception handling for unreadable pages, missing totals, or mismatched line items so the bot does not crash during month end. Keep a quarantine queue for items that need manual investigation.</p>
+
+<h3>Key metrics to monitor</h3>
+<ul>
+  <li>Precision and recall per field</li>
+  <li>Average confidence and low confidence rate</li>
+  <li>Validation Station throughput and human correction rate</li>
+  <li>End to end processing time and exception counts</li>
+</ul>
+
+<h3>Pro tips</h3>
+<ul>
+  <li>Keep training data fresh by sampling corrected invoices for retraining</li>
+  <li>Use templates for high volume suppliers to boost accuracy and speed</li>
+  <li>Log everything, because audit trails make you look competent</li>
+  <li>Start with a hybrid approach and shrink the human loop as confidence improves</li>
+</ul>
+
+<p>If you follow these steps you will move from raw invoices to validated structured data using UiPath Document Understanding. The machine will do the boring work and the humans will do the important work like telling the machine when it was wrong in a polite but firm way.</p>
+

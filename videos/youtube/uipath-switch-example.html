@@ -1,0 +1,65 @@
+---
+layout: video
+title: "UiPath Switch Example"
+description: "Quick guide to using the UiPath Switch activity to route workflows with typed cases default handling and simple debugging tips"
+video_host: "youtube"
+video_id: "sBM9nkhRFNY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M46S"
+thumbnail_url: "https://i.ytimg.com/vi/sBM9nkhRFNY/maxresdefault.jpg"
+content_url: "https://youtu.be/sBM9nkhRFNY"
+embed_url: "https://www.youtube.com/embed/sBM9nkhRFNY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - UiPath Switch
+  - Switch activity
+  - RPA
+  - Robotic Process Automation
+  - TypeArgument
+  - Workflow branching
+  - Debugging
+  - Case labels
+  - Default case
+---
+
+<article>
+  <h2>Why use Switch in UiPath</h2>
+  <p>Want fewer nested Ifs and a tidier workflow that does not look like a choose your own disaster book? The UiPath Switch activity routes execution based on an expression value so one variable can open many doors. It is perfect for workflow branching in RPA when a single value decides a handful of different actions.</p>
+
+  <h2>How to set up a Switch activity</h2>
+  <p>This is the part where you stop pretending multiple Ifs are clever and start being efficient instead. Follow these steps and you will have readable case logic in no time.</p>
+
+  <ol>
+    <li>Drag and drop the Switch activity from the Activities panel into a Sequence or Flowchart. Use Switch when one value controls several distinct paths.</li>
+    <li>Set the TypeArgument to match the expression result such as String or Int32. TypeArgument enforces type safety and prevents weird runtime surprises.</li>
+    <li>Enter the expression that determines branching. For strings consider normalizing with myVar.ToLower().Trim() before the Switch so case matching is not a fragile guessing game.</li>
+    <li>Add case labels by clicking Add Case and typing each value that should route to a branch. Drop activities into each case like a mini sequence for that path. Remember that Case labels match exactly for strings by default.</li>
+    <li>Add a Default case to catch anything you did not explicitly handle. Use it for logging, alerts, or a graceful fallback so your process does not quietly fail.</li>
+    <li>Run with different sample inputs and observe which branch fires. Use Breakpoints and the Locals panel during Debugging to inspect variables and confirm the expression value matches case labels exactly.</li>
+  </ol>
+
+  <h3>TypeArgument and type safety</h3>
+  <p>TypeArgument is not optional unless you enjoy surprises at runtime. Pick String for text or Int32 for integers or another appropriate .NET type. The Switch compares values using the chosen type so mismatched types will behave badly.</p>
+
+  <h3>Debugging tips</h3>
+  <ul>
+    <li>Set Breakpoints and step into each case to verify variable values in the Locals panel.</li>
+    <li>Log the evaluated expression before the Switch so you can see what it really is at runtime.</li>
+    <li>If you need more complex matching use normalized keys or nested logic instead of cramming everything into one Switch activity.</li>
+    <li>Wrap risky case code in a Try Catch when a branch might throw an exception. Logging the exception helps future you who will thank present you.</li>
+  </ul>
+
+  <h3>Common pitfalls and how to avoid them</h3>
+  <ul>
+    <li>Exact string matching bites you when inputs have extra spaces or different case. Normalize strings with Trim and ToLower before switching.</li>
+    <li>Using the wrong TypeArgument for numeric values will make cases never match. Confirm the expression type and TypeArgument line up.</li>
+    <li>Letting Default silently swallow unexpected values will come back to haunt you. Log unexpected values in Default so you can add missing case labels later.</li>
+  </ul>
+
+  <p>Summary. The UiPath Switch activity cleans up branching logic, boosts maintainability, and makes workflows easier to reason about. Set the TypeArgument correctly, define clear case labels and a Default case, and use Breakpoints and the Locals panel for Debugging. Do that and your workflow will stop looking like it was stitched together by panic.</p>
+</article>
+

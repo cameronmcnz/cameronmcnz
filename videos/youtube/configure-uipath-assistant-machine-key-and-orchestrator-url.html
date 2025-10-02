@@ -1,0 +1,64 @@
+---
+layout: video
+title: "Configure UiPath Assistant Machine Key and Orchestrator URL"
+description: "Step by step guide to configure UiPath Assistant with a machine key and Orchestrator URL for reliable robot connection and management"
+video_host: "youtube"
+video_id: "dXSbCcYocZE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M32S"
+thumbnail_url: "https://i.ytimg.com/vi/dXSbCcYocZE/maxresdefault.jpg"
+content_url: "https://youtu.be/dXSbCcYocZE"
+embed_url: "https://www.youtube.com/embed/dXSbCcYocZE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Assistant
+  - Orchestrator
+  - Machine Key
+  - URL
+  - RPA
+  - Robots
+  - Tutorial
+  - Installation
+  - Connection
+---
+
+<p>If you want your UiPath robots to stop wandering off and actually obey Orchestrator, you need to register the workstation in Assistant using the tenant URL and the machine key. This guide walks through the safe and boring ritual of copying keys, matching names, and watching status lights turn green. No magic, just steps you will forget and then curse at later.</p>
+
+<h2>Grab the machine key from Orchestrator</h2>
+<p>Log into Orchestrator and open the Machines area. Find the machine record you intend to register and copy the machine key shown there. Treat that key like a password or a toothbrush. Do not paste it into a chat window while brave and careless.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Open Orchestrator and go to Machines</li>
+  <li>Copy the exact machine key for the correct machine record</li>
+  <li>Keep the tenant URL handy from your tenant settings page</li>
+</ul>
+
+<h2>Open UiPath Assistant and start registration</h2>
+<p>Launch UiPath Assistant on the workstation that will run processes. Open the Orchestrator settings in Assistant to begin. When prompted, paste the tenant URL and the machine key you copied from Orchestrator. Use exact values to avoid the delightful mystery of connection failures.</p>
+
+<h3>Things to pick</h3>
+<ul>
+  <li>Machine name that matches the Orchestrator record to reduce DNS level confusion and human drama</li>
+  <li>Folder or environment mapping so the robot actually has permission to run processes</li>
+</ul>
+
+<h2>Connect and verify robot status</h2>
+<p>Click connect and watch Assistant attempt a handshake with Orchestrator. If everything goes right, Assistant will show a connected status. Then check Orchestrator to confirm the robot appears online and has a license. If the robot stays stuck in pending or offline, recheck the tenant URL and the machine key copy. Typos happen, especially before coffee.</p>
+
+<h3>Troubleshooting tips</h3>
+<ul>
+  <li>If connection fails, confirm the tenant URL matches the tenant page in Orchestrator</li>
+  <li>Recopy the machine key, pasting from a plain text editor helps reveal stray characters</li>
+  <li>Verify the machine name and folder mapping match the record in Orchestrator</li>
+  <li>Network firewalls or proxies can block communication, so rule those out before blaming the assistant</li>
+</ul>
+
+<h2>Final notes and a pro tip</h2>
+<p>This process covered obtaining the machine key in Orchestrator and registering a workstation with UiPath Assistant using the tenant URL and key, then validating the connection. Follow the steps in order for a clean registration and fewer mysterious failures.</p>
+<p>Pro tip, use a clipboard manager that timestamps entries so you can recover the original key if a paste goes wrong. It is the little things that save you from late night debugging and weirdly apologetic messages to colleagues.</p>
+

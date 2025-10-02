@@ -1,0 +1,107 @@
+---
+layout: video
+title: "Create a PostgreSQL Database Table for Development"
+description: "Quick guide to make a local PostgreSQL table and connect from Java Python JavaScript Rust and frontend frameworks"
+video_host: "youtube"
+video_id: "eI06A4_Iies"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/eI06A4_Iies/maxresdefault.jpg"
+content_url: "https://youtu.be/eI06A4_Iies"
+embed_url: "https://www.youtube.com/embed/eI06A4_Iies"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - PostgreSQL
+  - Database
+  - SQL
+  - Postgres
+  - Java
+  - Python
+  - JavaScript
+  - Rust
+  - React
+  - Angular
+---
+
+<h2>Why this guide exists and who should care</h2>
+<p>If you want a small, stubbornly reliable local Postgres instance for development without the corporate drama this is your short happy path. You will install Postgres on your machine create a database and a role design a simple table run the SQL and then confirm your app can talk to the database from Java Python JavaScript Rust and frontend frameworks like React and Angular.</p>
+
+<h2>Install Postgres on your dev box</h2>
+<p>Use the native package manager on your distro. On Debian based systems run this in a terminal as a user with sudo rights</p>
+<pre><code>sudo apt install postgresql</code></pre>
+<p>This sets up a local server on the default port 5432 so the next steps are painless.</p>
+
+<h2>Create a development database and a dedicated role</h2>
+<p>Switch to the postgres system user and open a psql shell. Then create a database and a user. Keep names obvious so future you does not rage quit.</p>
+<pre><code>sudo -u postgres psql
+
+CREATE DATABASE devdb
+CREATE USER devuser WITH PASSWORD 'devpass'
+GRANT ALL PRIVILEGES ON DATABASE devdb TO devuser
+</code></pre>
+<p>These statements are simple and fine for local development. For CI or shared environments use stronger passwords and proper roles.</p>
+
+<h2>Design a tiny schema that behaves like a grown up</h2>
+<p>Keep constraints minimal but realistic. Primary keys and a couple of constraints are enough for dev work. A users table is a common starting point.</p>
+<pre><code>CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE
+)</code></pre>
+<p>Expand fields as your app needs them. You can add created_at timestamps or JSON columns when needed.</p>
+
+<h2>Apply the schema and confirm the table exists</h2>
+<p>Save schema SQL into a file schema.sql and apply it with psql. Or paste the statements interactively in psql. Then run a quick check.</p>
+<pre><code>psql -d devdb -U devuser -c 'SELECT count(*) FROM users'
+</code></pre>
+<p>If you see zero or a number and no error the table is reachable.</p>
+
+<h2>Quick connection checks from common runtimes</h2>
+<p>Install the official client library for your runtime then configure host database name username password and port in the driver. Run a tiny query such as SELECT now or SELECT count from users to confirm access.</p>
+
+<h3>Python</h3>
+<p>Install psycopg2 or psycopg[binary] and run a small script that connects with keyword args. This example is short and won t make your keyboard explode.</p>
+<pre><code>import psycopg2
+
+conn = psycopg2.connect(host='localhost', dbname='devdb', user='devuser', password='devpass', port=5432)
+cur = conn.cursor()
+cur.execute('SELECT now()')
+print(cur.fetchone())
+cur.close()
+conn.close()
+</code></pre>
+
+<h3>Node and JavaScript</h3>
+<p>Use the node postgres client library when you need backend JS. For a quick connectivity sanity check from the shell set environment variables and use the psql client. That avoids crafting connection strings in a hurry.</p>
+<pre><code>export PGHOST=localhost
+export PGUSER=devuser
+export PGPASSWORD=devpass
+export PGDATABASE=devdb
+export PGPORT=5432
+psql -c 'SELECT now()'
+</code></pre>
+<p>When you write backend JS use a library such as node postgres and pass the same values via configuration in your app.</p>
+
+<h3>Java</h3>
+<p>Download the official Postgres JDBC driver and use DriverManager or a connection pool. The key is to supply host database name username password and port in your pool config then run a single query to validate the connection.</p>
+
+<h3>Rust</h3>
+<p>Use tokio postgres or postgres crate for synchronous code. Configure the connection with host database name user password and port then run a simple query such as SELECT now to confirm connectivity.</p>
+
+<h3>Frontend frameworks like React and Angular</h3>
+<p>Do not connect to Postgres directly from the browser. You need a backend API that holds credentials and talks to Postgres. The frontend should call that API with fetch or your favorite HTTP client.</p>
+
+<h2>Troubleshooting quick hits</h2>
+<ul>
+  <li>If connection refused check Postgres is running and listening on port 5432</li>
+  <li>If authentication failed double check the username and password and that the role has access to the database</li>
+  <li>If network issues occur confirm pg_hba.conf allows local connections</li>
+  <li>If your frontend gets CORS errors add the necessary headers on the backend not on the database</li>
+</ul>
+
+<h2>Final thoughts for the lazy and the careful</h2>
+<p>This path gives you a pragmatic local Postgres setup for development that behaves like production without the production drama. Use simple schemas commit schema files to version control and have your app run a tiny smoke test query on startup. If you want to get fancy add migrations later with a tool that matches your language and workflow.</p>
+

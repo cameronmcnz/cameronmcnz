@@ -1,0 +1,98 @@
+---
+layout: video
+title: "Lab 5 - Non-Java Node Builds"
+description: "Practical guide to building non Java nodes with cross compilation packaging and testing for embedded platforms from Lab 5"
+video_host: "youtube"
+video_id: "z5Hq5Oqdqyc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M14S"
+thumbnail_url: "https://i.ytimg.com/vi/z5Hq5Oqdqyc/maxresdefault.jpg"
+content_url: "https://youtu.be/z5Hq5Oqdqyc"
+embed_url: "https://www.youtube.com/embed/z5Hq5Oqdqyc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Lab 5
+  - Non Java
+  - Node Builds
+  - Cross Compilation
+  - Embedded Systems
+  - Packaging
+  - Toolchain
+  - Native Libraries
+  - Build Automation
+  - Testing
+---
+
+<article>
+  <h2>Quick reality check</h2>
+  <p>If you wanted a magic button that turns host binaries into target binaries, sorry to disappoint you. Cross compilation is more like careful surgery with a lot less glamour and more toolchains. This guide walks a realistic path from source to a packaged non Java Node native module that actually runs on an embedded device without crying.</p>
+
+  <h2>What you will need</h2>
+  <ul>
+    <li>A cross toolchain that matches the target CPU and libc</li>
+    <li>The source for your native module and any header or library dependencies</li>
+    <li>A way to build Node addons, for example node gyp or cmake js</li>
+    <li>A test device or emulator to run the final package</li>
+  </ul>
+
+  <h2>Install a matching cross toolchain</h2>
+  <p>Pick the toolchain that actually matches the target more than chasing the newest compiler. Match CPU variant and libc and you will save hours. Use your distro package or a vendor toolchain and put the binaries on PATH or point to them with environment variables.</p>
+  <pre><code>export CC=arm-linux-gnueabihf-gcc
+export CXX=arm-linux-gnueabihf-g++
+export SYSROOT=/path/to/target/sysroot
+</code></pre>
+
+  <h2>Prepare source and native dependencies</h2>
+  <p>Collect the headers and shared libraries the module needs. Keep any host prebuilt binaries out of the package. If you have prebuilt artifacts for the host, put them in a separate folder so you do not accidentally ship them to the device.</p>
+
+  <h2>Configure build scripts and flags</h2>
+  <p>Override default compiler and linker variables inside your build tool so the compiler uses the cross toolchain and the target sysroot. For node gyp you can export CC and CXX and set additional flags in binding gyp or the build environment. For cmake js you can pass the toolchain file or toolchain variables.</p>
+  <pre><code>export CFLAGS="--sysroot=$SYSROOT"
+export LDFLAGS="--sysroot=$SYSROOT"
+npm rebuild --build-from-source
+</code></pre>
+
+  <h2>Run cross compilation and verify</h2>
+  <p>Build, then verify the artifacts. Use file or readelf to confirm the architecture and ABI. If something looks like it was built for your laptop, congratulations you broke the first rule.</p>
+  <pre><code>file build/Release/module.node
+readelf -h build/Release/module.node
+readelf -d build/Release/module.node
+</code></pre>
+  <p>If readelf shows unexpected DT_NEEDED entries, fix them by pulling the correct native libraries from the target sysroot and linking against those.</p>
+
+  <h2>Fix missing symbols and ABI issues</h2>
+  <p>Missing symbols usually mean you linked to the wrong libc or you forgot a native lib from the target. Copy the needed .so files from the sysroot into a libs folder for packaging, or adjust rpath when you can. Logging at startup helps catch ABI mismatches fast.</p>
+
+  <h2>Package the built node</h2>
+  <p>Include the native libraries alongside the addon in a predictable layout so deployment is boring and repeatable. Add a tiny JS loader that picks the right binary at runtime based on process arch or by probing the environment.</p>
+  <pre><code>const arch = process.arch
+const platform = process.platform
+let binding
+if (platform === 'linux' && arch === 'arm') {
+  binding = require('./native/linux-arm/module.node')
+} else {
+  binding = require('./native/default/module.node')
+}
+module.exports = binding
+</code></pre>
+
+  <h2>Deploy to the target and test</h2>
+  <p>Copy the package to the device, set LD_LIBRARY_PATH or install the libs to a stable path, and run basic smoke tests. Use readelf or ldd on the device to validate runtime dependencies. If you have an emulator or qemu user mode, you can run tests earlier without the device.</p>
+
+  <h2>Build automation and testing</h2>
+  <p>Automate the repeatable parts. Use CI that can invoke the cross toolchain or build in a container that mimics your host. Run unit tests that exercise the native module logic when possible. When you hit a weird ABI break remember that most bugs are boring and fixable by swapping the libc or the correct variant of a library.</p>
+
+  <h3>Final tips</h3>
+  <ul>
+    <li>Match the toolchain libc and CPU variant to the target more than chasing a new compiler</li>
+    <li>Keep host and target artifacts in separate folders to avoid accidental packaging</li>
+    <li>Use readelf to inspect headers and DT_NEEDED entries when things go wrong</li>
+    <li>Include a loader that picks the right binary at runtime to support multiple targets</li>
+  </ul>
+
+  <p>This Lab 5 style walkthrough gives you a pragmatic workflow to take non Java Node modules from source through cross compilation packaging and deployment on embedded systems. Not glamorous, but it works and it keeps your device from complaining at runtime.</p>
+</article>
+

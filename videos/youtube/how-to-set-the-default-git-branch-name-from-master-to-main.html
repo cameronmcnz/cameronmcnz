@@ -1,0 +1,80 @@
+---
+layout: video
+title: "How to Set the Default Git Branch Name from Master to Main"
+description: "Change default Git branch from master to main for new repositories and rename existing branches with simple commands and hosting updates."
+video_host: "youtube"
+video_id: "r5nEaq0PcGU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M4S"
+thumbnail_url: "https://i.ytimg.com/vi/r5nEaq0PcGU/maxresdefault.jpg"
+content_url: "https://youtu.be/r5nEaq0PcGU"
+embed_url: "https://www.youtube.com/embed/r5nEaq0PcGU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - branch
+  - default branch
+  - main
+  - master to main
+  - git config
+  - github
+  - rename branch
+  - version control
+  - git tutorial
+---
+
+<p>If you are tired of typing master by habit and getting judged by future you then this guide will make main the default branch for new repos and help you rename existing ones with minimal chaos. It keeps the Git commands simple and the explanations sarcastic but accurate.</p>
+
+<h2>Prepare new repositories</h2>
+<p>Make sure every new repository you create starts with main so you never have to rename things again. Run this once on any machine where you init repos.</p>
+<pre><code>git config --global init.defaultBranch main</code></pre>
+<p>Now git init will create main instead of master. Yes this is boring but worth it.</p>
+
+<h2>Rename an existing repository locally</h2>
+<p>If you already have a repo that uses master do this inside the repo. It renames your local branch and keeps your working tree intact.</p>
+<pre><code>git checkout master
+git branch -m master main</code></pre>
+<p>If you had uncommitted changes they will still be there. Git does not care about your feelings.</p>
+
+<h2>Push the new branch and update the remote</h2>
+<p>Tell the remote about the new branch name and set upstream so future pushes go to the right place.</p>
+<pre><code>git push -u origin main
+# optional remove old remote branch once hosting default is switched
+git push origin --delete master</code></pre>
+<p>Do not delete the remote master until your hosting platform is configured to use main as the default. Otherwise pull requests and default protections will get cranky.</p>
+
+<h2>Update the default branch on your hosting platform</h2>
+<p>Go to your project settings on GitHub GitLab or Bitbucket and switch the default branch to main. Or use the hosting API if you enjoy scripting away your free time. Changing the default keeps new pull requests and protections targeting the right branch.</p>
+
+<h3>Quick checklist for hosting</h3>
+<ul>
+  <li>Change the default branch in repository settings</li>
+  <li>Move branch protections and required checks to main</li>
+  <li>Make sure CI and deployment pipelines expect main</li>
+</ul>
+
+<h2>Update references and continuous integration</h2>
+<p>Search for hard coded references to master and update them. These can hide in CI configs scripts and documentation. Use git grep and a bit of sed or your favorite editor to fix them.</p>
+<pre><code>git grep -n "master"
+# edit files that mention master and replace with main</code></pre>
+<p>Remember to run your tests on main before you delete the old branch from the remote. Automated checks will thank you in fewer error emails.</p>
+
+<h2>Automate multiple repositories</h2>
+<p>If you have many repositories do not rename each by hand unless you really enjoy repetitive strain. Here is a basic bash loop to get you started. Adapt it for your hosting API to change defaults remotely.</p>
+<pre><code>for repo in git@example.com:org/repo1.git git@example.com:org/repo2.git; do
+  git clone "$repo"
+  dir=$(basename "$repo" .git)
+  cd "$dir" || continue
+  git checkout master || git checkout -b master
+  git branch -m master main
+  git push -u origin main
+  cd ..
+done</code></pre>
+
+<h2>Wrap up</h2>
+<p>You have now made main the default for new repos renamed existing branches pushed the changes and learned to update hosting settings and CI. It is not glamorous but it is effective. If you manage many repositories consider adding the hosting API to the script and run tests against main before declaring victory.</p>
+<p>Final tip Keep backups and do this during a calm workday rather than during a production frenzy. Your future self will send you a thank you note or at least fewer angry Slack messages.</p>
+

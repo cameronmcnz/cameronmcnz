@@ -1,0 +1,78 @@
+---
+layout: video
+title: "What is Git? How would you define Git?"
+description: "Quick clear definition of Git for developers Learn how Git tracks changes manages branches and connects to GitHub GitLab and Bitbucket"
+video_host: "youtube"
+video_id: "VRRsHFoj3Yk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/VRRsHFoj3Yk/maxresdefault.jpg"
+content_url: "https://youtu.be/VRRsHFoj3Yk"
+embed_url: "https://www.youtube.com/embed/VRRsHFoj3Yk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - GitHub
+  - GitLab
+  - BitBucket
+  - Version Control
+  - DevOps
+  - Branching
+  - Commits
+  - Workflow
+  - Source Control
+---
+
+<p>If Git were a person it would be that stoic librarian who remembers everything and quietly judges your commit messages. Git is a distributed version control system that records changes to files and helps teams work together without stepping on each others toes. Think snapshots not rewrites. Commits are those snapshots. Repositories hold the history. Branches let you try dangerous ideas without blowing up the main line.</p>
+
+<h2>Why Git matters for source control and teams</h2>
+<p>Git is the backbone of modern source control and DevOps workflows. Because it stores a full history on each machine you can work offline and still have the whole project history. Remote hosts like GitHub GitLab and BitBucket provide storage plus collaboration features such as pull requests merge requests and code review that make teamwork less chaos and more process.</p>
+
+<h3>Commits and messages that future you will thank</h3>
+<p>A commit is a snapshot plus a message explaining why the change exists. Small focused commits make reviews faster and bugs easier to bisect. Use:</p>
+<pre><code>git add .
+git commit -m "Meaningful message explaining the why"
+</code></pre>
+<p>Commit messages are tiny reports to your future self. If you write bad messages that is on you and your descendants.</p>
+
+<h3>Cloning and working offline</h3>
+<p>Use git clone to copy a remote repository to your local machine. The clone includes the full history so you can inspect past commits and work without a network. That is why Git is called distributed.</p>
+<pre><code>git clone https://example.com/user/repo.git
+</code></pre>
+
+<h2>Branching and your comfort zone</h2>
+<p>Branches create parallel lines of development so experiments do not break the main branch. Create a branch for a feature a bugfix or for procrastination therapy. Use either of these:</p>
+<pre><code>git checkout -b feature-name
+# or
+git switch -c feature-name
+</code></pre>
+<p>Keep branches small and focused. Merge often or rebase carefully if you enjoy pain with a side of complexity.</p>
+
+<h2>Share changes and get them merged</h2>
+<p>When your local commits are ready push them to the remote and open a pull request or merge request for review. Use git push to upload commits and use git pull or the pair git fetch plus git merge to bring remote changes into your branch.</p>
+<pre><code>git push origin feature-name
+git fetch origin
+git merge origin/main
+# or
+git pull origin main
+</code></pre>
+<p>Pull requests are where discussions happen code review takes place and CI checks run. Treat them like a polite conversation not a gladiator arena.</p>
+
+<h2>Core habits for fewer merge headaches</h2>
+<ul>
+<li>Make small commits with clear messages</li>
+<li>Use feature branches for isolated work</li>
+<li>Push frequently so backups exist and reviewers can see progress</li>
+<li>Protect main or master with branch rules and CI checks</li>
+<li>Prefer merge requests or pull requests for peer review</li>
+<li>Use rebase only when you know what you are doing</li>
+</ul>
+
+<h2>Where Git fits in DevOps and workflow</h2>
+<p>Git is the single source of truth for code in most DevOps pipelines. CI and CD systems on GitHub GitLab and BitBucket trigger builds tests and deployments from the repository. Good branching strategies combined with automation make releases less scary and rollbacks less dramatic.</p>
+
+<p>In short Git gives you history safety and a collaboration model if you use it with intention. Learn the basic commands practice disciplined commits and embrace pull requests. Do that and your team will thank you even if they do not always say it out loud.</p>
+

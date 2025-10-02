@@ -1,0 +1,66 @@
+---
+layout: video
+title: "How to Get your ChatGPT Open AI API Key"
+description: "Step by step guide to get and manage a ChatGPT OpenAI API key for development and security best practices"
+video_host: "youtube"
+video_id: "dR1gWtG9qeo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M23S"
+thumbnail_url: "https://i.ytimg.com/vi/dR1gWtG9qeo/maxresdefault.jpg"
+content_url: "https://youtu.be/dR1gWtG9qeo"
+embed_url: "https://www.youtube.com/embed/dR1gWtG9qeo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - ChatGPT
+  - OpenAI
+  - API key
+  - Tutorial
+  - Developer
+  - Security
+  - Key management
+  - Environment variables
+  - API access
+  - Dashboard
+---
+
+<h2>Get started with your OpenAI ChatGPT API key</h2>
+<p>This quick, slightly sarcastic guide tells developers how to get an OpenAI API key for ChatGPT and keep it from causing chaos. You will learn how to sign in, create keys, store them in a safe place, and watch usage so your credit card does not cry.</p>
+
+<h3>Step by step for busy humans</h3>
+<ol>
+  <li>Create or sign in to an OpenAI account and enable two factor authentication for basic sanity</li>
+  <li>Open the dashboard and visit the API keys area where keys, limits and billing like to hide</li>
+  <li>Click create new API key and copy the secret immediately because it will only be shown once</li>
+  <li>Paste the secret into a secure vault or a secrets manager and never commit it to source control</li>
+  <li>Set an environment variable for local development with a command like
+    <pre><code>export OPENAI_API_KEY="YOUR_KEY"</code></pre>
+  </li>
+  <li>Use separate keys per project to reduce blast radius and apply usage caps to avoid surprises</li>
+  <li>Monitor usage on the dashboard and revoke keys that are no longer needed</li>
+</ol>
+
+<h3>How to use the key in requests</h3>
+<p>When making API calls include an Authorization header with value Bearer followed by your API key. Most HTTP clients let you set headers directly. Keep a close eye on usage and set alerts if your account starts acting greedy.</p>
+
+<h3>Where to store API keys</h3>
+<ul>
+  <li>Cloud provider secrets manager for production workloads</li>
+  <li>Password manager for small projects or one off experiments</li>
+  <li>Environment variables for local development</li>
+  <li>Never check keys into git or paste them into public logs</li>
+</ul>
+
+<h3>Safety checklist that you will thank yourself for</h3>
+<ul>
+  <li>Enable two factor authentication on your OpenAI account</li>
+  <li>Rotate keys regularly and after any suspected leak</li>
+  <li>Use least privilege by issuing keys per project or per service</li>
+  <li>Set usage caps and billing alerts from the dashboard to avoid bill shock</li>
+  <li>Audit and revoke keys that are no longer in use</li>
+</ul>
+
+<p>Recap in plain English Sign in create a key copy it to secure storage set an environment variable use the key in your requests and watch usage Rotate keys and limit permissions to reduce risk While it sounds dull it saves time and money later and keeps your projects moving without drama</p>
+

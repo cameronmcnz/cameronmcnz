@@ -1,0 +1,91 @@
+---
+layout: video
+title: "git rebase master to branch example"
+description: "Step by step example of rebasing master onto a feature branch using git commands and conflict handling for a clean linear history"
+video_host: "youtube"
+video_id: "5f7vjrIE2NI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M42S"
+thumbnail_url: "https://i.ytimg.com/vi/5f7vjrIE2NI/maxresdefault.jpg"
+content_url: "https://youtu.be/5f7vjrIE2NI"
+embed_url: "https://www.youtube.com/embed/5f7vjrIE2NI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - rebase
+  - master
+  - branch
+  - git tutorial
+  - git workflow
+  - feature branch
+  - conflict resolution
+  - force-with-lease
+  - git commands
+---
+
+<article>
+  <h2>What you are about to do and why it matters</h2>
+  <p>If you want a commit history that reads like a polite straight line instead of an emotional labyrinth this guide shows how to rebase master onto a feature branch. You will update your feature branch with the latest master changes while keeping history linear. This is a git workflow trick that makes code review and bisecting less painful for everyone involved.</p>
+
+  <h2>Prerequisites</h2>
+  <ul>
+    <li>Familiarity with basic git commands and a working feature branch</li>
+    <li>Remote named origin or adjust commands to match your remote</li>
+    <li>Comfort with resolving merge conflicts and using <code>git rebase --abort</code> if things go sideways</li>
+  </ul>
+
+  <h2>Quick overview of the steps</h2>
+  <ol>
+    <li>Switch to your feature branch</li>
+    <li>Fetch the latest master from remote</li>
+    <li>Rebase your feature branch onto origin master</li>
+    <li>Resolve conflicts if any and continue the rebase</li>
+    <li>Push the rewritten branch using force with lease</li>
+  </ol>
+
+  <h2>Step 1 Check out the feature branch</h2>
+  <p>Make sure HEAD points at the branch you want to update. No magic here.</p>
+  <pre><code>git checkout feature-branch</code></pre>
+
+  <h2>Step 2 Fetch the latest master</h2>
+  <p>Bring the remote changes into your local view without touching your branches yet. This grabs <code>origin/master</code> so the rebase uses the latest code.</p>
+  <pre><code>git fetch origin</code></pre>
+
+  <h2>Step 3 Rebase the feature branch onto master</h2>
+  <p>While staying on your feature branch run the rebase. This rewrites your feature commits on top of the latest master commits for a clean linear history.</p>
+  <pre><code>git rebase origin/master</code></pre>
+
+  <h3>What happens during the rebase</h3>
+  <p>Git will replay your feature branch commits one by one onto origin master. If everything is simple this is fast and drama free. If conflicts appear git will pause and let you play firefighter.</p>
+
+  <h2>Step 4 Handle conflicts like a civilized developer</h2>
+  <p>If a conflict pops up do this</p>
+  <ul>
+    <li>Edit the conflicted files to resolve the issues</li>
+    <li>Stage the fixes with <code>git add</code></li>
+    <li>Resume the rebase with <code>git rebase --continue</code></li>
+  </ul>
+  <p>If you decide the rebase is a terrible idea use <code>git rebase --abort</code> to return to the state before the rebase started. No harm done other than bruised ego.</p>
+
+  <h2>Step 5 Push the rewritten branch safely</h2>
+  <p>Because rebase rewrites commits you need to update the remote branch with a forced push. Use force with lease to avoid stomping on someone else work by accident.</p>
+  <pre><code>git push --force-with-lease</code></pre>
+
+  <h2>Tips and best practices</h2>
+  <ul>
+    <li>Prefer running <code>git rebase origin/master</code> from the feature branch instead of merging master into it. It keeps history tidy.</li>
+    <li>Use <code>--force-with-lease</code> instead of a plain force push. It is the polite version of nuclear force.</li>
+    <li>Communicate with your team when you rewrite shared branches. Telepathy is not a listed collaboration strategy.</li>
+    <li>Keep small focused commits during feature work. Smaller conflicts are less dramatic.</li>
+  </ul>
+
+  <h2>Troubleshooting</h2>
+  <p>If the rebase stops unexpectedly check the state with <code>git status</code> and inspect the patch with <code>git log --oneline --graph</code>. If a resolution feels risky abort and regroup. If something strange happens you can always recover provided you have backups or reflog patience.</p>
+
+  <h2>Wrap up</h2>
+  <p>Rebasing master onto a feature branch is a simple way to keep your work up to date and your commit history readable. Follow the steps here and keep <code>git rebase --abort</code> handy in case the universe decides to be dramatic. Happy rebasing and may your merge conflicts be mercifully short.</p>
+</article>
+

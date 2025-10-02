@@ -1,0 +1,57 @@
+---
+layout: video
+title: "Route 53 Sub Domains S3 Buckets and Domain Mapping"
+description: "Map subdomains to S3 static websites using Route 53 DNS records and best practices for public buckets and optional CloudFront HTTPS"
+video_host: "youtube"
+video_id: "0OaF3vl7OFs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/0OaF3vl7OFs/maxresdefault.jpg"
+content_url: "https://youtu.be/0OaF3vl7OFs"
+embed_url: "https://www.youtube.com/embed/0OaF3vl7OFs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - Route 53
+  - S3
+  - subdomain
+  - DNS
+  - static website
+  - domain mapping
+  - CloudFront
+  - hosting
+  - ACM
+---
+
+<h2>Why map a subdomain to S3</h2>
+<p>You want blog.example.com to serve a fast static website from AWS without babysitting a server. That is noble and slightly lazy in the best way. This guide covers the DNS and hosting bits with Route 53, S3, CloudFront and ACM so your site is public when it should be and secure when you want to impress people.</p>
+
+<h2>Step 1 Create a bucket with the subdomain name</h2>
+<p>Create a public S3 bucket that exactly matches the subdomain you plan to use. For example use blog.example.com as the bucket name for virtual hosted style addressing. If the names do not match AWS will side eye you and your DNS will be unhappy.</p>
+
+<h2>Step 2 Enable static website hosting and upload files</h2>
+<p>In the bucket properties turn on static website hosting and set your index and error documents such as index.html and 404.html. Upload your HTML CSS and asset files. Remember that S3 website endpoints are region specific so note the endpoint for the region you used when creating the bucket.</p>
+
+<h2>Step 3 Make objects readable or use CloudFront for HTTPS</h2>
+<p>To serve the files directly from S3 either disable block public access for that bucket or attach a bucket policy that grants s3 GetObject to the public. If public hosting makes you nervous put CloudFront in front of the bucket for TLS and add an ACM certificate for the domain to the CloudFront distribution. Pro tip ACM certificates for CloudFront must be requested in the us-east-1 region.</p>
+
+<h2>Step 4 Update DNS in Route 53</h2>
+<p>Use the hosted zone for example.com in Route 53 and add an alias A record for the subdomain that points to the S3 website endpoint if you are serving directly from S3. If you are using CloudFront create an alias record that targets the distribution. If your domain registrar is not AWS make sure to update name servers at the registrar to the ones from the hosted zone so DNS actually works instead of pretending to.</p>
+
+<h3>Troubleshooting checklist</h3>
+<ul>
+  <li>Bucket name does not match subdomain. Fix it and pour yourself a coffee.</li>
+  <li>Block public access is still enabled on the bucket so objects return 403.</li>
+  <li>DNS pointed to the wrong regional website endpoint. The region matters here.</li>
+  <li>ACM certificate not in us-east-1 when using CloudFront so HTTPS will fail.</li>
+  <li>TTL and DNS propagation causing delays. Be patient or start praying to the DNS gods.</li>
+  <li>CloudFront caching old content. Do an invalidation if your life depends on showing the latest file.</li>
+</ul>
+
+<p>That is the whole show. You now know how to map a subdomain using Route 53 DNS to an S3 static website and when to throw CloudFront and ACM at the problem for HTTPS. It is straightforward once you survive the AWS console maze and a few polite error messages.</p>
+
+<p>Keywords to remember while you brag about your new site AWS Route 53 S3 subdomain DNS static website domain mapping CloudFront hosting ACM</p>
+

@@ -1,0 +1,72 @@
+---
+layout: video
+title: "How to Show All Your Git Config Properties at Once"
+description: "Quick guide to list every Git config property across local global and system scopes with commands examples and cleaning tips"
+video_host: "youtube"
+video_id: "IhgnKcbqw5A"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M19S"
+thumbnail_url: "https://i.ytimg.com/vi/IhgnKcbqw5A/maxresdefault.jpg"
+content_url: "https://youtu.be/IhgnKcbqw5A"
+embed_url: "https://www.youtube.com/embed/IhgnKcbqw5A"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git config
+  - git tutorial
+  - git commands
+  - git tips
+  - version control
+  - command line
+  - developer tools
+  - dotfiles
+  - git troubleshooting
+---
+
+<p>Want to find that mysterious git setting that keeps turning your commits into chaos The command you need is small and merciless and it tells you exactly which file is lying to you</p>
+
+<h2>Run one command to map every config value and its file</h2>
+<p>Open a terminal in your repo and run the following This prints each config key with the file path that supplied the value so you can stop guessing and start deleting</p>
+<pre><code>git config --list --show-origin</code></pre>
+<p>The output shows lines that include the file path and the key equal value pair This is the single command that saves time and dignity when an option misbehaves</p>
+
+<h2>Which scope wins and why it matters</h2>
+<p>Git settings can come from multiple places Local repo config global user config and system config are the usual suspects Local settings in .git config override your global dotfiles so if your repo acts weird check the repo first</p>
+<ul>
+  <li>Local repo config located in .git config</li>
+  <li>Global user config usually in your home file like ~/.gitconfig</li>
+  <li>System config that applies to all users on the machine</li>
+</ul>
+<p>Keep this precedence in mind when you find duplicate keys The show origin output gives the file path so you know which file to edit</p>
+
+<h3>Filter the output to avoid scrolling forever</h3>
+<p>Pipe the output to a search tool to narrow things down For Unix like systems use grep For Windows use findstr Examples below</p>
+<pre><code>git config --list --show-origin | grep user
+
+git config --list --show-origin | findstr user</code></pre>
+<p>That finds user name and email settings without scrolling through unrelated decorations</p>
+
+<h2>Edit or remove the offending entries</h2>
+<p>Change or remove values using git config commands so you do not break your dotfiles by accident Use the edit command for sane edits or unset to remove a key</p>
+<pre><code>git config --global --edit
+
+git config --local --edit
+
+git config --global --unset user.name
+
+git config --unset user.email</code></pre>
+<p>You can also open ~/.gitconfig in a text editor if you enjoy living dangerously Manual edits are fine but commit your dotfiles or stash them somewhere if you care about being able to undo</p>
+
+<h3>Quick troubleshooting checklist</h3>
+<ul>
+  <li>Run git config --list --show-origin before blaming Git or your tool</li>
+  <li>Look at the file path in the output to know which config to edit</li>
+  <li>Use grep or findstr to filter results and save your scrolling thumb</li>
+  <li>Unset duplicates so local or global settings do not fight each other</li>
+</ul>
+
+<p>There you go The next time Git does something weird run the show origin command first then fix the file that caused the trouble You will feel smarter and your CI will stop yelling at you</p>
+

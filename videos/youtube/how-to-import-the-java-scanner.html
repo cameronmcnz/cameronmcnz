@@ -1,0 +1,79 @@
+---
+layout: video
+title: "How to import the Java Scanner"
+description: "Quick guide to import and use the Java Scanner for reading console input with example code and common pitfalls"
+video_host: "youtube"
+video_id: "xMacfO2W4vQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M41S"
+thumbnail_url: "https://i.ytimg.com/vi/xMacfO2W4vQ/maxresdefault.jpg"
+content_url: "https://youtu.be/xMacfO2W4vQ"
+embed_url: "https://www.youtube.com/embed/xMacfO2W4vQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - java
+  - scanner
+  - import
+  - user input
+  - console input
+  - java tutorial
+  - java example
+  - programming
+  - java beginners
+  - input handling
+---
+
+<p>So you need to accept user input in Java and you heard Scanner is the popular kid in town. Good call. Scanner is simple, standard, and irritatingly specific about newlines. This short guide shows how to import Scanner set it up read different types of input and avoid the common newline trap while keeping things tidy and mildly amusing.</p>
+
+<h2>Import the Scanner class</h2>
+<p>Put the Scanner import near the top of your Java file so the compiler knows what you mean when you type Scanner. A typical line looks like this</p>
+<pre><code>import java.util.Scanner</code></pre>
+<p>Friendly reminder, when you paste into a real Java file remember to end the import with a semicolon character so the compiler stops complaining.</p>
+
+<h2>Create a Scanner that reads console input</h2>
+<p>Instantiate a Scanner that reads from System.in so your program can accept what the user types. Use a clear name so you do not accidentally shadow other classes named Scanner elsewhere.</p>
+<pre><code>Scanner scanner = new Scanner(System.in)</code></pre>
+<p>If you prefer automatic cleanup use try with resources which closes the Scanner for you when the block ends.</p>
+<pre><code>try (Scanner scanner = new Scanner(System.in)) {
+    // use scanner here
+}
+</code></pre>
+
+<h3>Why closing matters but also does not matter</h3>
+<p>Closing a Scanner frees resources and is polite in long running applications. For tiny demo programs you can skip it and nobody will write angry Stack Overflow posts. If your code is a library avoid closing System.in because callers may want it open. Try with resources is a neat compromise for short apps.</p>
+
+<h2>Read strings and primitives with the right method</h2>
+<p>Scanner has a handful of convenient methods. Pick the one that matches the data you expect.</p>
+<ul>
+  <li><code>nextLine()</code> reads a whole line including spaces and then returns it</li>
+  <li><code>next()</code> grabs the next token which is good for single words</li>
+  <li><code>nextInt()</code> reads an integer value</li>
+  <li><code>nextDouble()</code> reads a floating point number</li>
+</ul>
+
+<h3>The newline gotcha and how to survive it</h3>
+<p>nextInt and nextDouble do not consume the trailing newline after the number. That means a subsequent call to nextLine can return an empty string and you will stare at your screen wondering why your program hates you. Two simple fixes work well.</p>
+<ul>
+  <li>After reading a number call <code>scanner.nextLine()</code> to consume the leftover newline before you read the next full line</li>
+  <li>Or read full lines with <code>nextLine()</code> and parse them with <code>Integer.parseInt</code> or <code>Double.parseDouble</code> to avoid mixing token and line methods</li>
+</ul>
+<p>Example pattern to avoid surprises</p>
+<pre><code>int age = scanner.nextInt()
+scanner.nextLine() // consume leftover newline
+String name = scanner.nextLine()
+</code></pre>
+
+<h2>Quick checklist for beginners</h2>
+<ul>
+  <li>Add <code>import java.util.Scanner</code> at the top of the file</li>
+  <li>Create a Scanner that reads from <code>System.in</code></li>
+  <li>Choose the right method for the input type</li>
+  <li>Handle the extra newline when mixing token and line reads</li>
+  <li>Use try with resources for short programs and avoid closing System.in in libraries</li>
+</ul>
+
+<p>There you go. You can now import Scanner read console input and handle the newline gremlins like a pro. If you want a slightly more robust approach consider reading lines and parsing them which saves you from debugging phantom empty strings at midnight.</p>
+

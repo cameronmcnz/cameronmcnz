@@ -1,0 +1,92 @@
+---
+layout: video
+title: "Install Git Flow on Windows"
+description: "Quick guide to install Git Flow on Windows using Chocolatey and Git Bash for a consistent branching workflow"
+video_host: "youtube"
+video_id: "VK0KUolSCQg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M6S"
+thumbnail_url: "https://i.ytimg.com/vi/VK0KUolSCQg/maxresdefault.jpg"
+content_url: "https://youtu.be/VK0KUolSCQg"
+embed_url: "https://www.youtube.com/embed/VK0KUolSCQg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git flow
+  - git-flow
+  - gitflow-avh
+  - windows
+  - git bash
+  - chocolatey
+  - tutorial
+  - version control
+  - branching model
+---
+
+<h1>Make branching predictable on Windows with git flow and git bash setup</h1>
+
+<p>If your team likes structure and you secretly enjoy clerical order then git flow will feel like a warm spreadsheet hug. This guide walks through getting git flow working on Windows using Git Bash and Chocolatey so you can stop inventing branch names on the fly.</p>
+
+<h2>What you need before you start</h2>
+
+<ul>
+  <li>Git for Windows installed from the official site git-scm.com so you get Git Bash</li>
+  <li>Administrator access to install system packages on Windows</li>
+  <li>Chocolatey for convenient package installs or another package manager you trust</li>
+  <li>An existing repository to initialize or a fresh repo to experiment in</li>
+</ul>
+
+<h2>Install steps that actually work</h2>
+
+<p>Follow these short steps and you will have the AVH fork of git flow on your PATH so Git Bash can find the commands.</p>
+
+<h3>1 Install Git for Windows</h3>
+
+<p>Download the official installer from git-scm.com and run it. That gives you Git Bash which behaves more like a proper Unix style shell than the Windows command prompt. It makes the next commands less annoying.</p>
+
+<h3>2 Install Chocolatey and then gitflow</h3>
+
+<p>If you already have Chocolatey skip the install step. With Chocolatey you can install gitflow with one command and not worry about where files land.</p>
+
+<pre><code>choco install gitflow-avh -y</code></pre>
+
+<p>The AVH fork is the commonly maintained version and the Chocolatey package places the helper scripts on the system PATH for Git Bash to use.</p>
+
+<h3>3 Initialize git flow inside a repo</h3>
+
+<p>Open Git Bash in your project folder and run the init command. The tool will ask about branch names and defaults. If you are the sort of person who likes defaults then just accept them and move on with your life.</p>
+
+<pre><code>git flow init</code></pre>
+
+<p>Defaults usually mean master trunk and develop as the integration branch which works for many teams. You can customize branch names to match your workflow.</p>
+
+<h2>Basic git flow commands you will actually use</h2>
+
+<ul>
+  <li>Start a feature branch with git flow feature start my-feature</li>
+  <li>Finish a feature and merge it back with git flow feature finish my-feature</li>
+  <li>Use release and hotfix commands the same way when you need them</li>
+</ul>
+
+<pre><code>git flow feature start my-feature
+# work, commit, push as usual
+git flow feature finish my-feature</code></pre>
+
+<p>The helper commands handle naming and merging targets so you do fewer manual merges and less finger crossing when integrating work.</p>
+
+<h2>Practical notes and trade offs</h2>
+
+<ul>
+  <li>Git flow shines when you like a long lived develop branch and distinct release and hotfix procedures</li>
+  <li>For tiny teams doing trunk based development it may feel like ceremony for the sake of ceremony</li>
+  <li>Remember that the tooling helps enforce a branching model but it does not replace clear team agreements on when to branch and merge</li>
+  <li>Chocolatey requires admin rights so plan that if you are on a locked down machine</li>
+</ul>
+
+<h2>Final thoughts</h2>
+
+<p>Installing git flow on Windows is mostly about installing Git for Windows and then adding the gitflow-avh package with Chocolatey. Initialize your repo and use the helper commands to create, finish, and manage features, releases, and hotfixes. If you enjoy rules and predictable merges git flow will make your branching model feel like an organized circus, which is something, right?</p>
+

@@ -1,0 +1,78 @@
+---
+layout: video
+title: "How to Create an AWS EC2 Spot Instance"
+description: "Step by step guide to launch AWS EC2 Spot Instances to cut compute costs while handling interruptions and monitoring usage"
+video_host: "youtube"
+video_id: "eOSQdapJdCc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M15S"
+thumbnail_url: "https://i.ytimg.com/vi/eOSQdapJdCc/maxresdefault.jpg"
+content_url: "https://youtu.be/eOSQdapJdCc"
+embed_url: "https://www.youtube.com/embed/eOSQdapJdCc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - Amazon Web Services
+  - EC2
+  - Spot Instance
+  - Cloud Computing
+  - Cost Optimization
+  - Auto Scaling
+  - Spot Fleet
+  - Instance Interruption
+  - Tutorial
+---
+
+<h2>Quick summary for the impatient</h2>
+<p>Want cheaper AWS compute and you do not mind a little drama when capacity shifts? Spot Instances are your bargain bin for EC2. This tutorial explains how to request and run EC2 Spot Instances for cost optimization while surviving instance interruptions with a few graceful moves and some automation magic.</p>
+
+<h2>Why use Spot Instances</h2>
+<p>Spot Instances in Amazon Web Services let you run EC2 capacity at a fraction of on demand prices. They are ideal for batch jobs, CI workers, stateless services and other fault tolerant workloads. They are not ideal for mission critical database masters that cry when interrupted. Expect sudden interruptions and plan for them.</p>
+
+<h2>High level steps</h2>
+<ol>
+  <li>Open the EC2 console and choose the Launch Instance path with the Spot request option</li>
+  <li>Pick an AMI and an instance type that fits your workload</li>
+  <li>Set capacity and pricing using either a max price safety net or capacity optimized allocation strategy</li>
+  <li>Configure network, storage and security settings and set interruption behavior</li>
+  <li>Launch, tag and monitor the Spot request and instance</li>
+</ol>
+
+<h2>Pick AMI and instance type</h2>
+<p>Choose an AMI that matches your software stack and pick an instance type that balances price and performance. If your workload can tolerate slightly different CPU or memory profiles then use cheaper families to increase your chance of getting capacity. Spot loves flexible instance type requests.</p>
+
+<h2>Configure capacity and pricing</h2>
+<p>You can request a specific number of instances and set a maximum price per hour. Think of the max price as an insurance policy not a wish list. You will actually be charged the current Spot market price which is often much lower. For most cases the capacity optimized allocation strategy will give better allocation stability than trying to guess a price number.</p>
+
+<h3>Autoscaling and Spot Fleet options</h3>
+<p>If you want automatic replacements use an Auto Scaling group with a mixed instances policy or use a Spot Fleet. These let you combine On Demand and Spot capacity and specify fallback behavior so your service keeps breathing when Spot capacity shrinks.</p>
+
+<h2>Network storage and security</h2>
+<p>Attach the right VPC and subnet. Configure security groups so your instance can talk to what it needs and nothing more. Choose EBS volumes or instance store depending on whether you need persistent disk. If you plan to hibernate on interruption make sure your root volume is EBS and encrypted and that you have enough disk to store a memory snapshot.</p>
+
+<h2>Interruption handling because denial is not a strategy</h2>
+<p>Spot Instances can be interrupted with a short notice window. AWS provides an instance interruption notice that appears in the instance metadata at the address 169.254.169.254 under path latest meta-data spot termination-time. You get a two minute warning in most cases. Use that window to save state, drain work, or signal an orchestrator to spin up a replacement.</p>
+
+<ul>
+  <li>Set instance interruption behavior to stop, hibernate or terminate depending on your need</li>
+  <li>Use lifecycle hooks in Auto Scaling to drain tasks before termination</li>
+  <li>Integrate CloudWatch alarms and EventBridge rules to trigger replacements and alerts</li>
+</ul>
+
+<h2>Launch and monitor</h2>
+<p>Create or pick a key pair, add any tags you want for accounting, and submit the Spot request. Watch allocation status in the EC2 console. Set CloudWatch alarms for instance metrics and cost spikes. Also monitor Spot instance interruption notices so you can react automatically instead of panicking manually.</p>
+
+<h2>Best practices and trade offs</h2>
+<ul>
+  <li>Use Spot for non critical and fault tolerant workloads to get maximum cost savings</li>
+  <li>Combine Spot with On Demand or Reserved instances for steady state capacity</li>
+  <li>Test interruption handling with real terminations so your automation actually works</li>
+  <li>Consider using Auto Scaling and Spot Fleet to manage diversity and reduce allocation failures</li>
+</ul>
+
+<h2>Wrap up</h2>
+<p>Spot Instances are one of the most effective cost optimization levers in Cloud Computing when used properly. They require planning for instance interruption and a mindset shift away from single immutable servers. Do the setup once and your bill will thank you later even if your instances do not.</p>
+

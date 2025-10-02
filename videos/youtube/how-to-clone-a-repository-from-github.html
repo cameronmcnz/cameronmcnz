@@ -1,0 +1,97 @@
+---
+layout: video
+title: "How to Clone a Repository from GitHub"
+description: "Step by step guide to clone a GitHub repository using Bash and VS Code with branch tips and common fixes"
+video_host: "youtube"
+video_id: "iMFdVDD0vuE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M35S"
+thumbnail_url: "https://i.ytimg.com/vi/iMFdVDD0vuE/maxresdefault.jpg"
+content_url: "https://youtu.be/iMFdVDD0vuE"
+embed_url: "https://www.youtube.com/embed/iMFdVDD0vuE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - bash
+  - clone
+  - repository
+  - vscode
+  - branch
+  - repo
+  - command
+  - local
+---
+
+<h2>Why bother cloning a repo</h2>
+<p>Because reading code on a website is like reading a menu through a fogged up window. If you want to run tests debug stuff or actually edit code you need the project on your local machine. Cloning a GitHub repository gives you a local copy of the repo so you can use git commands open the project in VS Code and not cry into the terminal.</p>
+
+<h2>Tools you will need</h2>
+<ul>
+  <li>Git installed and available from Bash or your terminal</li>
+  <li>A GitHub account for private repos or contributing</li>
+  <li>Basic comfort with the command line or willingness to fake it</li>
+  <li>VS Code for peak productivity and a few helpful extensions</li>
+</ul>
+
+<h2>Quick checklist before you clone</h2>
+<ul>
+  <li>Decide if you will use HTTPS or SSH for the remote URL</li>
+  <li>Open a terminal in the folder where you want the project to live</li>
+  <li>Have any required credentials or SSH keys ready</li>
+</ul>
+
+<h2>Step by step cloning workflow</h2>
+<p>Follow these steps and you will have a local repo faster than you can say git checkout main. This is the pragmatic approach used by developers who prefer working code over motivational posters.</p>
+
+<h3>Step 1 Get the clone URL</h3>
+<p>On the GitHub page click the Code button and copy the URL shown. You will see an HTTPS option and an SSH option. HTTPS is straightforward for one offs. SSH is nicer long term because you will get fewer password prompts.</p>
+
+<h3>Step 2 Open a terminal in your project folder</h3>
+<p>Use your file manager or run a command like this from your home directory to move into the folder where the repo should live.</p>
+<pre><code>cd path to projects folder</code></pre>
+
+<h3>Step 3 Run the clone command</h3>
+<p>Paste the URL into a git clone command. If you like typing less or living dangerously you can add a custom folder name after the URL.</p>
+<pre><code>git clone https //github.com user repo.git
+
+or for SSH
+
+git clone git@github.com user repo.git
+
+or to set a custom local folder name
+
+git clone https //github.com user repo.git my local folder</code></pre>
+<p>The new folder will match the repository name unless you provided a different folder name. Congratulations you now have a copy of the repo on your local machine.</p>
+
+<h3>Step 4 Switch to a specific branch if needed</h3>
+<p>If you need a branch that is not the default do one of these depending on your mood and efficiency needs.</p>
+<ul>
+  <li>Clone then checkout</li>
+</ul>
+<pre><code>cd repo
+git checkout branch name</code></pre>
+<ul>
+  <li>Clone directly to the branch in one command</li>
+</ul>
+<pre><code>git clone -b branch name https //github.com user repo.git</code></pre>
+
+<h2>Open in VS Code</h2>
+<p>VS Code will detect the project and suggest useful extensions. From your terminal run this to open the folder in VS Code.</p>
+<pre><code>code repo</code></pre>
+<p>If code is not found add the VS Code command line tools or open the folder from the editor GUI. VS Code will pick up tooling like linters formatters and recommended extensions the way a nosy friend picks up gossip.</p>
+
+<h2>Troubleshooting and tips that save time</h2>
+<ul>
+  <li>Set up SSH keys so you do not get password nags repeatedly. Use ssh keygen and add the public key to GitHub.</li>
+  <li>If authentication fails check that your remote URL is correct and that your keys are loaded into the agent with ssh add.</li>
+  <li>Use git remote -v to confirm the remote name and URL. If you want a different remote name run git remote add origin URL after cloning.</li>
+  <li>If you accidentally cloned the wrong branch delete the folder and redo or use git fetch and git switch to move around branches.</li>
+</ul>
+
+<h2>Wrap up</h2>
+<p>Cloning a GitHub repository is a small number of commands that unlock a world of local editing testing and version control. With a reliable workflow you will spend less time wrestling with remotes and more time actually writing code. If you want less friction set up SSH keys and get comfortable with git clone -b and the code command for VS Code. Now go clone something useful and resist the urge to accidentally push a test file named final final final dot txt.</p>
+

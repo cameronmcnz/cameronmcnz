@@ -1,0 +1,67 @@
+---
+layout: video
+title: "How to Switch on a String in UiPath"
+description: "Learn how to use the Switch activity to branch on string values in UiPath Studio with quick steps and clear examples for reliable RPA flows"
+video_host: "youtube"
+video_id: "HswobQMeyHU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M53S"
+thumbnail_url: "https://i.ytimg.com/vi/HswobQMeyHU/maxresdefault.jpg"
+content_url: "https://youtu.be/HswobQMeyHU"
+embed_url: "https://www.youtube.com/embed/HswobQMeyHU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Switch
+  - String
+  - RPA
+  - Tutorial
+  - SwitchActivity
+  - UiPathStudio
+  - Automation
+  - Cases
+  - DefaultCase
+---
+
+<p>So you need to branch your automation based on exact text and you do not want to end up in a nest of If activities that looks like a plate of developer spaghetti. The Switch activity in UiPath Studio is the tidy answer. This guide shows how to configure Switch for String values, avoid common traps, and test like a responsible automation adult.</p>
+
+<h2>Why use Switch for string branching</h2>
+<p>SwitchActivity makes branching on exact string values clear and fast. When your logic depends on specific text such as status codes and user choices, Switch reduces visual noise and debugging time compared to a chain of If activities. It also helps when you have many cases and need a readable structure.</p>
+
+<h2>Quick setup steps for the Switch activity</h2>
+<ol>
+  <li>Create a workflow and declare a string variable. A predictable name like myString saves future confusion when you are debugging at 2 a m.</li>
+  <li>Drag the Switch activity into your sequence or flowchart. Use Switch when you need exact string matches rather than boolean checks.</li>
+  <li>Set TypeArgument to String from the dropdown. This forces the activity to expect string values and avoids type mismatch drama.</li>
+  <li>In the Expression field type your variable name, for example myString. Add cases by clicking Add Case and enter the exact string for each branch. Exact matching matters, so watch casing and whitespace.</li>
+  <li>Add a Default case to handle unexpected values. Put a Log Message or Write Line there so you can blame something other than yourself later.</li>
+</ol>
+
+<h3>Example normalization step</h3>
+<p>Strings lie. They come with random spaces and weird capitalization. Standardize them before the Switch activity with an Assign activity. For example set myString to myString.Trim().ToLower() so your case values can be simple and predictable.</p>
+
+<h2>How to add cases and what to watch for</h2>
+<p>Add each case with the exact string you want to match. UiPath uses exact matching for Switch when the TypeArgument is String. That means "Pending" does not equal "pending" and " ok" is not "ok". If you want case insensitive matching use normalization as described above.</p>
+
+<ul>
+  <li>Case values must be exact strings</li>
+  <li>Whitespace differences cause mismatches</li>
+  <li>Use the Default case for unexpected input</li>
+</ul>
+
+<h2>Testing and debugging your Switch branches</h2>
+<p>Run the workflow and change myString to exercise every branch. Add Write Line or Log Message activities inside each case to confirm the right path executed. If something goes wrong the Default branch should log the unexpected value so you can investigate the source data without screaming into the void.</p>
+
+<h2>Best practices and small survival tips</h2>
+<ul>
+  <li>Trim and normalize input early with myString = myString.Trim().ToLower() to avoid casing and whitespace bugs</li>
+  <li>Keep case values as constants when possible to reduce typos</li>
+  <li>Use descriptive names for cases so the workflow reads like a manual for future you</li>
+  <li>Log unexpected values in the Default case so you have a breadcrumb trail</li>
+</ul>
+
+<p>The Switch activity is simple, robust, and keeps your UiPath Studio projects from turning into a horror show. Configure TypeArgument to String, normalize the data, add clear cases and a Default branch, then test. That is all it takes to go from chaos to slightly smug automation success.</p>
+

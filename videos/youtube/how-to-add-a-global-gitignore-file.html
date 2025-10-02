@@ -1,0 +1,80 @@
+---
+layout: video
+title: "How to add a Global .gitignore File"
+description: "Create and enable a global .gitignore for all Git repositories with quick commands and examples to stop committing OS and build noise."
+video_host: "youtube"
+video_id: "fOpg7lO04Nk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M48S"
+thumbnail_url: "https://i.ytimg.com/vi/fOpg7lO04Nk/maxresdefault.jpg"
+content_url: "https://youtu.be/fOpg7lO04Nk"
+embed_url: "https://www.youtube.com/embed/fOpg7lO04Nk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - gitignore
+  - global gitignore
+  - git config
+  - version control
+  - developer tools
+  - dotfiles
+  - workflow
+  - commands
+  - tips
+---
+
+<p>Tired of committing .DS_Store or mysterious log files that haunt your pull requests like bad code reviews from the past So here is a practical guide to a global gitignore that saves your sanity and keeps your version control history less embarrassing</p>
+
+<h2>Why a global gitignore matters</h2>
+<p>Git can ignore files per repository with a .gitignore file. That is great when the ignore rules belong to the project. But some files come from your machine and not from your code. Think editor swap files system junk and local env files. A global gitignore makes these rules apply to every repo for your user account so you stop seeing the same noise over and over.</p>
+
+<h2>Quick overview of the plan</h2>
+<ul>
+  <li>Create a global ignore file in your home or dotfiles folder</li>
+  <li>Add common user and OS patterns to that file</li>
+  <li>Tell git where the file lives using git config</li>
+  <li>Verify the config and test that files are ignored</li>
+</ul>
+
+<h2>Make the global ignore file</h2>
+<p>Create a file that will live in your home or in your dotfiles repo so you can track it across machines with a tasteful amount of control freakery</p>
+<pre><code>touch ~/.gitignore_global</code></pre>
+
+<h3>Example patterns to include</h3>
+<p>Throw in things that are tied to your workstation or editor and not the project. Keep secrets out of this file and in a proper vault</p>
+<pre><code>.DS_Store
+node_modules/
+*.log
+.env
+*.swp
+.vscode/
+</code></pre>
+
+<h2>Point git at the file</h2>
+<p>Now tell git which file to use as the global ignore. This is a per user setting and will not affect other users or machines until they do the same.</p>
+<pre><code>git config --global core.excludesFile ~/.gitignore_global</code></pre>
+
+<h2>Verify and test the setup</h2>
+<p>Make sure git knows about the file with a quick check and then confirm a pattern is ignored</p>
+<pre><code>git config --get core.excludesFile
+# create a file that matches a pattern then run
+# git status to confirm it is ignored
+</code></pre>
+<p>You can also run git status --ignored to see ignored files when you need to inspect what is being skipped</p>
+
+<h2>Important gotchas you will thank me for later</h2>
+<ul>
+  <li>Global ignore does not untrack files that are already committed. If a file is already in the repo remove it from tracking with a command like <code>git rm --cached path/to/file</code> and commit the removal</li>
+  <li>The global file is per user. If you work on multiple machines add it to your dotfiles and point git to the tracked copy with a symlink or by storing it in ~/.config/git/ignore and using git config accordingly</li>
+  <li>Keep the file focused on user and OS level junk. Project specific build outputs and secret keys belong in the repo level .gitignore and secure storage for secrets</li>
+</ul>
+
+<h2>Workflow tips and extras</h2>
+<p>If you want reproducible developer environments consider including a small recommended .gitignore in project templates and keep the global file strictly personal Use your dotfiles repo to version the global ignore and deploy it across machines with whatever level of nerd discipline you have</p>
+
+<h2>Recap and parting snark</h2>
+<p>A global gitignore is a tiny configuration that saves time and shame. Create the file add sensible patterns tell git where it lives and remember to untrack anything you already committed. Now go forth and commit only the things that matter</p>
+

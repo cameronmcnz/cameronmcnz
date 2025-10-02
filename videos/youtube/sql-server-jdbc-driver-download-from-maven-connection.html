@@ -1,0 +1,90 @@
+---
+layout: video
+title: "SQL Server JDBC Driver Download from Maven & Connection"
+description: "Download SQL Server JDBC driver from Maven and connect from Java with a concise Maven dependency and example connection code"
+video_host: "youtube"
+video_id: "GC6lW5OZFIU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M40S"
+thumbnail_url: "https://i.ytimg.com/vi/GC6lW5OZFIU/maxresdefault.jpg"
+content_url: "https://youtu.be/GC6lW5OZFIU"
+embed_url: "https://www.youtube.com/embed/GC6lW5OZFIU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - SQL Server
+  - JDBC
+  - Maven
+  - mssql-jdbc
+  - Java
+  - Database Connection
+  - DriverManager
+  - Maven Central
+  - JDBC URL
+  - Tutorial
+---
+
+<p>Short version for people who like results and mild panic relief. This guide shows how to pull the <strong>mssql-jdbc</strong> driver from Maven Central and open a JDBC connection from Java using DriverManager. You will learn the Maven dependency to add, the format of a working JDBC URL, a minimal try with resources example, and quick troubleshooting tips when things go sideways.</p>
+
+<h2>Grab the driver from Maven Central</h2>
+<p>Put the dependency in your build and stop juggling JAR files like it is 2008. Pick the artifact that matches your Java runtime. Example for a modern runtime:</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;com.microsoft.sqlserver&lt;/groupId&gt;
+  &lt;artifactId&gt;mssql-jdbc&lt;/artifactId&gt;
+  &lt;version&gt;12.2.0.jre17&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p>If you are on Java 8 or 11 use the matching jre8 or jre11 classifier or version suffix. Maven Central will give you all the goodies and none of the manual jar dragging.</p>
+
+<h2>Form the JDBC URL the server will actually accept</h2>
+<p>Most connection failures are caused by a bad URL, a closed network port, or a stubborn SQL Server refusing mixed mode. Here is the canonical URL format for SQL Server:</p>
+<pre><code>jdbc:sqlserver://HOSTNAME:1433;databaseName=MyDB</code></pre>
+<p>Replace HOSTNAME and MyDB with your server and database. If you use a named instance you can either add the instanceName property or supply the SQL Browser UDP port. Example with instance name:</p>
+<pre><code>jdbc:sqlserver://HOSTNAME;instanceName=SQLEXPRESS;databaseName=MyDB</code></pre>
+<p>Remember to enable TCP IP in SQL Server Configuration Manager and to open the port in any firewalls. If you try an instance name and still fail, try the explicit host and port because named instances can be annoyingly indirect.</p>
+
+<h2>Minimal Java example using DriverManager</h2>
+<p>Yes you can use a connection pool in production. No you do not need one to prove a connection. Use try with resources so Java closes things when it gets bored and dies.</p>
+<pre><code>import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class TestConn {
+  public static void main(String[] args) {
+    String url = "jdbc:sqlserver://localhost:1433;databaseName=TestDB";
+    String user = "dbuser";
+    String pass = "dbpass";
+
+    try (Connection conn = DriverManager.getConnection(url, user, pass);
+         PreparedStatement ps = conn.prepareStatement("SELECT 1");
+         ResultSet rs = ps.executeQuery()) {
+
+      if (rs.next()) {
+        System.out.println("Connection OK, sample query returned " + rs.getInt(1));
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+}</code></pre>
+
+<h2>Troubleshooting quick wins</h2>
+<ul>
+  <li>Enable TCP IP in SQL Server Configuration Manager and restart the service.</li>
+  <li>Check firewall rules for port 1433 or whatever port you configured.</li>
+  <li>Use SQL Server authentication if you are not using Windows integrated auth.</li>
+  <li>Match the driver artifact to your Java runtime. A jre17 build might not play nice with an older JVM.</li>
+  <li>ClassNotFoundException usually means the dependency did not reach the runtime classpath. Check your build packaging.</li>
+  <li>If authentication fails double check credentials and the server authentication mode.</li>
+  <li>For named instances try instanceName or explicit port numbers rather than guessing.</li>
+</ul>
+
+<h3>Final sanity tip</h3>
+<p>If things still break, try a simple SQL client like sqlcmd or Azure Data Studio from the same machine to isolate network and server settings from your Java code. Once that is green, your JDBC URL and DriverManager call will behave unless the JVM decides to be dramatic.</p>
+
+<p>That is it. Add the Maven dependency, craft a correct JDBC URL, use DriverManager in a try with resources block, and debug network and authentication settings if you hit errors. Now go run it and pretend it was easy.</p>
+

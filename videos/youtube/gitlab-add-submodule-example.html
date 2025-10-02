@@ -1,0 +1,72 @@
+---
+layout: video
+title: "gitlab add submodule example"
+description: "Step by step GitLab submodule tutorial for adding and updating submodules with practical tips and common fixes"
+video_host: "youtube"
+video_id: "zy8epgWe-no"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M13S"
+thumbnail_url: "https://i.ytimg.com/vi/zy8epgWe-no/maxresdefault.jpg"
+content_url: "https://youtu.be/zy8epgWe-no"
+embed_url: "https://www.youtube.com/embed/zy8epgWe-no"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gitlab
+  - git submodule
+  - submodule example
+  - git tutorial
+  - repository
+  - version control
+  - git commands
+  - devops
+  - submodule update
+  - repository management
+---
+
+<p>If you want nested repositories without emotional breakdowns in your CI pipeline welcome to this practical git submodule guide for GitLab. This submodule example walks through the real world steps developers and DevOps teams use for repository management and version control so you can stop guessing and start shipping code.</p>
+
+<h2>Pick the child repository and a tolerable path</h2>
+<p>Decide which repository will be the child and pick a folder inside the parent to mount it. The folder name is what your teammates will see in the tree so please use a name humans can tolerate.</p>
+<pre><code>git submodule add [repo-url] [path]</code></pre>
+<p>That command creates a .gitmodules file and records the exact commit of the child repository that the parent will track. The parent will point at a specific commit in the child so you get predictable builds instead of magic.</p>
+
+<h2>Add commit and push so remote is not haunted</h2>
+<p>Stage the new files and commit the submodule pointer and the .gitmodules file. This keeps everyone on the same page and reduces frantic Slack messages.</p>
+<pre><code>git add .gitmodules [path]
+git commit -m "Add submodule"
+git push</code></pre>
+
+<h2>Clone and populate submodules for other users or CI</h2>
+<p>When someone else clones the parent repo they need to fetch the child repos too. Otherwise they will encounter empty folders and blame you in the project chat.</p>
+<pre><code>git clone [repo-url]
+git submodule update --init --recursive</code></pre>
+<p>You can also use the recursive clone flag in some workflows but update init recursive is the reliable command in scripts and CI jobs.</p>
+
+<h2>Move the submodule forward like a responsible adult</h2>
+<p>When the child repository advances do this from the parent repository root or from within the submodule folder.</p>
+<pre><code>cd [path]
+# update child to the desired commit or branch
+git fetch
+git checkout <commit or branch>
+# return to parent and commit the pointer change
+cd ..
+git add [path]
+git commit -m "Update submodule pointer"
+git push</code></pre>
+<p>Remember that the parent records a commit id not a branch name so pushing the child alone does not change what the parent tracks until you update the pointer and push the parent.</p>
+
+<h2>Quick tips and small acts of mercy</h2>
+<ul>
+  <li>Use relative URLs in .gitmodules when parent and child live on the same host. This helps clones and CI runners avoid broken paths.</li>
+  <li>For CI include git submodule update --init --recursive in your pipeline steps. This prevents phantom folder drama during builds.</li>
+  <li>If you want simpler dependency management consider subtrees or package managers depending on your project needs.</li>
+</ul>
+
+<h2>Troubleshooting that saves hours</h2>
+<p>If a collaborator sees an empty folder check whether they ran git submodule update --init --recursive. If a submodule looks detached check which commit the parent is pointing to and update the child as needed. When permissions cause failures make sure the runner or user can access both repositories on GitLab.</p>
+
+<p>This is a practical git tutorial focused on GitLab workflows for submodule management. Follow the steps here to keep repository management boring and predictable instead of dramatic and expensive.</p>
+

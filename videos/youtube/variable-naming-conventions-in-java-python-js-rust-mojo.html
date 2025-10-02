@@ -1,0 +1,100 @@
+---
+layout: video
+title: "Variable Naming Conventions in Java Python JS Rust Mojo"
+description: "Quick guide to variable naming across Java Python JavaScript Rust and Mojo with examples and practical tips for consistent code"
+video_host: "youtube"
+video_id: "fECWXaJd3D8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M5S"
+thumbnail_url: "https://i.ytimg.com/vi/fECWXaJd3D8/maxresdefault.jpg"
+content_url: "https://youtu.be/fECWXaJd3D8"
+embed_url: "https://www.youtube.com/embed/fECWXaJd3D8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Python
+  - JavaScript
+  - Rust
+  - Mojo
+  - naming
+  - style
+  - camelCase
+  - snake_case
+  - coding conventions
+---
+
+<p>If you have ever stared at a codebase and wondered who named that variable my_var_but_like_weird, you are not alone. Naming is less glamorous than refactoring but more useful than a thousand bike sheds. This guide walks through the sane naming conventions for Java, Python, JavaScript, Rust and Mojo with real examples and small amounts of fruity sarcasm.</p>
+
+<h2>Quick summary for the impatient</h2>
+<ul>
+  <li>Java uses camelCase for variables and methods, PascalCase for classes, and UPPER_SNAKE for constants</li>
+  <li>Python prefers snake_case for variables and functions, PascalCase for classes, and UPPER_SNAKE for constants</li>
+  <li>JavaScript tends to use camelCase for variables and functions, PascalCase for constructors, and UPPER_SNAKE or const style for constants</li>
+  <li>Rust likes snake_case for variables and functions, CamelCase for types, and SHOUTY_SNAKE for constants</li>
+  <li>Mojo follows Python style for many things, with PascalCase for structs and types</li>
+</ul>
+
+<h2>Why you should care</h2>
+<p>Consistency matters more than your clever acronyms. Consistent names make code readable, tooling predictable, and code reviews less like gladiator fights. Linters and formatters are your friends. Yes they will force you to rename your favorite variable. You survive.</p>
+
+<h3>Java naming rules</h3>
+<p>Java culture likes camelCase and a clear distinction between values and types. Use camelCase for variables and methods, PascalCase for class and interface names, and UPPER_SNAKE for constants. Example names that will make your teammates nod:</p>
+<ul>
+  <li><code>myVariable</code> for a variable</li>
+  <li><code>calculateTotal</code> for a method</li>
+  <li><code>MyClass</code> for a class</li>
+  <li><code>MAX_SIZE</code> for a constant</li>
+</ul>
+
+<h3>Python naming rules</h3>
+<p>Python leans into readability with snake_case for variables and functions. Classes use PascalCase and constants use UPPER_SNAKE. PEP 8 exists for a reason. Follow it unless you enjoy arguing in pull requests.</p>
+<ul>
+  <li><code>my_variable</code> for a variable or function</li>
+  <li><code>MyClass</code> for a class</li>
+  <li><code>MAX_SIZE</code> for a constant</li>
+</ul>
+
+<h3>JavaScript naming rules</h3>
+<p>JavaScript is pragmatic. Most code uses camelCase for variables and functions, PascalCase for constructor functions and types, and constants either UPPER_SNAKE or just const names in camelCase depending on team taste. Be consistent within the project so your public API does not look indecisive.</p>
+<ul>
+  <li><code>myVariable</code> for variables</li>
+  <li><code>createElement</code> for functions</li>
+  <li><code>MyComponent</code> for a constructor or component</li>
+  <li><code>MAX_SIZE</code> or <code>defaultTimeout</code> for constants depending on style</li>
+</ul>
+
+<h3>Rust naming rules</h3>
+<p>Rust has strong opinions and they make sense. Use snake_case for variables and functions, CamelCase for types, and SHOUTY_SNAKE for constants. The compiler is strict and the community expects readable names.</p>
+<ul>
+  <li><code>my_variable</code> for a variable</li>
+  <li><code>do_work</code> for a function</li>
+  <li><code>MyType</code> for a struct or enum</li>
+  <li><code>MAX_SIZE</code> for a constant</li>
+</ul>
+
+<h3>Mojo naming rules</h3>
+<p>Mojo follows Python style in many places. Use snake_case for functions and variables, PascalCase for structs and types, and UPPER_SNAKE for constants. If you work with Python and Mojo side by side you get the blessed bonus of fewer naming fights.</p>
+<ul>
+  <li><code>my_variable</code> for variables and functions</li>
+  <li><code>MyStruct</code> for structs and types</li>
+  <li><code>MAX_SIZE</code> for constants</li>
+</ul>
+
+<h2>Practical tips that stop flame wars</h2>
+<ul>
+  <li>Pick the convention that matches the language and the repo, and stick with it</li>
+  <li>Use meaningful names. <code>x</code> is OK in tiny loops, not in business logic</li>
+  <li>Enable a linter and a formatter and add a precommit check to enforce rules automatically</li>
+  <li>When exposing public APIs think about the consumers in other languages and pick names that play well with bindings and tooling</li>
+  <li>Avoid cryptic abbreviations that require archeology to decode</li>
+</ul>
+
+<h2>Interoperability and migration</h2>
+<p>When you bridge languages remember that naming expectations impact users. A JavaScript API exposed to Python users should consider snake_case wrappers or clear docs. Bindings and code generation often assume certain casing so pick names that survive translation.</p>
+
+<h2>Final words</h2>
+<p>Names are cheap and valuable. Be boringly consistent and mercilessly clear. Your future self and your team will thank you, and code reviews will spend less time arguing about capitalization and more time fixing real problems.</p>
+

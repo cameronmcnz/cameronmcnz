@@ -1,0 +1,68 @@
+---
+layout: video
+title: "How to Set the Git Email Property in Git Config"
+description: "Quick guide to set Git user email using git config for global and local scopes and fix commit author issues on repositories"
+video_host: "youtube"
+video_id: "YmZxYAimqkY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M11S"
+thumbnail_url: "https://i.ytimg.com/vi/YmZxYAimqkY/maxresdefault.jpg"
+content_url: "https://youtu.be/YmZxYAimqkY"
+embed_url: "https://www.youtube.com/embed/YmZxYAimqkY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git config
+  - git email
+  - git tutorial
+  - version control
+  - github
+  - git commit
+  - command line
+  - developer
+  - git tips
+---
+
+<p>If your commits look like they came from a witness protection program it is usually because git does not have the right email for your commits. This guide shows how to check set and fix your git user email so commits show up under the identity you actually want on GitHub and other hosts.</p>
+
+<h2>Check the email git will use</h2>
+<p>Want to know what email new commits will carry? Run these inside a repo to see local and global values</p>
+<pre><code>git config user.email
+git config --global user.email</code></pre>
+<p>If the first command prints nothing git falls back to the global value. If both are empty your commits might look annoyingly anonymous.</p>
+
+<h2>Set a global email for the whole machine</h2>
+<p>The global setting applies to every repository on this machine unless a repo overrides it. Great for a personal laptop where you do 90 percent of your life</p>
+<pre><code>git config --global user.email "you@example.com"</code></pre>
+
+<h2>Set a repository specific email</h2>
+<p>Need a separate work identity for that corporate repo? Set the email while inside the project folder and only that repo will use it</p>
+<pre><code>git config user.email "you@work.com"</code></pre>
+
+<h2>Verify your settings</h2>
+<p>Do not trust hope or a hunch. Confirm what changed with these commands</p>
+<ul>
+  <li><code>git config --global --list</code> to see global entries</li>
+  <li><code>git config --local --list</code> to see repo level entries</li>
+  <li><code>git config --list</code> to see the effective values</li>
+</ul>
+
+<h2>Fix past commits if the blame game is on</h2>
+<p>To correct the most recent commit without changing the message run</p>
+<pre><code>git commit --amend --author="Your Name <you@example.com>" --no-edit</code></pre>
+<p>To edit many commits use an interactive rebase and rewrite the author information for the affected commits</p>
+<pre><code>git rebase -i HEAD~N</code></pre>
+<p>There are also history rewrite tools for bulk changes. Warning rewriting published history can frustrate collaborators and cause merge drama Do not rewrite shared branches without coordinating first.</p>
+
+<h3>Quick tips to avoid future identity drama</h3>
+<ul>
+  <li>Use the same email you registered with GitHub or GitLab so commits link to your profile</li>
+  <li>Use global for personal machines and repo level settings for project specific identities</li>
+  <li>Verify settings before pushing after any history rewrite</li>
+</ul>
+
+<p>That covers checking setting verifying and repairing git email values. Now go commit like the professional you pretend to be.</p>
+

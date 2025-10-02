@@ -1,0 +1,63 @@
+---
+layout: video
+title: "Discard local changes and untracked files in Git repo"
+description: "Fast guide to discard local changes and remove untracked files from a Git repo using reset and clean commands"
+video_host: "youtube"
+video_id: "WER5EbkRZfA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M59S"
+thumbnail_url: "https://i.ytimg.com/vi/WER5EbkRZfA/maxresdefault.jpg"
+content_url: "https://youtu.be/WER5EbkRZfA"
+embed_url: "https://www.youtube.com/embed/WER5EbkRZfA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git reset
+  - git clean
+  - version control
+  - git tutorial
+  - discard changes
+  - untracked files
+  - git commands
+  - reset hard
+  - git safety
+---
+
+<p>If your working tree looks like a junk drawer and you just want a fresh start without soul crushing regret later this guide will help. We will walk through checking the repo status resetting tracked files and removing untracked clutter while giving you safe escape hatches.</p>
+
+<h2>Check the repo status before you wreck things</h2>
+<p>Run <code>git status</code> to see modified tracked files and untracked files. This command shows what is about to be nuked. If any filenames look important take a breath and read them.</p>
+
+<h2>Reset tracked files back to the last commit</h2>
+<p>When you want to abandon local edits and return the working tree to the last commit use</p>
+<pre><code>git reset --hard HEAD</code></pre>
+<p>This forces the index and working tree to match HEAD and overwrites local changes. If that sounds terrifying and it should you have a couple of safer options.</p>
+<ul>
+  <li>Stash your work with <code>git stash push -m "save"</code> so you can recover it later.</li>
+  <li>Create a temporary branch and commit your work there with <code>git checkout -b temp-save</code> or <code>git switch -c temp-save</code>.</li>
+</ul>
+
+<h2>Remove untracked files and directories</h2>
+<p>To delete files that are not tracked by Git use the clean command. Be warned this does not go to the recycle bin.</p>
+<pre><code>git clean -fd</code></pre>
+<p>To preview what will be deleted run a dry run first. This shows the targets without removing anything.</p>
+<pre><code>git clean -nd</code></pre>
+<p>If you also want to remove files that are ignored by .gitignore add the extra flag but only use it when you really mean it.</p>
+<pre><code>git clean -fdx</code></pre>
+
+<h2>Recovery options if you panic</h2>
+<p>If you stashed changes restore them with <code>git stash pop</code> or <code>git stash apply</code>. If you committed to a temp branch you can merge or cherry pick the good bits back into your main branch.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Run <code>git status</code> and actually read the file list</li>
+  <li>Stash or commit to a temp branch if anything matters</li>
+  <li>Run <code>git clean -nd</code> to preview deletions</li>
+  <li>Run <code>git reset --hard HEAD</code> only when you are sure</li>
+</ul>
+
+<p>Bottom line do not be cavalier. These commands are powerful and final by default. Use the dry run and stash tricks to make sure you do not accidentally delete something you will regret later.</p>
+

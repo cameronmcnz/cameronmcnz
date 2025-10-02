@@ -1,0 +1,81 @@
+---
+layout: video
+title: "git clone branch example"
+description: "Learn how to clone a specific Git branch and set up local tracking with clear commands and quick verification steps for a tidy workflow."
+video_host: "youtube"
+video_id: "TiaPwJ6J364"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M18S"
+thumbnail_url: "https://i.ytimg.com/vi/TiaPwJ6J364/maxresdefault.jpg"
+content_url: "https://youtu.be/TiaPwJ6J364"
+embed_url: "https://www.youtube.com/embed/TiaPwJ6J364"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git clone
+  - branch
+  - clone branch
+  - git branch
+  - git tutorial
+  - git commands
+  - tracking branch
+  - version control
+  - git workflow
+---
+
+<p>So you want to clone a single Git branch without hauling the entire repository around like a freeloading roommate. Good choice. This short guide shows how to clone a specific branch, confirm what landed on your disk, and make sure your local branch tracks the remote for painless pulls and pushes. Expect actual commands and a little sarcasm.</p>
+
+<h2>Prepare the repository URL and branch name</h2>
+<p>Before typing anything dramatic open the repo address and the exact branch name. Use placeholders while testing so nothing explodes. Example placeholders are REPO_URL and BRANCH_NAME.</p>
+
+<h2>Clone one branch and keep it small</h2>
+<p>If you only want one branch use the focused clone command. This avoids downloading every branch and their histories which you probably do not need.</p>
+<pre><code>git clone --branch BRANCH_NAME --single-branch REPO_URL</code></pre>
+<p>If you are in a hurry or short on storage add a shallow option to grab only recent history.</p>
+<pre><code>git clone --branch BRANCH_NAME --single-branch --depth 1 REPO_URL</code></pre>
+<p>The clone command checks out the requested branch as the active branch in the new local copy. Using single branch keeps the clone lightweight which is helpful for quick fixes or CI work in your version control workflow.</p>
+
+<h2>Verify which branch is checked out</h2>
+<p>After cloning confirm you are on the right branch. These commands show what is currently active and some upstream info.</p>
+<pre><code>git branch
+# or
+git rev-parse --abbrev-ref HEAD
+# to see remote tracking details
+git branch -vv</code></pre>
+<p>git status is also handy for a quick health check of the working tree and staged changes.</p>
+
+<h2>Set or confirm upstream tracking</h2>
+<p>A direct clone usually sets origin as the remote and links the local branch to the remote branch automatically. If tracking is not set or you created the local branch manually use one of these options.</p>
+<pre><code>git branch --set-upstream-to=origin/BRANCH_NAME BRANCH_NAME
+# or push and set upstream in one go
+git push -u origin BRANCH_NAME</code></pre>
+<p>When upstream tracking is configured git pull and git push will work without extra remote refs. That keeps your git commands short and your workflow predictable.</p>
+
+<h3>Troubleshooting when the branch is missing</h3>
+<p>If the branch does not exist on the remote fetch it first then check it out from origin.</p>
+<pre><code>git fetch origin BRANCH_NAME
+git checkout -b BRANCH_NAME origin/BRANCH_NAME</code></pre>
+<p>If you still see nothing the branch might be named differently or you may need to list remote branches with git ls-remote or git ls-remote --heads REPO_URL to inspect what is available.</p>
+
+<h2>Work and sync changes like a pro</h2>
+<p>Once tracking is in place the usual git commands do the heavy lifting. Commit locally then use push and pull to sync with origin.</p>
+<pre><code>git add .
+git commit -m "short useful message"
+git push
+# to pull updates
+git pull</code></pre>
+<p>These rely on upstream info so you do not need to type origin and branch every time. Welcome to slightly less typing and slightly more happiness.</p>
+
+<h2>Quick cheats and best practices</h2>
+<ul>
+  <li>Use git branch -vv to see which remote branch your local branch tracks and the last known commit.</li>
+  <li>Use --depth 1 for shallow clones when history is irrelevant, and remove depth for deep debugging or bisects.</li>
+  <li>Prefer git push -u origin BRANCH_NAME to create a branch on origin and set upstream in one command.</li>
+  <li>Keep branch names consistent with your git workflow to avoid confusion and merge conflicts later.</li>
+</ul>
+
+<p>That is all you need to clone a specific branch, confirm it is checked out, ensure upstream tracking, and push and pull without drama. Now go fix that bug or implement that feature and pretend you did not enjoy the tiny feeling of control over a remote repository.</p>
+

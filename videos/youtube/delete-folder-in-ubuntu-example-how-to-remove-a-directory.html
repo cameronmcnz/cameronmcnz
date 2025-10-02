@@ -1,0 +1,71 @@
+---
+layout: video
+title: "Delete folder in Ubuntu example How to remove a directory"
+description: "Learn how to remove a directory recursively in Ubuntu using rm and safer methods including sudo and trash cli for safer deletion in the terminal"
+video_host: "youtube"
+video_id: "6furHfBNwPo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M17S"
+thumbnail_url: "https://i.ytimg.com/vi/6furHfBNwPo/maxresdefault.jpg"
+content_url: "https://youtu.be/6furHfBNwPo"
+embed_url: "https://www.youtube.com/embed/6furHfBNwPo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Ubuntu
+  - Linux
+  - rm command
+  - delete folder
+  - remove directory
+  - terminal
+  - command line
+  - recursively
+  - sudo
+  - trash-cli
+---
+
+<p>If you are on Ubuntu and feel brave or foolish enough to delete a folder from the command line you are in the right place. This guide covers the rm command and safer alternatives so you can remove a directory on Linux without triggering a small catastrophe.</p>
+
+<h2>Confirm the target directory</h2>
+<p>First rule of terminal club do not guess. Verify your working directory and the folder contents before you type anything that looks permanent. A quick check will save you from That Awful Moment.</p>
+<pre><code>pwd</code></pre>
+<pre><code>ls -la /path/to/folder</code></pre>
+<p>If you want to see everything recursively run</p>
+<pre><code>ls -R foldername</code></pre>
+
+<h2>Run the recursive remove command</h2>
+<p>The classic tool is the rm command. Use rm -r to remove a directory and its contents recursively. It will delete files and nested directories so pause for dramatic effect before pressing enter.</p>
+<pre><code>rm -r foldername</code></pre>
+<p>If you add -f you force removal and skip prompts. This is useful when scripting but dangerous when you are awake and supposed to be attentive.</p>
+<pre><code>rm -rf foldername</code></pre>
+<p>For a cautious approach try interactive mode which asks before deleting each file</p>
+<pre><code>rm -ri foldername</code></pre>
+
+<h3>Use sudo when permissions block you</h3>
+<p>Sometimes the system protects files from your mortal user. sudo lets you act as root so you can remove stubborn directories. Double check the path because root does not care about regrets.</p>
+<pre><code>sudo rm -r foldername</code></pre>
+
+<h2>Safer trash approach with trash-cli</h2>
+<p>If you like the comfort of a safety net install trash-cli and send items to the trash instead of nuking them. This works on Ubuntu and most Linux setups and gives you a chance to recover a mistake.</p>
+<pre><code>sudo apt update &amp;&amp; sudo apt install trash-cli</code></pre>
+<pre><code>trash-put foldername</code></pre>
+<p>To restore use the appropriate trash-cli command or open your desktop trash if you have one. This is the adult way to delete things from the terminal.</p>
+
+<h2>Quick backup option</h2>
+<p>If the folder is valuable make a quick copy before removing it. A backup is a small act of humility that can save your job or your pride.</p>
+<pre><code>cp -r foldername foldername_backup</code></pre>
+
+<h2>Final checklist to avoid panic</h2>
+<ul>
+  <li>Confirm path with pwd and ls -la</li>
+  <li>Preview contents with ls -R foldername</li>
+  <li>Consider cp -r for a local backup</li>
+  <li>Use rm -ri for interactive deletion if you want prompts</li>
+  <li>Use trash-put from trash-cli when you want a safety net</li>
+  <li>Only use sudo when you understand why you need it</li>
+</ul>
+
+<p>There you go a compact and practical approach to delete folder tasks on Ubuntu from the terminal. Follow these steps to remove directory trees safely and keep the drama to a minimum. If you still feel nervous take a deep breath and open a backup before proceeding.</p>
+

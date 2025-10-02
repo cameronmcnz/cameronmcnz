@@ -1,0 +1,92 @@
+---
+layout: video
+title: "How to Ignore Git Folders and Directories .gitignore"
+description: "Quick guide to ignoring folders and directories with .gitignore rules and how to untrack already committed folders for cleaner repositories"
+video_host: "youtube"
+video_id: "qSnjgEU6VwQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M41S"
+thumbnail_url: "https://i.ytimg.com/vi/qSnjgEU6VwQ/maxresdefault.jpg"
+content_url: "https://youtu.be/qSnjgEU6VwQ"
+embed_url: "https://www.youtube.com/embed/qSnjgEU6VwQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - .gitignore
+  - ignore folders
+  - ignore directories
+  - gitignore patterns
+  - git tutorial
+  - remove tracked files
+  - version control
+  - dev tips
+  - git commands
+---
+
+<p>Yes you can tell Git to stop paying attention to your messy build folders and temporary trash. It will not hold a grudge but it will keep ignoring those files until you change your mind. This short guide shows how to create a .gitignore file for ignore folders and ignore directories and how to remove already tracked folders from the repository index with a few polite commands.</p>
+
+<h2>What a .gitignore actually does</h2>
+<p>A .gitignore file lists patterns that tell Git to ignore matching files for future commits. If a file is already tracked then adding it to .gitignore will not magically untrack it. You will need to remove the file from the index first and then commit that change.</p>
+
+<h3>Common patterns that save your sanity</h3>
+<ul>
+  <li><code>node_modules/</code> ignore a whole dependency tree</li>
+  <li><code>build/</code> or <code>dist/</code> ignore compiled output</li>
+  <li><code>*.log</code> ignore log files that always blame you</li>
+  <li><code>!.gitkeep</code> or <code>!docs/keep.md</code> unignore a needed file inside an ignored folder</li>
+</ul>
+
+<h2>Step by step to ignore folders and remove tracked files</h2>
+<p>Follow these steps to add ignore rules and stop Git from tracking specific directories. It is quick and mildly satisfying.</p>
+
+<ol>
+  <li>Create a file named <code>.gitignore</code> at the repository root if you do not already have one</li>
+  <li>Add directory names with a trailing slash to target folders only for example <code>node_modules/</code> or <code>build/</code></li>
+  <li>Use wildcards to match patterns for example <code>*.log</code> or <code>dist/</code></li>
+  <li>Use negation to allow a single file inside an ignored folder for example <code>!docs/keep.md</code></li>
+</ol>
+
+<h3>Remove already tracked folders from the index</h3>
+<p>If a folder was committed before the .gitignore rule was added you must remove the tracked copy from the index. These commands remove tracking without deleting the files from your working directory.</p>
+
+<pre><code>git rm -r --cached foldername
+# or remove multiple at once
+git rm -r --cached .
+</code></pre>
+
+<p>After running the removal add the changes and commit them so the remote repo stops tracking new files that match your ignore rules.</p>
+
+<pre><code>git add .
+git commit -m "Update .gitignore and untrack folders"
+git push
+</code></pre>
+
+<h2>Quick checks and useful commands</h2>
+<ul>
+  <li>See which files are currently ignored with <code>git ls-files -i --exclude-standard</code></li>
+  <li>Check which rule matches a file with <code>git check-ignore -v path/to/file</code></li>
+  <li>Confirm status with <code>git status</code> before you push anything dramatic</li>
+</ul>
+
+<h2>Global ignores for OS and editor noise</h2>
+<p>If you are tired of adding the same OS or editor junk to every repo set a global ignore file and forget about the problem forever.</p>
+
+<pre><code>git config --global core.excludesfile ~/.gitignore_global
+# then edit ~/.gitignore_global and add patterns like
+# Thumbs.db
+# .DS_Store
+# *.swp
+</code></pre>
+
+<h2>Parting tips for the mildly paranoid</h2>
+<ul>
+  <li>Remember that .gitignore only affects untracked files so remove tracked files first if needed</li>
+  <li>Keep .gitignore in the repository root for repo wide rules and use nested .gitignore files for folder specific exceptions</li>
+  <li>Use explicit patterns rather than trying to guess so you do not accidentally ignore important files</li>
+</ul>
+
+<p>There you go. Your repo will now behave better and your commits will stop including temporary garbage. You can get back to whatever heroic bug fixing you were doing before Git became the trash collector.</p>
+

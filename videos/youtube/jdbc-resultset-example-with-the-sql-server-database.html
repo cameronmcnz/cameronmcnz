@@ -1,0 +1,88 @@
+---
+layout: video
+title: "JDBC ResultSet Example with the SQL Server Database"
+description: "Compact guide to using JDBC ResultSet with SQL Server showing connection query iteration and resource cleanup for reliable Java database code"
+video_host: "youtube"
+video_id: "L5CFqD4OucU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M53S"
+thumbnail_url: "https://i.ytimg.com/vi/L5CFqD4OucU/maxresdefault.jpg"
+content_url: "https://youtu.be/L5CFqD4OucU"
+embed_url: "https://www.youtube.com/embed/L5CFqD4OucU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JDBC
+  - ResultSet
+  - SQL Server
+  - Java
+  - Database
+  - JDBC Tutorial
+  - ResultSet Example
+  - PreparedStatement
+  - Database Connection
+  - Resource Management
+---
+
+<h2>Quick overview</h2>
+<p>If you want to pull rows from SQL Server into a Java app without turning your database into a haunted house of leaked connections this guide is for you. We will cover the Microsoft JDBC driver, opening a connection, using PreparedStatement for safety and speed, iterating a ResultSet with typed getters, and cleaning up with try with resources so your connection pool does not cry.</p>
+
+<h2>Add the JDBC driver</h2>
+<p>Use Maven or Gradle in real projects. For quick demos you can drop the Microsoft JDBC jar on the classpath. The driver class is com.microsoft.sqlserver.jdbc.SQLServerDriver. Modern JVMs often do the driver auto registration but calling Class.forName is harmless if you like being explicit.</p>
+
+<h2>Open a connection</h2>
+<p>For development DriverManager.getConnection is fine. For production use a connection pool. Pools avoid frequent handshake overhead and prevent the slowdowns that sneak up like unpaid interns. A typical JDBC URL looks like this:</p>
+<pre><code>String url = "jdbc:sqlserver://localhost;databaseName=MyDb";
+Connection conn = DriverManager.getConnection(url, "user", "pass");</code></pre>
+<p>Remember to prefer a pool such as HikariCP if you care about latency and not setting fire to the server during peak load.</p>
+
+<h2>Prepare and execute the query</h2>
+<p>Never concatenate user input into SQL. PreparedStatement avoids SQL injection and gives SQL Server a chance to reuse execution plans. Use parameter bindings and let the database worry about math and sadness.</p>
+
+<h2>Iterate the ResultSet</h2>
+<p>Move the cursor with rs.next and use typed getters like getInt getString getTimestamp. Using column labels improves readability and makes refactoring less painful than reading seismograph prints from an earthquake.</p>
+<ul>
+  <li>Use getInt for integers and getString for text</li>
+  <li>Prefer column labels over numeric indexes for clarity</li>
+  <li>Handle SQL NULLs with wasNull or use wrapper types like Integer when needed</li>
+</ul>
+
+<h2>Resource management and cleanup</h2>
+<p>Try with resources is your friend. Wrap Connection PreparedStatement and ResultSet in try with resources so everything gets closed even when exceptions happen. This prevents pool exhaustion and the mysterious errors that arrive at 2 a.m.</p>
+
+<h2>Example code</h2>
+<p>Here is a concise example that demonstrates the essentials. It is straightforward and avoids horror show practices.</p>
+<pre><code>public static void runQuery() throws Exception {
+    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    String url = "jdbc:sqlserver://localhost;databaseName=MyDb";
+
+    try (Connection conn = DriverManager.getConnection(url, "user", "pass");
+         PreparedStatement ps = conn.prepareStatement("SELECT id, name, created_at FROM people WHERE active = ?")) {
+
+        ps.setBoolean(1, true);
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                java.sql.Timestamp created = rs.getTimestamp("created_at");
+                // use the values as needed
+            }
+        }
+    }
+}
+</code></pre>
+
+<h3>Notes about performance and safety</h3>
+<ul>
+  <li>Use a connection pool in production to avoid creating connections for every request</li>
+  <li>Prefer PreparedStatement for parameterized queries to defend against injection and to let SQL Server reuse execution plans</li>
+  <li>Use typed getters to avoid casting surprises and to keep your code readable</li>
+  <li>Close everything or wrap it in try with resources so you are not paged in the middle of dinner</li>
+</ul>
+
+<h2>Recap</h2>
+<p>Add the Microsoft JDBC driver to your project open a connection or use a pool prepare queries with PreparedStatement iterate the ResultSet with typed getters and always clean up resources. Do that and your Java app will read SQL Server rows reliably and with far less drama than the alternative.</p>
+

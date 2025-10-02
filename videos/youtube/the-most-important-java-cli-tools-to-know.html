@@ -1,0 +1,89 @@
+---
+layout: video
+title: "The most important Java CLI tools to know"
+description: "Compact guide to essential Java command line tools with examples and practical tips for java javac jshell jar jlink jmap jstack jstat jdeps javadoc"
+video_host: "youtube"
+video_id: "GK3r6SDMXT8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M34S"
+thumbnail_url: "https://i.ytimg.com/vi/GK3r6SDMXT8/maxresdefault.jpg"
+content_url: "https://youtu.be/GK3r6SDMXT8"
+embed_url: "https://www.youtube.com/embed/GK3r6SDMXT8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - java
+  - javac
+  - jshell
+  - javadoc
+  - jar
+  - jlink
+  - jmap
+  - jstack
+  - jstat
+  - jdeps
+---
+
+<h1>Practical Java CLI guide for debugging packaging and runtime performance</h1>
+<p>If you work with Java you will meet a handful of command line tools that do the heavy lifting while your IDE takes credit. This quick guide covers the tools that actually matter for running code building jars, generating docs and debugging memory and threads. Read this and you will stop blaming the build server for five minutes at least.</p>
+
+<h2>Runtime and compile basics</h2>
+<p>Start here when something is failing and you have no idea why. These are the first things to check before summoning the senior developer with a coffee mug that says I broke production.</p>
+
+<h3>java</h3>
+<p>Runs compiled classes on a chosen Java runtime. Always check the runtime version before blaming a dependency mismatch or the build pipeline.</p>
+<pre><code>java -version</code></pre>
+
+<h3>javac</h3>
+<p>The compiler that turns .java into .class. If javac complains check your classpath and module path rather than yelling at your editor.</p>
+<pre><code>javac MyApp.java</code></pre>
+
+<h3>jshell</h3>
+<p>A REPL for Java. Great for poking APIs or testing a one liner without creating an entire project and several existential questions.</p>
+<pre><code>jshell</code></pre>
+
+<h2>Docs and packaging</h2>
+<p>Ship code that other humans can use and packages that actually run. These tools keep your releases from being a mystery wrapped in a zip file.</p>
+
+<h3>javadoc</h3>
+<p>Generate API docs from Java source comments. Good documentation saves teammates from guessing and future you from regret.</p>
+<pre><code>javadoc MyApp.java</code></pre>
+
+<h3>jar</h3>
+<p>Bundle classes and resources into archives. If your runnable jar does not find the main class check the manifest and stop guessing.</p>
+<pre><code>jar cfm app.jar Manifest.txt -C classes .</code></pre>
+
+<h3>jlink</h3>
+<p>Create a custom runtime image that contains only the modules you need. This is the practical way to avoid bloated containers and surprise storage bills.</p>
+<pre><code>jlink --module-path mods --add-modules my.app --output my-image</code></pre>
+
+<h2>Diagnostics and performance</h2>
+<p>When the app behaves like it drank three espressos these tools help you find memory leaks deadlocks and GC drama without resorting to ritual sacrifice.</p>
+
+<h3>jmap</h3>
+<p>Inspect the heap for memory analysis. Useful when memory consumption looks like a toddler who found a candy jar.</p>
+<pre><code>jmap -heap &lt;PID&gt;</code></pre>
+
+<h3>jstack</h3>
+<p>Dump thread stacks to diagnose deadlocks stalls and livelocks. Paste the output into an issue and watch the investigative work begin.</p>
+<pre><code>jstack &lt;PID&gt;</code></pre>
+
+<h3>jstat</h3>
+<p>Monitor JVM stats over time to track garbage collector behavior. Live metrics beat guesswork and prayer for performance tuning.</p>
+<pre><code>jstat -gc &lt;PID&gt; 1000</code></pre>
+
+<h3>jdeps</h3>
+<p>Analyze static dependencies to clean up accidental libraries and plan module migration. Great for projects that acquired dependencies like souvenir magnets.</p>
+<pre><code>jdeps -summary my.jar</code></pre>
+
+<h2>Quick troubleshooting checklist</h2>
+<ul>
+  <li>Include the java runtime version when filing issues</li>
+  <li>Share the classpath or module path used to run the app</li>
+  <li>Provide a minimal reproducer so someone else can actually run your problem</li>
+</ul>
+
+<p>These three things save hours and prevent blame from being assigned to the nearest build tool. Use the right CLI tool for the task and you will look competent even on days when you are not.</p>
+

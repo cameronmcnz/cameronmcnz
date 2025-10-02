@@ -1,0 +1,101 @@
+---
+layout: video
+title: "How to use Java's JOptionPane"
+description: "Learn how to use Java's JOptionPane to show messages and collect user input with clear examples and tips for simple GUIs"
+video_host: "youtube"
+video_id: "LPIEeyA53kw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M17S"
+thumbnail_url: "https://i.ytimg.com/vi/LPIEeyA53kw/maxresdefault.jpg"
+content_url: "https://youtu.be/LPIEeyA53kw"
+embed_url: "https://www.youtube.com/embed/LPIEeyA53kw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - JOptionPane
+  - Swing
+  - Dialogs
+  - InputDialog
+  - MessageDialog
+  - ConfirmDialog
+  - GUI
+  - Tutorial
+  - JavaSwing
+---
+
+<p>If you need a dialog in a Java GUI and you do not want to reinvent dialog hell then JOptionPane is your friend and occasional pest. It gives you message dialogs input dialogs confirm dialogs and full option dialogs with minimal fuss and maximum legacy charm. This guide covers the basics and a few practical tips so your Swing GUI behaves like it was tested by someone who actually uses a mouse.</p>
+
+<h2>Quick setup and why it matters</h2>
+<p>JOptionPane lives in javax.swing so either import the class or call it with the full name. Swing dialogs are lightweight and fine for simple desktop tools. One small but very important rule is to run GUI work on the event dispatch thread so your windows do not behave like an angry sandwich.</p>
+
+<h3>Import or fully qualified name</h3>
+<pre><code>import javax.swing.JOptionPane</code></pre>
+<p>or use</p>
+<pre><code>javax.swing.JOptionPane.showMessageDialog(null, "Hello")</code></pre>
+
+<h2>Show a message and pick the tone</h2>
+<p>showMessageDialog displays plain info warnings or errors. Use the message type to change the icon and the perceived severity. Works great for friendly confirmations and less great for announcing that the database is on fire.</p>
+<pre><code>JOptionPane.showMessageDialog(null, "Operation complete", "Done", JOptionPane.INFORMATION_MESSAGE)</code></pre>
+<p>Message types you will use often include INFORMATION_MESSAGE WARNING_MESSAGE ERROR_MESSAGE and PLAIN_MESSAGE. Use them to set expectations and avoid panic.</p>
+
+<h2>Ask for user input without drama</h2>
+<p>showInputDialog prompts the user for a string. Remember that cancel returns null so check for that before you try to parse numbers and summon exceptions.</p>
+<pre><code>String input = JOptionPane.showInputDialog(null, "Enter a number")
+if (input == null) {
+  // user cancelled
+} else {
+  try {
+    int n = Integer.parseInt(input)
+    // use n
+  } catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(null, "That was not a number", "Input error", JOptionPane.ERROR_MESSAGE)
+  }
+}</code></pre>
+
+<h2>Yes no cancel style questions</h2>
+<p>showConfirmDialog returns an integer constant such as JOptionPane.YES_OPTION so compare explicitly. This is where you decide whether to proceed or fake confidence while backing out.</p>
+<pre><code>int choice = JOptionPane.showConfirmDialog(null, "Proceed with dangerous action")
+if (choice == JOptionPane.YES_OPTION) {
+  // go for it
+} else if (choice == JOptionPane.NO_OPTION) {
+  // user said no
+} else {
+  // cancelled or closed the dialog
+}</code></pre>
+
+<h2>Full control with option dialogs</h2>
+<p>showOptionDialog gives you custom labels icons and button ordering. Use it when the default Yes No Cancel does not capture the nuance of your app or when you want branded buttons that scream professionalism.</p>
+<pre><code>Object[] options = {"Save", "Discard", "Cancel"}
+int sel = JOptionPane.showOptionDialog(null, "What do you want to do", "Confirm", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0])
+if (sel == 0) {
+  // Save
+} else if (sel == 1) {
+  // Discard
+} else {
+  // Cancel or closed
+}</code></pre>
+
+<h2>Icons and customization</h2>
+<p>You can pass an Icon to any dialog to swap out the default icon. Use an ImageIcon loaded from resources for light branding or a cheeky image when the app needs personality. You can also pass a parent component so the dialog centers on your window instead of floating off into the abyss.</p>
+
+<h2>Threading tip and final checklist</h2>
+<p>Always start GUI code on the event dispatch thread with SwingUtilities.invokeLater so your dialogs do not race with window creation and ruin the user experience.</p>
+<pre><code>javax.swing.SwingUtilities.invokeLater(new Runnable() {
+  public void run() {
+    // create frame or show dialogs here
+  }
+})</code></pre>
+
+<ul>
+  <li>Pass a parent component to center dialogs and keep focus sane</li>
+  <li>Check for null from showInputDialog before parsing</li>
+  <li>Compare confirm results to JOptionPane.YES_OPTION or NO_OPTION explicitly</li>
+  <li>Use showOptionDialog for custom buttons and complex choices</li>
+  <li>Pick message types to match the tone of the message</li>
+</ul>
+
+<p>There you go. JOptionPane will not win any design awards but it will get the job done for many desktop tools. Use it for quick prompts and small utilities and then move on to nicer UIs when deadlines and dignity allow.</p>
+

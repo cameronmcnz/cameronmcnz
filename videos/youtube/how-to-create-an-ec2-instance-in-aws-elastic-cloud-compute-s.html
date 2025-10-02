@@ -1,0 +1,74 @@
+---
+layout: video
+title: "How to Create an EC2 Instance in AWS Elastic Cloud Compute S"
+description: "Step by step guide to launch an AWS EC2 instance configure VPC subnet setup security groups and deploy Apache for a basic web server"
+video_host: "youtube"
+video_id: "eji2fVEQC5Q"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M1S"
+thumbnail_url: "https://i.ytimg.com/vi/eji2fVEQC5Q/maxresdefault.jpg"
+content_url: "https://youtu.be/eji2fVEQC5Q"
+embed_url: "https://www.youtube.com/embed/eji2fVEQC5Q"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - EC2
+  - VPC
+  - Subnet
+  - Security Group
+  - Apache
+  - Web Server
+  - Cloud
+  - Tutorial
+  - AWS CLI
+---
+
+<article>
+  <p>If you want a tiny web server in the cloud and you do not want to accidentally open your database to the internet then this tutorial will help. We will launch an EC2 instance in AWS then configure VPC subnet and security groups and install Apache as a simple web server. Follow the steps and try not to panic when you see unfamiliar acronyms.</p>
+
+  <h2>Choose an AMI and pick an instance type that fits</h2>
+  <p>Step one - Pick an Amazon Machine Image that matches your workload. For simple tutorials choose Amazon Linux 2 or another distro that you like. If your account is eligible use the free tier instance type to avoid surprise charges. Balance CPU and memory with expected traffic and remember that tiny instances are cheap and humble and often good enough.</p>
+
+  <h2>Network setup for VPC and subnet</h2>
+  <p>Step two - Select a VPC and subnet according to your network design. If you want a public web server make sure the subnet has a route to an Internet Gateway and that the instance can receive a public IP. Public subnets need that route to the internet otherwise your browser will be very disappointed.</p>
+
+  <h2>Create a security group and key pair</h2>
+  <p>Step three - Create a security group that allows SSH from your trusted IP and HTTP from anywhere if you are serving public content. For SSH use a narrow source range to reduce risk. Typical rules are TCP port 22 for SSH and TCP port 80 for HTTP. Create or reuse a key pair for SSH access and confirm it is available locally before launch.</p>
+
+  <h3>AWS CLI examples for security group setup</h3>
+  <pre><code>aws ec2 create-security-group --group-name MyWebSG --description 'Allow SSH and HTTP' --vpc-id vpc-12345678
+aws ec2 authorize-security-group-ingress --group-id sg-12345678 --protocol tcp --port 22 --cidr 203.0.113.5/32
+aws ec2 authorize-security-group-ingress --group-id sg-12345678 --protocol tcp --port 80 --cidr 0.0.0.0/0
+</code></pre>
+
+  <h2>Launch the instance and review settings</h2>
+  <p>Step four - On the launch screen confirm AMI, instance type, VPC, subnet, security group and storage. Attach an IAM role if the instance needs to access other AWS services. If this is a public web server confirm the instance will get a public IP. Then press launch and watch the instance go from pending to running while you sip coffee or curse quietly.</p>
+
+  <h2>Connect and install Apache</h2>
+  <p>Step five - SSH into the server with the key pair. On Amazon Linux run the following commands to install and start Apache and to persist it on boot.</p>
+  <pre><code>sudo yum update -y
+sudo yum install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
+echo 'Hello from EC2' | sudo tee /var/www/html/index.html
+</code></pre>
+  <p>These commands update the system install the httpd package start the web server and create a simple index page for verification.</p>
+
+  <h2>Verify and troubleshoot</h2>
+  <p>Step six - Open a browser to the instance public IP or public DNS name to confirm Apache serves the page. If you see nothing check the security group rules and subnet routing to ensure HTTP is allowed and a route to the internet exists. Also confirm the instance has a public IP if you expected one.</p>
+
+  <h3>Quick checklist</h3>
+  <ul>
+    <li>AMI and instance type chosen with free tier if applicable</li>
+    <li>Subnet attached to a route with Internet Gateway for public access</li>
+    <li>Security group allows SSH from your IP and HTTP from anywhere if public</li>
+    <li>Key pair available for SSH</li>
+    <li>Apache installed started and enabled on boot</li>
+  </ul>
+
+  <p>Parting wisdom - Remember cloud costs exist even when you forget about them. Terminate test instances when you are done and lock down SSH to a small range. Enjoy your tiny web server and savor the feeling of having tamed one more corner of the cloud.</p>
+</article>
+

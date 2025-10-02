@@ -1,0 +1,67 @@
+---
+layout: video
+title: "How to UiPath Move Invoices to a New Directory After Process"
+description: "Move processed invoices with UiPath using folder variables For Each Move File and basic error handling to keep invoice folders tidy and auditable"
+video_host: "youtube"
+video_id: "UBHauJVXs-g"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M55S"
+thumbnail_url: "https://i.ytimg.com/vi/UBHauJVXs-g/maxresdefault.jpg"
+content_url: "https://youtu.be/UBHauJVXs-g"
+embed_url: "https://www.youtube.com/embed/UBHauJVXs-g"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - RPA
+  - invoice processing
+  - move files
+  - file management
+  - For Each
+  - Move File activity
+  - error handling
+  - automation best practices
+  - folder cleanup
+---
+
+<h2>Quick summary of the idea</h2>
+<p>Yes this is another article about moving files with UiPath. But unlike most of the boring guides this one aims to keep your incoming folder clean reliable and audit friendly while also making the robot do the heavy lifting. You will see how to list files process them with For Each validate content and use the Move File activity to archive results. There will be logging and a quarantine path for sad invoices that failed validation.</p>
+
+<h2>Setup folders and variables</h2>
+<p>Before you unleash the robot create two folders on a machine or network share. One folder receives new invoices and the other stores processed invoices. Optionally make a third folder called quarantine for files that need human attention. Define variables such as inFolder and processedFolder and confirm the robot account has read and write rights. This avoids mysterious permission problems later when you are trying to look calm.</p>
+
+<h2>Get the file list and loop</h2>
+<p>Use Directory.GetFiles or the UiPath file activities to obtain the list of files. Feed that into a For Each activity that iterates over file names. For Each prevents hard coding paths and works well when the file count varies.</p>
+
+<h3>Why For Each</h3>
+<ul>
+  <li>It handles any number of invoices without extra fuss.</li>
+  <li>It keeps your logic modular so one bad file does not ruin the party.</li>
+  <li>It is easy to combine with logging and Try Catch blocks.</li>
+</ul>
+
+<h2>Process and validate invoice data</h2>
+<p>Use your usual extraction approach. That might be selector based reads PDF activities or an OCR step if the document is an image. Validate key fields such as invoice number date and total. If validation fails add a log entry and move the file to the quarantine folder for human review. If validation succeeds proceed to archiving. Add a log message for both success and failure so auditors can trace what happened without interrogating a robot with caffeine.</p>
+
+<h2>Move processed files and avoid collisions</h2>
+<p>Use the Move File activity to relocate processed invoices into the processed folder. To avoid overwriting keep a naming convention. Append a timestamp such as 20250902T143012 or append a GUID so the file names remain unique and traceable. That also makes audits less painful and gives you something to boast about in a meeting.</p>
+
+<h2>Error handling and logging</h2>
+<p>Wrap the processing logic for each file in a Try Catch activity. On exception create a clear log entry and move the problematic file to the quarantine folder. That way you do not silently lose data and you have a queue of files for manual review. Include the file name and the exception message in the log message so troubleshooting does not become a treasure hunt.</p>
+
+<h3>Recommended log points</h3>
+<ul>
+  <li>When a file is picked up for processing.</li>
+  <li>After extraction and after validation with pass or fail.</li>
+  <li>Before moving a file to processed folder.</li>
+  <li>When a file is moved to quarantine due to an error.</li>
+</ul>
+
+<h2>Automation best practices and folder cleanup</h2>
+<p>Keep configuration values like folder paths and naming patterns in Orchestrator assets or in a config file. That removes magic strings from the workflow and avoids late night editing. Schedule a periodic cleanup task if needed so processed archives do not grow forever. Finally add minimal retries for transient IO errors and keep the robot polite when hitting network storage.</p>
+
+<h2>Summary</h2>
+<p>This workflow covers the essentials for invoice processing with UiPath. Use Directory.GetFiles and For Each to iterate files. Validate extracted data and use Move File activity for archiving. Wrap per file work in Try Catch and log everything. Add timestamp or GUID based naming and a quarantine path for troublemakers. Do that and your incoming folder will stay neat while auditors get what they want and you get the glory of automation that actually works.</p>
+

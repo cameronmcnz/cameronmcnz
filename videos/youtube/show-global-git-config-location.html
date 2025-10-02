@@ -1,0 +1,65 @@
+---
+layout: video
+title: "Show Global Git Config & Location"
+description: "Quick guide to view global Git config and find the global config file path on Linux Mac or Windows with commands to inspect and edit settings"
+video_host: "youtube"
+video_id: "RljRvWgUu0Q"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M52S"
+thumbnail_url: "https://i.ytimg.com/vi/RljRvWgUu0Q/maxresdefault.jpg"
+content_url: "https://youtu.be/RljRvWgUu0Q"
+embed_url: "https://www.youtube.com/embed/RljRvWgUu0Q"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git config
+  - global config
+  - git tutorial
+  - git commands
+  - gitconfig
+  - version control
+  - command line
+  - developer tools
+  - git tips
+---
+
+<p>If you ever opened a repo and Git behaved like a confused oracle you did not consult, this quick guide will show you where your user level git settings live and how to tell which file is winning the argument. We will use simple git commands that are safe and explain what the output means. This is useful for identity fixes, editor preferences, and stopping mysterious newline behavior.</p>
+
+<h2>List global settings with one command</h2>
+<p>Want the short answer fast and without drama Use this to see keys like user.name and user.email</p>
+<pre><code>git config --global --list</code></pre>
+<p>The command prints key value pairs from the global file unless a repo local override exists. If you see something you do not expect this command tells you the current effective user level values.</p>
+
+<h2>Show file origins so you can blame a file instead of your keyboard</h2>
+<p>When a setting will not go away use the show origin option to see which file supplies each entry</p>
+<pre><code>git config --list --show-origin</code></pre>
+<p>The output gives file paths next to each key value pair. Typical sources you will see are the system config the global user config and the repository config. That makes it obvious if the value comes from /etc/gitconfig or from ~/.gitconfig or from .git/config in the repo.</p>
+
+<h3>Why this matters</h3>
+<ul>
+  <li>If a repo has a local config it overrides the user level setting. That is expected behavior and not personal.</li>
+  <li>Seeing origins helps when a setting feels stubborn. If you change the global file and nothing happens check the repo local file first.</li>
+  <li>System level config can surprise you on shared machines or CI runners.</li>
+</ul>
+
+<h2>Edit the global config file safely</h2>
+<p>To open your user level gitconfig in your default editor run this command</p>
+<pre><code>git config --global --edit</code></pre>
+<p>On Unix like systems the global file typically lives at <code>~/.gitconfig</code>. On Windows look in the user profile path such as <code>%USERPROFILE%/.gitconfig</code>. Make small edits and be aware that global changes affect all repositories for your user account.</p>
+
+<h2>Practical tips and common pitfalls</h2>
+<ul>
+  <li>Use repository local settings for one off rules and use global settings for identity and common preferences. Think global for your name and email think local for per project hooks or weird merges.</li>
+  <li>When confused run the show origin command before editing files. It is faster than regret.</li>
+  <li>Backup your global config file before large edits. A simple copy will save future you from staring at unexplained commit name changes.</li>
+  <li>Remember that some GUIs and tools write settings to different levels. If something keeps reverting check all levels with the show origin command.</li>
+</ul>
+
+<h2>Quick summary</h2>
+<p>Run <code>git config --global --list</code> to view user level values. Run <code>git config --list --show-origin</code> to trace which file supplies each entry. Run <code>git config --global --edit</code> to change your user level config file. These three commands will solve most mysteries involving gitconfig and save you from yelling at your terminal.</p>
+
+<p>If you want a last tip here it is Make conservative global edits and prefer repo level overrides when the change should not apply everywhere. You are welcome.</p>
+

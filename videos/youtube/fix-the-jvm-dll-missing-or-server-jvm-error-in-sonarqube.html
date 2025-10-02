@@ -1,0 +1,85 @@
+---
+layout: video
+title: "Fix the jvm.dll missing or server JVM error in SonarQube"
+description: "Quick guide to resolve jvm.dll missing or server JVM error when starting SonarQube by fixing Java installation and environment variables"
+video_host: "youtube"
+video_id: "IHqg-nKOV7M"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M39S"
+thumbnail_url: "https://i.ytimg.com/vi/IHqg-nKOV7M/maxresdefault.jpg"
+content_url: "https://youtu.be/IHqg-nKOV7M"
+embed_url: "https://www.youtube.com/embed/IHqg-nKOV7M"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - SonarQube
+  - jvm.dll
+  - JVM error
+  - Java
+  - JAVA_HOME
+  - 64 bit
+  - Windows
+  - Linux
+  - sonar.bat
+  - troubleshooting
+---
+
+<h2>Quick reality check</h2>
+<p>If SonarQube croaks with a jvm.dll missing or server JVM error you probably have a Java mismatch, or a PATH playing matchmaker with the wrong runtime. This guide walks through the usual suspects and how to stop SonarQube from trying to load a 32 bit jvm into a 64 bit process and other classic Windows and Linux pratfalls.</p>
+
+<h2>Symptoms to look for</h2>
+<ul>
+  <li>Startup log shows failure to load jvm.dll or a server JVM error</li>
+  <li>java -version reports a different runtime than JAVA_HOME</li>
+  <li>Windows machines use a stray JRE instead of the JDK</li>
+</ul>
+
+<h2>Step by step fixes</h2>
+<ol>
+  <li>
+    <h3>Install a matching 64 bit JDK</h3>
+    <p>SonarQube expects a 64 bit Java JDK for server mode. If you installed a 32 bit runtime that will trigger the missing jvm.dll error because the wrapper cannot load a 32 bit DLL into a 64 bit process. Grab a supported JDK from OpenJDK, Oracle, or a trusted build and install the 64 bit variant.</p>
+  </li>
+
+  <li>
+    <h3>Set JAVA_HOME to the JDK root</h3>
+    <p>Point JAVA_HOME at the JDK root not a JRE. On Windows use the System Environment Variables dialog to create a system variable named JAVA_HOME and set it to the JDK folder. On Linux export JAVA_HOME before starting SonarQube for example</p>
+    <p><code>export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64</code></p>
+    <p>Then verify with</p>
+    <p><code>echo %JAVA_HOME%</code> for Windows or <code>echo $JAVA_HOME</code> for Linux</p>
+  </li>
+
+  <li>
+    <h3>Point SonarQube to the right Java binary</h3>
+    <p>Edit the startup scripts so SonarQube uses the JDK you just declared. On Windows check bin/windows-x86-64/StartSonar.bat. On all platforms check conf/wrapper.conf for any hard coded Java paths and replace references to a bundled or system JRE with the JDK bin folder. The wrapper and scripts prefer JAVA_HOME so make sure that path is correct.</p>
+  </li>
+
+  <li>
+    <h3>Fix PATH and remove stray JRE entries</h3>
+    <p>Make sure the JDK bin appears ahead of any older Java installations in PATH. Remove stray JRE entries that might supply a 32 bit jvm.dll. Helpful checks</p>
+    <ul>
+      <li><code>where java</code> on Windows</li>
+      <li><code>which java</code> on Linux</li>
+      <li><code>java -version</code> to confirm the binary that will run</li>
+    </ul>
+  </li>
+
+  <li>
+    <h3>Restart SonarQube and read the logs</h3>
+    <p>After making changes restart the SonarQube service or run the startup script from the SonarQube folder so new environment variables are picked up. Watch the logs for a successful JVM load message and any remaining path mismatches.</p>
+  </li>
+</ol>
+
+<h2>Troubleshooting tricks that actually help</h2>
+<ul>
+  <li>If the wrapper still fails check that JAVA_HOME points to a JDK root and not a JRE. The wrapper looks for the JDK in a very literal way.</li>
+  <li>Make sure you did not accidentally install a 32 bit JDK or JRE on a 64 bit OS. That is the most common cause of jvm.dll issues.</li>
+  <li>If you use a packaged OS JDK double check distribution support for SonarQube versions. Not every combo is happy together.</li>
+  <li>If changes do not take effect run the startup script from the same shell that has the environment variables set. Services do not always pick up user level changes.</li>
+</ul>
+
+<h2>Parting advice</h2>
+<p>Think of SonarQube and Java as picky roommates. If you do not point them at the same places you will get a passive aggressive log file. Match the JDK architecture to SonarQube, set JAVA_HOME to the JDK root, fix PATH order, and edit startup scripts if they hard code a bad runtime. Do that and the jvm.dll drama should exit stage left.</p>
+

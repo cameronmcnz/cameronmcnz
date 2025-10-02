@@ -1,0 +1,92 @@
+---
+layout: video
+title: "How to Merge GitHub Branches to Master"
+description: "Step by step guide to merge GitHub feature branches into master using Git commands and pull requests while handling conflicts and best practices."
+video_host: "youtube"
+video_id: "5g37NElQnCQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M37S"
+thumbnail_url: "https://i.ytimg.com/vi/5g37NElQnCQ/maxresdefault.jpg"
+content_url: "https://youtu.be/5g37NElQnCQ"
+embed_url: "https://www.youtube.com/embed/5g37NElQnCQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - GitHub
+  - merge
+  - branches
+  - master
+  - pull request
+  - conflict resolution
+  - git merge
+  - git tutorial
+  - version control
+---
+
+<article>
+  <h2>Keep the main branch tidy and avoid surprise breakage</h2>
+  <p>If you treat master like a wild animal it will bite you at the worst possible time. This practical git tutorial walks through merging feature branches into master using local git and the GitHub pull request flow. You will learn how to update local master, merge locally or with a PR, handle conflict resolution, and clean up branches without creating a history mess.</p>
+
+  <h3>Prep work for less drama</h3>
+  <p>Before you even think about merging make sure your local master is current. That single habit prevents 90 percent of the tiny tragedies that happen in version control.</p>
+  <pre><code>git checkout master
+git pull origin master</code></pre>
+  <p>Now your master matches remote origin. Congrats, future you will thank you.</p>
+
+  <h3>Local merge for small solo changes</h3>
+  <p>If this is a tiny fix do the work locally then merge and run tests. It is fast and avoids ping pong between branches.</p>
+  <ul>
+    <li>Checkout your feature branch and run your tests</li>
+    <li>Merge into master locally with <code>git merge feature-branch</code></li>
+    <li>Run tests again and confirm everything behaves</li>
+  </ul>
+
+  <h3>Use a pull request for collaboration and CI</h3>
+  <p>For anything team facing push the branch and open a GitHub pull request. This gives your teammates a chance to roast your code gently and lets CI run automated checks.</p>
+  <p>Push the feature branch and open a PR to initiate code review and continuous integration. If you update the branch push again and the PR updates automatically.</p>
+
+  <h3>Conflict resolution without panic</h3>
+  <p>If git complains about conflicts run <code>git status</code> to see which files need attention. Open the files, pick the correct code, then mark them resolved.</p>
+  <pre><code>git status
+# edit conflicting files to choose the desired code
+git add path/to/file
+git commit</code></pre>
+  <p>If you hate merge commits prefer rebasing. Rebase your feature branch on top of master then resolve conflicts during the rebase.</p>
+  <pre><code>git checkout feature-branch
+git fetch origin
+git rebase origin/master
+# resolve conflicts then
+git add path/to/file
+git rebase --continue
+# finally force push with care
+git push --force-with-lease origin feature-branch</code></pre>
+
+  <h3>Push and update the pull request</h3>
+  <p>After a successful local merge push master or push the feature branch to update the pull request. CI will usually run and report success or failure on the PR page. If tests fail fix the issues and push again.</p>
+
+  <h3>Merge on GitHub with good judgment</h3>
+  <p>On the PR page click the green merge button when everyone is happy. Choose the merge method that fits your repo policy. A merge commit preserves history while squash keeps the main branch linear and easy to read. Fast forward may be fine for trivial workflows.</p>
+
+  <h3>Clean up after the merge</h3>
+  <p>Delete the remote feature branch once the PR is merged to avoid clutter. Use the GitHub button or run this command locally.</p>
+  <pre><code>git push origin --delete feature-branch
+# update your local master too
+git checkout master
+git pull origin master</code></pre>
+
+  <h3>Quick checklist for human survival</h3>
+  <ul>
+    <li>Update local master with <code>git pull origin master</code> before merging</li>
+    <li>Run tests before and after merging</li>
+    <li>Open a pull request for team work to get reviews and CI feedback</li>
+    <li>Resolve conflicts by editing files then <code>git add</code> and <code>git commit</code></li>
+    <li>Prefer rebase if you need a tidy linear history and know how to force push safely</li>
+    <li>Delete the remote feature branch when it is merged</li>
+  </ul>
+
+  <p>Following this workflow keeps your version control sane and your teammates slightly less likely to send angry messages. Git and GitHub are powerful tools. Use them with respect and a little sarcasm and you will survive another release.</p>
+</article>
+

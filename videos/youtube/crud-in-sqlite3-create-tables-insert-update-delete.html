@@ -1,0 +1,77 @@
+---
+layout: video
+title: "CRUD in Sqlite3 Create Tables Insert Update Delete"
+description: "Quick guide to create a Sqlite3 database and run CRUD operations with clear SQL examples and practical tips for beginners."
+video_host: "youtube"
+video_id: "Tmg0AyBx7Mk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT15M4S"
+thumbnail_url: "https://i.ytimg.com/vi/Tmg0AyBx7Mk/maxresdefault.jpg"
+content_url: "https://youtu.be/Tmg0AyBx7Mk"
+embed_url: "https://www.youtube.com/embed/Tmg0AyBx7Mk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - sqlite3
+  - CRUD
+  - SQL
+  - database
+  - create table
+  - insert
+  - update
+  - delete
+  - sqlite tutorial
+  - sqlite cli
+---
+
+<p>Welcome to the boring but essential world of Sqlite3 CRUD where tiny files hold your data and your mistakes can be permanent unless you back them up. This short guide shows how to create a database file run basic create insert update and delete commands and stay sane using transactions and a couple of practical tips</p>
+
+<h2>Start a file database and open the CLI</h2>
+<p>If you like single file databases that behave predictably the sqlite3 CLI is your friend. Run the command below in a shell to open or create a file called mydb.sqlite</p>
+<pre><code>sqlite3 mydb.sqlite</code></pre>
+<p>Once inside the sqlite prompt you can run SQL directly or use dot commands for housekeeping</p>
+
+<h2>Create a simple users table</h2>
+<p>Define a compact table for demos or small apps. Primary key is an integer that autoincrements in Sqlite3 so you do not need to worry about assigning ids</p>
+<pre><code>CREATE TABLE users (
+  id INTEGER PRIMARY KEY,
+  name TEXT,
+  email TEXT
+)</code></pre>
+
+<h2>Insert records and check your work</h2>
+<p>Populating the table is gratifying and harmless until you forget to backup. Run a few inserts and then select to verify</p>
+<pre><code>INSERT INTO users (name, email) VALUES ('Alice','alice@example.com')
+INSERT INTO users (name, email) VALUES ('Bob','bob@example.com')
+
+SELECT id, name, email FROM users</code></pre>
+<p>If you see your rows you have succeeded at SQL today</p>
+
+<h2>Update rows without drama</h2>
+<p>Target rows with a WHERE clause and use transactions when changing many rows to avoid half finished states and awkward bug reports</p>
+<pre><code>BEGIN TRANSACTION
+UPDATE users SET email = 'alice.new@example.com' WHERE id = 1
+COMMIT</code></pre>
+
+<h2>Delete rows when they earn it</h2>
+<p>Delete removes data permanently from the file unless you have a backup. Be deliberate</p>
+<pre><code>DELETE FROM users WHERE id = 1</code></pre>
+
+<h3>Quick safety and performance tips</h3>
+<ul>
+  <li>Enable foreign key support when using related tables with PRAGMA foreign_keys = ON</li>
+  <li>Wrap bulk changes in a transaction using BEGIN TRANSACTION and COMMIT to avoid slow row by row writes</li>
+  <li>Make a file copy for a quick backup with cp mydb.sqlite mydb.sqlite.backup on unix like systems</li>
+  <li>Use indexes for large tables to speed up SELECT queries on filtered columns</li>
+</ul>
+
+<h2>Cli housekeeping</h2>
+<p>At the sqlite prompt use dot commands for control. Type .exit to quit and close the file cleanly</p>
+<pre><code>.exit</code></pre>
+
+<h2>Wrapping up without false promises</h2>
+<p>That is the core of Sqlite3 CRUD Create your file create a table insert some rows query them update what needs updating and delete what you do not need. Remember backups and transactions when things matter and enable foreign keys when your schema needs referential integrity</p>
+<p>Now go build something small and useful or at least something that teaches you a lesson without taking your production data hostage</p>
+

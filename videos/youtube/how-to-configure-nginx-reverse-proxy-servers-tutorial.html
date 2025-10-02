@@ -1,0 +1,128 @@
+---
+layout: video
+title: "How to configure Nginx Reverse Proxy Servers Tutorial"
+description: "Step by step Nginx reverse proxy guide from install to SSL and testing for reliable backend routing and headers"
+video_host: "youtube"
+video_id: "7jNhZrtckhA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M51S"
+thumbnail_url: "https://i.ytimg.com/vi/7jNhZrtckhA/maxresdefault.jpg"
+content_url: "https://youtu.be/7jNhZrtckhA"
+embed_url: "https://www.youtube.com/embed/7jNhZrtckhA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - nginx
+  - reverse proxy
+  - proxy_pass
+  - nginx tutorial
+  - load balancing
+  - ssl
+  - letsencrypt
+  - nginx configuration
+  - sysadmin
+  - webserver
+---
+
+<h1>Nginx reverse proxy setup with proxy_pass upstreams load balancing and SSL</h1>
+
+<p>If you want a single public face for multiple backend webservers without sacrificing your sanity this guide will get you there. We keep the facts straight and the jokes lightly grim. Topics covered include installing Nginx, creating server blocks, proxy_pass configuration, upstreams for load balancing, SSL with Let s Encrypt and common troubleshooting tips.</p>
+
+<h2>Install Nginx and confirm the webserver is alive</h2>
+
+<p>On Debian or Ubuntu run the usual package manager dance and start the service. For Red Hat derivatives use the equivalent yum or dnf commands. Then check that port 80 responds and that Nginx is not sulking.</p>
+
+<pre><code>sudo apt update
+sudo apt install nginx
+sudo systemctl enable nginx
+sudo systemctl start nginx
+sudo nginx -t
+</code></pre>
+
+<p>nginx -t validates configuration before you reload. That one command will save you from the small panic attack that comes from reloading broken config on a production box.</p>
+
+<h2>Create a server block for the public domain</h2>
+
+<p>Place a server block file under <code>/etc/nginx/sites-available</code> and symlink it into <code>/etc/nginx/sites-enabled</code> if your distro uses that layout. Give the server_name the domain that clients will visit. That domain is the mask while your backend apps hide in the basement.</p>
+
+<ul>
+  <li>Use a clear server_name that matches your DNS records</li>
+  <li>Keep each site in its own file to avoid accidental chaos</li>
+  <li>Remember that Nginx directives in the config need a trailing semicolon when you edit the actual file</li>
+</ul>
+
+<h2>Configure proxy settings and preserve client context</h2>
+
+<p>Inside the server block add a location that forwards requests to an upstream group or directly to a backend. Use proxy_pass to send traffic along. Preserve useful headers so backend apps can still see client IPs and host values.</p>
+
+<ul>
+  <li>Set headers like <code>X-Real-IP</code> and <code>X-Forwarded-For</code> and pass the original Host header</li>
+  <li>Use proxy_set_header to forward those headers so your apps do not think every request is a polite bot</li>
+</ul>
+
+<p>Do not forget that proxy_pass and other directives require the correct syntax in the config file. If it helps sleep at night test the file with nginx -t before reloading.</p>
+
+<h3>Why use an upstream block</h3>
+
+<p>An upstream block lets you name a backend pool and reference it from many server blocks. That makes load balancing, maintenance and clarity less painful.</p>
+
+<ul>
+  <li>List backend hosts in the upstream group</li>
+  <li>Choose a basic balancing method such as round robin for starters</li>
+  <li>Keep health checks and session affinity in mind as you scale</li>
+</ul>
+
+<h2>Test connectivity like a professional or a very curious person</h2>
+
+<p>Use curl or an equivalent HTTP client to request the site and confirm the content comes from the intended backend. Inspect response headers to ensure forwarding worked and check status codes for the usual suspects.</p>
+
+<pre><code>curl -I example.com
+</code></pre>
+
+<p>If you get the wrong content check that the server block points to the right upstream name and that the backend host and port match what the app actually listens on.</p>
+
+<h2>Enable SSL with Let s Encrypt and make browsers happier</h2>
+
+<p>Automated certificate issuance is your friend. Use certbot or another ACME client to request a certificate for the public domain. Configure Nginx to listen on 443 and reference the certificate files. Redirect plain HTTP to HTTPS so users do not complain in capital letters.</p>
+
+<pre><code>sudo certbot --nginx -d example.com -d www.example.com
+</code></pre>
+
+<p>Certbot can edit your Nginx configuration for you or provide snippets to paste. Either way make sure the HTTPS server block includes the proxy configuration so encrypted requests are forwarded correctly.</p>
+
+<h2>Reload, enable on boot and practice your ritual</h2>
+
+<p>Validate config with nginx -t then reload the service. Enable the service so reboots do not result in awkward downtime during a caffeine deprived morning.</p>
+
+<pre><code>sudo nginx -t
+sudo systemctl reload nginx
+sudo systemctl enable nginx
+</code></pre>
+
+<h2>Check logs and common troubleshooting steps</h2>
+
+<ul>
+  <li>Look at the access log and error log to see what Nginx and the backend are saying</li>
+  <li>Check firewall rules if connections are being politely blocked</li>
+  <li>Validate DNS so that the public domain points at the proxy IP</li>
+  <li>Use curl from another host to test end to end</li>
+</ul>
+
+<p>Typical errors include typos in backend hostnames ports that do not match the app and forgetting to include required headers. The logs tell you the truth even when your team does not.</p>
+
+<h2>Quick checklist for the tired sysadmin</h2>
+
+<ol>
+  <li>Install Nginx and confirm service is running</li>
+  <li>Create server block with the correct server_name</li>
+  <li>Configure location and proxy_pass to point to upstream or backend</li>
+  <li>Preserve client headers such as X-Real-IP and X-Forwarded-For</li>
+  <li>Obtain SSL from Let s Encrypt and enable HTTPS</li>
+  <li>Validate configuration then reload Nginx</li>
+  <li>Watch logs and fix the tiny errors that ruin lives</li>
+</ol>
+
+<p>There you go. You have a reverse proxy that routes traffic to backend services handles SSL and can grow into a load balancer. If something breaks turn to the logs first and then to a calming beverage second.</p>
+

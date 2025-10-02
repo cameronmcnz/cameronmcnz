@@ -1,0 +1,76 @@
+---
+layout: video
+title: "How to Create a Public Subnet in AWS VPC"
+description: "Step by step guide to create a public subnet in AWS VPC and configure internet gateway NAT ACL security group endpoints and egress"
+video_host: "youtube"
+video_id: "-DjUzUiOIuU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/-DjUzUiOIuU/maxresdefault.jpg"
+content_url: "https://youtu.be/-DjUzUiOIuU"
+embed_url: "https://www.youtube.com/embed/-DjUzUiOIuU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - VPC
+  - Public Subnet
+  - Internet Gateway
+  - NAT
+  - NACL
+  - Security Group
+  - VPC Endpoints
+  - Route Table
+  - Egress
+---
+
+<h2>Why a public subnet and why should you care</h2>
+<p>Want a part of your VPC that actually talks to the internet without begging for permission Every public subnet in AWS VPC is basically the part of your network with a door to the world The trick is to give it a proper door a route out and sensible guards at the gate</p>
+
+<h2>Quick overview of the pieces you will touch</h2>
+<ul>
+  <li>AWS VPC for the network boundaries</li>
+  <li>Public subnet inside an availability zone with a CIDR block</li>
+  <li>Internet Gateway to let traffic leave and return</li>
+  <li>Route Table with a default route for 0.0.0.0/0 pointing to the Internet Gateway</li>
+  <li>Security Group and NACL to control traffic</li>
+  <li>Optional VPC Endpoints and NAT if you want private instances to access AWS services or the internet</li>
+</ul>
+
+<h2>Step by step setup that does not require ritual sacrifices</h2>
+<ol>
+  <li>Create or pick a VPC and a non conflicting CIDR block within your address plan</li>
+  <li>Create a subnet in your chosen availability zone and assign a CIDR from the VPC range This subnet will be public if we give it a route to an Internet Gateway</li>
+  <li>Create an Internet Gateway and attach it to your VPC Think of this as the door to the internet but the door is useless until the route table is told to use it</li>
+  <li>Create a Route Table and add a route for 0.0.0.0/0 that targets the Internet Gateway That tells instances in associated subnets where to walk out the door</li>
+  <li>Associate the new Route Table with the subnet If you skip this the subnet will sulk and remain private</li>
+  <li>When launching an instance choose auto assign public IP or attach an Elastic IP if you want a stable address</li>
+</ol>
+
+<h3>Notes about public IPs and Elastic IPs</h3>
+<p>An instance needs a public IP or an Elastic IP to receive inbound traffic from the internet Security Group rules still apply and you will not be exposed like a bug in a pancake unless you open ports</p>
+
+<h2>NACL and Security Group rules without the drama</h2>
+<p>Network ACLs are stateless so every response flow needs matching rules on inbound and outbound For example allow HTTP and HTTPS outbound and allow the ephemeral port range inbound if you want to permit responses Security Groups are stateful so opening inbound SSH or HTTP is enough to allow return traffic automatically</p>
+<ul>
+  <li>NACL example rules allow inbound ephemeral ports and outbound HTTP HTTPS as needed</li>
+  <li>Security Group example allow inbound SSH from trusted IPs and allow all outbound for normal egress</li>
+</ul>
+
+<h2>Private workloads and NAT what to use when</h2>
+<p>If you want instances that never have public IPs but still need to reach the internet use a NAT Gateway in a public subnet That provides egress for private subnets without exposing those instances to inbound internet traffic If your only goal is access to AWS services use VPC Endpoints for S3 or Dynamo to keep traffic off the public internet</p>
+
+<h2>Test your work like a responsible human</h2>
+<p>Launch an instance in the public subnet with a public IP or attach an Elastic IP Then SSH or curl a public endpoint to verify egress and try a simple inbound check like a web server or SSH from an allowed IP If something is broken check the route table association then the Internet Gateway attachment then the Security Group and NACL order of rules</p>
+
+<h2>Troubleshooting tips that actually help</h2>
+<ul>
+  <li>No outbound traffic Check that the route table has 0.0.0.0/0 pointing to the Internet Gateway and that the subnet is associated</li>
+  <li>No inbound traffic Check the instance has a public IP or Elastic IP and that the Security Group allows the port you need</li>
+  <li>Intermittent issues Check NACLs for missing complementary rules NACLs are stateless and will bite you if you forget replies</li>
+</ul>
+
+<p>There you go You now have a public subnet in your AWS VPC that can send and receive traffic while still letting you be slightly smug about your routing knowledge Keep your Security Groups tight and use NAT and VPC Endpoints where privacy matters</p>
+

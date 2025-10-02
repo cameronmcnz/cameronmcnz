@@ -1,0 +1,104 @@
+---
+layout: video
+title: "How to create AWS Lambda functions in Python"
+description: "Build deploy and test AWS Lambda functions using Python with practical steps for handler packaging deployment and monitoring"
+video_host: "youtube"
+video_id: "MkpbxWzjzhA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M6S"
+thumbnail_url: "https://i.ytimg.com/vi/MkpbxWzjzhA/maxresdefault.jpg"
+content_url: "https://youtu.be/MkpbxWzjzhA"
+embed_url: "https://www.youtube.com/embed/MkpbxWzjzhA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS Lambda
+  - Python
+  - serverless
+  - AWS
+  - lambda functions
+  - boto3
+  - SAM
+  - deployment
+  - CloudWatch
+  - IAM
+---
+
+<h2>Quick overview for the impatient</h2>
+<p>Want to go from blank console to a working serverless Python function without breaking production or your will to live? This guide shows how to create, deploy, test, and monitor AWS Lambda functions in Python while keeping things pragmatic. You will learn about IAM roles, packaging options, SAM for local testing, CloudWatch logs, layers, and a few tuning tricks to avoid cold start regret.</p>
+
+<h2>Step 1 Create the function and give it a role</h2>
+<p>Use the AWS Console for a fast manual start or the AWS CLI for automation. The Lambda needs an execution role that grants basic Lambda permissions and any service access it needs, like S3 or DynamoDB. Follow least privilege and resist the urge to attach AdministratorAccess because yes that will make it work and yes you will regret it later.</p>
+
+<h3>Checklist</h3>
+<ul>
+  <li>Create an IAM role with AWSLambdaBasicExecutionRole for logs</li>
+  <li>Add precise policies for resources the function accesses</li>
+  <li>Attach the role when creating the Lambda</li>
+</ul>
+
+<h2>Step 2 Write a focused Python handler</h2>
+<p>Keep the handler small and single purpose. Import heavy dependencies only when needed to avoid slow cold starts. Here is a minimal example that is actually useful and not just boilerplate.</p>
+<pre><code>import json
+
+def lambda_handler(event, context):
+    return {
+        'statusCode': 200,
+        'body': json.dumps('hello from lambda')
+    }
+</code></pre>
+<p>If you need AWS service calls use boto3 clients outside the handler when safe for reuse between invocations. That reduces overhead on each call.</p>
+
+<h2>Step 3 Package and deploy like a grownup</h2>
+<p>Small functions can be zipped and uploaded. For anything non trivial use the AWS Serverless Application Model SAM to build, test locally, and deploy. SAM helps you emulate the Lambda runtime and avoid surprises when you push to AWS.</p>
+
+<h3>Deployment options</h3>
+<ul>
+  <li>AWS Console for quick manual updates</li>
+  <li>AWS CLI for scripted deployments in CI</li>
+  <li>SAM CLI for local testing and packaged stacks</li>
+</ul>
+
+<h2>Step 4 Test locally and in the cloud</h2>
+<p>Use SAM CLI to run the function locally with realistic events. In AWS, use Console test events or aws lambda invoke for integration tests. Always check CloudWatch logs for traces and errors because the logs are the truth teller your debugger pretends to be.</p>
+
+<h2>Step 5 Monitor and tune</h2>
+<p>CloudWatch will show execution traces and error messages. Tune memory and timeout based on performance and failure modes. Increasing memory can also increase CPU which sometimes magically fixes timeouts without needing to rewrite your algorithm.</p>
+
+<h3>Common tweaks</h3>
+<ul>
+  <li>Adjust memory and timeout for CPU and latency needs</li>
+  <li>Use environment variables for configuration that changes between dev and prod</li>
+  <li>Move shared libraries into Lambda layers to reduce package size</li>
+  <li>Enable structured logging to make debugging less painful</li>
+</ul>
+
+<h2>Security and best practices</h2>
+<p>Tighten IAM to follow least privilege. Do not log secrets. Use environment variables for non sensitive config and AWS Secrets Manager for the actual secrets. If your function talks to S3 or DynamoDB grant only the necessary actions and resources.</p>
+
+<h2>Example using boto3 to write to S3</h2>
+<p>This shows how to use boto3 inside a handler. Creating the client at module level allows reuse of connections across invocations when the container is warm.</p>
+<pre><code>import boto3
+s3 = boto3.client('s3')
+
+def lambda_handler(event, context):
+    s3.put_object(Bucket='my-bucket', Key='hello.txt', Body='hi')
+    return {'statusCode': 200, 'body': 'wrote to s3'}
+</code></pre>
+
+<h2>When to use layers and when to bundle</h2>
+<p>Use layers for shared dependencies if many functions use the same libraries. For single function projects a packaged deployment might be simpler. Layers help reduce duplication and can improve cold start times if they reduce your package payload.</p>
+
+<h2>Final checklist before you hit deploy</h2>
+<ul>
+  <li>Role permissions are as narrow as possible</li>
+  <li>Local testing with SAM mimics the runtime</li>
+  <li>CloudWatch logging is enabled and structured</li>
+  <li>Environment variables and layers are set up for configuration and shared code</li>
+  <li>CI deploys using SAM or the CLI to avoid manual drift</li>
+</ul>
+
+<p>Follow these steps and you will have a reliable serverless workflow for Python AWS Lambda that can be tested locally, deployed safely, and monitored in production. If something goes wrong consult the logs and then curse at cold starts while you apply one of the tuning tips above.</p>
+

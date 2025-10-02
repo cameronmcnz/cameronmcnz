@@ -1,0 +1,107 @@
+---
+layout: video
+title: "Maven Compiler Plugin Java 8 Dependency Example"
+description: "Configure Maven Compiler Plugin to compile Java 8 code and manage dependencies for stable builds and predictable compilation."
+video_host: "youtube"
+video_id: "SDbOnpq11qg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M40S"
+thumbnail_url: "https://i.ytimg.com/vi/SDbOnpq11qg/maxresdefault.jpg"
+content_url: "https://youtu.be/SDbOnpq11qg"
+embed_url: "https://www.youtube.com/embed/SDbOnpq11qg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - maven
+  - maven compiler plugin
+  - java8
+  - pom.xml
+  - javac
+  - compile
+  - build
+  - dependency
+  - annotation processing
+  - maven plugin
+---
+
+<p>If your Maven build feels like a haunted house where javac vanishes at midnight you are not alone. This guide will show a sane way to configure the maven compiler plugin in your pom.xml so Java 8 code compiles predictably and annotation processors or compiler dependencies are found when you need them.</p>
+
+<h2>Why this matters</h2>
+
+<p>Maven can be polite but also passive aggressive when compiler settings do not match the JDK or when annotation processors are missing. The result is mysterious runtime failures or missing generated code. Fixing the compiler configuration keeps your build repeatable and spares your future self from debugging cursed classpath problems.</p>
+
+<h2>Quick setup in pom.xml</h2>
+
+<p>Add or update the maven compiler plugin and choose either source and target or the modern release option for cleaner standard library linkage. A minimal plugin block looks like this</p>
+
+<pre><code>&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+  &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+  &lt;version&gt;3.10.1&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;source&gt;1.8&lt;/source&gt;
+    &lt;target&gt;1.8&lt;/target&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
+
+<p>If you are running a JDK that supports the release flag you can prefer that instead because it pins the standard library API to a specific Java release and avoids surprises when compiling on a newer JDK</p>
+
+<pre><code>&lt;configuration&gt;
+  &lt;release&gt;8&lt;/release&gt;
+&lt;/configuration&gt;
+</code></pre>
+
+<h2>Annotation processors and compiler dependencies</h2>
+
+<p>Annotation processing and alternate compilers need to be visible to the compiler during the compile phase. You have two common options</p>
+
+<ul>
+  <li>Put the processor artifact on the project dependencies with the provided scope or on the compile classpath when appropriate</li>
+  <li>Declare processors inside the plugin configuration using annotationProcessorPaths so the compiler sees exactly what it needs</li>
+</ul>
+
+<p>Example using annotationProcessorPaths which avoids polluting the main project classpath</p>
+
+<pre><code>&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+  &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+  &lt;version&gt;3.10.1&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;release&gt;8&lt;/release&gt;
+    &lt;annotationProcessorPaths&gt;
+      &lt;path&gt;
+        &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+        &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+        &lt;version&gt;1.18.26&lt;/version&gt;
+      &lt;/path&gt;
+    &lt;/annotationProcessorPaths&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
+
+<h3>When to add the processor under project dependencies</h3>
+
+<p>Some tools expect generated sources on the project classpath or need processor classes available at runtime during other plugin phases. In those cases add the annotation processor as a normal dependency and mark it provided if it should not be bundled into your final artifact.</p>
+
+<h2>Run the build and verify</h2>
+
+<p>After configuration run a clean compile and inspect the results</p>
+
+<pre><code>mvn clean compile
+</code></pre>
+
+<p>Check target/classes for compiled classes and target/generated-sources for any generated sources from annotation processing. Also run javac -version on your CI runner to make sure the JDK there supports the release option if you chose it.</p>
+
+<h2>Common pitfalls and smart tips</h2>
+
+<ul>
+  <li>Using source and target but compiling on a newer JDK may hide API mismatches. Prefer release when the JDK supports it</li>
+  <li>If annotation processors are missing you will get missing symbol errors or absent generated classes at runtime</li>
+  <li>Keep plugin versions explicit to avoid surprise upgrades from parent POMs or corporate BOMs</li>
+</ul>
+
+<p>Follow these steps and your Maven plugin configuration will stop being the weakest link in your build chain. Your CI will thank you and your debugging sessions will drop in frequency which means more time for coffee or mild regret about architectural decisions.</p>
+

@@ -1,0 +1,79 @@
+---
+layout: video
+title: "Introduction to the Mojo Programming Language in VS Code"
+description: "Practical guide to using Mojo inside Visual Studio Code covering extension setup syntax running code and editor tips."
+video_host: "youtube"
+video_id: "OoTAHstloAg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT17M40S"
+thumbnail_url: "https://i.ytimg.com/vi/OoTAHstloAg/maxresdefault.jpg"
+content_url: "https://youtu.be/OoTAHstloAg"
+embed_url: "https://www.youtube.com/embed/OoTAHstloAg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Mojo
+  - Visual Studio Code
+  - VSCode
+  - Mojo tutorial
+  - Mojo language
+  - programming
+  - development
+  - performance
+  - extension
+  - debugging
+---
+
+<h2>Why try Mojo in VSCode</h2>
+<p>If you like the idea of Python style syntax with a performance upgrade that actually shows up in benchmarks then Mojo is worth poking. VS Code makes the whole mess of getting started less painful. You get syntax highlighting, snippets, run buttons and a forgiving editor that pretends it knows what you mean.</p>
+<p>This guide walks through the essentials for getting Mojo to behave inside Visual Studio Code. You will set up the extension and toolchain, write a .mojo file, run and debug code, and look at where typing and small kernels can speed things up. All without invoking dark rituals.</p>
+
+<h2>Install the VS Code extension</h2>
+<p>Open the VSCode marketplace and search for Mojo. Pick the extension that matches the official source and enable it. Expect syntax highlighting and handy snippets to appear like magic.</p>
+<ul>
+  <li>Search for Mojo in Extensions view</li>
+  <li>Install and enable the official extension if available</li>
+  <li>Restart VS Code if the extension asks politely</li>
+</ul>
+
+<h2>Get the Mojo toolchain working</h2>
+<p>The editor is useful but powerless without the Mojo compiler and runtime. Follow the official installation instructions from the Mojo project page. Once the toolchain is on your machine the editor can send code to be executed and collect diagnostics without drama.</p>
+<p>If you like command line reassurance open a terminal in VS Code and confirm the toolchain is reachable. If the terminal yells back then you might need to adjust PATH or reinstall like a modern adult.</p>
+
+<h2>Create your first .mojo file</h2>
+<p>Use the .mojo extension and start with a tiny function. Keep it short and obvious so you can tell when performance is actually better and not just imaginary. Example patterns to try are simple typed functions and tiny kernels that exercise numeric code.</p>
+<pre><code># example.mojo
+
+fn add(a: i64, b: i64) -> i64:
+    return a + b
+</code></pre>
+
+<h2>Run and debug inside the editor</h2>
+<p>The extension usually wires up run and debug buttons near the editor. You can also use the command palette to run the active file or a selected function. If you prefer rituals use the integrated terminal and run experiments with custom flags for profiling.</p>
+<ul>
+  <li>Click run for quick tests</li>
+  <li>Set breakpoints and step through when things misbehave</li>
+  <li>Use the Problems panel for diagnostics and quick fixes</li>
+</ul>
+
+<h2>Format test and iterate</h2>
+<p>Enable formatting rules and let the extension keep your code looking like it knows what it is doing. Configure the project so formatting happens on save if you enjoy tidy code and marginally fewer arguments with future you.</p>
+<p>For tests keep examples tiny and reproducible. Run small cases locally before scaling up to bigger data or hardware accelerated runs.</p>
+
+<h2>Performance and typing tips</h2>
+<p>Mojo introduces static typing and performance focused features. Typed functions often compile faster and give the compiler a chance to do actual work. Benchmark small kernels and watch how adding types can change runtime characteristics in surprising but satisfying ways.</p>
+<ul>
+  <li>Start with tiny examples to isolate gains</li>
+  <li>Enable verbose compiler output when profiling to see what changed</li>
+  <li>Try hardware accelerators if available and supported</li>
+</ul>
+
+<h3>What to watch for</h3>
+<p>Look for faster iterations, clearer diagnostics and lower surprise when you add types where they matter. If the compiler output looks like modern art then turn up verbosity and read the labels.</p>
+
+<h2>Wrap up and next steps</h2>
+<p>You should now have an extension installed, a working toolchain, a .mojo file to tinker with, and a safe pathway for debugging and basic profiling. The rest is experimentation and patience. Try progressively typing hot paths and run focused benchmarks to find the low hanging wins.</p>
+<p>Final pragmatic tip Try small changes, measure before and after, and let the compiler complain loudly while you sip coffee and pretend you planned this all along.</p>
+

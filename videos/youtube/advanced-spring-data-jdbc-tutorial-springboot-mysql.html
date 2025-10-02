@@ -1,0 +1,74 @@
+---
+layout: video
+title: "Advanced Spring Data & JDBC Tutorial #SpringBoot #MySQL"
+description: "Learn advanced Spring Data and JDBC practices for Spring Boot with MySQL and PostgreSQL using JDBCTemplate and JPA"
+video_host: "youtube"
+video_id: "oE3h-YNlqss"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT41M49S"
+thumbnail_url: "https://i.ytimg.com/vi/oE3h-YNlqss/maxresdefault.jpg"
+content_url: "https://youtu.be/oE3h-YNlqss"
+embed_url: "https://www.youtube.com/embed/oE3h-YNlqss"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Data
+  - JDBC
+  - Spring Boot
+  - MySQL
+  - PostgreSQL
+  - JDBCTemplate
+  - JPA
+  - Transactions
+  - Batch Updates
+  - Performance
+---
+
+<h2>Why this guide will save your database and your dignity</h2>
+<p>If your app treats the database like a punching bag you are in the right place. This guide walks advanced Spring Data and JDBC techniques using Spring Boot with MySQL and PostgreSQL. We cover when to call JdbcTemplate in for raw speed and when JPA will keep your domain model sane. Expect blunt advice and accurate patterns that will actually survive production.</p>
+
+<h2>Project setup and dependencies</h2>
+<p>Pick Maven or Gradle and add spring boot starters for data jpa and jdbc. Include the MySQL and Postgres drivers that match your server versions. Keep Spring Boot and driver versions aligned to avoid mysterious runtime surprises. Add HikariCP for connection pooling unless you enjoy slow connections and crying logs.</p>
+
+<h2>Datasource configuration and profiles</h2>
+<p>Declare your datasources with Spring Boot properties using spring.datasource for a single connection. For multiple databases provide separate property groups and wire beans with qualifiers and one primary data source. Use Spring profiles to switch between dev, test and production configs so you do not accidentally run destructive queries in the wrong environment.</p>
+
+<h2>Using JdbcTemplate for raw SQL</h2>
+<p>JdbcTemplate and NamedParameterJdbcTemplate are your friends when you need precise SQL control or brutal speed. Use parameter binding to avoid SQL injection and to let the driver reuse prepared statements. For reads prefer RowMapper or BeanPropertyRowMapper for simple mapping and custom RowMapper for complex shapes.</p>
+<ul>
+<li>Use query and queryForObject for selects</li>
+<li>Use update for single writes</li>
+<li>Use batchUpdate or BatchPreparedStatementSetter for large bulk operations</li>
+</ul>
+<p>Batching is where JdbcTemplate shines. Send many rows in one round trip and tweak driver flags like rewriteBatchedStatements for MySQL when available. Do not loop individual updates unless you enjoy wasted CPU and long wait times for users.</p>
+
+<h2>JPA integration and repository patterns</h2>
+<p>JPA is built for domain modeling and developer ergonomics. Use JpaRepository or CrudRepository for standard CRUD. For complex queries provide custom repository implementations so you can drop down to JdbcTemplate when needed without losing the benefits of JPA on the rest of the model.</p>
+<p>Prevent excessive entity loading by using projections, DTO mapping and lazy relationships. If you see N plus one queries use join fetch or EntityGraph to pull the data you need in one go instead of apologizing later.</p>
+
+<h2>Transactions and error handling</h2>
+<p>Apply @Transactional at the service layer to keep transactional boundaries explicit and small. Use rollbackFor when you need to roll back on checked exceptions. For very specific control use TransactionTemplate or PlatformTransactionManager programmatically. Do not wrap long running calls inside transactions if you care about throughput.</p>
+
+<h2>Batch updates and performance tuning</h2>
+<p>Do the obvious profiling first. Turn on SQL logging in development and run explain plans on slow queries. Measure under realistic load and tune indexes before attempting arcane query rewrites. If a hotspot persists consider caching, denormalization or a read replica depending on your consistency needs.</p>
+<p>Prefer prepared statements and parameter binding for both safety and speed. Use JDBC batching for inserts and updates and adjust your pool and transaction settings to avoid holding too many resources at once.</p>
+
+<h2>Testing and profiling</h2>
+<p>Use Testcontainers to run real MySQL or Postgres in CI when you want confidence. For fast unit style tests use embedded H2 with caution because dialect differences can hide real world issues. Use @DataJpaTest for JPA focused tests and @JdbcTest for JdbcTemplate logic. Add SQL logging or p6spy when you need to see what really hit the wire.</p>
+
+<h3>When to use JdbcTemplate and when to use JPA</h3>
+<p>Choose JdbcTemplate for raw SQL performance needs, complex reporting queries and large batch jobs. Choose JPA for domain centric workflows, unit of work behavior and when you want repository patterns to keep code clean. They can coexist in the same codebase without drama. Use JPA for most things and drop to JdbcTemplate for hotspots.</p>
+
+<h2>Final practical tips</h2>
+<ul>
+<li>Keep transactional scopes short and explicit</li>
+<li>Measure before optimizing and use explain plans to find index problems</li>
+<li>Prefer prepared statements and parameter binding to avoid SQL injection and improve performance</li>
+<li>Use NamedParameterJdbcTemplate when queries get complex and parameters multiply</li>
+<li>Test with real engines in CI using Testcontainers to avoid surprises</li>
+<li>Use projections or DTOs to avoid overfetching entities</li>
+</ul>
+<p>Follow these patterns and you will have a hybrid Spring Data and JDBC setup that is fast, maintainable and slightly less likely to cause a midnight pager call. That is about as much optimism as any database can earn.
+

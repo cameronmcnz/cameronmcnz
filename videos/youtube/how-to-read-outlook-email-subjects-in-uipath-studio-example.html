@@ -1,0 +1,67 @@
+---
+layout: video
+title: "How to read Outlook email subjects in UiPath Studio example"
+description: "Learn how to read Outlook email subjects in UiPath Studio using Read Outlook Mail Messages For Each and Subject extraction for automation workflows"
+video_host: "youtube"
+video_id: "xrB8aIJE5Cs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M25S"
+thumbnail_url: "https://i.ytimg.com/vi/xrB8aIJE5Cs/maxresdefault.jpg"
+content_url: "https://youtu.be/xrB8aIJE5Cs"
+embed_url: "https://www.youtube.com/embed/xrB8aIJE5Cs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Outlook
+  - Email
+  - MailMessage
+  - Read Outlook Mail Messages
+  - Automation
+  - RPA
+  - UiPath Studio
+  - Subjects
+  - Tutorial
+---
+
+<h2>Get your robot to read subjects without crying</h2>
+<p>If you need to pull Outlook message subjects in UiPath Studio and move on with life this guide shows a tidy, reliable way to do it. No mystical plugins, just UiPath Mail activities and a bit of common sense. Expect a few clicks in Package Manager and a tiny amount of grumbling when versions do not play nice.</p>
+
+<h3>Install the mail activities and choose a version</h3>
+<p>Open Manage Packages and search for UiPath.Mail.Activities. Install the version that matches your Studio build. If it complains about compatibility try a nearby version. This is not rocket science, just software archaeology.</p>
+
+<h3>Fetch messages with Read Outlook Mail Messages</h3>
+<ul>
+  <li>Use Read Outlook Mail Messages and set MailFolder to the folder you want to scan.</li>
+  <li>Set Top to a small number when testing so you do not accidentally process years of spam.</li>
+  <li>Set Account or Mailbox if you have multiple mailboxes configured.</li>
+  <li>Use the Filter property to reduce noise when the inbox is large. Filtering now saves debugging later.</li>
+</ul>
+
+<h3>Store results in a variable</h3>
+<p>Assign the Output of Read Outlook Mail Messages to a variable named mailList of type IEnumerable(Of System.Net.Mail.MailMessage) or List(Of System.Net.Mail.MailMessage). That variable holds the messages and is what you loop over next.</p>
+
+<h3>Loop through messages and read the Subject</h3>
+<p>Use a For Each activity with TypeArgument set to System.Net.Mail.MailMessage. Inside the loop reference currentMail.Subject to get the subject text. That is the same property UiPath uses everywhere because Microsoft was feeling consistent that day.</p>
+
+<h3>Common cleanup and safety checks</h3>
+<ul>
+  <li>Wrap parsing in a Try Catch when dealing with strange encodings or malformed headers.</li>
+  <li>Use Trim to remove leading or trailing whitespace from the Subject string.</li>
+  <li>Apply a Regex when you need to strip ticket tags or prefixes such as square bracket codes. A simple pattern like ^\[.*?\]\s* will remove a leading bracketed tag.</li>
+</ul>
+
+<h3>Log it or route it</h3>
+<p>Send the cleaned subject to a Log Message activity or an Assign for downstream logic. From there you can route subjects to queues, files, or decision branches. Routing to an Orchestrator queue works great when parallel processing is planned.</p>
+
+<h3>Troubleshooting and performance tips</h3>
+<ul>
+  <li>If the mailbox has many messages use Top and Filter to fetch a small test batch before scaling up.</li>
+  <li>Check Account settings when emails are missing. The wrong mailbox will make your workflow stare at an empty abyss.</li>
+  <li>Validate on a handful of messages first. If subject extraction fails on edge cases add more robust Regex or extra Try Catch handling.</li>
+</ul>
+
+<p>Follow these steps and you will consistently read Outlook subjects in UiPath Studio without drama. You will also have a neat variable of MailMessage objects to reuse for body parsing, attachments handling, or gentle machine led complaints about email volume.</p>
+

@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Maven Project Visual Studio #techtarget"
+description: "Step by step guide to set up build and debug a Maven project inside Visual Studio for Java development"
+video_host: "youtube"
+video_id: "bVqk06ltynA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M31S"
+thumbnail_url: "https://i.ytimg.com/vi/bVqk06ltynA/maxresdefault.jpg"
+content_url: "https://youtu.be/bVqk06ltynA"
+embed_url: "https://www.youtube.com/embed/bVqk06ltynA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Maven
+  - Visual Studio
+  - Java
+  - pom.xml
+  - Maven build
+  - Maven tutorial
+  - Debugging
+  - Maven wrapper
+  - Dependency management
+  - Java development
+---
+
+<h2>Why this exists</h2>
+<p>If you are trying to run a Maven project inside Visual Studio and not cry, this guide is for you. It walks through installing Java and Maven or using the Maven Wrapper, wiring up pom.xml, running builds and tests, and attaching a debugger so breakpoints actually stop something. Expect practical tips and a few sarcastic asides to keep you awake.</p>
+
+<h2>Install Java and Maven or use the Maven Wrapper</h2>
+<p>First rule of dependency club, talk about JAVA_HOME. Make sure a Java Development Kit is installed and the JAVA_HOME environment variable points to it. If you do not want to rely on whatever is on a teammate's laptop use the Maven Wrapper which keeps your build reproducible.</p>
+<pre><code>java -version
+mvn -v
+# or use the wrapper in the repo
+./mvnw -v</code></pre>
+
+<h2>Create or import the Maven project</h2>
+<p>Either start with an archetype or import an existing pom.xml. Visual Studio may need a Java or Maven extension so the IDE recognizes the project layout and dependency management. Install the extension and restart the editor like a sensible person.</p>
+
+<h3>What to check in pom.xml</h3>
+<ul>
+  <li>groupId, artifactId and version are set</li>
+  <li>dependencies are declared with appropriate scope</li>
+  <li>plugins for compilation, testing and packaging are configured</li>
+</ul>
+<p>If transitive dependencies are acting up run the dependency tree to find the noisy child.</p>
+<pre><code>mvn dependency:tree</code></pre>
+
+<h2>Build run and test</h2>
+<p>Use the standard Maven commands to produce artifacts and run tests. The integrated terminal in Visual Studio keeps you in one tragicomedy of an environment.</p>
+<pre><code>mvn clean package
+mvn test</code></pre>
+<p>If you want a quicker feedback loop skip packaging with a goal that only compiles and tests, or use -DskipTests when packaging is irrelevant for the moment.</p>
+
+<h2>Set up debugging so breakpoints mean something</h2>
+<p>Either configure a debug profile in your application plugin or attach the debugger to a running JVM. For services run with remote debug flags so the IDE can connect and actually stop at breakpoints. If your app is started by a plugin set MAVEN_OPTS or add JVM args to the exec plugin.</p>
+<pre><code># example JVM debug flags for a remote attach
+-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005</code></pre>
+<p>Then attach Visual Studio debugger to port 5005. Logging plus breakpoints make a competent detective team.</p>
+
+<h2>Troubleshooting quick hits</h2>
+<ul>
+  <li>Build fails with missing classes, check dependency scopes and run mvn dependency:tree</li>
+  <li>Tests behave differently in IDE, run mvn -Dtest=YourTest test to match CI</li>
+  <li>Plugin or lifecycle issues, try mvn -X for verbose output and read the stack like a pirate reads treasure maps</li>
+</ul>
+
+<h2>Recap and smart shortcuts</h2>
+<p>Install JDK and Maven or use the Maven Wrapper. Set JAVA_HOME. Import or create your Maven project and configure pom.xml with dependencies and plugins. Use mvn clean package and mvn test for reliable builds. Attach the debugger with standard JVM debug flags for an honest debugging session. When things go sideways inspect the dependency tree and use verbose Maven output to find the villain.</p>
+
+<h3>Pro tip</h3>
+<p>Commit the Maven Wrapper to the repo and your future self will send you a thank you note in the form of fewer angry emails.</p>
+

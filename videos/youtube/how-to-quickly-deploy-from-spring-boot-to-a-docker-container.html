@@ -1,0 +1,82 @@
+---
+layout: video
+title: "How to quickly deploy from Spring Boot to a Docker container"
+description: "Step by step guide to build a Spring Boot app and package that app inside a Docker container for fast local testing and simple deployment"
+video_host: "youtube"
+video_id: "2nULTLSVDBo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT16M52S"
+thumbnail_url: "https://i.ytimg.com/vi/2nULTLSVDBo/maxresdefault.jpg"
+content_url: "https://youtu.be/2nULTLSVDBo"
+embed_url: "https://www.youtube.com/embed/2nULTLSVDBo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Docker
+  - Dockerfile
+  - Java
+  - Maven
+  - Gradle
+  - Containerization
+  - DevOps
+  - Deployment
+  - Tutorial
+---
+
+<p>If you want to get a Spring Boot app running in Docker fast and stop pretending manual deployment is a rite of passage, you are in the right place. This guide walks you from build artifact to running container with the minimum amount of ceremony and the maximum amount of practical commands.</p>
+
+<h2>What you will end up with</h2>
+<p>A runnable jar produced by Maven or Gradle, a tiny Dockerfile that actually does the job, a local image you can run for testing, and optional steps to push the image to a registry for real world deployment. Think of this as containerization for people who like short checklists and bad coffee.</p>
+
+<h2>Step 1 Build the runnable jar</h2>
+<p>Use your project build tool to produce an executable jar. If you use Maven run</p>
+<pre><code>mvn clean package</code></pre>
+<p>If you use Gradle run</p>
+<pre><code>./gradlew bootJar</code></pre>
+<p>The jar will usually appear in <code>target</code> for Maven or <code>build/libs</code> for Gradle. That jar is your app wrapped and ready for a tiny VM we call a container.</p>
+
+<h2>Step 2 Create a minimal Dockerfile</h2>
+<p>Keep it small and boring. Pick a compact Java runtime image, copy the jar in, and set the launch command. No multi stage drama required for a quick test.</p>
+<pre><code>FROM eclipse-temurin:17-jdk-slim
+COPY target/myapp.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]</code></pre>
+<p>Notes and swaps</p>
+<ul>
+  <li>If you used Gradle change the jar path to <code>build/libs</code>.</li>
+  <li>Choose a smaller JRE if you want less image size in production and know how to trim runtime modules.</li>
+  <li>EXPOSE is optional but useful for documentation and some tooling that reads the Dockerfile.</li>
+</ul>
+
+<h2>Step 3 Build the Docker image</h2>
+<p>From the project root run a straightforward build and tag it for local testing.</p>
+<pre><code>docker build -t myapp .</code></pre>
+<p>Tip If you plan to push to a registry later add a meaningful tag and consider using your registry naming convention in the tag.</p>
+
+<h2>Step 4 Run the container for testing</h2>
+<p>Start the container in the background and publish a port so you can hit the app from your machine.</p>
+<pre><code>docker run -d --name myapp_container -p 8080:8080 myapp</code></pre>
+<p>Check logs with <code>docker logs -f myapp_container</code> or hit the endpoint with curl or a browser at <code>http://localhost:8080</code>. If the app does not start check the jar path and Java version.</p>
+
+<h2>Step 5 Test and deliver</h2>
+<p>Run your smoke tests locally. Use curl or an API client to validate the endpoints. When you are happy push the image to a registry using your preferred workflow and tag style. Common registry commands look like logging in and pushing an appropriately named image.</p>
+
+<h3>CI and pipeline friendly notes</h3>
+<ul>
+  <li>Make the Docker build part of your CI job after the artifact step. Artifacts can be produced by Maven or Gradle and then used by the container build step.</li>
+  <li>Use consistent tags and immutable tags for deployed images in your CD pipeline.</li>
+  <li>Scan images for vulnerabilities as part of your DevOps checks before pushing to production.</li>
+</ul>
+
+<h2>Quick troubleshooting guide</h2>
+<ul>
+  <li>App does not start Look at the logs and confirm the jar runs locally with <code>java -jar</code>.</li>
+  <li>Port not reachable Confirm the container port matches your app port and that you used <code>-p hostPort:containerPort</code>.</li>
+  <li>Image too large Consider switching to a smaller base runtime or using a build stage to trim artifacts.</li>
+</ul>
+
+<p>That is it. From a successful jar build to a local Docker container in a few commands. This process gives you repeatable local testing and a solid foundation for CI pipelines and production containerization without unnecessary drama.</p>
+

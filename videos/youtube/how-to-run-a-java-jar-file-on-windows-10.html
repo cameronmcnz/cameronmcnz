@@ -1,0 +1,70 @@
+---
+layout: video
+title: "How to run a Java JAR file on Windows 10"
+description: "Quick guide to run a Java JAR file on Windows 10 using command prompt or double click with clear commands and common fixes"
+video_host: "youtube"
+video_id: "XJXtvGyl63E"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M29S"
+thumbnail_url: "https://i.ytimg.com/vi/XJXtvGyl63E/maxresdefault.jpg"
+content_url: "https://youtu.be/XJXtvGyl63E"
+embed_url: "https://www.youtube.com/embed/XJXtvGyl63E"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - JAR
+  - Windows 10
+  - run jar
+  - java -jar
+  - command prompt
+  - javaw
+  - executable jar
+  - tutorial
+  - how to
+---
+
+<h2>Quick sanity checks before you run anything</h2>
+<p>If you have a JAR file and you want it to behave like a grown up program on Windows 10 you need to be sure Java is actually available and that the JAR knows how to start itself. This guide shows how to run a JAR from the command prompt using java -jar how double click behavior works and how to associate JAR files with the Java runtime so double click stops being a mystery.</p>
+
+<h2>Check Java is installed</h2>
+<p>Open a command prompt and run the command</p>
+<pre><code>java -version</code></pre>
+<p>If you see a version number you are golden. If the command is not found download a JDK or a reputable OpenJDK build and install it. Make sure you install a bitness that matches the JAR and any native libraries you plan to use.</p>
+
+<h2>Open a command prompt in the JAR folder</h2>
+<p>Navigate to the folder that contains the JAR in File Explorer. Then type <code>cmd</code> in the address bar and press Enter to open a command prompt right there. On newer Windows versions you may see an option called Open PowerShell window here or Open in Windows Terminal. Any of those work for running Java commands.</p>
+
+<h2>Run the JAR with java -jar</h2>
+<p>Use the standard command to launch an executable JAR</p>
+<pre><code>java -jar myapp.jar</code></pre>
+<p>Replace <code>myapp.jar</code> with the actual file name. If the app prints things to the console run it this way. If it needs command line arguments just add them after the JAR name for example</p>
+<pre><code>java -jar myapp.jar arg1 arg2</code></pre>
+
+<h3>What if nothing happens or you get an error about a main class</h3>
+<ul>
+  <li>If you see an error saying there is no main manifest attribute the JAR does not have a Main Class declared in its manifest.</li>
+  <li>Look inside the JAR to confirm by running</li>
+</ul>
+<pre><code>jar tf myapp.jar</code></pre>
+<p>Open the META-INF backslash MANIFEST.MF entry and check for a Main-Class attribute. If there is none you either need a different JAR a wrapper or to run a class from the JAR with a classpath instead.</p>
+
+<h2>Double click behavior and javaw</h2>
+<p>GUI apps sometimes use javaw to avoid leaving a command window open. If double clicking the JAR does nothing the app might require a console or it might need arguments. You can try launching with javaw to see if a GUI shows up</p>
+<pre><code>"path to javaw.exe" -jar myapp.jar</code></pre>
+<p>To make double click predictable associate the JAR extension with the Java runtime. Right click the JAR file then choose Open with then Choose another app then Browse to the Java bin folder and select javaw.exe and set Always use this app when prompted. If you need to point to the JVM you can look in the Program Files folder on your system drive and then the Java folder backslash bin subfolder to find javaw.exe.</p>
+
+<h2>Troubleshooting checklist</h2>
+<ul>
+  <li>java is not recognized. Add Java to your PATH or use the full path to java.exe.</li>
+  <li>Main-Class not found. Inspect the manifest and ensure the JAR is executable or run a specific class with the classpath option.</li>
+  <li>Wrong Java version. Some apps need a specific Java major version. Install a matching JRE or JDK.</li>
+  <li>Permissions. Windows may block downloads. Right click the file and check properties if you see an unblock option.</li>
+  <li>Native libraries. If the app depends on native code you may need the correct architecture and supporting files.</li>
+</ul>
+
+<h2>Short recap</h2>
+<p>Run <code>java -version</code> to confirm Java is available. Open a command prompt in the JAR folder and run <code>java -jar myapp.jar</code>. If double click does not work try javaw or associate the JAR with javaw.exe for GUI apps. If the manifest lacks a Main-Class inspect the JAR with <code>jar tf</code> and get a proper executable JAR or run the application with an explicit classpath. That covers most situations so you can stop blaming Windows and start blaming your dependencies instead.</p>
+

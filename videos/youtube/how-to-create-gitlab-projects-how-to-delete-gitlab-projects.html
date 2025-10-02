@@ -1,0 +1,63 @@
+---
+layout: video
+title: "How to create GitLab projects How to delete GitLab projects"
+description: "Quick guide to create and delete GitLab projects using the web interface with safety steps and access control advice."
+video_host: "youtube"
+video_id: "gQuiGEf-leA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M41S"
+thumbnail_url: "https://i.ytimg.com/vi/gQuiGEf-leA/maxresdefault.jpg"
+content_url: "https://youtu.be/gQuiGEf-leA"
+embed_url: "https://www.youtube.com/embed/gQuiGEf-leA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gitlab
+  - gitlab projects
+  - create project
+  - delete project
+  - git
+  - repository
+  - devops
+  - version control
+  - project management
+  - tutorial
+---
+
+<p>Welcome to your friendly but slightly sarcastic guide to GitLab projects. This tutorial walks you through creating a new GitLab project from the web interface and deleting one when you are done or when someone made you clean up. It is aimed at developers and devops folks who care about version control and project management and who do not want to cry into a backup file later.</p>
+
+<h2>Sign in to GitLab</h2>
+<p>Open the GitLab web interface and authenticate with an account that can actually create projects. If this is for company work use your work account. If it is for that experimental hobby repo with questionable code use a personal account. Permissions matter so do not pretend they do not.</p>
+
+<h2>Create a new project</h2>
+<p>Here is the menu path that saves you from typing git init in the wrong place. Click the New Project button and pick one of the options.</p>
+<ul>
+  <li>Start with a blank project if you are building fresh.</li>
+  <li>Import an existing repository if you are moving something from another host.</li>
+</ul>
+<p>Provide a name and an optional description. Choose the namespace that matches your team or personal account so your repo does not end up in someone elses folder. You can also initialize the repository with a README and add a .gitignore or license file while creating the project.</p>
+
+<h3>Initialize repository and set visibility</h3>
+<p>Add a README to seed the repository and pick the visibility level that fits the code. Public visibility makes it searchable by the world. Private visibility keeps the snoops out. For sensitive code choose private and for tutorials or demos public is fine. Visibility affects forks and access so choose intentionally.</p>
+
+<h2>Manage members and permissions</h2>
+<p>Invite team members and assign roles. GitLab roles include Guest, Reporter, Developer, Maintainer and Owner. Give the least privilege needed and review access after adding people so no intern suddenly has Maintainer rights by accident. This is a project management move and a devops hygiene habit.</p>
+
+<h2>Delete a project safely</h2>
+<p>When the project has outlived its usefulness or you need to declutter do not panic. Back up first then remove the project. The UI path is Settings then General then scroll to the Advanced section. Use the Remove project control only after you have exported or backed up everything you care about. GitLab will ask you to confirm the project name before final deletion so do not type randomly.</p>
+
+<h3>Enable export before deletion</h3>
+<p>Use the project export feature to preserve repository data and issues. Exports provide a safety copy you can restore or archive outside of GitLab. This step is the difference between a clean retirement and a frantic email to the admin team asking for mercy.</p>
+
+<h3>Quick checklist before you delete</h3>
+<ul>
+  <li>Export the project so you keep the repository and issues</li>
+  <li>Remove or rotate any CI tokens and deploy keys that should not linger</li>
+  <li>Check for forks and mirrors that may need handling</li>
+  <li>Transfer ownership if archiving would be better than deletion</li>
+</ul>
+
+<p>This short tutorial covered creating GitLab projects through the web UI including initialization and visibility choices managing access and safely removing a project. Follow these steps to avoid accidental data loss and to keep your version control and project management tidy. If you are into devops best practices do exports regularly and treat deletes as a last resort.</p>
+

@@ -1,0 +1,82 @@
+---
+layout: video
+title: "Jenkins YAML Pipeline Build Job Example"
+description: "Step by step guide to create and run a Jenkins YAML pipeline build job with practical tips for CI CD and automation"
+video_host: "youtube"
+video_id: "PPeox_dbhzo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M32S"
+thumbnail_url: "https://i.ytimg.com/vi/PPeox_dbhzo/maxresdefault.jpg"
+content_url: "https://youtu.be/PPeox_dbhzo"
+embed_url: "https://www.youtube.com/embed/PPeox_dbhzo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - YAML
+  - pipeline
+  - CI
+  - CD
+  - Jenkinsfile
+  - build
+  - automation
+  - DevOps
+  - tutorial
+---
+
+<p>If you are tired of wrestling with a giant Jenkinsfile and want something a bit less dramatic try YAML driven pipelines. This tutorial walks you through using a YAML file in your repo to define a Jenkins pipeline for build test and deploy work. Expect a few retries and a coffee or two but the payoff is cleaner automation and fewer mysterious job edits.</p>
+
+<h2>Why use YAML pipelines in Jenkins</h2>
+<p>YAML is human readable and lives in the repo next to your code so your pipeline gets version history and blame. Using a YAML pipeline can be easier to manage across teams than a single huge Jenkinsfile. You still get pipeline features for CI and CD while keeping the definition portable and auditable.</p>
+
+<h2>Quick setup checklist</h2>
+<ul>
+  <li>Enable YAML pipeline support on the Jenkins server if your install requires a plugin</li>
+  <li>Create a Multibranch or regular pipeline job depending on your needs</li>
+  <li>Add a pipeline YAML file to the repository root or a known path</li>
+  <li>Point the job configuration at that YAML path using branch sources or a repo URL</li>
+  <li>Trigger a build and inspect console output and stage logs</li>
+</ul>
+
+<h3>Minimal example YAML</h3>
+<p>Start small so you do not confuse the parser or yourself. A minimal pipeline shows the keys to use and is easy to expand later.</p>
+<pre><code>agent:
+  any
+
+stages:
+  - stage: Build
+    steps:
+      - sh: mvn -B -DskipTests package
+
+  - stage: Test
+    steps:
+      - sh: mvn test
+
+environment:
+  MAVEN_OPTS: '-Xmx512m'
+</code></pre>
+
+<h2>Creating the Jenkins job</h2>
+<p>Create a Multibranch pipeline if you want Jenkins to discover branches automatically. For a single branch you can use a regular pipeline job and point it at the repository and file path. Make sure repository credentials and access are configured so Jenkins can read the YAML file without throwing permission tantrums.</p>
+
+<h2>Common gotchas and how to fix them</h2>
+<ul>
+  <li>Missing plugin or YAML support not enabled. Check plugin docs and update Jenkins if needed.</li>
+  <li>Wrong file path or file name. Confirm the path in job config matches repo layout.</li>
+  <li>Branch indexing or webhook misconfigured. Use webhooks for faster job pickup or poll if you like waiting.</li>
+  <li>Syntax errors in YAML. Keep the first version tiny and validate with a YAML linter.</li>
+</ul>
+
+<h2>Scaling the pipeline without creating chaos</h2>
+<p>Once the basics pass you can add environment variables credentials and parallel stages. Parallel execution is great for test suites that like to race. Use caching to speed up repeated builds and keep each commit small so pipeline changes are easier to debug.</p>
+
+<h3>Security and credentials</h3>
+<p>Store secrets in Jenkins credentials and reference them from the YAML using the job or credentials bindings supported by your plugin. Never commit secrets to the repo unless you enjoy incident response drills.</p>
+
+<h2>Final tips for DevOps sanity</h2>
+<p>Make incremental changes and test frequently. Treat the YAML pipeline like code. Add comments and use descriptive stage names so humans and CI dashboards can understand what is happening. If something breaks you can always roll back the YAML to the last working commit and avoid a panicked all hands meeting.</p>
+
+<p>Follow these steps and you will have a versioned, repo driven pipeline that plays nicely with CI and CD workflows. It will not be perfect on day one but it will get better and less embarrassing with each commit.</p>
+

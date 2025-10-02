@@ -1,0 +1,112 @@
+---
+layout: video
+title: "Git Branch Change Name Example"
+description: "Learn how to rename a Git branch locally and on remote safely with clear commands and a short checklist for clean history."
+video_host: "youtube"
+video_id: "oaIrEwzBXuY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M57S"
+thumbnail_url: "https://i.ytimg.com/vi/oaIrEwzBXuY/maxresdefault.jpg"
+content_url: "https://youtu.be/oaIrEwzBXuY"
+embed_url: "https://www.youtube.com/embed/oaIrEwzBXuY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git branch
+  - rename branch
+  - git rename
+  - git branch rename
+  - remote branch
+  - git tutorial
+  - version control
+  - git cli
+  - branch management
+---
+
+<h2>Why rename a branch and not panic</h2>
+<p>Renaming a branch is mostly administrative surgery on pointers. The commits stay where they are and history is intact. The real risk is confusion and broken automation when some poor bot or coworker still thinks the old name is sacred. This guide walks you through the safe sequence so you do not leave ghosts in the repo.</p>
+
+<h2>Quick checklist before you start</h2>
+<ul>
+  <li>Confirm you have a clean working tree with no uncommitted changes</li>
+  <li>Decide the final branch name and any CI or PR references to update</li>
+  <li>Plan to push the new branch before deleting the old remote branch</li>
+</ul>
+
+<h2>Step 1 verify your branch and working tree</h2>
+<p>Run these commands to avoid surprises</p>
+<pre><code>git status
+git branch -v
+</code></pre>
+<p>If git status shows dirty changes stash or commit them first. A clean tree makes renames boring and safe.</p>
+
+<h2>Step 2 rename locally</h2>
+<p>If you are currently on the branch use the shorter form</p>
+<pre><code>git branch -m new-name</code></pre>
+<p>If you are on a different branch or want to be explicit use the long form</p>
+<pre><code>git branch -m old-name new-name</code></pre>
+<p>This only changes the local pointer. Commit history does not move. Nobody needs therapy.</p>
+
+<h2>Step 3 push the renamed branch and set tracking</h2>
+<p>Push the new branch to the remote. You can set upstream in one command so future push and pull are normal</p>
+<pre><code>git push -u origin new-name</code></pre>
+<p>If you prefer two steps run git push origin new-name first and then git push -u origin new-name to set tracking. If the push fails check permissions and remote branch protection rules.</p>
+
+<h2>Step 4 remove the old branch from the remote</h2>
+<p>Once the new branch is safely on the remote delete the old pointer so the branch list is not full of fossils</p>
+<pre><code>git push origin --delete old-name</code></pre>
+<p>You can also remove the old branch from the hosting web UI if you prefer clicking instead of typing. Either way remove the stale reference so other people do not keep opening PRs against a dead name.</p>
+
+<h2>Step 5 tell your team and update automation</h2>
+<p>Let collaborators fetch and prune so local lists match the server</p>
+<pre><code>git fetch --prune
+# or to be thorough
+git fetch --all --prune
+</code></pre>
+<p>Advise anyone who had the old branch checked out to either rename their local branch or check out the new one. For example</p>
+<pre><code>git checkout new-name
+# or to rename a local copy
+git branch -m old-name new-name
+</code></pre>
+<p>Update CI configuration, open pull requests and any scripts that referenced the old branch name. If a PR was open update its source branch on the hosting site if needed.</p>
+
+<h3>Verification tips</h3>
+<ul>
+  <li>Use git branch -vv to confirm the new branch tracks origin new-name</li>
+  <li>Run git remote show origin to see remote branches and tracking info</li>
+  <li>Check your CI and PR pages to confirm builds and references are healthy</li>
+</ul>
+
+<h2>Common pitfalls and how to avoid them</h2>
+<ul>
+  <li>Do not delete the remote branch before pushing the new one unless you enjoy drama</li>
+  <li>Branch protection rules can block creating a new branch. Check settings if a push fails</li>
+  <li>Remind reviewers that the PR source branch name changed so they do not approve the wrong thing</li>
+</ul>
+
+<h2>Quick cheat sheet</h2>
+<pre><code># verify
+git status
+git branch -v
+
+# rename locally when on the branch
+git branch -m new-name
+
+# rename from another branch
+git branch -m old-name new-name
+
+# push and set upstream
+git push -u origin new-name
+
+# delete old remote branch
+git push origin --delete old-name
+
+# have everyone clean up
+git fetch --prune
+</code></pre>
+
+<p>Rename operations are boring when done in the right order and painful when done in a hurry. Follow this sequence, announce the change, and your repo will stay tidy and slightly less haunted.</p>
+

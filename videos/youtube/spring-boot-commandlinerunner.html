@@ -1,0 +1,71 @@
+---
+layout: video
+title: "Spring Boot CommandLineRunner"
+description: "Quick guide to using Spring Boot CommandLineRunner to run startup tasks in Java applications with practical steps and tips"
+video_host: "youtube"
+video_id: "pDk7o3eMAOg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/pDk7o3eMAOg/maxresdefault.jpg"
+content_url: "https://youtu.be/pDk7o3eMAOg"
+embed_url: "https://www.youtube.com/embed/pDk7o3eMAOg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - CommandLineRunner
+  - Java
+  - Spring
+  - Startup Tasks
+  - Run on Startup
+  - Bean
+  - Spring Boot Tutorial
+  - Application Initialization
+  - Ordering
+---
+
+<h2>Quick overview</h2>
+<p>If you want code to run as soon as your Spring Boot app wakes up from its nap use CommandLineRunner. This small hook in the Spring lifecycle lets you run startup tasks in Java without the drama of manual wiring. Common use cases include database seeding for development automation health checks and firing off a background job.</p>
+
+<h2>What CommandLineRunner gives you</h2>
+<ul>
+  <li>Early execution during application initialization so setup happens before the service accepts traffic</li>
+  <li>Multiple runners are supported so you can split concerns across small focused beans</li>
+  <li>Integration with Spring dependency injection so you can call services repositories and other beans directly</li>
+</ul>
+
+<h2>How to add a CommandLineRunner bean</h2>
+<p>Two simple paths exist. Annotate a class with @Component and implement CommandLineRunner. Or declare a CommandLineRunner as a @Bean in a configuration class. Both approaches let Spring manage lifecycle and dependencies.</p>
+
+<h3>Component based runner</h3>
+<pre><code>@Component
+public class DataLoader implements CommandLineRunner {
+    @Override
+    public void run(String... args) {
+        // seed database or start a background job
+    }
+}
+</code></pre>
+<p>This is straightforward and readable. Keep the run method focused on quick setup work. If you need long running initialization push the heavy lifting to a background thread or an async service so startup stays snappy and predictable.</p>
+
+<h3>Bean method runner</h3>
+<p>If you prefer configuration style declare a CommandLineRunner bean in a @Configuration class and return a lambda or implementation. This is handy when wiring specific constructor dependencies in one place.</p>
+
+<h2>Controlling execution order</h2>
+<p>When you have multiple runners use the @Order annotation or implement the Ordered interface to control sequence. That avoids nondeterministic startup behavior when one task depends on another.</p>
+
+<h2>Best practices and gotchas</h2>
+<ul>
+  <li>Avoid heavy synchronous tasks inside the run method. They delay startup and frustrate users and CI pipelines.</li>
+  <li>For long initialization run a background job and return quickly from run. That keeps health checks and readiness probes happy.</li>
+  <li>Use CommandLineRunner for development friendly seeding and quick checks not as a substitute for full application orchestration.</li>
+</ul>
+
+<h2>How to verify it runs</h2>
+<p>Start your app the way you normally start a Spring Boot project and watch the logs during startup. Messages printed from your run method appear while the app is initializing which proves the hook fired at the expected time.</p>
+
+<h2>Summary</h2>
+<p>CommandLineRunner is a tiny elegant tool in the Spring Boot toolbox for running code on startup. Use @Component or declare a @Bean control ordering with @Order prefer small fast run methods and move heavy work to async tasks. Your app will start faster and you will sleep better at night.</p>
+

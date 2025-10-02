@@ -1,0 +1,84 @@
+---
+layout: video
+title: "Java, JDBC & Postgres CRUD Example with Maven"
+description: "Learn a concise Java JDBC Postgres CRUD example using Maven with setup dependencies DAO pattern and simple run instructions"
+video_host: "youtube"
+video_id: "5BKIqj0hst8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M20S"
+thumbnail_url: "https://i.ytimg.com/vi/5BKIqj0hst8/maxresdefault.jpg"
+content_url: "https://youtu.be/5BKIqj0hst8"
+embed_url: "https://www.youtube.com/embed/5BKIqj0hst8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - JDBC
+  - Postgres
+  - PostgreSQL
+  - Maven
+  - CRUD
+  - DAO
+  - Database
+  - SQL
+  - Tutorial
+---
+
+<article>
+  <p>If you want to connect Java to Postgres and do CRUD without summoning ancient database demons this guide is for you. This tutorial walks through using Maven to manage dependencies setting up a tiny PostgreSQL table and writing a DAO with JDBC that actually closes connections like a responsible adult.</p>
+
+  <h2>What you need before we start</h2>
+  <p>Minimal setup so you can focus on code and not on your life choices</p>
+  <ul>
+    <li>Java 8 or newer installed</li>
+    <li>Maven for build and dependency management</li>
+    <li>Postgres server and a user you can annoy with CREATE TABLE</li>
+    <li>Basic knowledge of SQL and JDBC concepts</li>
+  </ul>
+
+  <h2>Create the Maven project</h2>
+  <p>Use an archetype or an IDE to bootstrap a simple Maven project. Keep the pom minimal and declare the Java source version. Put your DAO classes under src main java and a small runner under the same package for demos.</p>
+
+  <h2>Add JDBC and Postgres driver dependencies</h2>
+  <p>Add the official PostgreSQL JDBC driver in your pom. If you use logging or testing libraries add them too but avoid mystery dependencies that appear only at runtime to ruin your day. Maven dependency management keeps builds reproducible so use it.</p>
+
+  <h2>Create the database and table</h2>
+  <p>Spin up a database using psql or your favorite GUI. Create a tiny table so the Java code is the main attraction. For example create a table with an id primary key and a couple of text columns for demo data.</p>
+
+  <h2>Design the DAO using JDBC</h2>
+  <p>Keep the DAO focused on one responsibility. The class should open connections prepare statements map result sets to model objects and handle resources safely. Use try with resources so connections close automatically and you avoid leaks.</p>
+  <h3>Key DAO responsibilities</h3>
+  <ul>
+    <li>Obtain a Connection from DriverManager or a DataSource</li>
+    <li>Create PreparedStatement for parameterized SQL</li>
+    <li>Map ResultSet rows to POJOs</li>
+    <li>Use try with resources for safe cleanup</li>
+  </ul>
+
+  <h2>Implement CRUD methods and a runner</h2>
+  <p>Implement create read update and delete using prepared statements. Keep SQL simple and test each operation. Add a main method that calls each CRUD operation in sequence so the example runs end to end during a quick demo.</p>
+  <p>Example flow</p>
+  <ol>
+    <li>Insert a row and return generated id</li>
+    <li>Read the row by id and print the contents</li>
+    <li>Update a column and verify the change</li>
+    <li>Delete the row and confirm removal</li>
+  </ol>
+
+  <h2>Testing and resource handling</h2>
+  <p>Run the example and verify changes in psql or a GUI. Log exceptions do not swallow them and consider unit tests that use a disposable test database for repeatable checks. If you can use an in memory or ephemeral test database do it so tests stay deterministic.</p>
+
+  <h2>Troubleshooting tips</h2>
+  <ul>
+    <li>Driver not found Check your dependency coordinates and Maven scope</li>
+    <li>Connection refused Verify host port user and database name</li>
+    <li>SQL errors Print the statement and the parameters to see what the database actually received</li>
+    <li>Resource leaks Use try with resources for Connection PreparedStatement and ResultSet</li>
+  </ul>
+
+  <h2>Final thoughts</h2>
+  <p>This tutorial keeps things small so you learn Java JDBC with PostgreSQL without excess drama. Use Maven to manage dependencies design a focused DAO implement CRUD with prepared statements and always handle resources safely. Now go break and fix some rows and pretend it was intentional learning all along.</p>
+</article>
+

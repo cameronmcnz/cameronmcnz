@@ -1,0 +1,87 @@
+---
+layout: video
+title: "Learn Apache Maven Full Tutorial in Java for Beginners"
+description: "Compact Maven tutorial for Java beginners covering setup project model dependencies builds plugins lifecycle and practical commands."
+video_host: "youtube"
+video_id: "T00NKLQvwYE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT55M16S"
+thumbnail_url: "https://i.ytimg.com/vi/T00NKLQvwYE/maxresdefault.jpg"
+content_url: "https://youtu.be/T00NKLQvwYE"
+embed_url: "https://www.youtube.com/embed/T00NKLQvwYE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Apache Maven
+  - Maven tutorial
+  - Java
+  - Maven for beginners
+  - pom.xml
+  - Maven lifecycle
+  - Maven dependencies
+  - Build automation
+  - Maven commands
+  - Maven plugins
+---
+
+<p>Welcome to a no nonsense Apache Maven guide for Java developers who like reproducible builds and dislike magic. This tutorial walks through installing Java and Maven, scaffolding a project, decoding the pom.xml file, handling Maven dependencies, running the Maven lifecycle with common Maven commands, configuring Maven plugins, and packaging and deploying artifacts for CI or production. It is build automation explained without the ritual chanting.</p>
+
+<h2>Install Java and Maven and verify your environment</h2>
+<p>Pick a Java version that matches your project needs and install it like a civilized human. Then install Maven either from a binary download or via your OS package manager. To confirm the world is sane run <code>mvn -v</code>. That command prints the Java version and Maven home so you can stop guessing.</p>
+<ul>
+  <li>Install Java runtime or JDK that your project requires</li>
+  <li>Install Maven and add it to your PATH</li>
+  <li>Run <code>mvn -v</code> to verify Java and Maven are visible to your shell</li>
+</ul>
+
+<h2>Create a Maven project the easy way</h2>
+<p>Use your IDE wizard or a Maven archetype to scaffold a skeleton project. Archetypes give you a ready made structure so you do not waste time creating folders and pom.xml entries by hand. The project root must include a file named pom.xml that identifies the project with groupId, artifactId and version.</p>
+<ul>
+  <li>IDE route is faster for beginners</li>
+  <li>Maven archetype route is repeatable and scriptable</li>
+  <li>pom.xml anchors the whole build and metadata system</li>
+</ul>
+
+<h2>Understand pom.xml and manage Maven dependencies</h2>
+<p>Think of pom.xml as the spellbook for your build. Declare dependencies with a groupId, artifactId and version and Maven will download the jars into your local repository. To avoid version conflicts across modules use a dependencyManagement section to centralize versions.</p>
+<p>Common tips for dependencies</p>
+<ul>
+  <li>Always specify versions or inherit them from a parent POM</li>
+  <li>Use dependencyManagement for multi module projects</li>
+  <li>Keep runtime and test scopes clear so you do not ship test libs by accident</li>
+</ul>
+
+<h2>Run builds with Maven commands and the lifecycle</h2>
+<p>Maven exposes a lifecycle made of phases you invoke with simple Maven commands. Use <code>mvn clean</code> to remove old artifacts, <code>mvn test</code> to run tests, and <code>mvn package</code> to build jars or wars. The packaged artifact will appear under the target folder so you can actually open it and admire your compiled code.</p>
+<p>Typical sequence for a local build</p>
+<ul>
+  <li><code>mvn clean</code> removes previous build output</li>
+  <li><code>mvn test</code> runs unit tests during the build</li>
+  <li><code>mvn package</code> produces the final jar or war in target</li>
+</ul>
+
+<h2>Use Maven plugins and add tests</h2>
+<p>Plugins are how Maven does work like compiling code, running tests, and creating assemblies. Configure the maven compiler plugin to set source and target Java versions and use the surefire plugin to run JUnit tests. Plugins live in pom.xml and are configurable so you can tune compilation, static analysis, and packaging without rewriting Maven itself.</p>
+<ul>
+  <li>maven compiler plugin to control Java compilation</li>
+  <li>maven surefire plugin to run unit tests with JUnit</li>
+  <li>maven jar or war plugin to create deliverables</li>
+</ul>
+
+<h2>Package deploy and use profiles for different environments</h2>
+<p>When your artifact is ready use <code>mvn package</code> for a local deliverable and configure a distribution or deploy plugin to push artifacts to a remote repository for CI or production. Use Maven profiles to vary settings for local development, staging and production so you do not accidentally deploy debug builds to real users.</p>
+
+<h2>Final checklist to stop build related panic</h2>
+<ul>
+  <li>Java and Maven are installed and verified with <code>mvn -v</code></li>
+  <li>Project scaffold includes a valid pom.xml with groupId artifactId and version</li>
+  <li>Dependencies are declared and version conflicts are managed</li>
+  <li>Use <code>mvn clean</code> <code>mvn test</code> and <code>mvn package</code> to run the lifecycle</li>
+  <li>Configure plugins for compilation testing and packaging</li>
+  <li>Set up profiles and remote repository details for deploys</li>
+</ul>
+
+<p>This quick Maven tutorial keeps the facts you need and leaves the mysticism out. Follow these steps and you will have predictable builds, fewer surprises in the target folder, and a slightly healthier relationship with build automation.</p>
+

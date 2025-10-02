@@ -1,0 +1,62 @@
+---
+layout: video
+title: "GitHub Personal Access Token How To Create Use"
+description: "Step by step guide to create and use GitHub personal access tokens with fine grained permissions for secure automation and API access"
+video_host: "youtube"
+video_id: "RsNwdQ3fCW8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/RsNwdQ3fCW8/maxresdefault.jpg"
+content_url: "https://youtu.be/RsNwdQ3fCW8"
+embed_url: "https://www.youtube.com/embed/RsNwdQ3fCW8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - github
+  - personal access token
+  - PAT
+  - fine grained token
+  - security
+  - github api
+  - authentication
+  - git
+  - devops
+  - tutorial
+---
+
+<article>
+  <h2>Why a fine grained token matters</h2>
+  <p>Yes you could keep using a full access token and hope nothing bad happens. Or you can do the grown up thing and use a fine grained personal access token from GitHub that only has the permissions your automation actually needs. This improves security and keeps your devops life slightly less chaotic.</p>
+
+  <h2>Quick step by step tutorial</h2>
+  <ol>
+    <li>Log into GitHub and go to Settings then Developer settings then Personal access tokens and pick Fine grained token.</li>
+    <li>Choose the exact repositories or organizations the token should see. If your automation only touches one repo do not give it access to everything.</li>
+    <li>Assign minimal permissions for the GitHub API and git operations your tool actually uses. Read. The. Permission. Names. They mean things.</li>
+    <li>Set an expiration that matches the automation lifespan. Short lived tokens are less tasty to attackers.</li>
+    <li>Generate the token and copy it once because GitHub will not show it again. Store it in a secrets manager right away.</li>
+  </ol>
+
+  <h3>Where to put the token for local and CI use</h3>
+  <p>For local development set an environment variable such as <code>GITHUB_TOKEN</code> or use your Git credential helper so the token is not littered across your shell history. For CI systems add the value as a secret and reference it in the workflow. That way the token will not be printed in logs by accident and your future self will not cry at 3 AM.</p>
+
+  <h3>Using the token with git and the GitHub API</h3>
+  <p>For git use a credential helper or the HTTPS URL with your token in an environment variable. For API calls pass the token in the Authorization header as a bearer token when required. This is standard authentication and works for scripts and automation that need to hit the GitHub API.</p>
+
+  <h2>Practical security tips that actually help</h2>
+  <ul>
+    <li>Rotate tokens regularly. You would not use the same password forever and a PAT is no different.</li>
+    <li>Prefer the least privilege model. If your action only needs repo read access do not grant write or admin rights.</li>
+    <li>Never paste tokens into public places like issues or gist. Public repos and logs love to surprise you.</li>
+    <li>Use a proper secrets manager or vault. Storing secrets in plain files will come back to haunt you.</li>
+  </ul>
+
+  <h2>Troubleshooting and common gotchas</h2>
+  <p>If a script fails with authentication errors check the token scopes first. Missing repo scopes are the usual culprit when a push or API request is denied. If your CI pipeline cannot read the secret double check the secret name and reference syntax in the workflow. Also confirm the token has not expired and that it was copied in full at creation time.</p>
+
+  <h2>Recap and final snark</h2>
+  <p>This guide walked through creating a fine grained personal access token for GitHub and using it for git and GitHub API automation. The core rules are simple and stubbornly effective. Pick fine grained token options for security. Choose minimal scopes and sensible expirations. Store tokens in a secrets manager and rotate them often. Do this and your CI, scripts and integrations will be safer and you will have fewer panicked late night incident calls.</p>
+</article>
+

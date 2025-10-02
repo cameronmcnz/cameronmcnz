@@ -1,0 +1,73 @@
+---
+layout: video
+title: "How to Force Garbage Collection in Java"
+description: "Practical guide to trigger Java garbage collection using System.gc jcmd and JVM flags with safe testing tips for debugging memory issues."
+video_host: "youtube"
+video_id: "onjlJBDdeTk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M21S"
+thumbnail_url: "https://i.ytimg.com/vi/onjlJBDdeTk/maxresdefault.jpg"
+content_url: "https://youtu.be/onjlJBDdeTk"
+embed_url: "https://www.youtube.com/embed/onjlJBDdeTk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Garbage Collection
+  - System.gc
+  - Runtime.getRuntime
+  - JVM
+  - G1GC
+  - Memory Management
+  - jcmd
+  - ExplicitGC
+  - Profiling
+---
+
+<h2>Quick truth about asking the JVM to clean up</h2>
+<p>Here is the brutal reality. Asking the JVM to run garbage collection is a polite suggestion, not a command. Calling System.gc() or Runtime.getRuntime().gc() sends a request to the garbage collector, and the collector answers when it feels like it. That means tests that hinge on forced collection can be flaky and dramatic in production.</p>
+
+<h2>When triggering GC makes sense</h2>
+<p>Use explicit collection only during controlled debugging and testing. Want to reproduce a leak, verify that weak references are cleared, or measure how many objects survive a collection step? Fine. Otherwise leave GC to its job and get on with your life.</p>
+
+<h3>API level nudges</h3>
+<pre><code>System.gc()
+Runtime.getRuntime().gc()</code></pre>
+<p>These are your gentle taps on the JVM shoulder. They are widely supported and safe in tests, but they do not guarantee a full or immediate collection. Use them sparingly and wrap expectations with retries or timeouts if you rely on them in assertions.</p>
+
+<h2>External tools that actually make things interesting</h2>
+<p>Sometimes you want to trigger GC without changing the code. Tools are your friends here.</p>
+<ul>
+  <li><strong>jcmd</strong> run GC from outside the process with a command like <code>jcmd 12345 GC.run</code></li>
+  <li><strong>jmap</strong> take a heap snapshot with <code>jmap -dump live,format=b,file=heap.hprof 12345</code></li>
+  <li><strong>Profilers</strong> attach a profiler or use jvisualvm to inspect retained sets and allocation patterns</li>
+</ul>
+<p>External triggers are useful during live debugging because they do not require code changes or redeploys.</p>
+
+<h2>JVM flags that tame explicit GC for testing</h2>
+<p>If you need deterministic behavior in a CI or local experiment, adjust JVM flags and logging. Useful flags include</p>
+<ul>
+  <li><code>-XX:+ExplicitGCInvokesConcurrent</code> which changes how explicit GC calls are handled</li>
+  <li><code>-XX:+UseG1GC</code> which uses the G1 collector and can alter collection patterns</li>
+  <li><code>-Xlog gc*</code> or classic logging flags like <code>-XX:+PrintGCDetails</code> for observing what actually happened</li>
+</ul>
+<p>These flags let you see and influence the collector behavior in test runs. Do not assume the same flags are needed in production.</p>
+
+<h3>Verify the outcome not the log line</h3>
+<p>A log entry that says GC ran is not the same as proof that the objects you expected were reclaimed. Use heap dumps and profilers to confirm. Compare before and after snapshots, and inspect retained sizes and dominator trees to know what actually survived.</p>
+
+<h2>Simple verification checklist</h2>
+<ul>
+  <li>Trigger GC with System.gc or jcmd</li>
+  <li>Capture GC logs and a heap dump</li>
+  <li>Open heap in a profiler and look for survivors and retained sizes</li>
+  <li>Repeat under the same JVM flags to rule out timing flukes</li>
+</ul>
+
+<h2>Rules of engagement for production systems</h2>
+<p>Do not call explicit GC in production unless you enjoy performance surprises. Forced requests can interact badly with concurrent collectors, cause unexpected pauses, and make latency budgets cry. If you must use explicit triggers in production, document why, and put telemetry and kill switches in place.</p>
+
+<p>Bottom line, be polite but suspicious. Ask the JVM to run GC when needed, but always verify with logs and heap dumps. Treat System.gc as a helpful hint, not an ultimatum, and your tests will stop playing mind games with you.</p>
+

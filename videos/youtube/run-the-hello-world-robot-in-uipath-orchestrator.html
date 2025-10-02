@@ -1,0 +1,77 @@
+---
+layout: video
+title: "Run the Hello World Robot in UiPath Orchestrator"
+description: "Learn how to deploy and run the Hello World robot using UiPath Orchestrator with step by step guidance and practical tips."
+video_host: "youtube"
+video_id: "AfxXyUvEYKQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M37S"
+thumbnail_url: "https://i.ytimg.com/vi/AfxXyUvEYKQ/maxresdefault.jpg"
+content_url: "https://youtu.be/AfxXyUvEYKQ"
+embed_url: "https://www.youtube.com/embed/AfxXyUvEYKQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Orchestrator
+  - Hello World
+  - RPA
+  - Robots
+  - UiPath Studio
+  - Automation
+  - Jobs
+  - Packages
+  - Monitoring
+---
+
+<h2>Introduction</h2>
+<p>So you built a Hello World workflow in UiPath Studio and now you want Orchestrator to run it like a dependable little robot instead of a temperamental toaster. This guide walks you through publishing the package from Studio all the way to watching logs in Orchestrator. Yes this is the part where automation becomes real and slightly less magical.</p>
+
+<h2>Why this matters</h2>
+<p>Deploying the Hello World package proves your pipeline works. You learn how packages flow into the Orchestrator feed, how robots get grouped, and how jobs are created and monitored. These are core RPA skills that keep production from becoming a guessing game.</p>
+
+<h2>Step 1 Prepare and publish from UiPath Studio</h2>
+<p>Open your Hello World project and confirm the project settings and package name. The package id and version matter, especially if you plan to iterate. Click Publish in UiPath Studio to generate the NuGet package that Orchestrator will pick up.</p>
+<ul>
+  <li>Check project name and version in Project Settings</li>
+  <li>Use a clear package id like com.company.helloWorld so you do not lose it in a sea of test packages</li>
+  <li>Publish to the feed configured to reach your Orchestrator instance</li>
+</ul>
+
+<h2>Step 2 Verify the package in the Orchestrator feed</h2>
+<p>Head into Orchestrator and open the Packages or Feed page. The new package should appear in the list after a short delay. If it does not show up, refresh and give it a minute. The feed stores published versions so you can pick the correct one for a process.</p>
+
+<h2>Step 3 Create an environment and provision a robot</h2>
+<p>Create an environment to group robots that will run your process. Then provision a robot that matches the machine and user profile where the Hello World package will run. Choose a standard robot for attended scenarios or an unattended robot for unattended runs. Make sure the robot is connected and licensed.</p>
+<ul>
+  <li>Machines and users must match the robot configuration</li>
+  <li>Environments let you assign processes to multiple robots without a headache</li>
+</ul>
+
+<h2>Step 4 Create a process and assign the robot</h2>
+<p>Create a process in Orchestrator that points to the published package and select the package version you want to run. Assign that process to the environment you set up. A process is the bridge between your package and the machines that will execute it.</p>
+
+<h2>Step 5 Start a job and monitor logs and output</h2>
+<p>Go to the Jobs page and start a new job using the process you created. Watch the queue and the job details. The output panel and execution logs will confirm whether Hello World printed as expected. If the job fails do not panic, just read the logs like a detective.</p>
+<ul>
+  <li>Check timestamps and log entries for each step</li>
+  <li>If errors occur inspect the robot machine logs and the Orchestrator job logs</li>
+  <li>Use the output panel to validate console or file output</li>
+</ul>
+
+<h2>Troubleshooting and best practices</h2>
+<p>Keep naming conventions clear for packages, processes and environments. When you have multiple versions floating around it is easy to run the wrong one. Always confirm the robot is connected and has the right permissions. If a package does not appear in the feed check your publish target and Studio settings.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Project settings are correct in UiPath Studio</li>
+  <li>Package appears in the Orchestrator feed</li>
+  <li>Robot is provisioned and connected</li>
+  <li>Process points to the correct package version and environment</li>
+  <li>Job logs and output confirm success</li>
+</ul>
+
+<p>That is it. You published a Hello World package from UiPath Studio, verified it in the Orchestrator feed, provisioned a robot, created a process, assigned an environment and ran a job while monitoring logs. Now you can sleep slightly easier knowing the bot actually said Hello World and did not start a rebellion.</p>
+

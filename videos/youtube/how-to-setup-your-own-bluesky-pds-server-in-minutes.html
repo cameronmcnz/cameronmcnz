@@ -1,0 +1,105 @@
+---
+layout: video
+title: "How to Setup Your Own Bluesky PDS Server in Minutes"
+description: "Quick guide to launch a personal Bluesky PDS server on AWS EC2 with atproto Docker and basic TLS and storage setup"
+video_host: "youtube"
+video_id: "7_AG50u7D6c"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT22M33S"
+thumbnail_url: "https://i.ytimg.com/vi/7_AG50u7D6c/maxresdefault.jpg"
+content_url: "https://youtu.be/7_AG50u7D6c"
+embed_url: "https://www.youtube.com/embed/7_AG50u7D6c"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Bluesky
+  - PDS
+  - AWS
+  - EC2
+  - atproto
+  - Docker
+  - Postgres
+  - ReverseProxy
+  - TLS
+  - PersonalServer
+---
+
+<article>
+  <p>If you want your own Bluesky PDS and enjoy mild feelings of control and responsibility then this guide will get you from fresh EC2 instance to a running personal server without existential dread. We use atproto compatible PDS software with Docker and Postgres and a reverse proxy for TLS so your data stays where you want it to be.</p>
+
+  <h2>What you will need</h2>
+  <ul>
+    <li>An AWS account and an EC2 instance running Ubuntu or Debian</li>
+    <li>Docker and Docker Compose on the instance</li>
+    <li>Postgres for durable storage</li>
+    <li>A domain name and a reverse proxy like Nginx or Caddy for TLS</li>
+    <li>Basic comfort with SSH and editing environment files</li>
+  </ul>
+
+  <h2>Provision the EC2 instance</h2>
+  <p>Pick an image size that matches your expected user base. Tiny instances are fine for a personal server but add swap if you skimp on RAM. Create a key pair for SSH and set security group rules to allow ports 22, 80 and 443. If you want stability give the instance an elastic IP so DNS does not become a pain.</p>
+
+  <h3>Firewall and networking tips</h3>
+  <p>Open only the ports you need. SSH for admin, HTTP and HTTPS for the reverse proxy. You can restrict SSH to your office IP and still enjoy pretending your server is secure.</p>
+
+  <h2>Install Docker and dependencies</h2>
+  <p>Update packages then install Docker and Docker Compose and any other utilities you like. Run containers as a non root user and enable the Docker service. On smaller instances enable a small swap file to avoid surprise OOM crashes.</p>
+  <pre><code>sudo apt update && sudo apt install -y docker.io docker-compose
+sudo usermod -aG docker $USER
+# log out and back in or use newgrp docker to apply group change
+</code></pre>
+
+  <h2>Clone the PDS repository and configure</h2>
+  <p>Grab the official PDS repo or a maintained fork. Copy the example environment file and edit it with your fully qualified domain name, Postgres credentials and storage settings. You can use S3 compatible storage or local volumes depending on how clingy you are about running everything yourself.</p>
+
+  <h3>Environment checklist</h3>
+  <ul>
+    <li>FQDN in the environment for signing and links</li>
+    <li>Postgres user password and database name</li>
+    <li>Storage backend credentials for media and blobs</li>
+    <li>Feature flags and limits for atproto if the repo exposes them</li>
+  </ul>
+
+  <h2>Initialize Postgres and run migrations</h2>
+  <p>Create the Postgres user and the database. The PDS project will include migration scripts so run those using the container or CLI method the project recommends. Some deployments include optional seed data. Choose wisely if you want sample content that makes your server look lived in.</p>
+
+  <h2>Bring up services with Docker Compose</h2>
+  <p>Start the stack and tail logs to check health endpoints. Common services are the PDS app, the web proxy, and Postgres. If something fails the logs will tell you which container is sulking.</p>
+  <pre><code>docker compose up -d
+docker compose logs -fpds   # follow the PDS logs for health messages
+</code></pre>
+
+  <h2>Configure the reverse proxy and TLS</h2>
+  <p>Use Nginx or Caddy as your reverse proxy. Caddy has built in ACME support so certificates can be almost zero config. If you prefer Certbot you can obtain certificates that way as well. Point the proxy at the PDS container and set the usual headers for real IP and forwarded proto.</p>
+
+  <h3>TLS notes</h3>
+  <p>Make sure your domain resolves to the instance IP before requesting certificates. Test HTTPS and redirect HTTP to HTTPS for better user experience and safety.</p>
+
+  <h2>Health checks and maintenance</h2>
+  <p>Watch logs and set up simple health checks so you get paged if the service stops answering. Automate backups of the Postgres database and your storage blobs. A small cron job or an S3 lifecycle policy will do wonders for future you.</p>
+
+  <h2>Troubleshooting tips</h2>
+  <ul>
+    <li>If the PDS fails at startup check environment variables and DB migrations</li>
+    <li>If media fails to save check storage credentials and volume mounts</li>
+    <li>If TLS fails check DNS and make sure port 80 is reachable for ACME challenges</li>
+  </ul>
+
+  <h2>Final thoughts</h2>
+  <p>Running a personal Bluesky PDS on AWS EC2 with Docker and Postgres is a satisfying project that keeps your social data where you want it. Expect some fiddly moments but no dark magic. Once it is up you will have full control over signing keys, feature flags and the occasional software update that breaks everything in interesting ways.</p>
+
+  <p>If you want a minimal checklist to copy and paste here it is</p>
+  <ol>
+    <li>Provision EC2 with Ubuntu or Debian and open ports 22 80 443</li>
+    <li>Install Docker and Docker Compose and create a non root user for containers</li>
+    <li>Clone the PDS repo and edit environment files with domain and Postgres creds</li>
+    <li>Initialize Postgres and run migrations from the project</li>
+    <li>Bring up the stack and configure Nginx or Caddy for TLS</li>
+    <li>Set up backups health checks and monitor logs</li>
+  </ol>
+
+  <p>Now go be your own Bluesky operator and savor the tiny bit of sovereignty you just carved out of the cloud.</p>
+</article>
+

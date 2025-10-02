@@ -1,0 +1,68 @@
+---
+layout: video
+title: "AWS EC2 Spot Instances How to create a Spot EC2 Instance"
+description: "Step by step guide to launch AWS EC2 Spot Instances and decide on Reserved Up Front or Savings Plan to cut cloud costs"
+video_host: "youtube"
+video_id: "7Bl7OlYqfvE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M1S"
+thumbnail_url: "https://i.ytimg.com/vi/7Bl7OlYqfvE/maxresdefault.jpg"
+content_url: "https://youtu.be/7Bl7OlYqfvE"
+embed_url: "https://www.youtube.com/embed/7Bl7OlYqfvE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - EC2
+  - Spot Instances
+  - Spot EC2
+  - Reserved Up Front
+  - Savings Plan
+  - Cloud Cost Optimization
+  - AWS CLI
+  - Launch Template
+  - Instance Interruption
+---
+
+<p>Ready to pay about as much as a subscription coffee habit for your compute while surviving the occasional eviction notice from the cloud landlord Welcome to Spot EC2 and the art of Cloud Cost Optimization with a touch of polish and a lot of sarcasm</p>
+
+<h2>Pick the right instance type and a realistic max price</h2>
+<p>Spot Instances are bargain basement compute but they are not magic. Choose an instance size that matches the workload. For batch jobs compare cost per vCPU and memory ratio instead of chasing the cheapest SKU and wondering why runs fail.</p>
+<p>Set a max price that reflects reality If your max price is too low you will get interrupted constantly and your long jobs will turn into expensive retries</p>
+
+<h2>Create a launch template and stop repeating mistakes</h2>
+<p>A Launch Template stores the AMI network IAM and other settings so you do not need to perform the same copy paste ritual every time. Use a template to make scaling and Auto Scaling groups less miserable.</p>
+<p>Keep separate templates for dev test and production. Use tags and sensible naming so your future self does not rage</p>
+
+<h2>Request Spot Instances from the console or via AWS CLI</h2>
+<p>The console is fine for one offs The AWS CLI is your friend for automation pipelines and reproducible deployments. Example CLI call to start a spot instance using a launch template</p>
+<pre><code>aws ec2 run-instances --instance-market-options MarketType=spot --instance-type t3.small --count 1 --image-id ami-0123456789abcdef0 --launch-template LaunchTemplateId=lt-0123456789abcdef0</code></pre>
+<p>That command uses the launch template to avoid human shaped configuration errors</p>
+
+<h2>Configure fallback and interruption behavior</h2>
+<p>Spot is cheap and ephemeral You need a plan when instance interruption happens This is about resilience not soul crushing luck</p>
+<ul>
+<li>Use capacity rebalance or choose stop on interruption depending on whether you want instances to be hibernated or killed</li>
+<li>Implement lifecycle hooks and write shutdown scripts to drain tasks and persist state so work does not vanish like socks in a dryer</li>
+<li>Pay attention to the two minute interruption notice available from instance metadata and automate graceful shutdowns and checkpointing</li>
+</ul>
+
+<h2>Decide when to use Reserved Up Front or a Savings Plan</h2>
+<p>Spot is awesome for variable batch workloads but for steady baseline usage look at Reserved Up Front or a Savings Plan These options reduce bill volatility and lock in lower rates for long term services</p>
+<p>If you have predictable steady capacity purchase Reserved Up Front or pick a Savings Plan to avoid the monthly billing drama</p>
+
+<h3>Quick recap and a tiny runbook</h3>
+<ul>
+<li>Choose instance type and set a sensible max price for Spot Instances</li>
+<li>Create a Launch Template and use it for Auto Scaling groups</li>
+<li>Request Spot via console for one off work or use the AWS CLI for pipelines</li>
+<li>Handle Instance Interruption with capacity rebalance lifecycle hooks and drain scripts</li>
+<li>For steady baseline usage buy Reserved Up Front or use a Savings Plan</li>
+</ul>
+
+<p>Tip Use a mixed instances policy so you get the cheapest available capacity while keeping your service running</p>
+
+<p>With these steps you save money without turning your deployment into an emotional roller coaster Keep Spot in the mix and use reservations for the boring reliable stuff</p>
+

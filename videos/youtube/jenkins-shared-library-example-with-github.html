@@ -1,0 +1,74 @@
+---
+layout: video
+title: "Jenkins Shared Library Example with GitHub"
+description: "Create and use a Jenkins shared library with GitHub to reuse pipeline code across projects and simplify CI workflows"
+video_host: "youtube"
+video_id: "4HTIBxufn-E"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M6S"
+thumbnail_url: "https://i.ytimg.com/vi/4HTIBxufn-E/maxresdefault.jpg"
+content_url: "https://youtu.be/4HTIBxufn-E"
+embed_url: "https://www.youtube.com/embed/4HTIBxufn-E"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Shared Library
+  - GitHub
+  - Pipeline
+  - CI
+  - CD
+  - Groovy
+  - DevOps
+  - Jenkinsfile
+  - Reusable Code
+---
+
+<h2>Why you need a shared library</h2>
+<p>Stop copying the same Jenkinsfile mistakes across a hundred repos like a code hoarder. A global shared library hosted on GitHub centralizes your pipeline logic, lets teams reuse Groovy helpers, and makes CI and CD changes less terrifying.</p>
+
+<h2>Make the GitHub repo</h2>
+<p>Create a new repository and push the initial files. Make it public or give Jenkins a deploy key or a personal access token so it can fetch the code. Keep the name clear and use tags for versioning so you can roll back like a civilized person.</p>
+
+<h2>Layout the repo</h2>
+<p>Jenkins expects a conventional layout so it can find your shared steps and classes. A typical structure looks like this</p>
+<pre><code>vars/myStep.groovy
+src/org/example/Helper.groovy
+resources/org/example/config.yaml</code></pre>
+
+<h3>Write small reusable steps</h3>
+<p>Small functions are your friend. Put common logic in vars as steps and complex helpers in src as classes. Use descriptive names so future you and other teams avoid an archaeological dig.</p>
+
+<h2>Register the library in Jenkins</h2>
+<p>Go to Manage Jenkins then Global Pipeline Libraries and add the GitHub repository with credentials. Set a default version or pin a tag to get reproducible builds. Pinning tags saves you from surprise behavior when someone pushes a breaking change.</p>
+
+<h2>Call the library from a Jenkinsfile</h2>
+<p>Use the library annotation or the @Library directive in your Jenkinsfile and invoke shared steps like they were local. Example pipeline</p>
+<pre><code>@Library('my-shared-lib@v1') _
+pipeline {
+  agent any
+  stages {
+    stage('Demo') {
+      steps {
+        myStep 'hello world'
+      }
+    }
+  }
+}</code></pre>
+
+<h2>Test and iterate</h2>
+<p>Run pipelines on feature branches and fix edge cases. Add unit tests for Groovy classes and run static checks where possible. Iterate on the library like a sensible maintainer rather than a reckless weekend hacker.</p>
+
+<h2>Best practices checklist</h2>
+<ul>
+  <li>Keep steps small and well named</li>
+  <li>Follow the vars and src layout so Jenkins can find things</li>
+  <li>Protect secrets with deploy keys or a personal access token</li>
+  <li>Pin jobs to tags for reproducible builds</li>
+  <li>Add tests and brief docs for common helpers</li>
+</ul>
+
+<p>If your team prefers duplication and surprise breakages then ignore this guide. If not do the moderate work once and enjoy fewer angry Slack messages and less midnight debugging.</p>
+

@@ -1,0 +1,71 @@
+---
+layout: video
+title: "How to Create a Maven Project in Eclipse #techtarget"
+description: "Quick step by step guide to create a Maven project in Eclipse using m2e configure pom and run builds from the IDE"
+video_host: "youtube"
+video_id: "88Dv4vvAa1o"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT16M23S"
+thumbnail_url: "https://i.ytimg.com/vi/88Dv4vvAa1o/maxresdefault.jpg"
+content_url: "https://youtu.be/88Dv4vvAa1o"
+embed_url: "https://www.youtube.com/embed/88Dv4vvAa1o"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Maven
+  - Eclipse
+  - m2e
+  - pom.xml
+  - Java
+  - Maven project
+  - IDE
+  - Build
+  - Dependencies
+  - Tutorial
+---
+
+<p>Ready to let a build tool do the boring work while you pretend you always knew what you were doing This guide shows how to create a Maven project in Eclipse with the m2e plugin edit the pom.xml add dependencies and run builds from the IDE without turning your repository into a jar graveyard</p>
+
+<h2>Check that m2e is present in Eclipse</h2>
+<p>Open the Eclipse marketplace and search for m2e or try a Maven action in the IDE to see if it responds Most modern Eclipse packages include Maven integration so you can skip the install step if Maven options show up in the context menu</p>
+
+<h2>Create the Maven project</h2>
+<p>Use File then New then Other then Maven Project to launch the wizard Pick a workspace that you actually use and not a folder named later regret</p>
+
+<h3>Choose an archetype and coordinates</h3>
+<ul>
+  <li>For a tiny starter pick maven archetype quickstart or another lightweight archetype</li>
+  <li>Enter groupId and artifactId using a reverse domain pattern to avoid future namespace drama</li>
+  <li>Accept the project structure and finish the wizard so Eclipse can add the Maven nature</li>
+</ul>
+
+<h2>Edit the pom.xml</h2>
+<p>Open pom.xml and paste dependency coordinates from Maven Central to add libraries Eclipse will usually download the jars and update the project classpath so your code compiles without manual jar wrangling</p>
+
+<h3>Typical pom additions</h3>
+<ul>
+  <li>Dependencies for libraries such as JUnit or your logging framework</li>
+  <li>A maven compiler plugin entry to set source and target levels for Java</li>
+  <li>An optional dependencyManagement section when you need to control versions across modules</li>
+</ul>
+
+<h2>Build and run from Eclipse</h2>
+<p>Right click the project then Run As then Maven build and use the goals field with clean install to build a local artifact Use Run As then Java application to quickly run a main class once compilation succeeds</p>
+<p>The IDE will download dependencies into your local repository under .m2 repository and wire them into the Eclipse classpath so you do not have to copy jars by hand</p>
+
+<h2>Useful Eclipse Maven tips</h2>
+<ul>
+  <li>Use Maven Update Project from the project context menu to refresh dependencies and classpath</li>
+  <li>Open the dependency hierarchy or dependency management view to inspect transitive dependencies and spot version conflicts</li>
+  <li>If a plugin or dependency does not resolve try Force Update of Snapshots from the update dialog or check network and proxy settings</li>
+</ul>
+
+<h2>Common pitfalls and how to avoid them</h2>
+<p>Choosing a bad workspace location makes life harder and moving projects later is a chore Use a clear workspace layout from the start</p>
+<p>Forgetting to set the maven compiler plugin leads to cryptic compile errors when Java versions mismatch Add the plugin and set source and target to match your JDK</p>
+<p>And remember that Maven manages the lifecycle so use the correct goals for the job clean install for a local build and package for creating artifacts</p>
+
+<p>Follow these steps and Eclipse plus m2e will handle dependency management and the build lifecycle while you get to write code and take the credit</p>
+

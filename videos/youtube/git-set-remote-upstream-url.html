@@ -1,0 +1,70 @@
+---
+layout: video
+title: "Git Set Remote Upstream URL"
+description: "Quick guide to change Git upstream remote URL so fetch and pull target the correct repository"
+video_host: "youtube"
+video_id: "qXt1ThIb2IA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/qXt1ThIb2IA/maxresdefault.jpg"
+content_url: "https://youtu.be/qXt1ThIb2IA"
+embed_url: "https://www.youtube.com/embed/qXt1ThIb2IA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - remote
+  - upstream
+  - git tutorial
+  - git commands
+  - git remote set-url
+  - github
+  - version control
+  - devops
+  - command line
+---
+
+<h2>Why bother with the upstream remote</h2>
+<p>If you fork projects or collaborate across forks you will eventually pull from the wrong place and silently inherit other people's chaos. This short guide shows how to inspect, change, and verify the upstream remote in Git so your fetch and pull commands target the correct source. Yes this is small, and yes this will save you from a merge party you did not RSVP for.</p>
+
+<h2>Check what Git thinks your remotes are</h2>
+<p>Start by listing remotes on the command line so you know which name points at the original project. The usual suspect is upstream but sometimes people name things creatively and then regret it.</p>
+<pre><code>git remote -v</code></pre>
+<p>You will see lines that look like fetch and push pairs for origin or upstream. The URL next to the remote name is the address Git will use for that action.</p>
+
+<h2>Change the upstream URL using git remote set-url</h2>
+<p>Use the git remote set-url command to replace the URL that the upstream remote uses. Replace OWNER and REPO with the real names from GitHub or your hosting service.</p>
+<pre><code>git remote set-url upstream https://github.com/OWNER/REPO.git</code></pre>
+<p>If your remote is named something other than upstream swap that name in. For example if the remote is called original then run git remote set-url original followed by the new address. This is a straightforward git command that updates the remote record in your local repo without touching your branches.</p>
+
+<h2>Verify that the change took</h2>
+<p>Always confirm so you do not accidentally pull from the wrong source later. Run the remote list again and look for matching fetch and push URLs for the upstream remote.</p>
+<pre><code>git remote -v</code></pre>
+<p>Confirm the new address appears on the fetch line. If something still looks off double check you edited the right remote name.</p>
+
+<h2>Test connectivity and branch availability</h2>
+<p>Fetch from the upstream remote to make sure Git can reach it and that the branches you expect are present. This is the part where network issues and permissions reveal themselves.</p>
+<pre><code>git fetch upstream
+# then try pulling a branch you expect, for example
+git pull upstream main</code></pre>
+<p>If fetch or pull fails with an authentication error check your credentials, SSH keys, or token permissions on GitHub or your hosting provider. For public repositories a fetch should work without special access.</p>
+
+<h3>Troubleshooting checklist</h3>
+<ul>
+  <li>Did you edit the correct remote name</li>
+  <li>Did you copy the URL correctly with OWNER and REPO spelled exactly</li>
+  <li>Are you using SSH or HTTPS and does your local setup match that choice</li>
+  <li>Are your SSH keys added to your account or do you need a personal access token for HTTPS</li>
+</ul>
+
+<h2>Tips for a calmer workflow</h2>
+<ul>
+  <li>Prefer an SSH URL if you push often to avoid repeated credential prompts</li>
+  <li>Add a named remote like upstream for the original project to keep forks neat</li>
+  <li>Use git remote -v regularly when switching between forks or branches so nothing sneaks up on you</li>
+</ul>
+
+<p>That is it. A tiny set of git commands prevents a lot of future annoyance in your version control life. Now go update the remote and enjoy the rare pleasure of having your pulls come from the place you actually meant.</p>
+

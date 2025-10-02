@@ -1,0 +1,71 @@
+---
+layout: video
+title: "Quick Intro to the Spring Boot Actuator Playlist"
+description: "Compact guide to Spring Boot Actuator features setup and common endpoints for monitoring health metrics and management of Spring applications"
+video_host: "youtube"
+video_id: "RQb2mrslq3k"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M25S"
+thumbnail_url: "https://i.ytimg.com/vi/RQb2mrslq3k/maxresdefault.jpg"
+content_url: "https://youtu.be/RQb2mrslq3k"
+embed_url: "https://www.youtube.com/embed/RQb2mrslq3k"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Actuator
+  - Monitoring
+  - Health Endpoint
+  - Metrics
+  - Observability
+  - Java
+  - Spring
+  - Endpoint Security
+  - Application Management
+---
+
+<p>If you like your apps alive and your on call nights short then Spring Boot Actuator is the unglamorous hero you need. It is a production ready toolkit for monitoring and managing Spring Boot applications. Think of it as the control panel for your service. It gives you the health endpoint, metrics, info, env and beans so you can stop guessing and start fixing.</p>
+
+<h2>How to get started fast</h2>
+<p>Most teams begin by adding the dependency spring-boot-starter-actuator and letting Spring do its auto configuration magic. A small config change exposes the endpoints you actually want to use in development or production. Yes you will feel like a wizard for five minutes.</p>
+
+<pre><code>management.endpoints.web.exposure.include=health,info,metrics</code></pre>
+
+<h2>Key endpoints and what they tell you</h2>
+
+<h3>Health endpoint</h3>
+<p>Useful for quick checks and load balancer probes. The health endpoint reports aggregate status and can include component checks for things like database connectivity and external services. Do not rely on the word up as a substitute for actual investigation.</p>
+
+<h3>Metrics endpoint</h3>
+<p>Exposes numeric measures that feed observability systems. Bind Prometheus to the metrics endpoint for collection and alerting. Then pretend you did not enjoy watching graphs until they were perfect.</p>
+
+<h3>Info endpoint</h3>
+<p>Shows build and version details if you wire them into your build. Handy for blaming the right commit when the logs start blaming you.</p>
+
+<h3>Env and beans</h3>
+<p>Great for debugging locally. Keep these off in production unless you love accidental data leaks.</p>
+
+<h2>Endpoint security and exposure</h2>
+<p>Public management endpoints are a privacy hazard. Protect them with HTTP basic auth, OAuth or put them behind a network boundary. Better yet only expose the endpoints your monitoring system needs. Your future self will thank you and your security team will pretend to be surprised.</p>
+
+<h2>Best practices for observability and application management</h2>
+<ul>
+  <li>Limit exposed endpoints in production to a small safe set</li>
+  <li>Export metrics to a dedicated system such as Prometheus for long term storage and alerting</li>
+  <li>Use health checks for readiness and liveness probes rather than heroic log scanning</li>
+  <li>Keep sensitive details out of the info and env endpoints</li>
+  <li>Automate alert rules around meaningful metrics not every spike you see at 3 AM</li>
+</ul>
+
+<h2>Quick checklist before you ship</h2>
+<ul>
+  <li>Add spring-boot-starter-actuator to your build</li>
+  <li>Expose only needed endpoints with management.endpoints.web.exposure.include</li>
+  <li>Secure management paths with authentication or a network boundary</li>
+  <li>Scrape metrics with Prometheus and set sensible alerts</li>
+</ul>
+
+<p>Actuator is small setup and big peace of mind. Use it for development sanity checks and production health monitoring. And when the dashboards finally stop lying about your service, accept the tiny ego boost and move on to the next crisis.</p>
+

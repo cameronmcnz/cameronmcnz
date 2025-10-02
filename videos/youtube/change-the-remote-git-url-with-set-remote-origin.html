@@ -1,0 +1,68 @@
+---
+layout: video
+title: "Change the Remote Git URL with Set Remote Origin"
+description: "Quick guide to change a Git remote URL using git remote set-url origin and verify the change with git remote -v"
+video_host: "youtube"
+video_id: "FuMJc3ahr6w"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/FuMJc3ahr6w/maxresdefault.jpg"
+content_url: "https://youtu.be/FuMJc3ahr6w"
+embed_url: "https://www.youtube.com/embed/FuMJc3ahr6w"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git remote
+  - set-url
+  - origin
+  - remote url
+  - git tutorial
+  - git commands
+  - version control
+  - push
+  - CLI
+---
+
+<p>So you need to change a Git remote url and you want to do it without turning your repo into an existential crisis. Relax. This short guide covers the exact git commands you need to switch the origin remote url and verify that your pushes and fetches still behave like civilized software.</p>
+
+<h2>Inspect the current remote</h2>
+<p>Before you start poking things run this to see what origin is currently pointing at</p>
+<pre><code>git remote -v</code></pre>
+<p>This lists your remotes and their urls for fetch and push. If origin points to the wrong host or protocol you will know before you make a mess. Knowledge saves time and credibility.</p>
+
+<h2>Set the new origin remote url</h2>
+<p>Use the git remote set-url command to update origin. Replace new_repo_url with the SSH or HTTPS address you want</p>
+<pre><code>git remote set-url origin new_repo_url</code></pre>
+<p>Examples that actually look like something</p>
+<h3>SSH example</h3>
+<pre><code>git remote set-url origin git@github.com:username/repo.git</code></pre>
+<h3>HTTPS example</h3>
+<pre><code>git remote set-url origin https://github.com/username/repo.git</code></pre>
+<p>If you switch from HTTPS to SSH or vice versa be sure your authentication matches. If SSH keys are set up you will avoid repeated password prompts and general grumbling.</p>
+
+<h2>Verify the change</h2>
+<p>Do the same check again to confirm you did not mistype anything</p>
+<pre><code>git remote -v</code></pre>
+<p>If the url looks wrong double check for typos and confirm you used the correct protocol. A single character can make Git very dramatic.</p>
+
+<h2>Test connectivity and permissions</h2>
+<p>Before you push real work try a fetch or a dry run push to prove the remote does not hate you</p>
+<pre><code>git fetch
+# or
+git push --dry-run origin your-branch-name</code></pre>
+<p>Successful fetch or dry run means your git commands, credentials, and remote are all on speaking terms. If authentication fails update credentials or add your SSH key to the remote host.</p>
+
+<h2>Troubleshooting tips and quick wins</h2>
+<ul>
+  <li>If Git keeps asking for passwords consider enabling a credential helper or switch to SSH keys for fewer prompts and less annoyance</li>
+  <li>If you have submodules remember they can point to their own remotes and may need updating too</li>
+  <li>Check for accidental extra slashes or stray .git fragments when copying urls</li>
+  <li>When moving between providers make sure you have permission to push to the target repository or the push will be politely rejected</li>
+</ul>
+
+<h2>Recap</h2>
+<p>Inspect your remotes with git remote -v. Update origin with git remote set-url origin new_repo_url. Verify with git remote -v. Test with git fetch or a dry run push. If you switch protocols update authentication accordingly. Follow these steps and your version control life will be only mildly inconvenient rather than catastrophic.</p>
+

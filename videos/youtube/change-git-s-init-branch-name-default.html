@@ -1,0 +1,72 @@
+---
+layout: video
+title: "Change Git's Init Branch Name Default"
+description: "Change the default branch name created by git init globally or per repo using git config or the git init -b option Learn commands and verification tips"
+video_host: "youtube"
+video_id: "oJtvIFnuqbI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M33S"
+thumbnail_url: "https://i.ytimg.com/vi/oJtvIFnuqbI/maxresdefault.jpg"
+content_url: "https://youtu.be/oJtvIFnuqbI"
+embed_url: "https://www.youtube.com/embed/oJtvIFnuqbI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git init
+  - default branch
+  - init.defaultBranch
+  - git config
+  - main branch
+  - git tutorial
+  - version control
+  - repo setup
+  - command line
+---
+
+<p>If you are tired of renaming the first branch after every git init like some kind of medieval manual laborer welcome to the future. You can tell Git which branch name to create by default and save yourself a few awkward commits and a lot of tiny curses. This short guide covers setting the default branch globally or per repository and how to override it when you create a repo from scratch.</p>
+
+<h2>Why change the default branch</h2>
+<p>Most hosting providers and teams prefer a consistent default branch name. Left alone Git will keep doing whatever it always did which means manual work later. Picking and setting a default branch early avoids CI confusion automated scripts breaking and the awkward moment when someone opens a PR to the wrong branch.</p>
+
+<h2>Set a global default with git config</h2>
+<p>Want every new repo on your machine to start with main or any name you choose? Set the global config and be done with it.</p>
+<pre><code>git config --global init.defaultBranch main</code></pre>
+<p>This writes your preference to your global git config so git init will create a branch named main by default. Use this when you control your machine and want consistency across projects.</p>
+
+<h2>Set the default just for one repository</h2>
+<p>If you only need a specific repo to behave differently run the command inside that repo or point at its path from anywhere.</p>
+<pre><code>git -C path/to/repo config init.defaultBranch main
+# or run this inside the repo
+cd path/to/repo
+git config init.defaultBranch main</code></pre>
+<p>This updates the local config and leaves your global setting untouched which is perfect for oddball projects or experiments.</p>
+
+<h2>Create a repo with a chosen branch right away</h2>
+<p>If your Git version supports it you can avoid config changes altogether when initializing a new repository. Use the -b flag with git init to pick the branch name at creation time.</p>
+<pre><code>git init -b main my-new-repo
+cd my-new-repo
+git branch --show-current</code></pre>
+<p>Note that the -b option was added in newer Git releases (around Git 2.28). If you get an error update Git or use the config approach above.</p>
+
+<h2>Verify your settings</h2>
+<ul>
+  <li>Check what git init will use now by inspecting the config value</li>
+</ul>
+<pre><code>git config --get init.defaultBranch</code></pre>
+<ul>
+  <li>Or test it by creating a temporary repo and checking the current branch</li>
+</ul>
+<pre><code>git init temp-repo && cd temp-repo && git branch --show-current</code></pre>
+
+<h3>Common pitfalls and advice</h3>
+<ul>
+  <li>Make sure your hosting service default branch and your CI pipelines match your chosen name to avoid surprises during automation</li>
+  <li>Set the global option early for new machines to prevent a mismatch across developers</li>
+  <li>Changing the default does not rename branches in existing repositories</li>
+</ul>
+
+<p><strong>Tip</strong> Pick a default branch name pick it once and tell your team. Then enjoy the tiny victory of never renaming the initial branch again.</p>
+

@@ -1,0 +1,866 @@
+[
+  {
+    "title": "What is GitHub Desktop",
+    "description": "Discover what GitHub Desktop does and why developers use the GUI client to manage repositories and sync changes with GitHub.",
+    "heading": "<h1>What is GitHub Desktop</h1>",
+    "body": "<p>GitHub Desktop is a free graphical application that simplifies Git and GitHub workflows on Windows and macOS.</p>\n<h2>What the client does</h2>\n<p>Developers use the application to manage repositories without memorizing command line spells. The GUI handles staging, committing, branching, merging and syncing with GitHub. New users gain a visual timeline of changes and a sane place to write commit messages.</p>\n<h2>Common tasks</h2>\n<ol>\n<li>Clone a repository</li>\n<li>Make changes and stage files</li>\n<li>Commit with a clear message</li>\n<li>Push and open a pull request</li>\n</ol>\n<h3>Step details</h3>\n<p><strong>Clone a repository</strong> Use the client to paste a repository URL or sign in to GitHub to see a list. The clone process creates a local copy ready for edits.</p>\n<p><strong>Stage files</strong> Select changed files in the Changes pane to prepare a snapshot. The GUI shows diffs so nothing surprises later reviewers.</p>\n<p><strong>Commit with a clear message</strong> Write a short summary and optional description. Commit history remains readable for teammates and future self.</p>\n<p><strong>Push and open a pull request</strong> Use the Publish or Push button to send changes to GitHub and then open a pull request from the web or from the client when that option appears.</p>\n<p><em>Tip</em> The command line remains useful for complex workflows. Run <code>git status</code> or <code>git rebase</code> when advanced control matters.</p>\n<p>The application serves as a gentle bridge for newcomers and a handy shortcut for experts who prefer not to type every command.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "Git",
+      "GitHub",
+      "version control",
+      "GUI git client",
+      "clone repository",
+      "branching",
+      "pull request",
+      "commit",
+      "sync"
+    ]
+  },
+  {
+    "title": "How to Use GitHub Desktop",
+    "description": "Step by step guide to set up clone commit branch and push using GitHub Desktop on Windows or Mac",
+    "heading": "<h1>How to Use GitHub Desktop</h1>",
+    "body": "<p>Quick guide to set up GitHub Desktop and run a basic clone commit branch and push workflow</p><ol><li>Install GitHub Desktop</li><li>Sign in to a GitHub account</li><li>Clone or create a repository</li><li>Create a branch</li><li>Make changes and commit</li><li>Push and open a pull request</li></ol><p><strong>Install GitHub Desktop</strong></p><p>Download the app for Windows or Mac from the official site and follow the installer prompts. The installation is designed for people who prefer clicking over memorizing commands.</p><p><strong>Sign in to a GitHub account</strong></p><p>Open GitHub Desktop and sign in with a GitHub account. Signing in links the app to online repositories and makes synchronization straightforward.</p><p><strong>Clone or create a repository</strong></p><p>Use the File menu to clone an existing repository or create a new one from a local folder. Cloning brings a remote repository down to a local machine without typing commands.</p><p><strong>Create a branch</strong></p><p>Click the current branch menu and choose New Branch. Branches keep experimental work separate from the main line so the main branch remains sane.</p><p><strong>Make changes and commit</strong></p><p>Edit files in a code editor then return to GitHub Desktop to stage changes and write a clear commit message. Good commit messages save future headaches and awkward explanations to colleagues.</p><p><strong>Push and open a pull request</strong></p><p>Use the Push origin button to send commits to GitHub. Then click the button to open a pull request on the website and ask for a code review. This step turns solo work into collaborative progress without invoking the terminal.</p>",
+    "tags": [
+      "GitHub",
+      "GitHub Desktop",
+      "Git",
+      "Version Control",
+      "Tutorial",
+      "Beginner Guide",
+      "Commit",
+      "Branching",
+      "Pull Request",
+      "Workflow"
+    ]
+  },
+  {
+    "title": "GitHub Desktop Explained Guide",
+    "description": "Discover what GitHub Desktop does how to use core features and when a GUI makes Git work faster for everyday development.",
+    "heading": "<h1>GitHub Desktop Explained Guide</h1>",
+    "body": "<p>GitHub Desktop is a graphical Git client for Windows and macOS that simplifies cloning committing branching and syncing repositories.</p>\n<h2>Why use GitHub Desktop</h2>\n<p>The client makes common Git tasks accessible without a terminal. Staging and committing use a visual interface. Branching and merging show a clear history. Integration with GitHub makes pull requests and review easier. Terminal purists may scoff but deadlines do not care about snobbery.</p>\n<h2>Key features</h2>\n<ol>\n<li><strong>Clone and create repositories</strong> - Clone a remote repo or initialize a new local project.</li>\n<li><strong>Visual diffs and staging</strong> - See changes and choose which files and hunks to stage before committing.</li>\n<li><strong>Branch management</strong> - Create switch and merge branches with a few clicks.</li>\n<li><strong>Push pull and sync</strong> - Send changes to the server and receive updates from teammates.</li>\n<li><strong>Pull requests</strong> - Open and manage pull requests using a guided workflow.</li>\n</ol>\n<h2>How to get started</h2>\n<p>Install the app from the official site then sign in with a GitHub account. Clone an existing repository through the File menu or create a new repository from the app. Make a branch before making changes. Stage files then write a descriptive commit message and commit. Push the branch to GitHub and open a pull request when ready.</p>\n<h2>Tips and caveats</h2>\n<p>Use the terminal for advanced scripts hooks or complex rebases. The app keeps many workflows simple while preserving the full power of Git for users who want deeper control. Expect fewer typos in commands and more focus on actual development.</p>\n<h3>Quick commands</h3>\n<p>Common commands that correspond to app actions are <code>git clone</code> <code>git checkout -b</code> <code>git add</code> <code>git commit</code> and <code>git push</code>. Knowing those helps when the GUI needs backup.</p>\n<p>If confusion arises consult the official documentation or use the app's help menu for guided steps.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "Git",
+      "Version Control",
+      "Git GUI",
+      "Software Development",
+      "Pull Requests",
+      "Branching",
+      "Commits",
+      "Workflow",
+      "Developer Tools"
+    ]
+  },
+  {
+    "title": "How to Download files from GitHub",
+    "description": "Step by step guide to download single files or full repositories from GitHub using the web interface or git with quick tips and fixes.",
+    "heading": "<h1>How to Download files from GitHub</h1>",
+    "body": "<p>Download individual files or entire repositories from GitHub using the web interface or git commands.</p>\n<ol>\n<li>Download a single file from a repository</li>\n<li>Download a folder or entire repository as a zip</li>\n<li>Clone the repository with git</li>\n<li>Fetch a raw file from the command line</li>\n</ol>\n<h3>Download a single file from a repository</h3>\n<p>Open the repository in a browser and navigate to the desired file. Click Raw to view the file source. Right click the page and choose Save Page As or use the browser save command to store the file on the machine. This works best for occasional file grabs.</p>\n<h3>Download a folder or entire repository as a zip</h3>\n<p>On the repository main page click the Code button then choose Download ZIP. Save the archive and extract that package on the local system. This method gives a quick copy of the repository without needing any git setup.</p>\n<h3>Clone the repository with git</h3>\n<p>Open a terminal and run <code>git clone REPO_URL</code>. That command copies the entire repository to the machine and preserves commit history. After cloning use normal file commands to move or copy desired files from the repository folder.</p>\n<h3>Fetch a raw file from the command line</h3>\n<p>For automation grab the raw file link from the Raw view in the browser. Then run a command such as <code>curl -O RAW_FILE_URL</code> or <code>wget RAW_FILE_URL</code> with the chosen raw address. This is handy for scripts that need single file downloads.</p>\n<h2>Troubleshooting</h2>\n<p>If permission errors occur verify repository access and authentication. For private repositories use an authenticated git client or a personal access token with the chosen method. If downloads fail check network rules and retry the chosen approach.</p>",
+    "tags": [
+      "GitHub",
+      "download files",
+      "git",
+      "clone",
+      "zip",
+      "raw",
+      "curl",
+      "wget",
+      "browser",
+      "tutorial"
+    ]
+  },
+  {
+    "title": "How to Download zip files from GitHub",
+    "description": "Step by step guide to download repository zip files from GitHub using a browser or command line plus quick troubleshooting tips.",
+    "heading": "<h1>How to Download zip files from GitHub</h1>",
+    "body": "<p>Download a repository zip from GitHub using a browser or the command line.</p><ol><li>Open the repository page</li><li>Use the Code menu to choose Download ZIP</li><li>Use the archive link for a branch or tag</li><li>Use curl or wget from the command line</li><li>Unzip and inspect downloaded files</li><li>Troubleshoot common errors</li></ol><p>Navigate to the repository page on GitHub using a browser. Use the search box or paste the repository URL into the address bar. Example link <a href=\"//github.com/owner/repo\">owner slash repo</a>.</p><p>Click the Code button near the top of the file list and choose Download ZIP from the menu. Yes GitHub hides the Download ZIP like a treasure chest. The browser will save a file named owner-repo-main.zip or similar to the downloads folder.</p><p>To download a specific branch or tag append the archive path to the repository URL. Use /archive/refs/heads/branch.zip for branches or /archive/refs/tags/tag.zip for tags. Loading //github.com/owner/repo/archive/refs/heads/main.zip in the address bar will fetch a zip of the main branch.</p><p>From the command line use curl or wget to fetch a zip when a full clone is unwanted. Example commands are shown here.</p><p><code>curl -L -o repo.zip //github.com/owner/repo/archive/refs/heads/main.zip</code></p><p><code>wget -O repo.zip //github.com/owner/repo/archive/refs/heads/main.zip</code></p><p>After download unzip the file with the OS tool or the unzip command. Inspect files and folders to confirm the desired content and to avoid surprises in the code base.</p><p>If a download fails check repository visibility and permissions. Private repositories require authentication. Use the GitHub CLI or a personal access token with a tool that supports headers or basic auth. If a server error occurs try again or switch networks.</p><p>Now enjoy the code snapshot without pulling a full git history. No eternal cloning required.</p>",
+    "tags": [
+      "GitHub",
+      "download",
+      "zip",
+      "repository",
+      "tutorial",
+      "browser",
+      "command line",
+      "curl",
+      "wget",
+      "troubleshooting"
+    ]
+  },
+  {
+    "title": "How to Download Code from GitHub",
+    "description": "Learn how to download code from GitHub using a browser zip download or git clone with HTTPS or SSH.",
+    "heading": "<h1>How to Download Code from GitHub</h1>",
+    "body": "<p>Download code from a GitHub repository using a browser or git commands.</p>\n<ol> <li>Download ZIP from the web</li> <li>Clone with HTTPS</li> <li>Clone with SSH</li> <li>Use GitHub Desktop or CLI</li>\n</ol>\n<h3>Download ZIP from the web</h3>\n<p>Open the repository page on GitHub and click the Code button then choose Download ZIP. The computer will receive a zip file of the repository. Unzip the archive to view source files and assets. This is the fastest option when git history is not needed or when the user dislikes terminals.</p>\n<h3>Clone with HTTPS</h3>\n<p>Copy the HTTPS address from the Code menu on the repository page. Run the command <code>git clone REPO_URL</code> in a terminal where REPO_URL is the copied address. The command creates a local copy of the repository including commit history and branches. Use <code>git checkout</code> to switch branches after cloning.</p>\n<h3>Clone with SSH</h3>\n<p>Generate an SSH key on the local machine and add the public key to the GitHub account profile. Copy the SSH address from the Code menu and run <code>git clone REPO_SSH</code>. SSH offers password free access for pushes and pulls when the public key is registered.</p>\n<h3>Use GitHub Desktop or CLI</h3>\n<p>Install GitHub Desktop for a graphical workflow or install GitHub CLI for command line helpers. Run <code>gh repo clone OWNER/REPO</code> to clone with the CLI or use the desktop app to clone with a few clicks. These tools automate some configuration steps and reduce boredom.</p>\n<p>Pick a method that matches the workflow and get to coding.</p>",
+    "tags": [
+      "github",
+      "download",
+      "clone",
+      "zip",
+      "git",
+      "ssh",
+      "https",
+      "tutorial",
+      "code",
+      "repository"
+    ]
+  },
+  {
+    "title": "How to Get Started with GitHub",
+    "description": "Step by step guide to create an account set up Git and push the first repository to GitHub for collaboration and version control",
+    "heading": "<h1>How to Get Started with GitHub</h1>",
+    "body": "<p>Create an account set up Git locally create a repository and push the first code to GitHub.</p><ol><li>Create a GitHub account</li><li>Install Git</li><li>Configure Git identity</li><li>Initialize a local repository</li><li>Push code to GitHub</li></ol><h2>Create a GitHub account</h2><p>Visit github.com sign up with an email address and pick a username. A free plan covers most personal projects and open source work.</p><h2>Install Git</h2><p>Download Git from the official source or use a package manager. On Windows use Git Bash. On macOS use Homebrew with <code>brew install git</code>. On Debian based Linux use <code>sudo apt install git</code>.</p><h2>Configure Git identity</h2><p>Set name and email so commits show the author. Run <code>git config --global user.name \"Your Name\"</code> and <code>git config --global user.email \"email@example.com\"</code>. Add an SSH key later for password free pushes.</p><h2>Initialize a local repository</h2><p>Create a project folder add files and initialize a repository. Run <code>git init</code> then <code>git add .</code> and <code>git commit -m \"First commit\"</code> to capture the first snapshot.</p><h2>Push code to GitHub</h2><p>Create a new repository on the GitHub website copy the remote URL and add a remote with <code>git remote add origin REMOTE_URL</code>. Push the main branch with <code>git push -u origin main</code>. That action places the project on the hosting service and opens the project for collaboration.</p><p>Now code resides on GitHub and collaborators can fork clone and submit pull requests. Expect fewer merge disasters after mastering these basics.</p>",
+    "tags": [
+      "GitHub",
+      "Git",
+      "Version Control",
+      "Repository",
+      "Git Tutorial",
+      "Beginner Guide",
+      "Push Code",
+      "Git Commands",
+      "Code Hosting",
+      "Open Source"
+    ]
+  },
+  {
+    "title": "Download GitHub Desktop on Windows",
+    "description": "Step by step guide to download and install GitHub Desktop on Windows with tips and quick troubleshooting notes",
+    "heading": "<h1>Download GitHub Desktop on Windows</h1>",
+    "body": "<p>Download and install GitHub Desktop on a Windows PC</p><ol><li>Open a web browser and visit the GitHub Desktop download page</li><li>Download the Windows installer</li><li>Run the installer and follow the setup prompts</li><li>Sign in with a GitHub account or skip sign in</li><li>Configure preferences and open a repository</li></ol><p><strong>Step 1</strong> Open a modern web browser on Windows and go to the official download site by entering //desktop.github.com in the address bar. Search engines also work for the indecisive person who hates typing.</p><p><strong>Step 2</strong> Click the download button for Windows and save the installer file. The file name usually looks like GitHubDesktopSetup.exe which is short and dramatic.</p><p><strong>Step 3</strong> Double click the downloaded installer file to launch the setup wizard. Accept prompts and allow the installer to make changes if Windows asks for permission. The process should finish without a long performance saga.</p><p><strong>Step 4</strong> When the app opens choose to sign in with a GitHub account or skip that step. Signing in links the desktop client to an online account for syncing and easier repo access.</p><p><strong>Step 5</strong> Tweak preferences such as default editor and shell integration then clone a repository to test the workflow. Use the Clone a repository button and pick a local folder where projects will live.</p><p>Troubleshooting tip If the installer fails check that Windows is up to date and that antivirus software did not block the download. Re downloading the installer often helps when network gremlins show up.</p><p>After setup use the GUI to stage commits create branches and push changes with less typing drama compared to the command line. GitHub Desktop handles the chores so the developer can focus on code.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "Windows",
+      "Download",
+      "Install",
+      "Git",
+      "Version control",
+      "Setup",
+      "Windows 10",
+      "Windows 11",
+      "How to"
+    ]
+  },
+  {
+    "title": "Install GitHub Desktop on Windows",
+    "description": "Step by step guide to download set up and run GitHub Desktop on Windows with tips for common problems",
+    "heading": "<h1>Install GitHub Desktop on Windows</h1>",
+    "body": "<p>Install GitHub Desktop on Windows by downloading the official installer running the program and signing in to link a GitHub account.</p>\n<ol> <li>Download the installer</li> <li>Run the installer</li> <li>Sign in to GitHub</li> <li>Configure Git settings</li> <li>Clone or open a repository</li>\n</ol>\n<h2>Download the installer</h2>\n<p>Open the GitHub Desktop download page and choose the Windows version. Save the installer to the downloads folder. No wizardry required.</p>\n<h2>Run the installer</h2>\n<p>Double click the downloaded file to launch setup. Follow the prompts to accept the license and choose an install location. The installer places the application in Program Files and adds a Start menu shortcut.</p>\n<h2>Sign in to GitHub</h2>\n<p>Launch GitHub Desktop from the Start menu. Sign in with a GitHub account or use an enterprise account. Grant authorization when asked to allow repository access.</p>\n<h2>Configure Git settings</h2>\n<p>Open Options to set a user name and email for commits. If a standalone Git client is missing the application bundles a Git client or prompts for installation. Use <code>git --version</code> in a terminal to verify the Git client.</p>\n<h2>Clone or open a repository</h2>\n<p>Use the File menu to clone a remote repository or add a local project. The application shows pending changes branches and sync controls. Commit messages and push actions work from the main interface so no command line is required for users who prefer a GUI.</p>\n<h3>Troubleshooting</h3>\n<p>If sign in fails try the browser login path or create a personal access token. If the installer hangs a restart often helps. For network problems check proxy and firewall settings.</p>\n<p>Start working with branches pulls and pushes and enjoy visual diffs and easier merges.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "Windows install",
+      "Git",
+      "Version control",
+      "Tutorial",
+      "How to install",
+      "Clone repository",
+      "Sign in GitHub",
+      "GitHub tips",
+      "Developer tools"
+    ]
+  },
+  {
+    "title": "GitHub Desktop Download Guide",
+    "description": "Quick tutorial to download and install GitHub Desktop on Windows or macOS with setup and troubleshooting tips",
+    "heading": "<h1>GitHub Desktop Download Guide</h1>",
+    "body": "<p>Download and install GitHub Desktop on Windows or macOS.</p><ol><li>Open the GitHub Desktop download page</li><li>Select the correct operating system</li><li>Download the installer file</li><li>Run the installer and follow the prompts</li><li>Sign in with a GitHub account</li><li>Set a Git user name and email</li><li>Clone or open a repository</li></ol><p><strong>Step 1</strong> Open the GitHub Desktop download page in a web browser. The official page hosts the latest stable build so avoid copies from random forums.</p><p><strong>Step 2</strong> Pick Windows or macOS depending on the device. The page usually suggests the right option so no need for psychic powers.</p><p><strong>Step 3</strong> Click the download button and save the installer file to a familiar folder. Large downloads will show progress in the browser so a snack break is optional.</p><p><strong>Step 4</strong> Run the downloaded installer. Allow the installer to make changes when the system asks. Follow the on screen prompts to complete setup.</p><p><strong>Step 5</strong> When prompted sign in with a GitHub account. Signing in links the desktop client to the online account and enables easy repository access.</p><p><strong>Step 6</strong> Configure Git with a user name and email during setup or from the app preferences. These values appear in commits and help other contributors know who wrote the code.</p><p><strong>Step 7</strong> Use the menu to clone a remote repository or open a local repository. The app shows repository history and makes branching less terrifying.</p><p>If a problem occurs check firewall settings and ensure the system meets minimum requirements. For authentication problems regenerate a personal access token on the GitHub website and use that in place of a password.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "download guide",
+      "install guide",
+      "Windows",
+      "macOS",
+      "Git setup",
+      "clone repository",
+      "version control",
+      "troubleshooting",
+      "developer tools"
+    ]
+  },
+  {
+    "title": "GitHub Desktop Installation Guide",
+    "description": "Step by step installation and setup for GitHub Desktop on Windows and macOS with troubleshooting tips",
+    "heading": "<h1>GitHub Desktop Installation Guide</h1>",
+    "body": "<p>Install GitHub Desktop on Windows or macOS and get a local Git GUI ready to use.</p>\n<ol> <li>Download the installer for Windows or macOS</li> <li>Run the installer</li> <li>Sign in with a GitHub account</li> <li>Configure Git name and email</li> <li>Clone or create a repository</li> <li>Troubleshoot common problems</li>\n</ol>\n<h3>Download the installer</h3>\n<p>Open a browser and go to the official GitHub Desktop download area. Choose the platform that matches the computer. The downloaded package will land in the downloads folder like a predictable tax notice.</p>\n<h3>Run the installer</h3>\n<p>Double click the installer package and follow the prompts. Grant permissions when the operating system asks for approval. The installer will place the app in the standard applications folder to avoid surprises.</p>\n<h3>Sign in with a GitHub account</h3>\n<p>Launch GitHub Desktop and sign in using a GitHub account. Connecting the app to an account unlocks repository sync and pull request features. No account still works for local work but syncing requires credentials.</p>\n<h3>Configure Git name and email</h3>\n<p>Set the author name and email used for commits. Use the following commands in a terminal if a manual setup is preferred</p>\n<p><code>git config --global user.name \"Your Name\"</code></p>\n<p><code>git config --global user.email \"you@example.com\"</code></p>\n<h3>Clone or create a repository</h3>\n<p>Use the app menu to clone a remote repository or create a new local repository. The GUI will show branches and changes without requiring memorization of arcane commands.</p>\n<h3>Troubleshoot common problems</h3>\n<p>Authentication issues often trace to expired tokens or cached credentials. Network problems may block cloning and fetching. Updating the app or re authenticating usually clears most roadblocks.</p>",
+    "tags": [
+      "github",
+      "github desktop",
+      "installation",
+      "setup",
+      "windows",
+      "macos",
+      "git",
+      "tutorial",
+      "troubleshooting",
+      "version control"
+    ]
+  },
+  {
+    "title": "Download GitHub Desktop for Your Computer",
+    "description": "Step by step guide to download and install GitHub Desktop on Windows and macOS with setup tips and quick fixes.",
+    "heading": "<h1>Download GitHub Desktop for Your Computer</h1>",
+    "body": "Download and install GitHub Desktop on Windows or macOS.\n<ol> <li>Verify system requirements</li> <li>Download the installer from the official site</li> <li>Run the installer</li> <li>Sign in with a GitHub account</li> <li>Configure Git identity</li> <li>Keep the client updated and troubleshoot</li>\n</ol>\n<h2>Verify system requirements</h2>\n<p>Make sure the computer runs a supported version of Windows or macOS and has enough free disk space. On Windows use Windows 10 64 bit or newer. On macOS use version 10.13 or newer. Administrator rights may be required for installation.</p>\n<h2>Download the installer</h2>\n<p>Open a browser and visit the GitHub Desktop site. Choose the download for the correct operating system. The browser will save an installer file to the downloads folder so the next step is painless unless the downloads folder has been living a chaotic life.</p>\n<h2>Run the installer</h2>\n<p>Double click the downloaded file and follow the on screen prompts to install the program. Accept any permissions and allow the installer to add the program to the applications or program files folder. The installer usually handles the heavy lifting.</p>\n<h2>Sign in with a GitHub account</h2>\n<p>Launch GitHub Desktop and select sign in. Use a GitHub username and password or follow the web based authentication flow. Signing in links the client to an account and unlocks cloning pushing and pull request features.</p>\n<h2>Configure Git identity</h2>\n<p>Open preferences and set a user name and email used for commits. For terminal lovers run these commands in a shell to set global values</p>\n<p><code>git config --global user.name \"Your Name\"</code></p>\n<p><code>git config --global user.email \"you@example.com\"</code></p>\n<h2>Keep the client updated and troubleshoot</h2>\n<p>Check for updates from the application menu. If a clone or push fails check network access and account credentials. Reinstall the program if installation files become corrupted. If the program refuses to behave try a restart of the computer and repeat the steps above.</p>\n<p>Happy committing and welcome to fewer command line headaches unless the command line is a hobby.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "download",
+      "install",
+      "Windows",
+      "macOS",
+      "Git",
+      "setup guide",
+      "desktop client",
+      "version control",
+      "installation tutorial"
+    ]
+  },
+  {
+    "title": "Install GitHub Desktop on Your Computer",
+    "description": "Step by step guide to download and set up GitHub Desktop on Windows and macOS with tips for common issues",
+    "heading": "<h1>Install GitHub Desktop on Your Computer</h1>",
+    "body": "<p>Quick task to download and install GitHub Desktop on Windows or macOS.</p><ol><li>Download installer</li><li>Run installer</li><li>Sign in</li><li>Set Git identity</li><li>Add or clone a repository</li><li>Commit and push changes</li></ol><p>Download the installer from the GitHub Desktop site using a browser. Choose the Windows or macOS option and save the file to a known folder. This part is boring but necessary and no amount of wishing will skip the download step.</p><p>Run the downloaded file. On Windows double click the executable. On macOS open the disk image and drag the app to Applications. Follow on screen prompts until the app appears in the application menu and behaves like a normal program.</p><p>Open GitHub Desktop and sign in with a GitHub account. Use existing credentials or create a new account on github.com. Signing in links the app to online repositories and prevents the kind of permission mysteries that make debugging fun for no one.</p><p>Set Git identity by entering a full name and an email address in the options. These values show up in commit history and matter for collaboration. Anonymous commits are dramatic but rarely helpful.</p><p>Add a local repository or clone a remote repository using the File menu. Choose a folder that is easy to find and watch as the repository downloads to the machine. Cloning makes a local copy of the project so real work can begin.</p><p>Make changes, write a clear commit message and press Commit to main or master. Use Push origin to send the changes to the remote repository. If strange errors appear consult the Help menu or search GitHub Docs for guidance.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "Git",
+      "Installation",
+      "Windows",
+      "macOS",
+      "Tutorial",
+      "Version Control",
+      "Clone",
+      "Commit",
+      "Setup"
+    ]
+  },
+  {
+    "title": "Install GitHub Desktop on Linux",
+    "description": "Step by step guide to install GitHub Desktop on major Linux distros using Flatpak or native packages with commands and tips",
+    "heading": "<h1>Install GitHub Desktop on Linux</h1>",
+    "body": "<p>Install GitHub Desktop on Linux using native packages or Flatpak for a friendly graphical Git client.</p><ol><li>Pick distribution and installation method</li><li>Update system and install required tools</li><li>Choose Flatpak or native package</li><li>Install the chosen package</li><li>Launch the application</li><li>Sign in and verify workflow</li></ol><p><strong>Step 1 Pick distribution and installation method</strong></p><p>Different distributions use different package managers. For Debian and Ubuntu prefer DEB builds or Flatpak. For Fedora use RPM or Flatpak. For Arch use the community repository or Flatpak. Pick a method that matches the level of system neatness desired.</p><p><strong>Step 2 Update system and install required tools</strong></p><p>Keep the package database fresh before installing. On Debian families run <code>sudo apt update</code> then apply upgrades. On Fedora run <code>sudo dnf update</code>. If the Flatpak route is chosen install the Flatpak runtime with the system package manager.</p><p><strong>Step 3 Choose Flatpak or native package</strong></p><p>Flatpak offers sandboxing and easy updates from Flathub. Native packages give tighter integration with the desktop. If sandboxing sounds appealing use Flatpak. If system integration matters choose the distro package.</p><p><strong>Step 4 Install the chosen package</strong></p><p>To install from Flathub run a Flatpak install command such as <code>flatpak install flathub io.github.shiftkey.GitHubDesktop</code>. For a DEB download run <code>sudo dpkg -i github-desktop-deb-file.deb</code> then fix dependencies with <code>sudo apt -f install</code>. For RPM use <code>sudo rpm -i github-desktop-rpm-file.rpm</code> or the distribution installer.</p><p><strong>Step 5 Launch the application</strong></p><p>Start the client from the application menu or run the CLI launcher name for the installed package. Expect a graphical welcome screen that asks for account details and basic configuration.</p><p><strong>Step 6 Sign in and verify workflow</strong></p><p>Connect the GitHub account and clone a small repository to verify commits push and pull as expected. If a credential prompt appears follow the on screen instructions to authorize the client.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "Linux",
+      "Install Guide",
+      "Flatpak",
+      "Debian",
+      "Ubuntu",
+      "Fedora",
+      "RPM",
+      "GUI Git client",
+      "Tutorial"
+    ]
+  },
+  {
+    "title": "GitHub for macOS Beginners Guide",
+    "description": "Step by step macOS guide to use GitHub with Terminal and GitHub Desktop for new developers",
+    "heading": "<h1>GitHub for macOS Beginners Guide</h1>",
+    "body": "<p>Set up GitHub on macOS and push a first repository using Terminal or GitHub Desktop.</p><ol><li>Install Git and GitHub Desktop</li><li>Configure Git and SSH</li><li>Create a local repository</li><li>Create a remote repository on GitHub</li><li>Push local code to GitHub</li><li>Work with branches and pull requests</li></ol><h2>Install Git and GitHub Desktop</h2><p>Use Homebrew or download from official pages and follow the installer. Command line fans can run <code>brew install git</code>. The GUI friendly may prefer GitHub Desktop for drag and drop drama control.</p><h2>Configure Git and SSH</h2><p>Set name and email with <code>git config --global user.name \"Your Name\"</code> and <code>git config --global user.email \"you@example.com\"</code>. Create an SSH key with <code>ssh-keygen -t ed25519 -C \"you@example.com\"</code> and add the public key to the GitHub account so pushes authenticate without repeated password pain.</p><h2>Create a local repository</h2><p>Pick a project folder and run <code>git init</code>. Stage changes with <code>git add .</code> and make the first snapshot with <code>git commit -m \"Initial commit\"</code>. If a project already exists use the same workflow to start tracking files.</p><h2>Create a remote repository on GitHub</h2><p>Use the GitHub web interface to make a new repository. Copy the remote URL and link the local repository with <code>git remote add origin [remote URL]</code>. Replace the bracketed value with the URL shown on the web page.</p><h2>Push local code to GitHub</h2><p>Send the main branch to the remote with <code>git push -u origin main</code>. After the first push future updates need only <code>git add</code>, <code>git commit</code> and <code>git push</code>.</p><h2>Work with branches and pull requests</h2><p>Create a feature branch using <code>git checkout -b my-feature</code>. Push the branch to the remote then open a pull request on GitHub to request review. This keeps the main branch tidy and reduces chances of surprise breakage.</p>",
+    "tags": [
+      "GitHub",
+      "macOS",
+      "Git",
+      "Beginners",
+      "Tutorial",
+      "Terminal",
+      "GitHub Desktop",
+      "SSH Keys",
+      "Version Control",
+      "Commands"
+    ]
+  },
+  {
+    "title": "How to Download GitHub on Mac",
+    "description": "Step by step guide to download and install GitHub Desktop on macOS with tips for signing in and configuring Git",
+    "heading": "<h1>How to Download GitHub on Mac</h1>",
+    "body": "<p>Task summary Download and install GitHub Desktop on a Mac.</p><ol><li>Download the installer</li><li>Open the DMG and move the app to Applications</li><li>Launch the app and sign in</li><li>Set up Git identity</li><li>Clone or add a repository</li></ol><p><strong>Step 1 Download the installer</strong></p><p>Visit the GitHub Desktop download page and choose the macOS version. Pick the build that matches Apple Silicon or Intel chips. The download arrives as a DMG file so no mystery here.</p><p><strong>Step 2 Open the DMG and move the app to Applications</strong></p><p>Double click the DMG to mount the image. Drag the GitHub Desktop app icon into the Applications folder. Finder copies the application to the system drive and macOS behaves like a helpful librarian.</p><p><strong>Step 3 Launch the app and sign in</strong></p><p>Open Applications and double click GitHub Desktop. The first run prompts to sign in to a GitHub account. Choose sign in with browser or enterprise credentials depending on account type.</p><p><strong>Step 4 Set up Git identity</strong></p><p>Open Preferences and enter a name and email that match the GitHub account. Those values appear in commit history and prevent confusing author names later on.</p><p><strong>Step 5 Clone or add a repository</strong></p><p>Use the File menu to clone a repository from GitHub or to add an existing folder as a repository. The app handles pulls pushes and branch management with a friendly GUI that many developers find calming.</p><p>Note on permissions If macOS blocks the installation open System Preferences then Security Privacy and allow apps from identified developers.</p><p>Pro tip Sign in with an account that has repository access unless the plan is to stare at an empty repo list wondering why nothing shows up.</p><p>Enjoy a smoother workflow with visual Git and fewer terminal tantrums.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "GitHub Mac",
+      "Download GitHub",
+      "Install GitHub Desktop",
+      "macOS Git",
+      "GitHub tutorial",
+      "Mac software",
+      "Developer tools",
+      "Version control",
+      "GitHub guide"
+    ]
+  },
+  {
+    "title": "Install GitHub on Mac",
+    "description": "Step by step guide to install GitHub Desktop and the Git command line on macOS with options for Homebrew and Xcode tools",
+    "heading": "<h1>Install GitHub on Mac</h1>",
+    "body": "<p>Install GitHub Desktop and the Git command line on macOS so repositories can be managed locally and pushed to GitHub.</p>\n<ol>\n<li>Download GitHub Desktop</li>\n<li>Install Xcode Command Line Tools</li>\n<li>Install Git with Homebrew optional</li>\n<li>Sign in to GitHub Desktop</li>\n<li>Configure Git user name and email</li>\n<li>Clone or create a repository</li>\n</ol>\n<p>Download GitHub Desktop from desktop.github.com or the Mac App Store and open the app. The app handles a lot of setup for new users and spares a long trip down the command line rabbit hole.</p>\n<p>Install Xcode Command Line Tools by opening Terminal and running <code>xcode-select --install</code>. Those tools supply the system Git that many scripts expect and keep surprises to a minimum.</p>\n<p>If Homebrew is present run <code>brew install git</code> to get a newer Git. Homebrew is optional and handy for developers who enjoy package managers more than pain.</p>\n<p>Open GitHub Desktop and sign in with a GitHub account. The app links the account and offers to clone repositories without asking for a spell of arcane commands.</p>\n<p>Configure Git identity with commands like <code>git config --global user.name \"Your Name\"</code> and <code>git config --global user.email \"you@example.com\"</code>. Proper identity keeps commit history useful and accusations accurate.</p>\n<p>Use GitHub Desktop to create a new repository or clone an existing repository from the account. On the command line use <code>git clone &lt repo url&gt </code> and then start committing changes.</p>\n<p>Make a test commit and push to the repository to confirm everything works. Now go make commits and stop pretending to work without version control.</p>",
+    "tags": [
+      "GitHub",
+      "Mac",
+      "macOS",
+      "GitHub Desktop",
+      "Install",
+      "Homebrew",
+      "Git",
+      "Xcode Command Line Tools",
+      "Tutorial",
+      "Version Control"
+    ]
+  },
+  {
+    "title": "GitHub Desktop Mac Download Guide",
+    "description": "How to download and install GitHub Desktop on a Mac with clear steps for setup and updates",
+    "heading": "<h1>GitHub Desktop Mac Download Guide</h1>",
+    "body": "<p>Download and install GitHub Desktop on a Mac for a simple local Git GUI experience.</p> <ol> <li>Check macOS version and prerequisites</li> <li>Download the GitHub Desktop installer</li> <li>Install by moving the app to Applications</li> <li>Launch and sign in with a GitHub account</li> <li>Configure preferences and check for updates</li>\n</ol> <p><strong>Check macOS version and prerequisites</strong> Confirm the Mac is running a supported macOS release and that available disk space is sufficient. If a command line Git exists from another source consider which Git the app should use.</p> <p><strong>Download the GitHub Desktop installer</strong> Use an official download source such as the GitHub Desktop website or the Mac App Store. The website provides the latest build while the App Store handles future updates.</p> <p><strong>Install by moving the app to Applications</strong> Open the downloaded file and drag GitHub Desktop into the Applications folder. That classic drag step still works and prevents the app from wandering into Downloads land.</p> <p><strong>Launch and sign in with a GitHub account</strong> Open the app and follow the sign in prompt to connect a GitHub.com or GitHub Enterprise account. Authentication enables cloning, pushing and other repository actions.</p> <p><strong>Configure preferences and check for updates</strong> Set global name and email for commits and choose a preferred text editor. Periodically check the app menu for updates so new features and security fixes arrive without drama.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "Mac",
+      "Download",
+      "Install",
+      "macOS",
+      "Git",
+      "GitHub",
+      "App",
+      "Tutorial",
+      "Setup"
+    ]
+  },
+  {
+    "title": "Install GitHub Desktop on Mac",
+    "description": "Step by step guide to download install and set up GitHub Desktop on Mac with tips for authentication and common fixes",
+    "heading": "<h1>Install GitHub Desktop on Mac</h1>",
+    "body": "<p>Install GitHub Desktop on a Mac to manage repositories with a friendly graphical interface.</p><ol><li>Check macOS version and requirements</li><li>Download GitHub Desktop</li><li>Open the disk image and install</li><li>Launch and sign in to GitHub</li><li>Configure Git and clone a repository</li></ol><h3>Step 1</h3><p>Click the Apple menu and choose About This Mac to check the macOS version. Ensure the Mac runs macOS 10.14 or later to avoid compatibility surprises.</p><h3>Step 2</h3><p>Open a browser and visit the GitHub Desktop download page. Use <a href=\"//desktop.github.com\">desktop.github.com</a> to grab the disk image for Mac.</p><h3>Step 3</h3><p>Open the downloaded DMG file. Drag GitHub Desktop to the Applications folder. Yes drag and drop still feels like wizardry but that is the supported method.</p><h3>Step 4</h3><p>Launch GitHub Desktop from the Applications folder. Sign in with a GitHub account using the web authentication flow or by entering a personal access token. Grant requested permissions when the app asks to access local repositories.</p><h3>Step 5</h3><p>Configure Git user details and then clone a repository to start working. Run these commands in Terminal to set identity for commits.</p><p><code>git config --global user.name \"Your Name\"</code></p><p><code>git config --global user.email \"you@example.com\"</code></p><p>Use the File menu in the app to Clone repository and paste a repository URL or pick a repository from the account. The cloned repository appears in the left sidebar and can be opened in a code editor.</p><p><strong>Tip</strong> If sign in fails use the web authentication flow or generate a personal access token from the GitHub account settings and paste the token when the app asks. Check logs in the Help menu for troubleshooting and grant full disk access in System Preferences if permission errors persist.</p>",
+    "tags": [
+      "github",
+      "github desktop",
+      "mac",
+      "macos",
+      "installation",
+      "guide",
+      "git",
+      "setup",
+      "tutorial",
+      "developer tools"
+    ]
+  },
+  {
+    "title": "GitHub Desktop Windows Download Guide",
+    "description": "Step by step guide to download and install GitHub Desktop on Windows with setup tips and troubleshooting",
+    "heading": "<h1>GitHub Desktop Windows Download Guide</h1>",
+    "body": "<p>Download and install GitHub Desktop on Windows in a few quick steps.</p>\n<ol>\n<li>Get the Windows installer</li>\n<li>Run the installer</li>\n<li>Sign in to a GitHub account</li>\n<li>Configure preferences and clone a repository</li>\n</ol>\n<p>Open a web browser and search for GitHub Desktop download then pick the official page. Download the Windows installer file which will be an .exe and likely land in the default downloads folder.</p>\n<p>Double click the installer file and follow the on screen prompts. Accept any User Account Control prompt by granting administrator rights so the setup can modify the system as required.</p>\n<p>When the application launches choose Sign in with GitHub. Enter credentials or use the browser based flow to authenticate. Signing in enables access to private repositories and makes cloning less awkward.</p>\n<p>Adjust theme and default editor from the options menu and then click Clone a repository to pick a repository from the account or paste a repository link. To add a local project drag a folder into the application window.</p>\n<p>If something misbehaves check for pending Windows updates and confirm the .exe completed download without corruption. For authentication errors generate a personal access token on the GitHub account web page and use that token when prompted by the application.</p>\n<p>Enjoy a GUI for Git that saves time and spares the keyboard drama for people who prefer point and click. If the command line feels neglected that is a separate therapy session.</p>",
+    "tags": [
+      "GitHub",
+      "GitHub Desktop",
+      "Windows",
+      "Download",
+      "Install",
+      "Setup",
+      "Git",
+      "Repository",
+      "Version Control",
+      "Guide"
+    ]
+  },
+  {
+    "title": "GitHub Desktop Windows Installation Guide",
+    "description": "Step by step guide to install GitHub Desktop on Windows with clear steps for download setup sign in and basic repo use.",
+    "heading": "<h1>GitHub Desktop Windows Installation Guide</h1>",
+    "body": "<p>Install GitHub Desktop on a Windows PC in a few tidy steps.</p>\n<ol> <li>Download the installer</li> <li>Run the installer</li> <li>Sign in to GitHub</li> <li>Configure Git preferences</li> <li>Clone or create a repository</li> <li>Open project in code editor</li>\n</ol>\n<h3>Download the installer</h3>\n<p>Visit the official GitHub Desktop page and choose the Windows download option. Save the installer in the Downloads folder for quick access.</p>\n<h3>Run the installer</h3>\n<p>Double click the downloaded file and follow the on screen prompts. Allow the setup program to finish before launching the application.</p>\n<h3>Sign in to GitHub</h3>\n<p>Launch GitHub Desktop and sign in using a GitHub account. Grant the requested permissions to allow repository access.</p>\n<h3>Configure Git preferences</h3>\n<p>Open the Preferences menu to set a display name and commit email. For fanatical control use a terminal and run these commands</p>\n<code>git config --global user.name \"Your Name\"</code>\n<code>git config --global user.email \"name@example.com\"</code>\n<h3>Clone or create a repository</h3>\n<p>Use the File menu to clone a remote repository or to create a new local project. Choose a sensible folder so files do not multiply like tribbles.</p>\n<h3>Open project in code editor</h3>\n<p>Choose Repository then Open in Visual Studio Code or pick a favored editor. The editor will show tracked changes and branch controls for smooth work flow.</p>\n<p>If something goes wrong check the application log and retry the relevant step while maintaining calm and a sense of humor.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "Windows",
+      "Installation",
+      "Setup",
+      "Git",
+      "Repository",
+      "Clone",
+      "Sign in",
+      "Troubleshooting",
+      "Guide"
+    ]
+  },
+  {
+    "title": "GitHub Desktop Quick Start Tutorial",
+    "description": "Set up GitHub Desktop fast. Clone a repo, make commits, push changes, and open a pull request with simple steps.",
+    "heading": "<h1>GitHub Desktop Quick Start Tutorial</h1>",
+    "body": "<p>Set up GitHub Desktop and push a new commit to a GitHub repository.</p>\n<ol> <li>Install GitHub Desktop and sign in</li> <li>Clone an existing repository or create a new one</li> <li>Make changes and commit with a clear message</li> <li>Push commits to the remote repository</li> <li>Open a pull request on GitHub</li>\n</ol>\n<h3>Install GitHub Desktop and sign in</h3>\n<p>Download the app and follow the installer like a responsible developer. Launch the app and sign in using GitHub credentials. The app configures a local Git environment so local work plays nicely with the remote repository.</p>\n<h3>Clone an existing repository or create a new one</h3>\n<p>Use the app to clone a repository from a profile or create a new repository on the local machine. The repository will appear in the left pane and show branch information so the next step does not feel mysterious.</p>\n<h3>Make changes and commit with a clear message</h3>\n<p>Edit files in the preferred editor and return to GitHub Desktop to stage the changes. Write a short descriptive commit message that tells future humans what was fixed or added. The commit records a snapshot of the code and a reason for the change.</p>\n<h3>Push commits to the remote repository</h3>\n<p>Use the Push button to send local commits to the remote origin. The remote repository receives the new history and other collaborators can fetch those changes without drama.</p>\n<h3>Open a pull request on GitHub</h3>\n<p>After pushing a branch, open the repository on GitHub and start a pull request. Add reviewers and a concise description. The pull request wraps the work in a reviewable package so the change can be merged when approved.</p>\n<p>Tip Use clear branch names and commit messages to avoid long detective sessions later.</p>",
+    "tags": [
+      "GitHub",
+      "GitHub Desktop",
+      "Git",
+      "Version Control",
+      "Tutorial",
+      "Quick Start",
+      "Clone",
+      "Commit",
+      "Push",
+      "Developer Tools"
+    ]
+  },
+  {
+    "title": "Install GitHub Desktop in Minutes",
+    "description": "Quick step by step guide to download install and start using GitHub Desktop on Windows or macOS in minutes.",
+    "heading": "<h1>Install GitHub Desktop in Minutes</h1>",
+    "body": "<p>Get GitHub Desktop downloaded installed and opened so a repository can be managed with a friendly GUI.</p>\n<ol>\n<li>Download the app</li>\n<li>Run the installer</li>\n<li>Sign in to GitHub</li>\n<li>Add or clone a repository</li>\n<li>Make a commit and push</li>\n</ol>\n<h3>Download the app</h3>\n<p>Visit <a href=\"//desktop.github.com\">GitHub Desktop</a> and choose the package for Windows or macOS. The download should start fast unless network gremlins are present.</p>\n<h3>Run the installer</h3>\n<p>Open the downloaded file and follow the prompts. The installer will place the client in the Applications folder on macOS or the Start menu on Windows. Grant permissions if the operating system asks for them.</p>\n<h3>Sign in to GitHub</h3>\n<p>Launch the client and click sign in. Connect the client to a GitHub account by entering credentials or using the browser flow. Doing this links the client to an account for push and pull operations.</p>\n<h3>Add or clone a repository</h3>\n<p>Use the Add Existing Repository option to link a local folder or choose Clone Repository to copy one from a remote account. Paste the repository URL or pick from the account list for a quick clone.</p>\n<h3>Make a commit and push</h3>\n<p>Stage changes using the GUI write a concise commit message and commit. Click Push to send the branch to the remote repository. The client will show sync status and any conflicts that require attention.</p>\n<p>Troubleshooting tip use the Help menu to view logs or open the repository in the terminal for advanced git commands. The client keeps basic workflows simple while allowing a fast escape to the command line when required.</p>",
+    "tags": [
+      "GitHub",
+      "GitHub Desktop",
+      "install",
+      "setup",
+      "Windows",
+      "macOS",
+      "version control",
+      "git",
+      "tutorial",
+      "developer tools"
+    ]
+  },
+  {
+    "title": "GitHub Desktop Install Guide for Beginners",
+    "description": "Step by step guide to install GitHub Desktop on Windows and macOS with setup tips authentication help and common fixes for beginners",
+    "heading": "<h1>GitHub Desktop Install Guide for Beginners</h1>",
+    "body": "<p>Install GitHub Desktop on Windows or macOS and link a GitHub account for simple version control.</p><ol><li>Download GitHub Desktop</li><li>Run the installer</li><li>Sign in to GitHub</li><li>Configure Git identity</li><li>Clone or create a repository</li><li>Commit and push changes</li><li>Troubleshoot common issues</li></ol><h3>Download GitHub Desktop</h3><p>Visit <a>desktop.github.com</a> and choose the download for Windows or macOS. Save the installer in the downloads folder and do a little happy dance for completing step one.</p><h3>Run the installer</h3><p>On macOS drag the app into the Applications folder. On Windows run the installer and accept default options unless a custom location is needed. The app should appear in the start menu or Launchpad.</p><h3>Sign in to GitHub</h3><p>Open GitHub Desktop and choose Sign in. Authenticate using a browser or enter account credentials. Grant requested permissions so the app can talk to the online repository host.</p><h3>Configure Git identity</h3><p>Open Options or Preferences and set name and email. Those values show on every commit and help match contributions to the GitHub account.</p><h3>Clone or create a repository</h3><p>Use the File menu to Clone repository from GitHub or Create new repository locally. Pick a clear name and a sensible local path. Initialize with a README if that sounds tidy.</p><h3>Commit and push changes</h3><p>Stage changed files, write a concise commit message and click Commit to main or the active branch. Use Push origin to upload changes to the remote repository and avoid mysterious missing work later.</p><h3>Troubleshoot common issues</h3><p>If authentication fails reauthorize the app from the GitHub account settings. If push is rejected pull the latest remote changes and resolve any merge conflicts. For network trouble check firewall and proxy rules and consult the logs from the Help menu.</p><p><strong>Tip</strong> Use the Help menu for logs and guidance when the command line feels like ancient ritual.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "Git",
+      "Installing GitHub Desktop",
+      "Beginner Guide",
+      "Windows",
+      "macOS",
+      "Version Control",
+      "Setup",
+      "Commit",
+      "Troubleshooting"
+    ]
+  },
+  {
+    "title": "GitHub Login How to Sign In",
+    "description": "Step by step guide to sign in to GitHub on web and mobile with tips for two factor and common login errors",
+    "heading": "<h1>GitHub Login How to Sign In</h1>",
+    "body": "<p>Sign in to GitHub using a browser or the mobile app in a few quick steps.</p>\n<ol> <li>Open GitHub</li> <li>Enter username or email and password</li> <li>Complete two factor authentication if enabled</li> <li>Troubleshoot access problems</li>\n</ol>\n<h2>1 Open GitHub</h2>\n<p>Go to github.com or open the GitHub app on a phone. Use a secure network and avoid public Wi Fi that loves surprises.</p>\n<h2>2 Enter username or email and password</h2>\n<p>Type the account username or email and the account password. If the password refuses to cooperate use the Forgot password link to reset via an email address that still receives messages.</p>\n<h2>3 Complete two factor authentication</h2>\n<p>If two factor authentication is enabled provide the code from an authentication app or use a hardware security key. For SMS codes check the phone number that receives texts.</p>\n<h2>4 Troubleshoot access problems</h2>\n<p>If access is blocked check the email from GitHub for instructions. For SSH login issues ensure the public key is added to the account and the local private key has correct permissions and file mode.</p>\n<p>Prefer staying signed in on a personal device use the remember me option on the sign in form. On shared machines sign out after the session and clear saved credentials from the browser.</p>",
+    "tags": [
+      "GitHub",
+      "Login",
+      "Sign In",
+      "GitHub Login",
+      "Two Factor Authentication",
+      "2FA",
+      "Password Reset",
+      "GitHub Mobile",
+      "SSH Keys",
+      "Authentication"
+    ]
+  },
+  {
+    "title": "GitHub Login Troubleshooting Guide",
+    "description": "Quick steps to resolve GitHub login problems for passwords two factor SSH browser cookies and account access",
+    "heading": "<h1>GitHub Login Troubleshooting Guide</h1>",
+    "body": "<p>Fix common GitHub login problems such as wrong password two factor blocked cookies and SSH issues</p><ol><li>Check username and password</li><li>Reset password</li><li>Verify two factor authentication</li><li>Clear browser data or try private window</li><li>Use personal access token for Git over HTTPS</li><li>Check SSH keys</li><li>Check account status and email</li><li>Contact GitHub support</li></ol><h2>Check username and password</h2><p>Enter the GitHub username and password slowly and with attention. Caps lock and sneaky extra spaces ruin many mornings. Try logging on a different device to rule out a cursed keyboard.</p><h2>Reset password</h2><p>Request a password reset from the GitHub password page. Follow the email link and choose a strong password. Password managers can help prevent heroic memory fails.</p><h2>Verify two factor authentication</h2><p>If two factor is enabled confirm the authenticator app or hardware key is present. Backup codes provide a rescue path when phone vanishes into a couch black hole.</p><h2>Clear browser data or try private window</h2><p>Old cookies or extensions can block the login flow. Open a private window or clear cookies for github.com and try again. Browser extensions can be dramatic performers.</p><h2>Use personal access token for Git over HTTPS</h2><p>Recent GitHub policy prefers personal access tokens for command line authentication. Create a token in account settings and use that as the password for Git operations.</p><h2>Check SSH keys</h2><p>Confirm the public key is added to the GitHub account and the private key is loaded in the SSH agent. Test with <code>ssh -T git@github.com</code> to see if the server recognizes the key.</p><h2>Check account status and email</h2><p>Look for account suspension notifications or security alerts in the account email. Sometimes action from the account owner is required before access returns.</p><h2>Contact GitHub support</h2><p>If all else fails open a support request from the GitHub help page and provide screenshots and timestamps. Support agents are human and appreciate clear details.</p>",
+    "tags": [
+      "GitHub",
+      "login troubleshooting",
+      "authentication",
+      "2FA",
+      "password reset",
+      "SSH keys",
+      "personal access token",
+      "browser cookies",
+      "Git operations",
+      "support"
+    ]
+  },
+  {
+    "title": "Install GitHub Desktop on Ubuntu Step by Step",
+    "description": "Step by step guide to install GitHub Desktop on Ubuntu with commands and tips for a smooth setup",
+    "heading": "<h1>Install GitHub Desktop on Ubuntu Step by Step</h1>",
+    "body": "<p>Download the Debian package for GitHub Desktop and install on Ubuntu using apt for a quick desktop Git client setup.</p>\n<ol>\n<li>Download the Debian package from the GitHub Desktop releases page</li>\n<li>Open a terminal and update package lists</li>\n<li>Install the downloaded package</li>\n<li>Fix any missing dependencies</li>\n<li>Launch GitHub Desktop and sign in</li>\n</ol>\n<h2>Step 1 Download the package</h2>\n<p>Open a browser and visit the GitHub Desktop releases page. Choose the Debian package for Ubuntu 64 bit and save the file to the Downloads folder. Yes this requires a browser because manual download keeps versions predictable.</p>\n<h2>Step 2 Update package lists</h2>\n<p>Open a terminal and run <code>cd ~/Downloads</code> and <code>sudo apt update</code>. Updating package lists makes sure the package manager can resolve any dependencies during installation.</p>\n<h2>Step 3 Install the package</h2>\n<p>Run <code>sudo apt install ./github-desktop-x.y.z.deb</code> to install the downloaded package directly. If the system refuses the file run <code>sudo dpkg -i github-desktop-x.y.z.deb</code> then follow with the dependency fix command shown next.</p>\n<h2>Step 4 Fix missing dependencies</h2>\n<p>If the package manager reports missing libraries run <code>sudo apt -f install</code>. That command will fetch and install any required libraries and complete the installation process.</p>\n<h2>Step 5 Launch and sign in</h2>\n<p>Open the application menu and start GitHub Desktop or run <code>github-desktop</code> from a terminal. Sign in with a GitHub account and configure the Git name and email when prompted. The desktop client will handle commits and branches with less command line drama.</p>\n<p>If a packaged build from a community store is preferred search the Snap or Flatpak store for GitHub Desktop builds. Enjoy a graphical Git experience on Ubuntu.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "Ubuntu",
+      "Linux",
+      "installation",
+      "tutorial",
+      "Debian package",
+      "apt",
+      "Git",
+      "desktop client",
+      "how to"
+    ]
+  },
+  {
+    "title": "GitHub Desktop Login Guide",
+    "description": "Step by step guide to sign into GitHub Desktop and link a GitHub account for cloning pushing and syncing repositories.",
+    "heading": "<h1>GitHub Desktop Login Guide</h1>",
+    "body": "Sign into GitHub Desktop and link a GitHub account so repositories can be cloned and synced. <ol> <li>Open GitHub Desktop</li> <li>Choose Sign in to GitHub.com</li> <li>Authenticate using the web browser</li> <li>Authorize GitHub Desktop to access the account</li> <li>Select the account or organization to use</li> <li>Clone or add a repository and set a Git identity</li>\n</ol> <p><strong>Open GitHub Desktop</strong></p>\n<p>Launch the app from the Start menu or the Applications folder. The app welcomes new users with a setup screen and welcomes returning users with the last open repository. No magic required just click open and move on.</p> <p><strong>Choose Sign in to GitHub.com</strong></p>\n<p>On the main window locate the sign in prompt or use the File menu to find the sign in option. This will kick off a standard OAuth flow that links the desktop app with the GitHub account.</p> <p><strong>Authenticate using the web browser</strong></p>\n<p>The browser will open and ask for GitHub credentials. Enter username and password or complete single sign on if the company uses an identity provider. Two factor prompts will appear when two factor is enabled which is a good thing for security.</p> <p><strong>Authorize GitHub Desktop to access the account</strong></p>\n<p>Grant the requested permissions on the GitHub web page. Those permissions let the app list repositories clone code and push changes. Grant only what is needed and move along.</p> <p><strong>Select the account or organization to use</strong></p>\n<p>After authorization return to the app and choose between a personal account or an organization. The app will show available repositories that can be cloned or added.</p> <p><strong>Clone or add a repository and set a Git identity</strong></p>\n<p>Clone a repository from the list or use Add to open a local folder. Set the Git user name and email in the app preferences so commits show the correct author. If push fails check authentication status and regenerate an access token via the GitHub web settings when required.</p> <p>If a sign in error appears try signing out from the app then sign in again. For corporate single sign on contact the admin when a policy blocks authorization.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "GitHub login",
+      "login guide",
+      "connect account",
+      "Git GUI",
+      "clone repository",
+      "Git authentication",
+      "OAuth login",
+      "two factor auth",
+      "troubleshooting"
+    ]
+  },
+  {
+    "title": "How to Use GitHub Desktop for Beginners",
+    "description": "Step by step guide to install configure and use GitHub Desktop for basic Git workflows including cloning committing branching and pushing.",
+    "heading": "<h1>How to Use GitHub Desktop for Beginners</h1>",
+    "body": "<p>Install configure and use GitHub Desktop to perform basic Git workflows on a local machine.</p>\n<ol> <li>Download and install GitHub Desktop</li> <li>Sign in and set preferences</li> <li>Clone or create a repository</li> <li>Make changes and commit</li> <li>Create and manage branches</li> <li>Push and sync changes with GitHub</li>\n</ol>\n<h3>Download and install</h3>\n<p>Get the installer from desktop dot github dot com or use the platform store. Run the installer and follow the prompts to place the application on the machine. The app bundles Git so a separate Git installation is not required for basic work.</p>\n<h3>Sign in and set preferences</h3>\n<p>Sign in with a GitHub account through the application and grant access for repositories. Set a preferred code editor and name and email for commits so the repository history looks professional and not mysterious.</p>\n<h3>Clone or create a repository</h3>\n<p>Use the repository menu to clone using a URL or choose create new repository to start a fresh project. Cloning copies the remote repository to the local machine so local work can begin without nervous typing of commands.</p>\n<h3>Make changes and commit</h3>\n<p>Edit files in the chosen editor then return to GitHub Desktop to review changes. Stage changed files by checking boxes add a clear commit summary and press Commit to record a snapshot in the repository history.</p>\n<h3>Create and manage branches</h3>\n<p>Create a branch from the current branch to isolate new work. Switch between branches to test features or fix bugs without disturbing the main branch and keep history tidy.</p>\n<h3>Push and sync changes with GitHub</h3>\n<p>Push commits to the remote repository to share work with collaborators. Fetch or pull from the remote before merging to avoid surprises and resolve conflicts with a calm attitude.</p>\n<p>Now go make a commit that future self will thank for.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "GitHub",
+      "Git",
+      "Version Control",
+      "Beginner Tutorial",
+      "How To",
+      "Clone Repository",
+      "Commit Changes",
+      "Branching",
+      "Push and Pull"
+    ]
+  },
+  {
+    "title": "SourceTree vs GitHub Desktop",
+    "description": "Compare SourceTree and GitHub Desktop to see which Git GUI fits advanced workflows or simple GitHub focused tasks.",
+    "heading": "<h1>SourceTree vs GitHub Desktop</h1>",
+    "body": "<p>The key difference between SourceTree and GitHub Desktop is that SourceTree aims at advanced workflows and multiple hosting providers while GitHub Desktop favors a simplified Git experience for GitHub users.</p> <h2>Overview</h2>\n<p>SourceTree presents a detailed commit graph and many options for branch and stash management. GitHub Desktop offers a cleaner surface with fewer controls so everyday tasks finish faster.</p> <h2>Feature snapshot</h2>\n<ol>\n<li><strong>Platform support</strong> SourceTree runs on Mac and Windows and works with several remote hosts. GitHub Desktop runs on Mac and Windows and integrates tightly with GitHub services.</li>\n<li><strong>Workflow tools</strong> SourceTree shows history and offers fine staged changes for partial commits. GitHub Desktop focuses on common workflows to avoid overwhelming newcomers.</li>\n<li><strong>Learning curve</strong> SourceTree has more menus and options which rewards time spent learning. GitHub Desktop gets users pushing code without a deep Git lesson.</li>\n<li><strong>Advanced operations</strong> SourceTree exposes rebase and patch handling for power users. GitHub Desktop handles merges and basic conflict resolution without extra complexity.</li>\n</ol> <h2>Which to choose</h2>\n<p>Pick SourceTree when developers need fine grained control across multiple hosts and detailed visualization. Pick GitHub Desktop when the main goal is fast commits and clear integration with GitHub.</p> <p>If a GUI had a personality SourceTree would wear a tool belt and GitHub Desktop would prefer a pair of comfortable sneakers. Choose the personality that matches the task.</p>",
+    "tags": [
+      "SourceTree",
+      "GitHub Desktop",
+      "Git GUI",
+      "Git comparison",
+      "Version control",
+      "Developer tools",
+      "Branch management",
+      "Git workflows",
+      "Git for beginners",
+      "Advanced Git"
+    ]
+  },
+  {
+    "title": "GitKraken vs GitHub Desktop",
+    "description": "Compare GitKraken and GitHub Desktop to pick the best Git GUI for features ease of use integrations and workflows.",
+    "heading": "<h1>GitKraken vs GitHub Desktop</h1>",
+    "body": "<p>The key difference between GitKraken and GitHub Desktop is that GitKraken emphasizes a powerful cross platform GUI with advanced repository management and integrations while GitHub Desktop emphasizes a minimal and focused client with seamless GitHub workflows.</p><h2>Interface and workflow</h2><p>GitKraken uses a visual commit graph with drag and drop for branching and merging. That visual approach helps when dealing with complex histories. GitHub Desktop offers a straightforward commit history and a simple branch switcher that reduces decision fatigue during daily work.</p><h2>Features</h2><p>GitKraken includes built in merge tools Gitflow support and authentication for multiple hosting services. The program also bundles editor integration and cross platform performance. GitHub Desktop focuses on quick staging clear diffs and one click synchronization with GitHub repositories. That makes the client a light choice for contributors who live on GitHub.</p><h2>Performance and pricing</h2><p>GitKraken is free for basic use with paid tiers for teams and advanced features. The program can feel heavier on older machines. GitHub Desktop is fully free and very light on system resources. Budget conscious users and beginners often prefer that client.</p><h3>When to choose which</h3><ol><li>Choose GitKraken when advanced visual tools and multi service workflows matter.</li><li>Choose GitHub Desktop when simplicity GitHub integration and low resource use matter.</li><li>Try both when unsure because personal workflow preferences matter more than feature lists.</li></ol><p>Both clients make Git less painful. Expect a short learning curve for GitKraken and a very mild learning curve for GitHub Desktop. Pick the program that matches the team's workflow not the fanciest feature list.</p>",
+    "tags": [
+      "GitKraken",
+      "GitHub Desktop",
+      "Git GUI",
+      "Version Control",
+      "Git Comparison",
+      "Developer Tools",
+      "Git Clients",
+      "Git Workflow",
+      "Open Source",
+      "Productivity"
+    ]
+  },
+  {
+    "title": "GitLab vs GitHub Desktop",
+    "description": "Compare GitLab and GitHub Desktop to choose between a full DevOps platform and a desktop Git client for local workflows.",
+    "heading": "<h1>GitLab vs GitHub Desktop</h1>",
+    "body": "<p>The key difference between GitLab and GitHub Desktop is scope and purpose.</p><p>GitLab is a full lifecycle platform for repository hosting, CI and CD, issue tracking and deployments. GitLab supports self hosted servers and hosted service. GitLab provides integrated pipelines and access controls for teams that want a single place to run code review, testing and delivery without juggling multiple tools.</p><p>GitHub Desktop is a graphical Git client focused on making local branching, committing and push flows easier on desktop machines. GitHub Desktop integrates with the GitHub service for pull requests and releases and removes command line friction for casual contributors and designers who prefer a GUI over a terminal.</p><h2>When to pick GitLab</h2><p><strong>Choose GitLab</strong> when a team needs built in CI and project management, wants a self hosted option, or requires consolidated auditing and compliance tools for multiple projects.</p><h2>When to pick GitHub Desktop</h2><p><strong>Choose GitHub Desktop</strong> when the requirement is a friendly GUI for local workflow, when contributors need fast branch switching and commit staging, or when the collaboration backend is already on the GitHub service.</p><h3>Quick practical comparison</h3><p><strong>Scope</strong> GitLab covers the entire DevOps lifecycle while GitHub Desktop covers desktop Git operations.</p><p><strong>Use case</strong> GitLab suits platform level automation and governance. GitHub Desktop suits fast local edits and simple pull request creation.</p><p><strong>Learning curve</strong> GitLab has more features to learn. GitHub Desktop has a shallow learning profile that helps new contributors get started without fear of the terminal.</p><p>Pro tip for the command line shy crowd. Use a GUI client like GitHub Desktop for local branches and use the platform console for CI configuration on GitLab when automation and release pipelines are required.</p>",
+    "tags": [
+      "GitLab",
+      "GitHub Desktop",
+      "Version Control",
+      "Git",
+      "CI",
+      "DevOps",
+      "Git Clients",
+      "Comparison",
+      "Workflow",
+      "Code Review"
+    ]
+  },
+  {
+    "title": "Git vs GitHub Desktop",
+    "description": "Compare Git and GitHub Desktop to pick the right tool for version control workflows and GUI convenience.",
+    "heading": "<h1>Git vs GitHub Desktop</h1>",
+    "body": "<p>The key difference between Git and GitHub Desktop is that Git is a distributed version control system while GitHub Desktop is a graphical client for Git.</p>\n<h2>What Git offers</h2>\n<p><strong>Git</strong> runs from the command line and gives direct control over commits branches and history. Advanced operations such as rebase interactive staging and bisect are available for power workflows. Use commands such as <code>git add</code> <code>git commit</code> and <code>git push</code> to work with a repository.</p>\n<h2>What GitHub Desktop offers</h2>\n<p><strong>GitHub Desktop</strong> provides a visual interface for common Git tasks. The graphical client shows changes commit history and merges in a more friendly way. This option reduces the chance of catastrophic command line typos that cause crying at 2 AM.</p>\n<h2>When to choose which</h2>\n<ol>\n<li>Choose Git when deep control is required and scripts or CI pipelines need precise behavior</li>\n<li>Choose GitHub Desktop for quick local commits reviews and visual merge help</li>\n<li>Blend both for a balanced approach</li>\n</ol>\n<p>Beginners often start with GitHub Desktop to learn basic concepts without memorizing commands. Developers who require advanced branching strategies and automation will prefer Git on the command line. A practical workflow uses the graphical client for reviews and the command line for complex operations.</p>\n<p>If a command is needed try <code>git commit -m 'Update README'</code> or <code>git checkout -b feature-branch</code>. Remember that both tools operate on the same repository format so skills transfer across tools with minimal pain.</p>\n<p>No magic wand exists that removes merge conflicts but learning both tools reduces future regret and keyboard smashing.</p>",
+    "tags": [
+      "git",
+      "github",
+      "github desktop",
+      "version control",
+      "git gui",
+      "command line",
+      "git workflow",
+      "developer tools",
+      "git comparison",
+      "git tutorial"
+    ]
+  },
+  {
+    "title": "GitHub vs GitHub Desktop",
+    "description": "Compare the GitHub web platform with the GitHub Desktop app to choose the right workflow for collaboration local work and GUI needs.",
+    "heading": "<h1>GitHub vs GitHub Desktop</h1>",
+    "body": "<p>The key difference between GitHub and GitHub Desktop is that GitHub is a web based hosting and collaboration platform while GitHub Desktop is a cross platform GUI client for managing local repositories.</p> <h2>What the web platform does</h2>\n<p>GitHub hosts repositories on remote servers and provides pull requests, Actions for automation, issue tracking, code review, and access controls. That platform is where teams discuss changes and run automation pipelines.</p> <h2>What the Desktop client does</h2>\n<p>GitHub Desktop runs on a laptop or desktop and makes common repository tasks graphical. The app stages changes, manages branches, and syncs with the remote with a couple of clicks. That client appeals to anyone who dislikes the command line drama.</p> <h2>When to pick one or the other</h2>\n<ol> <li>Choose the web platform for collaboration and CI workflows</li> <li>Choose the Desktop client for local development and quick visual workflows</li> <li>Use both when convenience and control are both required</li>\n</ol> <p>Pick the platform when needing code review, team permissions, or automation. The platform is also the place to host pages and packages when a repository must be more than a folder.</p> <p>Open the Desktop client for simple commits, conflict resolution with a visual diff, and an easy way to push or pull without memorizing commands. The client does not replace the platform when team coordination or CI pipelines are needed.</p> <h3>A quick reality check</h3>\n<p>If the workflow includes lots of merge reviews and automated checks then the web platform will become the main stage. If the workflow is solo or the user prefers a GUI then the Desktop client will feel like a gentle hug from a helpful robot.</p> <p>Both pieces work together. Use the Desktop client when convenience matters and use the web platform when collaboration or automation matters more.</p>",
+    "tags": [
+      "GitHub",
+      "GitHub Desktop",
+      "Git",
+      "Version Control",
+      "GUI Client",
+      "Command Line",
+      "Repositories",
+      "Code Review",
+      "CI",
+      "Developer Tools"
+    ]
+  },
+  {
+    "title": "GitHub Desktop vs VSCode",
+    "description": "Compare GitHub Desktop and VSCode to pick the best tool for Git workflow and coding productivity with a dash of sarcasm.",
+    "heading": "<h1>GitHub Desktop vs VSCode</h1>",
+    "body": "The key difference between GitHub Desktop and VSCode is that GitHub Desktop focuses on a graphical Git workflow while VSCode is a full featured code editor with integrated Git tools.<p><h2>When to pick GitHub Desktop</h2></p><p>GitHub Desktop makes staging committing and branch management visual and approachable. The application reduces the need to memorize commands and keeps the focus on Git operations. This choice works well for designers writers new developers and anyone who prefers clicking over typing.</p><p><h2>When to pick VSCode</h2></p><p>VSCode combines a powerful editor with Git integration and a massive extension library. The editor offers inline diffs merge conflict helpers and a built in terminal for advanced workflows. This choice suits developers who want code navigation debugging and Git control all in one place.</p><p><h3>Quick pros and cons</h3></p><ol><li>GitHub Desktop pros include a clear visual staging area simple branch switching and a minimal learning curve.</li><li>GitHub Desktop cons include fewer advanced merge tools and limited customization.</li><li>VSCode pros include deep editor features rich extensions and full control over Git via terminal or UI.</li><li>VSCode cons include a steeper setup and occasional overload from too many extensions.</li></ol><p><h3>Practical workflow tips</h3></p><p>Use GitHub Desktop for quick commits visual reviews and simple branch management. Use VSCode for coding heavy sessions when debugging refactoring and precise commit crafting are needed. Combine both by using GitHub Desktop for quick GUI tasks and the editor for code changes and advanced Git commands like <code>git rebase</code> and <code>git cherry pick</code>.</p><p>Pick the tool that fits the current task. One tool will make life easier for commits and history viewing while the other will speed up actual code work.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "VSCode",
+      "Git",
+      "Code Editor",
+      "Version Control",
+      "Git GUI",
+      "Developer Tools",
+      "Programming",
+      "Productivity",
+      "Comparison"
+    ]
+  },
+  {
+    "title": "GitHub Desktop vs git bash",
+    "description": "A practical comparison of GitHub Desktop and git bash for GUI and CLI git workflows with pros cons and recommended use cases.",
+    "heading": "<h1>GitHub Desktop vs git bash</h1>",
+    "body": "<p>The key difference between GitHub Desktop and git bash is that GitHub Desktop provides a graphical workflow while git bash offers a command line workflow.</p> <h2>Workflows</h2>\n<p><strong>GitHub Desktop</strong> gives a visual interface for common tasks like commits merges and pushing. That visual approach helps users who prefer buttons and panels over memorizing commands. <strong>git bash</strong> gives direct access to the full git command set. That command line approach is faster for scripted tasks and advanced techniques once commands become muscle memory.</p> <h2>Pros and cons</h2>\n<p><strong>GitHub Desktop</strong> pros include simplified staging visual diff views and fewer mistakes from forgotten flags. Downsides include missing edge features and less precise control for complex merges. <strong>git bash</strong> pros include full feature access automation and compatibility with CI pipelines. Downsides include a steeper learning curve and a higher chance of typing the wrong command on a bad day.</p> <h2>Quick checklist</h2>\n<ol> <li>Choose GitHub Desktop when a visual review and quick commits matter.</li> <li>Choose git bash when scripting automation or using advanced git features matters.</li> <li>Use both when a GUI helps staging and the command line handles complex history rewriting.</li>\n</ol> <h2>Commands and tips</h2>\n<p>Common commands to learn in git bash include <code>git status</code> <code>git add</code> <code>git commit</code> and <code>git rebase</code>. For Desktop use the app to stage hunks and double check diffs before committing. Many developers keep both tools installed for different moods and tasks.</p> <p>Choose based on workflow needs learning goals and team practices. Both tools manage the same underlying repository so mixing the two is perfectly normal.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "git bash",
+      "GUI vs CLI",
+      "Git",
+      "Version control",
+      "Developer tools",
+      "Workflows",
+      "Commands",
+      "Beginner guide",
+      "Productivity"
+    ]
+  },
+  {
+    "title": "Connect Bitbucket to GitHub Desktop",
+    "description": "Step by step guide to connect a Bitbucket repository to GitHub Desktop for cloning committing and pushing changes.",
+    "heading": "<h1>Connect Bitbucket to GitHub Desktop</h1>",
+    "body": "<p>Quick task summary Clone a Bitbucket repository into GitHub Desktop so local work can be committed and pushed back to Bitbucket</p><ol><li>Copy the clone link from Bitbucket</li><li>Open GitHub Desktop and choose Clone from URL</li><li>Authenticate with Bitbucket credentials or create an app password</li><li>Choose a local folder and start the clone</li><li>Make changes commit and push back to Bitbucket</li></ol><h2>Copy the clone link from Bitbucket</h2><p>Open the repository page on Bitbucket and locate the clone button. Copy the HTTPS clone link so the desktop app can grab the repository files. No need to type the address by hand unless manual finger cramps are part of a daily routine.</p><h2>Open GitHub Desktop and choose Clone from URL</h2><p>In the desktop app pick Clone from URL and paste the previously copied link. The app will prepare a local copy of the repository. This step makes the remote code available on the developer workstation.</p><h2>Authenticate with Bitbucket credentials or create an app password</h2><p>When prompted provide Bitbucket username and password or use an app password for safer access. App passwords are useful for saved credentials and continuous workflows where interactive login is a bad fit.</p><h2>Choose a local folder and start the clone</h2><p>Select a folder where the repository will live and begin the clone. The process downloads the repository history and sets the remote origin to the Bitbucket repository so pushes go to the right location.</p><h2>Make changes commit and push back to Bitbucket</h2><p>Use GitHub Desktop to stage changes write a commit message and push the commit. The push sends new commits to the Bitbucket remote where teammates can review. If a push fails check authentication and remote URL settings using the repository menu or a terminal command.</p>",
+    "tags": [
+      "Bitbucket",
+      "GitHub Desktop",
+      "Git",
+      "clone",
+      "repository",
+      "app password",
+      "commit",
+      "push",
+      "version control",
+      "tutorial"
+    ]
+  },
+  {
+    "title": "Connect GitHub to GitHub Desktop",
+    "description": "Step by step guide to connect a GitHub account to GitHub Desktop for cloning pushing and syncing repositories on the desktop app",
+    "heading": "<h1>Connect GitHub to GitHub Desktop</h1>",
+    "body": "<p>This guide shows how to connect a GitHub account to GitHub Desktop for cloning pushing and syncing repositories.</p><ol><li>Install GitHub Desktop</li><li>Open GitHub Desktop and sign in</li><li>Authorize the app in the browser</li><li>Clone a repository or add a local folder</li><li>Push changes and pull updates to sync</li></ol><h3>Step 1 Install GitHub Desktop</h3><p>Download the app from the official GitHub Desktop site and run the installer. The installation finishes fast unless the computer prefers drama.</p><h3>Step 2 Open GitHub Desktop and sign in</h3><p>Launch GitHub Desktop and choose Sign in from the menu. Use the GitHub account credentials when prompted. If two factor authentication stands in the way follow the on screen prompts for a code.</p><h3>Step 3 Authorize the app in the browser</h3><p>A browser window will ask to authorize GitHub Desktop. Review the requested permissions and accept. This creates a secure token that allows the app to access repositories without password prompts.</p><h3>Step 4 Clone a repository or add a local folder</h3><p>Use the Clone repository option to grab a remote repository or use Add local repository to track an existing folder. Choose a clear folder name unless chaos is the goal.</p><h3>Step 5 Push changes and pull updates to sync</h3><p>Make changes locally then use Commit to record changes. Use Push to update the remote repository and Pull to bring remote changes down. The status bar shows sync state so no guessing is needed.</p><p>If a credential or permission error appears check GitHub account settings and the authorization token in the Desktop app. Happy coding and may merges be peaceful.</p>",
+    "tags": [
+      "github",
+      "github desktop",
+      "git",
+      "clone repository",
+      "push",
+      "pull",
+      "authentication",
+      "version control",
+      "desktop tutorial",
+      "sync"
+    ]
+  },
+  {
+    "title": "Add SSH Key to GitHub Desktop",
+    "description": "Step by step guide to add an SSH key to GitHub Desktop for secure Git pushes and pulls with commands and troubleshooting tips.",
+    "heading": "<h1>Add SSH Key to GitHub Desktop</h1>",
+    "body": "<p>Add an SSH key to GitHub Desktop so secure Git operations use SSH instead of password prompts.</p><ol><li>Generate or locate an SSH key</li><li>Copy the public key to the GitHub account</li><li>Configure GitHub Desktop to use SSH</li><li>Test the SSH connection</li></ol><h2>Generate or locate an SSH key</h2><p>Run <code>ssh-keygen -t ed25519 -C your_email@example.com</code> or check for an existing public key at <code>~/.ssh/id_ed25519.pub</code>. If a key exists skip generation. Generating a key usually takes seconds and does not require a ritual.</p><h2>Copy the public key to the GitHub account</h2><p>Open the public key file and copy the full contents. On the GitHub website go to Settings then SSH and GPG keys and click New SSH key. Paste the public key and save. The uploaded key will authorize the machine for SSH access to repositories associated with the account.</p><h2>Configure GitHub Desktop to use SSH</h2><p>Open GitHub Desktop preferences and set the Git protocol to SSH or choose the existing SSH key in the authentication area. If the application does not expose that option use the system SSH agent by running <code>eval $(ssh-agent -s)</code> and then <code>ssh-add ~/.ssh/id_ed25519</code>. After adding the private key the application should use key based access for SSH remotes.</p><h2>Test the SSH connection</h2><p>Run <code>ssh -T git@github.com</code> to verify authentication. Expect a greeting with the GitHub username or a success message. If authentication fails confirm that the public key was added to the GitHub account and that the SSH agent has the correct private key loaded.</p><h3>Troubleshooting</h3><p>Permission denied usually means the public key on the website does not match the private key on the machine or the SSH agent does not have the key. Confirm the public key contents match the value shown on the GitHub website. Also confirm repository remote URLs use the SSH form rather than HTTPS when expecting key based authentication.</p>",
+    "tags": [
+      "ssh",
+      "github",
+      "github desktop",
+      "ssh key",
+      "git",
+      "authentication",
+      "ssh agent",
+      "ssh keygen",
+      "ssh troubleshooting",
+      "git ssh"
+    ]
+  },
+  {
+    "title": "Upload Unity Project to GitHub Desktop",
+    "description": "Step by step guide to upload a Unity project to GitHub Desktop with correct .gitignore and safe commits for version control",
+    "heading": "<h1>Upload Unity Project to GitHub Desktop</h1>",
+    "body": "<p>Upload a local Unity project to GitHub Desktop for reliable version control and simple backups.</p>\n<ol>\n<li>Install GitHub Desktop and sign in</li>\n<li>Prepare the Unity project folder and add a proper .gitignore</li>\n<li>Create a new repository from the local folder in GitHub Desktop</li>\n<li>Stage files then commit and push to the remote repository</li>\n<li>Check the repository on GitHub and enable Git LFS if needed</li>\n</ol>\n<h2>Install GitHub Desktop and sign in</h2>\n<p>Download GitHub Desktop and sign into the GitHub account. Configure a name and email under the app preferences so commits show a real human behind the keyboard.</p>\n<h2>Prepare the Unity project folder and add a proper .gitignore</h2>\n<p>Open the Unity project folder and create a .gitignore file at the top level. Exclude generated and heavy folders so the repository stays sane.</p>\n<code>Library/\nTemp/\nBuild/\nobj/\n*.user\n*.csproj\n*.sln\n</code>\n<h2>Create a new repository from the local folder in GitHub Desktop</h2>\n<p>In GitHub Desktop choose File then Add Local Repository and pick the Unity project folder. If a repository is not present choose Create New Repository and set the local path to the project folder.</p>\n<h2>Stage files then commit and push to the remote repository</h2>\n<p>Use the changes pane to select files to include. Make an initial commit with a clear message like Initial project import. Use Publish Repository to push to GitHub so a remote copy exists.</p>\n<h2>Check the repository on GitHub and enable Git LFS if needed</h2>\n<p>Open the repository on GitHub in a browser and confirm key folders exist. For large binary assets enable Git LFS via the command line or the GitHub Desktop guide so large files do not break history.</p>\n<p>Extra tip avoid committing generated files and check for accidentally large files before the first commit. That keeps history light and the clone time reasonable.</p>",
+    "tags": [
+      "Unity",
+      "GitHub Desktop",
+      "version control",
+      "gitignore",
+      "Git LFS",
+      "Unity tutorials",
+      "source control",
+      "game development",
+      "how to upload",
+      "repository setup"
+    ]
+  },
+  {
+    "title": "Clone a GitHub repo with GitHub Desktop",
+    "description": "Step by step guide to clone a GitHub repository into the GitHub Desktop app for Windows or Mac with clear steps and helpful tips",
+    "heading": "<h1>Clone a GitHub repo with GitHub Desktop</h1>",
+    "body": "<p>Clone a GitHub repository into the GitHub Desktop app on a local machine.</p>\n<ol> <li>Open the repository page on the GitHub website</li> <li>Click the Code button and choose Open with GitHub Desktop or copy the repository URL</li> <li>Open GitHub Desktop and use File then Clone repository if using the copied URL</li> <li>Pick a local folder for the repository and click Clone</li> <li>Verify the repository appears in GitHub Desktop and open a local editor if wanted</li>\n</ol>\n<p><strong>Open the repository page on the GitHub website</strong></p>\n<p>Sign in on the browser and go to the repository page that needs cloning. The page shows branches and the Code button that starts the process.</p>\n<p><strong>Choose Open with GitHub Desktop or copy the repository URL</strong></p>\n<p>Click the Code button and select Open with GitHub Desktop when that option is present. If the option is missing click the copy icon next to the repository address to capture the path for manual use.</p>\n<p><strong>Use File then Clone repository in GitHub Desktop when using a URL</strong></p>\n<p>In the GitHub Desktop app pick File then Clone repository if the repository path was copied. Paste the repository address into the URL field and the app reads the remote location.</p>\n<p><strong>Pick a local folder and click Clone</strong></p>\n<p>Choose where the repository will live on the local hard drive and click Clone. The clone process downloads all files and sets up the branch history on the developer machine.</p>\n<p><strong>Verify and open</strong></p>\n<p>After cloning the repository appears in the left sidebar of GitHub Desktop. Use the Show in Finder or Show in Explorer action to open the local folder in a code editor and start work. Yes this is that simple even when caffeine is low.</p>",
+    "tags": [
+      "GitHub",
+      "GitHub Desktop",
+      "clone repository",
+      "tutorial",
+      "git",
+      "version control",
+      "windows",
+      "macos",
+      "developer",
+      "how to"
+    ]
+  },
+  {
+    "title": "Add Files to GitHub Desktop",
+    "description": "Quick tutorial to add local files to a GitHub Desktop repository then commit and push changes to GitHub.",
+    "heading": "<h1>Add Files to GitHub Desktop</h1>",
+    "body": "<p>Add local files to a GitHub Desktop repository then commit and push changes to GitHub.</p>\n<ol> <li>Open GitHub Desktop and choose the repository</li> <li>Copy or create files inside the local repository folder</li> <li>Switch back to GitHub Desktop to view changes</li> <li>Select files to stage by checking the boxes</li> <li>Write a clear commit message and click Commit to main</li> <li>Click Push origin to upload changes to GitHub</li>\n</ol>\n<h3>Open GitHub Desktop</h3>\n<p>Launch the GitHub Desktop app and pick the repository from the repository menu. If the local project is not listed use File menu to Add Local Repository and point to the project folder.</p>\n<h3>Add files to the repository folder</h3>\n<p>Drag files into the project folder or create new files using an editor. The local repository folder is the working copy that GitHub Desktop watches for changes so place files there.</p>\n<h3>View changes in GitHub Desktop</h3>\n<p>Return to the app and check the Changes tab. New files appear as uncommitted changes with a label for new files. This is where the app shows what will be recorded in the next commit.</p>\n<h3>Stage files</h3>\n<p>Check the box next to each file that should be included in the commit. Checking a box adds the file to the staged area for the upcoming commit. Leave unrelated files unchecked.</p>\n<h3>Commit with a message</h3>\n<p>Type a concise message describing the change in the Summary field and optionally add a longer description. Click Commit to main to record the change in the local repository history.</p>\n<h3>Push to GitHub</h3>\n<p>Click Push origin to send commits to the remote repository on GitHub. The push uploads the local history so collaborators can see the new files on the remote server.</p>",
+    "tags": [
+      "github",
+      "github desktop",
+      "add files",
+      "commit",
+      "push",
+      "git",
+      "version control",
+      "tutorial",
+      "how to",
+      "desktop app"
+    ]
+  },
+  {
+    "title": "How to Login to GitHub Desktop",
+    "description": "Quick tutorial to sign in to GitHub Desktop on Windows or Mac using a GitHub or Enterprise account with simple troubleshooting tips.",
+    "heading": "<h1>How to Login to GitHub Desktop</h1>",
+    "body": "Sign in to GitHub Desktop with a GitHub account or a GitHub Enterprise account. <ol> <li>Open GitHub Desktop</li> <li>Choose the sign in option</li> <li>Select sign in with browser or enter a token</li> <li>Complete authentication in the web browser</li> <li>Authorize the application if prompted</li> <li>Confirm account in the application</li>\n</ol> <h3>Step 1</h3>\n<p>Open the GitHub Desktop application on Windows or Mac. If the application is missing download the installer from the official GitHub Desktop site and run the installer like a sensible human.</p> <h3>Step 2</h3>\n<p>Look for the sign in button on the welcome screen or under the application menu. The label will read sign in to GitHub dot com or sign in to GitHub Enterprise depending on the setup.</p> <h3>Step 3</h3>\n<p>Choose sign in with browser for an OAuth flow or choose to use a personal access token when required by enterprise rules. Personal access tokens are the dignified way to authenticate scripts and automation.</p> <h3>Step 4</h3>\n<p>The selected option will open a web browser to request credentials. Enter username and password or paste the token when prompted. Follow the prompts on the web page to prove identity.</p> <h3>Step 5</h3>\n<p>Authorize the application if the web page asks for permission. Granting permission allows the application to access repositories and perform version control tasks without dramatic hand waving.</p> <h3>Step 6</h3>\n<p>Return to the GitHub Desktop application and confirm the account. The application will display the connected account and repository list after successful login.</p> <h3>Troubleshooting</h3>\n<p>If login fails check the network connection and verify credentials. For token problems regenerate a new personal access token with required scopes and try again. For enterprise servers confirm the server address and any single sign on rules with an administrator.</p>",
+    "tags": [
+      "github",
+      "github desktop",
+      "login",
+      "authentication",
+      "tutorial",
+      "git",
+      "windows",
+      "mac",
+      "enterprise",
+      "troubleshooting"
+    ]
+  },
+  {
+    "title": "Add Repository to GitHub Desktop",
+    "description": "Step by step guide to add a local or remote repository to GitHub Desktop so changes can be tracked and pushed without shell commands",
+    "heading": "<h1>Add Repository to GitHub Desktop</h1>",
+    "body": "<p>Add a local folder or clone a remote repository into GitHub Desktop so commits and pushes can be done from a GUI.</p><ol><li>Open GitHub Desktop</li><li>Sign in to a GitHub account</li><li>Select Add Local Repository to add a folder</li><li>Or select Clone Repository to copy from GitHub</li><li>Open the repository in the app and start working</li></ol><h2>Open GitHub Desktop</h2><p>Launch the application from the start menu or the applications folder. The app shows recent repositories and a sign in prompt if needed.</p><h2>Sign in to a GitHub account</h2><p>Click the Sign in button in the app and follow the browser based authentication. After signing in the app lists repositories from the GitHub account.</p><h2>Select Add Local Repository</h2><p>For a project that already lives on disk click File then Add Local Repository. Use Browse to select the project folder then click Add Repository. The repository appears in the left sidebar and commits can be made from the Changes tab. No terminal required. Bask in GUI comfort.</p><h2>Select Clone Repository</h2><p>To copy a repo from GitHub choose File then Clone Repository. Paste the repository web address into the URL field choose a local path and click Clone. The clone downloads the project and shows the branch so work can start immediately.</p><h2>Start working with the repository</h2><p>Use the Changes tab to stage and commit changes and the History tab to inspect commits. Use Push and Pull to sync with GitHub. If merge conflicts show up the app prompts for resolution.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "add repository",
+      "clone repository",
+      "add local repository",
+      "git gui",
+      "tutorial",
+      "guide",
+      "commit",
+      "push",
+      "sync"
+    ]
+  },
+  {
+    "title": "How to Stash Changes in GitHub Desktop",
+    "description": "Quick tutorial to stash and restore local changes using GitHub Desktop with clear steps and helpful tips.",
+    "heading": "<h1>How to Stash Changes in GitHub Desktop</h1>",
+    "body": "<p>Save uncommitted work temporarily using the stash feature in GitHub Desktop.</p>\n<ol>\n<li>Open GitHub Desktop and select the repository</li>\n<li>Confirm uncommitted files appear in the Changes tab</li>\n<li>Use the Repository menu and choose Stash Changes</li>\n<li>Add a short description and confirm the stash</li>\n<li>Switch branches or perform other work</li>\n<li>Restore the stash using Pop Stash or Show Stashes then Apply</li>\n</ol>\n<p><strong>Open GitHub Desktop</strong> Use the left sidebar to pick the repository that holds the current work. The selected repository loads status and changed files in the main window.</p>\n<p><strong>Confirm uncommitted files</strong> The Changes tab lists modified files and line differences. The stash feature acts on those uncommitted modifications so nothing gets lost by accident.</p>\n<p><strong>Choose Stash Changes</strong> From the top menu pick Repository then Stash Changes. A small dialog asks for a description. Think of the description as a sticky note that will help identify the saved work later.</p>\n<p><strong>Add a description</strong> Type a short message that explains the purpose of the stash such as work on feature X or quick fix. Click the stash button to store the changes. The working directory becomes clean for a branch switch or other tasks.</p>\n<p><strong>Switch branches or continue work</strong> With the stash saved the branch can change without carrying over unfinished changes. That action prevents accidental commits to the wrong branch and keeps history tidy.</p>\n<p><strong>Restore the stash</strong> To get the saved work back open Repository then choose Pop Stash or Show Stashes then Apply. If conflicts appear resolve conflicts in the same way as a merge conflict. After applying the stash the changed files return to the Changes tab ready for review and commit.</p>\n<p>Quick tip for the cautious developer Use a clear description for each stash and drop stashes that are no longer needed to avoid a cluttered stash list.</p>",
+    "tags": [
+      "github desktop",
+      "stash changes",
+      "git",
+      "git stash",
+      "version control",
+      "tutorial",
+      "git workflow",
+      "local changes",
+      "branching",
+      "developer tools"
+    ]
+  },
+  {
+    "title": "Resolve Conflicts in GitHub Desktop",
+    "description": "Step by step guide to fix merge conflicts using GitHub Desktop and finish the merge without drama",
+    "heading": "<h1>Resolve Conflicts in GitHub Desktop</h1>",
+    "body": "<p>Fix merge conflicts in GitHub Desktop by reviewing conflicted files choosing changes and committing the merged result.</p> <ol> <li>Fetch and switch to the target branch</li> <li>Pull or merge the incoming branch</li> <li>Open conflicted files in an editor</li> <li>Resolve conflicts by selecting or editing changes</li> <li>Mark resolved commit and push</li>\n</ol> <h3>1 Fetch and switch to the target branch</h3>\n<p>Open GitHub Desktop and select the branch that should receive the merge. Click Fetch origin to get the latest remote state then switch branches if a different working branch is required.</p> <h3>2 Pull or merge the incoming branch</h3>\n<p>Use Pull origin to bring remote commits. To merge from another branch choose Branch menu then Merge into current branch and pick the source branch. GitHub Desktop will detect conflicts and list conflicted files in the Changes view.</p> <h3>3 Open conflicted files in an editor</h3>\n<p>Click a conflicted file in the Changes list to view conflict markers. For more control use Repository menu and choose Open in Visual Studio Code or another preferred editor to see both versions side by side.</p> <h3>4 Resolve conflicts by selecting or editing changes</h3>\n<p>For straightforward cases use the Choose mine and Choose theirs buttons that appear in the GUI. For custom merges edit the file by removing conflict markers and combining lines into the desired final content. Save the file to register the resolution in the Changes view.</p> <h3>5 Mark resolved commit and push</h3>\n<p>When all conflicted files are resolved the Commit merge button will become active. Add a clear commit message then Commit merge. Then Push origin to send the merged branch to remote and enjoy version control peace.</p>",
+    "tags": [
+      "github desktop",
+      "merge conflicts",
+      "resolve conflicts",
+      "git tutorial",
+      "version control",
+      "git conflict resolution",
+      "github guide",
+      "developer workflow",
+      "merge tools",
+      "commit and push"
+    ]
+  },
+  {
+    "title": "Clone a GitHub Desktop Repository",
+    "description": "Quick step by step guide to clone a repository using GitHub Desktop with tips for sign in and troubleshooting.",
+    "heading": "<h1>Clone a GitHub Desktop Repository</h1>",
+    "body": "<p>Clone a GitHub repository to a local folder using GitHub Desktop.</p><ol><li>Install and open GitHub Desktop</li><li>Sign in to GitHub</li><li>Find the repository</li><li>Choose local path and clone</li><li>Open in editor and verify</li><li>Troubleshoot common issues</li></ol><h3>Install and open GitHub Desktop</h3><p>Download GitHub Desktop for Windows or Mac from the official site and run the installer. Launch the GitHub Desktop app after installation and prepare for tasteful user interface prompts.</p><h3>Sign in to GitHub</h3><p>Use the Sign in button in the upper right to authenticate with a GitHub account. Choose browser login or personal access token and grant the app the requested permissions.</p><h3>Find the repository</h3><p>Click File then Clone repository or use the Clone a repository button. Pick a repository from the list or paste a repository URL like <code>github.com/username/repo.git</code> into the field.</p><h3>Choose local path and clone</h3><p>Select a local folder for the repository. Press Clone and watch the GitHub Desktop app download the project. The progress bar provides status during the copy of files to the chosen folder.</p><h3>Open in editor and verify</h3><p>Use the Repository menu or Open in Visual Studio Code button to open the project in a code editor. Confirm that files are present and that the desired branch is checked out before touching the code base.</p><h3>Troubleshoot common issues</h3><p>If authentication fails then refresh credentials or create a new personal access token. If a clone fails for a large repository then check network health and available disk space. For SSH clones add a public key to the GitHub account and test the connection with <code>ssh -T git@github.com</code>.</p><p>Start working with the local copy and enjoy making meaningful commits without breaking the build.</p>",
+    "tags": [
+      "github",
+      "github desktop",
+      "clone repository",
+      "git",
+      "tutorial",
+      "how to",
+      "version control",
+      "ssh",
+      "personal access token",
+      "visual studio code"
+    ]
+  },
+  {
+    "title": "GitHub Desktop Revert to Previous Commit",
+    "description": "Step by step guide to revert a branch to a previous commit using GitHub Desktop or a safe command line reset and push.",
+    "heading": "<h1>GitHub Desktop Revert to Previous Commit</h1>",
+    "body": "<p>Revert a branch to a previous commit using GitHub Desktop or a simple command line reset.</p>\n<ol> <li>Open the repository and select the branch</li> <li>Open the History view and locate the target commit</li> <li>Use Revert This Commit in GitHub Desktop to undo changes with a new commit</li> <li>For a hard reset use the command line with the commit SHA</li> <li>Push the result and confirm the remote state</li>\n</ol>\n<p><strong>Step 1</strong> Open the repository in GitHub Desktop and make sure the correct branch is selected from the branch menu. Choosing the wrong branch will lead to lifestyle regret and extra work.</p>\n<p><strong>Step 2</strong> Click History to see the commit list. Scroll until the target commit appears. The target commit is the snapshot to revert back to or the commit to undo depending on the chosen method.</p>\n<p><strong>Step 3</strong> Right click the commit that introduced the change and choose \"Revert This Commit\" from the menu. That action creates a new commit that undoes the selected changes while keeping history intact. This is the safest GUI friendly option.</p>\n<p><strong>Step 4</strong> If a hard reset is required for a clean head use a terminal. Copy the commit SHA from the History view then run <code>git reset --hard &lt commit-sha&gt </code> in the repository folder. After that run <code>git push --force origin &lt branch-name&gt </code> to update the remote. Warning expect history rewriting consequences and coordinate with collaborators.</p>\n<p><strong>Step 5</strong> Return to GitHub Desktop and refresh. Confirm the commit log matches the intended state and that the working directory is clean. If using the revert commit approach push normally and inform collaborators about the new reversing commit.</p>",
+    "tags": [
+      "GitHub Desktop",
+      "git",
+      "revert commit",
+      "reset commit",
+      "rollback",
+      "version control",
+      "git reset",
+      "force push",
+      "commit history",
+      "tutorial"
+    ]
+  }
+]

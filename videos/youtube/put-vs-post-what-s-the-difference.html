@@ -1,0 +1,71 @@
+---
+layout: video
+title: "PUT vs POST What's the difference?"
+description: "Short clear guide to the practical differences between PUT and POST for REST APIs with idempotency and usage tips"
+video_host: "youtube"
+video_id: "555Xawr7hgQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT58S"
+thumbnail_url: "https://i.ytimg.com/vi/555Xawr7hgQ/maxresdefault.jpg"
+content_url: "https://youtu.be/555Xawr7hgQ"
+embed_url: "https://www.youtube.com/embed/555Xawr7hgQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - PUT
+  - POST
+  - HTTP
+  - REST
+  - idempotency
+  - api design
+  - web development
+  - PATCH
+  - status codes
+  - resource design
+---
+
+<p>If HTTP methods were roommates PUT would be the one who labels everything and replaces it exactly while POST brings home mysterious parcels and names them later. Both get the job done but they behave very differently when you press resend after a flaky network.</p>
+
+<h2>The simple rule of idempotency</h2>
+<p>Idempotency is the boring hero here. A PUT request is idempotent which means repeating the same request should leave the server in the same state as sending it once. POST is not idempotent by default which means repeats can create duplicates or retrigger side effects unless the server intervenes.</p>
+<p>Concrete examples without existential dread</p>
+<ul>
+  <li><code>PUT /users/123</code> asks the server to store exactly the representation for user 123 at that URI. Repeat it and you still have one user with the same data.</li>
+  <li><code>POST /users</code> asks the server to create a new user or perform server side work. Repeat it and you might get multiple users unless the server dedupes your enthusiasm.</li>
+</ul>
+
+<h3>Status codes you will actually see</h3>
+<ul>
+  <li><strong>201 Created</strong> when POST makes something new and the server returns a Location header pointing at the new resource.</li>
+  <li><strong>200 OK</strong> or <strong>204 No Content</strong> for a successful PUT update.</li>
+  <li><strong>201 Created</strong> is also valid for PUT when the client supplied the target URI and the server created the resource.</li>
+  <li><strong>400 Bad Request</strong> for malformed input and <strong>409 Conflict</strong> when creation at the target URI cannot proceed.</li>
+</ul>
+
+<h2>When to choose PUT or POST</h2>
+<p>Think of this as API design triage. The method you pick matters for retries and for who gets to pick resource ids.</p>
+<ul>
+  <li>Choose PUT when the client controls the final resource URI or when retry safety matters. PUT lets clients retry without accidental duplication.</li>
+  <li>Choose POST when the server should assign ids or when the request creates subordinate resources or triggers processing that is not about replacing a known resource.</li>
+  <li>If you need to create a resource under a collection with a server generated id use POST against the collection endpoint.</li>
+</ul>
+
+<h2>PATCH and partial updates</h2>
+<p>PATCH is for partial updates and is a different beast. Whether PATCH is idempotent depends on the patch format and the semantics you choose. If you can design your patch operations to be idempotent do it. If not then treat PATCH like POST for retry concerns.</p>
+
+<h2>Practical patterns for safe APIs</h2>
+<p>A few patterns that stop the mess when clients retry like overcaffeinated squirrels</p>
+<ul>
+  <li>Use PUT when the client provides stable ids and you want safe retries.</li>
+  <li>Have POST return 201 Created with a Location header that points at the new resource so clients know where to find it.</li>
+  <li>Consider idempotency keys for POST endpoints that create resources to allow safe retries without duplicates.</li>
+  <li>Use 409 Conflict when an operation cannot complete because the resource state prevents it.</li>
+</ul>
+
+<h2>Summary you can tattoo on your brain</h2>
+<p>PUT replaces a known resource at a given URI and is idempotent. POST creates new resources or triggers processing and is not idempotent by default. PATCH does partial updates and may or may not be idempotent depending on how you define it. Pick PUT for retry safety and when the client owns the URI. Pick POST when the server should assign ids or when the action creates subordinate resources. Keep status codes honest and add idempotency keys when POST needs to behave.</p>
+
+<p>Now go forth and design APIs that do what they say without causing duplicate users or dramatic rollbacks. Your future self will send you a thank you note or at least fewer bug reports.</p>
+

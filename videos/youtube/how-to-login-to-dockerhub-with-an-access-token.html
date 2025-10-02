@@ -1,0 +1,75 @@
+---
+layout: video
+title: "How to login to DockerHub with an Access Token"
+description: "Quick tutorial to authenticate to DockerHub using a personal access token and the docker login command for secure CI and scripting"
+video_host: "youtube"
+video_id: "LxyzcDPnaDY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT54S"
+thumbnail_url: "https://i.ytimg.com/vi/LxyzcDPnaDY/maxresdefault.jpg"
+content_url: "https://youtu.be/LxyzcDPnaDY"
+embed_url: "https://www.youtube.com/embed/LxyzcDPnaDY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Docker
+  - DockerHub
+  - access token
+  - docker login
+  - authentication
+  - CI
+  - DevOps
+  - container registry
+  - security
+  - personal access token
+---
+
+<p>If you are still typing your DockerHub password into scripts like it is 2012, congratulations. This guide shows how to use a DockerHub personal access token with the docker login command so your CI and automation can behave like grown ups. You will learn how to create a token, log in safely, verify the session, and store the secret in your pipeline without leaking it into a log file for eternity.</p>
+
+<h2>Create a personal access token in DockerHub</h2>
+<p>Open DockerHub in your web browser, go to account settings, then to security or tokens and create a new personal access token. Give it a clear name and only grant the minimum scope needed for the job. Think of the token as a temporary key not an heirloom.</p>
+
+<ul>
+  <li>Name the token for the purpose such as ci-push or deploy-runner</li>
+  <li>Select the smallest scope that still lets your job run</li>
+  <li>Copy the token once and treat it like a password</li>
+</ul>
+
+<h2>Login with the Docker CLI safely</h2>
+<p>Never put the token on the command line where shell history and snoopy coworkers can see it. Use the docker login password input stream instead. Replace MY_TOKEN and myusername with your values.</p>
+
+<pre><code>echo 'MY_TOKEN' | docker login -u myusername --password-stdin</code></pre>
+
+<p>This avoids exposing the secret in process lists and keeps it out of bash history. The Docker CLI will hand the credentials off to whatever credential helper is configured on the machine. If there is no helper then Docker writes auth info into the local config file.</p>
+
+<h3>Where credentials end up</h3>
+<p>If your host uses a credential helper such as osxkeychain or wincred then secrets go into that helper. If not then Docker stores encoded auth in the file at ~/.docker/config.json. For production hosts prefer a credential helper or an OS level secret store instead of the plain file.</p>
+
+<h2>Verify the authenticated session</h2>
+<p>After login verify you can access the registry with a simple pull. If that works you are authenticated.</p>
+
+<pre><code>docker pull hello-world</code></pre>
+
+<p>If the pull succeeds you are good. If not run docker logout and try again to see the error messages. That helps diagnose whether the token or username is wrong.</p>
+
+<h2>Use tokens in CI pipelines</h2>
+<p>Do not hard code tokens in repository files or pipeline scripts. Put the token in your CI secret store such as GitHub Actions secrets, GitLab CI variables, Jenkins credentials, or a dedicated secret manager. Reference the secret at runtime and never echo it to logs.</p>
+
+<ul>
+  <li>Store the token as a protected secret in your CI platform</li>
+  <li>Inject it into the runner and call docker login with password stdin</li>
+  <li>Rotate the token regularly and revoke tokens you are not using</li>
+</ul>
+
+<h2>Best practices checklist</h2>
+<ul>
+  <li>Give tokens the least privilege required</li>
+  <li>Keep tokens out of source code and logs</li>
+  <li>Use platform secret managers for CI and automation</li>
+  <li>Rotate tokens on a schedule and revoke when compromised</li>
+</ul>
+
+<p>Quick recap The workflow is simple. Create a DockerHub personal access token in the web UI, log in with docker login using the password stdin trick, verify with a pull, and store the token safely in your CI secret store. Follow the checklist and you will avoid the embarrassing security parade that comes with using plain passwords.</p>
+

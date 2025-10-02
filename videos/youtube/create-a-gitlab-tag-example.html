@@ -1,0 +1,62 @@
+---
+layout: video
+title: "Create a GitLab tag example"
+description: "Quick guide to creating a GitLab tag using the web interface and git CLI for releases and CI deployment"
+video_host: "youtube"
+video_id: "HgiI-8VrxQE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M54S"
+thumbnail_url: "https://i.ytimg.com/vi/HgiI-8VrxQE/maxresdefault.jpg"
+content_url: "https://youtu.be/HgiI-8VrxQE"
+embed_url: "https://www.youtube.com/embed/HgiI-8VrxQE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gitlab
+  - git-tag
+  - tags
+  - git
+  - release
+  - ci
+  - devops
+  - tutorial
+  - versioning
+  - gitlab-ci
+---
+
+<p>Tags are the tiny flags that tell your future self and your CI pipeline that this commit is important enough to ship or debug for eternity. This guide covers creating tags in the GitLab web UI and on the command line, annotated tags for audit friendly metadata, signed tags for provenance, and how tags wake up your CI pipelines and release pages.</p>
+
+<h2>Create a tag from the GitLab web interface</h2>
+<p>If you like nice buttons and mild scrolling then the web UI will be your friend. Open your project, go to Repository then Tags then New tag. Pick a name such as v1.0 pick a target branch or commit and add a human readable message. Click Create tag and enjoy the instant gratification.</p>
+
+<h2>Create annotated tags locally and push</h2>
+<p>If the command line is your spirit animal you get more control and metadata. Annotated tags include author info and a timestamp which actually helps during audits and debugging.</p>
+<pre><code>git tag -a v1.0 -m 'Release 1.0'
+git push origin v1.0
+# or push all new tags
+git push origin --tags</code></pre>
+<p>Annotated tags are the ones you want by default for releases since they record who made the tag and when. Lightweight tags are okay for quick bookmarks but they do not carry that extra info.</p>
+
+<h2>Create signed tags for verification</h2>
+<p>If you need cryptographic proof that a release came from the right person sign the tag with your GPG key before pushing. That gives reviewers and automated systems a way to verify provenance.</p>
+<pre><code>git tag -s v1.0 -m 'Signed release'
+git push origin v1.0</code></pre>
+<p>Make sure your GPG key is uploaded to GitLab and that your local git is configured to use it. Signed tags will show up in GitLab with a verified marker when everything is set up correctly.</p>
+
+<h2>Use tags to trigger CI and publish releases</h2>
+<p>Tags are the bridge between a code snapshot and your delivery workflow. In GitLab CI you can configure jobs to run only for tags or use rules that match tag refs so that a pipeline runs on a tagged commit. This is how you make builds packages and release notes happen automatically without finger crossing.</p>
+<p>After a tag is pushed you can also create a Release in GitLab and attach binaries change notes and links. Releases are a great place to gather artifacts for users and downstream systems.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Create a tag in the web UI for quick edits</li>
+  <li>Create annotated tags locally for useful metadata</li>
+  <li>Sign tags when verification matters</li>
+  <li>Push tags so CI and release features pick them up</li>
+</ul>
+
+<h3>Tip</h3>
+<p>Prefer annotated tags for most releases. They are slightly more thoughtful than a sticky note and much more useful when someone asks what changed and who pushed it.</p>
+

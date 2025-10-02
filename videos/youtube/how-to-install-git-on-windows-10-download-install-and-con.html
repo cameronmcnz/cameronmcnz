@@ -1,0 +1,83 @@
+---
+layout: video
+title: "How to Install Git on Windows 10 | Download, Install and Con"
+description: "Step by step guide to download install and configure Git on Windows 10 with commands GUI tips and SSH key setup for version control"
+video_host: "youtube"
+video_id: "9CAwvKiLICs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT36M26S"
+thumbnail_url: "https://i.ytimg.com/vi/9CAwvKiLICs/maxresdefault.jpg"
+content_url: "https://youtu.be/9CAwvKiLICs"
+embed_url: "https://www.youtube.com/embed/9CAwvKiLICs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - Windows 10
+  - Install Git
+  - Git tutorial
+  - Git for Windows
+  - Git setup
+  - Version control
+  - SSH keys
+  - git config
+  - Git Bash
+---
+
+<h1>Step by step Git setup on Windows 10 with SSH keys and Git Bash</h1>
+<p>Installing Git on Windows 10 does not have to be a dramatic saga. This short guide will get Git for Windows installed, configured, and talking to your remote repos without making you sacrifice a keyboard. Expect guidance on the installer options, git config, SSH keys, Git Bash, and a few survival tips for version control on Windows.</p>
+
+<h2>Download the official Git for Windows installer</h2>
+<p>Head to the Git for Windows website and grab the 64 bit installer unless you have a very compelling reason to pick the 32 bit build. Save the installer somewhere sensible like your Downloads folder so you can find it later when procrastination kicks in.</p>
+
+<h2>Run the installer and choose sensible defaults</h2>
+<p>Launch the downloaded installer and follow the prompts. The defaults are fine for most people but these options deserve a moment of attention.</p>
+
+<h3>Installer options you will actually care about</h3>
+<ul>
+  <li>Terminal choice pick Git Bash if you want a Unix like shell that plays well with common Git tutorials and scripts</li>
+  <li>Adjusting PATH choose to make Git available from the command prompt if you plan to use third party tools</li>
+  <li>Credential helper use the credential manager for smoother authentication with hosted services</li>
+  <li>Editor choose your favorite editor like VS Code or Nano for commit messages</li>
+  <li>Line endings set core.autocrlf to prevent weird diffs when collaborating across operating systems</li>
+</ul>
+
+<h2>Configure your identity and editor</h2>
+<p>Git needs to know who you are so your commits do not look like they were made by a mysterious internet ghost. Run these commands in Git Bash or Command Prompt.</p>
+<pre><code>git config --global user.name 'Your Name'
+git config --global user.email 'you@example.com'
+# set a preferred editor for commits
+git config --global core.editor 'code --wait'
+# choose line ending handling for shared projects
+git config --global core.autocrlf true</code></pre>
+
+<h2>Verify installation and get SSH keys working</h2>
+<p>Check Git is installed with a single command and then set up SSH keys so you can push without typing your password into a void.</p>
+<pre><code>git --version
+
+# generate an ed25519 key for modern security
+ssh-keygen -t ed25519 -C 'you@example.com'
+
+# start the ssh agent and add your key
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+# copy the public key and paste it into your hosting service account
+cat ~/.ssh/id_ed25519.pub</code></pre>
+<p>After adding the public key to GitHub GitLab or Bitbucket test a connection with ssh -T git@github.com or the equivalent for your host.</p>
+
+<h2>Git Bash and credential helpers make life easier</h2>
+<p>Use Git Bash for a friendlier terminal and keep the credential manager enabled so you do not type your password every five minutes. If you prefer GUI tools try Git GUI or Git clients from your host but know that the command line remains the universal remote for version control.</p>
+
+<h3>Quick troubleshooting checklist</h3>
+<ul>
+  <li>If git --version fails then the PATH option probably needs updating</li>
+  <li>If commits show the wrong user check your git config settings</li>
+  <li>If pushes fail with permission denied confirm your SSH key is added to the hosting service</li>
+  <li>If you see weird diffs enable or disable core.autocrlf consistently across your team</li>
+</ul>
+
+<p>There you go a functional Git environment on Windows 10 with identity set up and optional SSH based authentication. You can now clone fork commit and push without unnecessary drama. If things still go wrong come back here and read the checklist while consuming your beverage of choice.</p>
+

@@ -1,0 +1,85 @@
+---
+layout: video
+title: "JFrog artifactory tutorial Download setup JAR deployment"
+description: "Step by step guide to download set up JFrog Artifactory and deploy JAR files to a local repository for Java CI workflows"
+video_host: "youtube"
+video_id: "F-Tb0OFaaKQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M33S"
+thumbnail_url: "https://i.ytimg.com/vi/F-Tb0OFaaKQ/maxresdefault.jpg"
+content_url: "https://youtu.be/F-Tb0OFaaKQ"
+embed_url: "https://www.youtube.com/embed/F-Tb0OFaaKQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JFrog
+  - Artifactory
+  - tutorial
+  - JAR deployment
+  - Maven
+  - repository
+  - DevOps
+  - CI
+  - Java
+  - artifact management
+---
+
+<p>If you want a place to store your Java babies and stop emailing JARs to colleagues like it is 2003 this guide walks you through downloading, running and using JFrog Artifactory to host a local Maven repository. It covers installing with Docker or a service package, creating a repository, configuring Maven and actually pushing a JAR so your CI pipeline will stop crying.</p>
+
+<h2>Download Artifactory</h2>
+<p>You can grab the Artifactory distribution from the vendor site or use the official Docker image for a fast lab. Docker is the little black belt move here because it avoids system dependency drama and makes cleanup pleasant when you inevitably try a new idea that fails spectacularly.</p>
+
+<h2>Install and start Artifactory</h2>
+<p>For a quick local test run the Docker image. A minimal example looks like this.</p>
+<pre><code>docker pull jfrog/artifactory-oss:latest
+docker run -d --name artifactory -p 8081:8081 jfrog/artifactory-oss:latest</code></pre>
+<p>If you installed the service package follow the installer prompts, start the service and open the web console at http://localhost:8081. Create an admin user and do the basic health check. No, the wizard will not judge your commit history.</p>
+
+<h2>Create a local Maven repository</h2>
+<p>In the web console create a new repository of type Maven local. Pick a sensible name like <code>my-maven-local</code>. Naming things is 90 percent of good DevOps so do not name it "repo1" unless you enjoy chaos.</p>
+
+<h2>Configure Maven to talk to Artifactory</h2>
+<p>Edit your <code>~/.m2/settings.xml</code> to add server credentials for a dedicated deploy user. Then point your project POM distribution management to the new repo. Example snippets.</p>
+<pre><code>&lt;settings&gt;
+  &lt;servers&gt;
+    &lt;server&gt;
+      &lt;id&gt;artifactory-repo&lt;/id&gt;
+      &lt;username&gt;deploy-user&lt;/username&gt;
+      &lt;password&gt;REPLACE_ME&lt;/password&gt;
+    &lt;/server&gt;
+  &lt;/servers&gt;
+&lt;/settings&gt;</code></pre>
+<pre><code>&lt;distributionManagement&gt;
+  &lt;repository&gt;
+    &lt;id&gt;artifactory-repo&lt;/id&gt;
+    &lt;url&gt;http://localhost:8081/artifactory/my-maven-local&lt;/url&gt;
+  &lt;/repository&gt;
+&lt;/distributionManagement&gt;</code></pre>
+<p>Use a dedicated deploy user so your CI jobs do not run with admin permissions. That is how accidents become incidents.</p>
+
+<h2>Deploy a JAR</h2>
+<p>Two main options. For automated pipelines use the Maven deploy goal. For manual testing use the web UI upload.</p>
+<ul>
+  <li>Automated deploy from a project build agent run <code>mvn clean deploy</code> after making sure the POM distribution management id matches the server id in settings.xml.</li>
+  <li>Manual upload open the Artifactory UI, navigate to your repository and use the Deploy artifact button. It is delightfully low tech for emergency use.</li>
+</ul>
+
+<h2>Verify the deployed artifact</h2>
+<p>Check the UI to confirm the JAR and its metadata are present. If you prefer REST calls use the Artifactory storage API to inspect the item and verify checksums. Example with curl.</p>
+<pre><code>curl -u deploy-user:REPLACE_ME \
+  "http://localhost:8081/artifactory/api/storage/my-maven-local/com/example/my-artifact/1.0/my-artifact-1.0.jar"</code></pre>
+<p>The response contains file info and checksums so you can script verification in CI or just flex your newfound power.</p>
+
+<h2>CI integration tips</h2>
+<ul>
+  <li>Store credentials in your CI secret store and avoid putting passwords in plain text. This is not optional.</li>
+  <li>Use a non admin deploy user for pipeline jobs to reduce blast radius if a token leaks.</li>
+  <li>Consider using Artifactory as a proxy for Maven Central to improve build stability and performance.</li>
+</ul>
+
+<h2>Recap and final snark</h2>
+<p>We covered downloading and running Artifactory, creating a Maven local repository, updating Maven to use that repository and deploying a JAR either by Maven or manual upload. You now have a basic artifact management workflow suitable for local testing or small CI pipelines.</p>
+<p>Pro tip use the Docker image for local labs because you will probably tear it down and rebuild it several times while pretending you knew what you were doing all along.</p>
+

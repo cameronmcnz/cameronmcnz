@@ -1,0 +1,64 @@
+---
+layout: video
+title: "Generate a GitHub Personal Access Token and Use Git"
+description: "Step by step guide to create a GitHub Personal Access Token and use the token to clone and push with Git securely"
+video_host: "youtube"
+video_id: "m5SChqEi314"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M3S"
+thumbnail_url: "https://i.ytimg.com/vi/m5SChqEi314/maxresdefault.jpg"
+content_url: "https://youtu.be/m5SChqEi314"
+embed_url: "https://www.youtube.com/embed/m5SChqEi314"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub
+  - Personal Access Token
+  - PAT
+  - Git
+  - Clone
+  - Push
+  - Authentication
+  - Credential Helper
+  - Repo Security
+  - Token Best Practices
+---
+
+<p>If you are tired of typing your password every time you push then a Personal Access Token or PAT is the sensible upgrade. This guide walks through creating a GitHub personal access token and using it with Git for clone and push operations while keeping repo security intact and human effort low.</p>
+
+<h2>Create your personal access token on GitHub</h2>
+<p>Sign in to GitHub and navigate to your account settings then Developer settings then Personal access tokens then Generate new token. Choose a sensible expiration and pick scopes. For most work the repo scope gives full repository access while narrower scopes support least privilege. When GitHub shows the token copy it right away because it will not be shown again.</p>
+
+<h2>Copy and store the token securely</h2>
+<p>Treat the token like a password. Paste it into a password manager or secure vault so you do not accidentally leak it or paste it into a public terminal. If the token is ever exposed revoke it in GitHub and create a new one. Token rotation is a good habit and it keeps attackers confused and you calmer.</p>
+
+<h2>Clone and authenticate with Git over HTTPS</h2>
+<p>On the repository page copy the HTTPS clone URL and run the usual clone command. Use a placeholder like</p>
+<pre><code>git clone REPO_HTTPS_URL</code></pre>
+<p>When Git prompts for username type your GitHub username and when it prompts for password paste the PAT. Do not embed tokens directly into clone URLs or shared scripts because that is a fast track to accidental public exposure.</p>
+
+<h2>Configure a credential helper to avoid repeated prompts</h2>
+<p>Credential helpers let the operating system store the token so you do not paste it every time. Run the following to enable a cross platform helper</p>
+<pre><code>git config --global credential.helper manager-core</code></pre>
+<p>On mac use the osxkeychain helper for native storage. On some Linux setups a libsecret based helper is appropriate. After enabling the helper Git will cache credentials according to the helper policy and pushes will feel seamless while the token remains in the OS credential store instead of plaintext files.</p>
+
+<h3>Common mistakes to avoid</h3>
+<ul>
+  <li>Embedding the token in a URL or script that others can read</li>
+  <li>Saving the token in plaintext files or dotfiles</li>
+  <li>Granting overly broad scopes that are not needed</li>
+  <li>Forgetting to revoke an exposed token</li>
+</ul>
+
+<h2>Summary and token best practices</h2>
+<p>This tutorial covered generating a GitHub Personal Access Token copying and storing the token securely cloning with HTTPS and using the PAT for authentication. Follow these token best practices to keep repo security sane and your workflow smooth.</p>
+<ul>
+  <li>Use least privilege when selecting scopes</li>
+  <li>Set expirations and rotate tokens periodically</li>
+  <li>Store tokens in password managers or OS credential stores</li>
+  <li>Use a credential helper to reduce friction during clone and push</li>
+  <li>Revoke tokens immediately if you suspect compromise</li>
+</ul>
+

@@ -1,0 +1,86 @@
+---
+layout: video
+title: "How to Get and Set UiPath Queue Transactions Tutorial"
+description: "Learn to retrieve and update UiPath queue transactions using Get Transaction Item and Set Transaction Status with practical error handling tips."
+video_host: "youtube"
+video_id: "3X1BZ0pSSp0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M16S"
+thumbnail_url: "https://i.ytimg.com/vi/3X1BZ0pSSp0/maxresdefault.jpg"
+content_url: "https://youtu.be/3X1BZ0pSSp0"
+embed_url: "https://www.youtube.com/embed/3X1BZ0pSSp0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Queue
+  - Get Transaction Item
+  - Set Transaction Status
+  - Orchestrator
+  - RPA
+  - Transaction Processing
+  - Error Handling
+  - Retry Logic
+  - Tutorial
+---
+
+<p>If you want your UiPath robots to behave like productive employees rather than drama magnets this guide shows how to fetch work with Get Transaction Item and report results with Set Transaction Status while keeping retry logic and error handling under control. No miracles just solid RPA transaction processing that does what it says on the tin.</p>
+
+<h2>Prepare the queue and variables</h2>
+<p>Create a queue in Orchestrator and pick a clear name so future you does not cry. In your workflow define variables such as <code>currentTransaction</code> and <code>transactionItem</code>. These will hold the item you reserve and any state you need while processing.</p>
+<ul>
+  <li>Queue name that explains the work</li>
+  <li><code>transactionItem</code> to receive the reserved item</li>
+  <li><code>currentTransaction</code> to store processing state and results</li>
+</ul>
+
+<h2>Fetch and lock a transaction with Get Transaction Item</h2>
+<p>Drop in the Get Transaction Item activity. Point it at the queue name and assign the output to <code>transactionItem</code>. That activity reserves the work item so another robot does not steal the glory or the failure.</p>
+<pre><code>transactionItem = GetTransactionItem(queueName)</code></pre>
+<p>The reservation makes sure only the robot that claimed the item will work on it until you mark it finished or failed with Set Transaction Status.</p>
+
+<h2>Process the transaction data</h2>
+<p>Extract fields from <code>transactionItem.SpecificContent</code> and run your business logic in small, testable pieces. Modular processing makes debugging less like archaeology and more like controlled excavation.</p>
+<ul>
+  <li>Validate inputs and handle missing fields early</li>
+  <li>Map data to DTOs or arguments for downstream calls</li>
+  <li>Call external systems or perform calculations</li>
+  <li>Set a success flag or result object in <code>currentTransaction</code></li>
+</ul>
+
+<h2>Mark results with Set Transaction Status</h2>
+<p>Once processing finishes use the Set Transaction Status activity to mark the item as Successful or Failed. Add a clear message so the Orchestrator dashboard does not have to guess what happened. Proper status updates keep metrics honest and reporting useful.</p>
+<pre><code>SetTransactionStatus(transactionItem, TransactionStatus.Successful, "Processed OK")</code></pre>
+<p>If you detect a business rule failure mark it as a business error and skip retries where appropriate. For system failures mark it as a system error so retry logic can take over.</p>
+
+<h2>Handle exceptions and retry logic</h2>
+<p>Wrap your processing in a Try Catch block. Distinguish business exceptions from system exceptions and act accordingly. Business exceptions often mean the data is bad and retries are pointless. System exceptions often deserve a retry or escalation.</p>
+<ul>
+  <li>On business error use Set Transaction Status and record the reason for audit</li>
+  <li>On system error decide whether to retry or escalate to human support</li>
+  <li>Use Orchestrator queue retry settings to control how many automated attempts occur</li>
+</ul>
+<p>Remember that a failed status plus a sensible retry policy prevents infinite loops and angry stakeholders.</p>
+
+<h2>Test and monitor in Orchestrator</h2>
+<p>Run the process in a test environment and watch queue counts logs and retry behavior in Orchestrator. Validate that items move through statuses as expected before you consider the process production ready.</p>
+<ul>
+  <li>Check Successful and Failed counts in queues</li>
+  <li>Inspect logs for exception details and retry traces</li>
+  <li>Adjust retry settings and exception handling until results are predictable</li>
+</ul>
+
+<h3>Quick checklist before go live</h3>
+<ul>
+  <li>Queue has a clear name and useful metadata</li>
+  <li>Variables are initialized and scoped correctly</li>
+  <li>Get Transaction Item reserves items reliably</li>
+  <li>Set Transaction Status is used for success and failure reporting</li>
+  <li>Try Catch separates business and system errors</li>
+  <li>Orchestrator retry settings match your fault tolerance plan</li>
+</ul>
+
+<p>Follow these steps and your UiPath queue processing will be less chaotic and more dependable. If something still fails you at least get a readable failure and can blame the logs instead of your instincts.</p>
+

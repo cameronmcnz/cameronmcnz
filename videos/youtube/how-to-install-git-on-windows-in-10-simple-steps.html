@@ -1,0 +1,103 @@
+---
+layout: video
+title: "How to install Git on Windows in 10 simple steps"
+description: "Step by step guide to install Git on Windows fast with recommended options and beginner friendly tips"
+video_host: "youtube"
+video_id: "eB6rrsmwN0Y"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M33S"
+thumbnail_url: "https://i.ytimg.com/vi/eB6rrsmwN0Y/maxresdefault.jpg"
+content_url: "https://youtu.be/eB6rrsmwN0Y"
+embed_url: "https://www.youtube.com/embed/eB6rrsmwN0Y"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - Windows
+  - Git install
+  - Git tutorial
+  - Command line
+  - SSH
+  - Git Bash
+  - Version control
+  - Developer tools
+  - Beginner guide
+---
+
+<p>So you want Git on Windows and you want it to behave. Good news, that is possible. This guide walks you through installing Git for Windows with sensible defaults so you can use Git from the command line and still get along with GUI tools. Expect a few clicks and one tiny existential crisis when choosing a text editor.</p>
+
+<h2>Why this matters</h2>
+<p>Git is the version control system developers adore and sometimes curse. Installing it the smart way avoids weird line ending diffs, credential headaches, and confusion about which shell to use. This is a practical beginner friendly tutorial for Windows developers who want Git Bash, command line access, SSH support, and credential caching.</p>
+
+<h2>Before you start</h2>
+<ul>
+  <li>Admin access helps the installer update PATH</li>
+  <li>Decide whether you want Git available in the Windows command prompt as well as Git Bash</li>
+  <li>Have a username and email ready for global config</li>
+</ul>
+
+<h2>Installation steps</h2>
+<ol>
+  <li><strong>Step 1 - Download the installer</strong>
+    <p>Get the official Git for Windows installer from the main Git for Windows source using your browser of choice. Avoid sketchy downloads unless you enjoy surprises.</p>
+  </li>
+
+  <li><strong>Step 2 - Run as administrator</strong>
+    <p>Right click and run the installer with admin privileges so it can update PATH and write files without whining.</p>
+  </li>
+
+  <li><strong>Step 3 - Choose components</strong>
+    <p>Pick Git Bash and the Git GUI if you like options. Most of us keep Git Bash and leave the GUI for weird afternoons.</p>
+  </li>
+
+  <li><strong>Step 4 - Pick a default editor</strong>
+    <p>Select an editor you know. If you pick something mysterious your commit messages will read like cryptic poetry.</p>
+  </li>
+
+  <li><strong>Step 5 - Adjust PATH integration</strong>
+    <p>Choose whether to use Git from the command prompt as well as Git Bash. Selecting both gives you flexibility and fewer long term regrets.</p>
+  </li>
+
+  <li><strong>Step 6 - Choose line ending handling</strong>
+    <p>Use the recommended setting for mixed Windows and Unix environments to avoid CRLF versus LF nightmares. This prevents spurious diffs and angry collaborators.</p>
+  </li>
+
+  <li><strong>Step 7 - Configure credential helper</strong>
+    <p>Use the Windows credential manager or Git Credential Manager to cache credentials. This saves you from typing passwords every other minute.</p>
+  </li>
+
+  <li><strong>Step 8 - Set up SSH keys if needed</strong>
+    <p>If you push to remotes over SSH generate a key pair with <code>ssh-keygen</code> and add the public key to your Git host. It is painless after the first attempt and saves you a lot of password drama.</p>
+  </li>
+
+  <li><strong>Step 9 - Finish and open Git Bash</strong>
+    <p>Complete the install and launch Git Bash for a Unix like shell on Windows. This is often the friendliest place to run Git commands.</p>
+  </li>
+
+  <li><strong>Step 10 - Verify and configure</strong>
+    <p>Run <code>git --version</code> to confirm installation. Then set your identity with:</p>
+    <pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"</code></pre>
+  </li>
+</ol>
+
+<h2>Troubleshooting tips</h2>
+<ul>
+  <li>If the command prompt does not recognize <code>git</code> you probably skipped PATH integration. Reinstall or update PATH manually.</li>
+  <li>If you get weird diffs check your line ending conversion setting and consider <code>core.autocrlf</code> set to true on Windows.</li>
+  <li>If credential caching fails confirm the credential helper was selected during install or run <code>git config --global credential.helper manager-core</code> to enable the Microsoft credential helper.</li>
+</ul>
+
+<h3>SSH key quick checklist</h3>
+<ul>
+  <li>Generate a key with <code>ssh-keygen -t ed25519 -C "you@example.com"</code> or use RSA if required by your host</li>
+  <li>Copy the public key from <code>~/.ssh/id_ed25519.pub</code> or the equivalent</li>
+  <li>Add the key to your Git host under SSH keys in your account settings</li>
+  <li>Test with <code>ssh -T git@github.com</code> or the equivalent for your provider</li>
+</ul>
+
+<h2>Wrapping up</h2>
+<p>You now have Git installed on Windows with Git Bash, credential helpers, and optional SSH access. You can use Git from the command line or GUI tools depending on your workflow. Go make commits and try not to break the build.</p>
+

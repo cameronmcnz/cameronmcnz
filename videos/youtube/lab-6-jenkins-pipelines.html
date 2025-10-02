@@ -1,0 +1,112 @@
+---
+layout: video
+title: "Lab 6 - Jenkins Pipelines"
+description: "Practical Lab 6 guide for Jenkins Pipelines with Jenkinsfile stages agents Blue Ocean and CI CD best practices"
+video_host: "youtube"
+video_id: "mfXCluttktM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M46S"
+thumbnail_url: "https://i.ytimg.com/vi/mfXCluttktM/maxresdefault.jpg"
+content_url: "https://youtu.be/mfXCluttktM"
+embed_url: "https://www.youtube.com/embed/mfXCluttktM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Jenkins Pipelines
+  - Jenkinsfile
+  - CI
+  - CD
+  - Blue Ocean
+  - Declarative Pipeline
+  - Pipeline Agents
+  - Continuous Integration
+  - Pipeline Troubleshooting
+---
+
+<article>
+  <h2>What this guide covers</h2>
+  <p>Welcome to a friendly not too painful walkthrough of Jenkins pipelines and Blue Ocean. You will learn to prepare Jenkins and pipeline agents set up a Jenkinsfile use declarative pipeline features manage credentials and troubleshoot builds with visual help from Blue Ocean. Think of this as the lab you wished you had before production yelled at you.</p>
+
+  <h2>Prepare Jenkins and agents</h2>
+  <p>Install the usual plugins and register at least one agent node. The controller needs network access to your code repository and permission to run builds on the agent. If the agent cannot execute builds then your CI will be sad and slow.</p>
+  <ul>
+    <li>Install Pipeline and Blue Ocean plugins.</li>
+    <li>Create agent nodes and verify labels match your Jenkinsfile agent directives.</li>
+    <li>Ensure credentials are stored in the Jenkins credentials store and scoped properly.</li>
+  </ul>
+
+  <h2>Create the Jenkinsfile and keep it close to code</h2>
+  <p>Store a declarative Jenkinsfile in the project repo. Pipeline as code enables versioning code review and repeatable builds. If you like blame you will love tracking pipeline changes alongside application commits.</p>
+
+  <h3>Simple declarative pipeline example</h3>
+  <pre><code>pipeline {
+  agent any
+  environment {
+    MAVEN_OPTS = '-Xmx512m'
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'mvn -B package'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'mvn test'
+      }
+    }
+    stage('Deploy') {
+      when {
+        branch 'main'
+      }
+      steps {
+        echo 'Deploying if you are lucky'
+      }
+    }
+  }
+}
+</code></pre>
+
+  <h2>Design stages for clarity and parallelism</h2>
+  <p>Break your pipeline into logical stages like checkout build test and deploy. A tidy stage layout makes parallel work easier and failures less mysterious. If a stage fails you want it obvious which step caused the chaos.</p>
+  <ul>
+    <li>Keep stages small and focused.</li>
+    <li>Use parallel blocks for independent test suites to save time.</li>
+    <li>Use post blocks to always collect artifacts and test reports even after failures.</li>
+  </ul>
+
+  <h2>Manage credentials and environment variables</h2>
+  <p>Use the Jenkins credentials store and reference secrets by ID inside environment blocks. That way secrets are not printed in logs and you avoid the embarrassment of leaked API keys. Use scoped credentials for third party services and restrict access to job roles.</p>
+
+  <h2>Run pipelines and debug like a human</h2>
+  <p>Trigger pipelines from the job UI or wire up a webhook for triggers on push. Watch the console logs for failing commands. The logs will be dramatic but honest and they will point to untested assumptions.</p>
+  <ul>
+    <li>Use the replay feature for quick iterative debugging of the Jenkinsfile.</li>
+    <li>Check agent workspace and environment when builds fail in strange ways.</li>
+    <li>Confirm versions of tools like Java and Maven on agents match your expectations.</li>
+  </ul>
+
+  <h2>Blue Ocean for visualization and pipeline troubleshooting</h2>
+  <p>Blue Ocean gives a visual representation of stages and parallel branches making it easier to spot the red parts. Click through failing stages to jump to raw logs and artifacts. This is the part where your life gets at least a little easier.</p>
+
+  <h2>Common troubleshooting steps</h2>
+  <p>If a pipeline fails try these checks first</p>
+  <ul>
+    <li>Inspect console logs for the failing step.</li>
+    <li>Verify agent labels and node connectivity.</li>
+    <li>Confirm credentials are available and IDs match the Jenkinsfile.</li>
+    <li>Run failing shell commands locally to rule out environment differences.</li>
+  </ul>
+
+  <h2>Wrap up and next moves</h2>
+  <p>You now have the essentials to build a declarative pipeline maintain a Jenkinsfile run CI and CD and use Blue Ocean for quick troubleshooting. Keep your pipeline as code small readable and versioned with your project. Do that and you will spend less time scowling at build output and more time shipping features that work.</p>
+</article>
+

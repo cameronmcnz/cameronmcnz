@@ -1,0 +1,97 @@
+---
+layout: video
+title: "Spring Lab 1 Hello Message"
+description: "Compact Spring Boot lab showing how to build a Hello message endpoint run the app and test locally with simple tips"
+video_host: "youtube"
+video_id: "AMiu-OxWAx8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M45S"
+thumbnail_url: "https://i.ytimg.com/vi/AMiu-OxWAx8/maxresdefault.jpg"
+content_url: "https://youtu.be/AMiu-OxWAx8"
+embed_url: "https://www.youtube.com/embed/AMiu-OxWAx8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Spring
+  - Java
+  - REST
+  - Controller
+  - Hello World
+  - Tutorial
+  - Maven
+  - Gradle
+  - Web
+---
+
+<h2>Why this tiny lab matters</h2>
+<p>This quick Spring Boot tutorial shows how to expose a Hello endpoint using a REST controller so you can validate wiring, configuration and the fact that your computer still runs Java. You will use Spring Boot, Spring Web, Java and either Maven or Gradle to create a minimal web app that responds to HTTP requests.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+  <li>JDK 11 or later</li>
+  <li>Maven or Gradle installed</li>
+  <li>An IDE or Spring Initializr</li>
+</ul>
+
+<h2>Step 1 Initialize the project</h2>
+<p>Visit start.spring.io or use your IDE starter and include the Web dependency. Choose Maven or Gradle, pick group and artifact names and move on. This is a lab not a naming contest.</p>
+
+<h2>Step 2 Create the REST controller</h2>
+<p>Add a tiny controller that handles GET requests at <code>/hello</code> and returns a friendly greeting. Keep it small and obvious so debugging does not become a personality test.</p>
+
+<pre><code>package com.example.demo;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloController {
+
+    @Value("${greeting.message:Hello World}")
+    private String greeting;
+
+    @GetMapping("/hello")
+    public String hello() {
+        return greeting;
+    }
+}
+</code></pre>
+
+<h2>Step 3 Run the application</h2>
+<p>Start the app from your IDE by running the main class that calls SpringApplication.run. From the command line use the build tool command that feels right for you.</p>
+<ul>
+  <li>Maven: <code>mvn spring-boot:run</code></li>
+  <li>Gradle: <code>./gradlew bootRun</code></li>
+</ul>
+<p>Spring Boot listens on <code>localhost</code> port 8080 by default unless you change <code>server.port</code> in <code>application.properties</code> or via environment settings.</p>
+
+<h2>Step 4 Test the endpoint</h2>
+<p>Open a browser at <code>http://localhost:8080/hello</code> or use curl and pretend you are a command line wizard.</p>
+
+<pre><code>curl http://localhost:8080/hello
+# Expected output
+Hello World
+</code></pre>
+
+<h2>Step 5 Make the greeting configurable</h2>
+<p>Move the greeting into <code>src/main/resources/application.properties</code> so you can change messages without editing code. The controller above injects the value with <code>@Value</code> and has a fallback of <code>Hello World</code> so missing properties will not ruin your day.</p>
+
+<pre><code># src/main/resources/application.properties
+greeting.message=Hello from Spring Boot
+</code></pre>
+
+<p>If you want different text for different environments use profile specific properties like <code>application-dev.properties</code> and set <code>spring.profiles.active</code>. That is how professionals pretend to be organized.</p>
+
+<h3>Tips and next steps</h3>
+<ul>
+  <li>Switch the handler to return JSON if you need structured responses for clients</li>
+  <li>Secure the endpoint before you share your laptop with strangers</li>
+  <li>Try adding logging and health checks to move beyond the smallest viable microservice</li>
+</ul>
+
+<p>There you go. A minimal Spring Boot web app, a REST controller, and a configurable hello message. Use Maven or Gradle as you prefer. Now go impress someone with the most basic but essential API you can build.</p>
+

@@ -1,0 +1,88 @@
+---
+layout: video
+title: "How to take char based Input with Java Scanner"
+description: "Read single characters from the console using Java Scanner next or nextLine and charAt with simple validation and practical tips"
+video_host: "youtube"
+video_id: "D53RvmtBTJU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M22S"
+thumbnail_url: "https://i.ytimg.com/vi/D53RvmtBTJU/maxresdefault.jpg"
+content_url: "https://youtu.be/D53RvmtBTJU"
+embed_url: "https://www.youtube.com/embed/D53RvmtBTJU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Scanner
+  - char
+  - nextChar
+  - input
+  - charAt
+  - nextLine
+  - console
+  - programming
+  - tutorial
+---
+
+<p>Reading a single char from the console with Java can feel like asking for a unicorn. Scanner has no nextChar method so we improvise using existing tools and a little common sense. This mini tutorial shows how to grab just one character from user input using Scanner next or nextLine and charAt while keeping the code simple and slightly smug.</p>
+
+<h2>Use next plus charAt for the quick route</h2>
+
+<p>Create a Scanner tied to System.in then read a token when space separated input is acceptable. The trick is to read the token then take token.charAt(0) to get the first character. It mimics a missing nextChar method without any dark magic.</p>
+
+<pre><code>Scanner sc = new Scanner(System.in)
+String token = sc.next()
+if token.trim().length() == 0 {
+  System.out.println("empty input try again")
+} else {
+  char ch = token.charAt(0)
+  System.out.println("You entered " + ch)
+}
+</code></pre>
+
+<h3>Why this works</h3>
+
+<p>Scanner returns Strings for tokens so you borrow one of String s handy methods to extract a character. This keeps things explicit and avoids weird API hacks. Also you do not need a mythical nextChar method to get what you want.</p>
+
+<h2>Handle empty or multi character input</h2>
+
+<p>Users love to press Enter and walk away or paste entire sentences into a single character prompt. Validate input by checking length before calling charAt. Decide if you accept the first character or force the user to provide exactly one character.</p>
+
+<ul>
+<li>Reject empty tokens with token.trim().length() == 0</li>
+<li>Reject or warn on token.length() &gt; 1 if you need strict single char input</li>
+<li>Use sc.hasNext to avoid exceptions and to prompt again gracefully</li>
+</ul>
+
+<h2>When to use nextLine instead of next</h2>
+
+<p>Choose next when spaces are separators and you only need the first non space token. Choose nextLine when spaces matter or the user could enter a space as their response. With nextLine you read a whole line then trim and parse it for characters.</p>
+
+<pre><code>Scanner sc = new Scanner(System.in)
+while true {
+  System.out.println("Enter a single character")
+  String line = sc.nextLine()
+  String trimmed = line.trim()
+  if trimmed.length() == 0 {
+    System.out.println("No input try again")
+    continue
+  }
+  char ch = trimmed.charAt(0)
+  // use ch as needed
+  break
+}
+</code></pre>
+
+<h2>Quick checklist for robust console input</h2>
+
+<ul>
+<li>Prefer hasNext and checks like token.trim().length() &gt; 0 before calling charAt</li>
+<li>Decide policy for multi character input and document it for users</li>
+<li>Use nextLine when you must capture spaces or when you want the whole line for parsing</li>
+<li>Keep user prompts friendly and fail with guidance not rage</li>
+</ul>
+
+<p>This approach keeps your code simple and avoids reinventing the wheel or expecting Scanner to have a nextChar method. It works in real Java programs and keeps your users from typing nonsense into the console while you pretend to be surprised.</p>
+

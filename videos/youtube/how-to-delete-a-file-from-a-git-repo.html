@@ -1,0 +1,77 @@
+---
+layout: video
+title: "How to delete a file from a Git repo"
+description: "Step by step guide to remove a file from a Git repository including tracked and untracked file handling and pushing changes to remote"
+video_host: "youtube"
+video_id: "T8E6gT0oaDI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M52S"
+thumbnail_url: "https://i.ytimg.com/vi/T8E6gT0oaDI/maxresdefault.jpg"
+content_url: "https://youtu.be/T8E6gT0oaDI"
+embed_url: "https://www.youtube.com/embed/T8E6gT0oaDI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git rm
+  - delete file
+  - remove file
+  - git tutorial
+  - git commit
+  - git push
+  - gitignore
+  - version control
+  - git rm --cached
+---
+
+<article>
+  <p>So you want to remove a file from a Git repo. Good choice when it is junk, bad choice when it is your config file that you forgot was important. This quick git tutorial will show how to check whether a file is tracked, remove a file from the repository or just stop tracking it while keeping a local copy, and how to rescue a file if you panic later.</p>
+
+  <h2>Inspect the repo state first</h2>
+  <p>Before you blithely delete things and create a merge conflict of doom, run a couple of checks to see what Git thinks.</p>
+  <pre><code>git status
+git ls-files | grep filename</code></pre>
+  <p>git status shows staged and unstaged deletions. Use git ls-files to see if that filename is actually tracked by Git or if it is just lying around in your working directory.</p>
+
+  <h2>Remove a tracked file from disk and history</h2>
+  <p>If you want the file gone from both the repo and the working tree use the classic command.</p>
+  <pre><code>git rm path/to/file
+git commit -m "Remove unwanted file from repository"
+git push origin main</code></pre>
+  <p>This makes the file disappear from the next commit and pushes the removal to the remote branch. Replace origin and main with your remote and branch names if your repo enjoys being special.</p>
+
+  <h2>Stop tracking a file but keep it locally</h2>
+  <p>If the file contains local configuration or build artifacts you do not want in the repo but you still need it on your machine use git rm --cached. That untracks the file without deleting your local copy.</p>
+  <pre><code>git rm --cached path/to/file
+# add the filename or pattern to .gitignore
+echo "path/to/file" >> .gitignore
+git add .gitignore
+git commit -m "Stop tracking local config"
+git push origin main</code></pre>
+  <p>Adding the pattern to .gitignore prevents future accidental commits of the same file. This is the tidy version of cleanup for people who like clean diffs and less noise in version control.</p>
+
+  <h2>Recover a deleted file if you made a mistake</h2>
+  <p>Mistakes happen. Git is forgiving if you act before you rewrite history.</p>
+  <pre><code>git restore --source=HEAD^ -- path/to/file
+# or for older Git versions
+git checkout HEAD^ -- path/to/file
+# then
+git add path/to/file
+git commit -m "Restore file accidentally removed"
+git push origin main</code></pre>
+  <p>HEAD^ refers to the previous commit. Those commands pull the file from the last commit where it existed and let you recommit it if you want tracking to continue.</p>
+
+  <h3>Quick checklist</h3>
+  <ul>
+    <li>Run git status and git ls-files to see if a file is tracked</li>
+    <li>Use git rm to delete from repo and disk</li>
+    <li>Use git rm --cached and .gitignore to stop tracking but keep local copy</li>
+    <li>Use git restore or git checkout to recover accidental deletions</li>
+    <li>Commit with a clear message and git push to update the remote</li>
+  </ul>
+
+  <p>Version control is supposed to save you not haunt you. Use git rm and git rm --cached thoughtfully, keep your .gitignore updated, and commit descriptive messages so your future self does not send angry emails to present self.</p>
+</article>
+

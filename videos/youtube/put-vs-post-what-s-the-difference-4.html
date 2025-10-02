@@ -1,0 +1,71 @@
+---
+layout: video
+title: "PUT vs POST What's the difference?"
+description: "Quick guide to HTTP PUT and POST differences for APIs with idempotency explained and practical examples for real world use."
+video_host: "youtube"
+video_id: "7-ZG5l0jGEU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M29S"
+thumbnail_url: "https://i.ytimg.com/vi/7-ZG5l0jGEU/maxresdefault.jpg"
+content_url: "https://youtu.be/7-ZG5l0jGEU"
+embed_url: "https://www.youtube.com/embed/7-ZG5l0jGEU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - PUT
+  - POST
+  - HTTP
+  - REST
+  - API
+  - Idempotency
+  - CRUD
+  - Web Development
+  - Status Codes
+  - Best Practices
+---
+
+<p>If you have ever argued with a coworker about whether to use PUT or POST while the production server quietly judges you both, this guide will sort things out without taking sides or pretending everything is obvious.</p>
+
+<h2>Short answer for tired developers</h2>
+<p>PUT is idempotent and good for replacing a resource at a known URI. POST is for creating or triggering server side work when the server picks the new identifier or when duplicate processing is bad. PATCH is for partial updates when your API supports it. That is the gist, now here is the useful part.</p>
+
+<h2>Why idempotency matters in HTTP and REST</h2>
+<p>Idempotency means you can repeat the same request and the server state will be the same after each attempt, and usually the response status stays the same too. This matters for retries, flaky networks, and human patience. When a client can safely retry, you avoid accidental duplicate records and weird data corruption, which will spare you at least one on call at 2 a m.</p>
+
+<h3>PUT explained</h3>
+<p>PUT is the method you pick when the client knows the target URI and wants the resource at that URI to have a specific state. Repeating the same PUT request should leave the server looking the same as the first time. Use PUT for full resource replacement and for creating a resource at a client chosen URI.</p>
+<pre><code>PUT /users/123
+Body { "id": 123, "name": "Sam" }</code></pre>
+<p>Expected responses are usually 200 or 204 for a successful update or 201 if the request created a new resource. PUT fits CRUD update semantics and plays nicely with retries.</p>
+
+<h3>POST explained</h3>
+<p>POST is the messy but necessary cousin. Use it when the server generates the resource id or when the request triggers processing that must not run more than once. POST is generally not idempotent, so sending the same POST twice often makes two resources or does the work twice.</p>
+<pre><code>POST /users
+Body { "name": "Alex" }
+Response 201 Location /users/789</code></pre>
+<p>Common responses include 201 for creation or 200 when the server returns processed data. If you need safe retries for POST then add an idempotency key or a unique request id header so the server can detect duplicates.</p>
+
+<h3>PATCH when you only want to change one thing</h3>
+<p>PATCH is for partial updates. It avoids sending the whole resource when you only want to tweak a few fields. Behavior around idempotency can vary with different patch formats, so document how your API handles repeated PATCH requests if retries are a real possibility.</p>
+
+<h2>Status codes to pay attention to</h2>
+<ul>
+  <li>201 created when a resource is successfully created</li>
+  <li>200 ok when returning a representation after processing</li>
+  <li>204 no content for a successful update that returns nothing</li>
+  <li>4xx and 5xx as usual when things go sideways</li>
+</ul>
+
+<h2>Practical best practices for APIs</h2>
+<ul>
+  <li>Prefer PUT for idempotent updates at a known URI and POST for creation where the server assigns the id</li>
+  <li>Use PATCH for partial updates to reduce bandwidth and avoid accidental overwrites</li>
+  <li>When POST must be retried add an idempotency key or unique request id header so the server can dedupe</li>
+  <li>Design your status codes to match expectations so clients can make safe retry decisions</li>
+</ul>
+
+<h2>Final tip that will save you grief</h2>
+<p>If your client might retry due to network flakiness, prefer methods that tolerate repetition without creating duplicates. When in doubt pick POST for creation and PUT for idempotent updates. Add unique request id headers for POST operations that must be safe to retry. Your future self will thank you, or at least send fewer frantic messages at 3 a m.</p>
+

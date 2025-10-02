@@ -1,0 +1,73 @@
+---
+layout: video
+title: "Fork GitHub from the Command Line"
+description: "Learn how to fork a GitHub repository from the command line using gh and git for fast collaboration and clean pull requests."
+video_host: "youtube"
+video_id: "2WiBRNydhTk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M2S"
+thumbnail_url: "https://i.ytimg.com/vi/2WiBRNydhTk/maxresdefault.jpg"
+content_url: "https://youtu.be/2WiBRNydhTk"
+embed_url: "https://www.youtube.com/embed/2WiBRNydhTk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub
+  - git
+  - gh
+  - command line
+  - fork
+  - pull request
+  - open source
+  - CLI
+  - developers
+  - tutorial
+---
+
+<h2>Get the gh CLI and sign in</h2>
+<p>First thing first you need the GitHub CLI on your laptop. Install the gh tool from the official source for your operating system then run <code>gh auth login</code> and answer the prompts. This will link your local shell to your GitHub account so you can pretend you are efficient.</p>
+<h2>Fork the repo from your shell</h2>
+<p>If you like living dangerously on the command line use gh to fork and optionally clone in one go. It looks like this</p>
+<pre><code>gh repo fork OWNER/REPO --clone
+</code></pre>
+<p>If you just want to create the fork and clone later omit the clone flag</p>
+<pre><code>gh repo fork OWNER/REPO
+</code></pre>
+<h2>Clone your fork or point to upstream</h2>
+<p>Clone your fork with the URL you get after forking. Replace the placeholder with the actual clone URL from GitHub</p>
+<pre><code>git clone your-fork-url
+</code></pre>
+<p>If you already have a local copy of the original repository add an upstream remote so syncing stays sane</p>
+<pre><code>git remote add upstream original-repo-url
+</code></pre>
+<h2>Create a branch commit and push</h2>
+<p>Do not work on master. That is how chaos is born. Create a feature branch and keep commits tidy</p>
+<pre><code>git checkout -b feature-name
+# edit files
+git add .
+git commit -m 'Clear message'
+git push origin feature-name
+</code></pre>
+<h2>Open a pull request from the terminal</h2>
+<p>When your branch is pushed you can open a pull request without opening yet another browser tab</p>
+<pre><code>gh pr create --base master --head feature-name --fill
+</code></pre>
+<p>Follow the prompts to review the title and description then submit. If the project has a different default branch use that instead of master. Yes that happens.</p>
+<h3>Syncing your fork the boring but crucial part</h3>
+<p>Before you start a new feature fetch upstream and rebase so you do not invent merge conflicts for future you</p>
+<pre><code>git fetch upstream
+git rebase upstream/master
+</code></pre>
+<h3>Quick contributor checklist</h3>
+<ul>
+<li>Install and authenticate gh</li>
+<li>Fork the repo and clone or add an upstream remote</li>
+<li>Create a branch per feature</li>
+<li>Commit with clear messages and push to origin</li>
+<li>Open a PR with gh and follow contribution guidelines</li>
+<li>Keep your fork synced with upstream</li>
+</ul>
+<p>If you made it this far you deserve a cookie or at least the smug feeling of having used the command line to improve open source. Now go fix a bug and try not to break CI.</p>
+

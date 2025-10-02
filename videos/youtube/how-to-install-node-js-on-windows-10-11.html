@@ -1,0 +1,76 @@
+---
+layout: video
+title: "How to Install Node JS on Windows 10/11"
+description: "Step by step guide to install Node JS on Windows 10 and 11 and verify npm npx for React ExpressJS Angular and git workflows"
+video_host: "youtube"
+video_id: "Ub2wKh7uNHs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M5S"
+thumbnail_url: "https://i.ytimg.com/vi/Ub2wKh7uNHs/maxresdefault.jpg"
+content_url: "https://youtu.be/Ub2wKh7uNHs"
+embed_url: "https://www.youtube.com/embed/Ub2wKh7uNHs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Node.js
+  - Windows 10
+  - Windows 11
+  - npm
+  - npx
+  - React
+  - ExpressJS
+  - Angular
+  - Git
+  - Install Node
+---
+
+<h2>Why this exists</h2>
+<p>If you just wiped a Windows 10 or Windows 11 machine and want to build React ExpressJS or Angular projects without drama this guide gets you there. We will install Node.js pick the sensible LTS version make sure npm and npx work and run a quick scaffold to prove the whole thing actually functions.</p>
+
+<h2>What you will need</h2>
+<ul>
+  <li>A Windows 10 or Windows 11 computer with admin rights</li>
+  <li>An internet connection to download the installer and packages</li>
+  <li>Optional but handy Git if you like version control and mild chaos</li>
+</ul>
+
+<h2>Step 1 download the official installer</h2>
+<p>Go to nodejs.org and grab the LTS build. LTS stands for long term support which is geek speak for stable enough to avoid headaches when libraries throw tantrums. Avoid random archives from sketchy sites unless you enjoy surprises.</p>
+
+<h2>Step 2 run the installer as administrator</h2>
+<p>Run the downloaded .msi and follow the GUI prompts. For most developers the default options are fine. If you do not like surprises accept defaults and move on to coffee. Make sure to check Add to PATH so the Node runtime and npm become available from any terminal session.</p>
+
+<h2>Step 3 optional native build tools</h2>
+<p>The installer may offer to add tools for native modules. Those are only necessary if you plan to compile modules that use C or C++ under the hood. If you do not know what that means you probably do not need them right now.</p>
+
+<h2>Step 4 verify the install</h2>
+<p>Open PowerShell or Command Prompt and run these commands</p>
+<ul>
+  <li><code>node -v</code> to see the Node version</li>
+  <li><code>npm -v</code> to see the npm version</li>
+  <li><code>npx -v</code> to check npx is present</li>
+</ul>
+<p>If you see version numbers congratulations your environment is wired correctly. If not double check that Add to PATH was enabled or restart the terminal or the machine.</p>
+
+<h2>Step 5 update npm if you want newer features</h2>
+<p>npm sometimes ships slower than the cool kids want. Update it globally with</p>
+<p><code>npm install -g npm</code></p>
+<p>This can fix bugs and unlock modern features used by scaffolding tools and CLI utilities.</p>
+
+<h2>Step 6 run a quick test project</h2>
+<p>Use npx to avoid global installs and to test that package execution works. For example</p>
+<p><code>npx create-react-app my-app</code></p>
+<p>If the command creates the project then npm and npx are happily cooperating and you can start building React Express or Angular apps. For Angular try the Angular CLI and for ExpressJS you can scaffold a minimal server in minutes.</p>
+
+<h3>Quick troubleshooting tips</h3>
+<ul>
+  <li>If commands are not found check your PATH and restart the terminal or the machine</li>
+  <li>Permission errors when installing global packages may be fixed by running an elevated terminal or by configuring npm to use a user folder for globals</li>
+  <li>If you need multiple Node versions consider using nvm for Windows which lets you switch versions without tears</li>
+</ul>
+
+<h2>Wrap up</h2>
+<p>This guide covered getting the Node.js installer picking the LTS build running the installer enabling PATH verifying node npm and npx updating npm and scaffolding a test app. Follow these steps and your Windows 10 or Windows 11 machine will be ready to run React ExpressJS and Angular projects in minutes and you can go write code instead of wrestling with your toolchain.</p>
+

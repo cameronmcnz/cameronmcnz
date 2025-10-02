@@ -1,0 +1,60 @@
+---
+layout: video
+title: "Install Eclipse IDE for Jakarta EE Dev"
+description: "Quick guide to install Eclipse IDE for Jakarta EE development set up workspace add Jakarta EE tools and run a sample project"
+video_host: "youtube"
+video_id: "pVfWYjAtRcE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M45S"
+thumbnail_url: "https://i.ytimg.com/vi/pVfWYjAtRcE/maxresdefault.jpg"
+content_url: "https://youtu.be/pVfWYjAtRcE"
+embed_url: "https://www.youtube.com/embed/pVfWYjAtRcE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Eclipse
+  - Jakarta EE
+  - Eclipse IDE
+  - Java
+  - Jakarta
+  - Java EE migration
+  - Tomcat
+  - Payara
+  - Installation
+  - Tutorial
+---
+
+<p>Ready to stop wrestling with classpath gremlins and start building Jakarta EE apps that actually run? This guide walks you through installing Eclipse IDE with Jakarta EE tools and configuring a workspace that does not hate you back. Expect downloads, a JDK, a server runtime like Tomcat or Payara, and a quick test deployment.</p>
+
+<h2>Get the installer and a matching JDK</h2>
+<p>Go to the official Eclipse website and download the installer that matches your OS and CPU. Look for a package labeled Enterprise Java or Jakarta EE if available. That bundle saves time and prevents fiddling with missing plugins later.</p>
+<p>Install a Java development kit that your chosen application server supports. If you are planning modern Jakarta EE features pick a recent JDK release. Yes Java version compatibility matters. No it will not fix itself by wishing.</p>
+
+<h2>Run the installer and pick the Jakarta EE package</h2>
+<ul>
+  <li>Run the Eclipse installer and choose the Jakarta EE or Enterprise Java package. Default options work for most setups.</li>
+  <li>Accept the license and choose an installation folder with enough disk space. Eclipse likes breathing room.</li>
+  <li>Finish installation and launch Eclipse IDE once the installer reports success.</li>
+</ul>
+
+<h2>Choose a sensible workspace and avoid surprises</h2>
+<p>On first launch Eclipse prompts for a workspace folder. Pick a clear folder and stick with it. You can skip the prompt on future launches but setting a dedicated workspace now avoids a messy project graveyard later.</p>
+
+<h2>Add a server runtime for Tomcat Payara or WildFly</h2>
+<p>Open the Servers view or go through Preferences to add a server runtime. Install server adapters if Eclipse asks. Having a configured runtime lets you deploy and debug Jakarta EE apps straight from the IDE, which is the whole point.</p>
+<p>Supported runtimes include Apache Tomcat for servlet testing and Payara or WildFly for full Jakarta EE features. Pick what fits your project and match the server to your JDK version.</p>
+
+<h2>Create and run a new Jakarta EE project</h2>
+<ul>
+  <li>Use File then New then Project to open the New Project wizard and select Jakarta EE application or a specific web project.</li>
+  <li>Choose the Jakarta specifications you need such as Servlet or JAX RS and scaffold a simple app. The wizard will create the basic structure so you can actually focus on business logic.</li>
+  <li>Right click the project and choose Run on Server to deploy to the configured runtime. Check the Console and Server logs for startup messages and any deployment errors.</li>
+</ul>
+
+<h3>Tips for Java EE migration and maintaining compatibility</h3>
+<p>If you are migrating from Java EE remember that Jakarta package names moved for certain APIs. Test your modules and libraries. Match the JDK version to the application server requirements to avoid runtime surprises. Also enable automatic updates in Eclipse to keep tooling current and less likely to break when Jakarta evolves.</p>
+
+<p>This tutorial covered downloading the Eclipse installer installing a JDK choosing the right Eclipse package configuring a workspace adding a server runtime and creating a Jakarta EE project to verify the setup. Now go write code and let the server do the heavy lifting for once.</p>
+

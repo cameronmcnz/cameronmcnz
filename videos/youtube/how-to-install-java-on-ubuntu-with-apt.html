@@ -1,0 +1,76 @@
+---
+layout: video
+title: "How to install Java on Ubuntu with apt"
+description: "Step by step guide to install Java on Ubuntu using apt with commands to verify and configure default Java runtime and JDK"
+video_host: "youtube"
+video_id: "DfoudIy590c"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M40S"
+thumbnail_url: "https://i.ytimg.com/vi/DfoudIy590c/maxresdefault.jpg"
+content_url: "https://youtu.be/DfoudIy590c"
+embed_url: "https://www.youtube.com/embed/DfoudIy590c"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Ubuntu
+  - apt
+  - OpenJDK
+  - JDK
+  - installation
+  - Linux
+  - command line
+  - tutorial
+  - package manager
+---
+
+<h2>Why this matters and why you should care</h2>
+<p>Java is the language that refuses to die and your machine needs a runtime and a compiler if you plan to write or run Java programs. This guide shows how to install OpenJDK on Ubuntu with the apt package manager, verify the runtime and compiler, and manage multiple JDK versions without turning your system into a confusion shrine.</p>
+
+<h2>Quick checklist before you begin</h2>
+<ul>
+  <li>Have sudo access on the Ubuntu machine</li>
+  <li>Know whether you need a specific OpenJDK version or the default JDK</li>
+  <li>Be comfortable running a couple of terminal commands and pretending you meant to</li>
+</ul>
+
+<h3>Update apt and get the package list</h3>
+<p>First make sure apt knows what is new and exciting. Run the update command so the package index is up to date. You can also upgrade everything if you want to live dangerously.</p>
+<pre><code>sudo apt update
+sudo apt upgrade -y</code></pre>
+
+<h3>Choose a JDK and install it</h3>
+<p>For most people the default JDK is the easiest option. If you need a specific LTS release pick openjdk-11-jdk or openjdk-17-jdk depending on your project. The package manager will fetch the runtime and the compiler so you do not have to be a package whisperer.</p>
+<pre><code>sudo apt install default-jdk
+# or for a specific version
+sudo apt install openjdk-11-jdk</code></pre>
+
+<h2>Make sure Java and javac match</h2>
+<p>After installation confirm both the runtime and the compiler are present. Mismatched versions are the leading cause of build confusion and dramatic error messages.</p>
+<pre><code>java -version
+javac -version</code></pre>
+<p>If the versions in the output look sane then congrats. If not you may have multiple JDKs installed which leads us to the next delightful topic.</p>
+
+<h2>Switch between installed Java versions</h2>
+<p>Ubuntu provides the update alternatives tool to pick which java and javac are the system defaults. It is a menu driven selection so you do not need to edit symlinks while holding your breath.</p>
+<pre><code>sudo update-alternatives --config java
+sudo update-alternatives --config javac</code></pre>
+<p>Choose the number that corresponds to the version you want. Repeat for both java and javac when necessary to avoid build time surprises.</p>
+
+<h2>Removing a JDK you no longer want</h2>
+<p>If a JDK is causing trouble or you simply want less clutter remove it with apt and then clean up leftover packages.</p>
+<pre><code>sudo apt remove openjdk-11-jdk
+sudo apt autoremove</code></pre>
+
+<h2>Handy extras and troubleshooting tips</h2>
+<ul>
+  <li>Look for available packages with <code>apt search openjdk</code> to see what versions your Ubuntu release offers</li>
+  <li>If you switch JDKs often consider SDKMAN for per user JVM management and less sudo drama</li>
+  <li>If you plan to use Oracle builds check the license before adding any third party repositories</li>
+</ul>
+
+<h2>Wrap up and final thought</h2>
+<p>Following these steps will give you a working Java runtime and compiler on Ubuntu ready for development or production deployment. It is not rocket science, but it is precise science. Keep your package list fresh, pick the JDK that matches your project, and use update alternatives when the universe offers choices. Now go write something that will print Hello World and then promptly crash in a useful way.</p>
+

@@ -1,0 +1,81 @@
+---
+layout: video
+title: "How to create UiPath Queues tutorial"
+description: "Learn how to create UiPath Queues in Orchestrator add queue items process transactions and handle retries for reliable RPA workflows"
+video_host: "youtube"
+video_id: "DQfUp0pgMu8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M13S"
+thumbnail_url: "https://i.ytimg.com/vi/DQfUp0pgMu8/maxresdefault.jpg"
+content_url: "https://youtu.be/DQfUp0pgMu8"
+embed_url: "https://www.youtube.com/embed/DQfUp0pgMu8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Queues
+  - Orchestrator
+  - RPA
+  - Add Queue Item
+  - Get Transaction Item
+  - Set Transaction Status
+  - SpecificContent
+  - Transaction Pattern
+  - Queue Monitoring
+---
+
+<h2>Quick reality check</h2>
+<p>If you think queues are just a fancy inbox for bots you are half right. UiPath queues in Orchestrator are the backbone of reliable RPA when you need scale without chaos. This guide walks you through creating a queue, adding items from Studio, processing transactions with Get Transaction Item, and using Set Transaction Status the way a grown up automation engineer would.</p>
+
+<h2>Create a queue in Orchestrator</h2>
+<p>Open Orchestrator and go to Queues. Click add new and give it a unique name. Set Auto Retry and Max Retry to values that match your workflow behavior. If your process is idempotent and logs are good go ahead and allow retries. If not keep retries off and face the consequences like a sensible person.</p>
+
+<h3>Recommended settings</h3>
+<ul>
+  <li>Unique name so dashboards do not cry</li>
+  <li>Auto Retry only for safe reprocessing</li>
+  <li>Max Retry set to prevent infinite loops and wasted CPU cycles</li>
+</ul>
+
+<h2>Add items from Studio</h2>
+<p>In Studio use Add Queue Item for single transactions or Add Queue Items for a batch. Populate Reference to trace each transaction across logs and dashboards. Use SpecificContent to store structured fields so your robot does not have to guess what a value means.</p>
+
+<h3>What to include in SpecificContent</h3>
+<ul>
+  <li>Structured keys like invoiceNumber customerId or amount</li>
+  <li>A Reference string that is truly unique to avoid duplicates</li>
+  <li>Any metadata that helps troubleshooting without opening a time machine</li>
+</ul>
+
+<h2>Fetch and process transactions</h2>
+<p>Use Get Transaction Item to pick up work from the queue. Always check for a Nothing response before you start acting like the hero of the story. If you get an item use the SpecificContent fields to drive the automation logic so nothing is hard coded again like in the bad old days.</p>
+
+<h3>Basic transaction pattern</h3>
+<ol>
+  <li>Get Transaction Item</li>
+  <li>Validate input from SpecificContent</li>
+  <li>Execute processing steps</li>
+  <li>Set Transaction Status to Success or a failure type</li>
+</ol>
+
+<h2>Update status and handle failures</h2>
+<p>After work is done call Set Transaction Status to mark the item as Success BusinessRuleException or SystemError. For recoverable errors use the Retry option and make sure the error details are logged in the queue item. That saves you from guessing what went wrong at 2 a m.</p>
+
+<h3>When to use BusinessRuleException</h3>
+<p>Use BusinessRuleException when input is invalid or a manual decision is needed. That tells monitoring that this item failed on business logic not broken infra. Use SystemError for unexpected exceptions that need developer attention.</p>
+
+<h2>Monitor queues and tune retries</h2>
+<p>Watch queue metrics in Orchestrator. Filter for failed items and set alerts for sudden spikes. Tune Auto Retry and Max Retry to balance throughput against duplicate processing risk. If failures spike investigate logs then adjust the workflow or retry policy accordingly.</p>
+
+<h3>Useful monitoring checks</h3>
+<ul>
+  <li>Failed items per minute and trend analysis</li>
+  <li>Most common error messages in SpecificContent or logs</li>
+  <li>Duplicates caused by poor Reference design</li>
+</ul>
+
+<h2>Final tips</h2>
+<p>Use SpecificContent for structured fields and a unique Reference to avoid duplicates. Keep the transaction pattern tidy and explicit. Enable Auto Retry only when your workflow is idempotent and logs provide enough context to retry safely. Follow these steps and your queues will behave more like a well trained assistant and less like a raccoon in a chip factory.</p>
+

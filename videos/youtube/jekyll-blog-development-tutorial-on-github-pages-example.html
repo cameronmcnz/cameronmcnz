@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Jekyll Blog Development Tutorial on GitHub Pages Example"
+description: "Build a Jekyll blog and publish on GitHub Pages with clear setup theming local preview and deployment steps for beginners."
+video_host: "youtube"
+video_id: "MRyZmkTdo9A"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M0S"
+thumbnail_url: "https://i.ytimg.com/vi/MRyZmkTdo9A/maxresdefault.jpg"
+content_url: "https://youtu.be/MRyZmkTdo9A"
+embed_url: "https://www.youtube.com/embed/MRyZmkTdo9A"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jekyll
+  - GitHub Pages
+  - static site
+  - blog
+  - Jekyll tutorial
+  - deployment
+  - GitHub
+  - markdown
+  - front matter
+  - site configuration
+---
+
+<p>If you want a light, fast static site that will not argue with you on deploy day then Jekyll plus GitHub Pages is your buddy. This guide walks through local development theming and deployment with practical tips and a touch of sarcasm for flavor. Expect accurate instructions on Ruby and Jekyll setup, posts in Markdown, front matter handling, local preview, and pushing to GitHub for free hosting.</p>
+
+<h2>Get your machine ready</h2>
+<p>Step 1 is boring and essential. Install Ruby on your system and then add Jekyll and Bundler. On Windows you can use RubyInstaller or WSL for a friendlier experience.</p>
+<pre><code>gem install jekyll bundler</code></pre>
+<p>Pin gem versions in a Gemfile so future you does not cry when a dependency updates. This saves precious debugging time and a little dignity.</p>
+
+<h2>Create a new site and tweak the config</h2>
+<p>Run the scaffolding command to get a working site that will not be a complete disaster.</p>
+<pre><code>jekyll new myblog</code></pre>
+<p>Edit <code>_config.yml</code> to set your site title, baseurl and permalink style. Pick a theme early to avoid DIY layout regret. If you have a non root baseurl like a project page set that value so links work on GitHub Pages.</p>
+
+<h2>Write posts and learn front matter</h2>
+<p>Create posts as Markdown files under <code>_posts</code>. Each post needs YAML front matter at the top with keys like title date categories and layout so Jekyll knows what you mean. Do not forget that dates control sorting and permalinks.</p>
+<p>Modify templates in <code>_layouts</code> and reusable snippets in <code>_includes</code>. Front matter controls which layout a post uses so learn those keys early and stop blaming the theme.</p>
+
+<h3>Quick Markdown and front matter checklist</h3>
+<ul>
+  <li>Write posts in Markdown so maintenance remains delightful</li>
+  <li>Use YAML front matter to set title date and layout</li>
+  <li>Keep images and assets in an assets or images folder and reference them with the baseurl in mind</li>
+</ul>
+
+<h2>Preview locally the smart way</h2>
+<p>Start a local server to debug styling and broken links before you push and cause a production surprise.</p>
+<pre><code>bundle exec jekyll serve</code></pre>
+<p>Visit <code>localhost:4000</code> in your browser and poke around. Local previews are the difference between a confident deploy and a frantic 2 a m rollback.</p>
+
+<h2>Publish to GitHub Pages without losing sleep</h2>
+<p>Create a repository on GitHub. For a user site name the repo <code>username.github.io</code> and push the site to the main branch. For a project site use a branch like gh pages or configure the repository Pages settings to serve from the main branch or the docs folder. If that sounds vague read the Pages settings carefully and pick what suits your workflow.</p>
+<pre><code>git init
+git add .
+git commit -m "Initial Jekyll site"
+git remote add origin git@github.com:yourname/yourrepo.git
+git push origin main</code></pre>
+<p>Optional and recommended if you want automation use GitHub Actions to build and deploy so you can sleep while GitHub does the heavy lifting.</p>
+
+<h2>Deployment tips that actually matter</h2>
+<ul>
+  <li>Pin gem versions in your Gemfile to avoid build surprises on GitHub Pages</li>
+  <li>Set baseurl in <code>_config.yml</code> if your site will live under a project path so assets and links resolve correctly</li>
+  <li>Test locally with the same Ruby and Jekyll versions you use in CI to reduce version drama</li>
+</ul>
+
+<h2>Wrap up and final pep talk</h2>
+<p>Follow these steps and you will have a fast static blog hosted for free on GitHub Pages that is easy to maintain and fun to tweak. If you break something it is usually a missing front matter key or a baseurl mix up. Breathe. Fix it. Push again. The internet forgives in time.</p>
+<p>If you want more advanced moves look into custom domains performance headers and GitHub Actions for automated testing and deployment. For now get a post online and enjoy the thrill of static site mastery with minimal drama.</p>
+

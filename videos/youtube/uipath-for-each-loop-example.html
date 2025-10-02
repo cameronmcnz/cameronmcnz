@@ -1,0 +1,70 @@
+---
+layout: video
+title: "UiPath For Each Loop Example"
+description: "Practical guide to using the UiPath For Each activity with arrays and data tables for reliable RPA loops and cleaner automation workflows."
+video_host: "youtube"
+video_id: "E0MB7t7QoDg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M50S"
+thumbnail_url: "https://i.ytimg.com/vi/E0MB7t7QoDg/maxresdefault.jpg"
+content_url: "https://youtu.be/E0MB7t7QoDg"
+embed_url: "https://www.youtube.com/embed/E0MB7t7QoDg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - For Each
+  - For Each Row
+  - RPA
+  - Automation
+  - DataTable
+  - Variables
+  - Workflows
+  - Loop examples
+  - Error handling
+---
+
+<h2>Why bother with For Each at all</h2>
+<p>If you want your robot to touch lots of things without crashing into a wall of casting errors, mastering the UiPath For Each activity is mandatory. This article walks through using For Each and For Each Row for lists and DataTable automation. You will learn how to pick the right TypeArgument, avoid the modern art of exceptions, and log progress so your manager does not ask why the bot failed on a Tuesday.</p>
+
+<h2>Start smart with the right workflow and variables</h2>
+<p>Begin with a Sequence or a Flowchart and declare variables for the collection you plan to iterate. Use an array or a List for simple text lists. For spreadsheet or table work load the table first with a Build Data Table activity or a Read Range activity. That gives you a DataTable to feed into For Each Row or to filter before looping.</p>
+
+<h3>Pick the right activity and the right TypeArgument</h3>
+<p>Drag a For Each activity into your workflow when you have a generic collection such as an array or a List. Set the TypeArgument to the collection element type. For a list of text choose String. For lists of objects set the specific object type. If you are iterating rows use the For Each Row activity or set TypeArgument to DataRow in a For Each activity. Choosing the correct type prevents those cryptic casting errors that look like modern art.</p>
+
+<h2>What to do inside the loop</h2>
+<p>Use the item variable name supplied by the activity. For DataRow scenarios access columns like this row("ColumnName").ToString when you need a text representation. Use Assign activities to transform values and Click or Type Into activities to push data to applications. Pick descriptive variable names so future humans can understand the loop without summoning a séance.</p>
+
+<h2>Practical loop steps</h2>
+<ol>
+  <li>Load data with Read Range or Build Data Table</li>
+  <li>Filter the DataTable first when possible to reduce work inside the loop</li>
+  <li>Use For Each Row for DataTable rows or For Each with TypeArgument DataRow</li>
+  <li>Within the loop use Assign, Click, Type Into, or custom logic</li>
+  <li>Log progress with Write Line or Log Message so you can debug like a human</li>
+</ol>
+
+<h2>Error handling and sensible skipping</h2>
+<p>Wrap risky actions inside a Try Catch block and handle specific exceptions. Set ContinueOnError only when skipping an error is an acceptable business decision. Otherwise handle the exception and log details. Proper logging helps trace unexpected data and keeps stakeholders from asking for a miracle.</p>
+
+<h3>Logging tips that actually help</h3>
+<ul>
+  <li>Write a message at loop start and loop end with item details</li>
+  <li>Log errors with the row index or a unique identifier from the row</li>
+  <li>Keep messages short and meaningful so you can grep them later</li>
+</ul>
+
+<h2>Common pitfalls and how to avoid them</h2>
+<ul>
+  <li>Wrong TypeArgument leads to invalid cast exceptions. Match types early</li>
+  <li>Processing unfiltered tables wastes time and invites failures. Filter first</li>
+  <li>Using vague variable names makes debugging a seven act tragedy. Name clearly</li>
+  <li>Relying on ContinueOnError without logging hides the real problem</li>
+</ul>
+
+<h2>Wrap up with a clean finish</h2>
+<p>In short use For Each for collections and For Each Row for DataTable rows. Set a correct TypeArgument, filter data before looping, log progress, and catch exceptions with purpose. Follow these steps and your workflows will be less flirty with failure and more dependable for real world automation. Now go build something that works and enjoy the rare thrill of an unattended robot that actually finished its work.
+

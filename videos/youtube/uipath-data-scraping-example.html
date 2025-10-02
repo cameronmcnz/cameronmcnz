@@ -1,0 +1,62 @@
+---
+layout: video
+title: "UiPath Data Scraping Example"
+description: "Learn UiPath Data Scraping wizard to extract web tables to Excel with selectors and retry strategies for reliable automation"
+video_host: "youtube"
+video_id: "6c1Tda0F0WI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M9S"
+thumbnail_url: "https://i.ytimg.com/vi/6c1Tda0F0WI/maxresdefault.jpg"
+content_url: "https://youtu.be/6c1Tda0F0WI"
+embed_url: "https://www.youtube.com/embed/6c1Tda0F0WI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Data Scraping
+  - Web Scraping
+  - RPA
+  - Automation
+  - DataTable
+  - Selectors
+  - Excel
+  - UiPath Tutorial
+  - Pagination
+---
+
+<h2>Why this UiPath tutorial will save you time and sanity</h2>
+<p>This short UiPath tutorial walks through web scraping structured tables with the Data Scraping wizard and exporting results to Excel. It is practical, slightly sarcastic, and technically accurate. If you want reliable RPA that pulls table data into a DataTable and writes to a spreadsheet then you are in the right place.</p>
+
+<h3>Prepare the page and open UiPath Studio</h3>
+<p>Open UiPath Studio and create a new Process. Use a browser that supports selectors such as Chrome or Edge. A stable page layout makes extraction far less frustrating and keeps your workflow from devolving into guesswork.</p>
+
+<h3>Run the Data Scraping wizard</h3>
+<p>From the Design tab launch the Data Scraping wizard. Click the first table cell and then pick a second example so the wizard can identify the pattern. The preview area shows the rows it plans to extract which lets you validate results before wiring any logic. Tweak the column selection and basic data types here. If a column is a mess plan simple string cleaning after extraction rather than assuming the web is neat.</p>
+
+<h3>Save output to a clear DataTable</h3>
+<p>Choose output as a DataTable variable and give it a clear name such as extractedTable. Clear naming saves debugging time and reduces your dependence on coffee. You can then feed that DataTable into downstream activities or dump it straight to Excel.</p>
+
+<h3>Handle pagination and dynamic selectors</h3>
+<p>If the table spans pages use the wizard pagination option or implement a loop that clicks Next and repeats extraction. For pages with dynamic content inspect elements with UiExplorer and consider anchor or relative selectors so your automation does not break every week. Think of selectors as fragile house plants that need gentle tending.</p>
+
+<h3>Write to Excel or process rows</h3>
+<p>To save results use Write Range from Excel Activities to dump the full DataTable in one pass. If you need per row logic use For Each Row to process rows individually. Choose the approach that matches your data volume and patience level.</p>
+
+<h3>Error handling and logging</h3>
+<p>Wrap network and selector sensitive steps in Try Catch and log meaningful messages for troubleshooting. Good logs make failures boring and predictable which is a big win for any RPA pipeline.</p>
+
+<h2>Quick checklist for reliable scraping</h2>
+<ul>
+  <li>Use a supported browser that returns stable selectors</li>
+  <li>Confirm extraction pattern with two examples in the wizard</li>
+  <li>Name your DataTable variable like extractedTable for clarity</li>
+  <li>Handle pagination with the wizard option or a Next loop</li>
+  <li>Use UiExplorer to stabilize dynamic selectors with anchors</li>
+  <li>Write Range to Excel for a bulk dump or use For Each Row for row level processing</li>
+  <li>Wrap fragile steps in Try Catch and log useful details for troubleshooting</li>
+</ul>
+
+<p>Follow these steps and you will have a reliable web scraping flow in UiPath that moves table data into Excel with minimal drama. If something goes sideways at least you will know which selector to blame.</p>
+

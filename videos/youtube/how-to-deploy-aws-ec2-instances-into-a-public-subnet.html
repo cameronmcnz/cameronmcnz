@@ -1,0 +1,72 @@
+---
+layout: video
+title: "How to Deploy AWS EC2 Instances into a Public Subnet"
+description: "Quick guide to launch EC2 in a public subnet with Internet Gateway route and security group TCP rules for SSH and HTTP access"
+video_host: "youtube"
+video_id: "mZKg3Zh9MFc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/mZKg3Zh9MFc/maxresdefault.jpg"
+content_url: "https://youtu.be/mZKg3Zh9MFc"
+embed_url: "https://www.youtube.com/embed/mZKg3Zh9MFc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - EC2
+  - VPC
+  - Public Subnet
+  - Internet Gateway
+  - Security Groups
+  - TCP
+  - SSH
+  - HTTP
+  - Cloud Networking
+---
+
+<h2>Why bother with a public subnet anyway</h2>
+<p>If you want your EC2 instance to answer the outside world and not hide under a pile of private IPs, you need a public subnet, an Internet Gateway and sensible security group rules. This guide walks through the practical steps to get SSH and HTTP working without accidentally turning your server into a public squirrel feeder.</p>
+
+<h2>Create the VPC and the public subnet</h2>
+<p>Create a VPC with a CIDR block that fits your needs, for example 10.0.0.0/16. Inside that VPC add a subnet that will be your public subnet. Pick a subnet CIDR like 10.0.1.0/24. Either enable auto assign public IPv4 on that subnet or plan to assign a public IP when you launch the instance.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>VPC created with desired CIDR</li>
+  <li>Public subnet created inside the VPC</li>
+  <li>Auto assign public IPv4 turned on if you prefer convenience</li>
+</ul>
+
+<h2>Attach an Internet Gateway and update the route table</h2>
+<p>Attach an Internet Gateway to the VPC. Then edit the route table associated with the public subnet and add a route for 0.0.0.0/0 sending traffic to the Internet Gateway. That single route is what lets packets leave and return, which is necessary for SSH and HTTP to work.</p>
+
+<h2>Launch the EC2 instance</h2>
+<p>Pick an AMI and instance type that fits your workload. Make sure the instance is launched into the public subnet and that it receives a public IP. If the subnet does not auto assign a public IP, check the Assign Public IP option at launch. Choose a key pair for SSH access and attach an appropriate IAM role for any AWS API calls the instance will make.</p>
+
+<h2>Create security groups with TCP rules for SSH and HTTP</h2>
+<p>Create or edit a security group and add inbound TCP rules for the ports you need. For example add rules that allow TCP port <code>22</code> for SSH and TCP port <code>80</code> for HTTP. Avoid using 0.0.0.0/0 in production unless you enjoy surprise log entries and angry incident tickets. Instead restrict SSH to your office IP or VPN range and restrict HTTP if you have a limited client base.</p>
+
+<ul>
+  <li>Allow TCP 22 from your IP range for SSH</li>
+  <li>Allow TCP 80 from 0.0.0.0/0 only if you need public web access</li>
+  <li>Attach the security group to the instance at launch or modify it later</li>
+</ul>
+
+<h2>Test connectivity and troubleshoot like a calm detective</h2>
+<p>SSH to the instance using the public IP and your key pair. Open the HTTP endpoint in a browser to verify the web server is reachable. If something fails check these items in this order</p>
+
+<ul>
+  <li>Is the Internet Gateway attached to the VPC</li>
+  <li>Does the route table for the subnet have 0.0.0.0/0 pointing to the Internet Gateway</li>
+  <li>Does the instance have a public IP or elastic IP assigned</li>
+  <li>Are the security group inbound rules allowing the correct TCP ports from the right sources</li>
+  <li>Is any host firewall on the instance blocking access</li>
+</ul>
+
+<h2>Security tips that won't make your boss faint</h2>
+<p>Use key pairs for SSH. Use IAM roles for permissions and avoid embedding secrets on the instance. Lock down SSH to known IP ranges and consider using a bastion host or Session Manager if you want fewer open doors. For public web servers use a load balancer and WAF when traffic or attackers become a thing.</p>
+
+<p>This covers the essentials for deploying an AWS EC2 instance into a public subnet with Internet Gateway routing and security group TCP rules for SSH and HTTP. Follow those steps and your instance will be reachable, supported, and less likely to be the site of some poor bot's late night party.</p>
+

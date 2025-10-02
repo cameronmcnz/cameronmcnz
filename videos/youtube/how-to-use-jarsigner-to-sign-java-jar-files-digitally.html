@@ -1,0 +1,79 @@
+---
+layout: video
+title: "How to use JarSigner to Sign Java JAR files digitally"
+description: "Step by step guide to sign Java JAR files using jarsigner and keystore best practices for secure distribution and verification"
+video_host: "youtube"
+video_id: "vxd-gu9nXpY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M0S"
+thumbnail_url: "https://i.ytimg.com/vi/vxd-gu9nXpY/maxresdefault.jpg"
+content_url: "https://youtu.be/vxd-gu9nXpY"
+embed_url: "https://www.youtube.com/embed/vxd-gu9nXpY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JarSigner
+  - Java
+  - JAR signing
+  - code signing
+  - keystore
+  - keytool
+  - digital signature
+  - security
+  - deployment
+  - deployment
+---
+
+<p>Signing a Java JAR is the digital equivalent of slapping a wax seal on a package, except less romantic and more useful. If you want users and deployment platforms to trust your JAR, or if you just want to prove you did not hand the build to a raccoon, use jarsigner with a keystore and a proper digital signature.</p>
+
+<h2>Why sign a JAR</h2>
+<p>JAR signing gives you two things that matter in production security and deployment. First, it proves publisher identity with a certificate. Second, it protects integrity so the runtime can detect tampering. In short, it helps avoid angry users, blocked installs, and mysterious runtime failures.</p>
+
+<h2>Create or reuse a keystore and key pair</h2>
+<p>If you already have a keystore, congratulations. If not, generate a key pair with keytool. The keypair represents your publisher identity, so give it a sensible alias and a strong password that you will actually remember or store safely.</p>
+
+<pre><code>keytool -genkeypair -alias myalias -keyalg RSA -keysize 2048 -keystore mykeystore.jks -validity 365</code></pre>
+
+<p>Notes and best practice here are annoyingly practical. Use RSA 2048 or better. Give the alias a clear name so future you does not cry. Keep the keystore file permissions locked down and never paste the password into a public log.</p>
+
+<h2>Sign the JAR with jarsigner</h2>
+<p>Once you have a keystore and key pair, sign the JAR. This attaches a digital signature that runtime checks can verify. The command is straightforward and behaves like a helpful but stern librarian.</p>
+
+<pre><code>jarsigner -keystore mykeystore.jks myapp.jar myalias</code></pre>
+
+<p>You can add options such as -sigalg and -digestalg to meet specific requirements, but the default behavior is fine for most use cases. If you need a signed output file separate from the original, consider using -signedjar to write a new JAR.</p>
+
+<h2>Verify the signature</h2>
+<p>Always verify. Do it before distribution and after any automated build step. Verification confirms the signature and the certificate chain. Do not skip this because it feels like paperwork. It is not paperwork, it is sanity.</p>
+
+<pre><code>jarsigner -verify -verbose -certs myapp.jar</code></pre>
+
+<p>Look for messages saying the jar is signed and the certificates are valid. If verification fails, fix the signing step or your keystore state before shipping anything to users.</p>
+
+<h2>Optional timestamp and longevity</h2>
+<p>A timestamp keeps the signature valid after your signing certificate expires. If you care about long lived artifacts use a trusted timestamp authority. jarsigner will contact the TSA and embed the timestamp into the signature.</p>
+
+<pre><code>jarsigner -tsa http://timestamp.example.com -keystore mykeystore.jks myapp.jar myalias</code></pre>
+
+<p>Replace the TSA URL with a vendor you trust. No timestamp and your signature may be treated as expired once the cert lapses, which is rude when users still expect your app to run.</p>
+
+<h2>CI automation and secure deployment</h2>
+<p>Manual signing is fine for small experiments and ego projects. For production use automate signing in CI pipelines. Keep the keystore password, keystore file, and any passphrases in your CI secrets vault. That means environment protected credentials, access controls, and audit logs. In plain English do not store private keys on the build agent hard drive where anyone with a USB stick can become a villain.</p>
+
+<ul>
+  <li>Use a dedicated signing key with a clear alias</li>
+  <li>Restrict file system access to the keystore</li>
+  <li>Rotate keys and certificates according to policy</li>
+  <li>Log signing events and limit who can trigger them</li>
+</ul>
+
+<h3>Troubleshooting quick hits</h3>
+<p>If jarsigner complains about unknown algorithms or failed verification check your JDK version and cert chain. If verification flags missing certificates export the public cert and inspect the chain with keytool. If timestamping fails try a different TSA or check network egress rules in CI.</p>
+
+<h2>Wrap up</h2>
+<p>Signing Java JARs with jarsigner and a keystore is not rocket surgery. Generate or reuse a keystore with keytool. Sign using jarsigner. Verify the signature. Add a timestamp for longevity. Automate this in CI while keeping keys locked down. Follow those steps and your JARs will be far less likely to trigger platform warnings or get modified by gremlins.</p>
+
+<p>Final tip Use clear aliases and automation so the build pipeline does the boring secure work and humans can go back to writing questionable comments in code reviews.</p>
+

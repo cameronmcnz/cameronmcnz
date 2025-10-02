@@ -1,0 +1,86 @@
+---
+layout: video
+title: "Run Bitnami Jenkins with AWS"
+description: "Quick guide to deploy Bitnami Jenkins on AWS EC2 with SSH access security group setup and initial Jenkins configuration"
+video_host: "youtube"
+video_id: "nFXqynzeePs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M23S"
+thumbnail_url: "https://i.ytimg.com/vi/nFXqynzeePs/maxresdefault.jpg"
+content_url: "https://youtu.be/nFXqynzeePs"
+embed_url: "https://www.youtube.com/embed/nFXqynzeePs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Bitnami
+  - Jenkins
+  - AWS
+  - EC2
+  - DevOps
+  - CI/CD
+  - Deployment
+  - SSH
+  - Security
+  - Cloud
+---
+
+<p>Welcome to the slightly chaotic but manageable world of running Jenkins on AWS with a Bitnami image. If you want a CI CD server that does actual work without falling over, this guide walks you through the essentials with a sarcastic wink and practical steps. Expect security tips and a tiny amount of drama.</p>
+
+<h2>What you will need</h2>
+<p>Gather this stuff before you go poking the cloud with a stick.</p>
+<ul>
+  <li>An AWS account with permission to launch EC2 and attach EBS volumes</li>
+  <li>A Bitnami Jenkins AMI from the AWS Marketplace</li>
+  <li>A key pair for SSH access and a basic understanding of security groups</li>
+  <li>Basic familiarity with SSH and Linux commands</li>
+</ul>
+
+<h2>Pick a Bitnami Jenkins AMI and an EC2 instance</h2>
+<p>In the AWS Marketplace find the official Bitnami Jenkins image. Pick an instance size that fits your build needs. Small teams often begin with a t3 small and move up later when the builds get jealous of each other.</p>
+
+<h2>Create a key pair and security group</h2>
+<p>Create or reuse an EC2 key pair for SSH. Make a security group that opens port 22 for admin access and port 8080 for the Jenkins web UI. If the Bitnami image serves HTTP on port 80 add that too, but try not to make everything public like an open mic night.</p>
+<ul>
+  <li>Allow SSH only from your office or home IP when possible for better security</li>
+  <li>If you must allow 8080 from the internet consider adding a reverse proxy later to add auth and HTTPS</li>
+</ul>
+
+<h2>Launch the EC2 instance and note the address</h2>
+<p>Start the instance and wait a minute or two for cloud init tasks to finish. Record the public IP or public DNS for remote access. If you want the IP to persist attach an Elastic IP, otherwise enjoy surprises when you reboot.</p>
+
+<h2>SSH in and retrieve the initial admin password</h2>
+<p>SSH into the server with your key. Replace PUBLIC_IP with your instance address and mykey pem with your key file.</p>
+<pre><code>ssh -i mykey.pem bitnami@PUBLIC_IP</code></pre>
+<p>Find the initial Jenkins password in the Bitnami credentials file or the Jenkins secrets folder. For example run this command on the server.</p>
+<pre><code>sudo cat /opt/bitnami/jenkins/jenkins_home/secrets/initialAdminPassword</code></pre>
+
+<h2>Finish the Jenkins setup in the web UI</h2>
+<p>Open the web UI at the public IP on port 8080 and paste the initial password when asked. Unlock Jenkins, accept the suggested plugins to get a sensible default, and create your first admin user. Yes it is kind of magical and yes you should write the password down properly this time.</p>
+
+<h2>Optional add persistent storage</h2>
+<p>For build artifacts and to avoid losing configuration when you terminate an instance attach an EBS volume. The quick workflow is attach the volume, format it if needed, mount it under a path like /mnt/jenkins, then move Jenkins data into that volume and update fstab for persistence.</p>
+<ul>
+  <li>Example commands to format and mount a new volume</li>
+  <pre><code>sudo mkfs -t ext4 /dev/xvdf
+sudo mkdir -p /mnt/jenkins
+sudo mount /dev/xvdf /mnt/jenkins
+sudo chown -R bitnami:bitnami /mnt/jenkins</code></pre>
+  <li>Move jenkins data with care and update system settings so Jenkins uses the new path</li>
+</ul>
+
+<h2>Enable HTTPS for production use</h2>
+<p>Public HTTP on 8080 is fine for experiments but not for anything you want to tell people about. Use Certbot to get a certificate and configure the bundled web server or a reverse proxy to terminate HTTPS. You will need a domain that points to the instance or to a load balancer in front of it.</p>
+
+<h2>Security and maintenance tips</h2>
+<ul>
+  <li>Lock down SSH to known IPs and consider using a bastion host for team access</li>
+  <li>Enable regular AMI backups or take snapshots of EBS volumes for recovery</li>
+  <li>Keep Jenkins and plugins up to date to avoid the usual security pizza party</li>
+  <li>Consider moving Jenkins to an autoscaled build fleet and a central master if your CI CD needs grow</li>
+</ul>
+
+<h2>Final notes</h2>
+<p>Bitnami makes a fast path to running Jenkins on EC2 and this setup gets you from zero to CI in one tidy session. You handled SSH keys and security groups like a pro or at least like someone who reads instructions. Next steps are configuring pipelines, securing secrets, and deciding which build job gets promoted to favorite.</p>
+

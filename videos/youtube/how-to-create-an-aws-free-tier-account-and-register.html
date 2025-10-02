@@ -1,0 +1,86 @@
+---
+layout: video
+title: "How to Create an AWS Free Tier Account and Register"
+description: "Step by step guide to set up an AWS Free Tier account and start using S3 EC2 and Bedrock with practical tips for new users"
+video_host: "youtube"
+video_id: "u-Qoh6ts46U"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT56S"
+thumbnail_url: "https://i.ytimg.com/vi/u-Qoh6ts46U/maxresdefault.jpg"
+content_url: "https://youtu.be/u-Qoh6ts46U"
+embed_url: "https://www.youtube.com/embed/u-Qoh6ts46U"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - AWS Free Tier
+  - EC2
+  - S3
+  - Bedrock
+  - AWS account
+  - IAM
+  - MFA
+  - Cloud Computing
+  - Tutorial
+---
+
+<p>So you want to play in the cloud without getting billed for a private island. Good plan. This guide walks you through creating an AWS Free Tier account and launching basic S3 storage EC2 instances and Bedrock experiments while keeping your credit card from becoming a surprise horror story.</p>
+
+<h2>Quick checklist to finish before you click anything scary</h2>
+<ol>
+  <li>Create an AWS account and complete email and phone verification</li>
+  <li>Provide contact and payment information for identity checks</li>
+  <li>Pick the basic support plan and upgrade later if humans are required</li>
+  <li>Create an IAM admin user and stop using the root account for day to day work</li>
+  <li>Enable MFA on root and admin accounts for actual security</li>
+  <li>Activate Free Tier services and start with tiny test workloads</li>
+  <li>Set billing alerts and monitor usage daily until trust is earned</li>
+</ol>
+
+<h2>Step 1 Create the AWS account</h2>
+<p>Visit the AWS home page and sign up. You will verify your email and phone number so the console knows you are a real person and not a bot or a very committed raccoon. After verification you get access to the AWS console where resources live.</p>
+
+<h2>Step 2 Payment and contact details</h2>
+<p>A credit card is normally required. AWS uses it to verify identity and to bill for anything outside the Free Tier. No drama unless the card declines or someone buys a very expensive GPU farm on your watch.</p>
+
+<h2>Step 3 Choose a support plan</h2>
+<p>New accounts can pick the Basic support plan and upgrade later if real people are needed. Basic support is fine for learning and small experiments. If you plan production workloads you might want to upgrade later.</p>
+
+<h2>Step 4 Create an IAM admin user and stop using root</h2>
+<p>The root account can do everything and will happily meet your worst impulses. Create a named admin user in IAM with AdministratorAccess and use that instead. Lock the root account away and only use it for account level changes.</p>
+
+<h2>Step 5 Enable MFA and make account takeover annoying</h2>
+<p>Enable multi factor authentication on both the root account and your admin user. Use a smartphone authenticator app for one time codes. It takes two minutes and prevents joyful account takeovers.</p>
+
+<h2>Step 6 Activate Free Tier services and start tiny</h2>
+<p>Free Tier gives you a safety net but it has limits. Launch small EC2 instances create S3 buckets and try Bedrock experiments in supported regions. Keep instances small and stop them when you are not actively using them. Think kitten not elephant.</p>
+
+<h3>Tips for EC2</h3>
+<ul>
+  <li>Choose a Free Tier eligible instance type when testing</li>
+  <li>Use key pairs for SSH and do not leave ports open to the internet</li>
+  <li>Stop or terminate instances when done to avoid lingering charges</li>
+</ul>
+
+<h3>Tips for S3</h3>
+<ul>
+  <li>Create lifecycle rules to delete or archive objects you do not need</li>
+  <li>Keep an eye on total storage and objects to stay inside Free Tier limits</li>
+</ul>
+
+<h2>Step 7 Set billing alerts and monitor usage</h2>
+<p>Enable the billing dashboard and create budget alarms in AWS Budgets. Configure email notifications so surprises do not show up on the next statement. Check console usage regularly until you trust your automation not to secretly behave like a toddler with a credit card.</p>
+
+<h2>Final safety checklist</h2>
+<ul>
+  <li>Do not use the root account for daily tasks</li>
+  <li>Enable MFA everywhere</li>
+  <li>Tag resources to find orphaned items that cost money</li>
+  <li>Set budgets and alerts to catch drift early</li>
+  <li>Start small and scale intentionally</li>
+</ul>
+
+<p>Follow these steps and you will have a usable AWS account with Free Tier resources running and a much lower chance of an invoice induced panic attack. If you want next level help with IAM policies cost optimization or Bedrock usage patterns say the word and we will get nerdy together.</p>
+

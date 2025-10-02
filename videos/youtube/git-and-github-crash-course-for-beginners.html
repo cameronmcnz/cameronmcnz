@@ -1,0 +1,73 @@
+---
+layout: video
+title: "Git and GitHub Crash Course For Beginners"
+description: "Learn Git and GitHub basics in this concise 2024 crash course covering setup commits branches merges push pull and pull requests"
+video_host: "youtube"
+video_id: "l2yrJtwoC_E"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1H53M19S"
+thumbnail_url: "https://i.ytimg.com/vi/l2yrJtwoC_E/maxresdefault.jpg"
+content_url: "https://youtu.be/l2yrJtwoC_E"
+embed_url: "https://www.youtube.com/embed/l2yrJtwoC_E"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - version control
+  - git tutorial
+  - git basics
+  - branches
+  - merge
+  - pull request
+  - command line
+  - developer workflow
+---
+
+<p>If you want to track changes and avoid being The Developer Who Broke Everything again this is your survival guide. This tutorial hits the core Git commands and GitHub workflows for beginners with a splash of sarcasm and a real world focus on version control and team collaboration.</p>
+
+<h2>Install and configure Git for correct commit authorship</h2>
+<p>Make Git know who you are so your commit history does not read anonymous mystery. Run these commands once on your machine.</p>
+<pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+git config --global credential.helper cache</code></pre>
+
+<h2>Create a repository and commit changes safely</h2>
+<p>Start fresh or grab an existing project. Use small commits that explain why something changed not just what you typed while caffeinated.</p>
+<ul>
+<li>Start a repo with <code>git init</code></li>
+<li>Copy an existing repo with <code>git clone repo-url</code></li>
+<li>Stage work with <code>git add .</code></li>
+<li>Record a snapshot with <code>git commit -m "Short but useful message"</code></li>
+</ul>
+
+<h2>Use branches to isolate features and merge with minimal chaos</h2>
+<p>Branches are your safety nets. Name them with purpose and toss them away when done.</p>
+<ul>
+<li>Create a branch with <code>git branch feature-name</code></li>
+<li>Switch with <code>git switch feature-name</code> or the older <code>git checkout feature-name</code></li>
+<li>Merge finished work with <code>git merge feature-name</code></li>
+<li>If you hit a conflict open the conflicting file review the changes and pick what should stay</li>
+</ul>
+
+<h2>Connect to GitHub and push code without crying</h2>
+<p>Add a remote then send your commits to the hosting site. Use the main branch for stable releases and feature branches for work in progress.</p>
+<pre><code>git remote add origin REMOTE-URL
+git push origin main
+git pull origin main</code></pre>
+
+<h2>Work with pull requests and code review like a human</h2>
+<p>Open a pull request on the hosting site to compare branches request feedback and merge once reviewers approve. Use descriptive titles link to issue numbers and explain the why in the PR body.</p>
+<ul>
+<li>Prefer small PRs for faster review</li>
+<li>Use meaningful commit messages and squash if the history would otherwise be noisy</li>
+<li>Run tests locally before asking for review</li>
+</ul>
+
+<h2>Practical habits for fewer surprises</h2>
+<p>Good habits save teams from late night debugging and awkward blame. Commit often write clear messages use feature branches and rely on pull requests for review. These small practices keep your version control tidy and your team happier.</p>
+
+<p>Mastering these steps makes collaboration smoother and reduces the chance that someone will ask you to explain why production broke at 3 AM. Now go make a branch and be excellent to your future self.</p>
+

@@ -1,0 +1,60 @@
+---
+layout: video
+title: "Tomcat vs Apache What's the difference?"
+description: "Clear comparison of Apache HTTP Server and Tomcat for Java apps static hosting and proxy use in under 155 characters."
+video_host: "youtube"
+video_id: "XABDkzxA6hM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M26S"
+thumbnail_url: "https://i.ytimg.com/vi/XABDkzxA6hM/maxresdefault.jpg"
+content_url: "https://youtu.be/XABDkzxA6hM"
+embed_url: "https://www.youtube.com/embed/XABDkzxA6hM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Tomcat
+  - Apache
+  - Tomcat vs Apache
+  - Web Server
+  - Servlet Container
+  - Apache HTTP Server
+  - Java Servlets
+  - JSP
+  - Reverse Proxy
+  - Performance
+---
+
+<p>If you were hoping this would be a gladiator match between Tomcat and Apache you will be disappointed in the lack of blood and the abundance of common sense. Apache HTTP Server and Apache Tomcat are different beasts with overlapping interests. One is a general purpose web server that loves static files and SSL. The other is a servlet container that runs Java Servlets and JSP and executes your WAR files. Use them alone in dev and together in production unless you enjoy slow pages and late night debugging.</p>
+
+<h2>Roles and what they do best</h2>
+<p>Short version for people who skim and pretend they read the whole thing</p>
+<ul>
+  <li>Apache HTTP Server is a web server. It serves static assets like images and CSS. It terminates SSL and offers modules for rewriting, proxying and caching.</li>
+  <li>Tomcat is a servlet container. It implements the Java Servlet specification, runs Java Servlets and JSP, and hosts WAR files in its webapps folder or via the manager webapp.</li>
+</ul>
+
+<h2>Typical setups you will actually use</h2>
+<p>During development it is perfectly fine to run Tomcat on port 8080 and avoid the extra complexity. In production you usually put Apache HTTP Server in front as a reverse proxy. Apache serves static content, handles SSL, and forwards dynamic requests to Tomcat. This reduces load on Tomcat and keeps things tidy.</p>
+
+<h3>How they talk to each other</h3>
+<p>Common connectors include mod_proxy and mod_jk in Apache. Those forward requests to Tomcat using either HTTP or the AJP protocol. mod_proxy is straightforward and flexible. mod_jk is older but still used in some shops. Pick what your ops team knows or what causes the fewest pager alerts.</p>
+
+<h2>Performance and caching tips</h2>
+<p>Apache HTTP Server shines at static file delivery. It can cache aggressively and stream large files with less memory fuss. Tomcat shines at running Java business logic and managing sessions. If you have a site with mostly static assets and a small Java component then let Apache be the face of the site and proxy the dynamic parts to Tomcat.</p>
+<ul>
+  <li>Serve images, CSS and JS from Apache for speed and reduced load on Tomcat</li>
+  <li>Use Apache caching modules or a CDN to cut disk IO and latency</li>
+  <li>Keep Tomcat for request processing, servlet execution and JSP rendering</li>
+</ul>
+
+<h2>Deployment and integration basics</h2>
+<p>Deploy Java apps to Tomcat as WAR files. They go into the webapps folder or get pushed through the manager app if you want the web UI. Configure connectors in Apache and Tomcat to match the chosen protocol and port. The default Tomcat port is 8080 but you should bind internal ports to private networks for production.</p>
+
+<h2>Security and operations notes</h2>
+<p>Terminate SSL at Apache to avoid configuring certificates in multiple places. Keep Tomcat off the public internet and restrict access to manager and admin interfaces. Monitor both Apache and Tomcat logs because a problem can start in one and look like it lives in the other. Exposed Tomcat admin pages are a reliable way to ruin someone's afternoon.</p>
+
+<h2>Summary with a tiny amount of attitude</h2>
+<p>Tomcat is your servlet container for Java Servlets and JSP. Apache HTTP Server is your web server for static content, SSL termination and proxying. Put Apache in front for public facing traffic and let Tomcat handle the Java work behind the scenes. This combo gives you good performance, clearer responsibility, and fewer 3 a m wake up calls from annoyed users.</p>
+

@@ -1,0 +1,92 @@
+---
+layout: video
+title: "How to Create a Maven Project in Eclipse"
+description: "Step by step guide to create a Maven project in Eclipse using POM and archetype approaches for beginners"
+video_host: "youtube"
+video_id: "S0OqWAbEjbA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT15M7S"
+thumbnail_url: "https://i.ytimg.com/vi/S0OqWAbEjbA/maxresdefault.jpg"
+content_url: "https://youtu.be/S0OqWAbEjbA"
+embed_url: "https://www.youtube.com/embed/S0OqWAbEjbA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Maven
+  - Eclipse
+  - POM
+  - Archetype
+  - Java
+  - Maven project
+  - Eclipse tutorial
+  - Build lifecycle
+  - Dependency management
+  - Beginners
+---
+
+<h2>Why bother with Maven in Eclipse</h2>
+<p>If you like repeatable builds and not crying over transitive dependency nightmares then Maven is your friend. This guide walks you through creating a Maven project in Eclipse for Java development using an archetype and a clean POM setup. We keep things practical and honest with a pinch of sarcasm for flavor.</p>
+
+<h2>Prepare your environment</h2>
+<p>Install a recent Eclipse package that includes Maven support or add the Maven plugin if you enjoy installing extra things for fun. Make sure Java is on your PATH and that Maven can reach Maven Central. If your environment is healthy you will avoid mysterious build failures during the demo and during your future temper tantrums.</p>
+
+<h2>Create the Maven project using an archetype</h2>
+<p>Open Eclipse and use File new Maven Project to launch the wizard. Check the box to use the default workspace location if you like convenience. Pick an archetype such as maven archetype quickstart when prompted. The archetype creates the standard directory layout so you get src main java and src test java without heroic manual work.</p>
+
+<h3>What the archetype gives you</h3>
+<ul>
+  <li>A basic POM to edit instead of starting from scratch</li>
+  <li>A standard Maven directory structure that CI will recognize</li>
+  <li>Sample unit test so you can feel clever when tests pass</li>
+</ul>
+
+<h2>Edit the POM like a responsible developer</h2>
+<p>Open the generated pom xml and set your groupId artifactId and version. Declare packaging as jar or war if needed. Add the maven compiler plugin to specify the Java source and target levels so the compiler behaves and so your colleagues stop blaming you.</p>
+
+<pre><code>&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;com.example&lt;/groupId&gt;
+  &lt;artifactId&gt;my-app&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0&lt;/version&gt;
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+          &lt;source&gt;11&lt;/source&gt;
+          &lt;target&gt;11&lt;/target&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</code></pre>
+
+<h2>Add dependencies and manage versions</h2>
+<p>Search Maven Central for dependency coordinates and paste them into the &lt;dependencies&gt; section of the POM. Use dependency management to centralize versions when you have multiple modules. If a transitive dependency tries to ruin your day use an explicit exclusion or a managed version to reclaim order.</p>
+
+<h2>Build and run from Eclipse</h2>
+<p>Right click the project and choose Run As Maven build or Run As Maven clean package. The Eclipse console shows the build output so you can read the errors while muttering about Java. If you built a jar run it from the command line or use Eclipse run configurations for more interactive work.</p>
+
+<h3>Common goals you will use</h3>
+<ul>
+  <li>clean package to build a fresh artifact</li>
+  <li>test to run unit tests</li>
+  <li>install to put the artifact in your local repository</li>
+</ul>
+
+<h2>Notes on the Maven build lifecycle and dependency management</h2>
+<p>Maven has a predictable lifecycle that drives compile test package install and deploy. Plugins are what actually do the work. Keep the POM tidy and document any clever workarounds so your future self does not burn the project folder.</p>
+
+<h2>Quick troubleshooting tips</h2>
+<ul>
+  <li>If Maven cannot download artifacts check your proxy settings and repository configuration</li>
+  <li>If compilation fails check the maven compiler plugin source and target levels match your JDK</li>
+  <li>If you see checksum errors clear your local repository and try again</li>
+</ul>
+
+<h2>Final thought</h2>
+<p>Following these steps gives you a reproducible Maven project in Eclipse ready for development and CI pipelines. The archetype approach saves time the POM keeps everything under control and the build lifecycle keeps surprises to a minimum. Now go add a dependency and try not to break the build in front of your team.</p>
+

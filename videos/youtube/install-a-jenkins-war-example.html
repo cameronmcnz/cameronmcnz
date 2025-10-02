@@ -1,0 +1,99 @@
+---
+layout: video
+title: "Install a Jenkins War Example"
+description: "Install Jenkins from a WAR file with clear steps and practical tips for running a standalone Jenkins server on your machine"
+video_host: "youtube"
+video_id: "wPHH11qtIgI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M42S"
+thumbnail_url: "https://i.ytimg.com/vi/wPHH11qtIgI/maxresdefault.jpg"
+content_url: "https://youtu.be/wPHH11qtIgI"
+embed_url: "https://www.youtube.com/embed/wPHH11qtIgI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - WAR
+  - install
+  - java
+  - ci
+  - devops
+  - tutorial
+  - jenkins tutorial
+  - server
+  - continuous integration
+---
+
+<p>If you want a fast way to test pipelines without installing an entire CI farm, running Jenkins from the WAR file is the nerd friendly equivalent of a microwave dinner. It is fast, low fuss, and disposable when your experiment blows up. This guide walks through the essentials for running jenkins.war on a local machine for development and testing.</p>
+
+<h2>Grab the jenkins.war and pick a workspace</h2>
+
+<p>Download the latest jenkins.war from the official Jenkins download page or a trusted mirror. Do not download random files from sketchy sites unless you enjoy debugging cryptic errors at 2 a m.</p>
+
+<ul>
+  <li>Create a folder to act as your server workspace. This will be your JENKINS_HOME where job data and configs live.</li>
+  <li>Place jenkins.war in that workspace or point the Java command to the file location.</li>
+  <li>Make sure Java 8 or newer is installed and on your path.</li>
+</ul>
+
+<h2>Run Jenkins with Java</h2>
+
+<p>Open a terminal in your workspace and run the WAR with a simple Java command. The default port is fine for local testing but you can change it if you need to avoid conflicts.</p>
+
+<pre><code>java -jar jenkins.war --httpPort=8080</code></pre>
+
+<p>The webapp will extract resources and start a lightweight web server on the chosen port. Watch the terminal output for progress and the initial admin password.</p>
+
+<h2>Unlock and finish the first setup</h2>
+
+<p>On first launch Jenkins prints an initialAdminPassword in the console and also writes the same value under the workspace folder at secrets/initialAdminPassword. Copy that string into the browser unlock screen to proceed. Yes it is a weird handshake but it keeps bots out and humans mildly annoyed.</p>
+
+<h3>Choose plugins and create the admin account</h3>
+
+<p>You can pick recommended plugins for a minimal, working CI setup or select specific plugins for your toolchain. After plugin installation create the first admin account and configure global tools like a JDK and Git so builds can actually run.</p>
+
+<ul>
+  <li>Recommended plugins get you up fast.</li>
+  <li>Custom selections let you avoid plugin bloat if you know what you need.</li>
+  <li>Set global tool paths for JDK and Git in Manage Jenkins to avoid weird build failures.</li>
+</ul>
+
+<h2>Run Jenkins as a service for longer tests</h2>
+
+<p>If you plan to run this instance for more than a quick demo wrap the Java command in a service manager. On Linux systemd works well. On Windows consider NSSM or the built in service wrapper. Point the service at the java -jar command and set environment variables for JENKINS_HOME and JAVA_OPTIONS for stability.</p>
+
+<p>Example systemd unit file for the impatient. Drop this in a file under systemd and tweak paths to match your setup.</p>
+
+<pre><code>[Unit]
+Description=Jenkins from WAR
+After=network.target
+
+[Service]
+Type=simple
+User=jenkins
+WorkingDirectory=/srv/jenkins
+Environment=JENKINS_HOME=/srv/jenkins
+Environment=JAVA_OPTIONS=-Xmx1g
+ExecStart=/usr/bin/java -jar /srv/jenkins/jenkins.war --httpPort=8080
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+<p>On Windows wrap the command with NSSM or a similar service helper. Make sure the service user has permission to the workspace and any tool paths.</p>
+
+<h2>Troubleshooting and best practices</h2>
+
+<ul>
+  <li>Java version matters. Use Java 8 or newer for most Jenkins releases.</li>
+  <li>If the port is in use pick a different port with the httpPort flag.</li>
+  <li>Permissions. Jenkins needs read write access to JENKINS_HOME for jobs to work.</li>
+  <li>Keep the WAR updated. This is a simple deployment but you still need security updates.</li>
+  <li>For persistent or production use consider a proper package or container deployment instead of a raw WAR run.</li>
+</ul>
+
+<p>Running Jenkins from jenkins.war is a great way to prototype pipelines and iterate on job configs without a heavyweight setup. It is not bulletproof but if you treat it like a lab pet and not a router for your production traffic you will be fine. Now go break something carefully and learn how to fix it.</p>
+

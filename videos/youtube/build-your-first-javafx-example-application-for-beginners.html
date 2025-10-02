@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Build Your First JavaFX Example Application (For Beginners)"
+description: "Create a simple JavaFX app with setup tips for Replit Eclipse IntelliJ and NetBeans plus a runnable example and debugging hints for beginners"
+video_host: "youtube"
+video_id: "YGciHV_Z65Y"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M25S"
+thumbnail_url: "https://i.ytimg.com/vi/YGciHV_Z65Y/maxresdefault.jpg"
+content_url: "https://youtu.be/YGciHV_Z65Y"
+embed_url: "https://www.youtube.com/embed/YGciHV_Z65Y"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JavaFX
+  - Java
+  - Tutorial
+  - Replit
+  - Eclipse
+  - IntelliJ
+  - NetBeans
+  - GUI
+  - Beginner
+  - Example
+---
+
+<h2>Welcome to the tiny miracle of opening a window</h2>
+<p>If you can install software and click things you can make a JavaFX GUI appear. This guide trims the agony out of setup and walks you from blank screen to clickable button across Replit Eclipse IntelliJ and NetBeans. It is aimed at beginners who want a working example without a week of dependency spelunking.</p>
+
+<h2>What you need</h2>
+<ul>
+  <li>JDK 17 or newer installed</li>
+  <li>JavaFX SDK from OpenJFX matching your Java major version</li>
+  <li>An IDE of your choice such as Replit Eclipse IntelliJ or NetBeans</li>
+  <li>A basic idea of classes and methods in Java</li>
+</ul>
+
+<h2>High level plan</h2>
+<p>No drama. Install Java pick an IDE add JavaFX to your project create an Application subclass build a scene with a Label and a Button then run. The main differences between IDEs are where to add the JavaFX libraries and how to pass VM options for the module path.</p>
+
+<h2>Quick steps</h2>
+<ol>
+  <li>Install a modern JDK. Java 17 is the safe pick for most tutorials and examples.</li>
+  <li>Download the JavaFX SDK from the OpenJFX site and unzip it somewhere sensible on your machine or store it in your project in Replit.</li>
+  <li>If your project is non modular add the JavaFX JAR files to the classpath. If you use modules put JavaFX on the module path and include the module flags when launching.</li>
+  <li>Create a class that extends javafx.application.Application and override the start method. Use the Stage passed in to set a Scene and then call show.</li>
+  <li>Build a UI with layout panes and controls. A simple VBox with a Label and a Button is perfect for a first example. Use setOnAction on the Button to change the Label text when clicked.</li>
+  <li>Run from your IDE or use the command line with module flags if needed. Check the module path and SDK version if the runtime complains.</li>
+</ol>
+
+<h3>Run it from the command line</h3>
+<p>If you prefer the noble terror of the terminal here is a typical command for a modular run. Adjust the path to where you unzipped the JavaFX SDK and replace Main with your main class name.</p>
+<pre><code>java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -cp out Main</code></pre>
+
+<h2>IDE friendly tips</h2>
+<ul>
+  <li>Replit can run simple Java templates and is great for quick experiments. Upload the JavaFX SDK files into the workspace or link them if Replit supports it.</li>
+  <li>Eclipse and NetBeans have UI for adding libraries to the classpath. For modules look for module path settings and VM options where you can paste the module flags.</li>
+  <li>IntelliJ has run configuration VM options. Add the module path flags in the VM options field and mark JavaFX libraries on the module path if you use modules.</li>
+</ul>
+
+<h3>Common errors and what they mean</h3>
+<ul>
+  <li>Missing JavaFX runtime messages usually mean the module path was not set or the SDK version does not match the JDK major version. Double check both.</li>
+  <li>NoClassDefFoundError hints at classpath problems for non modular projects. Add the JavaFX JARs to the classpath and rebuild.</li>
+  <li>Module related exceptions point to incorrect module flags. Make sure you pass --module-path and --add-modules as shown above.</li>
+</ul>
+
+<h2>Why matching versions matters</h2>
+<p>JavaFX is released separately from the JDK. If your JDK is Java 17 and your JavaFX SDK targets a different major version things will break in ways that are not fun to debug. Match major versions and keep the SDK and JDK in sync.</p>
+
+<h2>Final pep talk</h2>
+<p>You will get a small window with a button and a label. Celebrate. Then break it and fix it on purpose to learn more. This tutorial gives you the setup and the core ideas so you can move on to layouts event handling and real GUI work across Replit Eclipse IntelliJ and NetBeans without the usual setup headache.</p>
+

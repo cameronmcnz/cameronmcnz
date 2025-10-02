@@ -1,0 +1,63 @@
+---
+layout: video
+title: "Advanced Spring Data & JDBC Tutorial #SpringBoot"
+description: "Learn advanced Spring Data and JDBC techniques with JdbcTemplate and JPA for MySQL and PostgreSQL in Spring Boot projects"
+video_host: "youtube"
+video_id: "oE3h-YNlqss"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT41M49S"
+thumbnail_url: "https://i.ytimg.com/vi/oE3h-YNlqss/maxresdefault.jpg"
+content_url: "https://youtu.be/oE3h-YNlqss"
+embed_url: "https://www.youtube.com/embed/oE3h-YNlqss"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Spring Data
+  - JdbcTemplate
+  - JPA
+  - MySQL
+  - PostgreSQL
+  - Database
+  - Transactions
+  - Testing
+  - Performance
+---
+
+<h2>Quick welcome</h2>
+<p>If you think databases are boring you are either lying or you have never tried to debug a slow join at midnight. This guide walks through advanced Spring Data techniques using JdbcTemplate and JPA in a Spring Boot project that targets MySQL and PostgreSQL. Expect pragmatic trade offs, testing tips, and performance advice that actually helps your app survive production.</p>
+
+<h2>Project setup and dependencies</h2>
+<p>Use Maven or Gradle to add Spring Boot starters for JDBC and JPA plus the drivers for MySQL and PostgreSQL. Keep separate profiles for each database so engineers can switch environments without summoning a ritual. Include Flyway or Liquibase for schema migrations and keep your migration scripts as sacred and immutable as your morning coffee ritual.</p>
+
+<h2>JdbcTemplate usage and mapping</h2>
+<p>JdbcTemplate still rules when you need tight control. Use RowMapper for manual mapping when ORM conventions get in the way. NamedParameterJdbcTemplate helps readability when queries have many parameters and you want to avoid passing a hunt and peck list of positional values.</p>
+<ul>
+  <li>Prefer manual mapping for complex joins or when performance matters</li>
+  <li>Use simple DTOs for projections instead of loading heavy entities</li>
+  <li>Batch updates are JdbcTemplate s comfort zone for heavy writes</li>
+</ul>
+
+<h2>Spring Data JPA and repositories</h2>
+<p>JPA is amazing until it is not. Use Spring Data repositories for CRUD and derived queries when you want productivity and conventions. When queries become exotic or you must squeeze out every millisecond use custom implementations or switch to JdbcTemplate for that method only. Annotate entities properly and rely on projection interfaces for lightweight reads.</p>
+
+<h2>Transactions and error handling</h2>
+<p>Transaction management is not mystical. Annotate service methods with @Transactional for unit of work boundaries. Understand propagation and isolation settings so nested calls do not explode into inconsistent data. Catch SQL exceptions when appropriate and translate them into domain friendly errors. Failing loud is better than failing silently and weirdly.</p>
+
+<h2>Testing and database migrations</h2>
+<p>Integration tests should run against realistic databases. Use Testcontainers when you want parity with production, or embedded databases for light weight checks. Keep migrations in Flyway or Liquibase and run them during test setup so your schema does not lie to your tests.</p>
+
+<h2>Performance tuning and indexing</h2>
+<p>Measure, then optimize. Use EXPLAIN and query plans to find trouble spots. Batch statements for bulk work, use prepared statements to reuse plans, and add sensible indexes based on real query patterns. When ORM generates inefficient queries drop down to raw SQL for critical paths. Remember that premature optimization looks heroic until it causes maintenance grief.</p>
+
+<h3>When to use what</h3>
+<ul>
+  <li>Use JdbcTemplate for complex batch operations and raw SQL that needs fine tuning</li>
+  <li>Use JPA for rich domain models and when you want repository driven development</li>
+  <li>Measure query plans before trusting any framework magic</li>
+</ul>
+
+<p>Wrap up with automated integration tests, continuous migration checks, and a healthy dose of logging. Your database will stay less angry and your team will stop pinging you at odd hours. That is a win worth celebrating with bad coffee and a little dark humor.</p>
+

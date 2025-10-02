@@ -1,0 +1,73 @@
+---
+layout: video
+title: "AWS Machine Learning & AI Specialty Certification Exam"
+description: "Compact companion guide for a certification exam question that compares AWS Bedrock and SageMaker with clear differences and exam tips."
+video_host: "youtube"
+video_id: "aYN7EEO8OqU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT58S"
+thumbnail_url: "https://i.ytimg.com/vi/aYN7EEO8OqU/maxresdefault.jpg"
+content_url: "https://youtu.be/aYN7EEO8OqU"
+embed_url: "https://www.youtube.com/embed/aYN7EEO8OqU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - SageMaker
+  - Bedrock
+  - Machine Learning
+  - AI Certification
+  - AWS ML Specialty
+  - Exam Prep
+  - Model Deployment
+  - Generative AI
+  - Cloud Security
+---
+
+<p>If you are staring at an AWS ML Specialty exam question while quietly hoping caffeine will write your answers for you this brief guide will help you map real world tradeoffs between Amazon Bedrock and Amazon SageMaker. Read this like a cheat sheet that is allowed to be polite and accurate at the same time.</p>
+
+<h2>Quick summary with no fluff</h2>
+<p>Pick Bedrock when you want serverless access to foundation models and fast prompt based experimentation. Pick SageMaker when you need training jobs distributed across instances custom training scripts or full lifecycle controls for production model deployment and monitoring. Both integrate with AWS IAM and VPC so security is available in different flavors.</p>
+
+<h2>When Bedrock is the right move</h2>
+<p>Bedrock is made for foundation model use cases and generative AI where you care about getting results quickly instead of running your own training clusters. It feels like an API first service where the cloud handles the messy infrastructure stuff.</p>
+<ul>
+  <li>Use case examples include chatbots content generation and lightly tuned vendor models</li>
+  <li>Serverless style access reduces management overhead for variable inference workloads</li>
+  <li>Fine tuning is possible through vendor managed flows when available but control is limited compared to full training</li>
+</ul>
+
+<h2>When SageMaker is the right move</h2>
+<p>SageMaker is the tool for engineers who like to own the whole pipeline from data to model to endpoint and who do not mind paying for control. If you need distributed training or run custom training scripts you will sleep better with SageMaker.</p>
+<ul>
+  <li>Full lifecycle features include training jobs hyperparameter tuning batch transform and endpoint management</li>
+  <li>Supports custom containers distributed training and fine grain instance selection for expensive model training</li>
+  <li>Better when latency guarantees custom orchestration or strict data residency are non negotiable</li>
+</ul>
+
+<h2>Security and compliance practical notes</h2>
+<p>Both services integrate with AWS identity and networking tools so they are not free for all comers. SageMaker usually gives you stronger options for instance isolation VPC control and data residency since it runs in your account and on instances you specify. Bedrock can still meet governance needs and often offers managed model governance and private connectivity depending on vendor features.</p>
+
+<h2>Cost and scaling realities</h2>
+<p>Bedrock often shines for variable inference workloads because you only pay for managed requests and you do not maintain long running endpoints. SageMaker can be more expensive for long running training clusters and dedicated endpoints but it gives you predictable scaling and optimization options for enterprise grade deployments. Look for serverless inference multi model endpoints and spot training to shave costs when using SageMaker.</p>
+
+<h2>Exam style strategy</h2>
+<p>Exam questions want mapping between requirements and service capabilities. When a prompt asks about generative AI latency or simple prompt based output name Bedrock. When the question mentions heavy training complex pipelines custom code or strict networking controls pick SageMaker.</p>
+<ul>
+  <li>Mention hosting type and model control to score points</li>
+  <li>Call out security controls like IAM VPC and instance isolation when asked about compliance</li>
+  <li>Discuss cost tradeoffs between managed inference and dedicated training clusters</li>
+</ul>
+
+<h2>Quick checklist to keep in your back pocket</h2>
+<ul>
+  <li>If you want serverless foundation models and fast experiments choose Bedrock</li>
+  <li>If you need custom training scripts distributed training or full lifecycle control choose SageMaker</li>
+  <li>For strict data residency or instance isolation prefer SageMaker</li>
+  <li>If exam time is short pick two clear differences and justify them with features</li>
+</ul>
+
+<p>There you go. Use this during exam prep and when you are actually building stuff. It saves time helps you avoid buzzword salad and gives graders the concrete features they secretly enjoy seeing. Good luck and may your model converge faster than your caffeine level drops.</p>
+

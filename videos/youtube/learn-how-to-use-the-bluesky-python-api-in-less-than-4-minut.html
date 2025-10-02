@@ -1,0 +1,88 @@
+---
+layout: video
+title: "Learn How to use the Bluesky Python API in Less than 4 Minut"
+description: "Fast practical guide to using the Bluesky Python API with auth examples posting and basic request patterns for a quick developer start"
+video_host: "youtube"
+video_id: "iwFacCJDfbs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M54S"
+thumbnail_url: "https://i.ytimg.com/vi/iwFacCJDfbs/maxresdefault.jpg"
+content_url: "https://youtu.be/iwFacCJDfbs"
+embed_url: "https://www.youtube.com/embed/iwFacCJDfbs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Bluesky
+  - Python
+  - API
+  - tutorial
+  - bluesky-api
+  - python-api
+  - authentication
+  - posting
+  - developers
+  - quickstart
+---
+
+<p>Want to talk to Bluesky without turning your keyboard into a mess of trial and error? This quick guide gets you authenticated, fetching data, and posting with the Bluesky Python API in about the time it takes to regret one social media scroll.</p>
+
+<h2>Quick start checklist</h2>
+<ul>
+  <li>Install a Python client for Bluesky</li>
+  <li>Keep your token in an environment variable</li>
+  <li>Make read calls to explore feeds</li>
+  <li>Post small test messages while you build</li>
+  <li>Check responses and retry when networks sulk</li>
+</ul>
+
+<h2>Install and import</h2>
+<p>Use pip to add the client. The package name often matches the import you will use. Minimal setup, no rituals required.</p>
+<pre><code>pip install bluesky
+
+# in Python
+from bluesky import Client
+import os
+</code></pre>
+
+<h2>Authenticate</h2>
+<p>Get a session token from the web UI or a developer console. Do not paste tokens into code like a barbarian. Set an environment variable and read it at runtime.</p>
+<pre><code>export BLUESKY_TOKEN="your_real_token_here"
+
+# in Python
+token = os.getenv("BLUESKY_TOKEN")
+client = Client(token=token)
+</code></pre>
+
+<h2>Make basic requests</h2>
+<p>Use the client to fetch a profile or a timeline and receive Python objects you can inspect. Method names vary by client but the workflow is the same. Handle errors, because network gremlins are a thing.</p>
+
+<h3>Example pattern</h3>
+<pre><code>try:
+    profile = client.fetch_profile("someuser")
+    timeline = client.fetch_timeline()
+    # process the returned objects
+except Exception as e:
+    print("Request failed", e)
+</code></pre>
+
+<h2>Post a record</h2>
+<p>Prepare a short text string or structured content and send it. Keep payloads small while developing to avoid rate limit tantrums.</p>
+<pre><code>response = client.post("Hello from Python")
+print("Posted", response)
+</code></pre>
+
+<h2>Handle responses and errors</h2>
+<p>Always check the response or catch exceptions. Log useful fields and retry transient failures with exponential backoff. Do not assume a 200 is a permanent friendship agreement.</p>
+
+<h2>Tips for developers</h2>
+<ul>
+  <li>Store tokens in environment variables and never commit them</li>
+  <li>Use small test posts while developing to avoid rate limits</li>
+  <li>Respect rate limits and implement retries with backoff</li>
+  <li>Reload sessions when tokens expire rather than hard coding secrets</li>
+</ul>
+
+<p>That is all. You now have the essentials to authenticate, read, and post with the Bluesky Python API. Go write something clever and only mildly controversial.</p>
+

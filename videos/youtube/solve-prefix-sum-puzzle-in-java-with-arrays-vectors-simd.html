@@ -1,0 +1,77 @@
+---
+layout: video
+title: "Solve prefix sum puzzle in Java with Arrays Vectors SIMD"
+description: "Learn prefix sum in Java using arrays vectors and SIMD style tricks for faster performance with clear steps and benchmarking advice"
+video_host: "youtube"
+video_id: "g0z2L0bJ6xM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT17M42S"
+thumbnail_url: "https://i.ytimg.com/vi/g0z2L0bJ6xM/maxresdefault.jpg"
+content_url: "https://youtu.be/g0z2L0bJ6xM"
+embed_url: "https://www.youtube.com/embed/g0z2L0bJ6xM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - prefix sum
+  - prefixsum
+  - Java
+  - Arrays
+  - Vectors
+  - SIMD
+  - parallel
+  - performance
+  - optimization
+  - algorithms
+---
+
+<h2>Understanding prefix sum and why you should care</h2>
+<p>Prefix sum is the classic running total trick that keeps annoying compilers and delighting performance nerds. There are two flavors to remember. Inclusive prefix sum includes the current element in the running total. Exclusive prefix sum shifts the result so each output is the sum of prior elements only. The choice matters for boundary handling and for how you combine blocks in parallel implementations.</p>
+
+<h2>Start simple and prove it works</h2>
+<p>Begin with a straight forward sequential scan to get correctness and a baseline. Conceptually the loop looks like this</p>
+<pre><code>sum[0] = a[0] and for i from 1 to n minus 1 do sum[i] = sum[i minus 1] + a[i]</code></pre>
+<p>Yes this is painfully obvious. That is the point. If the naive version is wrong no amount of vector magic will save you.</p>
+
+<h2>Array tuned loops beat object gymnastics</h2>
+<p>Use primitive arrays to avoid boxing and reduce object pressure. The JVM hates surprises so write predictable loops. Keep bounds checks minimal by indexing in a plain for loop and let the JIT do its job. Manual loop unrolling sometimes helps in tight hotspots because the CPU likes fewer branch days.</p>
+
+<h3>Practical tips</h3>
+<ul>
+  <li>Prefer contiguous primitive arrays for throughput</li>
+  <li>Process in blocks that fit your CPU caches to avoid memory stalls</li>
+  <li>Warm up the JVM before measuring to avoid misleading results</li>
+</ul>
+
+<h2>Make code vector friendly</h2>
+<p>The Java Vector API lets you express lane wise operations and hope the runtime maps those lanes to real SIMD units. The main idea is to pack multiple values per vector and perform lane wise additions. That reduces per element overhead and can increase throughput on hardware that supports it.</p>
+<p>Write the loop so lanes operate independently and handle the carry between vector chunks explicitly. A simple pattern is to compute a vector prefix then extract the final lane as the carry for the next block. That preserves correctness while enabling parallel lane work.</p>
+
+<h2>SIMD like approaches and realities</h2>
+<p>True SIMD may need platform specific intrinsics or a confident use of the Vector API. Do not assume peak CPU arithmetic is the only limit. Memory bandwidth, cache behavior and write patterns often decide real world performance. In short the CPU may be ready but the memory system might be taking a long coffee break.</p>
+
+<h3>Block level strategy</h3>
+<ul>
+  <li>Divide the input into blocks that fit L1 or L2 depending on your data size</li>
+  <li>Compute a local prefix for each block in vector friendly fashion</li>
+  <li>Scan the block totals sequentially or in parallel to produce block carries</li>
+  <li>Add the block carry to each block in a final pass</li>
+</ul>
+
+<h2>Benchmark like you mean it</h2>
+<p>Measure throughput and latency on realistic inputs. Warm runs are mandatory. Try different sizes to find where memory bandwidth saturates. Use representative data patterns because predictable inputs can trick the optimizer into lying to you about performance.</p>
+
+<h2>Common pitfalls and quick fixes</h2>
+<ul>
+  <li>Bounds checks and virtual calls will kill tight loops. Keep inner loops simple</li>
+  <li>Small arrays often show little or no benefit from vectorization because overhead dominates</li>
+  <li>Watch out for false sharing if you parallelize across threads and write to nearby memory</li>
+</ul>
+
+<h2>Wrapping up with a realistic plan</h2>
+<p>If you want speed follow this path. Get a correct sequential scan. Replace collections with primitive arrays. Make the loop predictable and try manual unrolling for critical hot spots. Move to the Java Vector API to express lane wise adds and handle carries between blocks explicitly. Benchmark everything on warm runs with real inputs.</p>
+<p>Most of the big wins come from memory layout and predictable loops rather than exotic intrinsics. Vectorization is the cherry on top when the rest of your pipeline is already behaving itself.</p>
+
+<p>Now go write some code and then shame your poorly performing benchmark into shape.</p>
+

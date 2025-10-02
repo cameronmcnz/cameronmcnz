@@ -1,0 +1,73 @@
+---
+layout: video
+title: "UiPath Get Outlook Mail Messages Body Example"
+description: "Learn how to extract email body text with the UiPath Get Outlook Mail Messages activity and feed that content into an automation workflow."
+video_host: "youtube"
+video_id: "-7u9uHUnoJc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M0S"
+thumbnail_url: "https://i.ytimg.com/vi/-7u9uHUnoJc/maxresdefault.jpg"
+content_url: "https://youtu.be/-7u9uHUnoJc"
+embed_url: "https://www.youtube.com/embed/-7u9uHUnoJc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Outlook
+  - Get Outlook Mail Messages
+  - Read Email Body
+  - RPA
+  - Automation
+  - Email Automation
+  - UiPath Studio
+  - MailMessage
+  - Tutorial
+---
+
+<article>
+  <p>If your workflow needs to read email content and you do not want to hand the job to a human, welcome to the gloriously boring world of email parsing with UiPath. This quick tutorial covers the Get Outlook Mail Messages activity in UiPath Studio and shows how to pull the <code>Body</code> from <code>MailMessage</code> objects so your automation can do the heavy lifting and your team can pretend they are busy.</p>
+
+  <h2>What this tutorial covers</h2>
+  <ul>
+    <li>Place and configure the Get Outlook Mail Messages activity</li>
+    <li>Filter messages and limit results with Top and OnlyUnread</li>
+    <li>Access the Body property in a For Each loop and store it for parsing</li>
+    <li>Handle HTML messages and encoding quirks</li>
+    <li>Catch errors and mark or move processed mail</li>
+  </ul>
+
+  <h2>Step 1 Place the Get Outlook Mail Messages activity</h2>
+  <p>Drag Get Outlook Mail Messages into a sequence or flow. If you have multiple Outlook profiles set the <code>Account</code> property to the mailbox you want. If you do not set an account UiPath will use the default Outlook profile and that usually works unless your IT enjoys chaos.</p>
+
+  <h2>Step 2 Configure basic filters and folder</h2>
+  <p>Set <code>MailFolder</code> to Inbox or a specific subfolder to limit the search. Use <code>Top</code> to cap how many messages you fetch per run. If you only want new emails set <code>OnlyUnread</code> to true. These filters keep your automation from trying to process the entire internet.</p>
+
+  <h2>Step 3 Read the Body from each MailMessage</h2>
+  <p>Use a For Each activity typed to <code>System.Net.Mail.MailMessage</code> or UiPath mail types depending on your packages. Inside the loop grab the body with <code>mail.Body</code> and save it to a string variable for parsing or storage. Treat the string like fragile glass and parse gently.</p>
+
+  <h3>Plain text versus HTML</h3>
+  <p>If the message is plain text you can parse right away. If it is HTML do not try to strip tags with fragile regex magic unless you enjoy debugging for fun. Use a proper HTML parser or a cleaning step to remove tags and decode entities.</p>
+
+  <h2>Step 4 Parsing and storage tips</h2>
+  <ul>
+    <li>Save the raw <code>Body</code> to a file or table first. That makes debugging less painful when parsing fails.</li>
+    <li>Isolate the cleaning step into its own workflow. That allows safe improvements without re fetching emails.</li>
+    <li>Watch for encoding quirks and unusual line endings when reading bodies from different mail clients.</li>
+  </ul>
+
+  <h2>Step 5 Handle errors and mark processed messages</h2>
+  <p>Wrap the mail fetch and processing in Try Catch to handle network issues and permissions gracefully. When a message is processed use <code>MarkAsRead</code> or <code>Move</code> to an archive folder so you do not process the same item twice. You can also add logging so audits do not become urban myths.</p>
+
+  <h2>Common gotchas and pro tips</h2>
+  <ul>
+    <li>If HTML contains inline images or complex formatting save the raw body first and then run a separate parse job.</li>
+    <li>When filtering by folder remember subfolders are not included unless you target them explicitly.</li>
+    <li>Limit <code>Top</code> on first runs to avoid overloading downstream systems.</li>
+    <li>Test with sample messages that include attachments encoded text and different charsets to reduce surprise failures.</li>
+  </ul>
+
+  <p>That is the gist of reading email bodies with UiPath and Outlook. You get Mail messages, pull the <code>Body</code>, clean it if needed and mark messages so your bot does not become an overeager retriever of duplicates. Happy automating and try not to let the inbox win.</p>
+</article>
+

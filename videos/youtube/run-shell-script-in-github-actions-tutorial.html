@@ -1,0 +1,104 @@
+---
+layout: video
+title: "Run Shell Script in GitHub Actions Tutorial"
+description: "Learn how to add a shell script to a GitHub Actions workflow with permissions and execution steps for reliable CI runs."
+video_host: "youtube"
+video_id: "dHuksXTLA2k"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M43S"
+thumbnail_url: "https://i.ytimg.com/vi/dHuksXTLA2k/maxresdefault.jpg"
+content_url: "https://youtu.be/dHuksXTLA2k"
+embed_url: "https://www.youtube.com/embed/dHuksXTLA2k"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub Actions
+  - shell script
+  - bash
+  - CI
+  - workflow
+  - chmod
+  - automation
+  - continuous integration
+  - runner
+  - YAML
+---
+
+<h2>Why you need this guide and not another tutorial that repeats itself</h2>
+<p>Short version. You want automation that runs predictable shell scripts inside GitHub Actions so your CI does the boring work and not your future self. This guide gives the exact steps to create a shell script, make it executable, wire it into a workflow, and troubleshoot permission and path problems that will inevitably show up.</p>
+
+<h2>Make the script the way humans and runners expect</h2>
+<p>Put a file under scripts or in the repo root and start it with a proper interpreter line. Use bash if you are using bash features. Keep it small and testable.</p>
+
+<pre><code>#!/bin/bash
+set -e
+set -o pipefail
+
+echo "Hello from the script"
+# run build or test commands here
+</code></pre>
+
+<p>Notes</p>
+<ul>
+  <li>set -e and set -o pipefail help fail fast so your job does not politely ignore errors</li>
+  <li>Use relative paths that match where actions checks out the repo to avoid path surprises</li>
+</ul>
+
+<h2>Make it executable without drama</h2>
+<p>Runners are not mind readers. They need the execute bit. Locally run</p>
+
+<pre><code>chmod +x scripts/run_tests.sh
+</code></pre>
+
+<p>If you want the permission change to persist in the repo you can do</p>
+
+<pre><code>git add --chmod=+x scripts/run_tests.sh
+git commit -m "make script executable"
+</code></pre>
+
+<h2>Hook the script into a workflow and let automation do its job</h2>
+<p>Create a workflow file under .github/workflows that runs on a runner that matches your shell needs. If you need bash features pick a Linux runner such as ubuntu-latest. The workflow steps you need are simple</p>
+<ul>
+  <li>checkout the repo using actions/checkout@v3 so the runner can see your files</li>
+  <li>ensure the script is executable on the runner with chmod if you did not commit the execute bit</li>
+  <li>run the script with a relative path like ./scripts/run_tests.sh</li>
+</ul>
+
+<p>Example step list that you can adapt</p>
+
+<pre><code># in your workflow job steps
+use actions/checkout@v3
+run chmod +x scripts/run_tests.sh
+run ./scripts/run_tests.sh
+</code></pre>
+
+<h3>Why that works</h3>
+<p>The runner executes the command using the default shell for the platform. On ubuntu-latest the default shell supports bash like behavior in most cases. If your script relies on bash specific builtins then ensure the shebang is correct and use a Linux runner.</p>
+
+<h2>Common failure modes and how to stare them down</h2>
+<ul>
+  <li>Permission denied. Either forget to commit the execute bit or skip chmod on the runner. Add a chmod step or commit the change with git add --chmod=+x</li>
+  <li>Wrong runner. Windows and macOS have different default shells. If you need bash use a Linux runner</li>
+  <li>Path not found. The repository is checked out into the workspace. Use relative paths and verify working directory if a step changes it</li>
+  <li>Silent failures. Use set -e and set -o pipefail and exit codes so the job fails loudly and gives you a log to rage at</li>
+</ul>
+
+<h2>Debugging like a pro without crying</h2>
+<p>Logs are your friend. The Actions tab shows step by step output and failing line numbers. Add echo statements or a debug step that prints the workspace, ls output, and env so you are not surprised.</p>
+
+<pre><code>run echo "pwd is $(pwd)" && ls -la scripts
+</code></pre>
+
+<h2>Quick checklist</h2>
+<ul>
+  <li>Create script with shebang and strict mode</li>
+  <li>Make it executable locally or chmod in the workflow</li>
+  <li>Use actions/checkout@v3 so the runner has the files</li>
+  <li>Run the script with a relative path matching the checkout location</li>
+  <li>Pick the correct runner for your shell features</li>
+</ul>
+
+<p>If you follow these steps your script will run inside GitHub Actions and do the boring, repeatable work you paid for. If it breaks consult the logs and then add more echoes until you feel better.
+

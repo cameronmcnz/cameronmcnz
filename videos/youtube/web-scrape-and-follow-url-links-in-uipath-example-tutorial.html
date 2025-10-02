@@ -1,0 +1,77 @@
+---
+layout: video
+title: "Web Scrape and Follow URL Links in UiPath Example Tutorial"
+description: "Quick UiPath guide to scrape web pages follow links extract href values and save results to a DataTable for automation projects"
+video_host: "youtube"
+video_id: "kkFpiNmseos"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M52S"
+thumbnail_url: "https://i.ytimg.com/vi/kkFpiNmseos/maxresdefault.jpg"
+content_url: "https://youtu.be/kkFpiNmseos"
+embed_url: "https://www.youtube.com/embed/kkFpiNmseos"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - web scraping
+  - RPA
+  - Data Scraping
+  - Get Attribute
+  - Selectors
+  - Automation
+  - For Each
+  - Open Browser
+  - DataTable
+---
+
+<p>Welcome to the part where we teach a robot to play internet detective without sending it to digital rehab. This guide shows how to capture links with UiPath and follow them to scrape page data. You will use Data Scraping, Get Attribute and smart selector use to build a tidy DataTable that you can write to CSV and actually trust.</p>
+
+<h2>What this workflow does and why it will save you time</h2>
+<p>In plain terms the process finds anchor tags or list items then reads the href attribute and visits each URL to collect details. This pattern is useful for RPA jobs that need lists of products articles or search results. It scales to paginated sites with small selector tweaks and a little patience.</p>
+
+<h3>Tools and UiPath activities you will use</h3>
+<ul>
+  <li>Open Browser to launch the target page</li>
+  <li>Data Scraping for table like lists or Find Children for custom layouts</li>
+  <li>Get Attribute to read href values from anchor elements</li>
+  <li>For Each to loop through the list of addresses</li>
+  <li>Navigate To or Click to visit each link</li>
+  <li>Data Scraping or targeted selectors to capture page fields</li>
+  <li>Add Data Row and a DataTable variable to collect records</li>
+  <li>Write CSV to export results for analysis or downstream automation</li>
+</ul>
+
+<h2>Step by step workflow</h2>
+<p>Start a new UiPath project and Open Browser on the page that has the links. Pick the browser that behaves best with your selectors. Chrome and Edge are usually the least drama filled.</p>
+
+<h3>1. Capture link elements</h3>
+<p>If the links live in a clean table use Data Scraping to grab the list. If the layout is custom use Find Children with a suitable scope to collect anchor elements. Both approaches let you locate the elements that contain the href attribute you actually care about. Remember that relying on visible text alone makes the robot cry at runtime.</p>
+
+<h3>2. Read href with Get Attribute</h3>
+<p>Use Get Attribute on each anchor element to read the href property and store it in a list or string array. Storing the URLs separately is safer than trying to click elements that might vanish between discovery and action.</p>
+
+<h3>3. Loop and navigate</h3>
+<p>Use a For Each to iterate the list of href values. Inside the loop assign the current address to a string variable and then either Navigate To with the full URL or find the anchor again and Click while the element is still present. Navigate To often avoids timing problems that make your run fail in the saddest way.</p>
+
+<h3>4. Scrape the details</h3>
+<p>Once on the target page use Data Scraping for repeated structured fields or targeted selectors for specific items like title price or author. Add Data Row to append each record to your DataTable so you keep a row per visited link. If fields sometimes disappear design your selectors to fail gracefully with default values.</p>
+
+<h3>5. Write output and handle errors</h3>
+<p>When the loop finishes write the DataTable to CSV with Write CSV. Wrap risky sections in Try Catch to survive flaky network calls and unexpected pop ups. Add short delays and maybe a Retry scope where responses are slow. Log the current URL and row index as you go to make debugging less of a treasure hunt.</p>
+
+<h2>Practical tips and best practices</h2>
+<ul>
+  <li>Prefer reading href values instead of blind clicking. It is more reliable and less dramatic.</li>
+  <li>Set clear timeouts on Open Browser and activities to avoid flaky runs.</li>
+  <li>Use stable attributes in selectors like id or data attributes rather than visible text that changes with marketing trends.</li>
+  <li>When sites are paginated capture the next page link and loop with the same pattern. Adjust selector scopes so you do not reprocess the same items.</li>
+  <li>Log progress including URL and index so you can resume or diagnose issues without tantrums.</li>
+</ul>
+
+<h2>Common gotchas and how to avoid them</h2>
+<p>Sometimes the href is relative rather than absolute. If that happens build the full URL by combining the site base with the relative path. Dynamic content may require small waits or waiting for a specific element to appear before scraping. If clicking triggers new windows make sure to attach to the new browser instance or prefer Navigate To when applicable.</p>
+
+<p>Follow these steps and you will have a reliable UiPath automation that extracts link lists follows them and collects structured data into a DataTable. Your CSV output will be ready for analysis and your future self will thank you for not leaving everything inside a tangle of thrown exceptions.</p>
+

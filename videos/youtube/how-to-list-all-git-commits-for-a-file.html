@@ -1,0 +1,74 @@
+---
+layout: video
+title: "How to List all Git Commits for a File"
+description: "Quick guide to list all Git commits that touched a file with commands for tracking renames and making history readable"
+video_host: "youtube"
+video_id: "mw6svCY8xgc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M37S"
+thumbnail_url: "https://i.ytimg.com/vi/mw6svCY8xgc/maxresdefault.jpg"
+content_url: "https://youtu.be/mw6svCY8xgc"
+embed_url: "https://www.youtube.com/embed/mw6svCY8xgc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git log
+  - commits
+  - file history
+  - version control
+  - tutorial
+  - command line
+  - track renames
+  - git follow
+  - git tips
+---
+
+<p>Want to see every commit that touched a file in Git and feel like a digital archaeologist with fewer dust mites and more command line? This quick tour shows the exact commands to list commits for a file track renames and format the output so you actually find what you came for.</p>
+
+<h2>Basic file scoped log</h2>
+<p>Start here if you only care about commits that changed a file directly. This shows commit ids author names dates and commit messages that include the change.</p>
+<pre><code>git log -- path/to/file</code></pre>
+<p>That output is honest and blunt. It will not follow the file through a name change by default. If the file was renamed earlier you will only see history from the current name forward.</p>
+
+<h3>Include renames with follow</h3>
+<p>Renames are where plain queries stop caring. Ask Git to follow the file through renames and you get continuity.</p>
+<pre><code>git log --follow -- path/to/file</code></pre>
+<p>The follow flag tells Git to walk past rename points and show commits that affected the file before it had its current name. Use this for long lived files that have been moved or renamed.</p>
+
+<h3>Format the output for scanning</h3>
+<p>Raw logs are fine for bedtime reading but not for quick triage. Condense or expand based on how much info you want.</p>
+<pre><code>git log --follow --pretty=oneline -- path/to/file
+
+git log --follow -p -- path/to/file</code></pre>
+<p>The pretty option collapses each commit to one line for quick scanning. The patch option shows the actual diffs which helps when a message alone is not enough to explain what changed.</p>
+<p>If you are hunting for a keyword pipe the output to grep like this</p>
+<pre><code>git log --follow --pretty=oneline -- path/to/file | grep fix</code></pre>
+
+<h3>Narrow by path patterns dates or author</h3>
+<p>You can combine file path patterns with date filters and author filters to shrink the haystack.</p>
+<pre><code>git log --follow --since=2020-01-01 -- path/to/dir/*.js
+
+git log --author="Alice" -- path/to/file</code></pre>
+<p>Use globs for directories and --since or --until to restrict by time. Quotes around names help when author names have spaces.</p>
+
+<h3>Inspect a specific snapshot</h3>
+<p>Once you have a commit id from the log you can inspect that commit or recover the file as it was at that point.</p>
+<pre><code>git show <commit>     # view commit message and diff
+
+git checkout <commit> -- path/to/file     # put the historical file into your working tree</code></pre>
+<p>git show will display the commit details and diffs. git checkout with a commit and a path retrieves that file version into your working tree so you can open it or run a quick comparison.</p>
+
+<h2>Quick tips</h2>
+<ul>
+<li>Use --follow plus --pretty=oneline for a compact history that spans renames</li>
+<li>Add -p only when you need to see the actual diffs</li>
+<li>Limit output with -n for the top N commits for quick sampling</li>
+<li>Pipe to grep to hunt for keywords in messages or to find when a term first appeared</li>
+<li>If a file was renamed search for its current name with --follow rather than trying to guess old names</li>
+</ul>
+
+<p>That is all you need to stop treating file history like an archaeology dig. Use follow when names change format for quick scanning and bring in diffs only when you actually need to read the bones. Now go shine a light on that mystery commit and pretend that you always knew where the bug came from.</p>
+

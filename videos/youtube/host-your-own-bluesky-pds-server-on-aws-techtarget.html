@@ -1,0 +1,69 @@
+---
+layout: video
+title: "Host Your Own Bluesky PDS Server on AWS #techtarget"
+description: "Step by step guide to deploy a personal Bluesky PDS on AWS with EC2 RDS S3 DNS and TLS for a private social identity service"
+video_host: "youtube"
+video_id: "Ry_Mk_O9CQU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT29M21S"
+thumbnail_url: "https://i.ytimg.com/vi/Ry_Mk_O9CQU/maxresdefault.jpg"
+content_url: "https://youtu.be/Ry_Mk_O9CQU"
+embed_url: "https://www.youtube.com/embed/Ry_Mk_O9CQU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Bluesky
+  - PDS
+  - AWS
+  - EC2
+  - RDS
+  - S3
+  - DNS
+  - TLS
+  - self hosting
+  - decentralized social
+---
+
+<h2>Why run your own PDS on AWS</h2>
+<p>If you like owning your social identity and enjoy mild infrastructure pain then hosting a Bluesky PDS is for you. This guide walks through a repeatable way to self host a PDS on AWS using EC2 for compute, RDS for relational data, S3 for media, plus DNS and TLS so your users do not get greeted by browser freakouts.</p>
+
+<h2>Plan your cloud setup</h2>
+<p>Start with the boring but important stuff. Create an IAM user with least privilege and enable billing alerts so your wallet does not spontaneously combust. Design a VPC and security groups that only allow SSH and HTTPS from your admin ranges. Good network hygiene prevents midnight surprises when traffic spikes.</p>
+
+<h2>Provision compute and runtime</h2>
+<p>Pick an EC2 instance type that matches expected load. You do not need a monster VM on day one, but avoid one that gasps under media uploads. Install system packages and runtime dependencies for the PDS server and capture the setup in a startup script or configuration management tool for consistency across redeploys.</p>
+
+<h3>Suggested checklist</h3>
+<ul>
+  <li>Instance sizing based on expected concurrency and media usage</li>
+  <li>Use a startup script to install packages and apply config</li>
+  <li>Consider containers if you prefer deployment portability</li>
+</ul>
+
+<h2>Durable storage and database</h2>
+<p>Use a managed relational service such as RDS for the PDS database and attach block storage for local caches if needed. Store large media blobs in S3 and configure lifecycle rules and storage classes to save money. Set up automated backups and snapshots because optimism is not a backup strategy.</p>
+
+<h2>Domain name and TLS</h2>
+<p>Point your domain at the EC2 public IP or a load balancer. Obtain TLS certificates with an ACME client such as certbot so browsers treat your site like a responsible citizen. Configure HTTP to HTTPS redirection and enable HSTS to avoid the awkward insecure page prompt.</p>
+
+<h2>Deploy the PDS service</h2>
+<p>Run the PDS as a systemd unit or inside a container. Wire environment variables to your RDS endpoint and S3 bucket. Keep secrets out of plain text files and use IAM roles where possible for S3 access. If you must store credentials use a secrets manager and stop pretending a text file is fine.</p>
+
+<h3>Deployment tips</h3>
+<ol>
+  <li>Use service units or container orchestrator for supervised restarts</li>
+  <li>Separate config per environment so staging does not clobber production</li>
+  <li>Automate deployments so you can reproduce the setup later</li>
+</ol>
+
+<h2>Logging and monitoring</h2>
+<p>Emit logs to a central location and collect basic metrics. Configure alerts for high error rates, slow database queries, and disk pressure. You will spend less time fixing things if you notice problems before users do their best impression of angry feedback.</p>
+
+<h2>Operational notes</h2>
+<p>Tune database settings as traffic grows because defaults are optimistic. Test backups by restoring into a sandbox so your recovery plan is more than wishful thinking. Plan for media retention and costs in S3 and use lifecycle policies to trim storage over time.</p>
+
+<h2>Wrap up</h2>
+<p>Hosting a personal Bluesky PDS on AWS is eminently doable with careful planning and a little automation. Use EC2 for compute, RDS for durable relational storage, S3 for media, DNS and TLS for a professional front end, and monitoring for your own sanity. Follow these steps and you will have a repeatable, resilient decentralized social presence that does not require heroic maintenance.</p>
+

@@ -1,0 +1,86 @@
+---
+layout: video
+title: "The difference between Controller vs RestController in Sprin"
+description: "Quick guide to Controller versus RestController in Spring with examples and clear rules for choosing the right annotation for views or APIs"
+video_host: "youtube"
+video_id: "o3cJnTm3p94"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M34S"
+thumbnail_url: "https://i.ytimg.com/vi/o3cJnTm3p94/maxresdefault.jpg"
+content_url: "https://youtu.be/o3cJnTm3p94"
+embed_url: "https://www.youtube.com/embed/o3cJnTm3p94"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring
+  - Spring Boot
+  - Controller
+  - RestController
+  - Java
+  - MVC
+  - REST API
+  - Annotations
+  - JSON
+  - Web Development
+---
+
+<article>
+  <p>If you ever wondered why one Spring class sends a template to the browser and the other spits out JSON like a polite data mule you are in the right place. This short guide explains the practical difference between Controller and RestController in Spring and how to avoid the usual facepalm mistakes.</p>
+
+  <h2>Quick summary for the impatient</h2>
+  <p>Controller is the old school pick for server side rendered pages. Methods normally return a view name and the view resolver picks a template such as Thymeleaf. RestController bundles Controller and ResponseBody so every method returns the response body by default which makes it perfect for REST API backends and single page applications that only care about JSON or text.</p>
+
+  <h2>Why they act differently</h2>
+  <p>The magic is not magic. Controller returns a logical view name by default. If you want JSON from a specific method annotate that method with @ResponseBody and Spring will use message converters to serialize the return value to JSON or XML when appropriate. RestController is just a convenience wrapper that applies @ResponseBody to every handler method in that class. Less typing, fewer accidental errors, more predictable output.</p>
+
+  <h3>How content negotiation works here</h3>
+  <p>Spring looks at the return type and the Accept header and picks a message converter that matches. If your method returns an object Spring will serialize it with Jackson to JSON when the client wants application json and a suitable converter is on the classpath. If a controller method returns a String and you intend that to be a view name check that you did not accidentally annotate the method with @ResponseBody or put it in a RestController class.</p>
+
+  <h2>When to use Controller</h2>
+  <ul>
+    <li>Rendering templates with Thymeleaf or JSP</li>
+    <li>When handler methods return logical view names like return "index"</li>
+    <li>If you combine form submission and server side rendering in one place</li>
+  </ul>
+
+  <h2>When to use RestController</h2>
+  <ul>
+    <li>Building REST API endpoints that return JSON or plain text</li>
+    <li>Backends for single page applications</li>
+    <li>Anything where the response body is the primary product</li>
+  </ul>
+
+  <h3>Example code snippets</h3>
+  <pre><code>@Controller
+public class HomeController {
+    @GetMapping("/home")
+    public String index() {
+        return "index";
+    }
+}
+
+@RestController
+public class ApiController {
+    @GetMapping("/api/data")
+    public MyDto payload() {
+        return new MyDto("hello") ;
+    }
+}
+</code></pre>
+
+  <h2>Best practice and migration tips</h2>
+  <p>If you are tempted to mix view rendering and API endpoints in the same controller do not do that unless you enjoy debugging surprising behavior. Keep template controllers and API controllers separate. If you need to migrate a controller to an API first check for methods that return view names. Add a new RestController for JSON endpoints or add @ResponseBody to specific methods so you do not break existing templates.</p>
+
+  <h3>Quick checklist before you push</h3>
+  <ul>
+    <li>Are you returning view names or JSON objects</li>
+    <li>Is Jackson on the classpath if you expect JSON serialization</li>
+    <li>Do you need content negotiation for multiple media types</li>
+    <li>Have you separated template controllers from API controllers to avoid accidental response body behavior</li>
+  </ul>
+
+  <p>In short pick Controller when you render templates and pick RestController when you build API endpoints. The right annotation saves boilerplate and prevents those baffling cases where a method was supposed to return JSON but the app tried to resolve a template named after your DTO. You have been warned, proceed with clarity and a little bit of healthy contempt for accidental bugs.</p>
+</article>
+

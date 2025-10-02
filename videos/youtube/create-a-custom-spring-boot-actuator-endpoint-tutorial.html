@@ -1,0 +1,115 @@
+---
+layout: video
+title: "Create a Custom Spring Boot Actuator Endpoint Tutorial"
+description: "Learn to build and expose a custom Spring Boot Actuator endpoint with code examples registration and testing for monitoring and operations"
+video_host: "youtube"
+video_id: "hR-IdJZ9N7I"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M59S"
+thumbnail_url: "https://i.ytimg.com/vi/hR-IdJZ9N7I/maxresdefault.jpg"
+content_url: "https://youtu.be/hR-IdJZ9N7I"
+embed_url: "https://www.youtube.com/embed/hR-IdJZ9N7I"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Actuator
+  - Custom Endpoint
+  - Java
+  - Monitoring
+  - Metrics
+  - Endpoint Security
+  - Spring Boot Tutorial
+  - Health Checks
+  - Spring Framework
+---
+
+<article>
+  <p>If your app had a public persona and a secret diary the Actuator would be the diary. This guide shows how to add a custom Spring Boot Actuator endpoint to expose app specific metrics and lightweight operations without turning your production environment into a public confessional. Expect Java examples, property tweaks, and a few sarcastic comments to keep you awake.</p>
+
+  <h2>Why add a custom Actuator endpoint</h2>
+  <p>Spring Boot Actuator already gives you health checks, metrics and info out of the box. A custom endpoint lets you add application specific data or operations in a neat, discoverable place for monitoring and debugging. Useful for custom metrics, feature toggles, or quick diagnostic dumps when something goes wrong.</p>
+
+  <h2>Dependencies and project setup</h2>
+  <p>Add the Actuator starter so Spring Boot brings the management endpoints to the party. Use Maven or Gradle depending on your build tool.</p>
+
+  <h3>For Maven</h3>
+  <pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+
+  <h3>For Gradle</h3>
+  <pre><code>implementation 'org.springframework.boot:spring-boot-starter-actuator'</code></pre>
+
+  <h2>Create the custom endpoint class</h2>
+  <p>Make a Spring bean that Spring Boot can component scan and annotate it with @Endpoint. Use @ReadOperation for safe queries and @WriteOperation for actions that change state.</p>
+
+  <pre><code>package com.example.monitoring
+
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation
+import org.springframework.stereotype.Component
+import java.util.Map
+
+@Component
+@Endpoint(id = "custom")
+public class CustomEndpoint {
+
+  @ReadOperation
+  public Map&lt;String, Object&gt; info() {
+    return Map.of(
+      "uptime", System.currentTimeMillis(),
+      "customMetric", 42
+    )
+  }
+
+  @WriteOperation
+  public String triggerAction(String param) {
+    // perform a safe operation or delegate to a service
+    return "action triggered with " + param
+  }
+}
+</code></pre>
+
+  <h2>Expose the endpoint in application properties</h2>
+  <p>Actuator endpoints are not always exposed over HTTP by default. Add the management properties so the endpoint becomes reachable using the management context path.</p>
+
+  <pre><code>management.endpoints.web.exposure.include = custom,health,info
+management.endpoint.custom.enabled = true
+# optional separate management port
+management.server.port = 8081
+</code></pre>
+
+  <h2>Test the endpoint</h2>
+  <p>Hit the endpoint with curl or your browser. If you changed the management port include it in the request.</p>
+
+  <pre><code>curl localhost:8080/actuator/custom
+# or when using a different management port
+curl localhost:8081/actuator/custom
+</code></pre>
+
+  <h2>Secure the endpoint</h2>
+  <p>Custom endpoints can leak secrets if you are careless. Protect them with Spring Security and restrict access to specific roles. Also enable HTTPS in production and avoid returning sensitive config values or credentials from the endpoint.</p>
+
+  <h3>Quick security checklist</h3>
+  <ul>
+    <li>Require authentication for actuator paths</li>
+    <li>Authorize by role for write operations</li>
+    <li>Keep responses minimal and scrub sensitive fields</li>
+    <li>Use HTTPS for all management traffic</li>
+  </ul>
+
+  <h2>Best practices and tips</h2>
+  <ul>
+    <li>Prefer @ReadOperation for safe queries and @WriteOperation for state changes</li>
+    <li>Keep payloads small to avoid bloating monitoring systems</li>
+    <li>Register the endpoint as a Spring bean so component scanning picks it up</li>
+    <li>Use the management endpoints for monitoring and not as a general API surface</li>
+  </ul>
+
+  <p>Custom Actuator endpoints are a tidy way to expose application specific metrics and operations for monitoring, troubleshooting and automation. They fit cleanly into the Spring Framework ecosystem and play well with monitoring stacks. Add them carefully and treat them like fragile secrets that must be earned rather than handed out to everyone who asks.</p>
+</article>
+

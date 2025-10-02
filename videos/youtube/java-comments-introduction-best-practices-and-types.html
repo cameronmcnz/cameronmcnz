@@ -1,0 +1,79 @@
+---
+layout: video
+title: "Java Comments Introduction Best Practices and Types"
+description: "Learn the three types of Java comments and best practices for readable code and proper Javadoc usage"
+video_host: "youtube"
+video_id: "-ej8BMn5r-w"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M3S"
+thumbnail_url: "https://i.ytimg.com/vi/-ej8BMn5r-w/maxresdefault.jpg"
+content_url: "https://youtu.be/-ej8BMn5r-w"
+embed_url: "https://www.youtube.com/embed/-ej8BMn5r-w"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Comments
+  - Javadoc
+  - SingleLineComments
+  - BlockComments
+  - BestPractices
+  - CodeDocumentation
+  - ProgrammingTips
+  - JavaTutorial
+  - CleanCode
+---
+
+<h2>Know the three comment types</h2>
+<p>If you write Java code and also like mercy for future you and your teammates then comments matter. Java has three comment styles and each one has a job. Use the right one and your code will look like it has its life together. Use the wrong one and your repo will be a crime scene.</p>
+
+<h3>Single line comments</h3>
+<p>Start with two slashes and keep it short. Single line comments are perfect for tiny notes right above a tricky expression or for flagging a temporary hack that needs cleanup.</p>
+<pre><code>// Validate user input before parsing
+int parsed = Integer.parseInt(someString)
+</code></pre>
+
+<h3>Block comments</h3>
+<p>Wrapped with slash star and star slash these are for multi line context. Use them to explain an algorithm rationale or to group several lines of commentary without repeating slashes.</p>
+<pre><code>/*
+ This algorithm uses a simple heuristic that fails only on extremely rare cases
+ Use when the why matters more than the what
+*/
+</code></pre>
+
+<h3>Javadoc</h3>
+<p>Javadoc comments start with slash star star and star slash and they fuel generated documentation. Put Javadoc on public classes and methods that other developers or tools will read.</p>
+<pre><code>/**
+ * Add two numbers
+ * @param a first number
+ * @param b second number
+ * @return sum
+ */
+public int add(int a, int b) { return a + b }
+</code></pre>
+
+<h2>Best practices that do not make your code look desperate</h2>
+<ul>
+  <li>Keep comments concise and accurate. If the code speaks clearly the comment can shut up</li>
+  <li>Do not restate the obvious. Saying that i equals i is not useful</li>
+  <li>Update comments during refactors so they do not lie and haunt future readers</li>
+  <li>Avoid big blocks of commented out code. They are tombstones for past intentions</li>
+  <li>Prefer expressive code over verbose comments. Well named methods beat an essay any day</li>
+</ul>
+
+<h2>Where to use each style in the wild</h2>
+<p>Single line comments for quick hints and warnings near complex logic. Block comments for context heavy explanations that need a few lines to breathe. Javadoc for public APIs method level behavior and expectations so tools and humans both get less confused.</p>
+
+<h2>Quick checklist for cleaner code documentation</h2>
+<ul>
+  <li>Is the comment explaining why rather than what</li>
+  <li>Will a future reader thank you or curse you for this note</li>
+  <li>Does the Javadoc have clear tags like @param and @return for public methods</li>
+  <li>Can the code be made clearer instead of writing more comments</li>
+</ul>
+
+<h2>Summary</h2>
+<p>Remember the three comment types single line block and Javadoc Each one has a role Use them wisely and keep your codebase readable and maintainable. And if you ever feel like leaving a passive aggressive note in the code try a GIF in the team chat instead</p>
+

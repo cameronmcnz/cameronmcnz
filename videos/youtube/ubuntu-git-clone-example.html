@@ -1,0 +1,71 @@
+---
+layout: video
+title: "Ubuntu git clone example"
+description: "Quick guide to clone a Git repository on Ubuntu with command line examples SSH and HTTPS tips and basic troubleshooting"
+video_host: "youtube"
+video_id: "4u6qzxj37h4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M26S"
+thumbnail_url: "https://i.ytimg.com/vi/4u6qzxj37h4/maxresdefault.jpg"
+content_url: "https://youtu.be/4u6qzxj37h4"
+embed_url: "https://www.youtube.com/embed/4u6qzxj37h4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Ubuntu
+  - git
+  - git clone
+  - clone repository
+  - Linux
+  - command line
+  - SSH keys
+  - HTTPS clone
+  - git tutorial
+  - version control
+---
+
+<p>If you need to grab a copy of a Git project on Ubuntu and stop pretending the command line is a mystery, this guide is for you. It covers installing Git, setting your identity, choosing between HTTPS and SSH clone methods, and a few troubleshooting tips so you can get back to writing code instead of error messages.</p>
+
+<h2>Install Git on Ubuntu</h2>
+<p>First things first, get the Git binary on your Linux machine. Run these commands in the terminal.</p>
+<pre><code>sudo apt update
+sudo apt install git -y
+</code></pre>
+<p>If package install drama appears, make sure your sources are reachable and you are not in airplane mode. Yes that happens.</p>
+
+<h2>Configure your identity so commits do not look like a mystery</h2>
+<p>Tell Git who you are so future archeologists can trace your brilliant typos.</p>
+<pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+</code></pre>
+
+<h2>Pick a clone method that fits your level of patience</h2>
+<p>HTTPS is familiar and works well with credentials or personal access tokens for remote hosts. SSH avoids typing a password every time once you set up keys. Both are fine for version control on Ubuntu.</p>
+
+<h3>Clone with HTTPS</h3>
+<p>Use the HTTPS URL from your hosting service and run git clone with that URL. If the host stopped accepting passwords use a personal access token instead.</p>
+<pre><code>git clone https //github.com/user/repo.git
+</code></pre>
+
+<h3>Clone with SSH</h3>
+<p>If you prefer not to enter a password for every push and pull, set up SSH keys and use the SSH clone URL. Generate an SSH key pair if you do not have one yet.</p>
+<pre><code>ssh-keygen -t ed25519 -C "you@example.com"
+</code></pre>
+<p>Then add the public key to your Git host account and clone using the SSH style URL provided by the service.</p>
+<pre><code>git clone git@github.com user/repo.git
+</code></pre>
+
+<h2>Useful tips for Ubuntu and the command line</h2>
+<ul>
+  <li>If you use HTTPS often, enable a credential helper so you do not retype tokens all day, for example git config --global credential.helper cache</li>
+  <li>Check the cloned repo with cd repo and git status to make sure everything landed where you expected</li>
+  <li>If you see permission denied errors, confirm your SSH agent is running and has the key loaded or switch to a personal access token for HTTPS clone access</li>
+</ul>
+
+<h2>Troubleshooting that actually helps</h2>
+<p>Permission denied on SSH usually means the remote does not have your public key or your local agent is not offering it. Run ssh-add to add keys to the agent and reattempt. For HTTPS auth failures check that you are using the correct token and that any credential helper is not presenting stale credentials.</p>
+
+<p>This short git tutorial covered installing Git on Ubuntu, configuring identity, choosing HTTPS or SSH clone methods, running the git clone command, and a few basic verification and troubleshooting steps. Follow these, and your local copy of the repository will be ready for development and contribution with far less ceremony than you expected and only a little terminal drama.</p>
+

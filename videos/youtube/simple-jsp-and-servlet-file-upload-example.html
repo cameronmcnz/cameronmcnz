@@ -1,0 +1,86 @@
+---
+layout: video
+title: "Simple JSP and Servlet File Upload Example"
+description: "Step by step JSP and Servlet file upload guide with code suggestions and best practices for multipart handling and saving uploads safely"
+video_host: "youtube"
+video_id: "c2sZlFeL5bU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT13M18S"
+thumbnail_url: "https://i.ytimg.com/vi/c2sZlFeL5bU/maxresdefault.jpg"
+content_url: "https://youtu.be/c2sZlFeL5bU"
+embed_url: "https://www.youtube.com/embed/c2sZlFeL5bU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JSP
+  - Servlet
+  - File Upload
+  - Multipart
+  - Servlet API
+  - Tomcat
+  - Java Web
+  - Form Upload
+  - Upload Example
+  - Apache Commons
+---
+
+<p>Yes you need file uploads. No this will not be mystical. This guide walks through a pragmatic JSP and Servlet file upload flow with multipart form processing and useful safety checks. Expect real method names, mild sarcasm, and no security theater.</p>
+
+<h2>What we are building</h2>
+<p>A simple form upload flow that uses the Servlet API to accept a multipart request, validate the incoming file, persist it outside the web folder, and return a clear success or error message. Keywords you can brag about using include JSP, Servlet, Multipart, Servlet API, Tomcat, Java Web, and Apache Commons for filename cleanup.</p>
+
+<h2>Create the JSP form</h2>
+<p>Use a plain HTML form with multipart encoding. No magic frameworks required.</p>
+<pre><code>&lt;form action="upload" method="post" enctype="multipart/form-data"&gt;
+  &lt;input type="file" name="file" /&gt;
+  &lt;button type="submit"&gt;Upload file&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+<h2>Declare the servlet endpoint</h2>
+<p>Tell the container to handle multipart for you. Annotate the servlet so Tomcat parses parts into Part objects with minimal fuss.</p>
+<pre><code>@WebServlet("/upload")
+@MultipartConfig
+public class UploadServlet extends HttpServlet {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    Part part = request.getPart("file")
+    // validate and save as explained below
+  }
+}</code></pre>
+
+<h3>Why annotations</h3>
+<p>Using @MultipartConfig lets the Servlet API do the heavy lifting for parsing multipart data. If you like XML you can also configure this in web.xml but most people choose annotations and move on with life.</p>
+
+<h2>Read and validate the uploaded Part</h2>
+<ul>
+  <li>Call request.getPart("file") to obtain the uploaded Part object.</li>
+  <li>Check part.getSize to enforce maximum file size. Reject oversized uploads with a helpful message.</li>
+  <li>Check part.getContentType to avoid accepting random executables. Validate MIME type and do not trust the browser.</li>
+  <li>Use part.getSubmittedFileName to get the original name, then sanitize it to avoid path tricks. Apache Commons FilenameUtils can help with this task.</li>
+</ul>
+
+<h2>Save the file safely</h2>
+<p>Do not write uploads into the webapp folder. Pick an uploads directory outside the document root. Create a server side filename that avoids collisions and directory traversal by using a randomized prefix or a UUID plus the sanitized original name.</p>
+<pre><code>// pseudocode steps
+String original = part.getSubmittedFileName()
+String clean = FilenameUtils.getName(original)
+String stored = UUID.randomUUID().toString() + "_" + clean
+File target = new File(uploadDir, stored)
+part.write(target.getAbsolutePath())</code></pre>
+
+<h2>Respond and handle errors</h2>
+<p>Return a friendly success page or a small JSON payload that the frontend can consume. Catch IO and servlet exceptions and return meaningful HTTP status codes so debugging does not require spelunking through stack traces.</p>
+
+<h3>Quick checklist for production</h3>
+<ul>
+  <li>Validate both MIME type and size on the server side.</li>
+  <li>Store files outside the web accessible folder.</li>
+  <li>Use randomized file names and sanitize the submitted name with Apache Commons if you like tidy code.</li>
+  <li>Scan uploads for malware before you let them near anything important.</li>
+  <li>Log useful errors and return clear messages so users do not become an issue tracker.</li>
+</ul>
+
+<h2>Summary</h2>
+<p>Create a multipart form in JSP, annotate a servlet with @MultipartConfig, call request.getPart to read the upload, validate size and content type, sanitize file names, write the file to a safe location with part.write, and return a clear response. Follow these steps and you will have a reliable Java Web file upload that plays well on Tomcat and does not invite trouble.</p>
+

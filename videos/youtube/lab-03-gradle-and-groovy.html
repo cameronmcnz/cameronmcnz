@@ -1,0 +1,81 @@
+---
+layout: video
+title: "lab 03 Gradle and Groovy"
+description: "Compact lab on configuring Gradle with Groovy build scripts covering wrapper tasks dependencies and testing for a simple Java project"
+video_host: "youtube"
+video_id: "x2DOzm5osw0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT17M56S"
+thumbnail_url: "https://i.ytimg.com/vi/x2DOzm5osw0/maxresdefault.jpg"
+content_url: "https://youtu.be/x2DOzm5osw0"
+embed_url: "https://www.youtube.com/embed/x2DOzm5osw0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gradle
+  - groovy
+  - build tools
+  - java build
+  - gradle tutorial
+  - groovy scripts
+  - gradle tasks
+  - build automation
+  - devops
+  - java
+---
+
+<h2>Why the wrapper matters</h2>
+<p>If you enjoy the chaos of different Gradle versions on every machine then this lab is not for you. For the rest of us who prefer builds that do not spontaneously combust the Gradle wrapper makes every developer run the same Gradle version. Run the wrapper generator once and commit the wrapper files so your CI and your coworkers stop blaming each other.</p>
+
+<h2>Get started with minimal fuss</h2>
+<p>Two commands will buy you a lot of sanity. Generate the wrapper and then scaffold a Groovy based build script. The wrapper ensures repeatable tooling and the Groovy DSL keeps the build readable and flexible without requiring a PhD in build sorcery.</p>
+<pre><code>gradle wrapper
+gradle init
+</code></pre>
+
+<h2>Clean Groovy build scripts that you can still read later</h2>
+<p>Create a <code>build.gradle</code> file and start with a clear plugins block. Use the java plugin for JVM projects and avoid clever one liners that make future you cry. Keep task declarations concise and prefer lazy registration for better performance in larger projects.</p>
+<pre><code>plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+// add dependencies using standard configurations like implementation and testImplementation
+// place real Maven coordinates in quotes when you add them in your project
+
+tasks.register('myTask') {
+    doLast {
+        println 'run something useful'
+    }
+}
+</code></pre>
+
+<h3>Repositories and dependencies</h3>
+<p>Point your repositories block at Maven Central or a corporate repo. Add libraries with configurations such as implementation and testImplementation. Put the exact Maven coordinate string in quotes in your own project so Gradle can fetch the jar and move on with its life.</p>
+
+<h2>Run the build and inspect what fails</h2>
+<p>Use the wrapper to run the build and tests so the whole team and CI use the same behavior. If something goes wrong look in the build reports and logs to see what failed. Most test failures are either legitimate bugs or someone changed an API and forgot to update the tests.</p>
+<pre><code>./gradlew build
+./gradlew test
+</code></pre>
+
+<h2>Debugging and scaling the build</h2>
+<p>When the build starts acting mysterious add the verbose flags and read the output. The extra chatter is the friend you ignored until now. If you find repeated logic move it to buildSrc or create a plugin so other projects can stop copy pasting the same questionable code.</p>
+<pre><code>./gradlew build --info --stacktrace
+</code></pre>
+
+<h3>Performance tips and best practices</h3>
+<ul>
+  <li>Prefer <code>tasks.register</code> for lazy task creation to improve configuration time</li>
+  <li>Keep build logic small and readable so new team members do not invoke ritual sacrifice to understand it</li>
+  <li>Share logic via buildSrc or a plugin when multiple projects need the same behavior</li>
+  <li>Use wrapper files committed to source control to guarantee consistent Gradle versions</li>
+</ul>
+
+<p>This lab covered setting up the Gradle wrapper creating a Groovy build script declaring repositories and dependencies making tasks and running tests to validate the build. Follow these steps and you will have a repeatable Java build process that behaves well in CI and does not ruin anyone's day.</p>
+

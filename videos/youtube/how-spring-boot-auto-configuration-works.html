@@ -1,0 +1,65 @@
+---
+layout: video
+title: "How Spring Boot Auto Configuration Works"
+description: "How Spring Boot auto configuration works with @EnableAutoConfiguration explained with conditionals and customization options for smarter bean wiring"
+video_host: "youtube"
+video_id: "6u6PJXTb1cQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT44M49S"
+thumbnail_url: "https://i.ytimg.com/vi/6u6PJXTb1cQ/maxresdefault.jpg"
+content_url: "https://youtu.be/6u6PJXTb1cQ"
+embed_url: "https://www.youtube.com/embed/6u6PJXTb1cQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - AutoConfiguration
+  - EnableAutoConfiguration
+  - spring.factories
+  - ConditionalOnClass
+  - ConditionalOnMissingBean
+  - Spring Framework
+  - Java
+  - Dependency Injection
+  - Configuration
+---
+
+<p>If Spring Boot auto configuration were a matchmaker it would be the kind that assumes everyone wants to be paired with sensible defaults and then quietly rearranges your beans while you are writing business logic. The framework uses a few well documented tricks to guess what you need based on the classpath and what you already declared as beans.</p>
+
+<h2>How Spring Boot decides what to wire</h2>
+
+<p>The wiring starts when you use <code>@EnableAutoConfiguration</code> or the convenient <code>@SpringBootApplication</code>. That triggers an import selector that asks <code>SpringFactoriesLoader</code> to read <code>META-INF/spring.factories</code> and produce a list of candidate auto configuration classes.</p>
+
+<p>Each candidate is a normal <code>@Configuration</code> class wrapped in conditions. The two most common guards are <code>@ConditionalOnClass</code> and <code>@ConditionalOnMissingBean</code>. The first checks that a supporting library is actually on the classpath. The second says the auto configuration will step back if you already provided the bean. This is how the framework manages to be useful without being bossy.</p>
+
+<h3>Ordering and the bean tug of war</h3>
+
+<p>Auto configuration uses ordering hints like <code>@AutoConfigureAfter</code> and the entries in <code>spring.factories</code> to decide which config wins when multiple candidates want to provide the same bean type. You can also exclude classes globally with the <code>spring.autoconfigure.exclude</code> property or by passing exclude arguments to <code>@SpringBootApplication</code> or <code>@EnableAutoConfiguration</code>.</p>
+
+<h2>When you want to take control</h2>
+
+<p>Spring Boot is generous but not psychic. If the defaults are not what you expected you have several reliable options.</p>
+
+<ul>
+  <li>Provide a user defined bean of the same type. This triggers <code>@ConditionalOnMissingBean</code> and usually causes the auto configuration to step aside.</li>
+  <li>Use <code>@ConditionalOnProperty</code> to flip features on or off via configuration without touching code. Great for feature flags and toggles.</li>
+  <li>For tests use <code>@ImportAutoConfiguration</code> to load a specific subset of auto configurations instead of trusting the whole enchilada.</li>
+  <li>Exclude troublesome auto configs with <code>spring.autoconfigure.exclude</code> or the exclude attribute on your startup annotation when you need surgical precision.</li>
+</ul>
+
+<h2>Debugging the mystery beans</h2>
+
+<p>When a bean appears out of nowhere the fastest diagnostic is debug logging. Turn on debug for <code>org.springframework.boot.autoconfigure</code> and you will see which auto configuration classes ran and which conditions passed. Reading the actual auto configuration class is also practical. It typically spells out the conditions that allowed it to win.</p>
+
+<h3>Practical patterns to avoid surprises</h3>
+
+<ul>
+  <li>Register your own beans with explicit types so conditional checks short circuit the framework provided beans.</li>
+  <li>Prefer property driven flags for optional features so ops can toggle behavior without redeploying code.</li>
+  <li>Keep an eye on <code>META-INF/spring.factories</code> when investigating ordering or unexpected registrations.</li>
+</ul>
+
+<p>Auto configuration is modular, conditional, and driven by metadata in <code>spring.factories</code>. It exists to let you focus on business logic rather than plumbing. When it guesses wrong use the exclusion and conditional annotations that Spring Boot hands you. And if all else fails feel free to blame the keyboard while you check the logs.</p>
+

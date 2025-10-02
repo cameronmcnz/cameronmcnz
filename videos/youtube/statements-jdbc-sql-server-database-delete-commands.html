@@ -1,0 +1,84 @@
+---
+layout: video
+title: "Statements, JDBC & SQL Server Database Delete Commands"
+description: "Quick guide to using JDBC Statements to run SQL Server delete commands safely with examples and tips for Java developers"
+video_host: "youtube"
+video_id: "psw9UiS49CY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M9S"
+thumbnail_url: "https://i.ytimg.com/vi/psw9UiS49CY/maxresdefault.jpg"
+content_url: "https://youtu.be/psw9UiS49CY"
+embed_url: "https://www.youtube.com/embed/psw9UiS49CY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JDBC
+  - SQL Server
+  - DELETE
+  - Statements
+  - PreparedStatement
+  - Java SQL
+  - Database
+  - SQL DELETE
+  - Database Security
+  - Transaction Management
+---
+
+<h2>Prepare environment and connection</h2>
+<p>If you are about to delete rows from a SQL Server database from Java you need a sane setup first. Install the JDBC driver for SQL Server and obtain a Connection from DriverManager or a DataSource. Keep credentials out of source code and use a connection pool for production. Nobody likes hunting phantom connections at two in the morning.</p>
+
+<h2>Use PreparedStatement not Statement</h2>
+<p>Do not trust user input. PreparedStatement prevents SQL injection and lets you bind parameters cleanly. A raw Statement can work for a quick experiment but it also works great for making embarrassing security headlines. PreparedStatement also helps with plan caching and cleaner logs.</p>
+
+<pre><code>try (Connection conn = dataSource.getConnection()) {
+    PreparedStatement ps = conn.prepareStatement("DELETE FROM Users WHERE id = ?")
+    ps.setInt(1, userId)
+    int affected = ps.executeUpdate()
+    if (affected == 0) {
+        // handle no row deleted
+    }
+}
+</code></pre>
+
+<h3>Why check the affected row count</h3>
+<p>executeUpdate returns the number of rows changed. If it is zero then either the filter was wrong or you were trying to delete something that was already gone. Log enough context to debug the cause but do not log secrets or raw SQL with user values.</p>
+
+<h2>Transaction management and rollback</h2>
+<p>Wrap multi step deletes in a transaction to avoid half done messes. Turn off auto commit then commit when everything looks green. If anything throws you must rollback. Yes it is extra code but it beats handing a recovery task to your future self.</p>
+
+<pre><code>Connection conn = null
+try {
+    conn = dataSource.getConnection()
+    conn.setAutoCommit(false)
+    PreparedStatement ps1 = conn.prepareStatement("DELETE FROM Orders WHERE userId = ?")
+    PreparedStatement ps2 = conn.prepareStatement("DELETE FROM Users WHERE id = ?")
+    // bind and execute both
+    conn.commit()
+} catch (SQLException ex) {
+    if (conn != null) {
+        conn.rollback()
+    }
+    // log error without leaking private values
+} finally {
+    if (conn != null) {
+        conn.close()
+    }
+}
+</code></pre>
+
+<h2>Close resources and observability</h2>
+<p>Use try with resources when possible so Java handles cleanup. Leaked connections cause mysterious production drama that nobody enjoys. Emit metrics for affected row count and failures so ops can pretend they were not surprised.</p>
+
+<h2>Practical checklist</h2>
+<ul>
+  <li>Use PreparedStatement to avoid SQL injection</li>
+  <li>Check executeUpdate result and handle zero affected rows</li>
+  <li>Use transactions for multi table deletes and rollback on error</li>
+  <li>Keep credentials out of source and use a connection pool</li>
+  <li>Log context for debugging but never log secrets or raw user input</li>
+</ul>
+
+<p>Deleting data is powerful and occasionally therapeutic. Do it with PreparedStatement and good Transaction Management and your Database Security will thank you. If not thank yourself for fewer late night firefights.</p>
+

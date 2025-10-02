@@ -1,0 +1,75 @@
+---
+layout: video
+title: "How to Install Node JS on Windows 10/11 #React #ExpressJS"
+description: "Step by step guide to install Node JS on Windows 10 and 11 including npm and npx setup PATH verification and quick troubleshooting"
+video_host: "youtube"
+video_id: "Ub2wKh7uNHs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M5S"
+thumbnail_url: "https://i.ytimg.com/vi/Ub2wKh7uNHs/maxresdefault.jpg"
+content_url: "https://youtu.be/Ub2wKh7uNHs"
+embed_url: "https://www.youtube.com/embed/Ub2wKh7uNHs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - NodeJS
+  - Windows 10
+  - Windows 11
+  - npm
+  - npx
+  - React
+  - ExpressJS
+  - Angular
+  - Git
+  - Installation
+---
+
+<h1>Quick Windows setup for Node npm npx and React development tools</h1>
+<p>So you want to do modern web development on Windows 10 or Windows 11. Brave choice. This guide gets NodeJS installed and verifies npm and npx so you can scaffold a React or ExpressJS app without pulling out your hair. Read on for the practical steps and the small sarcastic comments you did not ask for but secretly needed.</p>
+
+<h2>Which Node build should you pick</h2>
+<p>Grab the LTS build from the official Node.js website for most projects. LTS is the stable option for production and for anyone who prefers their dependencies not to explode overnight. Only chase the Current build if you enjoy surprises and debugging things that were written last week.</p>
+
+<h2>Download and run the installer</h2>
+<p>Double click the downloaded installer and follow the prompts. The Windows installer will add Node.js and the npm package manager to your system by default. For typical React ExpressJS or Angular work choose the default options unless you have a specific reason not to.</p>
+
+<h3>Installer tips</h3>
+<ul>
+  <li>Run the installer as a normal user unless your machine demands admin rights.</li>
+  <li>Keep the default install location unless you know what you are doing.</li>
+  <li>If you ever need to uninstall and reinstall do it from the Control Panel or Settings app like a civilized human.</li>
+</ul>
+
+<h2>Verify NodeJS and npm versions</h2>
+<p>Open PowerShell or Command Prompt and run these commands to confirm the runtime and package manager are available.</p>
+<pre><code>node -v
+npm -v</code></pre>
+<p>If you see version numbers then congratulations you passed the first test. If the terminal says command not found you will need to adjust your PATH.</p>
+
+<h2>Fix PATH if commands are not found</h2>
+<p>If Windows cannot find node or npm add the Node.js installation folder to the PATH environment variable through the Windows system settings. Typical path is C:\Program Files\nodejs but yours may vary. After editing the environment variables restart the terminal window to apply the change.</p>
+
+<h2>Test npm and npx with a sample project</h2>
+<p>Try these commands to make sure package scaffolding and scripts work. npx will run packages without global installs which is handy.</p>
+<pre><code>npx create-react-app my-app
+cd my-app
+npm start</code></pre>
+<p>Or if you just want a minimal package.json try</p>
+<pre><code>mkdir demo
+cd demo
+npm init -y</code></pre>
+<p>Note that create-react-app may use Git for template setup. Install Git separately if you do not already have it. Git is not bundled with Node and will be needed for some project templates and hooks.</p>
+
+<h2>Troubleshooting tips</h2>
+<ul>
+  <li>If npm install fails check network and registry settings and try clearing the cache with npm cache clean --force.</li>
+  <li>If scripts do not run confirm your terminal was restarted after PATH changes.</li>
+  <li>Permission errors on Windows sometimes happen when global installs are attempted. Prefer npx or use a per user install location instead of forcing global packages.</li>
+  <li>If something still breaks reinstall the LTS build and pick the defaults again. It fixes more than you might think.</li>
+</ul>
+
+<h2>Final notes</h2>
+<p>After these steps you will have a working Node environment ready for React ExpressJS Angular or other Node based projects. Stick with LTS for stability and install Git for source control. Now go build something useful or at least break something in a controlled way and then fix it with pride.</p>
+

@@ -1,0 +1,86 @@
+---
+layout: video
+title: "Quickly run a Spring Boot JAR file at the Command Line"
+description: "Run a Spring Boot JAR from the command line fast with clear steps common flags and quick troubleshooting tips"
+video_host: "youtube"
+video_id: "0bqSkbVExVk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/0bqSkbVExVk/maxresdefault.jpg"
+content_url: "https://youtu.be/0bqSkbVExVk"
+embed_url: "https://www.youtube.com/embed/0bqSkbVExVk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - JAR
+  - java -jar
+  - command line
+  - Maven
+  - Gradle
+  - deployment
+  - troubleshooting
+  - startup flags
+  - systemd
+---
+
+<p>Want to run a Spring Boot JAR from the command line without summoning a support ticket and without doing ritual sacrifices to the JVM gods? This short guide shows how to build obtain run and troubleshoot a runnable JAR with practical tips and a little attitude. You will learn how to produce the artifact start it with java -jar apply runtime flags run it in the background and make systemd behave like a grown up.</p>
+
+<h2>Build or get the JAR</h2>
+<p>Produce a runnable Spring Boot artifact with your build tool of choice. Maven and Gradle both know the drill.</p>
+<pre><code>mvn package
+# or for Gradle
+./gradlew bootJar
+</code></pre>
+<p>Look for the output in target or build/libs and note the file name for the next step.</p>
+
+<h2>Run the JAR on the command line</h2>
+<p>Use the standard Java launcher to start the app. No magic, just java.</p>
+<pre><code>java -jar myapp.jar</code></pre>
+<p>On Unix if your build produced an executable launch script style JAR you can make it runnable and start it directly.</p>
+<pre><code>chmod +x myapp.jar && ./myapp.jar</code></pre>
+<p>If that looks like a shortcut to chaos you can stick with java -jar and sleep better at night.</p>
+
+<h2>Pass JVM and Spring Boot flags and run in background</h2>
+<p>Control memory, profile, port and logging with JVM and Spring Boot arguments. Example:</p>
+<pre><code>java -Xmx512m -jar myapp.jar --server.port=8081 --spring.profiles.active=dev</code></pre>
+<p>Need the app to survive when you log out Use a process manager rather than a terminal trick. If you are lazy use nohup or run with ampersand and disown while you plan a proper fix.</p>
+<ul>
+  <li>Quick and dirty background run with nohup and a log file
+    <pre><code>nohup java -Xmx512m -jar myapp.jar --server.port=8081 > myapp.log 2>&1 &</code></pre>
+  </li>
+  <li>Use a real process manager for production like systemd or a container orchestrator</li>
+</ul>
+
+<h2>Troubleshooting startup issues</h2>
+<p>Most startup problems are the kind you do not want to reintroduce. Check these first.</p>
+<ul>
+  <li>Missing JDK on the host Verify java -version shows a compatible runtime</li>
+  <li>Wrong artifact Confirm the file is an executable Spring Boot JAR and not a library jar</li>
+  <li>Port conflict If the port is in use change it with --server.port or stop the other service</li>
+  <li>Low visibility Increase logging with --logging.level.root=DEBUG and inspect stdout or the log file for stack traces</li>
+</ul>
+<p>If you see class not found or bootstrap errors check the build logs and ensure dependencies were packaged correctly by your build tool.</p>
+
+<h3>Use systemd for reliable production starts</h3>
+<p>For reliable service style management use a systemd unit to start stop and restart your app. This keeps logs accessible and lets the system restart on failure without your intervention.</p>
+<pre><code>[Unit]
+Description=My Spring Boot app
+After=network.target
+
+[Service]
+User=spring
+WorkingDirectory=/opt/myapp
+ExecStart=/usr/bin/java -Xms256m -Xmx512m -jar /opt/myapp/myapp.jar --spring.profiles.active=prod
+SuccessExitStatus=143
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<p>Enable the unit and use journalctl to inspect logs or configure an external log aggregator if you enjoy long term happiness.</p>
+
+<p>Summary Run locally with java -jar for debugging. Use JVM flags and Spring Boot properties to tune behavior. For production use systemd or a container manager and capture logs separately. Check the logs and the JVM version before you panic and lose hair over a port conflict.</p>
+

@@ -1,0 +1,113 @@
+---
+layout: video
+title: "JavaScript and Ajax File Upload Example"
+description: "Learn file upload with JavaScript and Ajax using FormData fetch or XMLHttpRequest and a simple server. Fast practical steps and code tips."
+video_host: "youtube"
+video_id: "5Pd7twWZBzU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M35S"
+thumbnail_url: "https://i.ytimg.com/vi/5Pd7twWZBzU/maxresdefault.jpg"
+content_url: "https://youtu.be/5Pd7twWZBzU"
+embed_url: "https://www.youtube.com/embed/5Pd7twWZBzU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JavaScript
+  - Ajax
+  - File Upload
+  - FormData
+  - fetch API
+  - XMLHttpRequest
+  - Progress Bar
+  - multipart formdata
+  - Backend Upload
+  - Web Development
+---
+
+<article>
+  <h1>Client side file uploads using FormData fetch and XMLHttpRequest with progress</h1>
+  <p>If you ever wondered how to send a file from a browser to a server without summoning sacrificial goats this guide is for you. We will cover the minimal HTML you need the JavaScript to manage files and a friendly progress UI that does not judge you for large video files.</p>
+
+  <h2>Minimal form and why FormData matters</h2>
+  <p>Keep the markup tiny so debugging does not feel like archaeology. FormData will handle the messy multipart formdata encoding for you so you never have to worry about boundaries or other things that sound like plumbing.</p>
+
+  <pre><code>&lt;form id="uploadForm" enctype="multipart/form-data" method="post"&gt;
+  &lt;input type="file" id="fileInput" name="file" /&gt;
+  &lt;button id="uploadBtn" type="button"&gt;Upload&lt;/button&gt;
+  &lt;progress id="progress" value="0" max="100"&gt;&lt;/progress&gt;
+&lt;/form&gt;
+</code></pre>
+
+  <h2>Grab the file and validate it</h2>
+  <p>Listen for user input and do quick client side checks to avoid wasting bandwidth and user patience. Always assume the server will still enforce limits and sanitize filenames. The client is just trying to be polite.</p>
+
+  <pre><code>const fileInput = document.getElementById('fileInput')
+const progress = document.getElementById('progress')
+const uploadBtn = document.getElementById('uploadBtn')
+
+uploadBtn.addEventListener('click', () =&gt; {
+  const file = fileInput.files[0]
+  if (!file) return alert('Pick a file first')
+  // example size check 10 MB
+  if (file.size > 10 * 1024 * 1024) return alert('File too big')
+  // basic mime whitelist
+  const allowed = ['image/png', 'image/jpeg', 'application/pdf']
+  if (allowed.indexOf(file.type) === -1) return alert('File type not allowed')
+  // proceed to upload
+})
+</code></pre>
+
+  <h2>Upload with XMLHttpRequest and show progress</h2>
+  <p>If you want a simple progress bar that actually works use XMLHttpRequest and its upload progress events. Fetch is nicer for simple posts but does not have a built in upload progress event in most browsers yet.</p>
+
+  <pre><code>uploadBtn.addEventListener('click', () =&gt; {
+  const file = fileInput.files[0]
+  if (!file) return
+  const formData = new FormData()
+  formData.append('file', file)
+
+  const xhr = new XMLHttpRequest()
+  xhr.open('POST', '/upload')
+
+  xhr.upload.onprogress = function(e) {
+    if (e.lengthComputable) {
+      progress.value = (e.loaded / e.total) * 100
+    }
+  }
+
+  xhr.onload = function() {
+    if (xhr.status >= 200 && xhr.status &lt; 300) {
+      alert('Upload complete')
+    } else {
+      alert('Server error: ' + xhr.status)
+    }
+  }
+
+  xhr.onerror = function() {
+    alert('Network error happened')
+  }
+
+  xhr.send(formData)
+})
+</code></pre>
+
+  <h2>Using fetch when you do not need progress</h2>
+  <p>Fetch is cleaner for straightforward uploads and modern code. If you just want to POST the file and react to the response use fetch but remember it has less mature upload progress support compared to XMLHttpRequest. Always check the server response and show a helpful message rather than cryptic status codes.</p>
+
+  <h3>Server side checklist</h3>
+  <ul>
+    <li>Enforce maximum file size on the server</li>
+    <li>Validate MIME type and file content where possible</li>
+    <li>Sanitize filenames and avoid saving user input directly</li>
+    <li>Return clear JSON responses so the client can be graceful</li>
+  </ul>
+
+  <h2>Tips for large files and resumable uploads</h2>
+  <p>If your users are uploading giant pain in the neck files consider chunked uploads and resume logic. Show ETA and progress per chunk so users do not assume the internet fell into a black hole. On the server side keep atomic writes and checks to avoid corrupted uploads.</p>
+
+  <h2>Quick recap</h2>
+  <p>Build a tiny form capture the file with change or click events validate size and type use FormData to handle multipart formdata and choose XMLHttpRequest when you need progress or fetch for cleaner code. Do server side checks and always return helpful responses so nobody blames JavaScript for everything.</p>
+</article>
+

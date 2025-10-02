@@ -1,0 +1,92 @@
+---
+layout: video
+title: "Node JS AWS Elastic Beanstalk Deploy React Web Apps"
+description: "Step by step guide to deploy React apps using Node JS and AWS Elastic Beanstalk with build serve and EB CLI setup"
+video_host: "youtube"
+video_id: "CGCUZvG3hvQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT16M43S"
+thumbnail_url: "https://i.ytimg.com/vi/CGCUZvG3hvQ/maxresdefault.jpg"
+content_url: "https://youtu.be/CGCUZvG3hvQ"
+embed_url: "https://www.youtube.com/embed/CGCUZvG3hvQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Node.js
+  - AWS Elastic Beanstalk
+  - React
+  - Deployment
+  - EB CLI
+  - JavaScript
+  - Web App
+  - Hosting
+  - Server
+  - CI CD
+---
+
+<article>
+  <h2>Quick honest summary</h2>
+  <p>Yes this is one of those tutorials that promises minimal fuss and mostly delivers. You will build a production bundle from Create React App then serve it with a tiny Node.js server on AWS Elastic Beanstalk. The EB CLI handles the boring parts of provisioning and deployment. If you like seeing health checks go green you are in the right place.</p>
+
+  <h2>What you will do</h2>
+  <ul>
+    <li>Build the React production bundle with npm run build</li>
+    <li>Write a small Express server to serve the build folder and handle client side routing</li>
+    <li>Prepare package metadata and a Procfile so Elastic Beanstalk knows how to start your app</li>
+    <li>Install and use the EB CLI to create and deploy an environment</li>
+    <li>Use basic troubleshooting tools like eb logs and the AWS console</li>
+  </ul>
+
+  <h2>Build the React production bundle</h2>
+  <p>Inside your Create React App project run npm run build. That produces an optimized static folder named build. This folder is what will be served by the Node.js server. Yes the files are static. No your users will not miss the dev server unless they are into stack traces and source maps.</p>
+
+  <h2>Create a tiny Node.js static server</h2>
+  <p>Use Express to serve the build folder and always return index.html for unknown routes. This prevents 404s when a user refreshes a client side route. Here is a minimal server.js you can copy and paste.</p>
+
+  <pre><code>const express = require('express')
+const path = require('path')
+const app = express()
+
+app.use(express.static(path.join(__dirname, 'build')))
+
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
+
+const port = process.env.PORT || 3000
+app.listen(port, function() {
+  console.log('Server started on port ' + port)
+})
+</code></pre>
+
+  <h3>Package settings and Procfile</h3>
+  <p>Make sure package.json has a start script that runs node server.js. That is what Elastic Beanstalk will run. Also add a file named Procfile at the project root with the single line web then a space then npm start. This tells Elastic Beanstalk which process to run. If that sounds fussy it is only because missing start scripts are the top cause of sad deployments.</p>
+
+  <h2>Install and configure the EB CLI and AWS credentials</h2>
+  <p>Install the Elastic Beanstalk CLI and run eb init from your project folder. Pick your AWS region and the Node.js platform. Use an IAM user with the right permissions so eb commands do not fail in a dramatic way. If you run into permission errors check IAM policies and the credentials your EB CLI is using.</p>
+
+  <h2>Create the Beanstalk application and environment</h2>
+  <p>Run eb create to provision an environment. For production choose a load balanced environment and enable health checks. This avoids the lovely red status pages that make managers ask questions. If you are testing choose a single instance environment to save cash.</p>
+
+  <h2>Deploy and troubleshoot like a human</h2>
+  <p>Use eb deploy to push your app. Then check eb logs for runtime messages. If the web page returns 502 or your SPA routes 404 investigate these usual suspects</p>
+  <ul>
+    <li>build folder missing from the deployed package because npm run build did not run in CI</li>
+    <li>package.json start script misconfigured or missing</li>
+    <li>Procfile missing or not readable by the platform</li>
+    <li>environment variables not set for API endpoints or auth keys</li>
+    <li>health check path misconfigured in the load balancer settings</li>
+  </ul>
+
+  <h3>Using logs and the console</h3>
+  <p>Run eb logs for quick debugging and open the Elastic Beanstalk console when you need visuals. Check the health tab and instance logs for node exceptions. If you see port errors make sure your server uses process.env.PORT or a default like 3000.</p>
+
+  <h2>CI CD notes</h2>
+  <p>For continuous deployment run npm run build in your pipeline then upload the artifact and run eb deploy. Many teams use GitHub Actions or AWS CodePipeline for this. The important part is building the static bundle and ensuring your artifact contains the build folder and package metadata the EB platform expects.</p>
+
+  <h2>Final tips and parting advice</h2>
+  <p>Keep your IAM permissions tight and your health checks sane. If Elastic Beanstalk ever turns red do not panic. Read the logs then fix the start script. Repeat as needed until the app behaves like an obedient server. You now have a hosted React app running on AWS with a Node.js static server and deploys controlled by the EB CLI. Celebrate quietly or loudly depending on workplace policy.</p>
+</article>
+

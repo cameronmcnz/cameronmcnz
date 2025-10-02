@@ -1,0 +1,92 @@
+---
+layout: video
+title: "UiPath Variable Types"
+description: "Quick clear guide to UiPath variable types usage and best practices for reliable automations"
+video_host: "youtube"
+video_id: "Bd5rzdGzSTo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M16S"
+thumbnail_url: "https://i.ytimg.com/vi/Bd5rzdGzSTo/maxresdefault.jpg"
+content_url: "https://youtu.be/Bd5rzdGzSTo"
+embed_url: "https://www.youtube.com/embed/Bd5rzdGzSTo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - variables
+  - automation
+  - RPA
+  - GenericValue
+  - Int32
+  - String
+  - DateTime
+  - BestPractices
+  - Debugging
+---
+
+<p>Variables in UiPath store the things your robot needs to remember while it fumbles through a workflow. Get the type wrong and you will get runtime errors that show up at the worst possible moment. This guide covers common variable types and the small habits that will save your automation from humiliation.</p>
+
+<h2>Why variable types actually matter</h2>
+<p>Yes you can throw GenericValue at everything like a duct tape fix but that tends to make bugs sneak up like ninjas. Using specific types makes your intent clear to UiPath and to the next person who has to maintain the workflow and curses softly under their breath.</p>
+
+<h2>Common UiPath types and when to use them</h2>
+
+<h3>GenericValue</h3>
+<p>Use GenericValue when the type is unknown early in the design or when you are dealing with dynamic inputs. It can hold numbers dates and text but plan to convert it before arithmetic or date math. GenericValue is flexible but it pays rent in the form of conversions and runtime checks.</p>
+
+<h3>String</h3>
+<p>Text data such as file paths CSV content or messages belongs in String. Use String for concatenation regex and anything that smells like text. Initialize it to an empty string to avoid NullReferenceException during a demo that must not fail.</p>
+
+<h3>Int32 and other numeric types</h3>
+<p>Whole numbers belong to Int32 for counters indexes and basic arithmetic. If you need decimals use Double or Decimal. Never use a text string in a math expression unless you enjoy watching errors propagate.</p>
+
+<h3>Boolean</h3>
+<p>Flags that are true or false should be Boolean. Naming them clearly makes if statements readable. startProcessing is clearer than flag1 unless you like confusion.</p>
+
+<h3>DateTime</h3>
+<p>Use DateTime for dates and times when you need comparisons formatting or arithmetic. Be mindful of culture when parsing from text. DateTime.Parse and DateTime.TryParse are your friends when input format is uncertain.</p>
+
+<h3>Arrays and Lists</h3>
+<p>Collections are for multiple items. Use arrays for fixed sized collections and List of T for flexible collections. Initialize lists before use with syntax like New List(Of String) to avoid null reference drama.</p>
+
+<h2>Scope and defaults matter more than clever names</h2>
+<p>Set the smallest possible scope for each variable. Smaller scope reduces accidental overwrites and makes the Locals panel less of a horror show during debugging. Also initialize defaults so your workflow behaves predictably.</p>
+
+<h3>Initialize sensible defaults</h3>
+<ul>
+  <li>Numbers to 0</li>
+  <li>Strings to empty string</li>
+  <li>Collections to new instances like New List(Of String)</li>
+</ul>
+
+<h2>Conversions that prevent crying</h2>
+<p>Explicit conversions reduce silent failures. Use CInt when you need an integer and CStr when you need text. For dates use DateTime.Parse or DateTime.TryParse depending on how confident you are in the input. Example conversions that are friendlier than guesswork</p>
+<pre><code>intCount = CInt(genericVar)
+strDate = CStr(genericVar)
+dtInvoice = DateTime.Parse(strDate)</code></pre>
+
+<h2>Naming conventions that save future you</h2>
+<p>Use short descriptive names and a tiny convention that you can remember. Examples that do not make future maintainers cry</p>
+<ul>
+  <li>inCounter for inputs that are counters</li>
+  <li>outResult for outputs</li>
+  <li>dtInvoiceDate for DateTime variables</li>
+</ul>
+
+<h2>Debugging tips and best practices</h2>
+<p>When things go wrong do not panic. Use Log Message and Write Line to output suspect values. Set breakpoints and use the Locals panel to inspect variables in break mode. Look for common exceptions such as InvalidCastException and NullReferenceException and trace them back to an uninitialized variable or a missing conversion.</p>
+
+<h2>Quick best practices checklist</h2>
+<ul>
+  <li>Prefer specific types over GenericValue when possible</li>
+  <li>Initialize variables at declaration</li>
+  <li>Keep variable scope as small as practical</li>
+  <li>Name variables to convey type and purpose</li>
+  <li>Use explicit conversions to avoid stealthy bugs</li>
+  <li>Log and inspect variables while debugging</li>
+</ul>
+
+<p>Follow these tips and your UiPath workflows will be less dramatic and more reliable. It will not make your coffee but it will make your automations stop failing during demos.
+

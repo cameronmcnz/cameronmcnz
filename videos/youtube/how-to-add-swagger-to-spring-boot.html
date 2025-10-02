@@ -1,0 +1,77 @@
+---
+layout: video
+title: "How to Add Swagger to Spring Boot"
+description: "Step by step guide to add Swagger to Spring Boot and generate interactive OpenAPI docs with Springdoc or Springfox for REST APIs"
+video_host: "youtube"
+video_id: "Q8ZjvVzGb2M"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M29S"
+thumbnail_url: "https://i.ytimg.com/vi/Q8ZjvVzGb2M/maxresdefault.jpg"
+content_url: "https://youtu.be/Q8ZjvVzGb2M"
+embed_url: "https://www.youtube.com/embed/Q8ZjvVzGb2M"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - swagger
+  - spring boot
+  - springdoc
+  - springfox
+  - openapi
+  - api documentation
+  - java
+  - rest api
+  - maven
+  - gradle
+---
+
+<p>If your REST API documentation was written by a committee of mimes then this guide will help. You will add Swagger powered UI to a Spring Boot app so humans can click through endpoints and actually understand what your API does.</p>
+
+<h2>Why bother with Swagger and OpenAPI</h2>
+<p>Short answer, because API documentation that you can try without reading three README files is worth its weight in bug fixes. Swagger and OpenAPI give interactive api documentation that clients and developers can test from a browser. Use springdoc for modern Spring Boot versions unless you are forced by legacy to use springfox.</p>
+
+<h2>Quick setup for Maven and Gradle</h2>
+<p>Add the openapi ui dependency and you are halfway done. Example for Maven using springdoc</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springdoc&lt;/groupId&gt;
+  &lt;artifactId&gt;springdoc-openapi-ui&lt;/artifactId&gt;
+  &lt;version&gt;1.6.14&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p>If you prefer Gradle use the normal coordinate form in your build file</p>
+<pre><code>implementation 'org.springdoc:springdoc-openapi-ui:1.6.14'</code></pre>
+
+<h2>Configure basic OpenAPI settings</h2>
+<p>Set a few properties so the generated docs are not anonymous. Edit application.properties or application.yml and set the api title and version and the ui path if you like. For example using properties you can set springdoc.swagger-ui.path to control where the UI appears.</p>
+
+<h3>Example properties</h3>
+<pre><code>springdoc.swagger-ui.path=/swagger-ui.html
+springdoc.api-docs.path=/v3/api-docs
+spring.application.name=My Awesome Service</code></pre>
+
+<h2>Optional configuration class for advanced needs</h2>
+<p>When you crave more control create a @Configuration class and add an @OpenAPIDefinition bean to provide global info like contact, license and servers. You can also register GroupedOpenApi beans to split docs into logical groups. This is recommended if you have several APIs in one project.</p>
+
+<h2>Annotate controllers and models for clearer docs</h2>
+<p>Add @Operation to controller methods for summaries and descriptions. Use @Parameter for query or header details. On DTOs use @Schema on fields to specify types, examples and required flags so consumers stop guessing what that string actually contains.</p>
+
+<h3>Small checklist</h3>
+<ul>
+  <li>Add springdoc dependency via maven or gradle</li>
+  <li>Configure title version and ui path in application properties</li>
+  <li>Create a config class for openapi if you need groups or servers</li>
+  <li>Annotate controllers with @Operation and parameters with @Parameter</li>
+  <li>Annotate models with @Schema to improve generated types and examples</li>
+</ul>
+
+<h2>Security and testing endpoints from the UI</h2>
+<p>If your endpoints require authentication add security schemes in the OpenAPI config and mark operations accordingly. This allows consumers to authorize right from the swagger ui and test calls without raising a support ticket.</p>
+
+<h2>Run and view the docs</h2>
+<p>Start your Spring Boot application and open the swagger ui at paths such as /swagger-ui.html or /swagger-ui/index.html or at whatever custom path you configured. The UI will fetch the OpenAPI json from /v3/api-docs so you can inspect models endpoints and try requests directly from the browser.</p>
+
+<h2>Notes on tooling and migration</h2>
+<p>springdoc integrates well with modern Spring Boot. If you are using springfox that is fine for older applications but springdoc supports newer Spring versions more smoothly. Maven and Gradle are both supported without special tricks.</p>
+
+<p>That is the gist. You install the dependency, configure a few properties, annotate where it helps and optionally add a config class for advanced stuff. The result is usable, clickable api documentation that does not require psychic powers to read.</p>
+

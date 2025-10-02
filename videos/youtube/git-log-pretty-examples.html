@@ -1,0 +1,68 @@
+---
+layout: video
+title: "git log pretty examples"
+description: "Quick guide to make git log output readable with oneline graph decorate and custom format commands for clearer commit history"
+video_host: "youtube"
+video_id: "reIYhKB8Xrk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M51S"
+thumbnail_url: "https://i.ytimg.com/vi/reIYhKB8Xrk/maxresdefault.jpg"
+content_url: "https://youtu.be/reIYhKB8Xrk"
+embed_url: "https://www.youtube.com/embed/reIYhKB8Xrk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git log
+  - pretty
+  - git pretty
+  - git commands
+  - version control
+  - commit history
+  - cli
+  - git alias
+  - git tutorial
+---
+
+<article>
+  <h2>Why bother with a pretty git log</h2>
+  <p>Because scanning raw commit history should not feel like reading ancient rune tablets. The default git log is honest but loud and messy. Taming it with pretty formats and a couple of aliases makes your commit history usable again and saves you from squinting at full hashes all day.</p>
+
+  <h3>Fast compact views to scan history</h3>
+  <p>When you only need the gist use single line commits and a graph. These commands are the duct tape for quick reviews.</p>
+  <pre><code>git log --pretty=oneline
+
+git log --graph --oneline
+
+git log --graph --decorate --oneline
+</code></pre>
+  <p>The ASCII graph draws branches and merges so you can tell what actually happened without memorizing SHA patterns. The decorate flag shows branch and tag names next to commits which stops you from playing commit name roulette.</p>
+
+  <h3>Custom formats when details matter</h3>
+  <p>Want precise fields in a predictable order. Use the format string to show exactly what you care about. No guessing which column is what.</p>
+  <pre><code>git log --pretty=format '%h %ad %an %s' --date=short
+</code></pre>
+  <p>Replace placeholders if you need full hashes author email or commit body. For audits add body and machine friendly dates.</p>
+  <pre><code>git log --pretty=format '%H %ad %an %s%n%b' --date=iso
+</code></pre>
+
+  <h3>Save aliases so you actually use these views</h3>
+  <p>Typing a long command every time is a habit breaker. Store your favorite view as an alias and pretend you are organized.</p>
+  <pre><code>git config --global alias.lg "log --graph --decorate --pretty=format '%C(yellow)%h%Creset %Cgreen%ad%Creset %C(cyan)%an%Creset %s' --date=short"
+</code></pre>
+  <p>This alias gives you a colored compact history that is perfect for daily checks. Keep one alias for quick scans and another for deep audits.</p>
+  <pre><code>git config --global alias.audit "log --pretty=format '%H %ad %an %s%n%b' --date=iso"
+</code></pre>
+
+  <h3>Little habits that pay off</h3>
+  <ul>
+    <li>Pick one or two formats that answer your common questions and stick with them</li>
+    <li>Use graph and decorate for branch context when reviewing merges</li>
+    <li>Use a full format with body and raw dates when you need to investigate a problem</li>
+  </ul>
+
+  <p>Bottom line. Make git log work for you not the other way around. A couple of tidy formats and a pair of aliases will turn commit noise into a useful timeline and save you from another needless terminal facepalm.</p>
+</article>
+

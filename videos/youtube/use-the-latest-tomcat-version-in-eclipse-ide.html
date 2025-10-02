@@ -1,0 +1,72 @@
+---
+layout: video
+title: "Use the latest Tomcat Version in Eclipse IDE"
+description: "Learn how to run the newest Apache Tomcat inside Eclipse even when Eclipse flags the server as unsupported with a simple step by step guide."
+video_host: "youtube"
+video_id: "xsfRSrDgBWI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M1S"
+thumbnail_url: "https://i.ytimg.com/vi/xsfRSrDgBWI/maxresdefault.jpg"
+content_url: "https://youtu.be/xsfRSrDgBWI"
+embed_url: "https://www.youtube.com/embed/xsfRSrDgBWI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Tomcat
+  - Eclipse
+  - Apache Tomcat
+  - Tomcat tutorial
+  - Eclipse servers
+  - Server runtime
+  - Java development
+  - Tomcat unsupported
+  - Server adapter
+  - IDE setup
+---
+
+<article>
+  <h2>Why this exists</h2>
+  <p>If you like living on the bleeding edge but do not enjoy waiting for IDE vendors to catch up, this guide is for you. Eclipse sometimes refuses to list the newest Apache Tomcat release as a supported server. That is a bummer and also not a show stopper. You can point Eclipse at the freshly downloaded Tomcat runtime and keep coding while the adapter folks play catch up.</p>
+
+  <h2>What you need</h2>
+  <ul>
+    <li>Apache Tomcat binary downloaded and extracted to a stable folder</li>
+    <li>Eclipse with the Web Tools server adapters installed or ready to install</li>
+    <li>A matching Java runtime for the Tomcat version you want to run</li>
+  </ul>
+
+  <h2>Step by step</h2>
+  <ol>
+    <li>
+      <strong>Step 1 - Download and extract Tomcat</strong>
+      <p>Get the Tomcat binary from the Apache site and extract it to a permanent folder. Do not use a temp folder unless you enjoy random breakage when your build server cleans up files.</p>
+    </li>
+    <li>
+      <strong>Step 2 - Add the server adapter if needed</strong>
+      <p>If the Servers view has no Apache Tomcat options open the Eclipse Marketplace or Install New Software dialog and add the Web Tools server adapters. The adapter is the bridge between Eclipse and your Tomcat runtime.</p>
+    </li>
+    <li>
+      <strong>Step 3 - Register the runtime</strong>
+      <p>In Eclipse go to Preferences &gt; Server &gt; Runtime Environments and click Add. If the exact newest Tomcat entry is missing pick the closest lower supported Tomcat version and point the home directory to the extracted Tomcat folder. Eclipse will usually accept that configuration even when it labels the runtime unsupported.</p>
+    </li>
+    <li>
+      <strong>Step 4 - Create a server in Eclipse</strong>
+      <p>Open the Servers view and create a New Server using the runtime you just added. Configure ports and deployment settings as you would normally. When a warning appears about unsupported status you can usually proceed. Most features work fine when Java versions match and libraries are in the expected places.</p>
+    </li>
+  </ol>
+
+  <h3>Troubleshooting and tips</h3>
+  <ul>
+    <li>Run the Java version that matches the Tomcat release from the server runtime settings. Wrong Java versions cause far more mysterious issues than an unsupported label.</li>
+    <li>If classpath or library errors pop up double check that TOMCAT_HOME points to the extracted folder and that Eclipse is not using a bundled or stale library set.</li>
+    <li>Hot deploy and debugging usually work the same as with a supported adapter, so you will not lose your favorite development tricks.</li>
+  </ul>
+
+  <h3>Why this is safe</h3>
+  <p>Tomcat compatibility is mostly about the server binaries and matching Java. Eclipse server adapters are just metadata and convenience wiring. By choosing the nearest supported adapter and pointing to the real Tomcat installation you get the fixes and features of the new Tomcat while preserving the IDE workflow for debug and deploy.</p>
+
+  <p>Now go update your Tomcat and stop waiting for the adapter gods to smile on your IDE. Your future self will thank you when the bug you fixed today does not come back tomorrow.</p>
+</article>
+

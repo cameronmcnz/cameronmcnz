@@ -1,0 +1,80 @@
+---
+layout: video
+title: "Run a Jenkins War File"
+description: "Quick guide to running a Jenkins WAR file locally for testing with simple commands access and port tips"
+video_host: "youtube"
+video_id: "Kc95s0vXrRM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M50S"
+thumbnail_url: "https://i.ytimg.com/vi/Kc95s0vXrRM/maxresdefault.jpg"
+content_url: "https://youtu.be/Kc95s0vXrRM"
+embed_url: "https://www.youtube.com/embed/Kc95s0vXrRM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - WAR file
+  - java -jar
+  - continuous integration
+  - CI
+  - Tomcat
+  - deployment
+  - localhost
+  - devops
+  - tutorial
+---
+
+<p>If you want a no fuss way to spin up Jenkins for local testing and light CI work then the single WAR file is your best friend and your guilty pleasure. This guide walks through downloading the WAR running it with java and getting through the first time setup without losing your mind or your plugins.</p>
+
+<h2>Get the Jenkins WAR file</h2>
+<p>Grab the jenkins.war from the official Jenkins site or a trusted mirror and drop it into a folder you do not plan to overthink. That one file contains an embedded servlet container so you do not need Tomcat to start playing with continuous integration on your laptop.</p>
+
+<h2>Run the WAR with Java</h2>
+<p>Open a terminal and run the embedded server with the classic command</p>
+<pre><code>java -jar jenkins.war</code></pre>
+<p>Want a different HTTP port because 8080 is that one port your other project hogs Use this</p>
+<pre><code>java -jar jenkins.war --httpPort=9090</code></pre>
+<p>Then open a browser and go to localhost on the chosen port. The console will print startup logs and an initial admin unlock key. If your terminal scrolled away you can find the same value in the Jenkins home folder under <code>secrets/initialAdminPassword</code> inside your Jenkins home directory which is often <code>~/.jenkins</code> by default.</p>
+
+<h2>Complete the web based setup</h2>
+<p>When the UI asks for the unlock key paste the one from the console or from the file. Then pick the install recommended plugins path unless you enjoy spending time resolving plugin dependency puzzles. Create the first admin user when prompted and be warned that plugin downloads can take a few minutes depending on your internet and mood.</p>
+
+<h3>Where to put JENKINS_HOME if you want control</h3>
+<p>Set an explicit JENKINS_HOME environment variable to keep data in a predictable place. For example export JENKINS_HOME=/opt/jenkins or set it in a service file when you move to a system level setup. Predictability will save you a future apology to yourself.</p>
+
+<h2>Optional production options</h2>
+<ul>
+  <li>Run as a system service for uptime that is more than optimistic. A systemd unit is a common choice on modern Linux.</li>
+  <li>Deploy the WAR to Tomcat or another servlet container if your ops team insists on servlet containers.</li>
+  <li>Containerize Jenkins or use orchestration if you expect many simultaneous builds and occasional chaos.</li>
+</ul>
+
+<h3>Example systemd unit to run the WAR</h3>
+<pre><code>[Unit]
+Description=Jenkins
+After=network.target
+
+[Service]
+User=jenkins
+ExecStart=/usr/bin/java -jar /opt/jenkins/jenkins.war
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+<h2>Troubleshooting notes that save time</h2>
+<ul>
+  <li>Port already in use Try a different port or kill the offending process.</li>
+  <li>Wrong Java version Jenkins needs a modern Java runtime such as OpenJDK 11 or OpenJDK 17 for recent releases. Use that and avoid surprises.</li>
+  <li>Slow plugin installs Be patient or prefetch plugins if you control a cached mirror for your CI fleet.</li>
+  <li>Logs are your friend Check the console output and the files under your Jenkins home directory when something odd happens.</li>
+</ul>
+
+<h2>Final hostile but honest advice</h2>
+<p>The single command method is perfect for demos development and quick experiments. For anything that needs to stay alive overnight or serve a team use a proper deployment method like a service a servlet container or container orchestration. That way Jenkins does not go down when your laptop goes to sleep or when someone bumps into your terminal.</p>
+
+<p>Enjoy your local CI playground and remember to back up your jobs if you start caring about them. This tutorial covered downloading the WAR running it with java accessing the UI on the correct port unlocking the initial setup and options for running Jenkins in a more robust way for real devops workflows.</p>
+

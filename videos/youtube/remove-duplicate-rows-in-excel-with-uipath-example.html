@@ -1,0 +1,68 @@
+---
+layout: video
+title: "Remove duplicate rows in Excel with UiPath Example"
+description: "Learn how to remove duplicate rows from Excel using UiPath Read Range and DataTable techniques for clean automation"
+video_host: "youtube"
+video_id: "pNohVFIIHVA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M33S"
+thumbnail_url: "https://i.ytimg.com/vi/pNohVFIIHVA/maxresdefault.jpg"
+content_url: "https://youtu.be/pNohVFIIHVA"
+embed_url: "https://www.youtube.com/embed/pNohVFIIHVA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Excel
+  - DataTable
+  - Remove Duplicates
+  - Read Range
+  - Write Range
+  - Automation
+  - RPA
+  - UiPath Tutorial
+  - Data Cleaning
+---
+
+<p>If your Excel file looks like it was attacked by a copy paste tornado you are in the right place. This short UiPath tutorial walks through reading an Excel sheet into a DataTable removing duplicate rows and writing the cleaned table back to Excel. It is a safe and repeatable approach for RPA automation and data cleaning that does not require black magic.</p>
+
+<h2>What this UiPath automation will do</h2>
+<p>In plain human terms the flow will</p>
+<ul>
+  <li>Read the worksheet into a DataTable using Read Range inside Excel Application Scope</li>
+  <li>Remove duplicates using either the DefaultView ToTable trick or UiPath activities</li>
+  <li>Write the cleaned DataTable back to Excel with Write Range</li>
+</ul>
+
+<h2>Step 1 load the sheet into a DataTable</h2>
+<p>Use Excel Application Scope with a Read Range activity. Store the result in a DataTable variable named dt. If you have headers check the headers option. You can specify the used range or leave the range blank to read the whole sheet. Yes it is that thrilling.</p>
+
+<h2>Step 2 remove duplicates the quick ways</h2>
+<p>There are two common and reliable options for Remove Duplicates in UiPath depending on whether you prefer code style or activity style.</p>
+
+<h3>Option A use DefaultView ToTable for a concise result</h3>
+<p>If you are comfortable with a tiny bit of .NET you can create a distinct table based on one or more key columns. This keeps unique combinations and drops repeat rows that match exactly on your chosen keys. Example assignment</p>
+<pre><code>dt = dt.DefaultView.ToTable(true, "Column1", "Column2")</code></pre>
+<p>The boolean true tells ToTable to keep only unique rows based on the columns listed. Pick only the key columns that define uniqueness. If you include every column you will effectively keep identical rows only which may or may not be what you want.</p>
+
+<h3>Option B use activities if you like GUI control</h3>
+<p>UiPath offers a Remove Duplicate Rows activity and a Filter Data Table activity. Use Remove Duplicate Rows when you want a single step that handles duplicates. Use Filter Data Table when you prefer to define include or exclude rules and keep non key columns intact.</p>
+
+<h2>Step 3 write the cleaned table back to Excel</h2>
+<p>Wrap a Write Range inside an Excel Application Scope and write dt to a new sheet or overwrite the old one. Pro tip keep a backup file while testing unless you enjoy irreversible chaos.</p>
+
+<h2>Quick checklist for reliable cleanup</h2>
+<ul>
+  <li>Test on a small sample first</li>
+  <li>Specify only the columns that define uniqueness to avoid accidental data loss</li>
+  <li>Consider trimming and normalizing strings before comparing to avoid false duplicates like extra spaces</li>
+  <li>Keep a backup file while developing automation</li>
+</ul>
+
+<h2>Troubleshooting notes</h2>
+<p>If dt.DefaultView.ToTable returns fewer rows than expected check that you passed the correct column names and that whitespace or case differences are not creating false uniqueness. If Filter Data Table removes more than expected inspect your filter rules. For large files the DefaultView ToTable approach is lightweight and fast which is helpful for automation scale in RPA projects.</p>
+
+<p>This approach is easy to slot into larger UiPath automation. Read Range, a choice of duplicate removal, and Write Range form a tidy pipeline for Excel data cleaning. Use the method that fits your comfort level and production needs and enjoy the smug satisfaction of removing duplicates without opening Excel by hand.</p>
+

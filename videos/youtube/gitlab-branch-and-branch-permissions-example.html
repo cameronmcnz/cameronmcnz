@@ -1,0 +1,71 @@
+---
+layout: video
+title: "GitLab branch and branch permissions example"
+description: "Learn how to create protected branches and configure branch permissions in GitLab to control who can push and merge."
+video_host: "youtube"
+video_id: "wg4TScLeW_I"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M28S"
+thumbnail_url: "https://i.ytimg.com/vi/wg4TScLeW_I/maxresdefault.jpg"
+content_url: "https://youtu.be/wg4TScLeW_I"
+embed_url: "https://www.youtube.com/embed/wg4TScLeW_I"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitLab
+  - branch
+  - branch permissions
+  - protected branches
+  - merge requests
+  - access control
+  - repository
+  - DevOps
+  - CI
+  - git
+---
+
+<h2>Why bother with protected branches</h2>
+<p>If you enjoy debugging mysterious production surprises at 3 a m then skip this guide. For the rest of us here is how to use GitLab protected branches and branch permissions to keep the repository sane. This is about preventing accidental pushes, enforcing code review, and making your CI actually mean something.</p>
+
+<h2>Create a feature branch properly</h2>
+<p>Good branch names save lives and future apologies. Make a local branch with a clear name then push it to the remote. Minimal example that actually works with git.</p>
+<pre><code>git checkout -b feature/awesome
+git push -u origin feature/awesome</code></pre>
+<p>Pick names that reflect the purpose and not your mood. feature, fix, hotfix, and chore are useful prefixes in a team setting.</p>
+
+<h2>Protect the branch in project settings</h2>
+<p>Go to Settings &gt; Repository in your GitLab project. Under protected branches add either a specific branch name or a pattern for multiple branches. Protecting main or release branches prevents direct pushes and forces people to use merge requests.</p>
+
+<h2>Set push and merge roles that make sense</h2>
+<p>Permissions are simple but powerful. Decide who can push and who can merge. Typical options look like this</p>
+<ul>
+  <li>Allow Maintainers to push when you need tight control</li>
+  <li>Allow Developers to create merge requests and run pipelines</li>
+  <li>Restrict merges to people who review code or to an approval group</li>
+</ul>
+<p>If you are paranoid in a professional way only allow Maintainers to push to main and require merge requests for everyone else. If you trust your developers let them open MRs and enforce approvals and CI before merge.</p>
+
+<h2>Test access with realistic roles</h2>
+<p>Before rolling this out to the whole team create two test accounts that mirror real roles. Give one Developer access and one Guest access and then try to push from each account. You want to see permission denied when someone without rights tries a direct push. That is the whole point.</p>
+
+<h2>Use merge requests and require approvals</h2>
+<p>Require merge requests for protected branches and enable approval rules in the MR settings. Make pipelines mandatory so the CI must pass before any merge goes through. Merge requests give you a traceable audit trail and enforce code review workflows.</p>
+<ul>
+  <li>Enable required approvals for critical branches</li>
+  <li>Require a successful pipeline before merge to protect production</li>
+  <li>Use code owners for automatic approval rules when appropriate</li>
+</ul>
+
+<h3>Quick checklist for a sane setup</h3>
+<ul>
+  <li>Create clear branch naming conventions</li>
+  <li>Protect main and release branches in repository settings</li>
+  <li>Assign push and merge permissions according to your trust model</li>
+  <li>Test with role based accounts so you do not learn by accident</li>
+  <li>Require merge requests and passing CI before merge</li>
+</ul>
+
+<p>Follow these steps and your GitLab branch permissions will actually help you ship code instead of creating mystery outages. You will still have bugs, but at least they will be your bugs with a proper audit trail and an angry Slack thread to match.</p>
+

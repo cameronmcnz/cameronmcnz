@@ -1,0 +1,83 @@
+---
+layout: video
+title: "How to create a Git repository with git init and GitHub"
+description: "Step by step guide to initialize a Git repository use GitHub and Git GUI tools for commits branches and pushes with clear commands and GUI tips"
+video_host: "youtube"
+video_id: "YcZmL2TkXN4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M9S"
+thumbnail_url: "https://i.ytimg.com/vi/YcZmL2TkXN4/maxresdefault.jpg"
+content_url: "https://youtu.be/YcZmL2TkXN4"
+embed_url: "https://www.youtube.com/embed/YcZmL2TkXN4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - git init
+  - git gui
+  - version control
+  - commit
+  - push
+  - remote
+  - git tutorial
+  - developers
+---
+
+<article>
+  <p>If you like saving your future self from pain then learning these few Git moves is a good investment. This guide walks you through creating a local Git repository with <code>git init</code> connecting it to a GitHub remote making your first commit and pushing it up so other humans can stare at your code.</p>
+
+  <h2>What we will do</h2>
+  <p>Short version for busy developers who want results not drama</p>
+  <ul>
+    <li>Initialize a local repository with <code>git init</code></li>
+    <li>Create a repository on GitHub to act as the remote</li>
+    <li>Link the local repo to the remote with <code>git remote add origin</code></li>
+    <li>Stage files commit them and push with <code>git push</code></li>
+    <li>Use a Git GUI if you prefer pretty clicks to cryptic lines</li>
+  </ul>
+
+  <h2>Initialize a local repository</h2>
+  <p>Open a terminal in your project folder then run</p>
+  <pre><code>git init .
+git status</code></pre>
+  <p>The first command makes the folder a Git repository and the second shows untracked files. If you see a pile of files you did not expect add a <code>.gitignore</code> before committing so you do not accidentally version your secrets or build artifacts.</p>
+
+  <h2>Create the remote on GitHub</h2>
+  <p>On the GitHub website click New repository choose a name and optional README. That creates a remote endpoint for your project. Copy the repository URL shown on the page for the next step.</p>
+
+  <h2>Connect the local repo to the remote and confirm</h2>
+  <p>Link the local repository to the GitHub repository with a command like</p>
+  <pre><code>git remote add origin &lt;repository URL&gt;
+git remote -v</code></pre>
+  <p>Use the URL shown on the new repository page instead of the placeholder. <code>git remote -v</code> shows the remotes and the fetch and push URLs so you can confirm you did not type garbage.</p>
+
+  <h2>Make the first commit and push it to GitHub</h2>
+  <p>Stage files then create a snapshot with a short descriptive message</p>
+  <pre><code>git add .
+git commit -m "Initial commit"</code></pre>
+  <p>Upload the commit to GitHub with</p>
+  <pre><code>git push -u origin main</code></pre>
+  <p>If your default branch is named <code>master</code> replace <code>main</code> with <code>master</code>. The <code>-u</code> flag sets upstream so future pushes are shorter and quieter.</p>
+
+  <h2>Use Git GUI tools when you need to see pretty diffs</h2>
+  <p>GUI clients like GitHub Desktop and others show diffs staging and branches with clicks instead of typing. They are useful for visual work and for people who do not worship the terminal every hour of the day.</p>
+  <ul>
+    <li>Stage and unstage files with a click</li>
+    <li>View branch graphs and history visually</li>
+    <li>Resolve simple merge conflicts with a guided interface</li>
+  </ul>
+
+  <h3>Troubleshooting tips for common annoyances</h3>
+  <ul>
+    <li>If push fails check that your local branch name matches the remote branch name</li>
+    <li>If authentication fails use a personal access token or SSH key rather than a password</li>
+    <li>If you forget to add files you can amend the last commit with <code>git add</code> then <code>git commit --amend</code></li>
+    <li>Use <code>git log --oneline --graph --all</code> to visually inspect your commit history</li>
+  </ul>
+
+  <p>This guide covered the essentials for initializing a repository with <code>git init</code> creating a GitHub remote linking the two making your first commit pushing to the remote and using GUIs when the need for visual help arises. Follow these commands and you will be version controlling like a slightly smug professional in no time.</p>
+</article>
+

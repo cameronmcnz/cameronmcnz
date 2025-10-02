@@ -1,0 +1,78 @@
+---
+layout: video
+title: "The Gitflow Release Branch from Start to Finish"
+description: "Practical guide to using Gitflow release branches from creation to merge with commands and tips for smooth releases"
+video_host: "youtube"
+video_id: "rX80eKPdA28"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M50S"
+thumbnail_url: "https://i.ytimg.com/vi/rX80eKPdA28/maxresdefault.jpg"
+content_url: "https://youtu.be/rX80eKPdA28"
+embed_url: "https://www.youtube.com/embed/rX80eKPdA28"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gitflow
+  - git
+  - release-branch
+  - branching
+  - version-control
+  - workflow
+  - git-commands
+  - continuous-integration
+  - tags
+  - semantic-versioning
+---
+
+<p>If releases had a VIP room it would be the release branch. Use Gitflow release branches to isolate final polish and version bumps from the chaos that is ongoing feature work. This keeps master pristine for production and develop sane for new work. Expect tests to be your best friend and CI to be the unforgiving bouncer.</p>
+
+<h2>Create the release branch</h2>
+<p>When develop is stable and feature work is wrapped up make a release branch. Pick a clear name that follows semantic versioning so humans and tools are both happy. For example use release/1.2.0 for a release at version 1.2.0.</p>
+<pre><code>git checkout -b release/1.2.0 develop</code></pre>
+<p>This isolates stabilization work so feature branches can keep flowing without sneaking into the final artifact.</p>
+
+<h2>Prepare version and run tests</h2>
+<p>Bump the version in the files your project actually cares about. Update package manifests build files or any other source of truth. Run the test suite locally and then let CI run the full pipeline. A green CI build reduces surprise incidents which nobody likes on release day.</p>
+<pre><code>git add package.json
+git commit -m "Bump version to 1.2.0"
+# run local tests and push the branch to trigger CI
+git push origin release/1.2.0</code></pre>
+
+<h2>Fix release bugs on the release branch</h2>
+<p>If testing finds bugs fix them directly on the release branch. Keep commits focused on stabilization. Do not merge experimental or half finished features into this branch. If production needs an urgent fix instead of waiting for the release follow the hotfix workflow on master and then merge that fix back into develop and any active release branches.</p>
+
+<h2>Merge the release into master and tag the release</h2>
+<p>Once QA and CI approve the release merge it into master and tag the exact commit that shipped. Tags are the lovely breadcrumb trail that makes rollbacks and audits less miserable.</p>
+<pre><code>git checkout master
+git merge --no-ff release/1.2.0
+git tag -a v1.2.0 -m "Release 1.2.0"
+git push origin master --tags</code></pre>
+
+<h2>Merge back into develop and clean up</h2>
+<p>Bring version bumps and any stabilization commits back into develop so the work is synchronized. Then delete the release branch to keep your branch list tidy and signal that the release window is closed.</p>
+<pre><code>git checkout develop
+git merge --no-ff release/1.2.0
+git branch -d release/1.2.0
+git push origin --delete release/1.2.0</code></pre>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Create release branch from develop when feature work is stable</li>
+  <li>Bump semantic version numbers and run full test suite</li>
+  <li>Fix release only bugs on the release branch</li>
+  <li>Merge into master and tag the release commit</li>
+  <li>Merge back into develop and delete the release branch</li>
+</ul>
+
+<h3>Common gotchas and tips</h3>
+<ul>
+  <li>Keep the release branch focused on stabilization work only. If it smells like a feature it probably is a feature.</li>
+  <li>Let CI be the final judge. A green build is not a promise but it is a very good signal.</li>
+  <li>Use clear tag names like v1.2.0 so rollbacks and audits do not require a séance.</li>
+  <li>Communicate the release window to the team to avoid surprise merges into develop that then need awkward reconciliations.</li>
+</ul>
+
+<p>This workflow keeps branching neat while supporting semantic versioning continuous integration and sane rollouts. Follow these steps and your releases will be predictable enough to plan around and messy enough to keep life interesting.</p>
+

@@ -1,0 +1,66 @@
+---
+layout: video
+title: "Why Java Uses static & final for Constants"
+description: "Clear explanation of why Java uses static and final for constants with examples scope memory and practical guidance"
+video_host: "youtube"
+video_id: "v3be1w_5ens"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M44S"
+thumbnail_url: "https://i.ytimg.com/vi/v3be1w_5ens/maxresdefault.jpg"
+content_url: "https://youtu.be/v3be1w_5ens"
+embed_url: "https://www.youtube.com/embed/v3be1w_5ens"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - constants
+  - static
+  - final
+  - JVM
+  - memory
+  - inlining
+  - thread-safety
+  - best-practices
+  - code-design
+---
+
+<h2>Quick summary for the impatient</h2>
+<p>static plus final gives you a single, immutable reference at the class level. static means one copy lives with the class not in every instance which saves memory. final means the variable cannot be reassigned. For primitives and String literals the compiler will often treat the value as a compile time constant and inline it into callers. That is fast until you change the original and forget to recompile every consumer.</p>
+
+<h2>What actually happens on the JVM</h2>
+<p>The class loader creates one copy in the method area and every reference points to that same location. For primitive and String constants the compiler may bake the literal into the bytecode of client classes. That is why public static final values can behave like tiny landmines in your API if you try to change them later.</p>
+
+<h3>Inlining and surprising behavior</h3>
+<p>If ClassA exposes public static final int MAX = 100 inlining can cause ClassB to embed 100 in its bytecode. Update ClassA to 200 and deploy it alone and ClassB will still think MAX is 100 until it is recompiled or reloaded. This is a common footgun when constants cross jar or module boundaries.</p>
+
+<h2>Thread safety realities</h2>
+<p>Java class initialization provides a useful guarantee. Static final primitives and String literals initialized with compile time constants are safely published by the JVM. For complex objects the initializer runs under the class initialization lock which avoids half baked state during loading. That said if you expose a mutable object you still have to think about concurrent access to the object state.</p>
+
+<h3>final does not freeze the object</h3>
+<p>final freezes the reference not the object. Declaring a list final only prevents assigning a different list to the variable. You can still add or remove elements unless you take extra steps to prevent mutation.</p>
+
+<h2>Practical rules that do not lie</h2>
+<ul>
+  <li>Use uppercase names for true constants to signal intent</li>
+  <li>Prefer private static final for values you might change later</li>
+  <li>Expose stable accessors instead of public static final mutable objects</li>
+  <li>For collections prefer immutable factories or return an unmodifiable view</li>
+  <li>Think twice before making cross module constants public and final because of compile time inlining</li>
+</ul>
+
+<h2>What to do for mutable collections</h2>
+<p>If you must store a collection as a static final field keep it private and return a defensive or unmodifiable copy from getters. Or better yet build the collection immutable at startup and expose it as an immutable type. That avoids accidental mutation and the delightful debugging sessions that follow.</p>
+
+<h2>Checklist before shipping constants</h2>
+<ul>
+  <li>Is this a true constant that will never change across versions</li>
+  <li>Will other modules or jars compile against this value</li>
+  <li>Is the value a primitive or String literal that may be inlined</li>
+  <li>If the value is an object is it immutable or protected behind an accessor</li>
+</ul>
+
+<h2>Final thoughts from someone who sees things break</h2>
+<p>static and final are powerful when used correctly. They save memory and give fast access. They also hide subtle versioning and mutability traps. Use private static final and accessor methods when in doubt. If you like runtime surprises make your mutable fields public and enjoy the fireworks. If you prefer fewer headaches follow the rules and sleep better.</p>
+

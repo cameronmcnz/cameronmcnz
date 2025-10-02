@@ -1,0 +1,75 @@
+---
+layout: video
+title: "shallow git clone example"
+description: "Quick guide to perform a shallow git clone and cut cloning time and bandwidth when working with large repositories."
+video_host: "youtube"
+video_id: "Z2cvO5JmPnQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M17S"
+thumbnail_url: "https://i.ytimg.com/vi/Z2cvO5JmPnQ/maxresdefault.jpg"
+content_url: "https://youtu.be/Z2cvO5JmPnQ"
+embed_url: "https://www.youtube.com/embed/Z2cvO5JmPnQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - shallow clone
+  - git clone
+  - git depth
+  - git tutorial
+  - git fetch
+  - submodules
+  - version control
+  - developer tools
+  - repository management
+---
+
+<h2>Quick summary for impatient developers</h2>
+<p>Want a copy of a huge repo without waiting for a coffee break to finish? Shallow git clone buys you speed and bandwidth by pulling only recent commits. It is perfect when you just need to build, test, or inspect the latest code without hoarding the entire history like a digital pack rat.</p>
+
+<h2>Pick a depth and get only what matters</h2>
+<p>The key option is <code>--depth</code>. A depth of 1 gives you the working tree for the latest commit and almost nothing else. That means less disk usage and faster clones. Use a larger number if you need a bit of context but still want to save time.</p>
+
+<pre><code>git clone --depth 1 --branch main REPO_URL</code></pre>
+
+<p>If you do not want every branch to follow you home add <code>--branch</code> to limit the clone to one branch. That prevents unnecessary refs from being fetched and reduces surprise downloads.</p>
+
+<h2>Need older commits later</h2>
+<p>Shallow is not forever. If your debugging or bisecting skills demand history you can fetch more without recloning. Fetch a fixed number of commits or remove the shallow state and pretend you were full history all along.</p>
+
+<ul>
+  <li><code>git fetch --depth N</code> to increase depth to N commits</li>
+  <li><code>git fetch --unshallow</code> to convert the repo into a full clone</li>
+</ul>
+
+<p>Use these when you discover some bug that lives in the past and you need context beyond the latest snapshot.</p>
+
+<h2>Submodules will bite if you are careless</h2>
+<p>Submodules often default to full history and will quietly ruin your bandwidth savings. Initialize them shallow to keep the plan intact.</p>
+
+<pre><code>git submodule update --init --depth 1</code></pre>
+
+<p>If you skip this you may see large unexpected downloads when your build starts pulling submodule history. That is what we call developer surprise.</p>
+
+<h3>Tags and annotated releases</h3>
+<p>Shallow clones can miss tag history and annotated tags. If your release steps rely on tags fetch them explicitly or unshallow first.</p>
+
+<pre><code>git fetch --tags --depth N
+or
+git fetch --unshallow
+</code></pre>
+
+<h2>A short checklist for sensible shallow cloning</h2>
+<ul>
+  <li>Decide how much history you actually need</li>
+  <li>Clone with <code>--depth</code> and <code>--branch</code> when applicable</li>
+  <li>Init submodules with <code>--depth</code> to avoid surprises</li>
+  <li>Fetch more history or unshallow when deeper context is required</li>
+  <li>Fetch tags manually if you depend on annotated tags</li>
+</ul>
+
+<h2>Final note with mild sarcasm</h2>
+<p>Shallow clones are a pragmatic trick for version control that save time and network cycles. They are not magic. If you need to investigate ancient crimes in the commit log you will have to fetch more history. Until then enjoy a faster clone and one less reason to complain about slow CI pipelines.</p>
+

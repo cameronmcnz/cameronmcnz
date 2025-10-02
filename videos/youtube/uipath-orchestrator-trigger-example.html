@@ -1,0 +1,66 @@
+---
+layout: video
+title: "UiPath Orchestrator Trigger Example"
+description: "Quick guide to create and configure triggers in UiPath Orchestrator for scheduled and queue triggered robot execution"
+video_host: "youtube"
+video_id: "At7sAG8SR-M"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M10S"
+thumbnail_url: "https://i.ytimg.com/vi/At7sAG8SR-M/maxresdefault.jpg"
+content_url: "https://youtu.be/At7sAG8SR-M"
+embed_url: "https://www.youtube.com/embed/At7sAG8SR-M"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Orchestrator
+  - Trigger
+  - RPA
+  - Automation
+  - Scheduling
+  - Queue
+  - Robots
+  - Tutorial
+  - Best Practices
+---
+
+<article>
+  <p>If you like letting robots do the boring stuff and then watching them actually show up on time you want triggers in UiPath Orchestrator. This guide walks through publishing a package, adding a trigger, choosing whether it should run on a schedule or when queue items appear and how to avoid the usual headaches.</p>
+
+  <h2>Publish the process package from UiPath Studio</h2>
+  <p>Start in UiPath Studio and publish your process package so it lands in the Orchestrator library. A published package is the executable unit that a release will point to. Make sure the version you expect is in the library before you move on. Think of this as putting tonight s takeout in the fridge so the robot does not bring home last week s leftovers.</p>
+
+  <h2>Open the Triggers area and choose the right scope</h2>
+  <p>In Orchestrator open Triggers and pick the folder or tenant where your release lives. This view lists existing triggers and offers an add action that starts the configuration flow. Click add and you will pick between scheduled and queue based triggers. Scheduled triggers run at defined times and queue triggers react to queue item additions or status changes.</p>
+
+  <h3>How to configure a schedule trigger</h3>
+  <ul>
+    <li>Select the target release and the environment that contains your robots</li>
+    <li>Choose recurrence daily weekly or use a cron expression when you need fancy timing</li>
+    <li>Set the start time and the time zone and test with a short interval so you do not wait an entire day to see if it works</li>
+  </ul>
+  <p>Cron expressions feel like wizardry but they are the right tool for complex scheduling and for keeping your life interesting in a small way.</p>
+
+  <h3>How to configure a queue trigger</h3>
+  <ul>
+    <li>Pick the queue name and any filters that narrow which items create jobs</li>
+    <li>Set thresholds or conditions that control job creation so you do not overwhelm downstream systems</li>
+  </ul>
+  <p>Queue triggers are great for event driven automation. When an item is added a job can be created automatically and your robots handle the heavy lifting.</p>
+
+  <h2>Save the trigger and monitor jobs</h2>
+  <p>Save your trigger and watch the Jobs page or the Transactions page to confirm runs start as expected. Job details and audit logs are your friends when runs fail to start or when permissions block a job. Check the release mapping to the correct environment and verify that the robot machines are available and connected. If a robot is offline it will not matter how perfect your schedule looks. Someone probably turned it off to save electricity or to see what happens.</p>
+
+  <h2>Troubleshooting and best practices for Orchestrator triggers</h2>
+  <ul>
+    <li>Test triggers with a short interval before committing to long recurrences</li>
+    <li>Use cron expressions for complex recurrences instead of stacking multiple schedules</li>
+    <li>Verify folder and tenant permissions if a trigger cannot create a job</li>
+    <li>Confirm environment mappings and that the intended robots are present and licensed</li>
+    <li>Use audit logs and job history to diagnose failed starts and permission issues</li>
+  </ul>
+  <p>Following these steps gives you a repeatable pattern for automating recurring and event driven workflows in UiPath Orchestrator. When it works you get the satisfaction of seeing jobs run on schedule and the quiet joy of not having to babysit yet another process.</p>
+</article>
+

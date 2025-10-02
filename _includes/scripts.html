@@ -1,0 +1,132 @@
+
+
+{% include bootstrap-script.html %}
+
+
+<script id="__consolidated_js">
+(function () {
+  // ========= Utilities & Preferences =========
+  const doc = document;
+  const html = doc.documentElement;
+  const root = doc.documentElement; // for CSS var access if ever needed
+
+  // Optional UI hooks (present only if you rendered them)
+  const modeToggle = doc.getElementById("modeToggle");
+  const accentDots = doc.querySelectorAll(".theme-dot");
+  const YEAR = doc.getElementById("year");
+
+  if (YEAR) YEAR.textContent = new Date().getFullYear();
+
+  // ---- Restore saved prefs (backward compatible) ----
+  // Keys used previously: ce:mode (dark|light), ce:accent (orange|blue|...)
+  const savedMode   = localStorage.getItem("ce:mode");
+  const savedAccent = localStorage.getItem("ce:accent");
+
+  // Apply theme (attribute-based)
+  if (savedMode) html.setAttribute("data-theme", savedMode);
+
+  // Prefer attribute-based accent switching for CSS like html[data-accent="blue"]
+  if (savedAccent) {
+    html.setAttribute("data-accent", savedAccent);
+    // Back-compat: if a previous page expected direct CSS var override, keep it in sync:
+    root.style.setProperty("--accent", `var(--accent-${savedAccent})`);
+  }
+
+  // ---- Toggle dark/light (optional button) ----
+  if (modeToggle) {
+    modeToggle.addEventListener("click", () => {
+      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("ce:mode", next);
+      const span = modeToggle.querySelector("span");
+      if (span) span.textContent = next === "dark" ? "Light" : "Dark";
+    });
+  }
+
+  // ---- Change accent (optional dots) ----
+  accentDots.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const accent = btn.getAttribute("data-accent");
+      if (!accent) return;
+      html.setAttribute("data-accent", accent);
+      // Back-compat CSS var override
+      root.style.setProperty("--accent", `var(--accent-${accent})`);
+      localStorage.setItem("ce:accent", accent);
+    });
+  });
+
+  // ---- Bootstrap presence checks (optional, safe to remove) ----
+  const hasBootstrapJS = true;
+  if (!hasBootstrapJS) console.warn("Bootstrap JS not detected (assets/js/bootstrap.bundle.min.js).");
+  try {
+    const t = doc.createElement("div");
+    t.className = "d-none";
+    doc.body.appendChild(t);
+    const hasBootstrapCSS = window.getComputedStyle(t).display === "none";
+    t.remove();
+    if (!hasBootstrapCSS) console.warn("Bootstrap CSS not detected (assets/css/bootstrap.min.css).");
+  } catch (e) {
+    console.warn("Bootstrap CSS check failed", e);
+  }
+
+  // ========= Unified Stats Counters =========
+  // data-duration: ms (default 1200)
+  // data-decimals: fixed decimals (default 0)
+  // data-suffix:   text to append (e.g. "%", "+")
+  // Example: <div class="stat-number" data-target="98" data-suffix="%" data-duration="1500">0%</div>
+
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+  function animateCount(el) {
+    if (el.__counted) return; // prevent re-run
+    el.__counted = true;
+
+    const target   = parseFloat(el.dataset.target   || "0");
+    const duration = parseInt (el.dataset.duration || "1200", 10);
+    const decimals = parseInt (el.dataset.decimals || "0",    10);
+    const suffix   = el.dataset.suffix || "";
+    const start    = 0;
+    const startTime = performance.now();
+
+    function tick(now) {
+      const elapsed = now - startTime;
+      const t = Math.min(1, elapsed / duration);
+      const eased = easeOutCubic(t);
+      const current = start + (target - start) * eased;
+
+      el.textContent = current.toFixed(decimals) + suffix;
+
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toFixed(decimals) + suffix; // snap exactly
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  // Observe all stat numbers inside any stats-carousel on the page
+  const statEls = Array.from(doc.querySelectorAll(".stats-carousel .stat-number"));
+  if (statEls.length) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.4) animateCount(entry.target);
+        });
+      },
+      { threshold: [0, 0.4, 1] }
+    );
+    statEls.forEach((el) => io.observe(el));
+
+    // Hook slide-end for every Bootstrap carousel that is also a stats-carousel
+    const carousels = doc.querySelectorAll(".carousel.stats-carousel");
+    carousels.forEach((carousel) => {
+      carousel.addEventListener("slid.bs.carousel", () => {
+        const active = carousel.querySelector(".carousel-item.active");
+        if (!active) return;
+        active.querySelectorAll(".stat-number").forEach((el) => {
+          if (!el.__counted) animateCount(el);
+        });
+      });
+    });
+  }
+})();
+</script>

@@ -1,0 +1,65 @@
+---
+layout: video
+title: "Fix UiPath Activity Missing and Not Loaded Error"
+description: "Quick fixes for UiPath activities missing or not loading Learn steps to restore packages clear cache and repair Designer activity errors"
+video_host: "youtube"
+video_id: "cHzL31ylZ2Q"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M24S"
+thumbnail_url: "https://i.ytimg.com/vi/cHzL31ylZ2Q/maxresdefault.jpg"
+content_url: "https://youtu.be/cHzL31ylZ2Q"
+embed_url: "https://www.youtube.com/embed/cHzL31ylZ2Q"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - UiPath Studio
+  - UiPath Activities
+  - Activity Missing
+  - Not Loaded Error
+  - Manage Packages
+  - Package Cache
+  - UIAutomation
+  - Troubleshooting
+  - RPA
+---
+
+<h1>Troubleshoot UiPath Studio activities package cache and version mismatches</h1>
+
+<p>So your UiPath activities pulled a disappearing act and the Designer now looks like a sad toolbox. Relax, you do not need to sacrifice a robot to get them back. This guide walks through the practical steps to restore missing UiPath activities and fix not loaded errors in Studio while keeping things painless and a little entertaining.</p>
+
+<h2>Quick checklist to try first</h2>
+<ul>
+  <li>Open Manage Packages in UiPath Studio and check installed packages</li>
+  <li>Reinstall the problematic activity package if present but broken</li>
+  <li>Clear the local package cache to remove stale files</li>
+  <li>Restart Studio and reload the project so dependencies resolve</li>
+  <li>Repair Studio or align versions if nothing else helps</li>
+</ul>
+
+<h2>Step 1 Check Manage Packages and project dependencies</h2>
+<p>Open Manage Packages from the Project panel in UiPath Studio and confirm that UiPath.UIAutomation.Activities and any other needed packages are installed. If they are missing install the correct package version that matches your project target framework. Matching major versions helps avoid compatibility drama when Studio and activity packages disagree.</p>
+
+<h2>Step 2 Reinstall the activity package for a fresh copy</h2>
+<p>Sometimes packages get corrupted or partial downloads sneak in. Use Manage Packages to uninstall then install UiPath.UIAutomation.Activities or whichever package is misbehaving. If your project uses pinned versions restore the same version to avoid unexpected API changes.</p>
+
+<h2>Step 3 Clear the local package cache</h2>
+<p>Close Studio then remove stale files under AppData/Local/UiPath/Packages to force fresh downloads. If you use private feeds check cached feeds under your NuGet or custom feed settings and clear them as well. Restarting Studio after the cache purge lets Studio redownload clean copies.</p>
+
+<h2>Step 4 Restart Studio and reload the project</h2>
+<p>Simple but effective. Close and reopen Studio then load the project to trigger dependency resolution. The Designer will try to rebuild activity trees and toolbox entries. If prompted choose to restore packages or accept package restore prompts.</p>
+
+<h2>Step 5 Repair Studio or resolve version mismatches</h2>
+<p>If problems persist verify that your Studio build is compatible with the activity package versions in use. Check the project target framework in project.json and align package versions accordingly. Use the official installer repair option if files look corrupted or reinstall Studio when necessary.</p>
+
+<h3>Extra tips and common traps</h3>
+<ul>
+  <li>Pin package versions in project.json when moving projects across machines to avoid version drift</li>
+  <li>Prefer stable package feeds for production work to reduce surprises</li>
+  <li>When using custom activities clear their cache too and make sure feed credentials are valid</li>
+</ul>
+
+<p>Recap The fix usually boils down to checking Manage Packages reinstalling activities clearing cache and restarting Studio. If the issue refuses to die align versions or repair Studio. Follow these steps and your toolbox should stop ghosting you.</p>
+

@@ -1,0 +1,111 @@
+---
+layout: video
+title: "Nginx Load Balancer Example Setup and Config"
+description: "Step by step Nginx load balancer setup for distributing HTTP traffic with upstream groups health checks and reload testing"
+video_host: "youtube"
+video_id: "QE26N9cHE2M"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M24S"
+thumbnail_url: "https://i.ytimg.com/vi/QE26N9cHE2M/maxresdefault.jpg"
+content_url: "https://youtu.be/QE26N9cHE2M"
+embed_url: "https://www.youtube.com/embed/QE26N9cHE2M"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - nginx
+  - load balancer
+  - nginx tutorial
+  - reverse proxy
+  - upstream
+  - health checks
+  - linux
+  - sysadmin
+  - high availability
+  - proxy_pass
+---
+
+<h2>Why use NGINX as a load balancer</h2>
+<p>Because you want more than a single server fainting under load. NGINX is a battle tested reverse proxy and load balancer that plays nice with web apps. It is lightweight, fast, and familiar to most sysadmins who survived college infrastructure projects. This guide shows how to create an upstream pool, proxy traffic with proxy_pass, tune health checks and timeouts, and reload without breaking anything important.</p>
+
+<h2>Install NGINX on Linux</h2>
+<p>Install NGINX with your favorite package manager on Debian and Ubuntu like this. Yes it is boring but it works.</p>
+<pre><code>sudo apt update
+sudo apt install -y nginx
+</code></pre>
+<p>Make sure you have at least two backend servers running real content. If you only have one backend you do not have a load balancer, you have optimism.</p>
+
+<h2>Create the upstream backend pool</h2>
+<p>Define an upstream group in the main nginx.conf or a site file under sites available. Give the pool a logical name and list your backend servers so NGINX can juggle requests.</p>
+
+<h3>Example upstream block</h3>
+<pre><code>upstream myapp_backend {
+    server 10.0.0.11 weight=5 max_fails=3 fail_timeout=30s;
+    server 10.0.0.12 weight=3 max_fails=3 fail_timeout=30s;
+    server 10.0.0.13 backup;
+    keepalive 16;
+}
+</code></pre>
+<p>Weights let you steer more traffic to beefier machines. The backup server stays quiet until things go wrong. Keepalive here reduces TCP churn between NGINX and backends.</p>
+
+<h2>Configure the proxy server block</h2>
+<p>Now add a server block that listens on port 80 or 443 and forwards requests to the upstream pool. Preserve important headers so your backend can log real client IPs and behave like a civilized app.</p>
+
+<pre><code>server {
+    listen 80;
+    server_name example.com;
+
+    location / {
+        proxy_pass http://myapp_backend;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_connect_timeout 5s;
+        proxy_send_timeout 30s;
+        proxy_read_timeout 30s;
+
+        proxy_buffering on;
+        proxy_buffers 16 4k;
+        proxy_busy_buffers_size 8k;
+    }
+}
+</code></pre>
+<p>proxy_pass is the key. The rest makes behavior predictable and keeps slow backends from holding connections forever.</p>
+
+<h2>Keep headers and timeouts</h2>
+<ul>
+  <li>Preserve Host so application level routing still works.</li>
+  <li>Forward client IPs so logs and rate limits are accurate.</li>
+  <li>Tune connect and read timeouts to match backend behavior and expected latency.</li>
+  <li>Use keepalive between NGINX and backends for performance.</li>
+</ul>
+
+<h2>Health checks and failure handling</h2>
+<p>NGINX open source uses passive health checks with max_fails and fail_timeout. That means a backend is marked down after repeated failures. If you need active probes look at NGINX Plus or an external probe service. Passive checks are simple and effective for most setups.</p>
+
+<h3>Passive failure settings example</h3>
+<pre><code>server 10.0.0.11 max_fails=3 fail_timeout=30s;
+</code></pre>
+<p>That will mark a server as down after three failed attempts within the timeout window. It is not magic. It is pragmatic.</p>
+
+<h2>Test reload and verify</h2>
+<p>Never reload NGINX blindfolded. Test the config and then reload gracefully so worker processes pick up the change.</p>
+<pre><code>sudo nginx -t
+sudo systemctl reload nginx
+</code></pre>
+<p>Verify distribution by curling the load balancer multiple times and checking backend logs or a custom response header that returns server identity. If you are feeling fancy add a small endpoint on each backend that returns a hostname for easy checking.</p>
+
+<h2>Recap and tips</h2>
+<ul>
+  <li>Set up an upstream group to define your backend pool.</li>
+  <li>Use proxy_pass with preserved headers so the app behaves correctly.</li>
+  <li>Tune max_fails and fail_timeout for passive health checks.</li>
+  <li>Consider NGINX Plus or external probes for active health checks.</li>
+  <li>Enable keepalive for better throughput between NGINX and backends.</li>
+</ul>
+<p>There you have it. NGINX as a load balancer that shares traffic across backends with minimal drama and very mild heroics. For high availability pair this with virtual IPs or a cluster manager and you will be far less likely to wake up at 3 a m to answer pager tickets.</p>
+

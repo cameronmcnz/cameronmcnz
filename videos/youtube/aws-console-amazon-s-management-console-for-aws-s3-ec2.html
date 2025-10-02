@@ -1,0 +1,67 @@
+---
+layout: video
+title: "AWS Console | Amazon's Management Console for AWS S3 EC2"
+description: "Quick guide to the AWS Management Console with tips for S3 EC2 EKS Bedrock SageMaker Lambda and IAM for faster navigation and safer use"
+video_host: "youtube"
+video_id: "w0VLz0xnNJ0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT56S"
+thumbnail_url: "https://i.ytimg.com/vi/w0VLz0xnNJ0/maxresdefault.jpg"
+content_url: "https://youtu.be/w0VLz0xnNJ0"
+embed_url: "https://www.youtube.com/embed/w0VLz0xnNJ0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS Console
+  - Amazon Web Services
+  - S3
+  - EC2
+  - EKS
+  - Bedrock
+  - SageMaker
+  - Lambda
+  - IAM
+  - CloudShell
+---
+
+<h2>Getting comfortable with the AWS Console</h2>
+<p>The AWS Management Console is the web based control room for Amazon Web Services. It lets you click your way through S3 buckets EC2 instances EKS clusters Bedrock model endpoints SageMaker experiments Lambda functions and IAM policies without needing to memorize every CLI flag. The console pairs quick discovery with deep resource pages so you can both poke at something to see what it does and then automate the boring bits later.</p>
+
+<h2>Why you will actually use it</h2>
+<p>Some things are faster with a GUI and some are safer. Use the console to inspect resource details check permissions and test configurations before committing automation. The top search field finds services and resources faster than digging through nested menus. The Services menu groups common tools and pinned favorites keep the things you touch daily right where you want them.</p>
+
+<h3>What each major page gives you</h3>
+<ul>
+  <li><strong>S3</strong> shows bucket properties lifecycle rules access controls and object metrics so you can manage storage policies and avoid surprise egress bills.</li>
+  <li><strong>EC2</strong> gives instance state networking settings attached volumes and console output when instances act up.</li>
+  <li><strong>EKS</strong> surfaces cluster health node pools and workloads with logs and events for Kubernetes troubleshooting.</li>
+  <li><strong>Bedrock</strong> shows model endpoints usage metrics and access controls for generative AI workloads.</li>
+  <li><strong>SageMaker</strong> organizes notebooks training jobs and endpoints so your ML experiments are traceable and reproducible.</li>
+  <li><strong>Lambda</strong> pages include a code editor configuration for triggers and invocations plus monitoring charts for performance and errors.</li>
+  <li><strong>IAM</strong> centralizes users groups roles and policies so you can enforce least privilege without passing the root account key like a hot potato.</li>
+  <li><strong>CloudShell</strong> gives a browser based shell for quick CLI commands when you want to switch from clicking to scripting.</li>
+</ul>
+
+<h2>Quick workflow when you need to get things done</h2>
+<ul>
+  <li>Sign in with an IAM user or role that has the least privilege you need to avoid accidental admin level fireworks</li>
+  <li>Use the search field to jump to S3 EC2 EKS or any other service fast</li>
+  <li>Create or select the resource then study the details page for permissions tags metrics and configuration</li>
+  <li>Organize with tags and resource groups so bills and alarms trace back to teams and projects</li>
+  <li>Adjust IAM roles and policies instead of sharing root credentials or user secrets</li>
+</ul>
+
+<h2>Practical tips from someone who has broken things before</h2>
+<p>Fuzzy search and recent history make the search box habit forming. Inspect lifecycle rules on S3 buckets before enabling automatic deletion. Check EC2 network interfaces and attached volumes when an instance behaves oddly. For EKS check node group size and pod events before blaming the scheduler. When working with Bedrock or SageMaker monitor endpoints for latency and errors and capture logs to debug models. Use Lambda monitoring to correlate cold starts with traffic patterns.</p>
+
+<h3>Automate when manual work gets boring</h3>
+<p>The console is perfect for discovery validation and occasional fixes. When you find yourself repeating steps more than a few times switch to the AWS CLI or one of the SDKs to script the workflow. Use CloudWatch alarms and automated remediation so problems get handled before your budget emails you.</p>
+
+<h2>Security and hygiene</h2>
+<p>Never use the root account for day to day tasks. Prefer roles and scoped IAM policies and enable MFA where possible. Audit activity with CloudTrail and pair it with CloudWatch to catch surprises. Tags are your friend for cost allocation and access control mapping.</p>
+
+<h2>Final note</h2>
+<p>The AWS Management Console is both a place to poke around and a place to prepare reliable automation. Learn the layout master the search bar and then graduate to scripting when repeatable tasks become a time sink. You will still come back to the console for quick checks and dramatic late night debugging sessions and that is totally fine.</p>
+

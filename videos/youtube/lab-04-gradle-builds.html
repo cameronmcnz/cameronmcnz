@@ -1,0 +1,96 @@
+---
+layout: video
+title: "Lab 04 Gradle builds"
+description: "Practical Lab 04 guide to Gradle builds covering setup tasks dependencies wrapper and running builds with concise steps and tips"
+video_host: "youtube"
+video_id: "tK7gd9Q0lBE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT15M40S"
+thumbnail_url: "https://i.ytimg.com/vi/tK7gd9Q0lBE/maxresdefault.jpg"
+content_url: "https://youtu.be/tK7gd9Q0lBE"
+embed_url: "https://www.youtube.com/embed/tK7gd9Q0lBE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Gradle
+  - Build
+  - Java
+  - Gradle Wrapper
+  - Tasks
+  - Dependencies
+  - Build Automation
+  - Lab 04
+  - Tutorial
+  - DevOps
+---
+
+<h2>Getting started with the Lab 04 project</h2>
+<p>Welcome to the thrilling world of build automation where typing a command does what your coworker used to do by hand and then complain about. Start with a clean project folder and either run <code>gradle init</code> or create <code>settings.gradle</code> and the standard <code>src</code> structure by hand if you enjoy small rituals. Gradle will generate a skeleton that avoids most of the chaos later.</p>
+
+<h2>Create the build script that does not haunt you</h2>
+<p>Drop a <code>build.gradle</code> or <code>build.gradle.kts</code> in the project root. Apply the Java plugin and any other plugins required by Lab 04 exercises. Use readable plugin and group names so your build file reads like documentation and not an unlucky fortune.</p>
+
+<pre><code>plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.slf4j slf4j-api 1.7.36'
+    testImplementation 'junit junit 4.13.2'
+}
+</code></pre>
+
+<p>The exact dependencies will vary with the lab, but stick to <code>implementation</code> for compile time libraries and <code>testImplementation</code> for test libraries. That keeps your classpath sane and your future self less angry.</p>
+
+<h2>Declare tasks and automate annoyance removal</h2>
+<p>Gradle tasks are your friends when used responsibly. Name custom tasks clearly so anyone reading the build file understands what happens without a séance. Keep task logic focused and idempotent to keep the lab reproducible.</p>
+
+<ul>
+    <li>Create a task for repetitive setup steps</li>
+    <li>Use built in tasks where possible to avoid reinventing wheel shaped pain</li>
+    <li>Expose a <code>check</code> or <code>build</code> task that runs tests and verifies artifacts</li>
+</ul>
+
+<h3>Small example task</h3>
+<pre><code>tasks.register('printHello') {
+    doLast {
+        println 'Hello lab 04'
+    }
+}
+</code></pre>
+
+<h2>Add the Gradle Wrapper and stop version guesswork</h2>
+<p>Run <code>gradle wrapper</code> to generate the wrapper scripts. Commit the wrapper files so collaborators never argue about which Gradle version works. Pin a Gradle version in the wrapper properties to avoid surprising breaks when a new Gradle feature shows up uninvited.</p>
+
+<h2>Run the build and inspect the output</h2>
+<p>Use the wrapper to run the build so everyone is using the same toolchain. From the project root run <code>./gradlew build</code>. Build artifacts land in the <code>build</code> folder and test reports are under <code>build</code> so you can open them and see what failed without guessing.</p>
+
+<ul>
+    <li>Run <code>./gradlew tasks</code> to list available tasks and avoid wild guesses</li>
+    <li>Use <code>./gradlew build</code> to run the full build including tests</li>
+    <li>If things fail add <code>--stacktrace</code> to get the diagnostic messages you actually need</li>
+</ul>
+
+<h2>Debugging and tips for not losing time</h2>
+<p>When the build throws mysterious exceptions use the Gradle switches that tell the truth. Add <code>--stacktrace</code> to see the full trace. Add <code>--info</code> or <code>--debug</code> when you want more verbosity and fewer surprises.</p>
+
+<p>Commit the wrapper scripts to version control. Pin the Gradle distribution in the wrapper properties. These steps are boring but they save your team from environment debates that last longer than a code review.</p>
+
+<h2>Summary and quick checklist</h2>
+<p>This guide walked through the Lab 04 essentials from project initialization to running builds with the wrapper and creating tasks and dependencies that keep the workflow reproducible. Follow the checklist and you will have fewer build tragedies.</p>
+
+<ul>
+    <li>Initialize the project with <code>gradle init</code> or by creating settings and source folders</li>
+    <li>Create a clear <code>build.gradle</code> or <code>build.gradle.kts</code> with plugins and repositories</li>
+    <li>Declare dependencies with <code>implementation</code> and <code>testImplementation</code></li>
+    <li>Register helpful custom tasks with sensible names</li>
+    <li>Generate and commit the Gradle Wrapper with <code>gradle wrapper</code></li>
+    <li>Run <code>./gradlew build</code> and inspect the <code>build</code> folder and test reports</li>
+</ul>
+

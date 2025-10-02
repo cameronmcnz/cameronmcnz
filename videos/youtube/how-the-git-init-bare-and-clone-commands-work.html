@@ -1,0 +1,86 @@
+---
+layout: video
+title: "How the Git Init Bare and Clone Commands Work"
+description: "Quick guide to how git init git init --bare and git clone create repositories clones and a central bare repo for team workflows"
+video_host: "youtube"
+video_id: "mC3BqKKEUFM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M40S"
+thumbnail_url: "https://i.ytimg.com/vi/mC3BqKKEUFM/maxresdefault.jpg"
+content_url: "https://youtu.be/mC3BqKKEUFM"
+embed_url: "https://www.youtube.com/embed/mC3BqKKEUFM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git init
+  - git init --bare
+  - git clone
+  - bare repository
+  - repository
+  - version control
+  - git tutorial
+  - remote repository
+  - developer workflow
+---
+
+<h2>Quick elevator pitch</h2>
+<p>If you want a place where developers send commits and not drama, a bare repository is your mailbox. This guide explains how git init, git init --bare and git clone work together to create a sane remote repository for a team. Read on for commands, reasons, and a few sarcastic asides to keep your attention.</p>
+
+<h2>Why choose a bare repository</h2>
+<p>A bare repository contains only the Git database and refs. There is no working tree, which means no checked out files and no risk of someone accidentally editing files on the server. Think of a bare repository as a mailbox for patches rather than a workstation for editing files. That is why bare repositories are the usual choice for central hosting in a version control workflow.</p>
+
+<h2>Initialize a local repository</h2>
+<p>Start where humans work. Inside your project folder run git init to create a normal repository. That command makes a <code>.git</code> directory which stores your commits, objects, refs and configuration. Your working tree remains the files you actually edit.</p>
+<pre><code># inside your project folder
+git init
+# then do your usual work
+git add .
+git commit -m "Initial commit"
+</code></pre>
+
+<h2>Create a bare repository for sharing</h2>
+<p>On the server or a shared filesystem initialize a bare repository. Use a name that ends with .git to avoid confusing humans and tooling.</p>
+<pre><code># on the server or shared location
+git init --bare repo.git
+</code></pre>
+<p>The bare repo has no working tree, so it only contains the Git database and refs. That layout makes it safe to push to and pull from, because there is nothing to accidentally overwrite on the host.</p>
+
+<h2>Clone the bare repository and connect remotes</h2>
+<p>Developers clone the bare repository into a working copy. The clone creates a local <code>.git</code> and a working tree, and it sets the original bare repo as the remote named origin.</p>
+<pre><code># clone from a filesystem path
+git clone /srv/git/repo.git
+
+# or over SSH from a remote server
+git clone user@server:/srv/git/repo.git
+</code></pre>
+<p>After that you work in your clone with the usual commands. Commit locally then push to origin when you are ready to share. Pull from origin to receive other people's updates.</p>
+
+<h2>Developer workflow and common commands</h2>
+<ul>
+  <li>Make changes in your working tree and stage them with <code>git add</code>.</li>
+  <li>Record history with <code>git commit</code>.</li>
+  <li>Send changes to the central bare repository with <code>git push origin branch-name</code>.</li>
+  <li>Bring in updates from others with <code>git pull</code> or <code>git fetch</code> and <code>git merge</code>.</li>
+  <li>Use <code>git remote add origin</code> if you need to link an existing local repo to a bare remote.</li>
+</ul>
+
+<h3>Example linking an existing repo</h3>
+<pre><code># on your local machine inside an existing repo
+git remote add origin user@server:/srv/git/repo.git
+git push -u origin main
+</code></pre>
+
+<h2>Tips and gotchas</h2>
+<ul>
+  <li>Name bare repositories with a .git suffix for clarity, for example repo.git.</li>
+  <li>Prefer SSH access for your remote repository for security and convenience.</li>
+  <li>Remember that a bare repo has no working tree, so you cannot run builds or tests against checked out files on the server without checking out elsewhere.</li>
+  <li>File permissions and hooks still matter, so check them on the server if pushes fail mysteriously.</li>
+</ul>
+
+<h2>Recap</h2>
+<p>Initialize a local repository with git init to do development. Create a central bare repository with git init --bare to serve as a remote repository. Clone that bare repo with git clone to get working copies that developers can commit, push and pull from. Follow these steps and your developer workflow will be less chaotic and more under control, which is a small miracle in software development.</p>
+

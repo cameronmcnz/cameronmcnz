@@ -1,0 +1,70 @@
+---
+layout: video
+title: "How to Create AWS IAM Admin Users in Console"
+description: "Quick guide to create AWS IAM admin users in the AWS Management Console with best practices for permissions MFA and secure access"
+video_host: "youtube"
+video_id: "hgMHyrBBblI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT58S"
+thumbnail_url: "https://i.ytimg.com/vi/hgMHyrBBblI/maxresdefault.jpg"
+content_url: "https://youtu.be/hgMHyrBBblI"
+embed_url: "https://www.youtube.com/embed/hgMHyrBBblI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - IAM
+  - Admin
+  - Management Console
+  - MFA
+  - Security
+  - Best Practices
+  - AdministratorAccess
+  - Users
+  - Access Control
+---
+
+<p>You want an AWS IAM admin user who can actually do things without turning the cloud into a smoldering pile of permissions chaos. This guide walks you through creating a console admin user the right way while keeping security tight and your audit log from crying. We cover sign in, IAM console navigation, AdministratorAccess versus least privilege, MFA, password policy, and final checks.</p>
+
+<h2>Before you start</h2>
+<p>Use an existing admin account to do the work. The root account belongs in a digital safe with a blanket and a stern note that says do not use for day to day tasks. Root is for account recovery and billing only.</p>
+
+<h2>Create the user in the IAM console</h2>
+<ol>
+  <li><strong>Sign in</strong> with an account that has iam create user permissions.</li>
+  <li><strong>Open the IAM service</strong> from the AWS Management Console and go to Users.</li>
+  <li><strong>Create user</strong> and enable AWS Management Console access. Give the new user a clear name that follows your naming convention.</li>
+  <li><strong>Decide on programmatic access</strong> at creation time if CLI or API keys are needed. If not, avoid creating keys.</li>
+</ol>
+
+<h2>Attach admin permissions or apply least privilege</h2>
+<p>For quick setups attach the AWS managed policy named AdministratorAccess. Yes it gives broad power. If your security team enjoys chaos free environments then craft a custom policy with only the permissions the user actually needs. Most mature shops prefer roles and scoped policies over blanket access.</p>
+
+<h3>When to use AdministratorAccess</h3>
+<ul>
+  <li>Small accounts where speed beats formality and you trust the user.</li>
+  <li>Short term troubleshooting tasks where you will immediately replace access with a role or limited policy.</li>
+</ul>
+
+<h2>Enable multifactor authentication and password rules</h2>
+<p>Turn on MFA for the new user right away. Configure a virtual MFA device like Google Authenticator or an approved hardware token. Enforce a strong password policy that requires complexity and rotation according to your company rules. Treat long lived access keys with suspicion and remove any that are not needed.</p>
+
+<h2>Test the user and clean up</h2>
+<ol>
+  <li>Sign in with the new user to confirm console access and required tasks work as expected.</li>
+  <li>Verify MFA prompts work and remove any unnecessary access keys created during setup.</li>
+  <li>Document how credentials are stored and rotated so the next person does not invent new ways to lose the keys.</li>
+</ol>
+
+<h2>Best practices and alternatives</h2>
+<ul>
+  <li>Prefer creating an admin role and assuming it with temporary credentials instead of giving permanent admin users.</li>
+  <li>Use IAM roles and AWS Single Sign On where possible to centralize access control.</li>
+  <li>Adopt least privilege as a habit not a checkbox. Narrow permissions and test regularly.</li>
+  <li>Lock away root credentials and enable MFA on the root account too.</li>
+</ul>
+
+<p>If you follow these steps you will have an IAM admin user who can do their job and not accidentally terraform your billing settings. Keep logs enabled, rotate credentials, and make least privilege your new normal. Security is a process not a one time chore and yes that includes actually using MFA.</p>
+

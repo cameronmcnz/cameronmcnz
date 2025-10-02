@@ -1,0 +1,111 @@
+---
+layout: video
+title: "How to deploy a WAR file to Apache Tomcat using Jenkins CI"
+description: "Step by step guide to build a WAR and deploy to Apache Tomcat using Jenkins CI with pipeline setup credentials and deploy options"
+video_host: "youtube"
+video_id: "1HgmfMjb7mk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M51S"
+thumbnail_url: "https://i.ytimg.com/vi/1HgmfMjb7mk/maxresdefault.jpg"
+content_url: "https://youtu.be/1HgmfMjb7mk"
+embed_url: "https://www.youtube.com/embed/1HgmfMjb7mk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Tomcat
+  - WAR
+  - CI
+  - Continuous Integration
+  - Deployment
+  - Jenkins Pipeline
+  - Maven
+  - DevOps
+  - Tomcat Manager
+---
+
+<h2>Quick overview and why you should care</h2>
+<p>If you build Java webapps and you still upload WAR files by hand like it is 2006 then this guide is for you. We will show a practical Jenkins based CI workflow that builds a Maven project into a WAR, archives the artifact, and deploys it to Apache Tomcat using either a plugin or a scripted call to the Tomcat manager. You will finish with fewer late night deployments and more time to complain about other people's pipelines.</p>
+
+<h3>Prerequisites</h3>
+<ul>
+  <li>Jenkins server with access to your source code repository</li>
+  <li>Tomcat running with the manager app enabled on a reachable host</li>
+  <li>A Tomcat user that has the manager script role for automated deployments</li>
+  <li>Maven configured in Jenkins or available on the build agent</li>
+</ul>
+
+<h3>Set up Tomcat manager access</h3>
+<p>Make sure Tomcat has the manager webapp installed and add a user with the manager script role for programmatic actions. Edit conf/tomcat-users.xml and add an account like this in a safe environment only.</p>
+<pre><code>&lt;role rolename="manager-script" /&gt;
+&lt;user username="deployuser" password="verystrongpassword" roles="manager-script" /&gt;</code></pre>
+<p>Protect that endpoint with firewall rules or an internal network. Never expose the manager to the public internet unless you enjoy incident response.</p>
+
+<h3>Install Jenkins plugins or plan a scripted upload strategy</h3>
+<p>You have two sane paths. Install the Deploy to container plugin and use its convenience features in freestyle jobs, or use a pipeline and call the Tomcat manager endpoint directly with curl from a build agent. The plugin is handy for simple uploads. The scripted approach is more explicit and reproducible in pipeline code, which is usually what modern CI teams prefer.</p>
+
+<h3>Create credentials and a pipeline</h3>
+<p>Store your Tomcat username and password in Jenkins credentials. Use the credentials binding feature in your pipeline to keep secrets out of logs. Then create a declarative pipeline that checks out source, runs Maven, archives the WAR, and deploys it.</p>
+
+<h3>Build and archive the WAR</h3>
+<p>Run a standard Maven build to produce the artifact. The usual command is:</p>
+<pre><code>mvn clean package</code></pre>
+<p>Then archive the WAR so Jenkins keeps a copy for troubleshooting or rollbacks.</p>
+
+<h3>Deploy the WAR to Tomcat</h3>
+<p>Option 1 is the Jenkins plugin which takes care of uploads and restarts for you in simple scenarios. Option 2 is to call the Tomcat manager endpoint directly. The manager text API accepts uploads with basic auth which makes curl a fine tool for pipelines.</p>
+
+<h3>Example declarative pipeline snippet</h3>
+<p>This example shows credentials binding, a Maven build, artifact archive, and a curl upload to the Tomcat manager endpoint. Adjust the paths and names for your project.</p>
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage("Checkout") {
+      steps {
+        checkout scm
+      }
+    }
+    stage("Build") {
+      steps {
+        sh 'mvn clean package'
+      }
+    }
+    stage("Archive") {
+      steps {
+        archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+      }
+    }
+    stage("Deploy") {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'tomcat-creds', usernameVariable: 'TOMCAT_USER', passwordVariable: 'TOMCAT_PASS')]) {
+          sh "curl -s --fail --upload-file target/yourapp.war \"http://tomcat.example.com:8080/manager/text/deploy?path=/yourapp&update=true\" -u \"$TOMCAT_USER:$TOMCAT_PASS\""
+        }
+      }
+    }
+  }
+  post {
+    failure {
+      echo 'Build or deploy failed. Please do not panic until you have a debugger and coffee.'
+    }
+  }
+}
+</code></pre>
+<p>Notes on that command. The manager text endpoint requires basic auth and the manager script role. The update=true parameter tells Tomcat to replace the existing webapp if present. The --fail flag makes curl exit with a non zero code on HTTP errors so Jenkins marks the step failed.</p>
+
+<h3>Security and reliability tips</h3>
+<ul>
+  <li>Use Jenkins credentials instead of hard coding passwords</li>
+  <li>Limit Tomcat manager access by IP and network rules</li>
+  <li>Prefer the manager script role over manager gui role for automation</li>
+  <li>Add health checks after deployment to detect failed restarts early</li>
+  <li>Keep artifact archives so you can roll back without tears</li>
+</ul>
+
+<h3>When to use the plugin</h3>
+<p>If you want a GUI driven, low scripting setup then the Deploy to container plugin is fine for simple apps. For pipeline driven CI and repeatable DevOps workflows you will probably prefer the curl approach or an SSH based deployment to a controlled deployment host that then pushes to Tomcat.</p>
+
+<h3>Final notes and a tiny reality check</h3>
+<p>This workflow covers the practical steps: configure Tomcat manager, add Jenkins credentials, run a Maven build to produce a WAR, archive the artifact, and deploy via plugin or direct manager call. It keeps secrets out of logs and reduces human error. Now go automate it and enjoy not manually throwing WAR files at servers while your manager asks about deployment windows.</p>
+

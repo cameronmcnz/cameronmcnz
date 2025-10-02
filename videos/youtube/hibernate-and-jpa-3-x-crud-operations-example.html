@@ -1,0 +1,84 @@
+---
+layout: video
+title: "Hibernate and JPA 3.x CRUD Operations Example"
+description: "Step by step guide to implement CRUD with Hibernate and JPA 3.x including setup entity mapping configuration and basic CRUD code samples."
+video_host: "youtube"
+video_id: "sfBtgMAKeF0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT24M25S"
+thumbnail_url: "https://i.ytimg.com/vi/sfBtgMAKeF0/maxresdefault.jpg"
+content_url: "https://youtu.be/sfBtgMAKeF0"
+embed_url: "https://www.youtube.com/embed/sfBtgMAKeF0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Hibernate
+  - JPA
+  - Java
+  - CRUD
+  - EntityManager
+  - Persistence
+  - ORM
+  - Spring Boot
+  - Database
+  - Tutorial
+---
+
+<p>If you need to do CRUD with Hibernate and JPA 3.x in a Java app and you want to avoid mystical ORM surprises, this guide is for you. It keeps the concepts tight and the examples practical while sneaking in a few sarcastic comments to keep you awake.</p>
+
+<h2>Project setup and dependencies</h2>
+<p>Start with the Jakarta Persistence API and a Hibernate build that supports JPA 3.x. Pick Maven or Gradle and add Hibernate ORM plus the JDBC driver for your database. If you use Spring Boot you can lean on starter dependencies and a managed DataSource to stop writing plumbing code all day.</p>
+
+<ul>
+  <li>Include jakarta.persistence API and a matching Hibernate release</li>
+  <li>Add the JDBC driver for your database</li>
+  <li>If using Spring Boot add spring boot starter data jpa and configure the datasource</li>
+</ul>
+
+<h2>Define entity and mapping</h2>
+<p>Make plain Java classes and annotate them with JPA annotations. Keep the mapping simple for basic CRUD. Annotate the primary key and any relationships. If you want safer concurrent updates add a version field with the @Version annotation.</p>
+
+<h3>Entity checklist</h3>
+<ul>
+  <li>Annotate the class with @Entity</li>
+  <li>Annotate the ID with @Id and a generation strategy when appropriate</li>
+  <li>Mark relationships with @ManyToOne or @OneToMany only when you need them</li>
+  <li>Consider a @Version field for optimistic locking</li>
+</ul>
+
+<h2>Configure persistence and EntityManager</h2>
+<p>You can use a persistence.xml file and create an EntityManagerFactory, or let Spring Boot configure an EntityManager for you and manage transactions for cleaner code. Either way you end up with an EntityManager that is your CRUD workhorse.</p>
+
+<p>Useful properties to enable during development include showing SQL to verify what Hibernate emits and setting a sensible hbm2ddl strategy while you are iterating. Watching SQL is the fastest way to catch mapping mistakes or lazy loading surprises.</p>
+
+<h2>Implement create read update delete methods</h2>
+<p>Keep the operations small and explicit. The API calls are simple and honest.</p>
+
+<ul>
+  <li>Create: call <code>entityManager.persist(entity)</code> inside a transaction</li>
+  <li>Read: call <code>entityManager.find(EntityClass.class, id)</code> or use a JPQL query</li>
+  <li>Update: attach or merge the detached entity with <code>entityManager.merge(entity)</code></li>
+  <li>Delete: remove an entity with <code>entityManager.remove(entity)</code> after it is managed</li>
+</ul>
+
+<p>Remember that these calls need transaction boundaries. If you are using container managed transactions or Spring transaction annotations you get begin and commit behavior for free. If you manage transactions yourself make sure to rollback on exceptions so you do not leave the database in a grumpy state.</p>
+
+<h2>Testing and transaction handling</h2>
+<p>Write simple unit tests or a small main runner to exercise each CRUD path. Verify SQL logs to confirm what is actually happening. Pay special attention to lazy loaded associations when your tests run outside the usual transaction scope.</p>
+
+<ul>
+  <li>Run a test that inserts, queries, updates and deletes the same entity to confirm lifecycle behavior</li>
+  <li>Enable SQL logging to catch unexpected queries and N plus one problems</li>
+  <li>Use optimistic locking with @Version for safe concurrent updates</li>
+</ul>
+
+<h2>Tips and pitfalls</h2>
+<p>Do not overfetch relationships when you only need a few columns. Use projections or explicit joins when performance matters. Avoid relying on merge to magically do everything for complex object graphs. Merge works, but it has rules and surprises that will make you reread the docs at 2 AM.</p>
+
+<p>When using Spring Boot prefer letting it manage the EntityManager and transactions. It reduces boilerplate and keeps your code focused on business logic rather than entity lifecycle choreography.</p>
+
+<h2>Wrap up</h2>
+<p>This pragmatic walkthrough gives you the essentials to implement CRUD with Hibernate and JPA 3.x in Java. Add dependencies, map entities, configure persistence, and implement explicit CRUD methods inside transactions. Test everything and enable SQL logging. With those pieces in place your ORM will be a helpful tool instead of a plot twist in your next bug report.</p>
+

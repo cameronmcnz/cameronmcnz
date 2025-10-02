@@ -1,0 +1,62 @@
+---
+layout: video
+title: "Git Branch Create and Checkout in one Command Example"
+description: "Quick guide to create and checkout a Git branch in one command with examples and safe workflow tips"
+video_host: "youtube"
+video_id: "sebZZiQGJTw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT54S"
+thumbnail_url: "https://i.ytimg.com/vi/sebZZiQGJTw/maxresdefault.jpg"
+content_url: "https://youtu.be/sebZZiQGJTw"
+embed_url: "https://www.youtube.com/embed/sebZZiQGJTw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - branch
+  - checkout
+  - git checkout -b
+  - git switch -c
+  - git tutorial
+  - version control
+  - command line
+  - git tips
+  - branching strategy
+---
+
+<p>Want to make a new Git branch and hop onto it without doing a little dance at the command line? Good. This short guide shows the quick, correct and slightly smug way to create a branch and check it out in one go. You will learn the commands used in modern version control workflows and get a few git tips to avoid the usual oops moments.</p>
+
+<h2>Quick prep before you branch</h2>
+<p>Before you create a branch make sure your working tree is clean and your base is up to date. That means running these two checks from your command line.</p>
+<pre><code>git status
+git pull</code></pre>
+<p>If git status shows uncommitted changes either stash them or commit them. If you skip this you may end up branching off of unfinished work and then explaining yourself in a pull request.</p>
+
+<h2>Create and switch in one command</h2>
+<p>Two commands do the same useful trick with different flavors. Pick your poison.</p>
+<ul>
+<li><strong>Classic</strong> use the familiar command <code>git checkout -b feature/name</code>. It creates the branch and switches to it.</li>
+<li><strong>Explicit</strong> use the newer command <code>git switch -c feature/name</code>. It says exactly what you meant to do which is nice for humans and code reviewers.</li>
+</ul>
+<p>Both commands create the branch and move your working directory over in a single step. Less typing means more time for actual coding or mild procrastination, your call.</p>
+
+<h3>When the branch already exists</h3>
+<p>If the branch name already exists git will complain and not overwrite anything. To switch to an existing branch use <code>git switch feature/name</code> or <code>git checkout feature/name</code>. If you really meant to recreate it get explicit about deleting and recreating after discussing with your teammates.</p>
+
+<h2>Verify and push to remote</h2>
+<p>Confirm where you are with either <code>git branch</code> or <code>git status</code>. When you are ready to share run this command once.</p>
+<pre><code>git push -u origin feature/name</code></pre>
+<p>The <code>-u</code> flag sets an upstream so future <code>git push</code> and <code>git pull</code> default to the right remote branch. This spares you from typing and from the mild panic that comes from pushing to master by accident.</p>
+
+<h2>Branch naming and workflow tips</h2>
+<ul>
+<li>Use clear prefixes like <code>feature/</code> <code>fix/</code> or <code>chore/</code> so pull requests are readable.</li>
+<li>Always branch from an updated main branch to avoid merge surprises.</li>
+<li>Prefer <code>git switch -c</code> for clarity and <code>git checkout -b</code> if you are sticking with older habits.</li>
+</ul>
+
+<h2>Quick recap</h2>
+<p>Update your local copy. Create and switch with one of the single step commands. Verify your branch and push upstream. Follow a sensible branching strategy and name your branches clearly. That is the whole trick for fast, tidy feature work in git. Now go make something useful or at least confusing enough to be interesting.</p>
+

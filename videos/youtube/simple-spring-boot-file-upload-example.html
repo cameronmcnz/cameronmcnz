@@ -1,0 +1,100 @@
+---
+layout: video
+title: "Simple Spring Boot File Upload Example"
+description: "Compact guide to add multipart file upload to a Spring Boot app with controller storage and quick testing tips"
+video_host: "youtube"
+video_id: "hHLxdUNn-Dg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M5S"
+thumbnail_url: "https://i.ytimg.com/vi/hHLxdUNn-Dg/maxresdefault.jpg"
+content_url: "https://youtu.be/hHLxdUNn-Dg"
+embed_url: "https://www.youtube.com/embed/hHLxdUNn-Dg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - spring
+  - spring boot
+  - file upload
+  - multipart
+  - java
+  - spring mvc
+  - controller
+  - multipartfile
+  - file storage
+  - upload tutorial
+---
+
+<h2>Short version that does not waste your time</h2>
+<p>Want to accept file uploads in a Spring Boot app without inviting chaos or bad actors? This guide shows a tidy path to multipart file upload with Spring MVC and MultipartFile, how to validate and save files to disk, and how to test the whole thing like a responsible developer who likes backups.</p>
+
+<h2>Why you should not trust filenames and user input</h2>
+<p>User supplied filenames are delightful traps. They can overwrite things, carry sneaky paths, or just crash your dignity. Treat uploads like uninvited guests. Validate type, enforce size limits, and always build a safe filename on the server side.</p>
+
+<h3>What you need in your project</h3>
+<ul>
+  <li>Spring Boot web starter such as spring-boot-starter-web to bring Spring MVC and servlet multipart support</li>
+  <li>Properties in application properties or yaml for multipart limits and a storage path such as spring.servlet.multipart.max-file-size and spring.servlet.multipart.max-request-size and a custom upload folder setting</li>
+  <li>Controller that accepts MultipartFile and a storage helper</li>
+</ul>
+
+<h2>Configuration tips that will save your weekend</h2>
+<p>In application properties configure limits and a folder for saved files. Examples of property names look like spring.servlet.multipart.max-file-size and spring.servlet.multipart.max-request-size. Also expose a custom property like file.upload-dir to point to a safe storage folder that your app can write to.</p>
+
+<h3>Controller design notes</h3>
+<p>Keep your controller simple and mean. Accept a MultipartFile, run quick checks, then persist the file atomically. A common pattern is to:</p>
+<ul>
+  <li>Reject empty uploads</li>
+  <li>Reject files that exceed configured limits</li>
+  <li>Optionally check content type against an allow list</li>
+  <li>Produce a safe filename using a UUID prefix and a sanitized original name</li>
+</ul>
+
+<h3>Example handler sketch</h3>
+<pre><code>@PostMapping("/upload")
+public ResponseEntity upload(MultipartFile file) throws IOException {
+  if (file == null || file.isEmpty()) {
+    return ResponseEntity.badRequest().body("No file provided")
+  }
+
+  String original = Paths.get(file.getOriginalFilename()).getFileName().toString()
+  String safeName = UUID.randomUUID().toString() + "_" + original
+  Path target = Paths.get(uploadDir).resolve(safeName).normalize()
+
+  // Optional content type check
+  String contentType = file.getContentType()
+  if (contentType == null || !allowedContentTypes.contains(contentType)) {
+    return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("Invalid file type")
+  }
+
+  // Save the file using transferTo or streaming for large files
+  file.transferTo(target.toFile())
+
+  return ResponseEntity.ok(Map.of("filename", safeName))
+}
+</code></pre>
+<p>That sketch skips some Java punctuation so it reads better in prose. In real code keep try catch blocks and handle IO errors and security checks fully.</p>
+
+<h2>Storage hygiene and safety checklist</h2>
+<ul>
+  <li>Never trust the original filename to determine storage paths</li>
+  <li>Use a UUID or timestamp prefix to avoid collisions and accidental overwrites</li>
+  <li>Validate file size against spring.servlet.multipart settings to avoid memory or disk exhaustion</li>
+  <li>Keep uploads outside of static resource folders unless you really want them to be public</li>
+  <li>Scan or otherwise validate files if you accept executable or archive content</li>
+</ul>
+
+<h2>Testing the upload endpoint</h2>
+<p>Use Postman or curl to send a multipart form data request to your upload endpoint. For curl use the form option and point to a local sample file. Confirm the response includes the saved filename and that the file appears in your configured folder.</p>
+
+<h2>Common gotchas and how to avoid them</h2>
+<ul>
+  <li>Overwriting files when two uploads share a name. Fix this with UUIDs or per user folders</li>
+  <li>Wrong content type reported by browsers. Rely on server side checks and validation not just the reported MIME type</li>
+  <li>Large files blowing up memory. Use streaming APIs or increase multipart limits carefully and monitor disk usage</li>
+</ul>
+
+<h2>Parting advice</h2>
+<p>File upload is simple when you treat it like plumbing. Configure multipart limits, validate early, sanitize names, and save safely. With a little discipline your Spring Boot file upload endpoint will behave and not ruin anyone's day. Now go build something that accepts photos not chaos.</p>
+

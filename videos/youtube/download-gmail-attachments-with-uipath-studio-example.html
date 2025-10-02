@@ -1,0 +1,96 @@
+---
+layout: video
+title: "Download Gmail attachments with UiPath Studio Example"
+description: "Step by step guide to download Gmail attachments using UiPath Studio with Gmail scope filters message retrieval and file saving best practices"
+video_host: "youtube"
+video_id: "djvOK2X0zqo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M32S"
+thumbnail_url: "https://i.ytimg.com/vi/djvOK2X0zqo/maxresdefault.jpg"
+content_url: "https://youtu.be/djvOK2X0zqo"
+embed_url: "https://www.youtube.com/embed/djvOK2X0zqo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Gmail
+  - attachments
+  - automation
+  - RPA
+  - GetMailMessages
+  - workflow
+  - file handling
+  - tutorial
+  - email automation
+---
+
+<p>If you are tired of playing inbox archaeologist and manually saving every attachment one at a time this UiPath tutorial is for you. We build a compact Gmail to disk automation that actually behaves itself. Expect OAuth based Gmail access, a targeted Get Mail Messages fetch, attachment extraction and sensible file handling so your downloads do not become a mess.</p>
+
+<h2>What you need before you start</h2>
+<p>Do not try this with duct tape and hope. Gather these items first</p>
+<ul>
+  <li>UiPath Studio with the Gmail activities package installed</li>
+  <li>OAuth credentials for the Gmail scope so the robot can authenticate</li>
+  <li>A target folder on disk with write permissions for the robot user</li>
+  <li>Optional Orchestrator asset or Windows Credential Manager entry for secure credential storage</li>
+</ul>
+
+<h2>High level workflow</h2>
+<p>This is the short version for people who like bullets and who also enjoy predictable outcomes</p>
+<ol>
+  <li>Put a Gmail scope activity in the sequence and point it at your OAuth credentials</li>
+  <li>Add a Get Mail Messages activity and configure filters so you only fetch what matters</li>
+  <li>Loop over the returned MailMessage list with a For Each</li>
+  <li>Save attachments either with Save Attachments or by iterating Attachments and using Write File or Write Bytes</li>
+  <li>Name files uniquely and wrap file IO in a Try Catch block to handle permission and IO exceptions</li>
+  <li>Log message id and saved path so future you will not hate past you</li>
+</ol>
+
+<h2>Configure Get Mail Messages for sensible results</h2>
+<p>Fetching the entire inbox is a heroic way to waste time and CPU. Use query filters such as hasAttachment true plus sender or subject keywords and set maxMessages to limit each run. Tighter filters mean faster runs and fewer false positives.</p>
+
+<h3>Filter ideas</h3>
+<ul>
+  <li>hasAttachment true to only grab messages that actually have attachments</li>
+  <li>from equals a known sender to limit scope to trusted sources</li>
+  <li>subject contains a project code or invoice number to target relevant mail</li>
+</ul>
+
+<h2>Saving attachments without causing chaos</h2>
+<p>Two approaches work well. Use the built in Save Attachments activity for speed. If you want control over filenames or encoding iterate the Attachments collection and use Write File or Write Bytes.</p>
+
+<h3>Filename strategy</h3>
+<p>Never save files with their raw attachment name and call it a day. Prepend a timestamp or message id and preserve the original name in the new filename. Example pattern</p>
+<ul>
+  <li>yyyyMMdd_HHmmss_messageId_originalName.ext</li>
+</ul>
+<p>Before saving check if the file already exists and decide whether to skip rename or overwrite. Logging the final saved path prevents a future investigation into why that PDF vanished into the void.</p>
+
+<h2>Error handling and review flow</h2>
+<p>Wrap file operations in Try Catch to handle permission and IO exceptions gracefully. For messages that fail extraction move or label them for manual review. That way the robot is not allowed to silently fail and hide problems from you.</p>
+
+<h3>Suggested actions on failure</h3>
+<ul>
+  <li>Catch exceptions and write an error log entry with message id and exception message</li>
+  <li>Move the message to a review folder or apply a review label for manual inspection</li>
+  <li>Retry logic can be added for transient IO problems but avoid infinite loops</li>
+</ul>
+
+<h2>Run verification and troubleshooting</h2>
+<p>Run the workflow in Studio and watch the Output panel. Then check the target folder to confirm saved files match expectations. If attachments are missing tighten your Get Mail Messages filters or add more logging for message headers and attachment names.</p>
+
+<h2>Security and best practices</h2>
+<p>Store Gmail credentials in Orchestrator assets or Windows Credential Manager rather than hard coding them. Add logging for message id and saved path to make troubleshooting less painful. Keep the workflow small and modular so you can test parts independently.</p>
+
+<h2>Final tips from someone who has seen messy inboxes</h2>
+<ul>
+  <li>Use timestamped filenames and include the message id for traceability</li>
+  <li>Limit maxMessages during testing so you do not process thousands of emails by accident</li>
+  <li>Log enough information to debug later but avoid logging sensitive content</li>
+  <li>Automate the easy part and let humans handle the weird exceptions</li>
+</ul>
+
+<p>That is the gist. This workflow connects to Gmail, retrieves filtered messages with Get Mail Messages, extracts attachments and writes files to disk with basic safeguards. With secure credential storage and simple logging your automation will be useful and not a liability.</p>
+

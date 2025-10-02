@@ -1,0 +1,80 @@
+---
+layout: video
+title: "Jenkins GitHub Integration"
+description: "Quick guide to connect Jenkins with GitHub for automated builds using webhooks pipelines credentials and multibranch jobs"
+video_host: "youtube"
+video_id: "rwbN6JjDCXo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M40S"
+thumbnail_url: "https://i.ytimg.com/vi/rwbN6JjDCXo/maxresdefault.jpg"
+content_url: "https://youtu.be/rwbN6JjDCXo"
+embed_url: "https://www.youtube.com/embed/rwbN6JjDCXo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - GitHub
+  - CI
+  - CD
+  - webhooks
+  - pipeline
+  - Jenkinsfile
+  - Git
+  - automation
+  - DevOps
+---
+
+<h2>Why connect GitHub and Jenkins</h2>
+<p>If you like your code to be tested automatically and your late nights to be slightly less chaotic then linking GitHub and Jenkins is the tiny miracle you need. This setup triggers builds when code changes arrive so you do not have to babysit the merge button or scream at the terminal.</p>
+
+<h2>Install required plugins</h2>
+<p>Use the Jenkins plugin manager and add these plugins so Jenkins can actually talk to GitHub and run pipelines without interpretive dance.</p>
+<ul>
+  <li>Git plugin for SCM access</li>
+  <li>GitHub plugin for basic integration</li>
+  <li>Pipeline plugin for running Jenkinsfile scripts</li>
+  <li>GitHub Branch Source plugin for Multibranch discovery</li>
+</ul>
+
+<h2>Add GitHub credentials</h2>
+<p>Create a personal access token on GitHub and give it repo scope plus repo hook admin access so it can register webhooks and read repositories. In Jenkins go to Credentials and add that token as a secret text credential. Give it a clear ID so future you will not cry wondering which token is which.</p>
+
+<h2>Create a Pipeline or Multibranch job</h2>
+<p>For a single branch create a Pipeline job and choose Pipeline script from SCM. Point it to your repo and pick the credentials you just added. For many branches use a Multibranch Pipeline job with the GitHub Branch Source so branches and pull requests are discovered automatically. This makes CI behave like an organized adult rather than a caffeine fueled chaos engine.</p>
+
+<h2>Configure GitHub webhook</h2>
+<p>In your repository settings add a webhook that targets your Jenkins public URL plus the path <code>/github-webhook/</code>. Choose push events and pull request events so Jenkins gets notified when code lands or is proposed. If your Jenkins instance is behind a firewall or NAT you will need a public endpoint or a tunnel service so GitHub can reach it.</p>
+
+<h2>Test and troubleshoot</h2>
+<p>Push a tiny commit and watch the job queue and console output. If nothing happens check the webhook delivery logs in GitHub and the system logs in Jenkins. Common culprits are an unreachable Jenkins URL wrong credentials missing plugins or blocked traffic from GitHub. Also verify that your Multibranch job scanned and found the branch you expected.</p>
+
+<h3>Quick checks</h3>
+<ul>
+  <li>Confirm the credential ID matches the job configuration</li>
+  <li>Look at webhook delivery status on GitHub for HTTP responses and payload errors</li>
+  <li>Inspect Jenkins logs and job console for authentication or checkout failures</li>
+  <li>Use a simple commit to avoid noise from unrelated changes</li>
+</ul>
+
+<h3>Tiny Jenkinsfile example</h3>
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'echo Building'
+      }
+    }
+  }
+}</code></pre>
+
+<h2>Final tip</h2>
+<p>Prefer Multibranch Pipeline with a Jenkinsfile in each branch for reproducible builds. Keep your GitHub token stored as a Jenkins secret credential not plain text. Set up webhooks and your CI will run automatically which feels like magic until you forget to update a plugin and then it is dark magic again.</p>
+

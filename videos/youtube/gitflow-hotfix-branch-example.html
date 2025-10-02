@@ -1,0 +1,74 @@
+---
+layout: video
+title: "Gitflow Hotfix Branch Example"
+description: "Step by step guide to create merge and tag a Gitflow hotfix branch for fast production fixes using Git commands and practical advice"
+video_host: "youtube"
+video_id: "5q75eeEYApk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M6S"
+thumbnail_url: "https://i.ytimg.com/vi/5q75eeEYApk/maxresdefault.jpg"
+content_url: "https://youtu.be/5q75eeEYApk"
+embed_url: "https://www.youtube.com/embed/5q75eeEYApk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gitflow
+  - hotfix
+  - git
+  - branches
+  - release
+  - master
+  - develop
+  - git tutorial
+  - version control
+  - merge strategies
+---
+
+<p>If production is coughing and the users are texting angry emojis this is your emergency plan. A Gitflow hotfix branch gets a critical bug patched, keeps history readable and makes sure the same fix lands on the develop line without drama. This guide walks through the commands and the tiny bit of discipline required to avoid chaos.</p>
+
+<h2>When to use a hotfix branch</h2>
+<p>Hotfix branches are for urgent fixes that must reach production right away. Use them when you need a minimal, focused change to master or main in your Gitflow release process. If the problem can wait for the next sprint then use a normal feature or release branch instead.</p>
+
+<h2>Create the hotfix branch</h2>
+<p>Start from the production branch which is usually named master or main. Give the branch a clear name that starts with hotfix slash and a version number or short description so your teammates stop guessing what it does.</p>
+<pre><code>git checkout master
+git pull origin master
+git checkout -b hotfix/1.2.1</code></pre>
+
+<h2>Apply the fix and commit</h2>
+<p>Make the smallest change that actually fixes the issue. Small focused commits are your friends because reviews and rollbacks are easier. Run a quick local test before you commit so you do not create more work for everyone else.</p>
+<pre><code>git add .
+git commit -m 'Fix critical bug in payment flow'</code></pre>
+
+<h2>Merge into production and tag the release</h2>
+<p>Merge the hotfix into production with a no fast forward merge to preserve a visible branch point in history. Then create an annotated tag for the hotfix release. After that merge the same hotfix into develop so the fix does not vanish when the next release ships.</p>
+<pre><code>git checkout master
+git merge --no-ff hotfix/1.2.1
+git tag -a v1.2.1 -m 'Hotfix release 1.2.1'
+
+git checkout develop
+git merge --no-ff hotfix/1.2.1</code></pre>
+<p>If you hit merge conflicts when merging into develop handle them carefully. The production merge is the priority. Resolve conflicts, test, and keep commit messages clear so audit trails for version control stay sane.</p>
+
+<h2>Push changes and cleanup</h2>
+<p>Push the production branch and tags first so the fix is live on remote. Then push develop. Finally remove the remote hotfix branch to avoid branch soup.</p>
+<pre><code>git push origin master --tags
+git push origin develop
+git push origin --delete hotfix/1.2.1</code></pre>
+
+<h3>Quick checklist before you merge</h3>
+<ul>
+  <li>Run a slim automated test suite on the hotfix branch</li>
+  <li>Keep commits focused and message them clearly</li>
+  <li>Use --no-ff merges to preserve the hotfix story in history</li>
+  <li>Tag the release with an annotated tag for audits and rollbacks</li>
+  <li>Merge the hotfix into develop to avoid regressions</li>
+</ul>
+
+<h2>Tips from the real world</h2>
+<p>If your repo loves merge noise consider a short policy about hotfix naming and tagging. If your team prefers a linear history then you can use a different merge strategy but be consistent. This is a practical git tutorial style workflow that keeps release tags clear and prevents hotfixes from getting lost in the branch forest.</p>
+
+<p>Follow the steps and you will ship a hotfix that fixes the problem, keeps history readable and spares the team pointless mystery hunting later. Or at least you will look like you knew what you were doing while the users calm down.
+

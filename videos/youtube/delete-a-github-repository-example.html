@@ -1,0 +1,76 @@
+---
+layout: video
+title: "delete a GitHub repository example"
+description: "Step by step guide to delete a GitHub repository from the web interface with safety checks and confirmation steps."
+video_host: "youtube"
+video_id: "vE4KSsuJG2o"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M14S"
+thumbnail_url: "https://i.ytimg.com/vi/vE4KSsuJG2o/maxresdefault.jpg"
+content_url: "https://youtu.be/vE4KSsuJG2o"
+embed_url: "https://www.youtube.com/embed/vE4KSsuJG2o"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub
+  - delete repository
+  - repository deletion
+  - Git
+  - GitHub tutorial
+  - remove repo
+  - delete repo guide
+  - version control
+  - repo cleanup
+  - GitHub settings
+---
+
+<article>
+  <p>Deleting a GitHub repository is like tossing a jar of marbles off a cliff. It feels decisive and a little dramatic. This guide walks you through removing a GitHub repo using the web interface while helping you avoid the parts that make you regret your life choices later.</p>
+
+  <h2>Before you hit delete</h2>
+  <p>Pause for a moment and breathe. Repository deletion is permanent unless you have a backup. Do these checks so you do not cause a small office crisis.</p>
+  <ul>
+    <li>Confirm you own the repo or have admin rights on the organization. If this is someone else s repo you do not get to play executioner.</li>
+    <li>Check for forks and collaborators. Other people might still rely on the code or issues.</li>
+    <li>Decide if archiving is better than deleting. Archiving keeps the repo read only on GitHub and is reversible.</li>
+    <li>Create a backup. Use git clone or git clone --mirror for a full mirror. You can also use the Code menu to download a ZIP of the working tree.</li>
+    <li>Export important metadata if needed. Issues wikis and release notes may require separate exports or manual saves.</li>
+  </ul>
+
+  <h2>Step by step using the GitHub web interface</h2>
+  <p>Ready for the responsible part. These are the exact clicks that remove the repository from your account.</p>
+  <ol>
+    <li>Sign in to GitHub with the account that owns the repository. Two factor authentication may be required and that is a good thing for security.</li>
+    <li>Open the repository main page. Look at the top menu and click Settings.</li>
+    <li>Scroll down to the Danger Zone near the bottom of Settings. Yes it is dramatic by design.</li>
+    <li>Click Delete this repository. A confirmation dialog will appear to make sure you mean it.</li>
+    <li>Type the full repository name exactly as shown in the confirmation field. This prevents accidental deletion of a similarly named repo.</li>
+    <li>If prompted authenticate again with your password or complete two factor verification.</li>
+    <li>Confirm the deletion. After this the repository is removed from the account and from public view unless a backup or fork exists elsewhere.</li>
+  </ol>
+
+  <h3>Who can delete a repository</h3>
+  <p>Personal repos can be deleted by the account owner. Organization repos usually require admin or owner permissions. If you do not see the delete option you probably do not have the rights to perform repository deletion.</p>
+
+  <h2>What happens after deletion</h2>
+  <p>When GitHub deletes a repository the project, issues wikis and settings are removed from your account. If you have a mirror or a local clone you can rebuild history from that. Forks that exist in other accounts will remain unless those users delete them.</p>
+
+  <h2>Safer alternatives to permanent deletion</h2>
+  <ul>
+    <li>Archive the repository to preserve history while preventing new changes.</li>
+    <li>Transfer the repository to an archive organization if you want it off your main account but still accessible.</li>
+    <li>Make a local mirror with git clone --mirror and store it offsite.</li>
+  </ul>
+
+  <h2>Final checklist before deletion</h2>
+  <ul>
+    <li>Back up the code and important metadata like issues and release notes.</li>
+    <li>Notify teammates and check dependent services like CI, package registries and GitHub Pages.</li>
+    <li>Confirm organization and team permissions so you do not surprise coworkers with a vanished repo.</li>
+  </ul>
+
+  <p>There you go. You have the delete repo guide plus common sense wrapped in sarcasm. If you are still certain the repo must die proceed with the steps above and try not to cry when someone asks for that one line of code from 2016.</p>
+</article>
+

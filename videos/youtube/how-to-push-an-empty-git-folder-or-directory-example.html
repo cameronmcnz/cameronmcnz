@@ -1,0 +1,54 @@
+---
+layout: video
+title: "How to Push an Empty Git Folder or Directory Example"
+description: "Learn how to push an empty Git folder to a remote repository using a placeholder file and a few simple git commands for clean commits."
+video_host: "youtube"
+video_id: "1G6MuNJch68"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M53S"
+thumbnail_url: "https://i.ytimg.com/vi/1G6MuNJch68/maxresdefault.jpg"
+content_url: "https://youtu.be/1G6MuNJch68"
+embed_url: "https://www.youtube.com/embed/1G6MuNJch68"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - empty folder
+  - git tutorial
+  - git push
+  - .gitkeep
+  - gitignore
+  - version control
+  - github
+  - command line
+  - developer tips
+---
+
+<h1>Keep empty folders in Git with .gitkeep and gitignore rules that work</h1>
+<p>Git has very specific tastes. It tracks files not folders, which means an empty directory is invisible to commits and remote repos. If you want a folder to exist in the repository so builds do not puke or collaborators do not get confused, add a tiny tracked file that says I belong here. That is the role of a placeholder like <code>.gitkeep</code>.</p>
+<h2>Quick steps that actually work</h2>
+<ul>
+  <li>Create the folder with your file manager or the command line. For example use <code>mkdir myfolder</code> on Unix or make a new folder in Explorer on Windows.</li>
+  <li>Add a placeholder file inside the folder. A common choice is <code>.gitkeep</code>. Create it with <code>touch myfolder/.gitkeep</code> or with your editor of choice.</li>
+  <li>Stage and commit the placeholder with <code>git add myfolder/.gitkeep</code> and <code>git commit -m "Add empty folder placeholder"</code>.</li>
+  <li>Push the commit to the remote branch with <code>git push origin main</code> or replace main with your branch name.</li>
+</ul>
+<h2>Why this works</h2>
+<p>Git stores content at the file level. When a folder contains a tracked file it becomes part of the commit tree and shows up on remote hosts like GitHub. <code>.gitkeep</code> is not special to Git. It is a convention that communicates intent so future humans know the folder is supposed to be there.</p>
+<h3>Alternative approach with gitignore rules</h3>
+<p>If you want a folder to be present but ignore most files inside it you can combine ignore rules with an allow rule. Put this in your <code>.gitignore</code> or a repo level ignore file</p>
+<pre><code>myfolder/*
+!myfolder/.gitkeep
+</code></pre>
+<p>This tells Git to ignore everything under <code>myfolder</code> except the tracked <code>.gitkeep</code> file. Test your rules so at least one tracked file remains in each folder you want preserved.</p>
+<h2>Troubleshooting and practical tips</h2>
+<ul>
+  <li>If <code>git status</code> shows nothing to commit then the placeholder was not added. Run <code>git add</code> and check again.</li>
+  <li>Use a tiny file. Do not commit a giant dummy binary just to keep a folder visible.</li>
+  <li><code>.gitkeep</code> is a team choice. Some teams prefer a short <code>README.md</code> inside the folder to explain its purpose.</li>
+  <li>When you push the commit the remote repo will display the folder because the tracked file is included in the commit tree.</li>
+</ul>
+<p>In short add a polite placeholder, commit it, push it, and move on. Your repository will stop playing hide and seek with empty folders and your teammates will thank you for not committing useless garbage.</p>
+

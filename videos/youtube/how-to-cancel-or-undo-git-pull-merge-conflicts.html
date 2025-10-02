@@ -1,0 +1,72 @@
+---
+layout: video
+title: "How to cancel or undo git pull merge conflicts"
+description: "Quick guide to abort or undo a git pull that caused merge conflicts with safe commands and recovery tips for a clean working tree"
+video_host: "youtube"
+video_id: "8UEHexHwU9o"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M2S"
+thumbnail_url: "https://i.ytimg.com/vi/8UEHexHwU9o/maxresdefault.jpg"
+content_url: "https://youtu.be/8UEHexHwU9o"
+embed_url: "https://www.youtube.com/embed/8UEHexHwU9o"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - merge conflicts
+  - git pull
+  - git merge --abort
+  - git reset --hard
+  - git reflog
+  - git stash
+  - version control
+  - developer tips
+  - undo git pull
+---
+
+<h2>Check for an ongoing merge</h2>
+<p>When git decides to throw a tantrum and stops mid pull you need to know if a merge is in progress. Run <code>git status</code> and look for messages about a merge conflict or an ongoing merge sequence. This is the calm before the debugging storm.</p>
+<pre><code>git status</code></pre>
+
+<h2>Abort the merge for the least dramatic escape</h2>
+<p>If a merge sequence is active the first and least risky move is to abort it. Use <code>git merge --abort</code> to roll back to the state before the pull started. This usually gets you out cleanly and fast.</p>
+<pre><code>git merge --abort</code></pre>
+
+<h2>When abort fails use the nuclear reset</h2>
+<p>Sometimes <code>git merge --abort</code> will complain or the bad merge was already committed. In that case fetch the remote branch then force your branch to match it. Warning this will discard local changes so be sure you have saved anything important.</p>
+<pre><code>git fetch origin
+git reset --hard origin/branch-name</code></pre>
+
+<h2>Save your local work before destructive commands</h2>
+<p>If you have any local edits worth keeping stash or branch them first. Stash gives you a temporary safe place while creating a new branch gives you a named refuge for later digging. Both options beat explaining to your team why you nuked hours of work.</p>
+<pre><code>git stash push -m "save before undo"
+# or
+git checkout -b save-my-work</code></pre>
+
+<h2>Recover a committed merge with reflog</h2>
+<p>If the merge was already committed and you need to rewind the timeline git reflog is your time machine. Inspect the recent history and pick a safe entry. Then reset to that commit to restore your branch to the desired point.</p>
+<pre><code>git reflog
+git reset --hard HEAD@{2}</code></pre>
+
+<h2>Suggested order of operations</h2>
+<ul>
+  <li>Check <code>git status</code> to confirm a merge in progress</li>
+  <li>Try <code>git merge --abort</code> first for a low risk rollback</li>
+  <li>If abort fails fetch and <code>git reset --hard origin/branch-name</code> as a last resort</li>
+  <li>Stash or create a safety branch before any destructive reset</li>
+  <li>Use <code>git reflog</code> to recover commits if needed</li>
+</ul>
+
+<h2>Quick checklist to avoid future tears</h2>
+<ul>
+  <li>Stash or commit small changes before pulling</li>
+  <li>Consider pulling with rebase to reduce automatic merge commits</li>
+  <li>Make a habit of creating a short lived branch if you are experimenting</li>
+  <li>When in doubt check <code>git status</code> and <code>git reflog</code></li>
+</ul>
+
+<h3>Parting words for the brave and the tired</h3>
+<p>Merge conflicts are the universe's way of reminding you that computers are honest and humans are reckless. Follow the steps above and you will undo most git pull disasters without crying into your keyboard. If you do end up crying your keyboard will understand but stash first.</p>
+

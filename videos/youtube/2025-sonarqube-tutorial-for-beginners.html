@@ -1,0 +1,75 @@
+---
+layout: video
+title: "2025 Sonarqube Tutorial for Beginners"
+description: "Beginner friendly 2025 Sonarqube tutorial covering installation analysis Quality Gate and CI integration for modern code quality workflows"
+video_host: "youtube"
+video_id: "7-P81EKq-r8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT18M5S"
+thumbnail_url: "https://i.ytimg.com/vi/7-P81EKq-r8/maxresdefault.jpg"
+content_url: "https://youtu.be/7-P81EKq-r8"
+embed_url: "https://www.youtube.com/embed/7-P81EKq-r8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - SonarQube
+  - CodeQuality
+  - StaticAnalysis
+  - 2025
+  - Tutorial
+  - CI
+  - QualityGate
+  - SonarScanner
+  - DevOps
+  - BestPractices
+---
+
+<p>If you want automated code quality checks without turning every merge into a therapy session this SonarQube tutorial will get you there. This guide walks through installing SonarQube, configuring a supported database, running SonarScanner, enforcing a QualityGate, and plugging analysis into CI. It is practical, slightly sarcastic, and accurate for 2025 workflows.</p>
+
+<h2>What you will get from this tutorial</h2>
+<p>Short version first because your pipeline will not forgive long reads. After following these steps you will have a running SonarQube instance that performs static analysis, reports issues for bugs and vulnerabilities, enforces a QualityGate in pull requests, and feeds metrics to your team dashboards. Keywords you care about include SonarQube, SonarScanner, StaticAnalysis, CodeQuality, CI, QualityGate, DevOps and BestPractices.</p>
+
+<h2>Install options and quick trade offs</h2>
+<p>Pick Docker for speed and fewer surprises during evaluation. Use a native install for production when you need fine control over memory and storage. Either way plan to use PostgreSQL or another supported database for anything beyond a toy project. An embedded database is fine for experiments but will not scale or survive your first surge of developers.</p>
+
+<h3>Practical tips for databases and memory</h3>
+<ul>
+  <li>Use a dedicated PostgreSQL instance for production. Shared databases lead to weird slow queries and blame hunting.</li>
+  <li>Adjust JVM memory so the server can hold analysis metadata. Under provisioning is the usual cause of sluggish UI and timeouts.</li>
+  <li>Backup the SonarQube database regularly. Yes this is boring and yes you will be glad you did the one time someone removes a project by accident.</li>
+</ul>
+
+<h2>Start the server and use the UI</h2>
+<p>Fire up SonarQube and log into the web UI to create projects and inspect results. The UI holds dashboards and the Issues view where developers will pretend they do not have time to triage. Default admin credentials may still be present on fresh installs so change them and lock things down.</p>
+
+<h2>Connect your project with SonarScanner</h2>
+<p>Install SonarScanner on developer machines or on your pipeline agents. Configure minimal properties like project key, project name, and the server URL in sonar properties. The scanner uploads source and metrics for SonarQube to process and display. Keep the scanner version compatible with your server version for fewer surprises.</p>
+
+<h2>Run analysis and triage issues</h2>
+<p>Run the scanner and then use the Issues view to sort findings. Triage by severity and focus on bugs and security vulnerabilities first. Use filters for security and reliability to avoid wasting time on nitpicks during a sprint. Add comments on issues so the author knows what to change and why.</p>
+
+<h2>Create and enforce a QualityGate</h2>
+<p>QualityGates are the single most useful policy you can set. Define a gate that fails on new critical or blocker issues and on rising security hotspots. Pipe the QualityGate result into your CI so that pull requests fail fast when the gate is not met. Teams that block merges on serious failures get fewer late night rollbacks and better sleep.</p>
+
+<h3>Integration points with CI systems</h3>
+<ul>
+  <li>Run SonarScanner as a build step in your pipeline so each pull request gets inspected automatically.</li>
+  <li>Fail the build when the QualityGate fails to prevent bad code from landing in main branches.</li>
+  <li>Use analysis parameters to limit scans to changed files when you need speed during quick feedback loops.</li>
+</ul>
+
+<h2>Monitor metrics and maintain quality</h2>
+<p>Use Measures and Activity views to track technical debt trends over time. Tune rules to match your team standards and avoid drowning in false positives. Schedule periodic reviews of rule sets and database maintenance so the platform stays responsive as the codebase grows.</p>
+
+<h2>Best practices and final notes</h2>
+<ul>
+  <li>Keep SonarQube and SonarScanner versions aligned to prevent compatibility problems.</li>
+  <li>Automate analysis in CI for consistent coverage across branches and pull requests.</li>
+  <li>Treat the QualityGate as a living policy and update it as your team matures.</li>
+  <li>Document common fixes for recurring issues so reviewers can stop repeating themselves.</li>
+</ul>
+
+<p>That is the gist of a practical SonarQube workflow for 2025. Install, configure the database, start the server, run SonarScanner, set a QualityGate, integrate into CI and then monitor trends. Follow these steps and your code quality metrics will stop being a source of embarrassment and start working for you.</p>
+

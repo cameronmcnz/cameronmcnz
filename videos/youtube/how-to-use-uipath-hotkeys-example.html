@@ -1,0 +1,80 @@
+---
+layout: video
+title: "How to use UiPath Hotkeys Example"
+description: "Learn a compact UiPath hotkeys tutorial to send keyboard shortcuts select targets and speed up automation workflows"
+video_host: "youtube"
+video_id: "YaNhaNMm9iY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M37S"
+thumbnail_url: "https://i.ytimg.com/vi/YaNhaNMm9iY/maxresdefault.jpg"
+content_url: "https://youtu.be/YaNhaNMm9iY"
+embed_url: "https://www.youtube.com/embed/YaNhaNMm9iY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - hotkeys
+  - keyboard shortcuts
+  - automation
+  - RPA
+  - UiPath Studio
+  - Send Hotkey
+  - selectors
+  - productivity
+  - tutorial
+---
+
+<p>If your automation was a person it would be that coworker who never hits Enter. This quick and practical tutorial shows how to send UiPath hotkeys and keyboard shortcuts so your workflows actually push buttons and do useful things. We cover when to use Send Hotkey versus Type Into, how to pick a reliable selector, and a few tricks to stop your automation from having an identity crisis.</p>
+
+<h2>Quick setup and first steps</h2>
+<p>Open UiPath Studio, create a new sequence, and make sure the target application is visible. No drama here. The app window is the stage and your workflow is the actor. Add a Send Hotkey activity when you want to fire a single shortcut. Use Type Into when you need to type full text rather than press a combo of keys.</p>
+
+<h2>Step by step workflow checklist</h2>
+<ul>
+  <li>Step 1 - Open the application you want to control and keep it accessible to the robot.</li>
+  <li>Step 2 - Add a Send Hotkey activity for shortcuts like Ctrl C or Enter. Use Type Into for strings and text entry.</li>
+  <li>Step 3 - Capture the UI element with the recorder or Indicate on Screen so the hotkey targets the right control.</li>
+  <li>Step 4 - Choose the key and modifiers, for example Ctrl, Alt, or Shift, from the activity properties.</li>
+  <li>Step 5 - Tune SimulateType or SendWindowMessages in the activity properties for better reliability with modern apps.</li>
+  <li>Step 6 - Run the workflow, watch the output panel, and add logs around critical calls so debugging feels scientific rather than mystical.</li>
+</ul>
+
+<h3>Send Hotkey versus Type Into</h3>
+<p>Send Hotkey is the concise assassin. It presses a key or a key combo efficiently, and is ideal for shortcuts, menu activation, and form navigation. Type Into is the verbose novelist. It sends characters as text when a shortcut will not cut it.</p>
+<ul>
+  <li>Use Send Hotkey for Enter, Tab, Ctrl C, Alt F, and other shortcuts.</li>
+  <li>Use Type Into when you must type text or when the app needs simulated typing rather than a raw key press.</li>
+</ul>
+
+<h3>Selectors and focus reliability</h3>
+<p>Bad selectors are the leading cause of automation grief. If the robot keeps missing the target, capture a slightly larger parent element with Indicate on Screen. That often reduces flakiness and avoids dramatic debugging sessions.</p>
+<p>When the target window struggles with focus try these options in the activity properties</p>
+<ul>
+  <li>SimulateType for modern apps when available, it often avoids focus issues.</li>
+  <li>SendWindowMessages when the app responds better to window messages than synthetic keyboard input.</li>
+  <li>Add a short Delay before the hotkey when the app needs a moment to become active. Prefer targeted waits and element exists checks over long hard coded pauses.</li>
+</ul>
+
+<h2>Debugging tips that actually help</h2>
+<p>Watch the Output panel for selector errors and Activity Logs. Put Log Message activities before and after critical hotkey calls so you can tell if the robot actually reached the step. If something fails add a screenshot or an Attach Browser activity to guarantee context.</p>
+
+<h3>Common gotchas and fixes</h3>
+<ul>
+  <li>Hotkey seems to do nothing - check that the correct UI element has focus and that SimulateType is set appropriately.</li>
+  <li>Selectors break across environments - capture a parent element or use anchor base to stabilize the selector.</li>
+  <li>Timing problems - replace blind delays with Element Exists or Wait Attribute where possible.</li>
+</ul>
+
+<h2>Quick checklist for predictable keyboard automation</h2>
+<ul>
+  <li>Prefer Send Hotkey with SimulateType for modern desktop apps.</li>
+  <li>Use Type Into when you must input text rather than trigger shortcuts.</li>
+  <li>Capture a reliable selector with Indicate on Screen and consider a parent element if needed.</li>
+  <li>Add short delays only when necessary and favor explicit wait activities.</li>
+  <li>Log around hotkey activities so troubleshooting is faster and less mystical.</li>
+</ul>
+
+<p>There you go. With a few careful clicks and some selector hygiene your UiPath hotkeys will behave like a well trained intern. If the app still ignores the robot try toggling SimulateType or SendWindowMessages and then give it a stern look.</p>
+

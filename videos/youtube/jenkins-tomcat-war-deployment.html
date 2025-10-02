@@ -1,0 +1,121 @@
+---
+layout: video
+title: "Jenkins Tomcat WAR Deployment"
+description: "Step by step guide to build a WAR with Maven and deploy to Tomcat from Jenkins for automated CI CD"
+video_host: "youtube"
+video_id: "yph8-0YVgX8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M4S"
+thumbnail_url: "https://i.ytimg.com/vi/yph8-0YVgX8/maxresdefault.jpg"
+content_url: "https://youtu.be/yph8-0YVgX8"
+embed_url: "https://www.youtube.com/embed/yph8-0YVgX8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - jenkins
+  - tomcat
+  - war
+  - deployment
+  - ci cd
+  - maven
+  - pipeline
+  - tomcat manager
+  - devops
+  - automation
+---
+
+<h2>Intro</h2>
+<p>So you built a Java web app and now you need to shove a WAR into Tomcat without setting your hair on fire. This guide shows how to use Jenkins to build a WAR with Maven and deploy it to Tomcat in a repeatable way. It covers the Jenkins setup Maven packaging pipeline artifact handling deploying via Tomcat manager or SSH and basic verification and rollback steps. Warning about fate is optional.</p>
+
+<h2>Prepare Jenkins and Tomcat environment</h2>
+<p>Before you try to automate everything and feel clever do a few sensible things first. On the Jenkins host install the Maven plugin and the Tomcat deploy plugin then add a service account for Tomcat manager or an SSH user for file copies. Configure your Java and Maven tool locations in Jenkins so builds do not fail for reasons that make you cry.</p>
+
+<h3>Checklist</h3>
+<ul>
+  <li>Install Jenkins plugins for Maven and Tomcat deployment</li>
+  <li>Add credentials in Jenkins credentials store for Tomcat manager or SSH key</li>
+  <li>Set Java and Maven tool locations under Jenkins global tools</li>
+</ul>
+
+<h2>Create a build job or pipeline to produce the WAR</h2>
+<p>Use a declarative pipeline for repeatability and version control. The goal is simple run <code>mvn clean package</code> so Maven produces a WAR in the standard <code>target</code> folder. If you use a freestyle job then call Maven with the same goal and archive the produced WAR as a job artifact.</p>
+
+<h3>Example Jenkinsfile</h3>
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'mvn clean package'
+      }
+    }
+    stage('Archive') {
+      steps {
+        archiveArtifacts 'target/*.war'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        // either use tomcat deploy plugin or scp to webapps
+        // see notes below for both approaches
+      }
+    }
+  }
+}
+</code></pre>
+
+<h2>Archive or store the WAR artifact</h2>
+<p>Make the WAR a first class object in your pipeline. Use <code>archiveArtifacts</code> so downstream stages can pick it up and you have a last known good copy if the new build turns into a gremlin.</p>
+
+<h2>Deploy the WAR to Tomcat</h2>
+<p>Pick one of these approaches depending on your environment and security policy.</p>
+
+<h3>Using Tomcat manager</h3>
+<ul>
+  <li>Install and configure the Tomcat deploy plugin in Jenkins</li>
+  <li>Use stored Jenkins credentials for the manager account so secrets are not in logs</li>
+  <li>The plugin can deploy the WAR directly to Tomcat and replace the running context</li>
+</ul>
+
+<h3>Using SSH or file copy</h3>
+<ul>
+  <li>Copy the WAR into the Tomcat webapps folder via scp or rsync</li>
+  <li>Optionally touch the <code>webapps</code> folder to trigger auto deployment or restart the service</li>
+  <li>Use your Jenkins SSH credentials or an agent with keys so nothing is pasted into console logs</li>
+</ul>
+
+<h2>Verify deployment and add rollback or health checks</h2>
+<p>Do not trust your deploy like you trust autopilot. Add a smoke test step that calls a health endpoint or checks the application status. If the health check fails then stop promoting the new build and roll back to the previous artifact.</p>
+
+<h3>Verification ideas</h3>
+<ul>
+  <li>Use curl from a Jenkins agent to hit a health path and assert a 200 response</li>
+  <li>Check Tomcat manager status if you used the manager plugin</li>
+  <li>Run functional smoke tests that exercise a quick path through the app</li>
+</ul>
+
+<h3>Rollback strategies</h3>
+<ul>
+  <li>Keep the previous WAR archived and copy it back to webapps if the new one fails</li>
+  <li>Keep context folders intact so you can reattach the old version quickly</li>
+  <li>Use blue green or canary patterns if downtime or risk tolerance requires it</li>
+</ul>
+
+<h2>Tips for CI CD and automation</h2>
+<ul>
+  <li>Make credentials scoped and rotate them periodically</li>
+  <li>Prefer declarative pipelines so changes live in source control</li>
+  <li>Archive artifacts and tag builds so you can trace which WAR was deployed and when</li>
+  <li>Automate health checks and alerts so humans only get involved when the magic fails</li>
+</ul>
+
+<h2>Wrapping up</h2>
+<p>You now have a practical path to build a WAR with Maven in Jenkins archive the artifact and deploy it to Tomcat via the manager or SSH. Add smoke tests and a rollback plan and you will sleep a little better at night. If that fails try coffee or more monitoring.</p>
+

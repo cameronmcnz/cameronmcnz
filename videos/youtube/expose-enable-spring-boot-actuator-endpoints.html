@@ -1,0 +1,94 @@
+---
+layout: video
+title: "Expose & Enable Spring Boot Actuator Endpoints"
+description: "Quick guide to exposing and enabling Spring Boot Actuator endpoints for metrics and info with safe exposure and simple config"
+video_host: "youtube"
+video_id: "7CgPNkpEtyY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M34S"
+thumbnail_url: "https://i.ytimg.com/vi/7CgPNkpEtyY/maxresdefault.jpg"
+content_url: "https://youtu.be/7CgPNkpEtyY"
+embed_url: "https://www.youtube.com/embed/7CgPNkpEtyY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Actuator
+  - Endpoints
+  - Metrics
+  - Info
+  - Enable
+  - Expose
+  - Configuration
+  - Security
+  - Tutorial
+---
+
+<p>If you want runtime metrics and app info without turning your production app into a public status billboard then Spring Boot Actuator is your friend and your mild responsibility. This short tutorial walks you through adding Actuator support exposing the endpoints you need enabling useful details and locking down access so your metrics do not become internet trivia.</p>
+
+<h2>What you get with Actuator</h2>
+<p>Actuator gives you built in endpoints for health checks metrics info and other operational data. Think of it as a small command center for your app that developers and ops can use to troubleshoot and monitor. You will learn how to:</p>
+<ul>
+  <li>Add Actuator to your project</li>
+  <li>Expose specific endpoints via configuration</li>
+  <li>Enable endpoint features such as health details</li>
+  <li>Secure endpoints for production</li>
+  <li>Test that everything actually works</li>
+</ul>
+
+<h2>Step 1 Add the Actuator dependency</h2>
+<p>Most projects just need the official starter. If you use Maven add the dependency under the dependencies element in pom.xml.</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+<p>If you use Gradle add the starter dependency to your build script. This makes the actuator module available with minimal fuss.</p>
+
+<h2>Step 2 Expose the endpoints you actually need</h2>
+<p>By default Actuator does not expose everything over HTTP which is good because less noise means less attack surface. Configure the web exposure in application.properties or application.yml to include only the endpoints you want. Example properties snippet for common needs.</p>
+<pre><code># application.properties
+management.endpoints.web.exposure.include=health,info,metrics
+management.endpoints.web.base-path=/actuator</code></pre>
+<p>Only include endpoints you use in production. Putting wildcard exposure in production is a fast track to regret.</p>
+
+<h2>Step 3 Enable endpoint features when needed</h2>
+<p>Some endpoints provide less data by default for safety. If you need health details for debugging set the property to show them. Keep this cautious in production.</p>
+<pre><code># show health details for debugging
+management.endpoint.health.show-details=always</code></pre>
+<p>Other endpoints may need additional configuration depending on the information they surface. Enable what you need and no more.</p>
+
+<h2>Step 4 Secure the actuator endpoints</h2>
+<p>Actuator endpoints are useful to ops and also attractive to unauthorized snoops. Protect them. Two common approaches work well together:</p>
+<ul>
+  <li>Enable Spring Security and require a role for sensitive endpoints such as shutdown or env</li>
+  <li>Run the management endpoints on a separate port so only internal systems can reach them</li>
+</ul>
+<pre><code># run actuator on a separate port
+management.server.port=8081</code></pre>
+<p>For role based security add checks in your security configuration or use HTTP basic or OAuth depending on your environment. Treat access control as mandatory and not optional decor.</p>
+
+<h2>Step 5 Test the exposed endpoints</h2>
+<p>Confirm endpoints are responding. Use a browser curl or your favorite HTTP client to hit the actuator base path and a few endpoints. Example curl checks.</p>
+<pre><code># check health
+curl -i http://localhost:8080/actuator/health
+
+# check metrics
+curl -i http://localhost:8080/actuator/metrics
+
+# check info
+curl -i http://localhost:8080/actuator/info</code></pre>
+<p>If you moved the management port remember to target that port. If you protected endpoints with auth provide credentials in your client or test tool.</p>
+
+<h3>Quick recap and sensible defaults</h3>
+<ul>
+  <li>Add the Actuator starter</li>
+  <li>Expose only the endpoints you need using management.endpoints.web.exposure.include</li>
+  <li>Enable health details only when necessary and with care</li>
+  <li>Secure endpoints with Spring Security and consider a dedicated management port</li>
+  <li>Test everything with curl or an HTTP client before you trust it in production</li>
+</ul>
+
+<p>Pro tip Keep the exposure tight prefer role based access and avoid turning on wildcard exposure unless you are building a local sandbox where nobody will notice your overconfidence.</p>
+

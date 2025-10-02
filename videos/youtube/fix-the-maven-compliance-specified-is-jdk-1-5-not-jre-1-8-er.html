@@ -1,0 +1,92 @@
+---
+layout: video
+title: "Fix the Maven Compliance Specified is JDK 1.5 not JRE 1.8 Er"
+description: "Quick guide to fix Maven error saying compliance specified is JDK 1.5 not JRE 1.8 by aligning pom compiler properties Java home and IDE settings"
+video_host: "youtube"
+video_id: "gbqeN982ulY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M8S"
+thumbnail_url: "https://i.ytimg.com/vi/gbqeN982ulY/maxresdefault.jpg"
+content_url: "https://youtu.be/gbqeN982ulY"
+embed_url: "https://www.youtube.com/embed/gbqeN982ulY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Maven
+  - JDK
+  - Java
+  - maven-compiler-plugin
+  - pom.xml
+  - JAVA_HOME
+  - JRE
+  - compile error
+  - IDE
+  - build fix
+---
+
+<h2>Why Maven keeps whispering about Java 1.5</h2>
+<p>Maven sometimes acts like a nostalgic archaeologist and insists your code was born in Java 1.5 even though you fed it a modern JDK 1.8. The usual suspects are mismatched runtime, a PATH or JAVA_HOME that points to a JRE instead of a JDK, or an absent maven compiler configuration in the project pom.xml. This guide shows you the quick checks and fixes so Maven stops time traveling and compiles with Java 1.8 instead.</p>
+
+<h2>Quick checklist to stop the time travel</h2>
+<ul>
+  <li>Verify the Java runtime that Maven sees</li>
+  <li>Make sure JAVA_HOME points to a real JDK and not a scaled down JRE</li>
+  <li>Define Java level in pom.xml so Maven does not guess wrong</li>
+  <li>Set the IDE project SDK and language level to match the JDK</li>
+  <li>Do a clean build and watch for any lingering 1.5 mentions</li>
+</ul>
+
+<h3>Step 1 Verify the runtime</h3>
+<p>Open a terminal and run the usual command to see the Java runtime. If the output looks ancient or cryptic you will know why Maven is upset.</p>
+<pre><code>java -version</code></pre>
+<p>Also check what Maven itself is using. Run a standard Maven command from the project root and watch the header for the JVM info.</p>
+<pre><code>mvn -v</code></pre>
+
+<h3>Step 2 Make sure JAVA_HOME is a JDK</h3>
+<p>On Unix style shells run</p>
+<pre><code>echo $JAVA_HOME</code></pre>
+<p>On Windows run</p>
+<pre><code>echo %JAVA_HOME%</code></pre>
+<p>Confirm the path points at a JDK 1.8 installation and not a JRE. A JDK directory will have the compiler tools and a lib tools jar. If JAVA_HOME points to a JRE update it so Maven can find the Java compiler.</p>
+
+<h3>Step 3 Declare the Java level in pom.xml</h3>
+<p>Stop relying on Maven psychic powers. Add explicit properties so Maven uses the right source and target levels. Put this in the project pom xml within the properties element.</p>
+<pre><code>&lt;properties&gt;
+  &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+  &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+&lt;/properties&gt;</code></pre>
+<p>If the project still complains add an explicit maven compiler plugin block. That tells Maven the language level to use during compilation so it does not fall back to legacy defaults.</p>
+<pre><code>&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+      &lt;version&gt;3.8.1&lt;/version&gt;
+      &lt;configuration&gt;
+        &lt;source&gt;1.8&lt;/source&gt;
+        &lt;target&gt;1.8&lt;/target&gt;
+      &lt;/configuration&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+
+<h3>Step 4 Align the IDE SDK and project language level</h3>
+<p>IDEs are great until they are not. Open your IDE project settings and verify both the project SDK and the language level are set to JDK 1.8. IntelliJ users check Project Structure and set the Project SDK and Project language level. Eclipse users check Java Build Path and Installed JREs and set the project compliance to 1.8. Some editors run the IDE on a bundled JRE while Maven runs using your system JAVA_HOME. Make them agree and the peace talks will work.</p>
+
+<h3>Step 5 Clean build and watch the logs</h3>
+<p>Run a full clean build so Maven picks up the config changes. The classic command works just fine.</p>
+<pre><code>mvn clean install</code></pre>
+<p>Read the compiler output. If you still see 1.5 mentioned track down leftover settings in parent poms, profiles, or legacy toolchain files. The usual culprits are parent pom properties or CI environment variables overriding your local settings.</p>
+
+<h2>Extra tips that do not require witchcraft</h2>
+<ul>
+  <li>Prefer defining Java level in one place using pom properties so Maven and CI do not disagree</li>
+  <li>If using a CI server verify the agent JAVA_HOME and toolchain settings match your local JDK</li>
+  <li>For multi module projects check parent pom and submodule poms for conflicting values</li>
+</ul>
+
+<h2>Wrap up with a little sarcasm</h2>
+<p>Maven does not actually want to sabotage your life. It just follows rules and defaults like a very stubborn intern. Give it clear instructions in pom.xml and point JAVA_HOME at a real JDK and the compliance mismatch will vanish. If it still acts up then yes blame the legacy configuration and move on with your modern Java 1.8 life.</p>
+

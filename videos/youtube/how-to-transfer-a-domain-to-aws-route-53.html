@@ -1,0 +1,77 @@
+---
+layout: video
+title: "How to Transfer a Domain to AWS Route 53"
+description: "Step by step guide to transfer a domain to AWS Route 53 with DNS checks authorization code and registrar settings for minimal downtime"
+video_host: "youtube"
+video_id: "m2b6SzaRuZg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M19S"
+thumbnail_url: "https://i.ytimg.com/vi/m2b6SzaRuZg/maxresdefault.jpg"
+content_url: "https://youtu.be/m2b6SzaRuZg"
+embed_url: "https://www.youtube.com/embed/m2b6SzaRuZg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - Route 53
+  - domain transfer
+  - DNS
+  - registrar
+  - authorization code
+  - domain lock
+  - WHOIS
+  - TTL
+  - downtime
+---
+
+<h2>Quick warning before we start</h2>
+<p>You are about to move a domain from some poor registrar into the cozy world of AWS Route 53. This is perfectly doable and usually less scary than it sounds. Follow the steps and you will keep DNS intact, avoid downtime, and not have to explain to your boss why the site vanished for an hour.</p>
+
+<h2>Step 1 Prepare the domain at the current registrar</h2>
+<p>Do these things first while you still can. If you skip them you will be playing email tag with support and crying into your keyboard.</p>
+<ul>
+  <li>Disable domain lock. Registrars often protect domains from theft by locking transfers. Turn that off.</li>
+  <li>Turn off privacy protection so approval emails reach the real admin contact.</li>
+  <li>Request the authorization code from the current registrar. This is also called an EPP code or transfer key by some vendors.</li>
+  <li>Make sure the administrative contact email is valid. Transfers are frequently blocked by outdated WHOIS data.</li>
+</ul>
+
+<h2>Step 2 Verify WHOIS and contact details</h2>
+<p>Confirm the WHOIS info matches the person who can click approval links. If the email or phone number is wrong update WHOIS before starting the transfer. That saves time and annoyance.</p>
+
+<h2>Step 3 Plan your DNS and name server strategy</h2>
+<p>You have two safe options depending on how much risk you like.</p>
+
+<h3>Option A Keep the current name servers</h3>
+<p>Keep name servers pointed at the old DNS host during the transfer. After Route 53 completes you can create a hosted zone there and switch name servers when ready. This minimizes downtime when you want to be conservative.</p>
+
+<h3>Option B Migrate DNS records into Route 53 first</h3>
+<p>Export zone files from the existing DNS provider and import or recreate records in a Route 53 hosted zone. Lower TTL values a few days before switching to speed propagation when you flip name servers.</p>
+
+<h2>Step 4 Initiate the transfer in the AWS console</h2>
+<p>In the Route 53 console request a domain transfer and enter the authorization code. Confirm contact verification and accept transfer fees. AWS will contact the losing registrar and start the process. Expect email updates to the administrative contact.</p>
+
+<h2>Step 5 Approve the transfer at the current registrar and monitor progress</h2>
+<p>Some registrars require an explicit approval step. Look out for that email. Keep an eye on status messages and be ready to respond. Transfers usually complete within a few days but sometimes finish faster.</p>
+
+<h2>Step 6 After the transfer completes</h2>
+<ul>
+  <li>Verify Route 53 has the correct records and name servers.</li>
+  <li>If you kept the old name servers switch them to the new Route 53 name servers when ready.</li>
+  <li>Raise TTLs back to normal after propagation is complete.</li>
+  <li>Confirm WHOIS now reflects AWS as the registrar if you care about that detail.</li>
+</ul>
+
+<h2>Common gotchas and how to avoid them</h2>
+<ul>
+  <li>Expired domain or 60 day transfer lock after recent purchase or change. Check the domain age and recent registrar updates before you try.</li>
+  <li>Mismatched admin email in WHOIS. Update it early to avoid approval failures.</li>
+  <li>Private registration blocking approval emails. Disable privacy for the transfer window.</li>
+  <li>High TTLs. Lower them a couple days before switching to reduce propagation pain.</li>
+</ul>
+
+<h2>Recap and final advice</h2>
+<p>Unlock the domain and get the authorization code. Verify WHOIS and admin contacts. Decide whether to migrate DNS first or keep name servers during transfer. Initiate the transfer in Route 53 and approve any registrar emails. After the move verify records and adjust TTL values. Follow these steps and you will survive with little or no downtime and maybe even some satisfaction at doing it yourself.</p>
+

@@ -1,0 +1,80 @@
+---
+layout: video
+title: "Map Your Domain to GitHub Pages with GoDaddy"
+description: "Step by step guide to point a GoDaddy domain to a GitHub Pages site with correct DNS records and HTTPS setup."
+video_host: "youtube"
+video_id: "Rt769w5EnCE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/Rt769w5EnCE/maxresdefault.jpg"
+content_url: "https://youtu.be/Rt769w5EnCE"
+embed_url: "https://www.youtube.com/embed/Rt769w5EnCE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub Pages
+  - GoDaddy
+  - domain mapping
+  - DNS
+  - CNAME
+  - A record
+  - HTTPS
+  - web hosting
+  - static site
+  - site deployment
+---
+
+<p>If you want your static site to wear a custom domain without paying for hosting or tearing out your hair this guide will show you how to map a GoDaddy domain to GitHub Pages. You get free web hosting and a certificate for HTTPS once the internet finally agrees to update its records. Spoiler alert GitHub Pages is the quiet hero of many side projects and blogs.</p>
+
+<h2>Prepare the GitHub Pages repository</h2>
+<p>Make sure your site branch is published and actually has files to serve. For a user or organization site push to the main branch named after the account. For a project site use the gh-pages branch or the branch set in Pages settings. Push the compiled static site or source that Pages will build so the service has something to look at.</p>
+
+<h3>Create the CNAME file in the repo root</h3>
+<p>In the repository root add a file named CNAME that contains only the custom domain you want to use. Examples are www.example.com or example.com depending on whether you want the www prefix. Commit and push the file so GitHub Pages knows what domain to expect. Yes this file really matters and no you cannot skip it because magic will not happen.</p>
+
+<h2>Update GoDaddy DNS records</h2>
+<p>Log into the GoDaddy DNS manager for your domain and edit the records. What you add depends on whether you want the apex domain or the www hostname to be the main address.</p>
+
+<ul>
+  <li>For the apex domain create A record entries pointing to the GitHub Pages IPs. Use all four IPs on separate A records</li>
+</ul>
+
+<pre><code>185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+</code></pre>
+
+<ul>
+  <li>For the www hostname create a CNAME record that points to your GitHub Pages domain such as username.github.io</li>
+</ul>
+
+<p>Save the changes and then go have a coffee or a small existential crisis while DNS updates. Propagation usually takes minutes to a few hours but sometimes the internet likes to move at snail speed.</p>
+
+<h2>Verify DNS and GitHub Pages</h2>
+<p>After you change DNS check two things. First verify the DNS records with tools such as dig or any online DNS checker. Second open the Pages settings in your repository and look for the green verified check next to the custom domain. If you see a warning read it and then read it again because DNS typos are common and merciless.</p>
+
+<h3>Common troubleshooting tips</h3>
+<ul>
+  <li>If the apex is not resolving check that all four A records are present and have the correct IPs</li>
+  <li>If www redirects or does not serve check the CNAME target matches yourusername.github.io with no extra dots or slashes</li>
+  <li>Use dig or nslookup to confirm the records from multiple locations if you want to impress coworkers</li>
+</ul>
+
+<h2>Enable HTTPS in Pages settings</h2>
+<p>Once GitHub validates the domain the Pages settings will offer to provision an HTTPS certificate. Enable the HTTPS option and if you want extra safety check the enforce HTTPS box so all traffic is secure. Certificate provisioning is automatic but may take a few minutes to complete.</p>
+
+<h2>Quick checklist for success</h2>
+<ul>
+  <li>Repository branch is published and contains site files</li>
+  <li>CNAME file at the repo root with the exact custom domain</li>
+  <li>A records for the apex pointing to the four GitHub Pages IPs</li>
+  <li>CNAME for the www hostname set to username.github.io</li>
+  <li>Verify with dig or an online DNS checker and confirm the green check in Pages</li>
+  <li>Enable HTTPS and enforce it if desired</li>
+</ul>
+
+<p>There you go you have a mapped domain on GoDaddy serving a GitHub Pages static site with DNS and HTTPS configured. It will probably work on the first try and if it does not you now know where to curse and where to check. Happy deployment and try not to break anything important.
+

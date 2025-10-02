@@ -1,0 +1,105 @@
+---
+layout: video
+title: "Amazon Machine Image Creation & Launch Custom AWS AMI"
+description: "Step by step guide to create a custom AWS AMI and launch an EC2 instance on Linux for reproducible deployments and faster scaling"
+video_host: "youtube"
+video_id: "oMyjV07MBXA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/oMyjV07MBXA/maxresdefault.jpg"
+content_url: "https://youtu.be/oMyjV07MBXA"
+embed_url: "https://www.youtube.com/embed/oMyjV07MBXA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - AMI
+  - EC2
+  - Linux
+  - Cloud Computing
+  - Image Creation
+  - Deployment
+  - Server Images
+  - Automation
+  - AWS CLI
+---
+
+<h2>Why make a custom AMI when you can wing it</h2>
+<p>Creating a custom Amazon Machine Image saves you from the endless ritual of manual server setup, and from that one coworker who insists on installing mysterious packages. If you want repeatable Linux server deployments, faster launches, and fewer surprises in production, a custom AMI is your friend and your insurance policy.</p>
+
+<h2>Overview of the process</h2>
+<ul>
+  <li>Prepare a base EC2 instance</li>
+  <li>Install and configure the application stack</li>
+  <li>Clean up any sensitive or machine specific data</li>
+  <li>Create an AMI from the instance using the console or AWS CLI</li>
+  <li>Launch a fresh EC2 instance from the AMI and test</li>
+  <li>Share or copy the AMI for backups and disaster readiness</li>
+</ul>
+
+<h2>Step 1 Prepare a base EC2 instance</h2>
+<p>Pick a Linux distro that matches your needs and launch an instance with the storage and network settings you plan to use. For testing, a small instance is fine. For final images, use the same root device type and partition layout as production for predictable behavior.</p>
+<p>Example for Debian family</p>
+<pre><code>sudo apt update && sudo apt upgrade -y
+sudo apt install -y build-essential curl</code></pre>
+
+<h2>Step 2 Configure the system and application stack</h2>
+<p>Install packages, configure services, and add any system tweaks that must persist across launches. Use configuration management like Ansible, or scripts, so you can reproduce the same setup from scratch if the AMI gets weird.</p>
+<ul>
+  <li>Create systemd service files if needed</li>
+  <li>Add users and set permissions with scripts</li>
+  <li>Place application artifacts in predictable paths</li>
+</ul>
+<p>If you use environment files or credentials during provisioning, make a note to remove them in the cleanup step. Automation is great until it leaves secrets baked into your image.</p>
+
+<h2>Step 3 Clean up and remove sensitive data</h2>
+<p>This is the part where you stop being lazy. Remove SSH host keys that must be unique, clear temporary credentials, remove logs, and zero out free space to shrink the final image.</p>
+<pre><code>sudo rm -f /etc/ssh/ssh_host_*
+sudo rm -f /root/.ssh/authorized_keys
+sudo cloud-init clean --logs || true
+# zero free space for smaller image
+sudo dd if=/dev/zero of=/EMPTY bs=1M || true
+sudo rm -f /EMPTY</code></pre>
+<p>Also clear package caches to reduce image size. For apt</p>
+<pre><code>sudo apt clean</code></pre>
+
+<h2>Step 4 Create an AMI from the instance</h2>
+<p>Use the AWS console or the AWS CLI. Naming and tagging the image clearly makes life easier later, so stop pretending you will remember why that AMI exists.</p>
+<p>AWS CLI example</p>
+<pre><code>AWS_REGION=us-east-1
+aws ec2 create-image --instance-id i-0123456789abcdef0 --name "my-app-ami-v1" --no-reboot --region $AWS_REGION</code></pre>
+<p>Note that --no-reboot avoids downtime but may leave files in an inconsistent state, so only use it when you understand the tradeoff. The image will capture the root volume and optionally attached volumes if you include them in the create call.</p>
+
+<h2>Step 5 Launch a new EC2 instance from the AMI and test</h2>
+<p>Now the fun part. Spin up an instance from your AMI and verify services start and configurations are correct. Test network rules, IAM roles, startup scripts, and any cloud-init behavior.</p>
+<pre><code>aws ec2 run-instances --image-id ami-0abcdef1234567890 --instance-type t3.medium --count 1 --region $AWS_REGION</code></pre>
+<p>Run functional checks, smoke tests, and at least one performance run on a larger instance type if you expect heavy load.</p>
+
+<h2>Step 6 Share, copy, and back up the AMI</h2>
+<ul>
+  <li>Share with other accounts if teams need it</li>
+  <li>Copy across regions for disaster recovery</li>
+  <li>Automate AMI creation and cleanup with pipelines to avoid AMI sprawl</li>
+</ul>
+<p>To share an AMI with another account</p>
+<pre><code>aws ec2 modify-image-attribute --image-id ami-0abcdef1234567890 --launch-permission "Add=[{UserId=123456789012}]" --region $AWS_REGION</code></pre>
+
+<h2>Best practices and gotchas</h2>
+<ul>
+  <li>Use immutable infrastructure patterns, and treat AMIs as artifacts not pets</li>
+  <li>Automate image builds with Packer or CI pipelines for consistent results</li>
+  <li>Tag AMIs with version, build id, and purpose to avoid accidental launches of old images</li>
+  <li>Remember to rotate secrets, and never leave credentials in images</li>
+</ul>
+
+<h3>Troubleshooting checklist</h3>
+<ul>
+  <li>Instance fails to boot, check cloud-init logs and systemd journal</li>
+  <li>Services not starting, ensure dependencies are enabled and config files are present</li>
+  <li>Image size is huge, clean caches and zero free space before imaging</li>
+</ul>
+
+<p>Making AMIs is not glamorous, but it will save time and headaches. Do the cleanup, automate the build, and test the image like you mean it. Then sit back and enjoy quicker, repeatable EC2 launches while your coworkers keep reinstalling packages like it is 2010.</p>
+

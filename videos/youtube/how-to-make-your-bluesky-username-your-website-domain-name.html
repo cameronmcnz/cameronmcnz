@@ -1,0 +1,86 @@
+---
+layout: video
+title: "How to Make Your Bluesky Username your Website Domain Name"
+description: "Step by step guide to point a domain from GoDaddy Namecheap or Bluehost to a Bluesky username using DNS or registrar forwarding."
+video_host: "youtube"
+video_id: "Vqa47RLVdH4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M56S"
+thumbnail_url: "https://i.ytimg.com/vi/Vqa47RLVdH4/maxresdefault.jpg"
+content_url: "https://youtu.be/Vqa47RLVdH4"
+embed_url: "https://www.youtube.com/embed/Vqa47RLVdH4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Bluesky
+  - domain
+  - GoDaddy
+  - Namecheap
+  - Bluehost
+  - DNS
+  - website
+  - username
+  - URL forwarding
+  - custom domain
+---
+
+<p>So you bought a cool domain and now want it to redirect to your Bluesky profile. Good choice. This guide walks you through setting up registrar forwarding or DNS records so visitors type your domain and land on bsky.app or username.bsky.social without drama. Technical accuracy intact, sarcasm included at no extra charge.</p>
+
+<h2>What you need</h2>
+<ul>
+  <li>A registered domain at GoDaddy Namecheap Bluehost or any registrar you tolerate</li>
+  <li>The exact Bluesky profile URL such as bsky.app/profile/yourusername or username.bsky.social</li>
+  <li>Access to your registrar control panel and patience for DNS to do its thing</li>
+</ul>
+
+<h2>Quick overview of the approaches</h2>
+<ul>
+  <li>Registrar URL forwarding is the easiest way to point a root domain to a Bluesky profile</li>
+  <li>Use a CNAME when you only want a subdomain like social.example.com to point to username.bsky.social</li>
+  <li>If your registrar supports ANAME or ALIAS you can map a root domain without resorting to ugly forwarding</li>
+</ul>
+
+<h3>Step 1 Choose the domain and open the registrar dashboard</h3>
+<p>Log in to GoDaddy Namecheap Bluehost or where you bought the name. Find domain management or DNS settings. Most registrars have a forwarding area and a DNS editor. Try not to use a cringey name unless that is the point.</p>
+
+<h3>Step 2 Copy the precise Bluesky profile link</h3>
+<p>Decide which canonical URL you prefer. It will look like one of these formats without a protocol prefix
+  <br>bsky.app/profile/yourusername
+  <br>username.bsky.social
+Copy the exact path so you do not end up forwarding to a broken address.</p>
+
+<h3>Step 3 Pick forwarding or DNS based mapping</h3>
+<p>If you want the naked domain example.com to open the Bluesky profile then URL forwarding at the registrar is the path of least resistance. If you want a subdomain such as social.example.com then use a CNAME record pointing to username.bsky.social.</p>
+
+<p>Notes about root domains and records</p>
+<ul>
+  <li>You cannot create a CNAME at the root in standard DNS. If your registrar offers ANAME or ALIAS then that can mimic a CNAME for the root</li>
+  <li>When ANAME or ALIAS is not available use registrar URL forwarding to map the root to the Bluesky URL</li>
+</ul>
+
+<h3>Step 4 Choose the redirect type and think about masking</h3>
+<p>Pick 301 for permanent redirects or 302 for temporary testing. Masking or frame forwarding can hide the destination URL in the browser bar but this often breaks social previews and can lead to weird behavior. If you want predictable sharing and previews skip masking.</p>
+
+<h3>Registrar specific hints</h3>
+<ul>
+  <li>GoDaddy usually has a Forwarding section under Domain Settings. Paste the profile path and pick 301 for permanence</li>
+  <li>Namecheap lists redirects under Advanced DNS or Redirect Domain. It also supports CNAME for subdomains in the same area</li>
+  <li>Bluehost has Domain Manager and a forwarding tool plus a DNS editor for CNAME and A records</li>
+</ul>
+
+<h2>Test and troubleshoot</h2>
+<p>After saving settings test the domain in a browser. Forwarding often begins to work in minutes while DNS changes can need up to 24 hours to propagate and rarely a bit longer. If the domain does not resolve try these steps</p>
+<ul>
+  <li>Clear your browser cache or test in a private window</li>
+  <li>Try a different network or device to rule out local DNS caching</li>
+  <li>Check the DNS record in your registrar control panel to confirm it matches the intended target</li>
+  <li>Remember that masked forwarding may hide social site previews and metadata so remove masking if previews fail</li>
+</ul>
+
+<h2>Summary and parting advice</h2>
+<p>In plain terms pick forwarding for the root domain and CNAME for subdomains. Use 301 when this is the final move and avoid masking if you care about clean social previews. The registrar does most of the heavy lifting so do the clicky things accurately and then go make content while DNS finishes its slow magic.</p>
+
+<p>If you want I can show an example record layout or a short checklist tailored to GoDaddy Namecheap or Bluehost. I promise minimal hand holding and maximum sarcasm on demand.</p>
+

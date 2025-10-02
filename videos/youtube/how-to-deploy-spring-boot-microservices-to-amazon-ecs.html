@@ -1,0 +1,94 @@
+---
+layout: video
+title: "How to deploy Spring Boot microservices to Amazon ECS"
+description: "Deploy Spring Boot microservices to Amazon ECS with Docker ECR task definitions and services for scalable container deployment on AWS"
+video_host: "youtube"
+video_id: "3yBIRmUJhio"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M6S"
+thumbnail_url: "https://i.ytimg.com/vi/3yBIRmUJhio/maxresdefault.jpg"
+content_url: "https://youtu.be/3yBIRmUJhio"
+embed_url: "https://www.youtube.com/embed/3yBIRmUJhio"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Amazon ECS
+  - Docker
+  - ECR
+  - microservices
+  - AWS
+  - Fargate
+  - task definition
+  - CI CD
+  - container deployment
+---
+
+<h2>Why this guide exists and why you will thank it later</h2>
+<p>Deploying Spring Boot microservices to Amazon ECS sounds like a heroic quest until you realize the dragon is just a YAML file and a forgotten environment variable. This guide walks you through building Docker images, pushing them to Amazon ECR, wiring an ECS task definition, and serving traffic with an Application Load Balancer and Fargate or EC2. You will still need coffee and occasional swearing but the end result will be a resilient container deployment you can actually explain to your manager.</p>
+
+<h2>Build a small Docker image for each Spring Boot service</h2>
+<p>Use Maven or Gradle to produce a runnable jar. Prefer a multi stage Docker build to keep the final image tiny and fast to pull. Example Dockerfile structure in plain terms</p>
+<pre><code>FROM eclipse-temurin:17-jdk as builder
+WORKDIR /app
+COPY pom.xml mvnw .
+COPY src ./src
+RUN mvn -B package -DskipTests
+
+FROM eclipse-temurin:17-jre
+COPY --from=builder /app/target/app.jar /app/app.jar
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+</code></pre>
+<p>Local test</p>
+<pre><code>docker build -t my-svc .
+docker run -p 8080:8080 my-svc
+</code></pre>
+
+<h2>Push the image to Amazon ECR so ECS can find it</h2>
+<p>Create a repository in ECR and authenticate your Docker client with the AWS CLI. Replace region and account id with your values.</p>
+<pre><code>aws ecr create-repository --repository-name my-svc
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 123456789012.dkr.ecr.us-east-1.amazonaws.com
+docker tag my-svc:latest 123456789012.dkr.ecr.us-east-1.amazonaws.com/my-svc:latest
+docker push 123456789012.dkr.ecr.us-east-1.amazonaws.com/my-svc:latest
+</code></pre>
+
+<h2>Create an ECS task definition with sane defaults</h2>
+<p>The task definition is the contract between ECS and your container. Include container name, image uri, cpu and memory, port mappings, and environment variables. Use the awslogs driver for CloudWatch integration so you can debug without spelunking into containers.</p>
+<ul>
+  <li>cpu and memory based on service needs and expected concurrency</li>
+  <li>port mappings to expose the container port used by Spring Boot</li>
+  <li>environment variables for non secrets configuration</li>
+  <li>logConfiguration using awslogs to send stdout to CloudWatch</li>
+</ul>
+
+<h3>Secrets and configuration management</h3>
+<p>Do not put secrets in plain text in the task definition. Use AWS Systems Manager Parameter Store or AWS Secrets Manager and reference them as environment variables in the task definition. On Fargate you can map secrets directly into container env variables which is much cleaner than stashing creds in code.</p>
+
+<h2>Choose Fargate or EC2 and create a service</h2>
+<p>Fargate removes the need to manage EC2 instances so you can focus on app logic. Use EC2 when you need special host access or want cheaper steady state pricing and are comfortable managing instances. Create an ECS cluster, then a service using the task definition and set desired count for replicas.</p>
+<ul>
+  <li>Enable health checks so unhealthy tasks are replaced automatically</li>
+  <li>Set deployment options like minimum healthy percent and maximum percent to control rolling updates</li>
+</ul>
+
+<h2>Attach an Application Load Balancer and route traffic</h2>
+<p>Create an ALB and a target group that maps to your container port. Configure health checks on the target group to use your /actuator/health or equivalent endpoint so ECS knows when to remove bad tasks. Ensure security groups and subnets allow inbound traffic and that the ALB can reach your tasks.</p>
+
+<h2>CI CD and automated deployments</h2>
+<p>Automate builds and image pushes with your CI system, for example GitHub Actions or AWS CodeBuild. Typical pipeline steps</p>
+<ol>
+  <li>Run unit tests and build the jar</li>
+  <li>Build and tag Docker image</li>
+  <li>Push image to ECR</li>
+  <li>Update ECS task definition with new image uri and run a deployment</li>
+</ol>
+<p>You can automate the ECS update with the AWS CLI or SDK calls. CI CD keeps humans from doing monotonous tasks which improves morale and reduces outages.</p>
+
+<h2>Troubleshooting and final tips</h2>
+<p>If tasks fail to start check CloudWatch logs first. Common issues include wrong environment variables, missing secrets, or mismatched container ports. If the load balancer reports unhealthy targets verify the health endpoint and security groups.</p>
+<p>Keep images small, reuse base layers, and set resource limits on the task definition so one runaway process does not take down the whole service. Monitor CPU and memory in CloudWatch and set alarms before users start complaining.</p>
+
+<p>There you go. A pragmatic path to get Spring Boot microservices running on Amazon ECS with Docker and ECR without summoning chaos. Now go deploy something that scales and blame the CI when it breaks.</p>
+

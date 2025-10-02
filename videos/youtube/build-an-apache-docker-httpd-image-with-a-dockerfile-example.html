@@ -1,0 +1,81 @@
+---
+layout: video
+title: "Build an Apache Docker httpd image with a Dockerfile Example"
+description: "Step by step guide to build a minimal Apache httpd Docker image using a Dockerfile with practical tips for building testing and pushing an image"
+video_host: "youtube"
+video_id: "I66s-6NzkL0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M58S"
+thumbnail_url: "https://i.ytimg.com/vi/I66s-6NzkL0/maxresdefault.jpg"
+content_url: "https://youtu.be/I66s-6NzkL0"
+embed_url: "https://www.youtube.com/embed/I66s-6NzkL0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Docker
+  - Apache
+  - httpd
+  - Dockerfile
+  - Container
+  - Image
+  - DevOps
+  - WebServer
+  - Tutorial
+  - BestPractices
+---
+
+<p>If you want a tiny Apache httpd image that does not sulk during rebuilds you are in the right place. This guide shows a simple Dockerfile workflow to build a compact Apache httpd container image then run and test it locally with an eye on image size and build caching. Expect practical tips and mild sass.</p>
+
+<h2>Pick the base and keep it minimal</h2>
+<p>Start from the official Apache httpd base image to avoid reinventing the wheel. A one line Dockerfile keeps things predictable and supported.</p>
+<pre><code>FROM httpd
+</code></pre>
+<p>Copy only the files you actually serve into the Apache document root so you do not bloat the image with your local node_modules or leftover build files. Use a concise .dockerignore to avoid surprises.</p>
+
+<h2>Example Dockerfile that does the job</h2>
+<p>This is intentionally small and explicit. It documents the web port and places your static site where Apache expects it.</p>
+<pre><code>FROM httpd
+COPY ./public /usr/local/apache2/htdocs/
+EXPOSE 80
+</code></pre>
+
+<h3>What each line does</h3>
+<ul>
+  <li>FROM httpd brings the official Apache runtime</li>
+  <li>COPY puts your static files into the document root</li>
+  <li>EXPOSE 80 documents the port for humans and tooling</li>
+</ul>
+
+<h2>Build the image and use cache like a pro</h2>
+<p>Run the build from the folder with your Dockerfile and source. Name the image something clear so future you does not cry.</p>
+<pre><code>docker build -t my-httpd .
+</code></pre>
+<p>Order Dockerfile instructions from least to most frequently changing. Files that rarely change should be added early so layer cache saves you time on subsequent builds. Quick tip use small layers and avoid copying everything at once if parts change independently.</p>
+
+<h2>Run the container and map ports</h2>
+<p>Start a detached container and keep a consistent name so logs and restarts are pleasant.</p>
+<pre><code>docker run -d --name webserver -p 8080:80 my-httpd
+</code></pre>
+<p>Then visit http://localhost:8080 or use curl if you prefer command line therapy.</p>
+
+<h2>Test quickly and iterate</h2>
+<p>Make small changes, rebuild and restart the container. Iterative testing finds config mistakes faster than heroic debugging sessions. Use a command line HTTP client or open a browser to confirm your pages load.</p>
+
+<h2>Tagging and pushing to a registry</h2>
+<p>When you are ready to share or deploy tag the image with a proper repository name and push it to your registry. Use names that reflect the project and the environment so CI and humans can tell them apart.</p>
+<pre><code>docker tag my-httpd registry.example.com/project/my-httpd:latest
+docker push registry.example.com/project/my-httpd:latest
+</code></pre>
+
+<h2>DevOps friendly tips and best practices</h2>
+<ul>
+  <li>Keep a concise .dockerignore to avoid copying build artifacts and node modules into the image</li>
+  <li>Automate builds and pushes in CI for reproducible deployments and fewer midnight surprises</li>
+  <li>Use layered ordering to take advantage of cache and speed up local development</li>
+  <li>Document what your image contains so teammates are not surprised by hidden dependencies</li>
+</ul>
+
+<p>This covers creating a Dockerfile with the official Apache httpd base image building a local image running a container and basic testing plus practical tips to keep builds small and fast. You saved time and bandwidth and maybe a little dignity along the way.</p>
+

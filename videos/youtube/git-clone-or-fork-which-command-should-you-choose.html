@@ -1,0 +1,74 @@
+---
+layout: video
+title: "Git Clone or Fork? Which command should you choose?"
+description: "Quick practical guide to choose between git clone and GitHub fork for contribution workflows and local development."
+video_host: "youtube"
+video_id: "D2rbsqGCi2o"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M30S"
+thumbnail_url: "https://i.ytimg.com/vi/D2rbsqGCi2o/maxresdefault.jpg"
+content_url: "https://youtu.be/D2rbsqGCi2o"
+embed_url: "https://www.youtube.com/embed/D2rbsqGCi2o"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - clone
+  - fork
+  - github
+  - pull request
+  - open source
+  - version control
+  - git workflow
+  - fork vs clone
+  - contributing
+---
+
+<h2>Short answer for people who hate long docs</h2>
+<p>If you have direct write access to a repo then <code>git clone</code> is the fast lane. If you do not have write access or you prefer a safety net on the server then fork the project on the hosting service and work from your fork. Both are valid in a modern git workflow and both keep the version control gods happy when used correctly.</p>
+
+<h2>When to clone</h2>
+<p>Cloning makes a local copy of the repository and links it to the original remote. Use <code>git clone owner/repo.git</code> when you are experimenting locally or when you already have permission to push to the upstream project. Cloning is quick and direct which is great for teams with shared write access.</p>
+<ul>
+  <li>Best for fast local work and testing</li>
+  <li>Good when you can push to the upstream repository</li>
+  <li>Remember to add an upstream remote if you want to follow the original project</li>
+</ul>
+
+<h2>When to fork</h2>
+<p>Forking creates a server side copy under your account on GitHub or another host. This is your sandbox. Fork when you do not have write permission or when you want to keep the original repo safe from stray pushes. Forks make pull requests explicit which is the standard for open source contributing.</p>
+<ul>
+  <li>Preferred for external contributors</li>
+  <li>Recommended when you want to isolate work from the main project</li>
+  <li>Protects the original from accidental pushes and messy branches</li>
+</ul>
+
+<h3>Example contribution workflow with a fork</h3>
+<ol>
+  <li>Fork the repository on the hosting service</li>
+  <li>Clone your fork locally with <code>git clone myaccount/repo.git</code></li>
+  <li>Create a feature branch and commit changes locally</li>
+  <li>Push the branch to your fork with <code>git push origin feature-branch</code></li>
+  <li>Open a pull request from your fork to the original repository</li>
+</ol>
+
+<h3>Keeping your fork in sync</h3>
+<p>Do not let your fork rot. Add the original as an upstream remote and pull changes regularly. You can merge or rebase depending on your team's preference.</p>
+<pre><code>git remote add upstream original_owner/repo.git
+git fetch upstream
+git checkout main
+git merge upstream/main</code></pre>
+<p>If you prefer a cleaner history use rebase instead of merge. That keeps commits tidy before opening a pull request.</p>
+
+<h2>Common gotchas and tips</h2>
+<ul>
+  <li>Pick descriptive branch names to avoid the mystery branch syndrome</li>
+  <li>Keep your fork synced to avoid painful merge conflicts later</li>
+  <li>If your team has write access to a shared repo then cloning and branching there can be simpler</li>
+  <li>Open a pull request early for feedback and to avoid wasted work</li>
+</ul>
+
+<p>In short pick the tool that matches your permissions and your level of caution. Fork when you want a server side sandbox and clean PRs. Clone when you have write access and you want to work directly. Now go contribute and try not to break production while doing it.</p>
+

@@ -1,0 +1,73 @@
+---
+layout: video
+title: "A Quick Java Mission Control Overview"
+description: "Concise guide to Java Mission Control and Java Flight Recorder for JVM profiling and performance troubleshooting"
+video_host: "youtube"
+video_id: "AHT4ZvOe6a4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M45S"
+thumbnail_url: "https://i.ytimg.com/vi/AHT4ZvOe6a4/maxresdefault.jpg"
+content_url: "https://youtu.be/AHT4ZvOe6a4"
+embed_url: "https://www.youtube.com/embed/AHT4ZvOe6a4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java Mission Control
+  - JMC
+  - Java Flight Recorder
+  - JFR
+  - JVM profiling
+  - performance tuning
+  - GC analysis
+  - thread diagnostics
+  - production monitoring
+  - profiling tools
+---
+
+<article>
+  <h2>Why JMC quietly wins at production profiling</h2>
+  <p>Java Mission Control is the profiler you can run in production without feeling immediate regret. It reads Java Flight Recorder data and surfaces CPU hotspots, allocation patterns, GC behavior, thread problems, and any custom events you care to stamp into your code. It is low overhead and built for continuous monitoring so you can stop guessing and start fixing stuff that actually matters.</p>
+
+  <h2>What you get when you use JMC</h2>
+  <ul>
+    <li>Flame graphs for method level CPU analysis so you can find the guilty methods</li>
+    <li>Allocation stacks and allocation rate to spot where memory is being born and abused</li>
+    <li>GC charts for pause distributions and heap usage so pauses stop being spooky surprises</li>
+    <li>Thread dumps and blocking analysis for deadlocks and thread contention</li>
+    <li>Custom events so business transactions line up with system events and root cause work looks professional</li>
+  </ul>
+
+  <h2>Attach and capture recordings</h2>
+  <p>You can attach to a running JVM from the JMC console or start the JVM with JFR enabled. Start a flight recording with default settings when you want a quick snapshot. Use a tailored event set for focused investigations. Always collect data during realistic traffic to avoid chasing problems that only happen in lab fairy tales.</p>
+
+  <h3>Simple capture steps</h3>
+  <ol>
+    <li>Open the JMC console and pick the running process you care about</li>
+    <li>Start a flight recording with defaults or a custom profile</li>
+    <li>Run the system under representative load and let the recording collect</li>
+    <li>Stop the recording and open it in the JMC UI for analysis</li>
+  </ol>
+
+  <h2>Explore the UI and know where to look</h2>
+  <p>When you open a recording you get an event browser, flame graphs for CPU, GC charts, and allocation timelines. If you want to find a hotspot start with method samples and allocation stacks. If GC is the suspect inspect pause distributions and allocation rate. For thread problems use the thread dump and blocking analysis tools to find who is waiting on whom.</p>
+
+  <h2>When sampling is enough and when to dig deeper</h2>
+  <p>Sampling is the production friendly default. It gives you continuous insight with low overhead. If sampling lacks the fidelity you need switch to event driven recordings for detailed traces at the cost of higher overhead. Use event driven sessions for focused investigations not for 24 7 monitoring unless you enjoy slowness.</p>
+
+  <h2>Custom events and annotations</h2>
+  <p>Instrument your application with custom JFR events and mark business transactions. Correlating those events with system metrics is the difference between guessing and actually solving problems. Add a little context whenever you can. Future you will thank present you for not making debugging a treasure hunt.</p>
+
+  <h2>Practical tips that save time and dignity</h2>
+  <ul>
+    <li>Record during realistic load and not during synthetic unicorn tests</li>
+    <li>Annotate important transactions so recordings map back to user actions</li>
+    <li>Rotate recordings and keep retention policies tidy to avoid storage drama</li>
+    <li>Prefer sampling for continuous monitoring and event driven for deep dives</li>
+    <li>Trust the low overhead claim but measure it anyway to keep your manager happy</li>
+  </ul>
+
+  <p>Java Mission Control paired with Java Flight Recorder gives you production safe JVM profiling, useful GC analysis, and solid thread diagnostics. It is the tool that lets you investigate performance without turning production into a drama set. Use it, annotate events, collect realistic traces, and enjoy the strange satisfaction of actually fixing the problem.</p>
+</article>
+

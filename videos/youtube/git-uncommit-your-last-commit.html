@@ -1,0 +1,85 @@
+---
+layout: video
+title: "Git Uncommit Your Last Commit"
+description: "Quick guide to undo the last Git commit safely using reset and revert with notes for pushed commits and staged changes"
+video_host: "youtube"
+video_id: "RSfT3cUA8nk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M53S"
+thumbnail_url: "https://i.ytimg.com/vi/RSfT3cUA8nk/maxresdefault.jpg"
+content_url: "https://youtu.be/RSfT3cUA8nk"
+embed_url: "https://www.youtube.com/embed/RSfT3cUA8nk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git reset
+  - git revert
+  - uncommit
+  - last commit
+  - git tutorial
+  - version control
+  - git reset --soft
+  - git reset --hard
+  - git amend
+---
+
+<p>If you made a commit and wish you had not do not panic yet You can uncommit the last commit and choose whether to keep the files staged keep them unstaged or wipe everything like it never happened This quick git tutorial walks through safe ways to uncommit your last commit in version control without angry teammates or ruined branches</p>
+
+<h2>Check the repo first</h2>
+<p>Before wrecking things run these commands to see what is actually going on The log and status will tell you if you are about to act on the right commit or if you are about to erase something precious</p>
+<pre><code>git log --oneline -n 5
+
+git status
+</code></pre>
+<p>Look at the short log to confirm the commit id and message and use git status to see staged and unstaged changes</p>
+
+<h2>Uncommit but keep changes staged</h2>
+<p>Want to edit the commit message or add one more file without losing what you had staged Use git reset --soft HEAD~1 This moves HEAD back one commit but leaves the index and working tree intact In plain English the files stay staged and ready for a new commit</p>
+<pre><code>git reset --soft HEAD~1
+</code></pre>
+<p>After that run git commit --amend to change the message or git add and git commit again to produce the new commit</p>
+
+<h2>Uncommit and keep changes unstaged</h2>
+<p>If you need to keep your file edits but want a clean index so you can craft a different commit run git reset HEAD~1 This moves HEAD back one commit and unstages the changes while keeping them in your working tree</p>
+<pre><code>git reset HEAD~1
+</code></pre>
+<p>Use this when you want to rework files before committing again or when you accidentally included debug junk</p>
+
+<h2>Remove the commit and discard local changes</h2>
+<p>When the commit was a mistake and the work is disposable use git reset --hard HEAD~1 This will remove the commit and wipe working tree changes This is destructive garbage disposal so triple check the log first</p>
+<pre><code>git reset --hard HEAD~1
+</code></pre>
+<p>If there is any chance you want the work back create a branch backup first</p>
+
+<h2>What to do if the commit was already pushed</h2>
+<p>If the bad commit is already on a shared remote prefer safe options Revert the commit to preserve public history</p>
+<pre><code>git revert HEAD
+
+git push
+</code></pre>
+<p>git revert will create a new commit that undoes the previous commit so history stays intact If you must rewrite history with git reset and force push coordinate with collaborators and be prepared for merge headaches Here is the nuclear option</p>
+<pre><code>git reset --soft HEAD~1
+
+git commit -m "fixed"
+
+git push --force-with-lease
+</code></pre>
+<p>Using push --force with lease is slightly less reckless than plain force but still requires team coordination</p>
+
+<h3>Safety tip</h3>
+<p>If you are unsure create a recovery branch and then experiment on HEAD</p>
+<pre><code>git branch backup-uncommit
+</code></pre>
+
+<h2>Quick summary</h2>
+<ul>
+<li>Use git reset --soft HEAD~1 to uncommit and keep files staged</li>
+<li>Use git reset HEAD~1 to uncommit and leave changes unstaged</li>
+<li>Use git reset --hard HEAD~1 to remove the commit and wipe changes</li>
+<li>Use git revert HEAD to undo a commit that was already pushed</li>
+</ul>
+<p>Pick the command that matches whether you want staged files to remain or whether you want the working tree to survive If nothing else make a backup branch before experimenting and you will still be employed by the end of the day</p>
+

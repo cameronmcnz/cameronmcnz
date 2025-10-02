@@ -1,0 +1,84 @@
+---
+layout: video
+title: "Get IMAP messages in UiPath example"
+description: "Learn how to fetch IMAP messages in UiPath with Mail activities filtering attachments and basic error handling for reliable email automation"
+video_host: "youtube"
+video_id: "ysMR57EZ0GM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M32S"
+thumbnail_url: "https://i.ytimg.com/vi/ysMR57EZ0GM/maxresdefault.jpg"
+content_url: "https://youtu.be/ysMR57EZ0GM"
+embed_url: "https://www.youtube.com/embed/ysMR57EZ0GM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - IMAP
+  - RPA
+  - Email Automation
+  - Get IMAP Mail Messages
+  - UiPath Studio
+  - Mail Activities
+  - Attachments
+  - Workflow
+  - Tutorial
+---
+
+<p>If your inbox is a monster you are not proud of managing by hand welcome to automation therapy. This tutorial walks through using UiPath Studio and Mail activities to fetch IMAP messages with the Get IMAP Mail Messages activity and then filter process and archive those messages like a responsible digital adult.</p>
+
+<h2>Setup Mail activities and IMAP account</h2>
+<p>Open UiPath Studio and make sure the UiPath.Mail.Activities package is installed. No magic plugin required just the package and decent credentials. Store credentials securely using Orchestrator assets or the Windows Credential Manager so you do not paste passwords into a workflow and cry later.</p>
+
+<pre><code>Server imap.gmail.com
+Port 993
+Secure True
+User user@example.com
+Password yourPassword
+</code></pre>
+<p>Those lines represent the connection properties you will feed into the Get IMAP Mail Messages activity or into an activity that wraps that configuration. Use proper secure storage for the user and password values.</p>
+
+<h2>Use Get IMAP Mail Messages</h2>
+<p>Drag the Get IMAP Mail Messages activity into your workflow and point it to the account settings you just prepared. Set the Folder to Inbox or any subfolder you own. Use the Top property to limit how many messages the activity fetches per run. Turn on OnlyUnread if you want to pretend you never saw anything before.</p>
+
+<h3>Output and common properties</h3>
+<ul>
+  <li>Output list variable type is List of MailMessage objects</li>
+  <li>Top controls fetch size which helps with performance</li>
+  <li>OnlyUnread reduces duplicate processing when you mark mail as read later</li>
+</ul>
+
+<h2>Iterate filter and process messages</h2>
+<p>Use a For Each activity to loop through the MailMessage objects returned by Get IMAP Mail Messages. Apply quick filters inside the loop by checking the Subject From or headers so you only touch messages that matter to your workflow.</p>
+
+<ul>
+  <li>Example filter by subject or sender inside the For Each</li>
+  <li>Use Date properties to avoid very old spam that somehow survived your inbox rules</li>
+</ul>
+
+<h3>Save attachments and parse content</h3>
+<p>When mail has attachments use the Save Attachments activity and point it to a path. Use a naming pattern with timestamps to avoid overwrites. Once saved pass attachments to OCR extraction or to downstream processes that extract tables or PDFs.</p>
+
+<h2>Cleanup error handling and robustness</h2>
+<p>Mark processed messages as read or move them to an archive folder so your robot does not do the same job twice. For moving use the appropriate Mail activities for your protocol. Wrap network calls in Try Catch and add logs so the next human who looks at your process cries less.</p>
+
+<ul>
+  <li>Use Retry Scope to handle transient IMAP errors like flaky connections</li>
+  <li>Log exception details and include message id or subject for easier debugging</li>
+  <li>Consider backoff and retry limits to avoid flooding the server</li>
+</ul>
+
+<h2>Quick checklist for a reliable email automation workflow</h2>
+<ul>
+  <li>Install Mail activities in UiPath Studio</li>
+  <li>Store credentials securely</li>
+  <li>Use Get IMAP Mail Messages with Top and OnlyUnread as needed</li>
+  <li>Filter messages inside the For Each loop</li>
+  <li>Save attachments and hand off to OCR or parsers</li>
+  <li>Mark as read or move to archive to prevent reprocessing</li>
+  <li>Wrap calls in Try Catch and use Retry Scope for transient issues</li>
+</ul>
+
+<p>This guide covered connecting to an IMAP server in UiPath using Mail activities fetching messages filtering by criteria handling attachments and adding basic error handling. Follow the steps and your workflow will read and process inbox mail with less supervision and more smug satisfaction.</p>
+

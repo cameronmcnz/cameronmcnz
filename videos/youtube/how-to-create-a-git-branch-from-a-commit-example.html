@@ -1,0 +1,76 @@
+---
+layout: video
+title: "How to Create a Git branch from a Commit Example"
+description: "Quick guide to create a Git branch from a specific commit with commands for finding the hash creating the branch checking out and pushing"
+video_host: "youtube"
+video_id: "msefe8Lw_lQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M1S"
+thumbnail_url: "https://i.ytimg.com/vi/msefe8Lw_lQ/maxresdefault.jpg"
+content_url: "https://youtu.be/msefe8Lw_lQ"
+embed_url: "https://www.youtube.com/embed/msefe8Lw_lQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - branch
+  - commit
+  - git-branch
+  - git-commands
+  - version-control
+  - git-tutorial
+  - git-checkout
+  - git-push
+  - devops
+---
+
+<p>Want to branch off a moment in time and pretend you never wrote that terrible function That is exactly why Git lets you create a branch from a specific commit. This short guide shows the exact git commands you need and a few survival tips for future you or your teammates in devops.</p>
+
+<h2>Why make a branch from a commit</h2>
+<p>Creating a branch from a commit is how you explore a historical snapshot without rewriting history. Use it to recover work from an old commit to build a hotfix or to start a fresh feature from a reliable point in version control. It is safe and reversible and it keeps the commit graph honest.</p>
+
+<h3>Common use cases</h3>
+<ul>
+  <li>Resurrecting a bug fix that lived in an abandoned branch</li>
+  <li>Starting a hotfix from a release commit</li>
+  <li>Experimenting without touching main or master</li>
+</ul>
+
+<h2>Step by step commands</h2>
+<p>Here are the plain git commands that do the job. No magic, no rewriting of history, no regrets.</p>
+
+<h3>1 Find the commit hash</h3>
+<p>Use your favorite log view. The terminal option is compact and reliable.</p>
+<pre><code>git log --oneline</code></pre>
+<p>Copy the short hash like <code>1a2b3c4</code> or the full one if you enjoy being precise.</p>
+
+<h3>2 Create the branch</h3>
+<p>Make a branch that points at that historical commit.</p>
+<pre><code>git branch new-branch 1a2b3c4</code></pre>
+<p>If you want to create and switch in one move use git checkout -b with the commit hash.</p>
+<pre><code>git checkout -b new-branch 1a2b3c4</code></pre>
+
+<h3>3 Switch to the branch</h3>
+<p>If you used git branch then switch with this.</p>
+<pre><code>git checkout new-branch</code></pre>
+<p>Your working tree and index will reflect the state of that commit so you can develop from that exact snapshot.</p>
+
+<h3>4 Publish the branch</h3>
+<p>Share it with the team when you want others to continue the work.</p>
+<pre><code>git push -u origin new-branch</code></pre>
+
+<h2>Quick checklist for the forgetful</h2>
+<ul>
+  <li>Use git log --oneline to find the commit fast</li>
+  <li>Name the branch with a reason or a date so future you does not cry</li>
+  <li>Avoid creating the branch on the wrong remote head by double checking origin</li>
+</ul>
+
+<h2>Tips and gotchas</h2>
+<p>If the commit is very old be explicit in the branch name like <code>hotfix/2025-09-02-repro-fix</code> or <code>recover/old-feature</code> That saves time when you are hunting for where a fix came from later.</p>
+<p>Remember that creating a branch from a commit does not rewrite history. It simply creates a new pointer. If you need to move history around that is a different set of git-commands that deserve their own tutorial and more coffee.</p>
+
+<p>There you go You now know how to create a branch from a commit with the basic git-commands git-branch git-checkout and git-push This trick is a small but useful tool in any version control toolbox for developers and teams working in devops.</p>
+

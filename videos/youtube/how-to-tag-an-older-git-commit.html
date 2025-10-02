@@ -1,0 +1,72 @@
+---
+layout: video
+title: "How to Tag an Older Git Commit"
+description: "Quick guide to tagging an older Git commit find the hash create a tag push and verify without rewriting history"
+video_host: "youtube"
+video_id: "lp35Yl5b42A"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M52S"
+thumbnail_url: "https://i.ytimg.com/vi/lp35Yl5b42A/maxresdefault.jpg"
+content_url: "https://youtu.be/lp35Yl5b42A"
+embed_url: "https://www.youtube.com/embed/lp35Yl5b42A"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git tag
+  - tagging
+  - git commit
+  - annotated tag
+  - lightweight tag
+  - push tags
+  - git tutorial
+  - versioning
+  - devops
+---
+
+<article>
+<h2>Quick summary</h2>
+<p>Want to add a tag to an older Git commit without rewriting history or starting a developer feud? This guide shows the simple commands and the basic etiquette you need. You will learn how to find the commit hash create either an annotated tag or a lightweight tag push the tag to the remote and verify everything points where you expect. Annotated tags are the better choice for releases because they store a message an author and a date.</p>
+
+<h2>Locate the commit hash</h2>
+<p>When history looks like a bowl of spaghetti use a compact log to spot the commit hash. Run the command below and copy the short hash for the commit you want to tag.</p>
+<pre><code>git log --oneline</code></pre>
+<p>If you prefer a GUI use gitk or your IDE history viewer. Find and copy the hash that corresponds to the right commit.</p>
+
+<h2>Create the tag</h2>
+<p>Pick annotated or lightweight tagging depending on your needs. Annotated tags become full objects in Git so they are better for releases. Lightweight tags are just pointers when you want something quick and throwaway.</p>
+<pre><code>git tag -a v1.2 abc123 -m "release v1.2"</code></pre>
+<pre><code>git tag v1.2 abc123</code></pre>
+<p>Replace v1.2 with your tag name and abc123 with the commit hash. No need to rewrite history or perform circus tricks.</p>
+
+<h3>Why annotated tags usually win</h3>
+<ul>
+<li>They store a message a tagger and a timestamp which helps with auditing</li>
+<li>They show up in git show and in many release tools used by teams</li>
+<li>They avoid confusing future you when you look back months later</li>
+</ul>
+
+<h2>Push the tag to the remote</h2>
+<p>Tags do not always travel with branch pushes so push tags explicitly. Push a single tag when you want control or push all tags when you are sure.</p>
+<pre><code>git push origin v1.2
+git push --tags</code></pre>
+<p>If teammates do not see the tag ask them to run git fetch --tags or git fetch --all --tags depending on your workflow.</p>
+
+<h2>Verify the tag</h2>
+<p>Confirm the tag points to the intended commit so you do not ship surprises. Use the commands below and match the shown hash with the one you copied earlier.</p>
+<pre><code>git show v1.2
+git tag -n</code></pre>
+
+<h2>Common pitfalls and etiquette</h2>
+<ul>
+<li>Do not rewrite published history just to add a tag. That will make people angry in a useful way</li>
+<li>Avoid force pushing branches that contain tags. Tags are signals not targets</li>
+<li>Prefer annotated tags for releases and include meaningful messages so the changelog does not feel haunted</li>
+</ul>
+
+<h2>Quick recap</h2>
+<p>Locate the commit hash create an annotated or lightweight tag push the tag and verify the result. Teach your team to fetch tags with git fetch --tags so everyone sees the new release. Follow these steps and you will keep versioning tidy and coworkers pleasantly unbothered.</p>
+</article>
+

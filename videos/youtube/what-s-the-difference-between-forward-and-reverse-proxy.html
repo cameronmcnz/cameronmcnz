@@ -1,0 +1,71 @@
+---
+layout: video
+title: "What's the Difference Between Forward and Reverse Proxy?"
+description: "Clear comparison of forward proxy and reverse proxy roles with examples use cases and when to choose one for security caching and load balancing"
+video_host: "youtube"
+video_id: "_e2A1U2bsPQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M12S"
+thumbnail_url: "https://i.ytimg.com/vi/_e2A1U2bsPQ/maxresdefault.jpg"
+content_url: "https://youtu.be/_e2A1U2bsPQ"
+embed_url: "https://www.youtube.com/embed/_e2A1U2bsPQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - forward proxy
+  - reverse proxy
+  - proxy server
+  - network security
+  - load balancing
+  - caching
+  - Nginx
+  - Squid
+  - HTTP proxy
+  - edge server
+---
+
+<p>If you like middlemen and mild chaos then welcome to the world of proxy servers. In plain terms a proxy is a gatekeeper that sits between two parties and manipulates traffic for fun and profit. The practical difference between a forward proxy and a reverse proxy comes down to placement and representation. One stands with the clients the other stands with the servers. That split decides why you would pick one or the other.</p>
+
+<h2>Where each proxy lives and who it speaks for</h2>
+<p>Keep it simple. A forward proxy represents the client. It sits closer to users and acts on behalf of outgoing requests. A reverse proxy represents the server. It sits at the edge of your backend and handles incoming requests before they ever touch origin servers.</p>
+<ul>
+  <li>Forward proxy role: act for users and control what they can access.</li>
+  <li>Reverse proxy role: present a single public face for multiple backend services.</li>
+</ul>
+
+<h2>Common use cases and features</h2>
+
+<h3>Forward proxy scenarios</h3>
+<p>Forward proxies are the office bouncer for outbound traffic. Typical uses include privacy for end users filtering or blocking sites for policy compliance and caching to save outbound bandwidth. In many shops an HTTP proxy like Squid runs this role and enforces network security rules and content filters.</p>
+
+<h3>Reverse proxy scenarios</h3>
+<p>Reverse proxies are the concierge for incoming traffic. They do load balancing SSL termination caching and hide internal topology from the internet. Nginx and HAProxy are popular reverse proxy choices and are often deployed as edge servers for production web fleets.</p>
+
+<h2>Caching and performance</h2>
+<p>Both proxy types can cache but they solve different problems. A forward proxy cache reduces repeated downloads from the internet and saves precious outbound bandwidth. A reverse proxy cache speeds up delivery to many clients and lowers load on your origin servers. If you want to be fancy you can combine reverse proxy caching with a CDN or edge server to make things even faster for users around the world.</p>
+
+<h2>Security and visibility</h2>
+<p>Forward proxies enforce client side policy. They log what users request and can block or redirect connections for compliance. Reverse proxies centralize server side defenses. They are where you terminate TLS inspect traffic insert web application firewalls and hide backend IPs from random scanners.</p>
+
+<h2>Tools and deployment notes</h2>
+<p>Many tools can play both roles but configuration matters. Squid is a classic forward proxy and excels at HTTP proxy features. Nginx and HAProxy are common reverse proxy options that do load balancing SSL termination and caching at scale. Some platforms support both roles meaning you can run a single binary to do everything but that is a tempting shortcut that often makes troubleshooting miserable.</p>
+
+<h2>How to decide which proxy you need</h2>
+<ul>
+  <li>Manage user outbound requests and enforce policies choose a forward proxy.</li>
+  <li>Protect backends handle TLS or balance traffic choose a reverse proxy.</li>
+  <li>Need caching for internal users save bandwidth with a forward cache.</li>
+  <li>Need caching for many clients speed up responses with a reverse cache or CDN.</li>
+</ul>
+
+<h2>Quick practical tips</h2>
+<ul>
+  <li>Use a reverse proxy for SSL termination and load balancing to simplify certificates and scale services.</li>
+  <li>Use Squid for classic forward proxy features and Nginx or HAProxy for reverse proxy and edge server duties.</li>
+  <li>Do not try to be clever and jam both roles into one config unless you enjoy playing detective during outages.</li>
+</ul>
+
+<p>If you remember only one thing make it this The side that needs control is the side you protect. Put the proxy on that side and then enjoy slightly fewer surprises and slightly more predictable traffic.</p>
+

@@ -1,0 +1,80 @@
+---
+layout: video
+title: "How to Stop Java GC and Prevent Garbage Collection on JVM"
+description: "Learn how to pause Java garbage collection on the JVM safely and techniques to avoid GC pauses during critical workloads"
+video_host: "youtube"
+video_id: "aTMZGs0ZGPE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M35S"
+thumbnail_url: "https://i.ytimg.com/vi/aTMZGs0ZGPE/maxresdefault.jpg"
+content_url: "https://youtu.be/aTMZGs0ZGPE"
+embed_url: "https://www.youtube.com/embed/aTMZGs0ZGPE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - JVM
+  - Garbage Collection
+  - GC tuning
+  - DisableExplicitGC
+  - G1GC
+  - ZGC
+  - Off heap
+  - Performance
+  - Monitoring
+---
+
+<h2>Reality check and why you should not panic</h2>
+<p>Full stop of the garbage collector on a long running Java service is fantasy. The GC is the JVM's lifeguard. Turn it off and you might enjoy a crash party when memory runs out. What you can do is reduce interruptions during critical work by preventing gratuitous collections and tuning the JVM for predictable pauses. That buys you lower latency for important windows while keeping the safety net in place.</p>
+
+<h2>Block explicit GC requests</h2>
+<p>Some libraries still call System.gc which asks the JVM to run a collection at the worst possible time. You can ignore those pleas with the standard JVM flag that disables explicit GC calls. That is the quickest, least invasive trick to stop third party code from scheduling annoying pauses.</p>
+
+<h3>Flags to try</h3>
+<pre><code>-XX:+DisableExplicitGC</code></pre>
+<p>If a library is throwing System.gc calls around like confetti this flag buys time while you fix the offender or redesign the flow.</p>
+
+<h2>Pick and tune the right collector</h2>
+<p>Not all collectors are created equal. G1GC and ZGC are designed for predictable or low pause behavior, while CMS is legacy and often harder to tune. If latency matters pick a low pause collector and tune goals and regions rather than expecting magic.</p>
+
+<h3>Common options and tuning knobs</h3>
+<ul>
+  <li>Enable a modern collector like G1 or ZGC with the appropriate flags such as -XX:+UseG1GC or -XX:+UseZGC</li>
+  <li>Set pause time targets for G1 with -XX:MaxGCPauseMillis to nudge the collector toward shorter pauses</li>
+  <li>Tune survivor sizes and region related flags to reduce promotion churn in G1</li>
+  <li>Expect several tuning iterations under realistic traffic to find the sweet spot</li>
+</ul>
+
+<h2>Move heavy objects off heap</h2>
+<p>Big caches and giant buffers scream at the GC. Moving large allocations off heap reduces pressure on the managed heap and can slash pause times. Use direct byte buffers for IO heavy workloads or native arenas when you really need control, but remember this moves responsibility to you the developer. Native memory leaks are less fun than Java leaks because the JVM will not clean them for you.</p>
+
+<h3>Approaches to off heap allocation</h3>
+<ul>
+  <li>java.nio.DirectByteBuffer for large IO buffers</li>
+  <li>Libraries that use native memory pools for caches and arenas</li>
+  <li>Off heap data structures for very large datasets to avoid frequent GC work</li>
+</ul>
+
+<h2>Measure and verify like your uptime depends on it</h2>
+<p>Do not guess. Use GC logs and monitoring tools to see what the JVM is actually doing. Collect pause times allocation rates and native memory usage when you test. Reproduce production like traffic in staging while experimenting so the collector behavior is realistic. If GC still steps on your critical sections profile allocations and find hotspots.</p>
+
+<h3>Tools to monitor GC and memory</h3>
+<ul>
+  <li>Enable GC logging with the modern logging syntax for your JVM version and ship logs to your observability stack</li>
+  <li>Use jcmd and jstat for quick dumps and metrics</li>
+  <li>Java Flight Recorder and VisualVM for allocation hotspots and object lifetime analysis</li>
+</ul>
+
+<h2>Small safe checklist before you commit</h2>
+<ul>
+  <li>Accept the risk that you cannot indefinitely disable GC on a production JVM</li>
+  <li>Use -XX:+DisableExplicitGC to stop programmatic GC calls while you handle root causes</li>
+  <li>Pick G1GC or ZGC for low pause behavior and tune MaxGCPauseMillis and survivor settings</li>
+  <li>Move huge buffers off heap when appropriate and monitor native allocations closely</li>
+  <li>Run staging traffic that mimics production and collect GC logs and metrics before and after changes</li>
+</ul>
+
+<p>If you follow these steps you will not magically stop garbage collection forever, but you will make pauses less obnoxious during critical windows. Fix the allocations that cause storms and treat off heap work with respect. The JVM gives you powerful tools for GC tuning and monitoring, use them or plan for disaster recovery like an adult.
+

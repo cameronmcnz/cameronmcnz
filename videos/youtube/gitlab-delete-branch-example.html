@@ -1,0 +1,76 @@
+---
+layout: video
+title: "GitLab delete branch example"
+description: "Delete branches in GitLab from web UI local and remote with safe steps verification and tips"
+video_host: "youtube"
+video_id: "YGUyHyyL9Kw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M39S"
+thumbnail_url: "https://i.ytimg.com/vi/YGUyHyyL9Kw/maxresdefault.jpg"
+content_url: "https://youtu.be/YGUyHyyL9Kw"
+embed_url: "https://www.youtube.com/embed/YGUyHyyL9Kw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitLab
+  - git
+  - delete branch
+  - branch management
+  - git branch -d
+  - git push --delete
+  - web UI
+  - protected branches
+  - merge request
+  - cleanup
+---
+
+<p>Want to delete a branch in GitLab without causing a small apocalypse on your team</p>
+<p>This guide shows the safe ways to delete branches from the GitLab web UI and from the command line with verification steps and a little attitude</p>
+
+<h2>Delete a branch from the GitLab web interface</h2>
+<p>Sometimes clicking is faster than typing and less likely to trigger a tragic accidental deletion. Navigate to Project then Repository then Branches. Find the branch you made during a caffeine fueled sprint and click Delete. This is handy for cleaning up branches created by merge requests.</p>
+<ol>
+<li>Open the Branches page in the project</li>
+<li>Locate the branch name</li>
+<li>Click Delete and confirm</li>
+</ol>
+
+<h2>Remove the remote branch with git</h2>
+<p>If you prefer the command line or want to script this, push a delete to the remote. Replace origin and feature branch with your actual names</p>
+<pre><code>git push origin --delete feature-branch</code></pre>
+<p>This tells the remote to drop the branch reference so it no longer shows up for collaborators</p>
+
+<h3>When to force delete</h3>
+<p>Use a lowercase d to refuse deletion if the branch has unmerged changes</p>
+<pre><code>git branch -d feature-branch</code></pre>
+<p>If you accept potential data loss use a capital D to force removal</p>
+<pre><code>git branch -D feature-branch</code></pre>
+
+<h2>Clean up the local copy</h2>
+<p>After the remote is gone tidy your local repo so your branch list does not read like a historical record of bad ideas</p>
+<pre><code>git fetch origin
+git branch -d feature-branch</code></pre>
+
+<h2>Check protected branches and merge requests</h2>
+<p>Protected branches prevent accidental deletion. If a branch is protected unprotect it in Project Settings then try deletion again or ask a project maintainer to help. Also check the merge request setting to automatically delete the source branch on merge if you want less manual cleanup</p>
+
+<h2>Verify the branch is actually gone</h2>
+<p>Do not trust the web UI more than your own eyes. Run a fetch prune and list remote branches</p>
+<pre><code>git fetch --prune
+git branch -r</code></pre>
+<p>Or check the remote directly</p>
+<pre><code>git ls-remote --heads origin</code></pre>
+
+<h2>Quick recap and naming tips</h2>
+<ul>
+<li>Web UI for quick one off cleanup</li>
+<li>git push origin --delete to remove remote references</li>
+<li>git branch -d or -D to manage local copies</li>
+<li>Check protected branches before you try to delete anything</li>
+<li>Use clear prefixes like feature slash bugfix slash hotfix to keep branches sane</li>
+</ul>
+
+<p>Follow these steps and you will remove branches like a responsible human instead of a reckless chaos agent</p>
+

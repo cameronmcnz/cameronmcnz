@@ -1,0 +1,79 @@
+---
+layout: video
+title: "Your Own CI"
+description: "Build a lightweight self hosted CI pipeline for testing building and deploying code with practical steps tool choices and monitoring advice"
+video_host: "youtube"
+video_id: "4kJn7llmW9k"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M37S"
+thumbnail_url: "https://i.ytimg.com/vi/4kJn7llmW9k/maxresdefault.jpg"
+content_url: "https://youtu.be/4kJn7llmW9k"
+embed_url: "https://www.youtube.com/embed/4kJn7llmW9k"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - CI
+  - continuous integration
+  - self hosted CI
+  - devops
+  - automation
+  - build pipeline
+  - git
+  - docker
+  - testing
+  - tutorial
+---
+
+<p>Welcome to the slightly terrifying but very useful world of self hosted CI. This is a hands on tutorial that shows how to build a lightweight continuous integration system with tools you already know and maybe love less than you used to. Expect planning work not magic, and faster feedback instead of midnight fire drills.</p>
+
+<h2>Plan the architecture</h2>
+
+<p>Start by deciding which jobs must run on every commit and which can wait for a nightly schedule. Keep it simple so your build pipeline does not behave like a pet that only accepts one brand of snacks. Map quick checks like lint and unit tests to immediate commits and reserve long integration or deployment jobs for specific branches or scheduled runs.</p>
+
+<h2>Choose a runner and a host</h2>
+
+<p>Pick a runner that matches your budget and control needs. Self hosted Linux boxes are great for most projects. If you want better isolation and repeatable environments use container based runners with Docker. Containers give you resettable builds and fewer excuses when a machine mysteriously becomes a shrine to old dependencies.</p>
+
+<h2>Configure repo access and secrets</h2>
+
+<p>CI needs access to code and credentials without leaking your keys to the void. Use repository secret storage or a vault service and grant the smallest permission set that still gets work done. No one needs a root token to run lint. Rotate secrets and keep audit logs so you can actually say what you would do if things go wrong.</p>
+
+<h3>Minimal access checklist</h3>
+
+<ul>
+  <li>Read only access for most build steps</li>
+  <li>Deployment keys only for deploy jobs</li>
+  <li>Vault or encrypted secrets for tokens and certs</li>
+</ul>
+
+<h2>Write readable pipeline scripts</h2>
+
+<p>Use a declarative pipeline language or plain shell scripts depending on your platform. Break jobs into focused units like build, test, lint and deploy. Small focused jobs run faster and are far easier to debug than a monolith that refuses to cooperate.</p>
+
+<h3>Example job breakdown</h3>
+
+<ul>
+  <li>build image with Docker for reproducible artifacts</li>
+  <li>run unit tests with fast feedback</li>
+  <li>run lint and static analysis</li>
+  <li>integration tests on a dedicated runner or schedule</li>
+</ul>
+
+<h2>Speed up runs with caching and artifacts</h2>
+
+<p>Cache dependencies between runs to avoid downloading the internet every time. Upload test reports and build artifacts so failures are easy to inspect. Use parallel jobs for independent test suites to save time and patience.</p>
+
+<h2>Monitor flaky tests and runners</h2>
+
+<p>Track flaky tests and failing runners like you would track a bad habit. Collect logs, set alerts for long queued jobs and failing runners, and run periodic housekeeping so your pipeline does not become a haunted house. Flake management and a healthy runner pool will save developer time and sanity.</p>
+
+<h2>Local dry runs and maintenance</h2>
+
+<p>Keep a local dry run step using containers so pipeline edits can be tested quickly without touching production runners. Maintain a small set of playbooks for node recovery, dependency cleanup and secret rotation. Automation helps but it does not replace attention.</p>
+
+<h2>Recap and next steps</h2>
+
+<p>From planning the architecture to hosting runners, configuring secrets, writing clear pipeline scripts and monitoring the system you now have a path to a reliable CI setup. This tutorial gives you an automation friendly build pipeline that integrates with Git and Docker and provides faster feedback with fewer late night surprises. Now go build it and try to break it before your users do.</p>
+

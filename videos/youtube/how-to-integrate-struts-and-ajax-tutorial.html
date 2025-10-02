@@ -1,0 +1,115 @@
+---
+layout: video
+title: "How to Integrate Struts and Ajax Tutorial"
+description: "Learn how to integrate Struts and Ajax to add asynchronous calls in Java web apps for faster partial updates and clean JSON responses."
+video_host: "youtube"
+video_id: "ZPCKKHwg1nQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT13M34S"
+thumbnail_url: "https://i.ytimg.com/vi/ZPCKKHwg1nQ/maxresdefault.jpg"
+content_url: "https://youtu.be/ZPCKKHwg1nQ"
+embed_url: "https://www.youtube.com/embed/ZPCKKHwg1nQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Struts
+  - Ajax
+  - Java
+  - JSP
+  - struts2
+  - Asynchronous
+  - WebDevelopment
+  - JSON
+  - XML
+  - Tutorial
+---
+
+<p>If you want your Struts based web app to stop feeling like a slow motion slideshow welcome to the world of Ajax. This guide shows how to wire up Struts actions to asynchronous calls from a JSP so only the bits of the page that matter get updated. No full page reloads no drama and yes you will still love logs when things break.</p>
+
+<h2>Quick overview of the flow</h2>
+<p>Here is the basic pipeline so you do not get lost in the weeds</p>
+<ul>
+  <li>Client sends an async request from a JSP using fetch or a library like jQuery</li>
+  <li>Struts action receives parameters and delegates work to a service layer</li>
+  <li>Action returns JSON or a stream response so the client can parse it</li>
+  <li>Client updates the DOM fragment that actually cares about new data</li>
+</ul>
+
+<h2>Step 1 Setup project and dependencies</h2>
+<p>Use Struts 2 rather than ancient versions unless you enjoy hand crafting XML for fun. Add the Struts core libraries and the json plugin via Maven or by dropping jars. Make sure your web.xml has the Struts filter configured so requests will reach the framework.</p>
+
+<h3>What to include</h3>
+<ul>
+  <li>struts2 core and interceptor libraries</li>
+  <li>struts2 json plugin for automatic JSON results when you want them</li>
+  <li>Either jQuery for convenience or rely on the browser fetch API for minimal baggage</li>
+</ul>
+
+<h2>Step 2 Choose your client side approach</h2>
+<p>If you want something tiny and modern use fetch. If you want shortcuts and less typing use jQuery. Both work fine. Use a helper function if you have many forms or repeating logic. Keep payloads focused so you do not send the kitchen sink every time.</p>
+
+<pre><code>// example using fetch with JSON response
+fetch('/app/ajaxAction' , {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ id: 42 })
+})
+.then(response => response.json())
+.then(data => {
+  document.querySelector('#result').textContent = data.message
+})
+.catch(err => console.error('Ajax error' , err))
+</code></pre>
+
+<h2>Step 3 Create Struts action and service layer</h2>
+<p>Make an Action class that reads params from the request or uses setters that Struts will populate. Delegate business logic to a service class rather than stuffing everything into the action. For JSON results the action can expose getters for fields that should be serialized by the json plugin.</p>
+
+<h3>Two ways to return data</h3>
+<ul>
+  <li>Use the Struts json plugin and a result type of json so the framework serializes your action properties automatically</li>
+  <li>Or write directly to the HttpServletResponse stream when you need full control over the payload format</li>
+</ul>
+
+<h2>Step 4 Configure action mapping in struts.xml</h2>
+<p>Map a friendly name to your action class and set the result type to json when you want automatic serialization. That keeps your controller clean and your client happy.</p>
+
+<pre><code>&lt;action name="ajaxAction" class="com.example.action.AjaxAction"&gt;
+  &lt;result type="json" /&gt;
+&lt;/action&gt;
+</code></pre>
+
+<h2>Step 5 Build the JSP and update the DOM</h2>
+<p>Wire a button or form to trigger the Ajax call. Only replace the DOM fragment that changed. The browser will thank you with fewer repaints and your users will thank you with less rage clicks.</p>
+
+<pre><code>&lt;button id="loadBtn"&gt;Load item&lt;/button&gt;
+&lt;div id="result"&gt;Waiting for data&lt;/div&gt;
+
+&lt;script&gt;
+document.getElementById('loadBtn').addEventListener('click' , function() {
+  fetch('/app/ajaxAction' , { method: 'GET' })
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById('result').innerHTML = data.html || data.message
+    })
+    .catch(e => console.error('Fetch failed' , e))
+})
+&lt;/script&gt;
+</code></pre>
+
+<h2>Step 6 Test and debug the flow</h2>
+<p>Open the browser network panel and the console. Watch the request and the response payload. If you see a 404 check your action mapping. If you see a stack trace check server logs. If the client rejects JSON check the content type header and the actual payload shape.</p>
+
+<h2>Tips and pitfalls that will save you time</h2>
+<ul>
+  <li>Keep payloads small and focused so parsing is fast</li>
+  <li>Validate inputs on the server because client side validation is just a polite suggestion</li>
+  <li>Use consistent content type values so the client knows what to expect</li>
+  <li>When debugging dump the response body to logs before more clever handling</li>
+</ul>
+
+<p>There you go. You now have a maintenance friendly way to add async interactions to your Struts app. It will still break sometimes but at least it will do it faster.
+

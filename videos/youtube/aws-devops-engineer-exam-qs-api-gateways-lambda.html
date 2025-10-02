@@ -1,0 +1,76 @@
+---
+layout: video
+title: "AWS DevOps Engineer Exam Qs API Gateways Lambda"
+description: "Compact guide to API Gateway Lambda integration and mapping templates for AWS DevOps exam prep and practical tips for mapping and troubleshooting"
+video_host: "youtube"
+video_id: "F3kzNl1FC6s"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/F3kzNl1FC6s/maxresdefault.jpg"
+content_url: "https://youtu.be/F3kzNl1FC6s"
+embed_url: "https://www.youtube.com/embed/F3kzNl1FC6s"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - DevOps
+  - API Gateway
+  - Lambda
+  - Mapping Template
+  - VTL
+  - Serverless
+  - Certification
+  - Exam Tips
+  - Integration
+---
+
+<h2>Quick reality check</h2>
+<p>If you are studying for the AWS DevOps certification and you see API Gateway and Lambda appear in the exam you will be fine as long as you stop treating mapping templates like ancient dark magic. This guide gives clear notes on proxy versus non proxy integration mapping templates VTL and error mapping with a few sarcastic asides to keep your brain awake.</p>
+
+<h2>Integration types and when to pick which</h2>
+<p>There are two main ways to hook API Gateway to Lambda. One is the lazy efficient option where the whole HTTP request is shoved into your Lambda and you decide what to do. The other is the control freak option where API Gateway transforms the request and response with mapping templates.</p>
+<ul>
+  <li><strong>Lambda proxy integration</strong> sends the entire HTTP request payload to Lambda including headers body path and context. Minimal mapping work in API Gateway and more logic inside your function. Great when you want a single place to own behavior.</li>
+  <li><strong>Non proxy integration</strong> requires explicit mapping templates written in VTL to shape the request and response. Use this when API Gateway must present a specific contract or when you want to translate legacy backend formats.</li>
+</ul>
+
+<h2>Mapping templates with VTL explained without hand waving</h2>
+<p>Mapping templates use Velocity Template Language which is simple once you stop panicking. You will see $input.path to read JSON paths and $input.params to pull query string path or header parameters. These are exam favorites because they test you on syntax and intent not on drama.</p>
+<pre><code>{
+  "message" -> "$input.path('$.message')",
+  "userId" -> "$input.params('userId')"
+}
+</code></pre>
+<p>That example shows extracting a JSON field and grabbing a path or query param. In real life you will often wrap things into a new payload that the downstream service or Lambda expects.</p>
+
+<h2>Error handling and status mapping that actually matters</h2>
+<p>On exams you will be asked how to map backend errors to HTTP status codes. Integration responses let you match backend error messages using selection patterns and then transform or replace the response body so clients get a clean status and friendly payload.</p>
+<ul>
+  <li>Define selection patterns that match known error strings returned by your backend.</li>
+  <li>Create a default integration response with an empty selection pattern to catch everything else.</li>
+  <li>If you skip a default mapping the resulting behavior depends on the integration type and may return unexpected output or an error so do not skip the default unless you enjoy guessing games.</li>
+</ul>
+
+<h3>Practical tip on selection patterns</h3>
+<p>Match the exact text or use simple regex like Error or Exception to route to a 4xx or 5xx method response. Then use mapping templates to craft the client facing body. This is where non proxy integration shines because API Gateway does the translation work for you.</p>
+
+<h2>Hands on practice that saves exam points</h2>
+<p>Create two APIs in the console and compare them side by side. One API should use proxy integration and the other should use non proxy with a couple of mapping templates. Trigger simple flows and check CloudWatch logs to see the raw event Lambda receives and the transformed payload API Gateway sends upstream.</p>
+<ol>
+  <li>Create a REST API with Lambda proxy integration and record the event payload your function receives.</li>
+  <li>Create a REST API with non proxy integration and add a request mapping template plus an integration response that maps an error to 400.</li>
+  <li>Compare logs and responses so the difference stops feeling like a riddle and starts feeling like a useful tool.</li>
+</ol>
+
+<h2>Final exam friendly checklist</h2>
+<ul>
+  <li>Know when to pick proxy or non proxy integration based on where you want control</li>
+  <li>Practice $input.path and $input.params until you can type them without blinking</li>
+  <li>Always add a default integration response to avoid surprise failures</li>
+  <li>Test in the console and check CloudWatch logs for the raw event and headers</li>
+</ul>
+
+<p>Master those items and the API Gateway Lambda questions will feel less like a pop quiz and more like a polite formality. Now go break stuff in a sandbox and fix it before the exam.</p>
+

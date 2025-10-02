@@ -1,0 +1,83 @@
+---
+layout: video
+title: "Git Stash Tutorial"
+description: "Learn git stash commands and workflows to save uncommitted changes and switch branches safely"
+video_host: "youtube"
+video_id: "urSlkC-6lZE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M36S"
+thumbnail_url: "https://i.ytimg.com/vi/urSlkC-6lZE/maxresdefault.jpg"
+content_url: "https://youtu.be/urSlkC-6lZE"
+embed_url: "https://www.youtube.com/embed/urSlkC-6lZE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - stash
+  - git stash
+  - tutorial
+  - git commands
+  - workflow
+  - uncommitted changes
+  - stash branch
+  - developer tips
+  - version control
+---
+
+<p>If you ever needed to switch branches mid chaos and did not want to commit half baked code to history you need git stash in your life. This guide gives you the commands and the attitude to stash work safely then bring it back when you are ready. It is everything about git stash for real developer workflows without the handholding or the judgment.</p>
+
+<h2>What git stash does and why you care</h2>
+<p>Think of git stash as a temporary pocket for your uncommitted changes. It removes changes from the working tree and stores them on a stack so you can switch branches or experiment without leaving a mess. It works with tracked files by default and can include untracked files when you ask nicely.</p>
+
+<h2>Save changes to stash</h2>
+<p>Use the push command to put work into the stash stack. Add a message so future you can stop guessing what this disaster was about.</p>
+<pre><code>git stash push -m "message"
+# include untracked files
+git stash push -m "message" --include-untracked
+# or the short flag
+git stash push -m "message" -u
+</code></pre>
+<p>These commands clear your working tree and save those edits on the stash stack. Switching branches then becomes less dramatic and more professional.</p>
+
+<h2>See what you have saved</h2>
+<p>List the stash stack to inspect entries. Each stash shows up as stash@{index} with whatever message you gave it.</p>
+<pre><code>git stash list</code></pre>
+<p>Pro tip keep meaningful messages unless you enjoy playing treasure hunt with your past self.</p>
+
+<h2>Reapply and remove stashes</h2>
+<p>When you want the changes back you have two main verbs. Apply will reapply and keep the stash. Pop will reapply and remove the top stash in one move.</p>
+<pre><code># reapply and keep
+git stash apply stash@{0}
+# reapply and remove
+git stash pop stash@{0}
+</code></pre>
+<p>Sometimes reapplying causes conflicts. Resolve them like a grown developer and then continue. The stash system will not hold your hand but it will keep your work safe.</p>
+
+<h2>Create a branch from a stash</h2>
+<p>When the stashed work needs its own life use the stash branch command. This creates a new branch that starts with the stashed changes so you can continue development without grafting patches by hand.</p>
+<pre><code>git stash branch my-feature stash@{0}</code></pre>
+<p>This is cleaner than copying files around or making a commit that will embarrass you later.</p>
+
+<h2>Drop or clear stashes</h2>
+<p>When a stash has outlived its usefulness you can remove it from the list. Drop removes one entry. Clear nukes everything if you are feeling decisive.</p>
+<pre><code># remove a single stash
+git stash drop stash@{0}
+# remove all stashes
+git stash clear
+</code></pre>
+<p>Use these commands with care. There is no trash can for stashes once you nuke them.</p>
+
+<h3>Quick workflow tips and developer tips</h3>
+<ul>
+<li>Use git stash push -m "meaningful message" so the history of your brain is readable.</li>
+<li>Prefer git stash branch when the changes belong on their own feature line.</li>
+<li>If you stash untracked files remember to include --include-untracked or -u</li>
+<li>Resolve conflicts after apply or pop just like any merge conflict and then commit when ready.</li>
+<li>Keep the stash list tidy so you do not confuse yourself on Monday morning.</li>
+</ul>
+
+<h2>Recap</h2>
+<p>git stash is the practical tool for saving uncommitted changes as you switch context. Use git stash push to save work and include untracked files when needed. Use git stash list to inspect entries and git stash apply or git stash pop to bring changes back. Create isolated work with git stash branch and clean up with git stash drop or git stash clear. Follow these developer tips and your version control workflow will be less chaotic and slightly more civilized.</p>
+

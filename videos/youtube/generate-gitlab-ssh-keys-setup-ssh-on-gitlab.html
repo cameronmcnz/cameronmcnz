@@ -1,0 +1,66 @@
+---
+layout: video
+title: "Generate GitLab SSH Keys & setup SSH on GitLab"
+description: "Step by step guide to generate SSH keys and configure SSH on GitLab for secure push and pull access and painless authentication"
+video_host: "youtube"
+video_id: "4f1MJuGfjx4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M32S"
+thumbnail_url: "https://i.ytimg.com/vi/4f1MJuGfjx4/maxresdefault.jpg"
+content_url: "https://youtu.be/4f1MJuGfjx4"
+embed_url: "https://www.youtube.com/embed/4f1MJuGfjx4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitLab
+  - SSH
+  - SSH keys
+  - ssh-keygen
+  - Git
+  - DevOps
+  - Authentication
+  - SSH agent
+  - Public key
+  - Private key
+---
+
+<p>If your Git pushes feel like begging for attention every time you type a password you are doing it wrong. Use SSH keys for GitLab to get secure, password free pushes and pulls. This guide walks through checking for existing keys generating a modern ed25519 key adding it to the SSH agent and registering the public key with GitLab while dropping a few snarky comments along the way.</p>
+
+<h2>Check for existing SSH keys</h2>
+<p>First avoid trashing a key that already works for other servers. Peek inside your SSH folder to see what is already there.</p>
+<pre><code>ls -al ~/.ssh</code></pre>
+<p>Look for files like id_ed25519 and id_ed25519.pub or id_rsa and id_rsa.pub. If you find a pair you already use you can skip key generation and just add the private key to your agent later.</p>
+
+<h2>Generate a new SSH key pair</h2>
+<p>Use a modern algorithm and don't pick RSA unless you have a boring reason. Run this command and follow the prompts for file name and passphrase. A passphrase is optional but recommended for real security.</p>
+<pre><code>ssh-keygen -t ed25519 -C 'your.email@example.com'</code></pre>
+<p>The command will ask where to save the key. Press Enter to accept the default like ~/.ssh/id_ed25519 or give a descriptive file name if you want multiple keys for different machines. Remember the private key must stay secret. The public key is what you will paste into GitLab.</p>
+
+<h2>Add the private key to the SSH agent</h2>
+<p>Typing your passphrase every time is fine if you enjoy suffering. The SSH agent caches the unlocked key so Git can do its thing without constant nagging.</p>
+<pre><code>eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_ed25519</code></pre>
+<p>If the agent fails to start your system might already manage keys for you especially on macOS or some Linux desktop environments. If so just add the key with ssh add and move on.</p>
+
+<h2>Copy and add your public key to GitLab</h2>
+<p>Now grab the public key text. It is a single long line that starts with the key type and ends with your comment or email.</p>
+<pre><code>cat ~/.ssh/id_ed25519.pub</code></pre>
+<p>Copy the entire line and then open GitLab in your browser. Go to your user settings and find SSH Keys. Paste the key into the key field give it a useful title like Workstation or Laptop and save. You do not need admin rights to add personal keys to your account.</p>
+
+<h2>Test the SSH connection</h2>
+<p>Make sure GitLab recognizes your shiny new key. Run this to test the connection and accept the host fingerprint when prompted.</p>
+<pre><code>ssh -T git@gitlab.com</code></pre>
+<p>A successful response will mention your GitLab username or a welcome message. If it complains about permission denied then something on the private key side needs fixing.</p>
+
+<h3>Quick troubleshooting and tips</h3>
+<ul>
+  <li>Permissions matter. If your private key is too open fix it with <code>chmod 600 ~/.ssh/id_ed25519</code>.</li>
+  <li>If you have multiple keys you can use an SSH config file to tell SSH which key to use for GitLab. A minimal example in <code>~/.ssh/config</code> would list a Host entry for gitlab.com and an IdentityFile pointing at the appropriate private key.</li>
+  <li>If a repository still asks for credentials use the SSH remote that GitLab shows in the project web UI rather than an HTTPS remote. The web UI will give the correct SSH clone URL to use.</li>
+  <li>Want to rotate keys or revoke a lost laptop Make a new key pair and remove the old public key from your GitLab SSH Keys page.</li>
+</ul>
+
+<p>That is all. You now have key based authentication for Git operations which eliminates password prompts and is more secure than typing credentials into the void. Go commit something meaningful or at least amusing.</p>
+

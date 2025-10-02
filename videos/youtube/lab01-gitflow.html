@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Lab01 Gitflow"
+description: "Practical Gitflow lab showing branch types feature release and hotfix flows with commands and best practices for team workflows"
+video_host: "youtube"
+video_id: "eNrjux4sgWw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT21M26S"
+thumbnail_url: "https://i.ytimg.com/vi/eNrjux4sgWw/maxresdefault.jpg"
+content_url: "https://youtu.be/eNrjux4sgWw"
+embed_url: "https://www.youtube.com/embed/eNrjux4sgWw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - gitflow
+  - branches
+  - feature-branch
+  - release
+  - hotfix
+  - workflow
+  - version-control
+  - git-tutorial
+  - continuous-delivery
+---
+
+<p>If your team treats branches like a mystery novel with too many plot twists you need Gitflow. This guide walks through the same practical commands and rules teams use to keep feature work isolated ship releases and patch production without creating a branch graveyard. It is a compact git tutorial for version control that nudges teams toward continuous delivery without turning every merge into an argument.</p>
+
+<h2>Initialize Gitflow</h2>
+<p>Start with the helper that creates the predictable branch scaffold. Run the init command and answer the prompts or accept defaults. The helper sets up main branch names and prefix rules so everyone stops guessing.</p>
+<pre><code>git flow init</code></pre>
+<p>Result You get a develop branch plus rules for feature release and hotfix prefixes. That predictable structure is worth the three minutes it takes to set up.</p>
+
+<h2>Feature branches for focused work</h2>
+<p>When you start a new feature create a feature branch from develop. This keeps the mainline clean and makes reviews less painful.</p>
+<pre><code>git flow feature start feature-name</code></pre>
+<p>Work on the feature commit as normal and when it is done finish it. The finish command will merge back into develop and remove your local feature branch so history stays tidy.</p>
+<pre><code>git flow feature finish feature-name</code></pre>
+
+<h3>Best practices for features</h3>
+<ul>
+  <li>Keep feature branches short lived and focused</li>
+  <li>Rebase onto develop before finishing to reduce merge conflicts</li>
+  <li>Run CI on feature branches so broken builds get caught early</li>
+</ul>
+
+<h2>Release branches for calm ship days</h2>
+<p>When develop is stable create a release branch. Use it for final fixes version bumps and packaging without blocking new features that land on develop.</p>
+<pre><code>git flow release start 1.2.0</code></pre>
+<p>Finish the release when you are ready. The finish command merges the release into master and develop and creates a tag that marks the release artifact. That tag is what you deploy or hand to your release process.</p>
+<pre><code>git flow release finish 1.2.0</code></pre>
+
+<h2>Hotfixes when production is on fire</h2>
+<p>For emergency fixes start a hotfix from master. This keeps urgent fixes isolated and ensures the fix lands both in production and in ongoing development.</p>
+<pre><code>git flow hotfix start fix-name
+git flow hotfix finish fix-name</code></pre>
+<p>The finish step merges the fix into master and develop and creates a tag for the hotfix release. Congratulations you fixed production without rewriting history or blaming CI.</p>
+
+<h2>Push branches and tags so people stop yelling</h2>
+<p>Local merges are useful but collaboration requires pushing branches and tags to the remote. Push develop master and any remaining branches and do not forget tags so your release markers are visible to everyone and whatever automation relies on them.</p>
+<pre><code>git push origin develop
+git push origin master
+git push --tags</code></pre>
+
+<h2>Extra tips that actually help</h2>
+<ul>
+  <li>Add CI checks on feature and release branches to catch regressions early</li>
+  <li>Protect master so tags and merges are controlled</li>
+  <li>Use clear branch names for features releases and hotfixes to avoid detective work</li>
+</ul>
+
+<p>Gitflow is not a silver bullet but it is a sensible workflow for teams that want predictable releases and fewer merge surprises. Use the commands above keep branches short lived and let CI do the boring checks. If your team still likes chaos then congratulations you are doing version control the hard way.</p>
+

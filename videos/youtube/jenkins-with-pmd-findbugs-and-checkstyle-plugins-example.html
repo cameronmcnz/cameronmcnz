@@ -1,0 +1,66 @@
+---
+layout: video
+title: "Jenkins with PMD, FindBugs and CheckStyle Plugins Example"
+description: "Configure Jenkins with PMD FindBugs and CheckStyle plugins to add static analysis to builds and publish issue reports for better code quality"
+video_host: "youtube"
+video_id: "BiIuR4aQK9A"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M6S"
+thumbnail_url: "https://i.ytimg.com/vi/BiIuR4aQK9A/maxresdefault.jpg"
+content_url: "https://youtu.be/BiIuR4aQK9A"
+embed_url: "https://www.youtube.com/embed/BiIuR4aQK9A"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - PMD
+  - FindBugs
+  - CheckStyle
+  - Static Analysis
+  - Code Quality
+  - Continuous Integration
+  - Jenkins Plugins
+  - Build Reports
+  - Java
+---
+
+<h2>Why add static analysis to your CI</h2>
+<p>Because relying on humans to catch every bug is cute but ineffective. Static analysis gives you automated feedback on Java code quality as part of continuous integration so problems show up during builds not in production incident reports.</p>
+
+<h2>Install the Jenkins plugins</h2>
+<p>Open Manage Jenkins then Manage Plugins and search for PMD FindBugs and CheckStyle plus the Warnings NG plugin if you like aggregated reports. Install and restart if prompted. These plugins provide parsers that turn raw tool output into readable build artifacts and trend graphs.</p>
+
+<h2>Configure global rules and tool settings</h2>
+<p>Go to Manage Jenkins then Configure System and point Jenkins to your ruleset files or default profiles. Add any required paths for external tools and set default severities so the server can classify issues consistently. This keeps every job speaking the same warning language instead of inventing new opinions at random.</p>
+
+<h2>Add analysis steps to jobs and pipelines</h2>
+<p>There are two common ways to integrate analysis into your pipeline. Pick your favorite punishment style.</p>
+
+<h3>Freestyle jobs</h3>
+<ul>
+  <li>Add post build actions to publish PMD CheckStyle and FindBugs results. The plugins will parse XML reports and attach them to the build page.</li>
+  <li>Enable trend graphs and baselines so you get history and can stop screaming about ancient tech debt.</li>
+</ul>
+
+<h3>Pipeline jobs</h3>
+<ul>
+  <li>Call the plugin publisher steps from your scripted or declarative pipeline or use the generic warnings aggregator to parse PMD CheckStyle and FindBugs output.</li>
+  <li>The warnings aggregator gives consistent trend graphs and a single place to see new versus existing issues. It also plays nicely with build failure rules.</li>
+</ul>
+
+<h2>Run a build and inspect the reports</h2>
+<p>Trigger the job and open the build page to find static analysis tabs and trend graphs. Use the new versus existing issue reports to focus on what developers introduced recently rather than blaming the previous century for your codebase sins.</p>
+
+<h2>Tuning and practical tips</h2>
+<ul>
+  <li>Fail the build on new issues only. This prevents build fatigue while nudging the team to fix new regressions.</li>
+  <li>Start with lenient thresholds and tighten them gradually so everyone does not rage quit on day one.</li>
+  <li>Use baselines to record legacy warnings. That keeps the scoreboard honest and readable.</li>
+  <li>If the noise is unbearable, adjust rule severities or exclude generated code paths so you do not punish the compiler.</li>
+</ul>
+
+<h2>Summary</h2>
+<p>Installing PMD FindBugs and CheckStyle plugins in Jenkins and wiring them into jobs or pipelines will give your Java builds automated static analysis and better code quality signals. Expect some initial noise then progressively cleaner code and fewer surprise bug parties. Configure global rules, add the right publishers or aggregator steps, and fail builds only on new issues to keep developer morale intact and your CI useful.</p>
+

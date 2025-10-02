@@ -1,0 +1,73 @@
+---
+layout: video
+title: "Change Git Branch Master to Main Locally and Remotely"
+description: "Quick guide to rename a Git branch from master to main on local repo and on remote including commands cleanup and tips"
+video_host: "youtube"
+video_id: "YpDHc3MHNJE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/YpDHc3MHNJE/maxresdefault.jpg"
+content_url: "https://youtu.be/YpDHc3MHNJE"
+embed_url: "https://www.youtube.com/embed/YpDHc3MHNJE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - branch
+  - rename
+  - master-to-main
+  - main
+  - remote
+  - local
+  - git-commands
+  - github
+  - tutorial
+---
+
+<h2>What we are doing and why it matters</h2>
+<p>We are going to rename the primary Git branch from master to main so your CI does not throw a tantrum and new contributors do not accidentally create more masters. This is a practical git branch rename tutorial that covers local changes remote updates and how to keep other clones and CI happy.</p>
+
+<h3>Rename the local branch</h3>
+<p>If you are sitting on the master branch and want to keep your working tree intact run this single command. It moves the branch pointer and keeps your files where they are.</p>
+<pre><code>git branch -m master main</code></pre>
+<p>If you were on another branch you can rename a specific branch from elsewhere by running git branch -m oldname newname while not checked out on the branch to be renamed.</p>
+
+<h3>Push the new main and set upstream</h3>
+<p>Send the new branch to the remote and tell your local repo to track it. This makes future push and pull calls behave normally.</p>
+<pre><code>git push -u origin main</code></pre>
+
+<h3>Remove the stale remote master</h3>
+<p>Now remove the old remote branch so the project does not keep an obsolete master that confuses contributors and tooling.</p>
+<pre><code>git push origin --delete master</code></pre>
+
+<h3>Update remote HEAD and hosting default branch</h3>
+<p>Tell the remote to update its symbolic default branch reference and then change the default branch setting on your hosting provider like GitHub or GitLab through the web UI. Doing both prevents surprises when opening the repo in a browser.</p>
+<pre><code>git remote set-head origin -a</code></pre>
+
+<h3>Bring other clones and CI up to speed</h3>
+<p>Each contributor and each CI runner needs a tiny refresh or they might accidentally recreate master or keep deploying from the wrong branch. Share these commands with your team.</p>
+<ul>
+  <li>Fetch new refs from origin with <code>git fetch origin</code></li>
+  <li>Set the upstream branch locally with <code>git branch -u origin/main main</code></li>
+  <li>Delete local master if you no longer need it with <code>git branch -d master</code> or use <code>-D</code> if you are stubborn and sure about losing local commits</li>
+</ul>
+
+<h3>Search and fix hard coded references</h3>
+<p>CI scripts deploy configs automation and docs may mention master by name. Grep the repo and update anything that would break when the default branch is main.</p>
+<pre><code>git grep -n "master" || true</code></pre>
+<p>Replace occurrences in deployment scripts CI yaml files and documentation. Also update any webhooks or service settings that target master explicitly.</p>
+
+<h3>Quick checklist before you call it done</h3>
+<ul>
+  <li>Rename local branch</li>
+  <li>Push main and set upstream</li>
+  <li>Delete remote master</li>
+  <li>Update remote HEAD and hosting default branch in the web UI</li>
+  <li>Ask teammates to fetch and update their clones</li>
+  <li>Update CI and deployment scripts that referenced master</li>
+</ul>
+
+<p>Done. Your repo now uses main as the primary branch. Tell your team to run a fetch and then either delete their local master or rebase any in flight work onto main. If anyone panics tell them change is part of life and Git is designed to survive it.</p>
+

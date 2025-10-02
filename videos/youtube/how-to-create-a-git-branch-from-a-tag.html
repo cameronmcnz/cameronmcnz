@@ -1,0 +1,78 @@
+---
+layout: video
+title: "How to Create a Git Branch from a Tag"
+description: "Quick guide to create a Git branch from a tag Learn commands to branch locally and push the branch to remote"
+video_host: "youtube"
+video_id: "bokQrIqchQ4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M26S"
+thumbnail_url: "https://i.ytimg.com/vi/bokQrIqchQ4/maxresdefault.jpg"
+content_url: "https://youtu.be/bokQrIqchQ4"
+embed_url: "https://www.youtube.com/embed/bokQrIqchQ4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git branch
+  - git tag
+  - branch from tag
+  - git tutorial
+  - version control
+  - git push
+  - git checkout
+  - git commands
+  - developer tips
+---
+
+<p>So you found a tag that represents a pristine release snapshot and now you want to build a tiny patch or a wild experiment without destroying the timeline of human progress. Good move. Branching from a tag gives you a stable starting point to work from and keeps the history neat enough that your team will thank you instead of sending passive aggressive GIFs.</p>
+
+<h2>Find the tag name</h2>
+<p>First locate the tag that points to the commit you care about. If the tag is already local run this command and bask in the list of tags.</p>
+<pre><code>git tag</code></pre>
+<p>If the tag lives on the central server but not in your clone fetch remote tags with this polite request.</p>
+<pre><code>git fetch --tags</code></pre>
+<p>Pick the tag name that matches the release or build you want, for example v1.2.3. Verify which commit the tag points at if you are the paranoid but careful sort.</p>
+<pre><code>git rev-parse v1.2.3</code></pre>
+
+<h2>Create the branch from the tag</h2>
+<p>Now make the branch. You have two simple, supported ways to do this depending on your Git version and taste for verbs.</p>
+<ul>
+  <li>Create and switch with the classic command</li>
+</ul>
+<pre><code>git checkout -b my-hotfix v1.2.3</code></pre>
+<ul>
+  <li>Or do the same with the newer switch command</li>
+</ul>
+<pre><code>git switch -c my-hotfix v1.2.3</code></pre>
+<p>Either command starts your branch at the tagged commit and checks it out so you can start making changes. This beats checking out the tag by itself which leaves you in a place where new commits vanish if you blink.</p>
+
+<h3>Use annotated tags for releases</h3>
+<p>If this is part of a release workflow prefer annotated tags for human friendly messages and easy auditing. Annotated tags also carry a signature if you like that sort of thing.</p>
+
+<h2>Push the branch to the remote and set upstream</h2>
+<p>Share your branch so other humans and CI systems can see it. To push the branch do this.</p>
+<pre><code>git push origin my-hotfix</code></pre>
+<p>To push and set the upstream in one tidy move use this.</p>
+<pre><code>git push -u origin my-hotfix</code></pre>
+<p>Now collaborators can fetch and check out the branch like any other feature branch. No mystery, no phantom commits.</p>
+
+<h2>Avoid a detached HEAD and confirm tracking</h2>
+<p>Checking out a tag directly without creating a branch results in a detached HEAD state. That means any commits you make do not belong to a named branch and can be accidentally discarded. If you see detached HEAD in git status you are in that awkward place.</p>
+<pre><code>git status</code></pre>
+<p>After creating a branch verify it is tracking the remote branch and points to the right commit.</p>
+<pre><code>git branch -vv
+git show --no-patch --format=%H my-hotfix</code></pre>
+
+<h2>Quick checklist and developer tips</h2>
+<ul>
+  <li>List tags with git tag and fetch remote tags with git fetch --tags</li>
+  <li>Create a branch from the tag with git checkout -b name tagname or git switch -c name tagname</li>
+  <li>Push and set upstream with git push -u origin name</li>
+  <li>Verify the tag commit SHA with git rev-parse tagname or git show tagname</li>
+  <li>Use a clear branch prefix such as hotfix or patch to make intent obvious</li>
+</ul>
+
+<p>Recap The process is short and glorious. Find the tag, branch from it, push the branch, and do not leave yourself in detached HEAD limbo. Now go fix that bug or break things in a branch where it is safe to do so. If things go wrong you can always blame the tag and call it a learning experience.</p>
+

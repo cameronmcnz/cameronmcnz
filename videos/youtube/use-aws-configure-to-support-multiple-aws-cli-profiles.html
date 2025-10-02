@@ -1,0 +1,79 @@
+---
+layout: video
+title: "Use AWS Configure to Support Multiple AWS CLI Profiles"
+description: "Learn how to configure multiple AWS CLI profiles using aws configure to switch accounts manage credentials and set regions quickly."
+video_host: "youtube"
+video_id: "ikyH1vvO34Y"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M11S"
+thumbnail_url: "https://i.ytimg.com/vi/ikyH1vvO34Y/maxresdefault.jpg"
+content_url: "https://youtu.be/ikyH1vvO34Y"
+embed_url: "https://www.youtube.com/embed/ikyH1vvO34Y"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - AWS CLI
+  - aws configure
+  - profiles
+  - credentials
+  - cli tutorial
+  - devops
+  - cloud
+  - configuration
+  - assume role
+---
+
+<p>Welcome to the glorious world of AWS profiles where credentials can be organized or they can breed like rabbits. This quick guide shows how to create and switch named AWS CLI profiles so your scripts do not accidentally run against prod while you were aiming for dev. You will learn how to create profiles, run commands under a chosen account and region, use temporary session variables, edit the config files like a grown up, and wire up assume role entries for cross account access.</p>
+
+<h2>Create a named profile the easy way</h2>
+<p>If you want a profile called dev, run the configure helper and answer a few prompts. This stores access keys and defaults for that profile in your user aws folder so you do not have to memorize credentials or write them on sticky notes.</p>
+<pre><code>aws configure --profile dev</code></pre>
+<p>When prompted give your access key id, secret access key, default region and output format. The CLI will save those values to ~/.aws/credentials and ~/.aws/config as appropriate.</p>
+
+<h2>Run commands under a specific profile</h2>
+<p>When you want a command to use a named profile just add the flag like you mean it. This is the least dramatic way to keep things safe.</p>
+<pre><code>aws s3 ls --profile dev</code></pre>
+
+<h3>Quick one off sessions using an environment variable</h3>
+<p>For a single command or a short lived shell session you can set the AWS_PROFILE environment variable. On Linux or macOS do this in the same line if you are feeling lazy.</p>
+<pre><code>AWS_PROFILE=dev aws sts get-caller-identity</code></pre>
+<p>On Windows PowerShell you can set the session variable and then run commands in that same shell.</p>
+<pre><code>$env:AWS_PROFILE = "dev"
+aws sts get-caller-identity</code></pre>
+
+<h2>Edit the credentials and config files when needed</h2>
+<p>Advanced users who like direct control can edit these files by hand. They live under your home directory. The credentials file stores keys that should be treated like nuclear codes. The config file stores profile settings like default region and assume role entries.</p>
+<pre><code>~/.aws/credentials
+[dev]
+aws_access_key_id = AKIA...
+aws_secret_access_key = abc123...
+
+~/.aws/config
+[profile dev]
+region = us-east-1
+output = json</code></pre>
+<p>Use plain text editing for custom fields such as role_arn and source_profile when setting up cross account roles.</p>
+
+<h2>Create assume role profiles for safer cross account access</h2>
+<p>If you hate long lived keys in ten different places use a source profile with long lived credentials and then assume role entries for short lived access. This keeps your life cleaner and your audit logs less weepy.</p>
+<pre><code>~/.aws/config
+[profile analytics]
+role_arn = arn:aws:iam::123456789012:role/AnalyticsRole
+source_profile = dev
+region = us-east-1
+output = json</code></pre>
+<p>After that you can call the analytics profile exactly like any other profile. The CLI will use the source_profile to get credentials then assume the role and hand you short lived session tokens.</p>
+
+<h2>Troubleshooting and best practices</h2>
+<ul>
+  <li>Give profiles clear names that reflect purpose such as dev prod analytics. Ambiguous names lead to sad surprises.</li>
+  <li>Prefer short lived credentials with assume role entries rather than scattering long lived keys everywhere.</li>
+  <li>Double check the file locations if things stop working, ~/.aws/credentials and ~/.aws/config are your two holy grails.</li>
+  <li>Use the --profile flag in scripts to avoid surprise environment bleed from a developer terminal.</li>
+</ul>
+
+<p>Follow these steps and your multi account workflow will be less painful and less likely to cause an epileptic reaction in your CI system. Now go forth and configure responsibly. If you break something blame your past self and then fix it with a new tidy profile.</p>
+

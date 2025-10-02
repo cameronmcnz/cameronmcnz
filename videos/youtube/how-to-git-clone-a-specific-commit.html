@@ -1,0 +1,80 @@
+---
+layout: video
+title: "How to Git Clone a Specific Commit"
+description: "Step by step guide to fetch a single commit from GitHub or GitLab using fetch and checkout with shallow and sparse options"
+video_host: "youtube"
+video_id: "8U43SE9VjJA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M23S"
+thumbnail_url: "https://i.ytimg.com/vi/8U43SE9VjJA/maxresdefault.jpg"
+content_url: "https://youtu.be/8U43SE9VjJA"
+embed_url: "https://www.youtube.com/embed/8U43SE9VjJA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - gitlab
+  - commit
+  - clone
+  - fetch
+  - shallow
+  - sparse-checkout
+  - checkout
+  - version control
+---
+
+<h2>Why you might do this</h2>
+<p>Want a single commit from a repo without cloning the whole archaeological dig of history That is understandable and efficient and a little bit smug This guide shows the practical git commands to fetch one commit and work with it locally whether the host is GitHub or GitLab</p>
+
+<h2>Find the commit hash</h2>
+<p>Open the commit in the web UI or use git log on a clone you already have Copy the full SHA to avoid surprises with similar prefixes The full SHA is your friend</p>
+
+<h2>Prepare a local repository and add the remote</h2>
+<p>Start fresh so you do not accidentally pull centuries of history</p>
+<pre><code>git init
+git remote add origin REPO_URL</code></pre>
+
+<h2>Fetch the single commit with shallow depth</h2>
+<p>Ask the server for the object you want and no more This uses a depth of 1 so the server sends only the single commit object if it can</p>
+<pre><code>git fetch --depth 1 origin COMMIT_HASH</code></pre>
+
+<h3>Notes on shallow fetch</h3>
+<ul>
+  <li>Some hosts let you fetch by raw commit SHA and some do not</li>
+  <li>If the server accepts the request you will get FETCH_HEAD pointing at the fetched object</li>
+</ul>
+
+<h2>Checkout the fetched commit into a branch</h2>
+<p>Detach your inner panic and give git a branch so tools behave normally</p>
+<pre><code>git checkout -b single-commit FETCH_HEAD</code></pre>
+
+<h2>Optionally keep the working tree tiny with sparse checkout</h2>
+<p>If you only need a folder use sparse checkout to avoid downloading the whole tree</p>
+<pre><code>git sparse-checkout init --cone
+git sparse-checkout set path/to/folder</code></pre>
+<p>Run these before checking out if you want the sparse rules applied as the files are written</p>
+
+<h2>What to do if the server refuses a raw commit fetch</h2>
+<p>Some hosting setups block fetching by raw commit id That is annoying but not fatal Fetch a nearby branch or tag then extract the change</p>
+<ul>
+  <li>Fetch a branch that contains or is near the commit</li>
+  <li>Use git cherry-pick COMMIT_SHA to import the change into your branch</li>
+  <li>Or create a patch with git format-patch -1 COMMIT_SHA and apply it locally</li>
+</ul>
+
+<h2>Recap and quick tips</h2>
+<ul>
+  <li>Find the full commit SHA on GitHub or GitLab</li>
+  <li>Init a fresh repo and add the remote</li>
+  <li>Fetch with depth 1 to avoid pulling full history</li>
+  <li>Create a branch from FETCH_HEAD to avoid a detached HEAD state</li>
+  <li>Use sparse checkout to limit files if you only need a subfolder</li>
+  <li>If direct fetch fails fetch a branch and cherry pick or use format patch</li>
+</ul>
+
+<h2>Final tip</h2>
+<p>Use the full SHA not a short prefix and make a branch off FETCH_HEAD before doing work That way you get the one commit you wanted and you do not trip over detached HEAD problems Later you can merge or rebase like a civilized developer</p>
+

@@ -1,0 +1,73 @@
+---
+layout: video
+title: "Create a Jenkins Job"
+description: "Compact guide to create a Jenkins job with steps to configure source control build steps triggers and run a build for CI"
+video_host: "youtube"
+video_id: "iNCEi3Pqi88"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M54S"
+thumbnail_url: "https://i.ytimg.com/vi/iNCEi3Pqi88/maxresdefault.jpg"
+content_url: "https://youtu.be/iNCEi3Pqi88"
+embed_url: "https://www.youtube.com/embed/iNCEi3Pqi88"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - CI
+  - Continuous Integration
+  - Jenkins Job
+  - Pipeline
+  - Build Automation
+  - DevOps
+  - Tutorial
+  - Automation
+  - Jenkins Tutorial
+---
+
+<h2>Getting started with a Jenkins job</h2>
+<p>Welcome to the thrilling world of CI where code meets caffeine and occasional mystery failures. This tutorial walks you through creating a Jenkins job from the web UI so you can automate builds tests and deploys without reinventing chaos. It stays practical and accurate while making a few snarky observations to keep morale intact.</p>
+
+<h2>Pick a job type and name it like an adult</h2>
+<p>Log in to the Jenkins web interface with a user that can create jobs. Click New Item and give the job a clear name. Choose Freestyle for simple one off tasks or Pipeline when you want code driven workflows and version controlled configuration. If you have a repository of many branches use a multibranch pipeline to keep things tidy and avoid surprises.</p>
+
+<h3>Why choose Pipeline</h3>
+<p>Pipeline encourages putting your build logic in a Jenkinsfile inside the repo. That means changes to CI are tracked with the code and you can review them like a responsible human. Freestyle still has its uses for quick tasks but treat it like fast food not a diet plan.</p>
+
+<h2>Connect source code management and credentials</h2>
+<p>Under Source Code Management select Git or another provider and add credentials. Point the job at the branch you actually want to build so production does not get hugged to death by accidental runs. Use HTTPS or SSH keys as your setup requires and store secrets in credentials instead of copying them into build steps.</p>
+
+<h2>Add build steps and tests</h2>
+<p>For Freestyle add shell or Windows batch steps. For Pipeline either paste a script in the UI or reference a Jenkinsfile from the repository. Typical commands include mvn test npm test dotnet test or whatever your project uses. Run tests early and fail fast so you can be unpleasant to fixers sooner.</p>
+
+<h3>Helpful build automation tips</h3>
+<ul>
+  <li>Keep build steps small and deterministic to make debugging less like archaeology</li>
+  <li>Archive artifacts only when they matter to save storage and future headaches</li>
+  <li>Use workspace cleanup to avoid flaky builds caused by residual files</li>
+</ul>
+
+<h2>Post build actions and notifications</h2>
+<p>Configure post build actions to archive artifacts trigger downstream jobs or send notifications. Use email or chat notifications sparingly unless you enjoy inbox drama. A failing build should notify the right people not the entire office every time a lint rule is offended.</p>
+
+<h2>Run a build and read the output like a detective</h2>
+<p>Save the job and hit Build Now to validate your setup. Click Console Output to stream the logs. Read the failures carefully and resist the urge to rerun without understanding the error. Flaky tests need triage not repeated masochism.</p>
+
+<h2>Automate triggers and prefer webhooks</h2>
+<p>Set triggers such as Poll SCM or use repository webhooks for push events. Webhooks are more efficient than polling and less annoying for servers. If you use Poll SCM keep intervals reasonable to avoid slamming your source control server.</p>
+
+<h2>Permissions credentials and maintenance</h2>
+<p>Ensure only authorized users can create or modify jobs. Store credentials in Jenkins credentials store and use roles or folder level permissions to limit blast radius when someone experiments. Regularly prune old jobs and monitor build times to avoid creeping technical debt in your automation.</p>
+
+<h2>Final checklist before you walk away</h2>
+<ul>
+  <li>Job name is clear and points to the right branch</li>
+  <li>SCM and credentials are configured and tested</li>
+  <li>Build steps run tests and produce artifacts as expected</li>
+  <li>Post build actions archive and notify the right people</li>
+  <li>Triggers are set and use webhooks if possible</li>
+</ul>
+
+<p>Follow these steps and you will have a solid Jenkins job that supports your CI pipeline and build automation needs. It will not be perfect and neither are you but at least your pipeline will tell you when it breaks. That is progress.</p>
+

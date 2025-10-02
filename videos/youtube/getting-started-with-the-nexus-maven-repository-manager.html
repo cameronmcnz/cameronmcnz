@@ -1,0 +1,73 @@
+---
+layout: video
+title: "Getting started with the Nexus Maven repository manager"
+description: "Quick guide to install configure and use Nexus Repository Manager OSS version 2 for Maven artifacts and proxies."
+video_host: "youtube"
+video_id: "pn2iwxYGkhA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M26S"
+thumbnail_url: "https://i.ytimg.com/vi/pn2iwxYGkhA/maxresdefault.jpg"
+content_url: "https://youtu.be/pn2iwxYGkhA"
+embed_url: "https://www.youtube.com/embed/pn2iwxYGkhA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Nexus
+  - Maven
+  - Nexus OSS v2
+  - Repository Manager
+  - Artifact Repository
+  - Maven Repository
+  - DevOps
+  - CI CD
+  - Java
+  - Package Management
+---
+
+<p>Welcome to the joyful world of artifact hoarding. This guide gets Nexus OSS v2 up and running as a Maven repository manager so your Java builds stop reaching out into the void for dependencies. It covers install startup repository types Maven settings and basic security with a generous helping of sarcasm to keep you awake.</p>
+
+<h2>Quick install and startup</h2>
+<p>Grab the Nexus OSS v2 bundle and unpack it on a server your team can actually reach. The package includes startup scripts so you do not need to summon a sysadmin wizard. Start Nexus and open the web console on port 8081. Log in with the welcome credentials and immediately change the admin password to avoid future awkward conversations with security teams.</p>
+<ul>
+  <li>Download the OSS v2 bundle from the official download area</li>
+  <li>Unpack the archive on a reachable server</li>
+  <li>Run the provided startup script to launch the repository manager</li>
+  <li>Open the web console on port 8081 and finish the initial admin steps</li>
+</ul>
+
+<h2>Repositories you will actually use</h2>
+<p>Nexus supports hosted proxy and group repositories. Set up a hosted repository for your internal company builds. Set up a proxy repository for Maven Central so you can cache external artifacts. Then create a group repository that combines those targets and makes dependency resolution painless for developers and CI servers.</p>
+
+<h3>How group repositories help DevOps</h3>
+<p>Point developers and CI at the group repository and you reduce configuration sprawl. One URL to rule them all means fewer busted builds and more time for coffee. It also gives you a single control point for access and caching policies.</p>
+
+<h2>Configure Maven to use Nexus</h2>
+<p>Add the group repository to distributionManagement and to the repositories section in your pom so deploy and resolve work as expected. Place deployment credentials in your Maven settings file under servers so CI can publish without interactive prompts. Here is a minimal template for your settings file to get you started replace ids and credentials before you commit anything to source control.</p>
+
+<pre><code>&lt;settings&gt;
+  &lt;servers&gt;
+    &lt;server&gt;
+      &lt;id&gt;nexus-group&lt;/id&gt;
+      &lt;username&gt;deployer&lt;/username&gt;
+      &lt;password&gt;REPLACE_ME&lt;/password&gt;
+    &lt;/server&gt;
+  &lt;/servers&gt;
+&lt;/settings&gt;</code></pre>
+
+<p>Then run mvn deploy from your Maven project to upload artifacts or use the web console upload UI if you prefer clicking through life. CI CD pipelines that use the group repository will fetch dependencies faster and produce fewer mysterious failures.</p>
+
+<h2>Upload security and cleanup</h2>
+<p>Use Nexus roles and privileges to control who can read or write to each repository. Create service accounts for CI and avoid using human credentials. Schedule cleanup tasks for snapshots and old releases so your disk does not fill with ancient builds nobody remembers.</p>
+
+<h2>Operational tips that save headaches</h2>
+<ul>
+  <li>Use the group repository as the single repository in developer and CI settings to simplify changes</li>
+  <li>Back up the blob store and configuration regularly to make disaster recovery less dramatic</li>
+  <li>Monitor proxy cache health to avoid serving stale or corrupted artifacts</li>
+  <li>Limit admin rights and audit activity so mistakes are reversible and blame is optional</li>
+</ul>
+
+<p>Nexus OSS v2 gives Java teams a predictable artifact repository and a realistic path from raw Maven builds to managed package management. Developers get faster dependency downloads and admins get control without reading a three volume manual. That is a win for DevOps and CI CD alike.</p>
+

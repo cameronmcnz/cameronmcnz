@@ -1,0 +1,80 @@
+---
+layout: video
+title: "GitLab merge master to branch example"
+description: "Step by step guide to merge master into a branch on GitLab with commands conflict tips and push best practices"
+video_host: "youtube"
+video_id: "EQieinX4rfA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M34S"
+thumbnail_url: "https://i.ytimg.com/vi/EQieinX4rfA/maxresdefault.jpg"
+content_url: "https://youtu.be/EQieinX4rfA"
+embed_url: "https://www.youtube.com/embed/EQieinX4rfA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitLab
+  - merge
+  - master to branch
+  - feature branch
+  - git tutorial
+  - merge conflicts
+  - git commands
+  - CI
+  - version control
+  - workflow
+---
+
+<h2>What this guide covers</h2>
+<p>This short and mildly opinionated git tutorial explains how to merge master into a feature branch in GitLab using basic git commands. Follow these steps to keep your work compatible with the main line of development and to reduce merge conflicts and flaky CI runs. No magic. Just a tiny bit of effort and fewer emails demanding urgent fixes.</p>
+
+<h2>Prep your local master</h2>
+<p>Get the freshest master so you do not inherit other peoples drama. This reduces surprise conflicts and keeps your feature branch sane.</p>
+<pre><code>git checkout master
+git pull origin master</code></pre>
+
+<h2>Switch to the target branch</h2>
+<p>Move back to the branch you are actually working on. Use the command you like better. Confirm you are on the right branch before you start merging anything.</p>
+<pre><code>git switch feature-branch
+# or if you prefer the older command
+# git checkout feature-branch
+
+git status</code></pre>
+
+<h2>Merge master into the feature branch</h2>
+<p>Bring the main line changes into your branch so your code stays compatible and CI does not hate you. This is the classic merge workflow in version control and in GitLab based projects it keeps the pipelines predictable.</p>
+<pre><code>git merge master</code></pre>
+
+<h3>What if you hit merge conflicts</h3>
+<p>Conflicts happen when two changes touch the same lines. That is life. Open the conflicted files, resolve the markers, and make a sensible decision. Then mark the files resolved and commit.</p>
+<pre><code># edit conflicted files in your editor
+git add path/to/conflicted_file
+git commit -m "Resolve merge conflicts between master and feature-branch"</code></pre>
+
+<h2>Run tests and linters locally</h2>
+<p>Before you push, run your test suite and static analysis. Catching problems locally prevents noisy pipelines on GitLab and saves reviewers time. If CI is green locally then you have a much better chance of getting a smooth merge request review.</p>
+
+<h2>Push the merged branch and create a merge request</h2>
+<p>After resolving conflicts and validating locally push your branch and open a merge request on GitLab. Describe what you merged and which tests you ran. If there are manual steps for reviewers mention them up front.</p>
+<pre><code>git push origin feature-branch</code></pre>
+
+<h2>Quick checklist for this workflow</h2>
+<ul>
+  <li>Fetch and update local master</li>
+  <li>Switch to the feature branch you are working on</li>
+  <li>Merge master into that branch and resolve merge conflicts if any</li>
+  <li>Run unit tests and linters to keep CI happy</li>
+  <li>Push and open a merge request on GitLab with a clear description</li>
+</ul>
+
+<h2>Pro tips and small commandments</h2>
+<ul>
+  <li>If your team prefers a rebase workflow consider rebasing onto master instead of merging to keep history linear</li>
+  <li>Merge master frequently to trim conflict size and preserve your sanity</li>
+  <li>Keep conflict commit messages explicit so reviewers do not have to guess what you did</li>
+  <li>Mention CI results in the merge request and link to any failing jobs that you fixed</li>
+</ul>
+
+<p>Follow this workflow to keep feature branches aligned with master, avoid messy merge conflicts, and stop pipelines from exploding at 3 am. You will not be a git hero overnight but your future teammates will thank you.</p>
+

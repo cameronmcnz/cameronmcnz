@@ -1,0 +1,83 @@
+---
+layout: video
+title: "Quick Sass Mixins Example"
+description: "Learn quick Sass mixin patterns to share styles accept parameters and keep styles DRY in a compact practical guide"
+video_host: "youtube"
+video_id: "CEKchq3Gvzg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M55S"
+thumbnail_url: "https://i.ytimg.com/vi/CEKchq3Gvzg/maxresdefault.jpg"
+content_url: "https://youtu.be/CEKchq3Gvzg"
+embed_url: "https://www.youtube.com/embed/CEKchq3Gvzg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Sass
+  - mixins
+  - SCSS
+  - CSS
+  - frontend
+  - DRY
+  - web development
+  - tutorial
+  - styles
+  - sass mixin
+---
+
+<article>
+  <p>Welcome to the thrilling world of Sass mixins where you teach your CSS to obey you and stop repeating itself like a broken record. This little guide shows how to write reusable SCSS mixins accept parameters and avoid copy paste that makes your stylesheet sad and slow to edit.</p>
+
+  <h2>Why use mixins in your frontend toolbelt</h2>
+  <p>Mixins let you bundle a block of styles and reuse it across selectors. That means less repetition fewer bugs and fewer angry code review comments on Monday morning. Mixins are especially handy for consistent layout helpers visual patterns and configurable components.</p>
+
+  <h2>Write a simple mixin</h2>
+  <p>Create a mixin by naming a reusable block of styles. Give it a clear name so future you or your coworker does not stare into the void wondering what happened.</p>
+  <pre><code>@mixin center
+  display flex
+  justify-content center
+  align-items center
+</code></pre>
+  <p>Note that the snippet above is pseudo SCSS to keep this readable. In actual SCSS you must put a colon between a property and its value and end each declaration with a semicolon.</p>
+
+  <h2>Include the mixin where it makes sense</h2>
+  <p>Drop the mixin into a selector so you do not copy paste identical blocks and multiply future maintenance pain.</p>
+  <pre><code>.button
+  @include center
+  background blue
+  color white
+</code></pre>
+
+  <h2>Make mixins configurable with parameters</h2>
+  <p>Parameters transform one mixin into many variations without rewriting the whole thing. Pass values to tweak colors spacing shadows and more.</p>
+  <pre><code>@mixin box-shadow $x $y $blur $color
+  box-shadow $x $y $blur $color
+.card
+  @include box-shadow 0 4px 10px rgba(0,0,0,0.15)
+</code></pre>
+  <p>Again that is illustrative pseudo code. Use the real SCSS punctuation when you type it into your editor.</p>
+
+  <h3>Defaults and basic logic</h3>
+  <p>Defaults let callers omit arguments without breaking things. Simple conditional checks let a mixin optionally add features like a heavy shadow only when requested.</p>
+  <pre><code>@mixin btn $bg default blue $pad default 8px
+  background $bg
+  padding $pad
+
+  // optional behavior via an if style rule
+  // in real SCSS you would use @if and true false checks
+</code></pre>
+  <p>Use the keyword default or specify sensible fallbacks so your mixin is friendly to lazy humans and busy sprint schedules.</p>
+
+  <h2>Best practices that do not suck</h2>
+  <ul>
+    <li>Favor small single purpose mixins over giant catchall monsters</li>
+    <li>Name mixins descriptively so the intent is obvious</li>
+    <li>Accept parameters and supply defaults for ergonomics</li>
+    <li>Keep output predictable to avoid surprising side effects</li>
+  </ul>
+
+  <h2>Quick recap</h2>
+  <p>Write clear mixins include them where styles repeat accept parameters for flexibility and use defaults and conditionals for nice fallbacks. The result will be cleaner DRY friendly styles that are less painful to maintain. You will not cure all CSS woes but you will win a few battles and that is progress.</p>
+</article>
+

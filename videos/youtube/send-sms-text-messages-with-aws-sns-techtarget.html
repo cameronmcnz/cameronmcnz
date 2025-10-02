@@ -1,0 +1,77 @@
+---
+layout: video
+title: "Send SMS Text Messages with AWS SNS #techtarget"
+description: "Learn to send SMS with AWS SNS using console CLI and SDK plus setup permissions cost and delivery best practices for reliable text messaging"
+video_host: "youtube"
+video_id: "b-1PT_oK0e0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT18M49S"
+thumbnail_url: "https://i.ytimg.com/vi/b-1PT_oK0e0/maxresdefault.jpg"
+content_url: "https://youtu.be/b-1PT_oK0e0"
+embed_url: "https://www.youtube.com/embed/b-1PT_oK0e0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - SNS
+  - SMS
+  - text messaging
+  - AWS CLI
+  - SDK
+  - IAM
+  - delivery status
+  - SMS best practices
+  - serverless
+---
+
+<p>Sending SMS with AWS SNS should not feel like performing dark magic while wearing a wizard hat. This guide walks you through the practical steps to configure SNS so text messaging reaches phones, bills stay sane, and you can sleep at night. We cover IAM, AWS CLI and SDK usage, delivery status monitoring, and SMS best practices for serverless apps and backends.</p>
+
+<h2>Quick checklist to stay out of trouble</h2>
+<ul>
+  <li>Create IAM credentials and grant only the SNS Publish permissions you need</li>
+  <li>Set SMS preferences in the SNS console and configure a monthly spending limit</li>
+  <li>Choose the right origination identity and price class for your target regions</li>
+  <li>Mark messages as transactional or promotional to avoid carrier rejection</li>
+  <li>Test sending from the CLI or SDK and capture the MessageId for correlation</li>
+  <li>Enable delivery status logs and monitor failures in CloudWatch</li>
+</ul>
+
+<h2>Create IAM credentials and apply least privilege</h2>
+<p>Make a user or role that can publish to SNS. Do not hand out full admin rights like candy. Limit the policy to Publish on specific topics or phone numbers for the services that actually need to send SMS. Use named policies or a narrowly scoped inline policy to avoid turning an account into a wrecking ball.</p>
+
+<h3>Practical tips for permissions</h3>
+<ul>
+  <li>Prefer roles for serverless functions or EC2 instances</li>
+  <li>Rotate credentials and log who can publish SMS</li>
+  <li>Record MessageId values whenever you call Publish so you can tie delivery reports back to your logs</li>
+</ul>
+
+<h2>Configure SMS preferences in the AWS console</h2>
+<p>Open the SNS SMS preferences and set a monthly spending limit so surprise bills do not ruin your week. Set a default sender name where supported and pick whether to enable delivery status logs in CloudWatch. Choose an origination identity that matches the region and the local rules. Some countries demand short codes or specific sender IDs.</p>
+
+<h2>Send a test with the AWS CLI or SDK</h2>
+<p>Want proof the pipeline works before you deploy chaos to production Try the CLI command below from a machine with valid credentials</p>
+<pre><code>aws sns publish --phone-number "+15551234567" --message "Hello from AWS SNS" --region us-east-1</code></pre>
+<p>Developers using an SDK call Publish with the PhoneNumber parameter and log the returned MessageId for later correlation with delivery reports.</p>
+
+<h2>Monitor delivery status and handle common failures</h2>
+<p>Enable delivery status logging so CloudWatch receives receipts and errors. Look for carrier filtering, blocked numbers, and opted out endpoints. When a delivery fails, the common causes are user opt out, carrier rules, or malformed sender identity. Build retry logic and surface failures to your operations dashboard.</p>
+<ul>
+  <li>Blocked numbers come from the carrier or from prior user complaints</li>
+  <li>Carrier filtering rejects messages that look promotional when they should be transactional</li>
+  <li>Opt outs must be respected and handled in your user flow</li>
+</ul>
+
+<h2>SMS best practices for reliability and compliance</h2>
+<ul>
+  <li>Respect local regulations for opt in and opt out</li>
+  <li>Classify messages as transactional for time sensitive content and promotional for marketing</li>
+  <li>Use an appropriate price class to balance cost and reach across countries</li>
+  <li>Log MessageId and delivery status to correlate events across systems</li>
+  <li>Test end to end using both CLI and the SDK your app uses in production</li>
+</ul>
+
+<p>Wrap up your setup by automating checks for billing spikes and delivery regressions. If something goes wrong you want alerts not panic. With IAM in order, preferences set, and delivery logs enabled you will have a robust SMS pipeline that plays nicely with serverless and other AWS services. Now go send responsible texts and try not to spam your users with cat facts at 3 a m.</p>
+

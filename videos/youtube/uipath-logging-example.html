@@ -1,0 +1,74 @@
+---
+layout: video
+title: "UiPath Logging Example"
+description: "Practical UiPath logging techniques for debugging monitoring and exception tracking in workflows with clear examples and quick tips"
+video_host: "youtube"
+video_id: "fFK-_69rKkk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M21S"
+thumbnail_url: "https://i.ytimg.com/vi/fFK-_69rKkk/maxresdefault.jpg"
+content_url: "https://youtu.be/fFK-_69rKkk"
+embed_url: "https://www.youtube.com/embed/fFK-_69rKkk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - logging
+  - automation
+  - RPA
+  - debugging
+  - Log Message
+  - Write Line
+  - error handling
+  - Orchestrator
+  - best practices
+---
+
+<p>Welcome to logging for UiPath where we track what went wrong so you can stop blaming the robot and start fixing the flow. This guide keeps the facts accurate and the tone mildly snarky while covering real world logging for RPA, debugging and Orchestrator monitoring.</p>
+
+<h2>Why logging matters in automation</h2>
+<p>Logs are your breadcrumbs in the forest of automation failures. Good logs help with root cause analysis and save hours of guesswork. Bad logs just prove you were here and that something broke. Use logging to make error handling actionable and to give the next person who debugs this process a fighting chance.</p>
+
+<h2>Where to put Log Message and Write Line</h2>
+<p>Place a Log Message activity at meaningful checkpoints. Think after a decision, after a data transform, and before calling an external system. Keep messages concise and include relevant variables. A good message explains what happened and why it matters.</p>
+
+<ul>
+  <li>Start and end of a major workflow or state</li>
+  <li>Before and after external API calls or queue operations</li>
+  <li>When an unexpected branch is taken to capture context</li>
+</ul>
+
+<h2>Picking log levels the human way</h2>
+<p>Choose LogLevel.Information for normal flow details. Choose LogLevel.Warning for recoverable oddities. Choose LogLevel.Error when something actually fails. Choose LogLevel.Trace for the verbose traces you only want when debugging that mythical intermittent bug.</p>
+
+<h3>Example</h3>
+<pre><code>Log Message level LogLevel.Information message "OrderId=" + orderId + " step ProcessPayment"</code></pre>
+
+<h2>Use Write Line for quick development checks</h2>
+<p>Write Line prints to the Studio Output panel and is great for fast feedback. Remove or throttle Write Line before promoting to production to avoid log noise. If it stays in production it will clutter Orchestrator and your sanity.</p>
+
+<h2>Log exceptions with context</h2>
+<p>In Catch blocks log both ex.Message and ex.ToString to capture the short explanation and the stack trace. That gives you the breadcrumb trail and the screaming details when things break.</p>
+
+<pre><code>Try
+  // risky stuff
+Catch ex
+  Log Message level LogLevel.Error message "Failed in ProcessPayment orderId=" + orderId + " error=" + ex.Message
+  Log Message level LogLevel.Error message ex.ToString()
+End Try</code></pre>
+
+<h2>Studio Output and Orchestrator monitoring</h2>
+<p>During development check the Studio Output panel. For production use Orchestrator for centralized logs, filtering and retention. Configure retention and filtering policies in Orchestrator to meet compliance and to keep storage costs from exploding.</p>
+
+<h2>Best practices checklist</h2>
+<ul>
+  <li>Standardize message format to include workflow name step name and correlation id</li>
+  <li>Use Add Log Fields or custom properties to pass correlation id across queues and processes</li>
+  <li>Avoid logging sensitive data while keeping enough context for debugging</li>
+  <li>Use appropriate LogLevel to reduce noise and highlight real issues</li>
+</ul>
+
+<p>Follow these steps and your logs will stop being useless walls of text and start being the helpful maps you deserve. You will still have bugs but at least you will know why they exist.</p>
+

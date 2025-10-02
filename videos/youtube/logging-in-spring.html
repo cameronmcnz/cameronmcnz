@@ -1,0 +1,84 @@
+---
+layout: video
+title: "Logging in Spring"
+description: "Quick guide to configure and use logging in Spring with SLF4J and Logback for clean logs and faster debugging"
+video_host: "youtube"
+video_id: "RrpV2Vlli-4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT21M23S"
+thumbnail_url: "https://i.ytimg.com/vi/RrpV2Vlli-4/maxresdefault.jpg"
+content_url: "https://youtu.be/RrpV2Vlli-4"
+embed_url: "https://www.youtube.com/embed/RrpV2Vlli-4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring
+  - Logging
+  - SLF4J
+  - Logback
+  - Spring Boot
+  - Java
+  - MDC
+  - Log levels
+  - Debugging
+  - Best practices
+---
+
+<p>If your application logs are a jumble of timestamps and cryptic messages then welcome to the club. This guide shows how to make Spring logs readable and actually helpful using SLF4J and Logback. You will keep your sanity and maybe save a production incident or two.</p>
+
+<h2>Why care about logging</h2>
+<p>Logs are the only honest witness in a crash scene. Good logs tell you what happened when and who was involved. Bad logs make you guess while you drink cold coffee and stare at a terminal.</p>
+
+<h2>Quick setup checklist</h2>
+<ul>
+  <li>Add the SLF4J facade and a backend like Logback</li>
+  <li>Let Spring Boot auto configure defaults or add a custom logback.xml</li>
+  <li>Create loggers with LoggerFactory.getLogger(MyClass.class)</li>
+  <li>Use parameterized logging to avoid wasted work when a level is off</li>
+  <li>Add request ids and other context with MDC for correlation across threads</li>
+</ul>
+
+<h3>Dependencies and config</h3>
+<p>Spring Boot brings sane defaults but explicit dependencies give you control. Include SLF4J and Logback on the classpath if you want consistent behavior across environments. If you prefer the default then rely on Spring Boot auto configuration and tweak application properties as needed.</p>
+
+<h3>Logback and appenders</h3>
+<p>Define appenders for console and file and pick a pattern that shows timestamp thread level logger and message. A clear pattern makes debugging less painful. If you need structured logs for machines use JSON output with a Logback encoder or logstash appender so your logs play nicely with search tools.</p>
+
+<h2>Code style that does not annoy your ops team</h2>
+<p>Obtain a logger the usual way</p>
+<pre><code>private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MyClass.class)</code></pre>
+<p>Prefer parameterized messages to string concatenation so you do not pay the CPU cost when the level is disabled</p>
+<pre><code>logger.debug("User {} created", userId)</code></pre>
+
+<h3>MDC for context aware logs</h3>
+<p>MDC lets you attach request ids user ids or other trace values to every log line for easy correlation. In a servlet filter or a web interceptor put the id into MDC at the start of the request and clear it at the end</p>
+<pre><code>MDC.put("requestId", requestId)</code></pre>
+<pre><code>MDC.clear()</code></pre>
+<p>This prevents you from staring at raw timestamps praying for meaning when you could be following a single request across threads and services.</p>
+
+<h2>Tuning levels and patterns</h2>
+<p>Control noise by adjusting log levels per package. For Spring Boot set levels in application properties like</p>
+<pre><code>logging.level.root=INFO
+logging.level.com.myapp=DEBUG</code></pre>
+<p>Raise levels in production and lower them in development when you need deep visibility. Avoid turning on debug globally unless you enjoy endless logs and poor sleep.</p>
+
+<h2>Testing logs and safety checks</h2>
+<ul>
+  <li>Run your app with different levels and trigger error paths</li>
+  <li>Verify that sensitive data such as passwords and tokens never appear</li>
+  <li>Measure performance impact if you add heavy structured logging or large payloads</li>
+</ul>
+
+<h2>Best practices summary</h2>
+<ul>
+  <li>Use SLF4J as the facade and Logback as a reliable backend</li>
+  <li>Prefer parameterized logging to avoid unnecessary string work</li>
+  <li>Put a request id in MDC for each incoming request and clear it at the end</li>
+  <li>Tune levels per package to silence noisy libraries</li>
+  <li>Consider structured JSON logs for easier searching and alerting</li>
+</ul>
+
+<p>Follow these steps and your logs will stop being riddles and start being tools. If nothing else you will be slightly less likely to receive a frantic midnight message that reads simply why is everything red</p>
+

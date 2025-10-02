@@ -1,0 +1,85 @@
+---
+layout: video
+title: "Java Artifacts in GitHub Actions Maven Build"
+description: "Build and store Maven Java artifacts with GitHub Actions steps for packaging uploading and optional deployment from workflows"
+video_host: "youtube"
+video_id: "Duynf6zvSk0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M51S"
+thumbnail_url: "https://i.ytimg.com/vi/Duynf6zvSk0/maxresdefault.jpg"
+content_url: "https://youtu.be/Duynf6zvSk0"
+embed_url: "https://www.youtube.com/embed/Duynf6zvSk0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Maven
+  - GitHub Actions
+  - CI
+  - Artifacts
+  - Upload Artifact
+  - setup-java
+  - Package
+  - Maven Central
+  - Continuous Integration
+---
+
+<h2>Why this guide exists and why you need it</h2>
+<p>If you want your Java artifacts to stop living on your developer machine and start showing up in Maven Central or your Nexus repo then yes you need a CI pipeline that does more than run tests and send you passive aggressive emails. This walkthrough explains how to build Maven artifacts in GitHub Actions publish them as workflow artifacts and deploy to a Maven repository while keeping secrets and GPG keys out of the commit history.</p>
+
+<h2>Pipeline overview</h2>
+<p>High level steps that are boring but important</p>
+<ul>
+  <li>Checkout the repo</li>
+  <li>Configure Java using actions/setup-java</li>
+  <li>Run a non interactive Maven build such as <code>mvn -B package</code></li>
+  <li>Upload build outputs with <code>actions/upload-artifact</code></li>
+  <li>Publish to a Maven repo with <code>mvn deploy</code> using <code>settings.xml</code> that reads credentials from secrets</li>
+</ul>
+
+<h2>Example steps that actually work</h2>
+<p>Keep this minimal but reproducible in your own <code>.github/workflows</code> file. Store your server credentials and your GPG key in repository or organization secrets. Use a staging repo first to avoid angry users.</p>
+
+<pre><code># checkout and setup java
+- uses: actions/checkout@v3
+- uses: actions/setup-java@v2
+  with:
+    distribution: 'temurin'
+    java-version: '17'
+    cache: 'maven'
+
+# build
+- name: Build Jars
+  run: mvn -B package
+
+# upload artifacts
+- uses: actions/upload-artifact@v3
+  with:
+    name: my-app-jars
+    path: target/*.jar
+
+# deploy using settings.xml that reads credentials from secrets
+- name: Deploy
+  env:
+    GPG_PRIVATE_KEY: ${{ secrets.GPG_KEY }}
+  run: mvn -s .github/maven/settings.xml deploy -DskipTests=false
+</code></pre>
+
+<h3>Notes on signing and credentials</h3>
+<p>Sign artifacts with GPG for Maven Central. Import the GPG key in the workflow and keep the passphrase in secrets. Your <code>settings.xml</code> should reference server ids not literal usernames and passwords. The workflow should inject credentials from secrets so your repo history stays clean.</p>
+
+<h3>Speed and reliability tips</h3>
+<ul>
+  <li>Enable dependency caching with the setup java cache or actions/cache to cut down on slow downloads</li>
+  <li>Test deployment to a staging repository first to avoid accidental public releases</li>
+  <li>Rotate credentials regularly because security is not optional</li>
+</ul>
+
+<h2>Verify and debug like a human</h2>
+<p>Open the workflow logs and read them with actual attention. Confirm your uploaded files on the Actions artifacts tab. If something fails reproduce the same <code>mvn</code> command locally with the same environment variables. That will save you from cursing at YAML for longer than necessary.</p>
+
+<h2>Closing pep talk</h2>
+<p>You now have a reproducible CI flow that produces jars uploads artifacts and can publish to Maven Central or your private repo. It is not magic. It is a few sensible steps executed reliably. Implement them once and enjoy fewer manual deploy disasters.</p>
+

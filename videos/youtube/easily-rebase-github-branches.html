@@ -1,0 +1,103 @@
+---
+layout: video
+title: "Easily rebase GitHub branches"
+description: "Rebase GitHub branches fast and safely Learn commands to update feature branches resolve conflicts and push with confidence"
+video_host: "youtube"
+video_id: "KUal3Lh-xuE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M43S"
+thumbnail_url: "https://i.ytimg.com/vi/KUal3Lh-xuE/maxresdefault.jpg"
+content_url: "https://youtu.be/KUal3Lh-xuE"
+embed_url: "https://www.youtube.com/embed/KUal3Lh-xuE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - rebase
+  - git rebase
+  - feature branch
+  - merge
+  - conflicts
+  - force push
+  - tutorial
+  - workflow
+---
+
+<p>If your pull request history looks like a Jackson Pollock painting then rebasing is the neat freak you need. This guide walks through a safe workflow for rebasing a GitHub feature branch so your commit graph looks intentional and not like a caffeine fueled merge mess.</p>
+
+<h2>Quick steps to rebase a feature branch</h2>
+
+<p>Here is the short version for people who like to live dangerously but not recklessly. Each command is safe when used as shown.</p>
+
+<ol>
+  <li>Fetch remote refs to get the latest state
+    <pre><code>git fetch origin</code></pre>
+  </li>
+  <li>Switch to your feature branch so you do not rebase the wrong thing
+    <pre><code>git checkout feature-branch</code></pre>
+  </li>
+  <li>Rebase your branch onto the updated target branch, for example main
+    <pre><code>git rebase origin/main</code></pre>
+  </li>
+  <li>When conflicts happen fix them then stage and continue
+    <pre><code>git add path/to/file
+git rebase --continue</code></pre>
+  </li>
+  <li>If the rebase is a disaster return to the previous state
+    <pre><code>git rebase --abort</code></pre>
+  </li>
+  <li>Push the rewritten branch back to GitHub safely
+    <pre><code>git push --force-with-lease origin feature-branch</code></pre>
+  </li>
+</ol>
+
+<h2>Why fetch first and not guess</h2>
+
+<p>git fetch origin updates your local refs so you rebase onto the real latest main. Skipping this step is like assuming your coworker did not push a last minute fix while you were debugging. Do not assume. Fetch.</p>
+
+<h2>Handling conflicts without panic</h2>
+
+<p>Rebasing replays your commits on top of the target branch which can reveal merge conflicts. This is good because you want to resolve issues now and not later in a surprise review.</p>
+
+<ul>
+  <li>Open the conflicted files and look for conflict markers</li>
+  <li>Decide which changes to keep or combine them by hand</li>
+  <li>Stage the resolved files with git add</li>
+  <li>Run git rebase --continue until no more conflicts remain</li>
+</ul>
+
+<p>If you realize you made a mistake and want to abort everything use git rebase --abort which restores your branch to the pre rebase state. Take a breath and try again with a clearer head.</p>
+
+<h2>Pushing rewritten history without blowing things up</h2>
+
+<p>Because rebasing rewrites commits you need to force push to update the remote branch. Use this safer form to avoid stomping on someone else work.</p>
+
+<pre><code>git push --force-with-lease origin feature-branch</code></pre>
+
+<p>The --force-with-lease option refuses to overwrite remote changes that happened since you last fetched. It is a small safety net that prevents accidental mid air collisions.</p>
+
+<h2>When to rebase and when to avoid it</h2>
+
+<p>Rebase for local branches or short lived feature branches. Avoid rebasing branches that others have based work on unless that team enjoys unexpected surprises and angry emails.</p>
+
+<h3>Good rule of thumb</h3>
+
+<ul>
+  <li>Rebase when you want a linear, tidy history</li>
+  <li>Prefer merges for long lived shared branches to keep history predictable</li>
+</ul>
+
+<h2>Troubleshooting and tips</h2>
+
+<ul>
+  <li>If you see unexpected commits after a rebase check git log and confirm you rebased onto the right target branch</li>
+  <li>Use git status to track where you are during a rebase session</li>
+  <li>Keep changes small and frequent to make conflict resolution easier</li>
+  <li>Always prefer git push --force-with-lease over a plain force push for a little workplace harmony</li>
+</ul>
+
+<p>Follow these steps when you want clean pull requests and a readable commit history. Rebasing is not magical but done right it makes your project history look like someone was actually in control.</p>
+

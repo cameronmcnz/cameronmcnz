@@ -1,0 +1,81 @@
+---
+layout: video
+title: "Find and edit system, global & local Git config files"
+description: "Locate and edit Git system global and local config files with commands file paths and verification steps for correct user and repo settings"
+video_host: "youtube"
+video_id: "sttqdGLM9Wo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M28S"
+thumbnail_url: "https://i.ytimg.com/vi/sttqdGLM9Wo/maxresdefault.jpg"
+content_url: "https://youtu.be/sttqdGLM9Wo"
+embed_url: "https://www.youtube.com/embed/sttqdGLM9Wo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git config
+  - git tutorial
+  - git config files
+  - global git
+  - local git
+  - system git
+  - git commands
+  - version control
+  - developer tools
+---
+
+<p>You changed your name on one machine and Git still thinks you are Someone Else. Relax, this is a workplace hazard and not a personality crisis. This guide shows where Git stores its settings and how to edit system git, global git and local git config files without making the situation worse. You will learn which file wins when values collide and how to check origins with simple git commands and file edits.</p>
+
+<h2>Where Git reads settings</h2>
+<p>Git looks at settings from three main places. They stack up from wide to narrow so narrow settings override wider ones.</p>
+<ul>
+  <li><strong>System level</strong> files apply to the whole machine. Common path is <code>/etc/gitconfig</code>. Editing often needs elevated privileges.</li>
+  <li><strong>Global or user level</strong> applies to one developer account. File is <code>~/.gitconfig</code> or <code>~/.config/git/config</code> on some systems.</li>
+  <li><strong>Local or repo level</strong> applies only to a repository. File is <code>.git/config</code> in the repo root.</li>
+</ul>
+
+<h2>Find the origin of a setting</h2>
+<p>Before stabbing at files open a terminal and run this to see every value and where it came from</p>
+<pre><code>git config --list --show-origin</code></pre>
+<p>You can also ask for a specific scope when you want less output</p>
+<pre><code>git config --system --list
+git config --global --list
+git config --local --list</code></pre>
+<p>This removes a lot of guesswork. If the wrong email is appearing at commit time this command will show which config file set it.</p>
+
+<h2>Open and edit the right file</h2>
+<p>Once you know which file to change open it in your editor of choice. Example editors are nano, vim or code. Remember system files usually need sudo or root rights.</p>
+<ul>
+  <li>System file path for most systems is <code>/etc/gitconfig</code></li>
+  <li>User file is <code>~/.gitconfig</code></li>
+  <li>Repository file is <code>.git/config</code> from the repo root</li>
+</ul>
+<p>In the file you will see INI style sections and keys. A user block looks like this</p>
+<pre><code>[user]
+  name = Alice
+  email = alice@example.com</code></pre>
+<p>Aliases and core options use the same format. Make the edit, save, close, and breathe.</p>
+
+<h2>Verify your change took effect</h2>
+<p>Check the specific setting after editing</p>
+<pre><code>git config --global user.name
+git config --local user.email
+git config --system core.editor</code></pre>
+<p>Then run the show origin list one more time to confirm which file provided the final value</p>
+<pre><code>git config --list --show-origin</code></pre>
+
+<h3>Quick rules to avoid grief</h3>
+<ul>
+  <li>If you want machine wide defaults edit the system file</li>
+  <li>If you want settings for your user account edit the global file</li>
+  <li>If you want repo specific overrides edit the local file</li>
+  <li>Always run show origin to see who set what before changing anything</li>
+</ul>
+
+<h2>Troubleshooting tips</h2>
+<p>If a setting keeps coming back or behaves oddly it might be set by a tool or a script. Look at system level configs first if you see behavior across many repos. If an individual repo acts up inspect <code>.git/config</code> and check any hooks or CI configs that could rewrite behavior.</p>
+
+<p>There you go. You should now be able to find and edit git config files with more confidence and less swearing. If all else fails blame your OS and make a backup before you start editing.
+

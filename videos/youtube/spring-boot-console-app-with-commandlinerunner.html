@@ -1,0 +1,90 @@
+---
+layout: video
+title: "Spring Boot Console App with CommandLineRunner"
+description: "Build a Spring Boot console app using CommandLineRunner to run startup logic handle CLI args and run simple tasks from the command line"
+video_host: "youtube"
+video_id: "PXwSOU-ECXs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT32M27S"
+thumbnail_url: "https://i.ytimg.com/vi/PXwSOU-ECXs/maxresdefault.jpg"
+content_url: "https://youtu.be/PXwSOU-ECXs"
+embed_url: "https://www.youtube.com/embed/PXwSOU-ECXs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - CommandLineRunner
+  - Java
+  - Console App
+  - CLI
+  - Maven
+  - Gradle
+  - Spring Boot Tutorial
+  - Java Tutorial
+  - picocli
+---
+
+<h2>Quick truth meter</h2>
+<p>If you want a tiny Java program that wakes up, does work, then goes back to sleep without serving web pages or pretending to be a REST hero, Spring Boot makes that delightfully boring. This guide shows how to build a console focused Spring Boot application that runs startup logic with CommandLineRunner handles command line arguments and packages as an executable jar for CI or distribution.</p>
+
+<h2>Create the project</h2>
+<p>Use start.spring.io or your favorite IDE to generate a new Spring Boot project. Pick Java and a recent Spring Boot version. Do not add any web server starters if you only want a CLI app. Maven and Gradle both work fine so pick the one you like to yell at in the morning.</p>
+
+<h2>Add a CommandLineRunner implementation</h2>
+<p>CommandLineRunner is the Spring hook that executes after the application context is ready. You can implement it on your main application class or declare a separate @Bean. Put your startup tasks in the run method and Spring will call it once everything else has settled in.</p>
+
+<h3>Why use CommandLineRunner</h3>
+<ul>
+  <li>Runs after Spring is fully initialized</li>
+  <li>Perfect for batch jobs initializers and short lived CLI tools</li>
+  <li>Integrates with Spring features like dependency injection configuration and lifecycle</li>
+</ul>
+
+<h2>Parsing command line arguments</h2>
+<p>For tiny scripts just inspect the args array plain and simple. For anything more than a flag or two get a real parser. picocli is a popular choice because it gives you nice help output typed options and subcommands without making your life miserable.</p>
+
+<h3>When to reach for picocli</h3>
+<ul>
+  <li>When you need flags options defaults or help text</li>
+  <li>When you want subcommands like git style tooling</li>
+  <li>When you plan to reuse the CLI across CI scripts or local tools</li>
+</ul>
+
+<h2>Run and test locally</h2>
+<p>From your IDE run the main method. From the command line you can run the app with the JVM or use the Maven or Gradle helper. Pass arguments to exercise flags and verify your startup tasks run as expected.</p>
+<p>Typical commands to try are mvn spring-boot:run or java -jar target your app jar Remember to pass arguments after the run command to observe behavior at runtime.</p>
+
+<h2>Package for distribution</h2>
+<p>Build an executable jar with Maven or Gradle so the artifact can be handed off to CI shared drives or other developers. A runnable jar keeps the app self contained and ideal for cron jobs containers or one off scripts.</p>
+
+<h2>Example minimal class</h2>
+<pre><code>@SpringBootApplication
+public class App implements CommandLineRunner {
+  public static void main(String[] args) {
+    SpringApplication.run(App.class, args)
+  }
+
+  @Override
+  public void run(String... args) throws Exception {
+    System.out.println("Hello from CommandLineRunner")
+    // Inspect args and do startup work here
+  }
+}
+</code></pre>
+<p>Yes that is the tiny heart of a Spring Boot CLI tool. Wire services with @Autowired or constructor injection and put the orchestration logic inside run. If you need to return a specific exit code throw an ExitCodeExceptionMapper or call SpringApplication.exit with an ExitCodeGenerator.</p>
+
+<h2>Using picocli for nicer UX</h2>
+<p>Add the picocli dependency and annotate a command class with @Command then delegate parsing to picocli from your CommandLineRunner. This gives you built in help usage messages and typed options so users stop inventing weird flags.</p>
+
+<h3>Sketch of a picocli flow</h3>
+<ul>
+  <li>Define a command class with picocli annotations for options and parameters</li>
+  <li>From run delegate to CommandLine to parse and execute</li>
+  <li>Let picocli handle generating help and validation</li>
+</ul>
+
+<h2>Summary and final snark</h2>
+<p>Spring Boot is not just for web apps. CommandLineRunner is a neat hook to run startup tasks and build real CLI tools using familiar Spring dependency injection. For trivial needs use the args array for everything else pick a parser like picocli and package into an executable jar with Maven or Gradle. Now go write that one off tool that saves you five minutes each week and gives you enough smug satisfaction to survive another sprint.</p>
+

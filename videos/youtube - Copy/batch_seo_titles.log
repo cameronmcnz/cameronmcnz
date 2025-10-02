@@ -1,0 +1,12 @@
+[2025-10-01 18:51:23,589] INFO Uploaded JSONL file. file_id=file-RaztBfbQ3nM3cotFc43FQK
+[2025-10-01 18:51:24,117] INFO Created batch. id=batch_68ddb06852d88190b165d88cfb3b5da8 status=validating
+[2025-10-01 18:51:24,119] INFO Saved batch id to openai-batch-id.txt
+[2025-10-01 18:51:24,257] INFO Batch batch_68ddb06852d88190b165d88cfb3b5da8: status=validating counts=BatchRequestCounts(completed=0, failed=0, total=0)
+[2025-10-01 18:53:04,501] INFO Batch batch_68ddb06852d88190b165d88cfb3b5da8: status=in_progress counts=BatchRequestCounts(completed=0, failed=105, total=1146)
+[2025-10-01 18:54:44,820] INFO Batch batch_68ddb06852d88190b165d88cfb3b5da8: status=in_progress counts=BatchRequestCounts(completed=0, failed=444, total=1146)
+[2025-10-01 18:56:25,076] INFO Batch batch_68ddb06852d88190b165d88cfb3b5da8: status=in_progress counts=BatchRequestCounts(completed=0, failed=1043, total=1146)
+[2025-10-01 18:58:05,369] INFO Batch batch_68ddb06852d88190b165d88cfb3b5da8: status=in_progress counts=BatchRequestCounts(completed=0, failed=1143, total=1146)
+[2025-10-01 18:59:45,644] INFO Batch batch_68ddb06852d88190b165d88cfb3b5da8: status=in_progress counts=BatchRequestCounts(completed=0, failed=1143, total=1146)
+[2025-10-01 19:01:25,912] INFO Batch batch_68ddb06852d88190b165d88cfb3b5da8: status=in_progress counts=BatchRequestCounts(completed=0, failed=1143, total=1146)
+[2025-10-01 19:03:06,217] INFO Batch batch_68ddb06852d88190b165d88cfb3b5da8: status=in_progress counts=BatchRequestCounts(completed=0, failed=1143, total=1146)
+[2025-10-01 19:04:46,517] INFO Batch batch_68ddb06852d88190b165d88cfb3b5da8: status=in_progress counts=BatchRequestCounts(completed=0, failed=1143, total=1146)

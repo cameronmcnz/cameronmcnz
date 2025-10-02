@@ -1,0 +1,78 @@
+---
+layout: video
+title: "How to Git Merge a Branch into Master"
+description: "A short practical guide to merging a Git branch into master with safe commands conflict handling and push best practices"
+video_host: "youtube"
+video_id: "n4_XbfX-ONg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M19S"
+thumbnail_url: "https://i.ytimg.com/vi/n4_XbfX-ONg/maxresdefault.jpg"
+content_url: "https://youtu.be/n4_XbfX-ONg"
+embed_url: "https://www.youtube.com/embed/n4_XbfX-ONg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - merge
+  - git merge
+  - branch
+  - master
+  - git tutorial
+  - version control
+  - github
+  - conflict resolution
+  - command line
+---
+
+<p>If you want to merge a feature branch into master without turning version control into a soap opera, this guide walks you through the command line steps. You will learn how to update master, perform the merge, resolve conflicts, test locally and clean up branches. No drama, just git merge and a little common sense.</p>
+
+<h2>Update master</h2>
+<p>First make sure master matches the remote baseline that will receive the merge. This avoids surprises and angry CI pipelines.</p>
+<pre><code>git checkout master
+# or
+git switch master
+
+git pull origin master</code></pre>
+<p>Pulling ensures your local master has the latest commits from origin. If you skip this, you might merge into an outdated history and then explain yourself to the team.</p>
+
+<h2>Merge the feature branch</h2>
+<p>Now bring the feature branch into master. You can merge while on master. Fast forward merges happen when master has no recent commits, which is Git being lazy in the best way.</p>
+<pre><code>git checkout master
+git merge feature-branch</code></pre>
+<p>If you want to force a merge commit even when a fast forward is possible, use <code>git merge --no-ff feature-branch</code>. That preserves a visible branch point in history for posterity or for future archaeologists.</p>
+
+<h2>Resolve conflicts when they appear</h2>
+<p>Merge conflicts are not personal. They mean two changes touched the same lines. Learn the pattern and move on.</p>
+<ul>
+  <li>Run <code>git status</code> to list conflicted files.</li>
+  <li>Edit the files and remove conflict markers like <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code>, <code>=======</code>, and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>.</li>
+  <li>After resolving, stage the fixes and finish the merge with <code>git add</code> and <code>git commit</code>.</li>
+</ul>
+<pre><code>git status
+# edit the files to resolve conflicts
+git add .
+git commit</code></pre>
+<p>If an automated merge tool helps you sleep at night, use it. If not, manual edits will do fine as long as you test afterward.</p>
+
+<h2>Test locally and push</h2>
+<p>Run unit tests, build steps and a quick manual check. If that passes, push master so others can enjoy your handiwork.</p>
+<pre><code>git push origin master</code></pre>
+<p>Pushing updates the remote and triggers CI if you have it. If CI fails, fix it on a branch and repeat the merge once green.</p>
+
+<h3>Clean up the feature branch</h3>
+<p>Once the branch has served its purpose remove it to avoid a cluttered repo that looks like a jungle after a developer convention.</p>
+<pre><code>git branch -d feature-branch
+git push origin --delete feature-branch</code></pre>
+
+<h2>Pro tips for less pain</h2>
+<ul>
+  <li>Use pull requests on GitHub for peer review and to centralize discussion.</li>
+  <li>Consider rebasing a private feature branch on top of master before merging to reduce conflicts, but avoid rebasing shared branches.</li>
+  <li>Protect master in your repository settings so no one can force push or merge broken code without gates.</li>
+  <li>Keep commits small and tests green. This makes conflict resolution less tragic and more manageable.</li>
+</ul>
+
+<p>That is the workflow. Update master, run the merge, handle conflicts, validate everything and clean up. Do this enough times and merging will feel like a predictable routine rather than a gamble. Now go merge something and pretend you had a plan all along.</p>
+

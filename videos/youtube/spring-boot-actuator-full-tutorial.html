@@ -1,0 +1,88 @@
+---
+layout: video
+title: "Spring Boot Actuator Full Tutorial"
+description: "Practical guide to enable and configure Spring Boot Actuator for monitoring metrics health endpoints and security in a Spring Boot application."
+video_host: "youtube"
+video_id: "CCMAhpVvpyk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT27M24S"
+thumbnail_url: "https://i.ytimg.com/vi/CCMAhpVvpyk/maxresdefault.jpg"
+content_url: "https://youtu.be/CCMAhpVvpyk"
+embed_url: "https://www.youtube.com/embed/CCMAhpVvpyk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Actuator
+  - Monitoring
+  - Metrics
+  - Health Endpoint
+  - Micrometer
+  - Prometheus
+  - Endpoints
+  - Security
+  - Observability
+---
+
+<h2>Introduction to Actuator</h2>
+<p>Spring Boot Actuator gives you a backstage pass to what your app is doing, minus the velvet rope and overpriced drinks. It exposes useful endpoints for metrics, health checks, and management tasks so you can stop guessing and start observing. This guide shows how to enable Actuator, secure the endpoints, collect custom metrics, and plug into backends like Prometheus and Grafana.</p>
+
+<h2>Add the Actuator dependency</h2>
+<p>Start by adding the officially blessed starter to your build. This unlocks a set of ready made endpoints for metrics and health that save time and reduce the need for handcrafted status pages.</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<h2>Expose and configure endpoints</h2>
+<p>Control what is visible through application properties. Expose only the things you actually need so you do not accidentally leak internals to the internet.</p>
+<pre><code>management.endpoints.web.exposure.include=health,metrics,info
+management.endpoint.health.show.details=when-authorized
+</code></pre>
+<p>These keys let you pick endpoints and control how much detail the health endpoint returns. Keep the noisy ones closed in production and open only on demand.</p>
+
+<h2>Secure management endpoints</h2>
+<p>Leaving /actuator wide open is handy for demos and terrible for production. Protect the endpoints with Spring Security or network rules. Map actuator endpoints under /actuator and require authentication for sensitive ones such as shutdown and env.</p>
+<ul>
+  <li>Use role based access for write or sensitive operations</li>
+  <li>Prefer network level restrictions when possible for an extra safety net</li>
+  <li>Audit access to management paths so someone cannot quietly pull your feature flags</li>
+</ul>
+
+<h2>Collect metrics and custom health checks</h2>
+<p>Micrometer is the recommended bridge between your app and monitoring systems. It provides a MeterRegistry where you can register custom meters, timers, and gauges. Implement HealthIndicator to add bespoke health checks that actually mean something to your ops team.</p>
+<pre><code>public class MyHealth implements HealthIndicator {
+  @Override
+  public Health health() {
+    // run a quick check and return up or down
+    return Health.up().build();
+  }
+}
+</code></pre>
+<p>Custom checks help surface business relevant problems, not just CPU or memory usage. Add meters for request latency, error rates, and other signals you care about.</p>
+
+<h2>Integrate with monitoring backends</h2>
+<p>Micrometer offers registries for Prometheus and many other systems. For Prometheus you typically add the registry dependency and let Prometheus scrape the /actuator/prometheus endpoint. In cloud or batch jobs you might use a push gateway instead.</p>
+<ul>
+  <li>Prometheus works well with scraping on /actuator/prometheus</li>
+  <li>Grafana is the usual dashboarding companion for visualizing metrics</li>
+  <li>Choose scrape based or push based export based on your infrastructure and scale</li>
+</ul>
+
+<h2>Best practices and tips</h2>
+<p>Expose only needed endpoints in production and use role based rules for management paths. If observability budget is tight focus on request metrics, error rates, and a single meaningful custom health check. Keep sensitive endpoints behind authentication and log who did what and when.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Add spring boot starter actuator</li>
+  <li>Pick which endpoints to expose with management settings</li>
+  <li>Protect /actuator with Spring Security or network controls</li>
+  <li>Use Micrometer for custom meters and a HealthIndicator for checks</li>
+  <li>Export to Prometheus and visualize with Grafana</li>
+</ul>
+
+<p>Follow these steps and you will gain real operational visibility, fewer surprise outages, and slightly less chaos for the team. You may even sleep better, but do not get cocky, production still has jokes to tell.</p>
+

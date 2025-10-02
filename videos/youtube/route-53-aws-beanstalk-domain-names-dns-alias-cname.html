@@ -1,0 +1,91 @@
+---
+layout: video
+title: "Route 53 AWS Beanstalk Domain Names DNS Alias CNAME"
+description: "Practical guide to mapping Beanstalk apps to domains using Route 53 alias records and CNAME entries in Amazon hosted zones."
+video_host: "youtube"
+video_id: "mQTl9XhpiVw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/mQTl9XhpiVw/maxresdefault.jpg"
+content_url: "https://youtu.be/mQTl9XhpiVw"
+embed_url: "https://www.youtube.com/embed/mQTl9XhpiVw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Route 53
+  - AWS
+  - Beanstalk
+  - DNS
+  - CNAME
+  - Alias Record
+  - Hosted Zone
+  - Domain Names
+  - Elastic Beanstalk
+  - DNS Management
+---
+
+<p>So you built something on Elastic Beanstalk and now you want it to stop living at some sad myapp.elasticbeanstalk.com address. Welcome to DNS fun where patience meets propagation and everyone pretends caches are fast. This guide shows how to use Route 53 hosted zones with alias records and CNAME entries to give your Beanstalk app a real domain name. Yes it is boring, yes it works, and no you do not need to sacrifice a serverless goat to get it live.</p>
+
+<h2>Quick overview</h2>
+<p>High level steps you will take</p>
+<ul>
+  <li>Create or confirm an Elastic Beanstalk environment</li>
+  <li>Find the environment endpoint or the load balancer DNS name</li>
+  <li>Create or use an existing Route 53 hosted zone for your domain</li>
+  <li>Create an alias record for the root domain or a CNAME for a subdomain</li>
+  <li>Test and wait for DNS propagation while holding very still</li>
+</ul>
+
+<h2>Prerequisites</h2>
+<p>Before you begin verify these items</p>
+<ul>
+  <li>An Elastic Beanstalk environment running your app</li>
+  <li>Access to the AWS console or AWS CLI with Route 53 permissions</li>
+  <li>A registered domain name pointed to the Route 53 name servers for the hosted zone</li>
+</ul>
+
+<h2>Step 1 Create or identify the Elastic Beanstalk environment</h2>
+<p>Launch or pick the environment in the AWS console. Note the environment name and the platform. In the environment details you will see a domain such as myapp.elasticbeanstalk.com. Most environments sit behind a load balancer. That is what you will usually point DNS at, because it is the thing that actually receives traffic.</p>
+
+<h2>Step 2 Find the environment endpoint or load balancer target</h2>
+<p>Open the environment and copy either the environment endpoint or the load balancer DNS name from the environment details. The environment endpoint is handy for a quick CNAME. If you prefer to be explicit find the Application Load Balancer DNS name in the EC2 console under load balancers.</p>
+
+<h2>Step 3 Create or use an existing hosted zone in Route 53</h2>
+<p>In Route 53 create a hosted zone that matches your domain name if you do not already have one. Make sure the registrar for the domain points at the Route 53 name servers for that hosted zone. If the domain registrar is not pointing at the hosted zone then the records you add here will be ignored by the internet.</p>
+
+<h2>Step 4 Add an alias record or a CNAME</h2>
+<p>Rules to follow and why they exist</p>
+<ul>
+  <li>For the zone apex or naked domain like example.com you cannot use a CNAME record. Use a Route 53 alias A record that targets the load balancer or the Elastic Beanstalk environment if Route 53 offers it as an alias target.</li>
+  <li>For subdomains like www.example.com use a CNAME record that points to the environment endpoint or the load balancer DNS name. That is perfectly allowed and the usual choice for www.</li>
+  <li>Alias records are Route 53 special records that behave like A records while pointing at AWS resources. They are handy because they allow the root domain to resolve to dynamic AWS targets without breaking DNS rules.</li>
+</ul>
+
+<p>Example using the console</p>
+<ol>
+  <li>Open the hosted zone for your domain in Route 53</li>
+  <li>Create a record set with name blank for the apex or name www for a subdomain</li>
+  <li>If apex choose Record type A and set Alias yes then pick the load balancer or Beanstalk environment target</li>
+  <li>If subdomain choose Record type CNAME and set the value to your environment endpoint such as myapp.elasticbeanstalk.com</li>
+</ol>
+
+<h2>Step 5 Test and wait for DNS propagation</h2>
+<p>DNS is patient. You are not. Use these commands to confirm what the world sees</p>
+<pre><code>dig +short example.com
+dig +short www.example.com
+nslookup example.com
+nslookup www.example.com</code></pre>
+<p>Remember caches can take time to clear. If the records look right locally but not globally give it some minutes and try again. TTL settings control how long caches keep old answers.</p>
+
+<h3>Troubleshooting tips</h3>
+<ul>
+  <li>If the apex shows a strange record check that your hosted zone name servers match what your registrar lists</li>
+  <li>If the alias target is missing in Route 53 check you selected the correct region and that the load balancer still exists</li>
+  <li>If CNAME is not resolving verify you pointed the CNAME to the exact environment endpoint without typos</li>
+</ul>
+
+<h3>Final thoughts</h3>
+<p>Mapping a domain to Elastic Beanstalk is not rocket science. It can feel dramatic though because DNS is slow and immortal. Use alias records for the root, use CNAME for subdomains, point to the load balancer when possible, and check with dig or nslookup when in doubt. Now go enjoy that shiny domain you earned with a few clicks and a little patience.</p>
+

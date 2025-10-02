@@ -1,0 +1,81 @@
+---
+layout: video
+title: "Create and Configure BitBucket SSH keys for Git"
+description: "Quick guide to generate add and test BitBucket SSH keys for seamless Git pushes and pulls without passwords"
+video_host: "youtube"
+video_id: "ZY_C76uNJKQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M8S"
+thumbnail_url: "https://i.ytimg.com/vi/ZY_C76uNJKQ/maxresdefault.jpg"
+content_url: "https://youtu.be/ZY_C76uNJKQ"
+embed_url: "https://www.youtube.com/embed/ZY_C76uNJKQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - BitBucket
+  - SSH
+  - Git
+  - ssh keys
+  - ssh key setup
+  - ssh-agent
+  - ssh-keygen
+  - Bitbucket tutorial
+  - git ssh
+  - developer tools
+---
+
+<p>If your Git workflow is a saga of typing passwords and refreshing tokens then welcome to the rescue party. This guide walks you through generating a secure SSH key pair, adding the public key to Bitbucket, teaching your local Git to use SSH, and avoiding the permission drama. Technical accuracy guaranteed, sass included.</p>
+
+<h2>Pick a key type and make one</h2>
+<p>ed25519 is the modern, compact, and secure choice. If you are stuck in legacy land you can still use RSA 4096. Run the generator and give the key a helpful comment so you can tell which key is which later.</p>
+<pre><code>ssh-keygen -t ed25519 -C "you@example.com"</code></pre>
+<p>Press Enter to accept the default file path unless you need multiple keys, and choose a passphrase unless automation is the boss of you. A passphrase protects the private key in case your laptop decides to take an unscheduled trip.</p>
+
+<h2>Start the ssh agent and add your private key</h2>
+<p>The agent holds unlocked keys in memory so you are not asked for a passphrase for every push. Start it and add your key with these commands.</p>
+<pre><code>eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519</code></pre>
+<p>If ssh-add complains set the file permissions and try again.</p>
+<pre><code>chmod 600 ~/.ssh/id_ed25519</code></pre>
+
+<h2>Copy your public key into Bitbucket</h2>
+<p>Display the public key and copy the entire line. Paste it into Bitbucket under Personal settings then SSH keys. Give the key a name that makes you look organized even if you are not.</p>
+<pre><code>cat ~/.ssh/id_ed25519.pub</code></pre>
+
+<h2>Test the SSH connection</h2>
+<p>Check that Bitbucket recognizes your key and lets you in. The server will reply with a friendly confirmation if things went well. If you get permission denied it means the key was not added, the wrong key was sent, or your remote still uses HTTPS.</p>
+<pre><code>ssh -T git@bitbucket.org</code></pre>
+
+<h2>Point your local repo to the SSH link</h2>
+<p>Grab the SSH clone link from your Bitbucket repository page. Then update the remote so Git uses SSH instead of HTTPS. Verify the remote and then fetch or push to confirm everything works.</p>
+<pre><code>git remote set-url origin git@bitbucket.org:workspace/repo.git
+git remote -v
+git fetch</code></pre>
+
+<h2>Manage multiple keys with an ssh config file</h2>
+<p>If you have personal and work keys use a simple config so the right key is offered to Bitbucket. This keeps things tidy and avoids the guesswork.</p>
+<pre><code>Host bitbucket.org
+  HostName bitbucket.org
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+  IdentitiesOnly yes</code></pre>
+<p>For more than one identity make a named host entry and use that host alias when setting the remote.</p>
+<pre><code>Host work-bitbucket
+  HostName bitbucket.org
+  User git
+  IdentityFile ~/.ssh/id_ed25519_work
+  IdentitiesOnly yes</code></pre>
+
+<h2>Troubleshooting and quick tips</h2>
+<ul>
+  <li>If ssh -T still asks for a password you may be using HTTPS remotes. Run git remote -v and confirm the URL uses SSH.</li>
+  <li>If ssh-add cannot find the agent rerun eval "$(ssh-agent -s)" and re add the key.</li>
+  <li>If Bitbucket rejects the key check you copied the full contents of the public key including the header and comment.</li>
+  <li>Use a passphrase and your OS keychain or ssh agent for daily convenience and security.</li>
+</ul>
+
+<h2>Recap</h2>
+<p>Generate a modern key pair, add the private key to your ssh agent, paste the public key into Bitbucket, test the connection, and switch your repo to the SSH clone link. After that Git will stop nagging you for passwords and you will have a cleaner, more secure setup with fewer interruptions and more time to do real work or stare meaningfully into space.</p>
+

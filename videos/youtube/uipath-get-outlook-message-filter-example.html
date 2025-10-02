@@ -1,0 +1,64 @@
+---
+layout: video
+title: "UiPath Get Outlook Message Filter Example"
+description: "Learn how to use UiPath Get Outlook Mail Messages with filter strings to fetch specific emails fast and reliably for automation workflows"
+video_host: "youtube"
+video_id: "zrCx_-EB74Y"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M9S"
+thumbnail_url: "https://i.ytimg.com/vi/zrCx_-EB74Y/maxresdefault.jpg"
+content_url: "https://youtu.be/zrCx_-EB74Y"
+embed_url: "https://www.youtube.com/embed/zrCx_-EB74Y"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Outlook
+  - Get Outlook Mail Messages
+  - email filter
+  - RPA
+  - automation
+  - filters
+  - MailMessage
+  - UiPath tutorial
+  - Outlook filter
+---
+
+<h1>Target specific Outlook messages in UiPath with filter expressions and tips</h1>
+<p>If you want your UiPath robot to stop collecting every promotional email and start focusing on the important stuff like invoices or support requests then Get Outlook Mail Messages with a proper filter is your friend. This guide explains how to configure the activity use Outlook restriction syntax and process the results as a List MailMessage without turning your robot into an overworked spam collector.</p>
+
+<h2>When to use Get Outlook Mail Messages</h2>
+<p>Use this activity when an Outlook client is available on the robot machine. The Output property expects a variable typed as List MailMessage so downstream steps can access Subject From Body ReceivedTime and attachments. This approach keeps the automation fast and avoids scanning the entire mailbox like a lost intern.</p>
+
+<h2>Key properties to set</h2>
+<ul>
+  <li><strong>MailFolder</strong> set to Inbox or a named subfolder to narrow the search</li>
+  <li><strong>Top</strong> limit the number of messages during testing to save time</li>
+  <li><strong>OnlyUnread</strong> skip already processed messages to avoid duplicates</li>
+  <li><strong>MarkAsRead</strong> toggle when you want the robot to flag messages as handled</li>
+  <li><strong>Filter</strong> supply an Outlook restriction string to target exactly what you need</li>
+</ul>
+
+<h3>Filter examples and practical tips</h3>
+<p>The Filter field expects Outlook restriction syntax using square bracket field names and operators such as = LIKE >=. It is smart but picky so test filter strings directly in Outlook search before you run a production job. Use clear date formats like yyyy-MM-dd for ReceivedTime to get predictable results.</p>
+<pre><code>[Subject] LIKE 'Invoice%'</code></pre>
+<pre><code>[From] = 'billing@example.com'</code></pre>
+<pre><code>[ReceivedTime] >= '2020-08-01'</code></pre>
+<p>You can combine conditions with AND and OR to refine matches. If the filter fails test it in Outlook search and tweak it before deploying. Saving debugging time is the most satisfying thing short of coffee.</p>
+
+<h2>Processing the results</h2>
+<p>Assign the Output to a variable named messages typed as List MailMessage and loop with For Each to inspect each item. Access item.Subject item.From item.Body and item.ReceivedTime. Save attachments or write a small summary for downstream automation. Wrap this work in a Try Catch to handle network issues malformed messages or unexpected nulls without bringing the whole process to a halt.</p>
+
+<ul>
+  <li>For Each mail in messages do your checks and business logic</li>
+  <li>Use OnlyUnread and MarkAsRead strategically to avoid reprocessing</li>
+  <li>Limit Top during development to speed up iterations</li>
+</ul>
+
+<h2>Development and deployment tips</h2>
+<p>During development keep OnlyUnread and Top enabled to limit workload and speed testing. If your robot lacks an Outlook client you will need an alternative like the Exchange or Graph API which is a different path. Always validate filter strings in Outlook before scaling up and prefer explicit date formats for safety.</p>
+
+<p>Applying filters reduces processing time and keeps your RPA focused on relevant messages. Do it once properly and the robot will stop mistaking newsletters for mission critical emails. You will sleep better and the audit log will look less chaotic.</p>
+

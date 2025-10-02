@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Install Jenkins on Tomcat"
+description: "Quick guide to deploy Jenkins WAR on Tomcat with clear steps for download deploy configure and run as a service"
+video_host: "youtube"
+video_id: "Irka8a86er8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M0S"
+thumbnail_url: "https://i.ytimg.com/vi/Irka8a86er8/maxresdefault.jpg"
+content_url: "https://youtu.be/Irka8a86er8"
+embed_url: "https://www.youtube.com/embed/Irka8a86er8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Tomcat
+  - Jenkins on Tomcat
+  - Deploy Jenkins WAR
+  - Tomcat deployment
+  - Continuous Integration
+  - CI server
+  - Reverse proxy
+  - SSL
+  - DevOps
+---
+
+<p>So you want Jenkins on Tomcat. Brave move. This guide walks you through downloading the jenkins.war file deploying it to Tomcat and hardening the setup with a reverse proxy and SSL. Stay calm and remember that most production incidents are caused by humans and bad copy paste.</p>
+
+<h2>What you need before we start</h2>
+<p>Yes you need Java and Tomcat and no you cannot just wish them into existence. Here is the short checklist so you do not waste time debugging the obvious.</p>
+<ul>
+  <li>Supported Java runtime such as OpenJDK 8 or 11 installed and JAVA_HOME set</li>
+  <li>Tomcat 8 or 9 instance provisioned and running under a dedicated user</li>
+  <li>Enough disk space for Jenkins plugins and job history</li>
+  <li>Network access to download the jenkins.war file and to reach your browser</li>
+</ul>
+
+<h2>Download the Jenkins WAR</h2>
+<p>Grab the latest jenkins.war from the official Jenkins download page using a browser or your preferred command line tool. Put the file on the Tomcat host and keep the name jenkins.war so Tomcat deploys it at the default context path. No trickery needed here.</p>
+
+<h2>Deploy the WAR to Tomcat</h2>
+<p>Copy jenkins.war into Tomcat's webapps directory or use the Tomcat manager if you prefer a GUI and mild regret. On Tomcat startup the WAR will unpack into a jenkins context folder. If you want to avoid Tomcat auto deploy you can drop the WAR and control startup yourself by starting the Tomcat service.</p>
+
+<h3>Permissions and JENKINS_HOME</h3>
+<p>Create a dedicated JENKINS_HOME directory or set an environment variable so Jenkins does not try to live in root directories and cry at runtime. Make sure the Tomcat user owns JENKINS_HOME and that file permissions allow Tomcat to read and write there. If you forget this step you will get errors and a very sad Jenkins instance.</p>
+
+<h2>Tune the Tomcat context</h2>
+<p>If you want predictable performance create a context xml file in Tomcat's conf or context directory and set sensible values for max threads session timeout and so on. These are the knobs that keep Jenkins responsive when builds pile up or people accidentally run a million tiny jobs.</p>
+
+<h2>Front Tomcat with a reverse proxy</h2>
+<p>Serve Jenkins on standard ports and terminate TLS at a reverse proxy such as Nginx or Apache. This keeps Tomcat simple and lets the proxy handle certificates caching and client headers. Make sure to forward proxy headers so Jenkins can log client IPs and to enable secure session cookies in your proxy to tighten session security.</p>
+
+<h3>General proxy tips</h3>
+<ul>
+  <li>Use X Forwarded For to preserve client IP</li>
+  <li>Stop public access to the Tomcat port by firewalling or binding Tomcat to localhost</li>
+  <li>Enable HTTPS on the proxy and redirect HTTP to HTTPS so browsers do not send passwords in the clear</li>
+</ul>
+
+<h2>Start Tomcat and verify Jenkins</h2>
+<p>Start or restart the Tomcat service and watch the logs such as catalina.out for plugin initialization messages. Access Jenkins on the configured host and port and complete the setup wizard to create the initial admin user and install recommended plugins. If plugin installation hangs check disk space and network access from the server.</p>
+
+<h2>Run Tomcat as a service and keep things tidy</h2>
+<p>Use your system service manager to enable Tomcat at boot and to keep logs rotating. Monitor plugin updates and backups of JENKINS_HOME so you do not lose job configs when someone hits delete with confidence.</p>
+
+<h2>Troubleshooting quick wins</h2>
+<ul>
+  <li>Permission errors check owner and mode of JENKINS_HOME</li>
+  <li>Blank pages check Tomcat logs and confirm the WAR deployed without errors</li>
+  <li>Reverse proxy issues confirm headers and that Tomcat is not publicly exposed on port 8080</li>
+</ul>
+
+<p>This is the practical path to getting Jenkins on Tomcat without chaos. You now have a CI server that can run jobs host builds and be fronted by a secure proxy. If something breaks consult the logs sleep and try again in the morning or after coffee.</p>
+

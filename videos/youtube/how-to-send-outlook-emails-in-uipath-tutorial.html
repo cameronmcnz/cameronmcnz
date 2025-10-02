@@ -1,0 +1,80 @@
+---
+layout: video
+title: "How to Send Outlook Emails in UiPath Tutorial"
+description: "Quick guide to sending Outlook emails with UiPath using Send Outlook Mail Message activity with attachments and error handling"
+video_host: "youtube"
+video_id: "varLbfY5lPM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M56S"
+thumbnail_url: "https://i.ytimg.com/vi/varLbfY5lPM/maxresdefault.jpg"
+content_url: "https://youtu.be/varLbfY5lPM"
+embed_url: "https://www.youtube.com/embed/varLbfY5lPM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Outlook
+  - Send Outlook Mail Message
+  - RPA
+  - Email Automation
+  - Attachments
+  - Workflows
+  - UiPath Tutorial
+  - Automation
+  - Error Handling
+---
+
+<h1>Practical UiPath workflow for sending Outlook mail with attachments</h1>
+<p>If your automation needs to nag people, deliver reports, or quietly confirm that the robot is still alive then sending Outlook email from UiPath is a classic move. This guide walks you through a compact, practical flow using the Send Outlook Mail Message activity and basic error handling so your emails actually leave the outbox and do not haunt your logs forever.</p>
+
+<h2>Quick setup and the Outlook application scope</h2>
+<p>Start by dropping an Outlook Application Scope into your workflow and pick the right profile. The scope gives UiPath access to the desktop Outlook profile for sending mail and for reading folders if you need to check incoming messages or sent items. If the machine is unattended make sure an Outlook profile exists or plan for SMTP with proper credentials instead.</p>
+
+<h2>Construct the message and send it</h2>
+<p>Use the Send Outlook Mail Message activity for most cases. Fill the To field and other headers like Subject, CC and BCC. Use a variable for the message body when you need dynamic content. If you are sending HTML set IsBodyHtml to True so your carefully designed table does not arrive as a sad string of tags.</p>
+
+<ol>
+  <li>
+    <strong>Prepare the body</strong>
+    <p>Create a String or use a workflow to build the body. For complex messages use a MailMessage variable and assign it to the MailMessage property of the send activity. That gives you more control over formatting and attachments when needed.</p>
+  </li>
+  <li>
+    <strong>Add attachments</strong>
+    <p>Use the Attachments property to pass a list of file paths. For single files the Attach Files activity is handy. Always verify that file paths exist before sending to avoid silent failures. If you have large folders consider zipping them to stay under mail server limits.</p>
+  </li>
+  <li>
+    <strong>Test before you trust</strong>
+    <p>Run the workflow in Debug mode to catch authentication or profile issues early. Watch the Output and Logs like you mean it.</p>
+  </li>
+</ol>
+
+<h3>Example checklist for the send activity</h3>
+<ul>
+  <li>To field populated with valid addresses</li>
+  <li>Subject and Body variables set</li>
+  <li>IsBodyHtml equals True for HTML content</li>
+  <li>Attachments list contains real file paths</li>
+  <li>MailMessage used when message needs advanced handling</li>
+</ul>
+
+<h2>Error handling and unattended runs</h2>
+<p>Wrap Send Outlook Mail Message in a Try Catch so your robot does not crash and burn when Outlook decides to be finicky. Catch exceptions and log them with meaningful messages. For unattended robots ensure the machine has an Outlook profile configured. If a desktop profile is not available use SMTP with secure credentials and handle authentication errors gracefully.</p>
+
+<h3>Common failure modes</h3>
+<ul>
+  <li>Missing Outlook profile on unattended machine</li>
+  <li>Invalid file paths for attachments</li>
+  <li>Mail server limits for big attachments</li>
+  <li>Authentication issues that show up only in production</li>
+</ul>
+
+<h2>Troubleshooting tips that actually help</h2>
+<p>Debug locally and reproduce the error before blaming the network. Log full exception messages and include key variables like the recipient list and attachment paths. If a send fails on the robot but works on your workstation compare the Outlook profile and permissions. When in doubt zip attachments and reduce size, or switch to SMTP if desktop automation is not reliable.</p>
+
+<h2>Final thoughts and best practices</h2>
+<p>Using UiPath and Outlook for email automation is straightforward when you follow a few rules. Use the Outlook Application Scope, prefer MailMessage for complexity, validate attachments, run in debug to catch profile problems, and wrap sends in Try Catch with logging. Do those and your automation will stop spamming your error logs and start doing its job quietly and efficiently.</p>
+
+<p>Need to send periodic reports or alerts Use a scheduled job with logging and health checks so the whole thing does not turn into a very expensive carrier pigeon operation.</p>
+

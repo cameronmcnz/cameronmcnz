@@ -1,0 +1,78 @@
+---
+layout: video
+title: "git stash pop example"
+description: "Learn how to use git stash pop to apply saved changes handle conflicts and keep the stash stack tidy with a practical example"
+video_host: "youtube"
+video_id: "tvcrrCqLNcg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M58S"
+thumbnail_url: "https://i.ytimg.com/vi/tvcrrCqLNcg/maxresdefault.jpg"
+content_url: "https://youtu.be/tvcrrCqLNcg"
+embed_url: "https://www.youtube.com/embed/tvcrrCqLNcg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git stash
+  - git stash pop
+  - stash
+  - version control
+  - git tutorial
+  - git tips
+  - merge conflicts
+  - developer workflow
+  - command line
+---
+
+<h2>Why use git stash pop at all</h2>
+<p>You were in the middle of heroic code changes and then a bug report arrived like a gremlin. Instead of committing half baked work or starting a ritual sacrifice you can stash your changes. The <strong>git stash</strong> stack is a temporary parking lot for uncommitted edits that keeps your working tree clean while you do other things on the command line.</p>
+
+<h2>Quick workflow that does not ruin your life</h2>
+<p>Here is the pragmatic loop most developers use when they need to pause one task and start another. It keeps your version control tidy and your future self less annoyed.</p>
+<ul>
+  <li>Create a stash with a message that actually helps later</li>
+  <li>Switch branches or fix a hot issue</li>
+  <li>Apply the stash back and handle any merge conflicts</li>
+  <li>Remove any stale stash entries</li>
+</ul>
+
+<h3>Create a stash</h3>
+<p>If you want to save uncommitted changes run this. The working directory will reset to the last commit so you can change context without trashing your progress.</p>
+<pre><code>git stash push -m 'feature X work in progress'
+# or the shorthand
+git stash</code></pre>
+
+<h3>Switch branches or do the emergency fix</h3>
+<p>Checkout the branch you need and do the work that cannot wait. The stash stays on the stack until you bring it back.</p>
+
+<h3>Pop the stash when you are ready</h3>
+<p>When you want your changes back use <code>git stash pop</code>. This applies the latest stash and removes it from the stack, which is usually what you want unless you like collecting digital clutter.</p>
+<pre><code>git stash pop
+# to apply a specific entry use the index from git stash list
+git stash pop stash@{n}</code></pre>
+
+<h3>Handle merge conflicts like a normal person</h3>
+<p>Sometimes the stash does not drop because a conflict happened. Treat this like any other merge conflict. Edit the files, mark them as resolved and commit the result.</p>
+<pre><code># resolve conflicts in your editor
+git add path/to/conflicted.file
+git commit -m 'resolve stash conflict'</code></pre>
+<p>If the stash failed to drop and you are sure you no longer need it run <code>git stash drop stash@{n}</code> to remove the stale entry.</p>
+
+<h3>Inspect and clean up your stash stack</h3>
+<p>Want to see what you have stashed before applying anything use:</p>
+<pre><code>git stash list
+git stash show -p stash@{n}</code></pre>
+<p>When the stack becomes a nostalgia shelf of useless snapshots clean it with:</p>
+<pre><code>git stash clear</code></pre>
+
+<h3>Tips to avoid future guessing games</h3>
+<ul>
+  <li>Write descriptive stash messages with <code>git stash push -m 'short context'</code> so you do not need to guess what stash@{3} was.</li>
+  <li>Use stash for quick context switches not long term storage. This is version control not a time capsule.</li>
+  <li>If you want to keep a copy while applying use <code>git stash apply stash@{n}</code> which does not remove the stash entry.</li>
+</ul>
+
+<p>That covers the full loop from saving changes to applying them and resolving merge conflicts. The commands above will keep your developer workflow sane and your git history tidy. If you follow these steps you will be able to juggle bugs and experiments without losing your work or your dignity.</p>
+

@@ -1,0 +1,68 @@
+---
+layout: video
+title: "Data Scrape Web Text to Excel with UiPath Example"
+description: "Step by step guide to extract web text and export to Excel using UiPath data scraping and Write Range for reliable Excel output."
+video_host: "youtube"
+video_id: "NPpEUSp1AwY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M47S"
+thumbnail_url: "https://i.ytimg.com/vi/NPpEUSp1AwY/maxresdefault.jpg"
+content_url: "https://youtu.be/NPpEUSp1AwY"
+embed_url: "https://www.youtube.com/embed/NPpEUSp1AwY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Data Scraping
+  - Web Scrape
+  - Excel
+  - RPA
+  - Automation
+  - Selectors
+  - DataTable
+  - UiPath Studio
+  - Write Range
+---
+
+<h2>Why this matters and how to stop pretending manual copy paste is fine</h2>
+<p>If you need web text in Excel and you like your sanity, use UiPath to automate the chore. This guide walks through the pragmatic steps for web scraping with UiPath Studio and exporting results into Excel with a DataTable and Write Range. Expect selector drama, small wins, and a few moments of triumph.</p>
+
+<h2>Get the page ready and open UiPath Studio</h2>
+<p>Navigate to the web page that has the table or repeating list you want to grab. Clean pages make the robot less confused and your life easier. Launch UiPath Studio and create a new process or open the project where you will add the scraping sequence.</p>
+
+<h3>Use the Data Scraping wizard</h3>
+<p>From the Design tab choose Data Scraping and click a sample repeating item on the page. The wizard tries to detect the pattern and builds column definitions for you. Use the preview to confirm the columns match what you see on the page and tweak if something is clearly off.</p>
+
+<h3>Refine selectors and handle pagination</h3>
+<p>Never trust an absolute selector that looks like a stack of numbers. Replace brittle paths with attributes like class or text that stay stable. When pages use pagination add a loop or a click for next page and stop when no next is found. If selectors keep failing try relative anchors and text based patterns for more reliability.</p>
+
+<h2>Store results in a DataTable and tidy the data</h2>
+<p>The Data Scraping activity outputs a DataTable. Treat it like the official source of truth. Trim strings to remove stray whitespace, replace empty values with a sensible placeholder or null depending on your downstream needs, and convert column types when necessary. Add a quick Log Message or Write Line of a sample row so you can confirm extraction matched expectations before you write anything to disk.</p>
+
+<h3>Common DataTable clean up steps</h3>
+<ul>
+  <li>Trim text fields and collapse repeated spaces</li>
+  <li>Replace missing values with default text or leave as null for numeric columns</li>
+  <li>Parse dates and numbers explicitly to avoid Excel surprises</li>
+</ul>
+
+<h2>Export to Excel with Write Range</h2>
+<p>Use the Excel activities package Write Range to push the DataTable into a worksheet. If you are adding to an existing file choose Append mode and keep AddHeaders true when you want headers. Use the AutoFilter activity after writing if you want a quick tidy up in the sheet. Save and then manually open the workbook once to verify headers and column order match your extraction.</p>
+
+<h2>Make the workflow resilient</h2>
+<p>Wrap fragile operations with Try Catch and use Element Exists or Find Element to avoid hard failures. Configure timeouts and retry logic for unstable pages. Keep small, focused logging so you can diagnose failures without scrolling a novel. Automation should fail loud and explain itself, not ghost you.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Pick a clean target page and confirm the repeating pattern</li>
+  <li>Run the Data Scraping wizard and preview results</li>
+  <li>Improve selectors using attributes and anchors</li>
+  <li>Clean the DataTable with trimming replacing and type parsing</li>
+  <li>Write to Excel with Write Range and verify the workbook</li>
+</ul>
+
+<h2>Parting tips that actually help</h2>
+<p>If selectors are flaky prefer relative anchors and text based patterns rather than absolute paths. Keep sample output files for quick validation and add small logging points. With basic error handling and selector hygiene your UiPath web scrape to Excel process will be far less drama and far more reliable than doing it by hand.
+

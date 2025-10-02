@@ -1,0 +1,91 @@
+---
+layout: video
+title: "Differences Between Docker Compose and Dockerfile"
+description: "Quick comparison of Docker Compose and Dockerfile with practical guidance on when to build images and when to orchestrate services for development and depl"
+video_host: "youtube"
+video_id: "JmyAMcKUNYA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M1S"
+thumbnail_url: "https://i.ytimg.com/vi/JmyAMcKUNYA/maxresdefault.jpg"
+content_url: "https://youtu.be/JmyAMcKUNYA"
+embed_url: "https://www.youtube.com/embed/JmyAMcKUNYA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - docker
+  - docker-compose
+  - dockerfile
+  - containers
+  - devops
+  - images
+  - orchestration
+  - yaml
+  - build
+  - deployment
+---
+
+<h2>Short answer with a wink</h2>
+<p>If you want a reproducible image that you can push to a registry and brag about in your CI logs use a Dockerfile. If you want to start three containers that pretend to be an application for local testing use docker compose. One is a recipe for an image. The other is a party planner for containers.</p>
+
+<h2>Build versus run explained</h2>
+<p>Dockerfile defines how to build images. It lists base image layers copies configuration and sets the default process. This is the place to pin versions optimize layers and use multi stage builds to keep images tiny. Docker compose uses a yaml file to declare services networks and volumes so multiple containers can start together with one command. Compose handles environment variables port mapping and simple scaling for development or small deployments.</p>
+
+<h3>Typical workflow</h3>
+<ul>
+  <li>Write a Dockerfile that builds a reproducible image</li>
+  <li>Create a docker compose yaml that wires services networks and volumes</li>
+  <li>Use docker build then docker compose up to run the full stack locally</li>
+</ul>
+
+<h2>Example commands and files</h2>
+<p>Build an image from a Dockerfile with a simple command</p>
+<pre><code>docker build -t myapp .</code></pre>
+<p>Start services with docker compose</p>
+<pre><code>docker compose up</code></pre>
+<p>Minimal docker compose yaml example</p>
+<pre><code>version: '3.8'
+services:
+  web:
+    image: myapp:latest
+    ports:
+      - "8080:80"
+    environment:
+      - DATABASE_URL=postgres://db:5432/mydb
+  db:
+    image: postgres:14
+    volumes:
+      - db_data:/var/lib/postgresql/data
+volumes:
+  db_data:
+</code></pre>
+
+<h2>When to pick Dockerfile</h2>
+<ul>
+  <li>You need a reproducible image for CI pipelines or registry deployment</li>
+  <li>You want to optimize layers pin dependencies or do multi stage builds</li>
+  <li>You must keep build concerns out of runtime wiring</li>
+</ul>
+
+<h2>When to pick Docker Compose</h2>
+<ul>
+  <li>You are running multiple containers together for development or testing</li>
+  <li>Your orchestration needs are light and you want easy local networking</li>
+  <li>You want to declare services networks and volumes in a single yaml file</li>
+</ul>
+
+<h2>Practical devops tips</h2>
+<ul>
+  <li>Keep secrets out of images and out of compose files. Use env files or a secret manager for sensitive values.</li>
+  <li>Use multi stage builds in Dockerfile to reduce image size and remove build tools from final image.</li>
+  <li>Let Dockerfile own build details and let docker compose handle runtime wiring and scaling for local stacks.</li>
+  <li>Push built images to a registry then reference those images in your compose file for consistent deployments.</li>
+</ul>
+
+<h2>Gotchas worth your eye roll</h2>
+<p>Compose is not a full production orchestrator. If you need advanced scheduling high availability or complex service discovery look at Kubernetes or a managed orchestration service. Also remember that docker compose networks are convenient but different from cloud networking so test in an environment that resembles production.</p>
+
+<h2>Final takeaway</h2>
+<p>Use Dockerfile to build and Docker Compose to run. Keep build logic in the Dockerfile and runtime wiring in compose. Treat images as immutable artifacts and use compose for local development stacks and simple deployments. Now go build something and try not to commit a secret to the image like it is still 2015.</p>
+

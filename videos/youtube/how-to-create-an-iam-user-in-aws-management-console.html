@@ -1,0 +1,82 @@
+---
+layout: video
+title: "How to Create an IAM User in AWS Management Console"
+description: "Step by step guide to create an IAM user in the AWS Management Console with best practices for EC2 EKS and secure role assignment"
+video_host: "youtube"
+video_id: "reNsI5GdA30"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/reNsI5GdA30/maxresdefault.jpg"
+content_url: "https://youtu.be/reNsI5GdA30"
+embed_url: "https://www.youtube.com/embed/reNsI5GdA30"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - IAM
+  - AWS Management Console
+  - EC2
+  - EKS
+  - IAM user
+  - AWS roles
+  - Cloud security
+  - AWS Practitioner
+  - Least privilege
+---
+
+<h1>Create a secure IAM user in the AWS console for CLI and cluster access</h1>
+
+<p>If you are here to make an IAM user and not accidentally hand out keys to the void then welcome. This guide walks through creating an IAM user in the AWS Management Console with practical security advice for EC2 and EKS usage. Expect step by step instructions and snarky commentary. Follow the least privilege principle and your future self will send you a thank you note, or at least fewer incident tickets.</p>
+
+<h2>Quick overview</h2>
+
+<p>Goal is simple. Create a user, choose the right access type for human or machine use, attach permissions the tidy way, and store credentials like an adult. Where possible use roles for EC2 instances and EKS pods instead of sharing long lived keys.</p>
+
+<h2>Before you begin</h2>
+
+<ul>
+  <li>Sign in to the AWS Management Console with a non root administrator account if you have one. The root account should be used only to set billing and account level things.</li>
+  <li>Decide if the identity needs console access for humans or programmatic access for CI pipelines and SDKs.</li>
+  <li>Have a secure vault ready to store secrets such as AWS Secrets Manager or HashiCorp Vault. Do not email credentials to yourself.</li>
+</ul>
+
+<h2>Step 1 Pick a clear username and access type</h2>
+
+<p>Use a predictable, searchable username that includes team or purpose if it helps. Select console access for interactive users. Choose programmatic access if the user needs an access key pair for AWS CLI or SDK automation. Programmatic access will generate an access key id and a secret access key so be prepared to capture them securely.</p>
+
+<h2>Step 2 Attach permissions the smart way</h2>
+
+<p>Rather than attaching policies directly to a single user attach managed policies to groups. Groups make permission changes less painful and reduce human error. For EC2 and EKS workloads prefer role based access. That means use instance profiles for EC2 and IAM roles for service accounts for EKS so workloads can assume short lived credentials instead of using long lived keys.</p>
+
+<h3>When to use roles</h3>
+
+<ul>
+  <li>Give EC2 instances an instance profile instead of embedding keys in the VM.</li>
+  <li>For containers running on EKS use IAM roles for service accounts so pods get temporary credentials.</li>
+  <li>Use cross account role assumption if you need to access another AWS account. That is cleaner than sharing users across accounts.</li>
+</ul>
+
+<h2>Step 3 Review, tags and least privilege</h2>
+
+<p>On the review screen confirm the attached policies match least privilege. Use tags to track owner team or purpose. If a policy grants IAM management capabilities make sure that is actually required and logged. Use the policy simulator and IAM Access Analyzer to validate and detect broader than expected access.</p>
+
+<h2>Step 4 Save credentials and configure CLI or SDK</h2>
+
+<p>Download the CSV of credentials or copy the access key id and secret access key right after creating the user. Store these secrets in a secure vault not a text file. For CLI users run aws configure to set credentials and region. For automation set environment variables or use your CI secret store to inject keys at runtime.</p>
+
+<h2>Practical security notes</h2>
+
+<ul>
+  <li>MFA is not optional for privileged accounts. Turn on multi factor authentication and use hardware or virtual authenticators.</li>
+  <li>Rotate keys regularly and remove unused keys. If a key looks suspicious delete it immediately and issue a new one through a secure process.</li>
+  <li>Prefer short lived credentials via roles whenever possible. That reduces blast radius when something goes wrong.</li>
+  <li>Use IAM Access Analyzer and the policy simulator to test policies before broad rollout.</li>
+  <li>Avoid granting permissions to manage IAM unless absolutely necessary.</li>
+</ul>
+
+<h2>Summary and final advice</h2>
+
+<p>You now have the full flow to create an IAM user in the AWS console set the proper access type attach least privilege permissions and configure CLI or SDK access. Remember that groups and roles scale better than individual policies. Use roles for EC2 and EKS workloads to avoid long lived keys. Turn on MFA rotate keys routinely and validate permissions with the available IAM tools. Do this and your cloud security posture will be better even if the rest of your infrastructure still looks chaotic.</p>
+

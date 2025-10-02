@@ -1,0 +1,105 @@
+---
+layout: video
+title: "How to use the application.properties file in Spring Boot"
+description: "Guide to using application.properties in Spring Boot with examples on binding profile overrides and external configuration"
+video_host: "youtube"
+video_id: "Pbw0sNu9U-Q"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M47S"
+thumbnail_url: "https://i.ytimg.com/vi/Pbw0sNu9U-Q/maxresdefault.jpg"
+content_url: "https://youtu.be/Pbw0sNu9U-Q"
+embed_url: "https://www.youtube.com/embed/Pbw0sNu9U-Q"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - application.properties
+  - Spring
+  - Configuration
+  - Properties Binding
+  - Profiles
+  - Externalized Configuration
+  - server.port
+  - ConfigurationProperties
+  - Tutorial
+---
+
+<p>If your Spring Boot app had a filing cabinet it would be called application.properties and it would judge you for messy keys. This file is the simplest way to externalize configuration, set server ports, and bind values into your beans without chanting ancient deployment rituals.</p>
+
+<h2>Where to put the file</h2>
+<p>Create a file named application.properties and drop it under src/main/resources for a normal Maven or Gradle project. Spring Boot auto configuration will pick it up from the classpath so you do not need wizardry to make it work.</p>
+
+<h2>Key value basics</h2>
+<p>Keep properties plain and predictable. Use consistent naming so your future self does not hate you. Example lines look like this</p>
+<pre><code>server.port=8081
+app.name=MyApp
+app.featureX.enabled=true
+</code></pre>
+<p>server.port controls the embedded server port. Change it for local testing or to avoid port wars on your machine.</p>
+
+<h2>Binding properties to beans</h2>
+<p>For single values use @Value when you need a quick grab. For groups of related values prefer @ConfigurationProperties for cleaner code and easier testing.</p>
+
+<h3>Quick single value bind</h3>
+<pre><code>public class SomeBean {
+    @Value("${app.name}")
+    private String appName;
+
+    // getter and maybe setter
+}
+</code></pre>
+
+<h3>Group binding with ConfigurationProperties</h3>
+<p>Make a POJO that maps a prefix to fields. This is the polite way to keep configuration sane when values grow.</p>
+<pre><code>@Component
+@ConfigurationProperties("app")
+public class AppProperties {
+    private String name;
+    private Feature feature = new Feature();
+
+    public static class Feature {
+        private boolean enabled;
+        // getters and setters
+    }
+
+    // getters and setters
+}
+</code></pre>
+<p>Tip prefer @ConfigurationProperties for coherent groups of settings. It keeps validation and structure simple.</p>
+
+<h2>Profiles for environment specific overrides</h2>
+<p>Profiles let you keep dev and prod settings from fighting each other. Create files like application-dev.properties and application-prod.properties. Activate a profile by setting spring.profiles.active=dev in the environment or via command line when you start the app.</p>
+<pre><code># application.properties
+app.name=MyApp
+
+# application-dev.properties
+app.name=MyApp Dev
+
+# application-prod.properties
+app.name=MyApp
+</code></pre>
+<p>The active profile file will override matching keys from the base file when that profile is active. This is the polite way to have different settings per environment without rebuilding jars.</p>
+
+<h2>Externalized configuration and precedence</h2>
+<p>Want to tweak things without rebuilding or redeploying The external properties trick is for you. Put an application.properties outside the jar on the filesystem and Spring Boot can load it at runtime. This makes ops people very happy and developers slightly nervous.</p>
+<p>Spring Boot follows a clear order of precedence from highest to lowest. A few common tiers look like this</p>
+<ol>
+  <li>Command line arguments</li>
+  <li>External properties files on the filesystem</li>
+  <li>application properties on the classpath</li>
+  <li>Defaults provided by Spring Boot</li>
+</ol>
+<p>Use this to your advantage when you want a safe override surface for emergency fixes or per host settings.</p>
+
+<h2>Recap and best practices</h2>
+<ul>
+  <li>Create application.properties under src/main/resources</li>
+  <li>Use simple key value pairs like server.port and app.name</li>
+  <li>Prefer @ConfigurationProperties for grouped settings and use @Value for quick single values</li>
+  <li>Use application-{profile}.properties for environment specific overrides</li>
+  <li>Externalize config for runtime tweaks and follow the precedence rules when troubleshooting</li>
+</ul>
+<p>If you follow these steps your configuration will be predictable and your ops team will stop calling at 2 AM. Well maybe they will still call but at least you will be able to change server.port without a full rebuild.</p>
+

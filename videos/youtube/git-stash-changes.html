@@ -1,0 +1,71 @@
+---
+layout: video
+title: "git stash changes"
+description: "Quick guide to save list apply and manage uncommitted changes with git stash for safe context switching and tidy commits"
+video_host: "youtube"
+video_id: "sXMC_JMo2Uo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M33S"
+thumbnail_url: "https://i.ytimg.com/vi/sXMC_JMo2Uo/maxresdefault.jpg"
+content_url: "https://youtu.be/sXMC_JMo2Uo"
+embed_url: "https://www.youtube.com/embed/sXMC_JMo2Uo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - stash
+  - git stash
+  - git tutorial
+  - version control
+  - cli
+  - stash pop
+  - stash apply
+  - stash list
+  - git commands
+---
+
+<h2>Why stash exists and why you will love it when you forget to commit</h2>
+<p>Git stash is the polite way to shove unfinished work into a drawer when you need to switch tasks fast. It saves uncommitted changes so you can check out another branch without committing half finished code that will haunt your commit history forever. Yes it is slightly magical and yes you will use it when a bug needs fixing right now.</p>
+
+<h3>Save work fast</h3>
+<p>Use <code>git stash push -m 'WIP'</code> to save a snapshot and add a short message so future you knows what that mess was about. If you have new files that are not tracked use the <code>-u</code> flag to include them.</p>
+
+<pre><code>git stash push -m 'WIP: experiment with widget' -u</code></pre>
+
+<p>That command parks your modifications and gives you back a clean working tree. Go fix the urgent bug and bask in the illusion of order.</p>
+
+<h3>See what you parked</h3>
+<p>When you forget what you stashed do not panic. Run <code>git stash list</code> to see entries. Peek into an entry with <code>git stash show -p stash@{0}</code> so you do not accidentally reapply someone else's chaos.</p>
+
+<h2>Bring changes back or move them to a proper branch</h2>
+<p>Two common moves when you are done with your context switch are apply and pop. Use <code>git stash apply stash@{0}</code> if you want to keep the stash for later. Use <code>git stash pop</code> if you want to apply the changes and throw the stash away in one go. Conflicts can happen and you resolve them like any merge conflict. Yes it is annoying but it works.</p>
+
+<h3>Rescue an experiment into a branch</h3>
+<p>If the stash deserves a life of its own use <code>git stash branch new-branch stash@{0}</code>. That creates a branch from the commit where you stashed and applies the changes so your experiment can graduate into proper history.</p>
+
+<h2>Cleaning up the stash list</h2>
+<p>Stashes are cheap but hoarding is not a good look. Remove a single stash with <code>git stash drop stash@{0}</code>. If you really want to purge the junk use <code>git stash clear</code> and accept responsibility for what you are deleting.</p>
+
+<h3>Quick reference list</h3>
+<ul>
+  <li><code>git stash push -m 'msg' -u</code> Save changes and untracked files</li>
+  <li><code>git stash list</code> See saved entries</li>
+  <li><code>git stash show -p stash@{n}</code> Inspect a stash</li>
+  <li><code>git stash apply stash@{n}</code> Reapply but keep the stash</li>
+  <li><code>git stash pop</code> Reapply and remove the stash</li>
+  <li><code>git stash branch name stash@{n}</code> Create a branch from a stash</li>
+  <li><code>git stash drop stash@{n}</code> Remove one stash</li>
+  <li><code>git stash clear</code> Remove all stashes</li>
+</ul>
+
+<h2>Pro tips that make you look like you know what you are doing</h2>
+<ul>
+  <li>Use meaningful messages with <code>-m</code> so stashes are searchable</li>
+  <li>Prefer <code>git stash branch</code> when the work should be an actual branch</li>
+  <li>Inspect with <code>git stash show -p</code> before applying to avoid surprises</li>
+</ul>
+
+<p>Stashing is not a substitute for good commits and clean branches but it is a lifesaver for quick context switches. Use it, name your stashes, and stop committing half finished junk just to switch tasks. Your git history will thank you and your teammates will pretend to be impressed.</p>
+

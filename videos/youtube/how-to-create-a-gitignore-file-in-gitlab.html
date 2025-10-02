@@ -1,0 +1,79 @@
+---
+layout: video
+title: "How to create a .gitignore file in GitLab"
+description: "Learn how to add a .gitignore file in GitLab using the web UI add ignore patterns commit and keep unwanted files out of the repository"
+video_host: "youtube"
+video_id: "c0nBw9DK5pE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M56S"
+thumbnail_url: "https://i.ytimg.com/vi/c0nBw9DK5pE/maxresdefault.jpg"
+content_url: "https://youtu.be/c0nBw9DK5pE"
+embed_url: "https://www.youtube.com/embed/c0nBw9DK5pE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - gitignore
+  - GitLab
+  - repository
+  - ignore patterns
+  - web ui
+  - commit
+  - version control
+  - developer tips
+  - tutorial
+---
+
+<h2>Quick summary</h2>
+<p>If your repo is starting to hoard build artifacts temporary logs or secret files you did not ask for then a .gitignore is your cleanup crew. This guide shows how to create edit and commit a .gitignore from the GitLab web UI so your repository stops tracking the stuff you never meant to track.</p>
+
+<h2>Why .gitignore matters</h2>
+<p>.gitignore keeps node_modules logs compiled assets and config files out of your commits. That keeps the history smaller and your CI less angry. It does not remove files that are already tracked though, so read the section on previously tracked files if you are cleaning up a mess.</p>
+
+<h2>Step by step in the GitLab web UI</h2>
+<h3>Open the project and pick the branch</h3>
+<p>Go to your project in the GitLab web UI and select the branch you want to update. No wizardry here just the right project and branch. If you are working with others consider creating a feature branch and opening a merge request for review.</p>
+
+<h3>Create the .gitignore file</h3>
+<p>Click New file or open the Web IDE then enter the filename .gitignore. The editor will create a file in the chosen branch. If you prefer the Web IDE you get a nicer editor and a built in preview for some file types.</p>
+
+<h3>Add ignore patterns</h3>
+<p>Put patterns that match build artifacts temporary files and secret config. Use relative paths when you mean folders inside the repository. Example entries include</p>
+<ul>
+<li>node_modules/</li>
+<li>*.log</li>
+<li>.env</li>
+<li>dist/ or build/</li>
+</ul>
+<p>Pattern rules follow standard gitignore behavior so a trailing slash means a directory and an asterisk is a wildcard. Keep project specific patterns inside the repo and personal OS noise in a global ignore file.</p>
+
+<h3>Commit the new file</h3>
+<p>Write a clear commit message. You can commit directly to the branch or create a new branch and open a merge request for review. The branch workflow helps avoid accidental overwrites and gives your teammates a chance to roll their eyes politely.</p>
+
+<h2>Verify that ignored files are not shown</h2>
+<p>Run a local git status or check the repository file list in GitLab. Newly ignored patterns should not show up as untracked files. Remember that files already tracked by Git will stay tracked until you remove them from the index.</p>
+
+<h3>Removing files that are already tracked</h3>
+<p>If large or sensitive files were already committed you need to remove them from the index and commit that change. For a single file run</p>
+<pre><code>git rm --cached path/to/file</code></pre>
+<p>Then commit and push. For many files you can script the removals or reset history with care and coordination.</p>
+
+<h2>Pro tip for personal noise</h2>
+<p>Keep your laptop and OS related clutter out of the repo by using a global ignore file. Configure it once on your machine with</p>
+<pre><code>git config --global core.excludesfile ~/.gitignore_global</code></pre>
+<p>Then list things like .DS_Store and Thumbs.db there so every repo on that machine benefits.</p>
+
+<h2>Quick checklist</h2>
+<ul>
+<li>Create .gitignore in the GitLab web UI or Web IDE</li>
+<li>Add sensible ignore patterns for node modules logs builds and secrets</li>
+<li>Commit to a branch or open a merge request for review</li>
+<li>Verify with git status and the GitLab file view</li>
+<li>Use git rm --cached for files already tracked</li>
+<li>Use a global ignore for personal OS files</li>
+</ul>
+
+<p>Follow these steps and your repository will stop hoarding junk. Your future self will send you a polite thank you email or at least a grateful commit message.</p>
+

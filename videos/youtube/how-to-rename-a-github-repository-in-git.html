@@ -1,0 +1,68 @@
+---
+layout: video
+title: "How to rename a GitHub repository in Git"
+description: "Step by step guide to rename a GitHub repository and update local clones and remotes so pushes and pulls keep working."
+video_host: "youtube"
+video_id: "62hPkQrhW-M"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M32S"
+thumbnail_url: "https://i.ytimg.com/vi/62hPkQrhW-M/maxresdefault.jpg"
+content_url: "https://youtu.be/62hPkQrhW-M"
+embed_url: "https://www.youtube.com/embed/62hPkQrhW-M"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - github
+  - git
+  - rename-repository
+  - git-remote
+  - git-commands
+  - repository-management
+  - how-to
+  - version-control
+  - devops
+  - git-tutorial
+---
+
+<h2>Why rename a repo and why it matters</h2>
+<p>So you finally gave your repository a sensible name and escaped the dark times of vague project123. Nice move. GitHub will keep a redirect from the old URL for a while so things do not explode immediately. That does not mean everything will keep working forever. Continuous integration, webhooks, package registries, submodules and coworkers who memorize URLs like ancient runes can still fail. This quick how to walks through renaming on GitHub and updating your local git remotes and services so pipelines keep running and people stop yelling in the team chat.</p>
+
+<h2>Step 1 Rename the repository on GitHub</h2>
+<p>Go to the repository settings on GitHub and change the name field to the new name. GitHub will perform the rename and provide the new HTTPS and SSH clone URLs on the repo page. Copy the exact clone URL you plan to use. Do not assume the old URL will work forever even though GitHub is nice enough to redirect for a while.</p>
+
+<h2>Step 2 Update your local clone</h2>
+<p>Open a terminal in the local clone and run this to inspect remotes.</p>
+<pre><code>git remote -v</code></pre>
+<p>If the origin is still the old name update it with the clone URL you copied earlier.</p>
+<pre><code>git remote set-url origin git@github.com:yourorg/new-repo-name.git</code></pre>
+<p>Use the HTTPS URL if that is how you authenticate. Then verify the change and do a quick fetch to confirm permissions and connectivity.</p>
+<pre><code>git remote -v
+
+git fetch origin</code></pre>
+
+<h3>Troubleshooting tips</h3>
+<ul>
+  <li>If git fetch fails check SSH keys or your credential helper.</li>
+  <li>If you still see the old URL double check you pasted the exact clone URL and that you updated the right remote name.</li>
+  <li>For clones that use submodules update each submodule or the superproject to point to the new name.</li>
+</ul>
+
+<h2>Step 3 Update other clones and services</h2>
+<p>Repeat the local remote update on other machines and CI runners. Then change any external references that should point to the new repo. Typical places to update include CI pipelines, deployment scripts, webhooks, badges in README files, package registry links and documentation. GitHub redirects help for a time but direct links keep things sharp and resilient.</p>
+
+<h2>Quick checklist before you celebrate</h2>
+<ul>
+  <li>Updated origin with git remote set-url on every clone</li>
+  <li>Verified access with git fetch origin</li>
+  <li>Repointed CI and deployment configurations</li>
+  <li>Updated webhooks, integrations and package references</li>
+  <li>Fixed README badges and any hard coded URLs in docs</li>
+</ul>
+
+<h2>Final notes and cheering</h2>
+<p>Renaming a repository is a small act of cleanliness that can create temporary chaos if you do not update remotes and services. Follow these steps and you will avoid broken pipelines and frantic Slack messages. If something goes wrong roll back or contact your team and remember to breathe. Bonus reward is the smug satisfaction of a tidy repo name and slightly fewer confused contributors.</p>
+
+<p>Tip When copying the clone URL paste the exact value into git remote set-url to avoid typos and wasted debugging time.</p>
+

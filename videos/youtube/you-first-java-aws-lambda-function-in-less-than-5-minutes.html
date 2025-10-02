@@ -1,0 +1,73 @@
+---
+layout: video
+title: "You first Java AWS Lambda function in less than 5 minutes"
+description: "Build and deploy a Java AWS Lambda function fast with Maven handler setup and AWS Console deployment tips for a quick serverless start"
+video_host: "youtube"
+video_id: "LFZihAFN0wk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M32S"
+thumbnail_url: "https://i.ytimg.com/vi/LFZihAFN0wk/maxresdefault.jpg"
+content_url: "https://youtu.be/LFZihAFN0wk"
+embed_url: "https://www.youtube.com/embed/LFZihAFN0wk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - AWS Lambda
+  - serverless
+  - Maven
+  - Lambda function
+  - AWS Console
+  - handler
+  - deployment
+  - cloud
+  - tutorial
+---
+
+<p>So you want a Java AWS Lambda function in five minutes and you do not want to suffer. Perfect, you are in the right place. This cheeky guide gets you from empty project to a working serverless endpoint using Maven and the AWS Console. No mystic rituals, only jars and small miracles.</p>
+
+<h2>What this Java AWS Lambda tutorial covers</h2>
+<p>Short version, because time is a finite resource. You will:</p>
+<ul>
+  <li>Create a Maven project or use an archetype from your IDE</li>
+  <li>Add the aws lambda java core dependency to pom.xml so the runtime can call your handler</li>
+  <li>Write a minimal handler class that implements RequestHandler<String, String></li>
+  <li>Build a jar with mvn package and include required classes</li>
+  <li>Upload the jar in the AWS Console, set the handler, and test</li>
+</ul>
+
+<h2>Create the Maven project</h2>
+<p>Start with your favorite IDE or a simple Maven archetype. The key detail is the dependency. Add aws-lambda-java-core to pom.xml so Lambda knows how to invoke your handler. Keep the dependency list trim, because smaller jars mean fewer surprises during deployment and faster cold starts.</p>
+
+<h2>Write the handler class</h2>
+<p>Keep the handler tiny and obvious. Implement RequestHandler<String, String> or the appropriate generic types for your input and output. For example create a public class named Handler that implements RequestHandler<String, String> and return a short string response. Make sure the class name and package match the fully qualified handler value you will enter in the console.</p>
+
+<h2>Package the deployment artifact</h2>
+<p>Run mvn package to produce a jar. If you use extra libraries include them in the jar with a shading plugin or a suitable assembly, otherwise the runtime will complain about missing classes. The jar must contain the handler class and all runtime dependencies for the function to start.</p>
+
+<h2>Deploy using the AWS Console</h2>
+<p>Open the Lambda section of the AWS Console, create a new function, choose Java as the runtime and upload your jar. Set the handler value to the fully qualified class name and the handler method name as required by the runtime. Adjust memory and timeout to reasonable defaults to reduce cold start pain and to avoid accidentally paying for forever running functions.</p>
+
+<h2>Test and debug</h2>
+<p>Use the built in test tool in the console or invoke the function with the AWS CLI to send a sample payload. Check CloudWatch logs for printed messages or stack traces. If you hit a class not found error check your jar contents and pom scope settings, fix the dependency or packaging and redeploy.</p>
+
+<h3>Quick troubleshooting checklist</h3>
+<ul>
+  <li>Handler not found, verify package and class name match the console setting</li>
+  <li>Missing classes, ensure dependencies are included in the jar</li>
+  <li>Slow cold starts, try increasing memory or reducing dependencies</li>
+  <li>Logs not appearing, confirm the function executed and check the CloudWatch stream</li>
+</ul>
+
+<h2>Pro tips for production ready serverless Java</h2>
+<ul>
+  <li>Prefer small dependencies and avoid heavy frameworks in the handler</li>
+  <li>Consider a shading step so your jar contains everything the runtime needs</li>
+  <li>Tune memory and timeout to balance latency and cost</li>
+  <li>Use provisioned concurrency if cold starts are a business problem</li>
+</ul>
+
+<p>That is it. You now have a minimal Java Lambda function, packaged with Maven, uploaded through the AWS Console and ready to be poked with test payloads. If your next plan is to add dozens of libraries remember that Lambda is not a library graveyard. Keep it lean, keep it fast, and enjoy serverless life with slightly fewer surprises.</p>
+

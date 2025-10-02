@@ -1,0 +1,81 @@
+---
+layout: video
+title: "GitHub Pages Free Website Hosting How-To Guide"
+description: "Step by step guide to host static HTML CSS and JavaScript on GitHub Pages for free with deployment and custom domain tips"
+video_host: "youtube"
+video_id: "lnYnuy9Usu4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT57S"
+thumbnail_url: "https://i.ytimg.com/vi/lnYnuy9Usu4/maxresdefault.jpg"
+content_url: "https://youtu.be/lnYnuy9Usu4"
+embed_url: "https://www.youtube.com/embed/lnYnuy9Usu4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub Pages
+  - Static Site
+  - HTML
+  - CSS
+  - JavaScript
+  - Hosting
+  - Tutorial
+  - Deployment
+  - Custom Domain
+  - GitHub
+---
+
+<p>If you want free hosting for a static site and you like simplicity with a hint of magic then GitHub Pages is the place to be. This guide walks you through hosting HTML CSS and JavaScript without drama and with a few sarcastic asides for flavor. You will learn how to create a repo add your files push changes enable Pages and optionally point a custom domain so your site looks professional and not like a local file dump.</p>
+
+<h2>Quick checklist before you start</h2>
+<ul>
+  <li>GitHub account</li>
+  <li>Public repository for free hosting</li>
+  <li>Static assets: index.html plus CSS and JS</li>
+  <li>Optional custom domain and access to DNS settings</li>
+</ul>
+
+<h2>Create the repository</h2>
+<p>Click New repository on GitHub and pick public if you want free hosting. For a user site name the repo exactly username.github.io where username matches your account. Project sites can use any name and will be served under username.github.io/repo. Naming matters unless you enjoy confusion.</p>
+
+<h2>Add your static files</h2>
+<p>Drop an index.html in the repo root and organize styles and scripts how you like. A single index.html in the root becomes your homepage. Keep paths tidy so the browser does not need to play detective.</p>
+
+<h2>Push changes to GitHub</h2>
+<p>Use the web upload or a local git workflow. A minimal sequence looks like this</p>
+<pre><code>git init
+git add .
+git commit -m 'Initial commit'
+# add the remote URL from the new repo page
+git remote add origin https://github.com/USERNAME/REPO.git
+git push -u origin main</code></pre>
+<p>If you prefer a gh pages branch for a project site create and push that branch instead. The commands remain the same except replace main with gh-pages where appropriate.</p>
+
+<h2>Enable GitHub Pages from settings</h2>
+<p>Open the repository settings and find Pages. Choose a publishing source such as the main branch and the root folder. Save and be patient while GitHub builds your site. If the page fails to publish check the build logs in the settings to see what went wrong. The logs will tell you if a missing index.html or a bad asset path caused the outage.</p>
+
+<h2>Pick the right branch and folder</h2>
+<p>Project sites commonly use the gh-pages branch or the main branch. User and organization sites publish from the special username.github.io repository root. Choosing the wrong branch is a classic mistake and leads to serving the wrong folder or an embarrassing 404.</p>
+
+<h2>Custom domain setup</h2>
+<p>To use a custom domain add a CNAME file to the repo with your domain name or enter the domain in the Pages settings. Then configure your DNS provider to point the domain to GitHub Pages. DNS changes can take a while so pour a coffee and wait.</p>
+
+<h3>DNS records to create</h3>
+<ul>
+  <li>For apex domains add the A records that GitHub recommends such as 185.199.108.153 185.199.109.153 185.199.110.153 185.199.111.153</li>
+  <li>For subdomains use a CNAME record that points to username.github.io</li>
+</ul>
+<p>Once DNS propagates GitHub will attempt to provision a TLS certificate and serve your site over HTTPS. That may add a short delay but it is worth it for secure cookies and fewer worried visitors.</p>
+
+<h2>Tips and common gotchas</h2>
+<ul>
+  <li>Make the repository public for free hosting if you do not have a paid plan.</li>
+  <li>Ensure index.html is in the published folder so the homepage loads.</li>
+  <li>If your site uses relative paths test locally with a simple server or the paths will fail on GitHub Pages.</li>
+  <li>Custom domain setup may need a CNAME file and matching Pages setting to avoid redirect loops.</li>
+  <li>Check the Pages build logs for HTML or asset errors before blaming GitHub.</li>
+</ul>
+
+<p>There you go. You now have a predictable deployment path for static sites using GitHub Pages. It is reliable affordable and shockingly easy to update. Push changes and your site will refresh like clockwork unless you break something dramatic. Then you have version history to fall back on and the satisfaction of reverting your mistake like the responsible developer you pretend to be.</p>
+

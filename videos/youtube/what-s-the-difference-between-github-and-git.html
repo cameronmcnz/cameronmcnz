@@ -1,0 +1,72 @@
+---
+layout: video
+title: "What's the difference between GitHub and Git?"
+description: "Clear explanation of how Git and GitHub differ and how to use both for version control and collaboration on code projects."
+video_host: "youtube"
+video_id: "arr1YVqrd7o"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M26S"
+thumbnail_url: "https://i.ytimg.com/vi/arr1YVqrd7o/maxresdefault.jpg"
+content_url: "https://youtu.be/arr1YVqrd7o"
+embed_url: "https://www.youtube.com/embed/arr1YVqrd7o"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - GitHub
+  - version control
+  - git vs github
+  - git workflow
+  - pull request
+  - remote repository
+  - git commands
+  - code collaboration
+  - developer tools
+---
+
+<p>Quick answer without the corporate fluff If you want a metaphor that does not involve dragons, think of Git as your local workshop where you build and record everything you do. GitHub is the online gallery and team meeting room where you put finished pieces up for review, ask for feedback and trigger CI checks. One is a version control system for your machine, the other is a hosting and collaboration platform for remote repositories and teams.</p>
+
+<h2>How they work together</h2>
+<p>They are separate tools that cooperate beautifully When you use Git you make commits on your laptop. When you use GitHub you push those commits to a remote repository so coworkers can fetch them, open a pull request, comment on diffs and run automated tests. The workflow is simple and reliable which is why it is the backbone of modern code collaboration.</p>
+
+<h3>Minimal git workflow that does the heavy lifting</h3>
+<ul>
+  <li>Clone a project to your machine with git clone</li>
+  <li>Create a branch for a feature or fix with git checkout -b my-feature</li>
+  <li>Stage and record changes with git add and git commit</li>
+  <li>Publish the branch with git push so others can see it on GitHub</li>
+  <li>Open a pull request on GitHub to request review and run CI checks</li>
+</ul>
+
+<pre><code>git clone https://github.com/example/repo.git
+git checkout -b feature-name
+git add .
+git commit -m 'implement feature'
+git push origin feature-name
+</code></pre>
+
+<h2>Quick command cheat sheet</h2>
+<ul>
+  <li><strong>git init</strong> Start a new repository locally</li>
+  <li><strong>git status</strong> See what changed since your last commit</li>
+  <li><strong>git add</strong> Stage changes to be committed</li>
+  <li><strong>git commit</strong> Record a snapshot in the project history</li>
+  <li><strong>git branch</strong> Create or list branches to work in parallel</li>
+  <li><strong>git merge</strong> Combine another branch into your current branch</li>
+  <li><strong>git push</strong> Send commits to a remote repository like GitHub</li>
+  <li><strong>git pull</strong> Fetch and integrate changes from a remote</li>
+</ul>
+
+<h3>Common points of confusion</h3>
+<p>People often say git vs github like they are rival frat houses They are not rivals. Git is the underlying version control technology. GitHub is one popular remote hosting service that adds pull request based code review, issue tracking, integrations with CI, and social features like stars and watchers. You can use Git without GitHub and you can use GitHub without changing how Git works locally.</p>
+
+<h2>When GitHub is optional and when it is not</h2>
+<p>Use Git when you need version control that works offline and keeps a history of your work. Use GitHub when you need remote collaboration, code review via pull request, or integrations with build and deployment pipelines. There are also alternatives to GitHub if you need self hosting or different team features GitLab and Bitbucket are common choices that provide similar remote repository hosting and pipelines.</p>
+
+<h3>Final sanity check</h3>
+<p>If your question is can I code with only Git Yes absolutely. If your question is can teams work together without something like GitHub Technically yes but expect more email, copies of archives and a sad trombone sound when CI does not run. In short Git saves your history GitHub helps humans collaborate on that history with pull request workflows, remote repository management and developer tools that reduce friction.</p>
+
+<p>Now go commit something sensible and then push it to a branch before anyone notices the mess</p>
+

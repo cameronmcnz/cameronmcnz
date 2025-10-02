@@ -1,0 +1,67 @@
+---
+layout: video
+title: "AWS Login to the Amazon Web Services Console #awsconsole"
+description: "Quick guide to logging into the AWS Management Console and accessing S3 EC2 EKS ECS and AMI resources with MFA and role tips"
+video_host: "youtube"
+video_id: "3vWPeGAlASY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT51S"
+thumbnail_url: "https://i.ytimg.com/vi/3vWPeGAlASY/maxresdefault.jpg"
+content_url: "https://youtu.be/3vWPeGAlASY"
+embed_url: "https://www.youtube.com/embed/3vWPeGAlASY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - aws console
+  - s3
+  - ec2
+  - eks
+  - ecs
+  - ami
+  - cloud
+  - iam
+  - login
+---
+
+<h1>Step by step AWS console sign in with IAM safety and region checks</h1>
+<p>Welcome to the thrilling world of cloud login pages where one wrong click can spawn a bill that haunts your nightmares. This short guide walks you through signing into the AWS Management Console and getting to S3 EC2 EKS ECS and AMI with sensible safety measures that do not require sacrificing a goat.</p>
+
+<h2>Before you click anything</h2>
+<p>Use the root account only for billing and account recovery. Make a normal IAM user for day to day work and give that user only the permissions they actually need. If someone tells you to share a root email and password for convenience politely decline and then run away.</p>
+
+<h2>Step by step sign in</h2>
+<ol>
+  <li>Open your account specific sign in URL when possible. Administrators can create custom URLs for IAM users which saves typing and reduces the risk of logging into the wrong place.</li>
+  <li>Enter your IAM username and password. If MFA is enabled you will need to complete that second factor. Yes MFA is annoying. No MFA is worse.</li>
+  <li>If you manage multiple accounts use a named role and the switch role feature instead of swapping keys or sharing credentials. Least privilege is still a good idea even when you are in a hurry.</li>
+</ol>
+
+<h2>Find S3 EC2 EKS ECS and AMI without crying</h2>
+<p>The top Services menu is friendly and overwhelming at the same time. Use the search box at the top to jump straight to the service you want. Typing S3 will take you to S3. Typing EC2 will take you to EC2. This is not magic it is just useful tiny efficiency that'll save you minutes and prevent small disasters.</p>
+
+<h3>Quick navigation tips</h3>
+<ul>
+  <li>Bookmark account specific sign in pages to avoid mistakes</li>
+  <li>Use the search to jump to a service when the menu looks too cheerful</li>
+  <li>Pin frequently used services for faster access and fewer clicks</li>
+</ul>
+
+<h2>Region checks and other survival tactics</h2>
+<p>Always confirm the active region before launching instances creating buckets or deploying clusters. Many confused engineers blamed AWS when the resource was simply in the wrong region. If you ever see an AMI that looks famous check the region first and then check your calendar for how far the mistake will reach.</p>
+
+<h2>Security best practices that are easy to follow</h2>
+<ul>
+  <li>Enable MFA on all admin and privileged accounts</li>
+  <li>Favor short lived roles and identity federation for single sign on</li>
+  <li>Avoid long lived access keys when you can use temporary credentials</li>
+  <li>Apply least privilege to roles and policies to reduce blast radius</li>
+</ul>
+
+<p>Follow these steps and you will spend less time explaining how a rogue EC2 appeared and more time doing useful things. Or at least you will have better excuses when the invoices arrive.</p>
+
+<h3>Final tip</h3>
+<p>Save the account sign in URL as a bookmark and make MFA a habit. It is not glamorous but it is the difference between being mildly annoyed and facing a full blown incident response.</p>
+

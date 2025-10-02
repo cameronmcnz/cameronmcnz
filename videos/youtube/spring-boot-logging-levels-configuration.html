@@ -1,0 +1,78 @@
+---
+layout: video
+title: "Spring Boot Logging Levels Configuration"
+description: "Practical guide to Spring Boot logging levels configuration patterns and starter properties for effective debugging and file routing"
+video_host: "youtube"
+video_id: "9UCwNuiBDps"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT22M39S"
+thumbnail_url: "https://i.ytimg.com/vi/9UCwNuiBDps/maxresdefault.jpg"
+content_url: "https://youtu.be/9UCwNuiBDps"
+embed_url: "https://www.youtube.com/embed/9UCwNuiBDps"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - spring-boot
+  - logging
+  - logback
+  - log4j2
+  - configuration
+  - debug
+  - logging-levels
+  - starter-properties
+  - log-pattern
+  - application-properties
+---
+
+<p>If your app logs look like a toddler discovered a drum kit you are in the right place. This guide shows how to pick the logging starter framework manage logging levels tune patterns and send logs to files in Spring Boot without crying in production.</p>
+
+<h2>Pick a logging starter and framework</h2>
+<p>Spring Boot ships with Logback via spring boot starter logging by default. It is unopinionated and fast enough for most use cases. If you prefer a different feature set swap the starter. For example exclude the default and add spring boot starter log4j2 to use Log4j2 instead. Do not leave multiple logging frameworks on the classpath unless you enjoy duplicate messages and confusion.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Default: spring boot starter logging uses Logback</li>
+  <li>To use Log4j2 add spring boot starter log4j2 and exclude the default</li>
+  <li>Avoid multiple frameworks together or you will see repeat logs</li>
+</ul>
+
+<h2>Set logging levels to control noise</h2>
+<p>Logging levels are how you stop your logs from turning into a firehose. Use application properties to set the root level and override packages as needed. Levels go from most verbose to least verbose like this</p>
+<ul>
+  <li>TRACE</li>
+  <li>DEBUG</li>
+  <li>INFO</li>
+  <li>WARN</li>
+  <li>ERROR</li>
+</ul>
+<p>Example in application properties</p>
+<pre><code>logging.level.root=INFO
+logging.level.com.example=DEBUG</code></pre>
+<p>Keep root at WARN or INFO in production and enable DEBUG only for the packages you are actively troubleshooting. This avoids scraping through megabytes of fluff when something actually goes wrong.</p>
+
+<h2>Configure patterns and file path</h2>
+<p>Make your logs machine friendly and human readable at the same time. Use clear patterns for timestamps logger names and messages. Here are common properties that work with the built in starters.</p>
+<pre><code>logging.pattern.console=%d{yyyy-MM-dd HH-mm-ss} %-5level %logger{36} - %msg%n
+logging.file.name=app.log
+logging.file.path=/var/log/myapp</code></pre>
+<p>Note that logging.file.name takes precedence if you set both name and path. Choose predictable file locations so grepping alert rules and log rotation do not become a surprise party.</p>
+
+<h2>Profiles and external configuration</h2>
+<p>Put environment specific rules in application production properties or pass overrides on the command line or as environment variables. Profiles let you run verbose logging locally and quiet logging in production without changing code.</p>
+<ul>
+  <li>application.properties for defaults</li>
+  <li>application-production.properties for production tweaks</li>
+  <li>Use environment variables or command line args for emergency changes</li>
+</ul>
+
+<h2>Debugging and common pitfalls</h2>
+<p>If you see duplicate messages check for multiple logging frameworks on the classpath. If log routing looks wrong boost framework specific packages to TRACE to inspect filters and appenders. If timestamps or patterns look off verify the pattern property and confirm the active starter supports that format.</p>
+
+<h3>Tip for high throughput</h3>
+<p>Use an asynchronous appender when logging is on the hot path. That reduces latency under load and keeps your application threads from getting stuck writing logs. Also keep the root level at WARN in production and enable DEBUG only for targeted packages.</p>
+
+<h2>Summary</h2>
+<p>Choose the right starter for your needs keep root level conservative and use package scoped overrides to narrow the noise. Configure clear patterns and file paths and use profiles for environment specific settings. When things go wrong use TRACE on framework packages to debug duplicates and consider async appenders for high throughput scenarios. Logging is not glamorous but it is the difference between calm incident triage and frantic stack overflow searches at 2 AM.</p>
+

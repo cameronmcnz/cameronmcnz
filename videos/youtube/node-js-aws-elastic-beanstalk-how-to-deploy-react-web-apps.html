@@ -1,0 +1,92 @@
+---
+layout: video
+title: "Node JS AWS Elastic Beanstalk How to Deploy React Web Apps"
+description: "Step by step guide to prepare a Node JS backend and deploy a React web app to AWS Elastic Beanstalk with build and environment tips"
+video_host: "youtube"
+video_id: "CGCUZvG3hvQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT16M43S"
+thumbnail_url: "https://i.ytimg.com/vi/CGCUZvG3hvQ/maxresdefault.jpg"
+content_url: "https://youtu.be/CGCUZvG3hvQ"
+embed_url: "https://www.youtube.com/embed/CGCUZvG3hvQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Node JS
+  - React
+  - AWS Elastic Beanstalk
+  - Deployment
+  - EB CLI
+  - Web Apps
+  - Express
+  - CI CD
+  - Amazon Web Services
+  - Frontend Deployment
+---
+
+<p>If you want to shove a React frontend and a Node.js backend onto AWS Elastic Beanstalk without crying later this guide will hold your hand and tell you what to do. We will build the React production bundle, make a tiny Express server that serves that bundle and any API routes, and then deploy with EB CLI or the AWS console. No magic required, just a little patience and the correct build output.</p>
+
+<h2>Build the React bundle and get it ready for serving</h2>
+<p>In the client folder run your build script to produce optimized assets for fast loading and fewer surprises on launch. This is the step where development toys are packed away and real life begins.</p>
+<pre><code>cd client
+npm install
+npm run build</code></pre>
+<p>After the build copy the build output into the server public folder or point Express static middleware directly to the build directory. Both options work. The goal is one deployable artifact that Elastic Beanstalk understands.</p>
+
+<h2>Make a minimal Express server that serves the app and your API</h2>
+<p>Elastic Beanstalk wants a single Node process. Combine frontend and backend into one Express app so EB can manage it like a responsible adult.</p>
+<pre><code>const express = require('express')
+const path = require('path')
+const app = express()
+
+app.use(express.json())
+app.use(express.static(path.join(__dirname, 'public')))
+
+app.get('/api/health', (req, res) => res.send('ok'))
+
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')))
+
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log('Server running on port ' + port))</code></pre>
+<p>Replace 'public' with the folder you copied the React build into. The wildcard route makes client side routing behave like it knows what it is doing.</p>
+
+<h2>Prepare package json and the start process</h2>
+<p>Make sure package json has start and build scripts and that production only dependencies are listed under dependencies not devDependencies. Elastic Beanstalk will run npm install unless you upload a full node_modules bundle.</p>
+<pre><code>{
+  'name': 'my-app',
+  'scripts': {
+    'start': 'node server.js',
+    'build': 'cd client && npm run build'
+  }
+}</code></pre>
+<p>If you prefer the console upload route include node_modules in the zip. If you use the EB Node platform let EB run npm install during deployment. You can also add a Procfile if you want explicit control of the start command.</p>
+
+<h2>Configure environment variables and platform settings</h2>
+<p>Set secrets and runtime flags via the Elastic Beanstalk console or the EB CLI. Choose the Node platform version and instance size that match your traffic expectations. Health checks and log streaming will save you a lot of guesswork when things go wrong.</p>
+
+<h3>Deployment options</h3>
+<ul>
+  <li>EB CLI for repeatable CLI driven deploys. Use eb init then eb create or eb deploy.</li>
+  <li>AWS console upload if you like clicking and staring at progress bars.</li>
+  <li>CI CD pipeline for automatic builds and deploys from your repo when you finally trust automation.</li>
+</ul>
+
+<h2>Run it and watch the logs like a hawk</h2>
+<p>During the first deploy tail the logs and hit both frontend and backend routes. If something breaks blame package mismatch then fix dependency versions. Common issues include wrong start script, missing build files, and port mismatch.</p>
+
+<h3>Quick checklist before you deploy</h3>
+<ul>
+  <li>React build exists in the server public folder or static middleware points to build</li>
+  <li>package json start script is correct</li>
+  <li>Environment variables are set for production secrets</li>
+  <li>Platform version and instance size chosen</li>
+  <li>Health checks enabled and logs streaming</li>
+</ul>
+
+<h2>Troubleshooting tips</h2>
+<p>If your app fails health checks check the server log for startup errors. If static files 404 double check the path used in express.static and the file layout inside the zip you uploaded. If npm install fails from EB examine your node and npm versions and lock file for problematic packages.</p>
+
+<p>Deploying React and Node.js to AWS Elastic Beanstalk is mostly boring repetition with occasional thrills. Do the build, serve the files with Express, configure EB properly, and use EB CLI for reproducible results. Then open your app and enjoy the rare feeling of having control over your infrastructure for at least five minutes.</p>
+

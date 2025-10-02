@@ -1,0 +1,90 @@
+---
+layout: video
+title: "git reflog example"
+description: "Practical guide to using git reflog to recover commits inspect history and reset branches safely"
+video_host: "youtube"
+video_id: "QVr6vFZujUE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M8S"
+thumbnail_url: "https://i.ytimg.com/vi/QVr6vFZujUE/maxresdefault.jpg"
+content_url: "https://youtu.be/QVr6vFZujUE"
+embed_url: "https://www.youtube.com/embed/QVr6vFZujUE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - reflog
+  - git reflog
+  - recover commits
+  - git reset
+  - git checkout
+  - branch recovery
+  - git tutorial
+  - version control
+  - git tips
+---
+
+<h1>Step by step git reflog guide for branch recovery and safe resets</h1>
+
+<p>If you ever hit reset and then felt your heart sink because commits vanished, git reflog is the rescue dog you did not know you needed. It tracks HEAD and branch movement so you can find lost commits and put things back where they belong without performing ritual sacrifices.</p>
+
+<h2>Why reflog matters</h2>
+
+<p>Reflog records local reference changes. That makes it great for recovery after accidental checkouts resets or branch deletions. The reflog is not a permanent time machine but it will hold recent moves long enough for you to act.</p>
+
+<h2>Quick recovery checklist</h2>
+
+<ul>
+  <li>List recent reference changes with git reflog</li>
+  <li>Find the commit reference you want to recover</li>
+  <li>Create a new branch from that reference to preserve work</li>
+  <li>Move or restore the target branch using reset merge or cherry pick</li>
+  <li>Push the recovered branch to remote so you do not rely on local reflog</li>
+</ul>
+
+<h3>Read the reflog</h3>
+
+<p>Run this to see recent HEAD and branch moves</p>
+
+<pre><code>git reflog</code></pre>
+
+<p>Scan the output for messages that match the lost work. If you do not have the raw hash the numbered form like HEAD@{3} is handy.</p>
+
+<h3>Create a safe recovery branch</h3>
+
+<p>Once you find the right entry create a branch so you do not risk the main branch</p>
+
+<pre><code>git checkout -b recovered-branch HEAD@{3}</code></pre>
+
+<p>This preserves the commit and gives you a sandbox to inspect changes and run tests.</p>
+
+<h3>Move the original branch back safely</h3>
+
+<p>If you are confident and do not mind overwriting working files you can move the target branch pointer</p>
+
+<pre><code>git checkout main
+git reset --hard HEAD@{2}</code></pre>
+
+<p>If you prefer less destruction merge or cherry pick from the recovered branch instead. That is the safer and less anxiety inducing option.</p>
+
+<h2>Push and clean up</h2>
+
+<p>Once recovered push the branch to the remote so your work survives local reflog expiry</p>
+
+<pre><code>git push origin recovered-branch</code></pre>
+
+<p>When the changes land in the intended branch delete any temporary branches to keep the repo tidy.</p>
+
+<h2>Warnings and tips</h2>
+
+<ul>
+  <li>Reflog entries expire over time so push recovered work to a remote as soon as possible</li>
+  <li>Prefer creating a branch when recovering so you do not risk the main branch state</li>
+  <li>Use merge or cherry pick if you want to avoid a hard reset</li>
+  <li>HEAD@{n} works when you do not have the raw hash available</li>
+</ul>
+
+<p>In short do not panic and do not type random resets while hyperventilating. Read the reflog find the commit create a branch and restore safely. If all else fails reboot your machine and try again with coffee and better typing.</p>
+

@@ -1,0 +1,73 @@
+---
+layout: video
+title: "Multi Step GitHub Actions Example"
+description: "Compact guide to build a multi step GitHub Actions workflow for CI build test and deploy with practical steps and a useful tip"
+video_host: "youtube"
+video_id: "qD-TkVvXt3M"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M12S"
+thumbnail_url: "https://i.ytimg.com/vi/qD-TkVvXt3M/maxresdefault.jpg"
+content_url: "https://youtu.be/qD-TkVvXt3M"
+embed_url: "https://www.youtube.com/embed/qD-TkVvXt3M"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub Actions
+  - CI
+  - workflow
+  - YAML
+  - DevOps
+  - automation
+  - continuous integration
+  - actions
+  - multi step
+  - example
+---
+
+<h2>Why one job with many steps makes life easier</h2>
+<p>Welcome to the thrilling world of automation where a single GitHub Actions workflow can do the heavy lifting while you pretend to be busy. This walkthrough is for folks who want a clear multi step CI workflow that lints builds tests and deploys without turning logs into a detective novel. We will keep it practical and slightly sarcastic while staying accurate for DevOps teams and automation fans.</p>
+
+<h2>Create the workflow file</h2>
+<p>Place a YAML file under the path .github/workflows/ci.yml so GitHub will find it. That is the magic trick that is not actually magic. The file declares the workflow name triggers jobs and steps. You do not need to summon any dark spirits just a repository and a text editor.</p>
+
+<h2>Define a job and pick a runner</h2>
+<p>Give your job an id and set runs on to ubuntu latest in the YAML. Using a single job keeps the workspace shared so artifacts and outputs are easy to move between steps. Runners are the VMs that execute your automation and ubuntu latest is the safe default for most node and container based pipelines.</p>
+
+<h2>Add focused steps that do one thing each</h2>
+<p>Combine action steps and shell run steps so each entry in the log is meaningful. Keep them short and focused to make debugging less painful. A typical ordering looks like this</p>
+<ul>
+  <li>Checkout the code with actions slash checkout at v2 or newer</li>
+  <li>Set up language toolchains such as actions slash setup node</li>
+  <li>Install dependencies with npm ci or the equivalent for your package manager</li>
+  <li>Run a linter and fail fast on style problems</li>
+  <li>Run the build and produce artifacts</li>
+  <li>Run tests and surface failures</li>
+  <li>Upload artifacts for later jobs or debugging</li>
+</ul>
+
+<h3>Example step sequence explained</h3>
+<p>Start with checkout then prepare your runtime then run commands. For node projects the sequence often looks like npm ci then npm run build then npm test. If a step fails the job stops and the Actions UI highlights the culprit step with timestamps and stack trace snippets so you can blame a line of code and not the entire CI system.</p>
+
+<h2>Share state with artifacts and use cache to speed runs</h2>
+<p>Use upload artifact and download artifact actions to move build outputs between workflows or future runs. For dependencies use the cache action to speed up repeated runs. For example cache node modules with a key that includes the lock file hash so cache invalidation happens when your dependencies change.</p>
+
+<h2>Trigger and monitor like a pro</h2>
+<p>Trigger the workflow on push pull request or on a schedule depending on your needs. After pushing a branch open the Actions tab then watch logs with the attention of a detective. The logs include which step failed and often the minimal clue you need to fix it.</p>
+
+<h2>Quick checklist for a reliable multi step CI workflow</h2>
+<ul>
+  <li>Put the file under .github slash workflows with a clear name</li>
+  <li>Keep one job if you want shared workspace and simple artifact flow</li>
+  <li>Make steps single purpose for easy failure diagnosis and clean logs</li>
+  <li>Use artifacts for outputs you want to inspect later</li>
+  <li>Cache dependencies to reduce run time and avoid wasting coffee</li>
+  <li>Test by pushing a branch and read the Actions UI like it is gossip</li>
+</ul>
+
+<h2>Final thoughts and common gotchas</h2>
+<p>Multi step GitHub Actions workflows are great when they are modular and transparent. Avoid giant steps that mix lint build and test into one command unless you enjoy hunting for a needle in a haystack. Keep the YAML readable name your steps and use official actions for common tasks. With clear steps artifacts and caching you get faster stable CI and fewer midnight reruns.</p>
+
+<p>If you want I can sketch a minimal example YAML structure or suggest cache keys and artifact names that fit your stack. But for now go create that ci.yml and let automation do the boring stuff while you collect the praise.</p>
+

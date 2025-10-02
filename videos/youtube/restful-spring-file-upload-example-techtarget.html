@@ -1,0 +1,134 @@
+---
+layout: video
+title: "RESTful Spring File Upload Example #techtarget"
+description: "Compact guide to building a RESTful Spring file upload endpoint using multipart support controller service configuration and testing"
+video_host: "youtube"
+video_id: "2dnk67gpNEQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT18M0S"
+thumbnail_url: "https://i.ytimg.com/vi/2dnk67gpNEQ/maxresdefault.jpg"
+content_url: "https://youtu.be/2dnk67gpNEQ"
+embed_url: "https://www.youtube.com/embed/2dnk67gpNEQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - RESTful
+  - Spring
+  - file upload
+  - multipart
+  - Spring Boot
+  - MultipartFile
+  - controller
+  - upload endpoint
+  - curl
+  - Postman
+---
+
+<h2>Overview</h2>
+<p>If your plan for file uploads is to toss files at the server and hope for the best you are in the wrong place. This guide walks through a RESTful Spring Boot multipart file upload endpoint that behaves itself. We accept a MultipartFile in a controller, hand it to a storage service, set multipart limits, add sane error handling, and test with curl or Postman. No rituals required.</p>
+
+<h2>Quick plan</h2>
+<ul>
+  <li>Create a Spring Boot app with Web and multipart support</li>
+  <li>Add a REST controller that accepts MultipartFile</li>
+  <li>Implement a storage service that writes files to disk using unique names</li>
+  <li>Configure multipart limits and add exception handling</li>
+  <li>Test with curl and Postman and confirm responses</li>
+</ul>
+
+<h2>Controller</h2>
+<p>Keep the controller minimal. Validate the upload and return a created response with a Location header. The controller below delegates storage to a service and returns a small JSON payload with the filename.</p>
+
+<pre><code>@RestController
+@RequestMapping("/api")
+public class FileUploadController {
+
+    private final StorageService storageService;
+
+    public FileUploadController(StorageService storageService) {
+        this.storageService = storageService;
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("No file uploaded");
+        }
+        String filename = storageService.store(file);
+        URI location = ServletUriComponentsBuilder.fromCurrentContextPath()
+            .path("/files/")
+            .path(filename)
+            .build()
+            .toUri();
+        return ResponseEntity.created(location).body(Collections.singletonMap("filename", filename));
+    }
+}
+</code></pre>
+
+<h3>Storage service</h3>
+<p>Separate storage logic from the controller. This example writes to disk and generates a UUID based filename to avoid collisions.</p>
+
+<pre><code>public interface StorageService {
+    String store(MultipartFile file) throws IOException;
+}
+
+public class FileSystemStorageService implements StorageService {
+
+    private final Path root = Paths.get("uploads");
+
+    public FileSystemStorageService() throws IOException {
+        Files.createDirectories(root);
+    }
+
+    @Override
+    public String store(MultipartFile file) throws IOException {
+        String ext = StringUtils.getFilenameExtension(file.getOriginalFilename());
+        String filename = UUID.randomUUID().toString() + (ext != null ? "." + ext : "");
+        Path target = root.resolve(filename);
+        try (InputStream in = file.getInputStream()) {
+            Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
+        }
+        return filename;
+    }
+}
+</code></pre>
+
+<h2>Configure multipart limits</h2>
+<p>Set sensible defaults in application.properties so you do not get surprised by 500 errors when someone uploads a 500 MB video because they "forgot" the rules.</p>
+
+<pre><code>spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
+</code></pre>
+
+<h2>Handle errors</h2>
+<p>Translate exceptions into helpful HTTP responses. For example handle MaxUploadSizeExceededException and return 413 Payload Too Large. Your users will appreciate the hint and your logs will be less dramatic.</p>
+
+<pre><code>@ControllerAdvice
+public class RestExceptionHandler {
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<?> handleMaxUpload(MaxUploadSizeExceededException ex) {
+        return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
+            .body("File too large");
+    }
+}
+</code></pre>
+
+<h2>Test with curl or Postman</h2>
+<p>Use curl for scripting and Postman for manual checks. Make sure the request is multipart form data and inspect the response codes and headers.</p>
+
+<pre><code>curl -v -F "file=@/path/to/image.jpg" http://localhost:8080/api/upload
+</code></pre>
+
+<h2>Tips and common pitfalls</h2>
+<ul>
+  <li>Always validate file presence and content type. Blind trust in uploads is how you get surprises.</li>
+  <li>Set max file sizes early and test with a range of payloads</li>
+  <li>Use UUID filenames or date based folders to avoid collisions</li>
+  <li>Log request ids and responses to make debugging with curl or Postman boring and fast</li>
+</ul>
+
+<p>Follow these steps and you will have a predictable RESTful Spring file upload endpoint. If it still breaks you can blame the network gremlins and then read the logs like a responsible adult.</p>
+

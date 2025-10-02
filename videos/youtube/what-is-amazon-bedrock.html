@@ -1,0 +1,67 @@
+---
+layout: video
+title: "What is Amazon Bedrock?"
+description: "Overview of Amazon Bedrock features pricing models and SageMaker agents for building generative AI on AWS in a compact readable guide."
+video_host: "youtube"
+video_id: "kT6qmPM_D-w"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT58S"
+thumbnail_url: "https://i.ytimg.com/vi/kT6qmPM_D-w/maxresdefault.jpg"
+content_url: "https://youtu.be/kT6qmPM_D-w"
+embed_url: "https://www.youtube.com/embed/kT6qmPM_D-w"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Amazon Bedrock
+  - AWS
+  - Bedrock pricing
+  - Claude
+  - Deepseek
+  - SageMaker Agents
+  - foundation models
+  - generative AI
+  - AWS documentation
+  - model inference
+---
+
+<p>If you are building generative AI on AWS and you like not spending your life wiring SDKs together then Amazon Bedrock is the service that quietly steals that pain away. It is a managed AWS offering that gives a single API to call foundation models from vendors such as Anthropic Claude and specialist providers like Deepseek for embeddings. Bedrock handles hosting scaling and many compliance chores so your team can argue about prompts instead of system integrations.</p>
+
+<h2>What Amazon Bedrock does for developers</h2>
+<p>Think of Bedrock as a model vending machine on AWS. You pick a model a vendor and a call type and Bedrock serves inference results while taking care of the plumbing. That plumbing includes model hosting automatic scaling and vendor orchestration so you do not need to glue together multiple SDKs to get embeddings or text generation.</p>
+
+<h2>Model access and vendor options</h2>
+<p>Bedrock gives access to multiple foundation models across vendors. Popular options include Anthropic Claude for chatty assistants and Deepseek for vector embeddings and search. You can choose cheaper smaller models when you are iterating and reserve the big brain models for final production workloads.</p>
+
+<h3>Why multiple vendors matter</h3>
+<p>Every model has strengths and weaknesses. Using Bedrock you can run quick experiments with one model and then run the same prompt on another to compare output quality latency and cost. That flexibility is core when your product needs both cheap embeddings and premium text generation.</p>
+
+<h2>Customization and orchestration</h2>
+<p>Bedrock supports prompt engineering and adapters to tailor model behavior. If your workflow needs multi step logic you can integrate with SageMaker Agents for orchestration and tool use during inference. That means you can combine model calls with retrieval or external tools and keep the flow under control.</p>
+
+<h2>Pricing and cost tips</h2>
+<p>Bedrock pricing follows a pay for usage model where costs depend on model type token consumption and optional compute for heavier workloads. There are cheaper models for routine tasks and premium models that cost more per token. Expect to monitor token usage and to choose an inference strategy that matches your budget and latency needs.</p>
+<ul>
+<li>Prototype on a small model for fast feedback</li>
+<li>Measure token usage on representative prompts and sample traffic</li>
+<li>Enable logging to catch cost surprises before they become accounting horror stories</li>
+</ul>
+
+<h2>Security governance and compliance</h2>
+<p>Security features include VPC endpoints logging and fine grained IAM controls so enterprises can meet data residency and audit requirements without inventing new authentication plumbing. Use the AWS documentation for recommended patterns on logging retention network controls and compliance workflows when you connect Bedrock to web or mobile products.</p>
+
+<h2>Operational advice for production</h2>
+<p>For production deploys pick an inference strategy that balances latency cost and reliability. Warm up model endpoints for consistent latency add retries and backoff for transient errors and run load tests with realistic traffic. Integrate your metrics and alerts so model inference issues show up on the same dashboard as the rest of your app.</p>
+
+<h2>Quick checklist to get started</h2>
+<ul>
+<li>Read the AWS documentation and SDK examples for Bedrock API calls</li>
+<li>Start with a small model for prototypes then test the target model on real prompts</li>
+<li>Monitor Bedrock pricing and token usage to avoid surprises</li>
+<li>Use VPC endpoints and fine grained IAM for production security</li>
+<li>Consider SageMaker Agents when you need orchestration between models and tools</li>
+</ul>
+
+<p>Tip when experimenting pick a small model for rapid prototyping then validate on the model you plan to ship. Bedrock makes model inference easier but good engineering still matters. Keep an eye on Bedrock pricing and logging so surprises remain fictional rather than the plot of your next all hands meeting.</p>
+

@@ -1,0 +1,87 @@
+---
+layout: video
+title: "Add git submodules to GitHub example"
+description: "Step by step guide to add git submodules to a GitHub repo and manage updates clones and removal"
+video_host: "youtube"
+video_id: "eJrh5IjWSGM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M36S"
+thumbnail_url: "https://i.ytimg.com/vi/eJrh5IjWSGM/maxresdefault.jpg"
+content_url: "https://youtu.be/eJrh5IjWSGM"
+embed_url: "https://www.youtube.com/embed/eJrh5IjWSGM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - submodule
+  - git submodules
+  - version control
+  - git tutorial
+  - submodule update
+  - repo management
+  - developer workflow
+  - how to
+---
+
+<p>Want to nest one repo inside another and pretend everything is tidy while actually juggling two histories Well welcome to the glamorous world of git submodules This guide walks through adding a submodule to a GitHub repository and keeping the pointer tidy so your team does not cry</p>
+
+<h2>Prepare your main repo and pick a subproject</h2>
+<p>Make sure your working tree is clean and decide which repository will live inside the main repo and where it will sit in the file tree The main repo will only store a pointer to a specific commit in the subproject so history stays separate and manageable</p>
+
+<h3>Checklist before you start</h3>
+<ul>
+  <li>Commit or stash local changes in the main repo</li>
+  <li>Choose the subproject repo URL as REPO_URL and a path like libs/subproj for PATH</li>
+</ul>
+
+<h2>Add the submodule</h2>
+<p>Run the add command which creates a .gitmodules file and a pointer in the main tree</p>
+<pre><code>git submodule add REPO_URL PATH</code></pre>
+<p>That creates a .gitmodules entry and places a gitlink in PATH which points to a commit in the subproject</p>
+
+<h2>Commit the submodule reference and push</h2>
+<p>Stage the new files and push the pointer to origin so other clones know about the submodule</p>
+<pre><code>git add .gitmodules PATH
+git commit -m "Add submodule"
+git push</code></pre>
+
+<h2>Clone or update with submodules on another machine</h2>
+<p>When someone clones your repo they need to fetch submodule data as well The quickest safe sequence is</p>
+<pre><code>git clone REPO_URL
+git submodule update --init --recursive</code></pre>
+<p>If the repo is already cloned and you pulled new commits with submodule changes run</p>
+<pre><code>git submodule update --init --recursive</code></pre>
+
+<h2>Work inside the submodule and update the pointer</h2>
+<p>The submodule is a separate git repo inside your working tree If you need to change what commit is referenced enter the submodule do your fetch or checkout then update the main repo pointer</p>
+<pre><code>cd PATH
+git fetch
+git checkout BRANCH_OR_COMMIT
+cd ..
+git add PATH
+git commit -m "Update submodule"
+git push</code></pre>
+<p>Note that by default submodules can end up in a detached HEAD state If you want the submodule to track a branch use the set branch command or update .gitmodules</p>
+<pre><code>git submodule set-branch --branch BRANCH PATH</code></pre>
+
+<h2>Remove a submodule when it outlives its usefulness</h2>
+<p>Removal needs a few steps to clean up the .gitmodules entry and repo metadata</p>
+<pre><code>git config -f .gitmodules --remove-section submodule.PATH
+git rm --cached PATH
+rm -rf .git/modules/PATH
+git commit -m "Remove submodule"
+git push</code></pre>
+
+<h2>Common gotchas and tips</h2>
+<ul>
+  <li>Submodules store a commit pointer not a branch so remember to update the parent repo after changing the submodule commit</li>
+  <li>Track a branch inside the submodule to avoid surprise detached HEADs with git submodule set-branch or by adding branch = BRANCH to .gitmodules</li>
+  <li>Use --recursive when initializing or updating to avoid missing nested submodules</li>
+  <li>If CI or scripts need reproducible builds prefer pinning commits instead of floating branches</li>
+</ul>
+
+<p>There you go You added a submodule you committed the pointer you taught the team how to clone and update and you learned how to remove it without leaving ghost metadata behind Your main repo stays slim while the subproject keeps its history neat and separate That is the whole point and sadly the only neat thing about git sometimes</p>
+

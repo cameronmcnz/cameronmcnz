@@ -1,0 +1,68 @@
+---
+layout: video
+title: "How to create and build a DataTable in UiPath Example"
+description: "Build and populate a DataTable in UiPath using Build Data Table Add Data Column and Add Data Row with clear step by step examples"
+video_host: "youtube"
+video_id: "50uhx0uJ8MY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M5S"
+thumbnail_url: "https://i.ytimg.com/vi/50uhx0uJ8MY/maxresdefault.jpg"
+content_url: "https://youtu.be/50uhx0uJ8MY"
+embed_url: "https://www.youtube.com/embed/50uhx0uJ8MY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - DataTable
+  - Build Data Table
+  - Add Data Column
+  - Add Data Row
+  - UiPath tutorial
+  - RPA
+  - For Each Row
+  - DataTable example
+  - Automation
+---
+
+<p>Welcome to the thrilling world of DataTables in UiPath where spreadsheets meet mild chaos and automation makes it bearable. This guide walks you through creating a DataTable, defining columns with the Build Data Table designer or Add Data Column at runtime, populating rows with Add Data Row or bulk reads, processing rows with For Each Row, and finally exporting with Write Range or Output Data Table. Yes this is the part of RPA that looks boring but actually runs your life.</p>
+
+<h2>Create the DataTable variable</h2>
+<p>Start by making a DataTable variable. Give it a clear name like <code>dt</code> so future you does not scream at past you. In the Variables panel set the variable type to <code>DataTable</code>. If you like ceremonies you can use an Assign activity to initialize it with <code>dt = New DataTable()</code> but the Build Data Table activity will do that for you too.</p>
+
+<h2>Define columns with Build Data Table or Add Data Column</h2>
+<p>You have two friendly paths here. Use the Build Data Table designer when you know the schema up front. It creates named columns and data types so the rest of your workflow behaves itself. Use Add Data Column when the incoming data is unpredictable or you enjoy debugging interesting errors.</p>
+<ul>
+  <li>Build Data Table designer is fast and visual for fixed schemas</li>
+  <li>Add Data Column is dynamic and useful for variable input or headers from sources</li>
+</ul>
+
+<h3>Example column setup</h3>
+<p>In the designer set columns like <code>Name</code> as String and <code>Age</code> as Int32. If you prefer activities use Add Data Column to append columns while the workflow runs.</p>
+
+<h2>Populate the DataTable with rows</h2>
+<p>For single or few rows use Add Data Row. For bulk imports use Read CSV or Read Range then assign that output to the <code>dt</code> variable. Here is a tiny example of adding one row with the ArrayRow property.</p>
+<pre><code>ArrayRow = { "Alice", 30 }</code></pre>
+<p>You can also create a DataRow object, fill fields, and add it with Add Data Row. Both paths are valid and both will judge you equally.</p>
+
+<h2>Process rows with For Each Row</h2>
+<p>Use For Each Row to iterate and manipulate data. Access values by name like <code>row("Name").ToString</code> or by index. Use Assign to transform values and Write Line or Log Message to peek under the hood while debugging. Example pseudocode is below.</p>
+<pre><code>For Each row In dt
+  name = row("Name").ToString
+  age = Convert.ToInt32(row("Age"))
+  ' do something like Assign and Log Message
+Next</code></pre>
+
+<h2>Export or inspect the DataTable</h2>
+<p>To get the DataTable into Excel use Write Range and point to a Workbook or an Excel Application Scope. For a quick console friendly view use Output Data Table to convert the table to text then Write Line. Both work and both will cheerfully leak schema issues into your logs.</p>
+
+<h2>Tips and gotchas</h2>
+<ul>
+  <li>If your columns are dynamic validate their existence before you read them to avoid runtime surprises</li>
+  <li>Prefer typed conversions when reading numeric or date fields to avoid strings pretending to be numbers</li>
+  <li>When debugging add Write Line or Log Message inside the For Each Row to inspect values one row at a time</li>
+</ul>
+
+<p>There you go. You now know how to build a UiPath DataTable, add columns and rows, process each row with For Each Row, and export the result with Write Range or Output Data Table. Use these patterns in your RPA projects and enjoy the rare thrill of a working workflow on the first run or at least on the second run with fewer cursed variable names.</p>
+

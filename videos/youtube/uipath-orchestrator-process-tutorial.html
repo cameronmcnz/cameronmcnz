@@ -1,0 +1,72 @@
+---
+layout: video
+title: "UiPath Orchestrator Process Tutorial"
+description: "Learn how to publish packages create processes assign robots and run jobs in UiPath Orchestrator with clear practical steps and tips"
+video_host: "youtube"
+video_id: "db3uqUmI3dI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M1S"
+thumbnail_url: "https://i.ytimg.com/vi/db3uqUmI3dI/maxresdefault.jpg"
+content_url: "https://youtu.be/db3uqUmI3dI"
+embed_url: "https://www.youtube.com/embed/db3uqUmI3dI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Orchestrator
+  - RPA
+  - Automation
+  - Processes
+  - Robots
+  - Publishing
+  - Jobs
+  - Environments
+  - Queues
+---
+
+<h2>Quick overview</h2>
+<p>This is a short hands on guide to get a package from UiPath Studio into Orchestrator and running as a job with a cooperating robot. Think of it as automation therapy with fewer tissues and more logs. You will learn how to prepare a project in Studio publish a package create a process assign robots set up environments and monitor jobs and queues for troubleshooting.</p>
+
+<h2>Prepare your project in UiPath Studio</h2>
+<p>Before you even think about hitting publish tidy up dependencies remove unused workflows and make sure the main workflow is clear and testable. Give the package a sensible name and bump the version so Orchestrator accepts the upload without complaining. Yes version numbers matter more than office coffee.</p>
+
+<h3>Checklist for Studio</h3>
+<ul>
+  <li>Validate dependencies and remove unused packages</li>
+  <li>Use descriptive package name and semantic versioning</li>
+  <li>Test locally to confirm expected outputs and retry logic</li>
+</ul>
+
+<h2>Publish package to Orchestrator</h2>
+<p>You can publish straight from Studio using the publish button or push the nupkg to the tenant feed. A successful upload creates a new package version in Orchestrator that processes can consume. Keep feed permissions in mind so only the right teams can push or pull packages.</p>
+
+<h2>Create process and assign package</h2>
+<p>In Orchestrator create a process by selecting the package version and the target environment. Assign the process to a folder for access control and grant roles to users who need to manage or trigger the job. This is where tidy naming and version discipline save you from hunting ghosts later.</p>
+
+<h2>Set up environment and robot</h2>
+<p>Register a machine in the tenant then link a robot to that machine. Verify the robot is connected and licensed in the correct tenant. Make sure the robot type matches the task requirements such as attended or unattended. If the robot cries disconnect messages investigate machine key or orchestrator URL configuration.</p>
+
+<h3>Robot setup tips</h3>
+<ul>
+  <li>Register the machine and create a robot record in the same tenant</li>
+  <li>Match robot type to workload requirements</li>
+  <li>Confirm connection and license status before running jobs</li>
+</ul>
+
+<h2>Start job and monitor logs</h2>
+<p>Kick off the job from Jobs or Triggers and watch the live logs if you like drama. Use real time logs and the job output pane to see what failed and where. For transactional workloads monitor queue items and their transaction statuses so you do not reprocess things by accident.</p>
+
+<h3>Common troubleshooting steps</h3>
+<ul>
+  <li>Check the package version referenced by the process</li>
+  <li>Verify robot connection and machine registration</li>
+  <li>Inspect queue items for failed transactions and retry rules</li>
+</ul>
+
+<h2>Best practices that actually help</h2>
+<p>Use clear package naming and incremental version numbers to avoid confusion. Leverage folders and roles for access control and use queues for resilient transactional processing. Automations are dramatic enough without unclear ownership and mystery versions.</p>
+
+<p>Follow these steps and you should have predictable deployments and easier support for your UiPath RPA efforts. If it still breaks take a deep breath read the logs and then read them again while blaming the toaster.</p>
+

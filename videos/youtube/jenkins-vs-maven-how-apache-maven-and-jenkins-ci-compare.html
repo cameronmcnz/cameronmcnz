@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Jenkins vs. Maven - How Apache Maven and Jenkins CI Compare"
+description: "Compare Maven build and dependency management with Jenkins CI automation. Learn roles differences and how both fit into a DevOps pipeline."
+video_host: "youtube"
+video_id: "XyOF2gE60CM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M39S"
+thumbnail_url: "https://i.ytimg.com/vi/XyOF2gE60CM/maxresdefault.jpg"
+content_url: "https://youtu.be/XyOF2gE60CM"
+embed_url: "https://www.youtube.com/embed/XyOF2gE60CM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Maven
+  - CI
+  - Continuous Integration
+  - Build Tools
+  - Apache Maven
+  - Jenkins CI
+  - DevOps
+  - Build Automation
+  - Pipeline
+---
+
+<h2>Maven builds artifacts and Jenkins runs the pipeline</h2>
+<p>Here is the short version that saves you a meeting. Apache Maven is the build tool that turns source code into reproducible artifacts. Jenkins CI is the automation server that schedules and runs those builds across agents and then does the boring parts like tests and deployment for you. One makes the jar and the other makes sure the jar shows up on time at the repository without emotional outbursts.</p>
+
+<h3>Roles that actually matter</h3>
+<ul>
+  <li><strong>Maven</strong> manages build lifecycle, compilation, test execution, packaging and dependency resolution through pom.xml rules</li>
+  <li><strong>Jenkins</strong> triggers builds from commits or schedules, runs pipeline scripts on agents, collects test results and moves artifacts to the next stop</li>
+  <li>Use them together for true Continuous Integration and Build Automation that does not rely on hope</li>
+</ul>
+
+<h3>Configuration and plugins in plain English</h3>
+<p>Maven is declarative. You write pom.xml and Maven follows it like a strict recipe. Jenkins is procedural. You write pipelines or jobs that call Maven or another tool to perform the work. Maven plugins extend phases of the build like compile test and package. Jenkins plugins add integrations for SCM triggers build agents notification and artifact publishing.</p>
+
+<h2>Typical pipeline flow that does not suck</h2>
+<p>In a Jenkins pipeline you usually check out source run Maven goals archive the test reports and then deploy artifacts. That keeps concerns separated. Maven stays responsible for deterministic builds and dependency graphs. Jenkins stays responsible for automation scheduling orchestration and visibility.</p>
+
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh 'mvn -B clean verify'
+      }
+    }
+    stage('Archive') {
+      steps {
+        junit 'target/surefire-reports/*.xml'
+        archiveArtifacts 'target/*.jar'
+      }
+    }
+  }
+}
+</code></pre>
+
+<h3>Practical tips that save time</h3>
+<ul>
+  <li>Call Maven with explicit goals like clean verify or clean package so behavior is predictable</li>
+  <li>Use a clean workspace per build to avoid mysterious flaky failures</li>
+  <li>Cache the Maven local repository on agents by preserving the .m2 folder to speed repeated builds</li>
+  <li>Publish JUnit style test reports and archive artifacts so other jobs can consume them reliably</li>
+  <li>Keep pom.xml tidy and avoid unchecked transitive dependencies or you will debug for days</li>
+</ul>
+
+<h2>When to pick which tool for the job</h2>
+<p>If you want deterministic builds dependency management and reproducible artifacts choose Maven or another proper build tool. If you want to automate building testing integration and deployment across multiple projects and agents choose Jenkins or a CI server. In modern DevOps setups you will usually use both. That is how you get consistent builds and reliable automation without arguing about who broke the pipeline.</p>
+
+<p>Bottom line Use Maven to define how software is built and tested. Use Jenkins to run that build on demand schedule it and move artifacts along the delivery pipeline. Together they make CI and Build Automation practical and occasionally merciful.</p>
+

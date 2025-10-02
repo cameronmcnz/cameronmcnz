@@ -1,0 +1,79 @@
+---
+layout: video
+title: "Fix Java's 'Could Not Find or Load Main Class' Jar error"
+description: "Quick guide to diagnose and fix the Could Not Find or Load Main Class error when running a jar file on the command line"
+video_host: "youtube"
+video_id: "84--vt4F73c"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M14S"
+thumbnail_url: "https://i.ytimg.com/vi/84--vt4F73c/maxresdefault.jpg"
+content_url: "https://youtu.be/84--vt4F73c"
+embed_url: "https://www.youtube.com/embed/84--vt4F73c"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - java
+  - jar
+  - main class
+  - manifest
+  - classpath
+  - java error
+  - debugging
+  - command line
+  - jar file
+  - java troubleshooting
+---
+
+<h2>Why the JVM yelled at you</h2>
+<p>You double clicked your JAR or typed java -jar myapp.jar and the JVM answered with Could not find or load main class. That is the Java way of saying it tried to start your program and failed because something was not where it expected it to be. No drama, just detective work.</p>
+
+<h2>Quick checklist to stop the blaming</h2>
+<ul>
+  <li>Confirm the manifest declares the main class</li>
+  <li>Make sure the main method signature is exactly right</li>
+  <li>Verify package names match folder layout inside the JAR</li>
+  <li>Ensure .class files are actually in the archive</li>
+  <li>Run the correct java command for your packaging style</li>
+  <li>Check Java version and conflicting classes on the classpath</li>
+</ul>
+
+<h2>Check the JAR manifest</h2>
+<p>Start by listing the archive. Run jar tf myapp.jar and scan for META-INF/MANIFEST.MF and the compiled classes. To inspect the manifest itself use jar xf myapp.jar META-INF/MANIFEST.MF and then open META-INF/MANIFEST.MF with your favorite editor. The manifest should include a Main Class entry that names the fully qualified main class for example com.example.Main, not something half baked.</p>
+
+<h3>Common manifest blunders</h3>
+<ul>
+  <li>No Main Class entry at all, because the build did not mark the artifact as executable</li>
+  <li>A typo in the class name or wrong package</li>
+  <li>Manifest line split over multiple lines because of bad wrapping when creating the archive</li>
+</ul>
+
+<h2>Confirm the main method</h2>
+<p>The JVM will only launch a program that has public static void main(String[] args). Yes the signature is tyrannical and exact. If your main is missing, private, or has a different parameter list the JVM will refuse to cooperate.</p>
+
+<h2>Verify package layout inside the JAR</h2>
+<p>Java expects package com.example.app to be stored as com/example/app inside the JAR. Use jar tf myapp.jar to look for com/example/app/Main.class. If the folders do not match the package declaration, the class will not be found even if it compiled.</p>
+
+<h2>Inspect the JAR for compiled classes</h2>
+<p>Sometimes build systems forget to include compiled classes, or your build produced an empty jar for reasons you will regret later. Look for .class files in the expected locations. If they are missing, fix your build script or the IDE packaging step.</p>
+
+<h2>Run the application the right way</h2>
+<p>If the JAR is executable use java -jar myapp.jar. If you are launching from classpath use java -cp myapp.jar com.example.app.Main and provide the fully qualified class name. Do not mix styles or expect the JVM to guess what you meant.</p>
+
+<h2>Watch out for Java version and duplicate classes</h2>
+<p>Runtime version mismatches can prevent classes from loading. If your classes were compiled for a newer Java than the runtime you will see errors. Also avoid duplicate classes on the classpath. If two jars contain the same class, the JVM may pick the wrong one or fail to load the expected main class.</p>
+
+<h2>Quick troubleshooting steps</h2>
+<ol>
+  <li>Run jar tf myapp.jar and confirm META-INF/MANIFEST.MF exists</li>
+  <li>Extract and open the manifest to verify the Main Class entry</li>
+  <li>Look for the expected .class files and folder layout</li>
+  <li>Confirm public static void main(String[] args) is present</li>
+  <li>Launch with java -jar or java -cp as appropriate</li>
+  <li>Check runtime Java version and remove conflicting jars</li>
+</ol>
+
+<h2>Recap with a tiny dollop of hope</h2>
+<p>Most of the time this error is a packaging or manifest problem, not a mystical curse. Verify the manifest, confirm the main method and package layout, and run the right command. If all else fails, blame the build script and then fix it.</p>
+

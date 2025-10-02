@@ -1,0 +1,89 @@
+---
+layout: video
+title: "Introduction to UiPath Programming"
+description: "Beginner friendly guide to UiPath programming covering Studio setup workflows activities variables debugging and deployment for RPA"
+video_host: "youtube"
+video_id: "vjiqJ5Q8IvI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M14S"
+thumbnail_url: "https://i.ytimg.com/vi/vjiqJ5Q8IvI/maxresdefault.jpg"
+content_url: "https://youtu.be/vjiqJ5Q8IvI"
+embed_url: "https://www.youtube.com/embed/vjiqJ5Q8IvI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - RPA
+  - Automation
+  - UiPath Studio
+  - Workflows
+  - Activities
+  - Variables
+  - Selectors
+  - Orchestrator
+  - Debugging
+---
+
+<article>
+  <h2>Get UiPath Studio up and running</h2>
+  <p>If you want to automate something boring you can start with UiPath Studio. Download the Community Edition from the official site and follow the installer prompts. The Studio layout has an activities panel a properties pane an output console and a ribbon where most of the magic and most of the confusion happen.</p>
+
+  <h2>Create a project and pick a workflow style</h2>
+  <p>Start a new process and choose a Sequence for simple linear flows. Sequences are the training wheels of automation because they let you see how activities chain together without introducing state machines or flowcharts. Later you can try flowcharts for branching logic or state machines for complex states when you are ready for emotional commitment.</p>
+
+  <h3>Basic project checklist</h3>
+  <ul>
+    <li>Create new process in UiPath Studio</li>
+    <li>Add a Sequence to model a simple linear task</li>
+    <li>Save often and try not to cry when a selector breaks</li>
+  </ul>
+
+  <h2>Add activities and manage variables</h2>
+  <p>Drag activities for clicks typing file handling and data manipulation into the designer. Name variables with clear and searchable names. If data needs to move between workflows use arguments. Arguments are like envelopes you do not want to stamp wrong.</p>
+
+  <h3>Practical tips for variables and arguments</h3>
+  <ul>
+    <li>Use meaningful names instead of Var1 Var2 or Whatever</li>
+    <li>Set correct variable scopes so you do not run into surprise nulls</li>
+    <li>Use arguments to pass data between child workflows and the main workflow</li>
+  </ul>
+
+  <h2>Selectors and the recorder</h2>
+  <p>Selectors are the fragile little souls that point UiPath at UI elements. Spend time mastering them. Use the recorder for repetitive UI tasks but always review generated selectors so they do not fail when a page layout gets smug and changes.</p>
+
+  <h3>Selector best practices</h3>
+  <ul>
+    <li>Prefer reliable anchor attributes over absolute hierarchy paths</li>
+    <li>Use wildcards when parts of the selector change between runs</li>
+    <li>Test selectors in multiple environments such as different screen resolutions</li>
+  </ul>
+
+  <h2>Run and debug with less hair loss</h2>
+  <p>Use the debug options to step through the workflow and inspect variable values. Breakpoints and log messages will save you from pointless guesswork. If a selector acts like a diva use highlight activities to see what UiPath actually finds on the screen.</p>
+
+  <h3>Debugging checklist</h3>
+  <ul>
+    <li>Run in debug mode to step through problematic areas</li>
+    <li>Set breakpoints on suspicious activities</li>
+    <li>Add log messages to capture variable states and key events</li>
+  </ul>
+
+  <h2>Deploy to Orchestrator or run locally</h2>
+  <p>When you are ready for scheduled or scaled runs publish the package to Orchestrator. For learning and quick tests run the project directly from the Studio runner. Orchestrator gives you scheduling monitoring and robot management which is useful when you want automated tasks to behave responsibly without constant supervision.</p>
+
+  <h2>Recap and practice plan</h2>
+  <p>This guide covered installing Studio creating a project adding activities managing variables dealing with selectors debugging workflows and deploying to Orchestrator. Practice on small tasks such as data entry or file moves before tackling enterprise processes that will judge you harshly when they fail.</p>
+
+  <h3>Quick practice roadmap</h3>
+  <ol>
+    <li>Automate a simple form fill to learn selectors and clicks</li>
+    <li>Add file IO and variable passing between workflows</li>
+    <li>Introduce logging and breakpoints to improve reliability</li>
+    <li>Publish to Orchestrator when the process behaves consistently</li>
+  </ol>
+
+  <p>Final tip Master selectors and keep variable names descriptive. Add log messages to make troubleshooting less soul crushing and more efficient. Now go build something useful and try not to let the robots take the credit.</p>
+</article>
+

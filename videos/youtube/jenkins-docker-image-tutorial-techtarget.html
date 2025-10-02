@@ -1,0 +1,94 @@
+---
+layout: video
+title: "Jenkins Docker Image Tutorial #TechTarget"
+description: "Learn how to build run and configure a Jenkins Docker image for CI pipelines with Dockerfile volumes and basic production tips."
+video_host: "youtube"
+video_id: "z5piJjQIGWY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M33S"
+thumbnail_url: "https://i.ytimg.com/vi/z5piJjQIGWY/maxresdefault.jpg"
+content_url: "https://youtu.be/z5piJjQIGWY"
+embed_url: "https://www.youtube.com/embed/z5piJjQIGWY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - jenkins
+  - docker
+  - dockerfile
+  - ci
+  - cd
+  - containers
+  - devops
+  - automation
+  - jenkins-docker
+  - tutorial
+---
+
+<h2>Quick truth about Jenkins in containers</h2>
+<p>Yes you can run Jenkins in Docker and no it will not instantly fix your automation problems. What it will do is give you reproducible builds fewer "it works on my machine" fights and a cleaner way to manage CI and CD on local hosts or servers. This guide walks through picking a base image creating a Dockerfile building and running the container and keeping data and secrets intact while you sleep or panic politely.</p>
+
+<h2>Pick a base image</h2>
+<p>Start with the official Jenkins image unless you enjoy surprises and dependency scavenger hunts. The official image bundles a compatible Java runtime and common entrypoints which makes plugin compatibility less dramatic. If you prefer to shrink layers pick a minimal Linux image with Java preinstalled but expect to add more packages yourself.</p>
+<pre><code>FROM jenkins/jenkins:lts</code></pre>
+<p>Official images save time and sanity in most devops environments where plugin compatibility matters.</p>
+
+<h2>Create a Dockerfile the smart way</h2>
+<p>Keep layers small avoid running as root and automate plugin installation. The jenkins-plugin-cli is handy for repeatable plugin installs. Use build arguments to pin versions so your image does not magically change tomorrow.</p>
+<pre><code>FROM jenkins/jenkins:lts
+USER root
+RUN apt update && apt install -y git curl && rm -rf /var/lib/apt/lists/*
+COPY plugins.txt /usr/share/jenkins/plugins.txt
+RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/plugins.txt
+USER jenkins
+COPY init.groovy.d /var/jenkins_home/init.groovy.d
+</code></pre>
+<p>Keep plugin lists in a separate file and inject them with a build arg if you want version control for your automation setup.</p>
+
+<h2>Build the image</h2>
+<p>Use docker build with a clear tag so your CI pipelines are not guessing what to deploy. Watch the logs for missing dependencies and use build args for plugin versions.</p>
+<pre><code>docker build -t myorg/jenkins-custom:2025-10-01 .
+# optionally
+docker build --build-arg PLUGIN_LIST=plugins.txt -t myorg/jenkins-custom:stable .
+</code></pre>
+
+<h2>Run the container without chaos</h2>
+<p>Map ports mount persistent storage and set a restart policy. Resource limits stop runaway jobs from turning your CI host into molten lava.</p>
+<pre><code>docker run -d --name jenkins \
+  -p 8080:8080 -p 50000:50000 \
+  -v jenkins_home:/var/jenkins_home \
+  --restart unless-stopped \
+  --memory 2g --cpus 1.0 \
+  myorg/jenkins-custom:stable
+</code></pre>
+<p>Use a named volume or host path for /var/jenkins_home. That directory contains job configs credentials and plugin state so losing it is not a good look.</p>
+
+<h2>Configure Jenkins without clicking everything</h2>
+<p>Open the web UI on the mapped port unlock Jenkins with the initial admin secret found at /var/jenkins_home/secrets/initialAdminPassword or in the container logs. Install recommended plugins and create an admin user. When possible use Configuration as Code for reproducible setups and to avoid a thousand tedious clicks.</p>
+
+<h3>Fast setup checklist</h3>
+<ul>
+  <li>Grab the initial admin password from the Jenkins home directory</li>
+  <li>Install plugins from your plugins file rather than the UI</li>
+  <li>Enable agent to controller security and disable anonymous access</li>
+  <li>Commit your configuration as code to your repo for repeatability</li>
+</ul>
+
+<h2>Persist data and lock down secrets</h2>
+<p>Mount a persistent volume at /var/jenkins_home and back it up regularly. Do not put long lived secrets in environment variables. Use the credentials store and consider external secret managers for production. For TLS terminate at a reverse proxy and require authentication for sensitive endpoints.</p>
+
+<h3>Security and production tips</h3>
+<ul>
+  <li>Run Jenkins as the jenkins user in the container rather than root</li>
+  <li>Limit plugin installs and keep plugin versions pinned</li>
+  <li>Use a reverse proxy for TLS and for authentication integration with SSO</li>
+  <li>Automate backups of /var/jenkins_home and test restores regularly</li>
+</ul>
+
+<h2>Extra devops automation notes</h2>
+<p>If you are using this image in CI CD pipelines bake reproducibility into your build steps. Use build args and immutable tags so your pipelines do not change under your feet. In kubernetes mount the Jenkins home as a PersistentVolume and set resource requests and limits to keep agents from eating cluster resources.</p>
+
+<h2>Parting advice</h2>
+<p>Containers make Jenkins easier to manage but they do not replace good configuration hygiene. Keep plugins pinned backups automated and your Jenkins Dockerfile in source control. Do that and you will have a stable CI system that is slightly less likely to ruin your day.</p>
+

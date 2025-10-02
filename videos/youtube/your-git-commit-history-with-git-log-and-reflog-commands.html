@@ -1,0 +1,72 @@
+---
+layout: video
+title: "Your Git Commit History with Git Log and Reflog commands"
+description: "Learn how to inspect and recover commits with git log and git reflog use concise views and safe recovery tips for repositories"
+video_host: "youtube"
+video_id: "l9pm8p84OkM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/l9pm8p84OkM/maxresdefault.jpg"
+content_url: "https://youtu.be/l9pm8p84OkM"
+embed_url: "https://www.youtube.com/embed/l9pm8p84OkM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git log
+  - reflog
+  - github
+  - gitlab
+  - devops
+  - python
+  - java
+  - commits
+  - version control
+---
+
+<p>If your commit history looks like a crime scene and you are missing a few suspects do not panic yet. Git keeps a trail of where HEAD and branches have been and with a few commands you can read the story or even resurrect a missing commit. This guide helps you inspect history with git log and find recent moves with reflog so you can recover work without becoming the office cautionary tale.</p>
+
+<h2>See the basic commit trail</h2>
+<p>Start with the obvious. Run the plain command to list commits with author date and message. It gives a readable timeline for most needs.</p>
+<pre><code>git log</code></pre>
+<p>If you want a slightly friendlier view add options to limit output or show diffs for a commit. But the default is where you begin looking.</p>
+
+<h2>Make busy history readable</h2>
+<p>When the commit graph looks like someone tried to knit spaghetti use a compact visual view. The following shows each commit on one line with branch names and a nice ASCII graph which works in terminals and in automation logs.</p>
+<pre><code>git log --oneline --graph --decorate --all</code></pre>
+<p>This helps you spot the current HEAD branch and merges fast. It also plays nicely when you are on GitHub or GitLab and want to match UI history to what is on your machine.</p>
+
+<h2>Find recent moves with reflog</h2>
+<p>The reflog is the safety net that remembers where HEAD and refs pointed recently even after resets or forced pushes. It is not a permanent record but it is incredibly useful for short term rescue missions.</p>
+<pre><code>git reflog</code></pre>
+<p>Scan the list for the commit hash you want to recover. Each line shows an action such as checkout reset or commit along with the hash and a human friendly note.</p>
+
+<h2>Recover a commit without tears</h2>
+<p>Once you have the hash you can either make a branch from it or move a branch pointer. Making a branch is the safest and least dramatic option.</p>
+<pre><code>git checkout -b rescue abc1234</code></pre>
+<p>That creates a branch named rescue at commit abc1234 so the commit is easy to work with and can be pushed to remote for safe keeping. If you prefer the newer command use</p>
+<pre><code>git switch -c rescue abc1234</code></pre>
+<p>If you need to rewind the current branch and you are certain of your choice you can reset hard. Do not do this without a backup branch unless you enjoy adrenaline.</p>
+<pre><code>git reset --hard abc1234</code></pre>
+
+<h2>Practice safe cleanup</h2>
+<p>Git eventually prunes unreachable objects during garbage collection. That means reflog and dangling commits may disappear after some time. Keep important recovery points on a branch or a tag so the reflog is a helper not the only lifeline.</p>
+<ul>
+  <li>Create a branch from the current HEAD before risky operations</li>
+  <li>Push that branch to the remote repository on GitHub or GitLab if you need offsite backup</li>
+  <li>Use soft or mixed reset if you want to keep changes staged or in the working tree</li>
+</ul>
+
+<h3>Quick command summary</h3>
+<ul>
+  <li>git log to inspect full commit information</li>
+  <li>git log --oneline --graph --decorate --all for a compact visual overview</li>
+  <li>git reflog to view recent HEAD and ref moves</li>
+  <li>git checkout -b rescue abc1234 or git switch -c rescue abc1234 to restore a commit</li>
+  <li>git reset --hard abc1234 only after making a backup branch</li>
+</ul>
+
+<p>If you follow these steps you will spend less time apologizing in team chat and more time writing code. Or at least less time rewriting history by accident. Keep branches and tags for the commit you care about and treat reflog as a fast rescue tool not a permanent insurance policy.</p>
+

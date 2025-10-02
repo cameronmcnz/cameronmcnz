@@ -1,0 +1,79 @@
+---
+layout: video
+title: "How to use Break and Continue in UiPath"
+description: "Learn how Break and Continue work in UiPath loops to control flow debug faster and write cleaner RPA workflows."
+video_host: "youtube"
+video_id: "Bpiu6c5uY7E"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M37S"
+thumbnail_url: "https://i.ytimg.com/vi/Bpiu6c5uY7E/maxresdefault.jpg"
+content_url: "https://youtu.be/Bpiu6c5uY7E"
+embed_url: "https://www.youtube.com/embed/Bpiu6c5uY7E"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Break
+  - Continue
+  - RPA
+  - UiPath tutorial
+  - For Each
+  - While loop
+  - Debugging
+  - Activities
+  - Automation
+---
+
+<h2>Why Break and Continue matter in UiPath</h2>
+<p>If you have ever watched a For Each or While loop grind on forever while your CPU cries, you will appreciate Break and Continue. These simple activities let you stop a loop early or skip a single iteration. That saves time, clutter, and your reputation when automation does not behave like a confused intern.</p>
+
+<h2>Pick the right loop for the job</h2>
+<p>Choose For Each when you have a collection to iterate over. Choose While when you need to keep running until a condition changes. They both work with Break and Continue in the exact same way. The difference is what determines when the loop repeats.</p>
+
+<h3>Where to place Break</h3>
+<p>Put a Break inside the loop when you want an immediate exit. For example if you are searching for the first matching record and you find it, Break stops the loop and sends control to whatever comes after the loop. This avoids processing extra items for no reason.</p>
+
+<h3>Where to place Continue</h3>
+<p>Use Continue to skip the rest of the current iteration while letting the loop carry on. It is the tidy way to say skip this one and handle the next without nesting half your workflow inside if blocks.</p>
+
+<h2>Practical checklist to avoid regret</h2>
+<ul>
+  <li>Pick the right loop activity based on your data</li>
+  <li>Add Break only when you mean to leave the loop completely</li>
+  <li>Add Continue only when skipping the rest of the iteration is safe</li>
+  <li>Log before and after Break and Continue so you can prove to stakeholders what happened</li>
+  <li>Wrap loops in Try Catch when external calls or data might throw exceptions</li>
+</ul>
+
+<h2>Debugging tips that work</h2>
+<p>Run your workflow in Debug. Step through a few iterations and watch Log Message or Write Line outputs. Seeing a log right before a Continue is especially satisfying. If the loop behaves oddly test these scenarios</p>
+<ul>
+  <li>No matches at all</li>
+  <li>All items match</li>
+  <li>First item matches</li>
+  <li>Exceptions inside the loop</li>
+</ul>
+
+<h2>Example patterns you will actually use</h2>
+<p>Search for first match in a collection</p>
+<ul>
+  <li>Use For Each to iterate items</li>
+  <li>Check if current item matches target</li>
+  <li>If it does then log a message and use Break to stop</li>
+</ul>
+
+<p>Filter out bad items while keeping the loop going</p>
+<ul>
+  <li>Inside For Each validate current item</li>
+  <li>If validation fails then Log Message and Continue to skip processing</li>
+  <li>Otherwise do the work for valid items</li>
+</ul>
+
+<h2>Tips to keep your workflow readable</h2>
+<p>Named activities help. Use descriptive names on Break and Continue so anyone reading the flow knows why the loop ends or skips an item. Pair each Break or Continue with a Log Message or Write Line so the runtime trace tells the story without detective work.</p>
+
+<h2>Final thoughts</h2>
+<p>Break and Continue are tiny tools but they punch above their weight in RPA. Used properly they reduce unnecessary processing increase readability and make debugging less like forensic archaeology. Test edge cases add logs and wrap risky operations in Try Catch. Then go enjoy the rare feeling of an automation that behaves.</p>
+

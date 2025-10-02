@@ -1,0 +1,86 @@
+---
+layout: video
+title: "Spring Actuator Maven Dependency Configuration #Gradle #spri"
+description: "Quick guide to add Spring Boot Actuator to a Maven project configure endpoints and enable metrics for monitoring."
+video_host: "youtube"
+video_id: "ba3GKC0NEDE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M25S"
+thumbnail_url: "https://i.ytimg.com/vi/ba3GKC0NEDE/maxresdefault.jpg"
+content_url: "https://youtu.be/ba3GKC0NEDE"
+embed_url: "https://www.youtube.com/embed/ba3GKC0NEDE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Actuator
+  - Maven
+  - Dependency
+  - Metrics
+  - Endpoints
+  - Micrometer
+  - Gradle
+  - Monitoring
+  - Spring Security
+---
+
+<h2>Why bother with Actuator and metrics</h2>
+<p>If your app is a black box you are lying to yourself and to your ops team. Spring Boot Actuator turns that black box into a slightly less mysterious box that reports health metrics and endpoints. Add Micrometer and you can feed those metrics to Prometheus or other backends for dashboards and alarms that actually work.</p>
+
+<h2>What you need first</h2>
+<ul>
+  <li>Spring Boot application managed with Maven</li>
+  <li>Basic familiarity with application properties or YAML</li>
+  <li>Optional monitoring backend such as Prometheus</li>
+</ul>
+
+<h2>Step 1 Add the Actuator dependency</h2>
+<p>Drop the actuator starter into your pom.xml under dependencies. No magic. Just one dependency and Spring Boot wires a lot of stuff for you.</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<h2>Step 2 Choose which endpoints to expose</h2>
+<p>Out of the box Actuator has many endpoints but most should stay hidden in production. Use your application properties to pick the ones you want visible. Keep it minimal unless you enjoy attack surface and noise.</p>
+<pre><code>management.endpoints.web.exposure.include=health,info,metrics
+management.endpoints.web.base-path=/actuator
+management.endpoint.health.show-details=when-authorized
+</code></pre>
+
+<h2>Step 3 Add Micrometer if you want useful metrics</h2>
+<p>If Prometheus or another metrics system is part of your plan add the Micrometer registry that matches that system. For Prometheus add the registry dependency so the metrics endpoint can be scraped.</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;io.micrometer&lt;/groupId&gt;
+  &lt;artifactId&gt;micrometer-registry-prometheus&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>Now configure any registry properties you need to point the exporter at the right place. The registry starter is lightweight and polite.</p>
+
+<h2>Step 4 Test locally without drama</h2>
+<p>Start the app and check that actuator endpoints respond. Use a browser or a simple HTTP client to hit the actuator path on localhost port 8080 to confirm health and metrics are present. If the health endpoint returns UP you did not break everything yet.</p>
+
+<h2>Step 5 Secure the sensitive parts</h2>
+<p>Operational endpoints can be juicy for attackers. Protect them by adding Spring Security and restricting access to only the roles or IPs that actually need them.</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>Then require authentication for the important endpoints and expose only what you must. You can also run management endpoints on a different port if you want to separate traffic.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Add spring-boot-starter-actuator to your Maven project</li>
+  <li>Selectively expose endpoints via management properties</li>
+  <li>Add a Micrometer registry when you need persistent metrics</li>
+  <li>Test endpoints locally before you push to production</li>
+  <li>Protect metrics and operational endpoints with Spring Security</li>
+</ul>
+
+<h2>Final thoughts</h2>
+<p>Actuator plus Micrometer transforms a plain Spring Boot app into something you can actually monitor without guessing. Keep the exposure tight and the registry configured and your dashboards will stop lying to you. And if a metric ever goes wild you will at least be watching the chaos with context.
+

@@ -1,0 +1,74 @@
+---
+layout: video
+title: "How to Create a Maven Project in Eclipse for Beginners"
+description: "Step by step guide to create a Maven project in Eclipse using basic POM and archetype approaches for beginners"
+video_host: "youtube"
+video_id: "S0OqWAbEjbA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT15M7S"
+thumbnail_url: "https://i.ytimg.com/vi/S0OqWAbEjbA/maxresdefault.jpg"
+content_url: "https://youtu.be/S0OqWAbEjbA"
+embed_url: "https://www.youtube.com/embed/S0OqWAbEjbA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Maven
+  - Eclipse
+  - POM
+  - Archetype
+  - Java
+  - m2e
+  - Maven Project
+  - Maven Tutorial
+  - Build Tools
+  - Dependency Management
+---
+
+<p>If you want to make a Maven project in Eclipse and still have time for coffee this guide will hold your hand and mock you gently. This tutorial covers using the Eclipse Maven integration m2e the POM file and archetypes so you can stop guessing where the build broke and start blaming the right dependency.</p>
+
+<h2>Before you twist the IDE</h2>
+
+<p>Make sure Eclipse has the m2e plugin installed. If not open the Marketplace in Eclipse and add Maven integration. No dramatic terminal spells needed. Once m2e is present the New Project wizard becomes the friendly monster that creates folder structure and a pom.xml for you.</p>
+
+<h2>Start a new Maven project</h2>
+
+<ul>
+  <li>File and New and Maven Project in the IDE. Pick a workspace folder that does not have spaces if you enjoy fewer surprises.</li>
+  <li>When asked choose either an archetype for a quick skeleton or an empty project for manual POM work. Archetypes save typing and future regret.</li>
+  <li>Set the coordinates using reverse domain style groupId such as com.example set a clear artifactId and accept the default version 1.0 snapshot unless you like chaos.</li>
+</ul>
+
+<h3>What the wizard produces</h3>
+
+<p>Eclipse will generate a standard Maven layout and a pom.xml file. Think of the POM as the brain of the build system. Open it and look for project coordinates dependencyManagement and the dependencies section. If something looks wrong the IDE will usually offer quick fixes.</p>
+
+<h2>Edit the POM like a responsible adult</h2>
+
+<p>To add a library provide its groupId artifactId and version. For example to add Apache Commons Lang you would add an entry with groupId org.apache.commons artifactId commons-lang3 version 3.12.0. For plugins add the maven compiler plugin and set the Java source and target to match your JDK. The IDE helps with auto completion so you do not have to memorize everything.</p>
+
+<h3>Common plugin hints</h3>
+
+<ul>
+  <li>maven compiler plugin set source and target to 11 or to whatever your project needs</li>
+  <li>Surefire or Failsafe for tests so unit tests run during the default build lifecycle</li>
+  <li>Use dependencyManagement only for multi module projects so you do not duplicate versions all over creation</li>
+</ul>
+
+<h2>Build and run without crying</h2>
+
+<p>From a terminal run mvn clean package to build a jar or run mvn test to run unit tests. From Eclipse right click the project and choose Run As and Maven build then enter goals such as clean package and hit run. The IDE will show the console output and any failing tests or dependency conflicts.</p>
+
+<h2>Troubleshooting that saves you time</h2>
+
+<ul>
+  <li>If dependencies do not resolve use Maven and Update Project from the context menu in Eclipse to force a reimport from the remote repositories.</li>
+  <li>Check the installed JRE and project Java compliance if compilation fails after a dependency update.</li>
+  <li>If m2e reports lifecycle mapping issues install connectors from the Marketplace or configure the plugin execution in the POM with a known m2e friendly mapping.</li>
+</ul>
+
+<h2>Final tips for adults</h2>
+
+<p>Use archetypes for quick prototypes and empty projects when you want full control. Keep the POM tidy use dependencyManagement for shared versioning and prefer explicit versions for production builds. Treat the POM as code and commit it early so your future self stops blaming coworkers for missing jars.</p>
+

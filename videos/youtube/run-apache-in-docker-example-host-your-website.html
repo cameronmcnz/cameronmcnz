@@ -1,0 +1,81 @@
+---
+layout: video
+title: "Run Apache in Docker Example Host Your Website"
+description: "Learn how to serve a local website using the official Apache httpd Docker image with a bind mount and port mapping"
+video_host: "youtube"
+video_id: "DwJT4vncv6c"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M51S"
+thumbnail_url: "https://i.ytimg.com/vi/DwJT4vncv6c/maxresdefault.jpg"
+content_url: "https://youtu.be/DwJT4vncv6c"
+embed_url: "https://www.youtube.com/embed/DwJT4vncv6c"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - docker
+  - apache
+  - httpd
+  - docker tutorial
+  - docker run
+  - volumes
+  - local hosting
+  - web server
+  - containers
+  - dev workflow
+---
+
+<p>Want to host a tiny website on your machine without building a custom image every five minutes like a chaotic chef rewriting the recipe? This guide walks through using the official Apache httpd Docker image with a bind mount so edits show up instantly in the browser. It is simple, fast, and wonky only when you forget which port you already used for a million apps.</p>
+
+<h2>What you will get</h2>
+<p>By the end you will have a running Apache server inside a container that serves files from a host folder. Edit files locally and see changes live in the browser while you pretend this was effortless.</p>
+
+<h2>Create the site folder and index file</h2>
+<p>Make a folder for your site. Keep the document root shallow so Apache can find it and you can find your dignity.</p>
+<pre><code>mkdir site
+printf "&lt;h1&gt;Hello from Docker Apache&lt;/h1&gt;" &gt; site/index.html
+</code></pre>
+
+<h2>Run Apache with port and volume mapping</h2>
+<p>Use the official httpd image and bind mount your local site folder into Apache's document root. The command below maps host port 8080 to container port 80 and mounts ./site as the server root.</p>
+<pre><code>docker run -d -p 8080:80 -v $(pwd)/site:/usr/local/apache2/htdocs httpd
+</code></pre>
+<p>If you are on Windows use an absolute path for the volume. If you are on Linux and permission drama starts, try running the command with sudo or fix ownership on the host folder.</p>
+
+<h3>Why this works</h3>
+<ul>
+  <li>The -p flag exposes the container port to your host so your browser can find it.</li>
+  <li>The -v bind mount makes files on your host visible inside the container immediately.</li>
+  <li>Running detached with -d keeps the container alive while you fiddle with files.</li>
+</ul>
+
+<h2>Open your browser and test</h2>
+<p>Visit http://localhost:8080 and admire your handiwork. If nothing appears first check that the container is running.</p>
+<pre><code>docker ps
+</code></pre>
+
+<h2>Edit files and see live updates</h2>
+<p>Edit site/index.html with your editor of choice. Because the folder is mounted, Apache will serve the modified files instantly. No rebuild required. This keeps a fast dev feedback loop and fewer reasons to rage at Docker.</p>
+
+<h2>Common problems and how to fix them</h2>
+<ul>
+  <li>Container exited immediately: check logs with docker logs &lt;container id or name&gt; to see why it crashed.</li>
+  <li>Page does not load: verify you used the right port and that no other service is already listening on 8080. Pick another unused port like 8081 if needed and rerun the container.</li>
+  <li>Files do not update or show permission denied: fix ownership on the host with chown or pick a safer folder. On Linux a common fix is chown -R $(id -u):$(id -g) site.</li>
+  <li>Windows path issues: use an absolute Windows path for the -v argument or the Docker Desktop shared drives feature.</li>
+</ul>
+
+<h2>Quick troubleshooting commands</h2>
+<pre><code>docker ps -a
+docker logs &lt;container id or name&gt;
+docker port &lt;container id or name&gt;
+</code></pre>
+
+<h2>When to build a custom image</h2>
+<p>Bind mounts are perfect for development and live editing. If you need custom modules, configuration files in the image, or repeatable production builds then make a Dockerfile and bake them in. For quick testing and local hosting keep the mount and move fast.</p>
+
+<p>If anything breaks remember this checklist in order: is the container running, is the port free, are your host file permissions sane, and did you name the folder correctly. If the problem persists try the logs before composing a dramatic tweet about Docker.</p>
+
+<p>Now go edit index.html and reload the page. Live reload not included but highly encouraged via your editor or a live reload tool if you enjoy automation and fewer manual F5s.</p>
+

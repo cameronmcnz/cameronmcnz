@@ -1,0 +1,107 @@
+---
+layout: video
+title: "Apache Ant & Jenkins Build Job Examples"
+description: "Practical guide to creating Ant build files and configuring Jenkins build jobs for continuous integration and automation"
+video_host: "youtube"
+video_id: "tr3qCUjeQqk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M10S"
+thumbnail_url: "https://i.ytimg.com/vi/tr3qCUjeQqk/maxresdefault.jpg"
+content_url: "https://youtu.be/tr3qCUjeQqk"
+embed_url: "https://www.youtube.com/embed/tr3qCUjeQqk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Apache Ant
+  - Jenkins
+  - Build Job
+  - Continuous Integration
+  - Ant build file
+  - Jenkins job
+  - CI automation
+  - DevOps
+  - Build examples
+  - Artifact archive
+---
+
+<p>If you want reproducible Java builds but also like the idea of not being surprised at 2 a m by a broken pipeline, this guide uses Apache Ant and Jenkins to get you from source to artifact with minimal drama. We will verify tools, create a simple Ant build file, wire up a Jenkins job, archive artifacts, and run the job. Yes it is boring, and yes it works.</p>
+
+<h2>Verify your tools and environment</h2>
+<p>First prove to the computer that it has Java and Ant installed. Run these commands on the build agent or developer machine.</p>
+<pre><code>java -version
+ant -version
+</code></pre>
+<p>Next confirm Jenkins is reachable at the host and port you expect. If Jenkins is hiding behind a reverse proxy, make friends with whoever set that up. If you have agents, make sure the agent user can run Ant and reach the Java compiler.</p>
+
+<h2>Create a minimal Ant build file</h2>
+<p>Keep the Ant build file simple. Put build.xml under source control with the rest of your code so it does not go missing between coffee breaks.</p>
+<pre><code>&lt;project name="sample" default="jar" basedir="."&gt;
+  &lt;target name="clean"&gt;
+    &lt;delete dir="build"/&gt;
+  &lt;/target&gt;
+
+  &lt;target name="compile" depends="clean"&gt;
+    &lt;mkdir dir="build/classes"/&gt;
+    &lt;javac srcdir="src" destdir="build/classes"/&gt;
+  &lt;/target&gt;
+
+  &lt;target name="jar" depends="compile"&gt;
+    &lt;mkdir dir="dist"/&gt;
+    &lt;jar destfile="dist/myapp.jar" basedir="build/classes"/&gt;
+  &lt;/target&gt;
+&lt;/project&gt;
+</code></pre>
+<p>This gives you three obvious targets, clean, compile, and jar. The javac and jar tasks are the usual suspects for Java projects managed with Ant.</p>
+
+<h2>Create the Jenkins job</h2>
+<p>You have two main paths in Jenkins, a Freestyle project or a Pipeline job. Both work for CI automation with Ant.</p>
+
+<h3>Freestyle job quick setup</h3>
+<ul>
+  <li>New item, choose Freestyle project.</li>
+  <li>Under source code management pick your repository and branch.</li>
+  <li>Add a build step Execute Ant and use targets clean jar or just jar if you like living dangerously.</li>
+  <li>In post build actions select Archive the artifacts and point to dist/*.jar so artifacts are kept.</li>
+</ul>
+
+<h3>Pipeline job example</h3>
+<p>If you prefer a Jenkinsfile in source control here is a compact Declarative Pipeline that runs Ant and archives the result.</p>
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh 'ant clean jar'
+      }
+    }
+  }
+  post {
+    always {
+      archiveArtifacts 'dist/*.jar'
+    }
+  }
+}
+</code></pre>
+<p>On Windows agents change the shell step to bat 'ant clean jar'. The pipeline keeps CI automation configuration next to your code which is a very good habit.</p>
+
+<h2>Add build steps and archive artifacts</h2>
+<p>Archiving artifacts means you can download the jar from Jenkins when someone says it worked on my machine. Configure post build actions in Freestyle jobs or the post block in Pipeline jobs to save your dist folder. Use environment variables in the job or Jenkinsfile to control version numbers or build modes across branches.</p>
+
+<h2>Run the job and inspect results</h2>
+<ul>
+  <li>Trigger a manual build or set up a webhook so pushes start builds automatically.</li>
+  <li>Review the console output for compilation errors and dependency failures. The output tells you what went wrong, even when you do not want to know.</li>
+  <li>Download the archived artifact and verify it runs or deploy it to the next stage of your CI pipeline.</li>
+</ul>
+
+<h2>Tips for less annoying CI</h2>
+<ul>
+  <li>Use a dedicated build user on Jenkins agents, so permissions do not turn into cryptic failures.</li>
+  <li>Keep build.xml and Jenkinsfile under source control with your code for reproducible builds that do not depend on memory or luck.</li>
+  <li>Pin tool versions where possible to avoid surprises when someone updates Ant or Java on the agent.</li>
+</ul>
+
+<p>That is the gist of using Apache Ant with Jenkins to create reliable build jobs for Java projects. It is straightforward, it works, and it will save you time unless you enjoy late night debugging sessions. Now go make CI less dramatic.
+

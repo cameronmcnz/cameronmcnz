@@ -1,0 +1,104 @@
+---
+layout: video
+title: "Introduction to Sqlite for Beginners Full Sqlite3 Tutorial"
+description: "Compact SQLite guide for beginners covering sqlite3 setup creating tables inserting querying and managing local databases."
+video_host: "youtube"
+video_id: "BNUvVDbQ0J0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M51S"
+thumbnail_url: "https://i.ytimg.com/vi/BNUvVDbQ0J0/maxresdefault.jpg"
+content_url: "https://youtu.be/BNUvVDbQ0J0"
+embed_url: "https://www.youtube.com/embed/BNUvVDbQ0J0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - sqlite
+  - sqlite3
+  - database
+  - sql
+  - tutorial
+  - beginners
+  - local database
+  - cli
+  - transactions
+  - indexes
+---
+
+<article>
+  <p>If you want a tiny, zero fuss database for prototypes, local tools, or that one app you refuse to host in the cloud, SQLite3 is your friend who shows up with snacks and fixes things. This guide walks through the sqlite3 CLI, tables, queries, transactions, and indexes with useful tips and a bit of sarcasm to keep you awake.</p>
+
+  <h2>Getting started with sqlite3</h2>
+  <p>Install sqlite3 with your package manager and open the interactive shell with the file name of your database. No admin wizardry required.</p>
+  <pre><code>brew install sqlite
+apt update
+apt install sqlite3
+choco install sqlite
+
+sqlite3 myapp.db</code></pre>
+  <p>Opening sqlite3 myapp.db will drop you into a prompt where you can run SQL directly or use dot commands for shell helpers.</p>
+
+  <h2>Create a table the right way</h2>
+  <p>Make a simple users table and stop trying to overengineer everything. In SQLite the usual pattern is to use an integer primary key and let the engine handle row ids.</p>
+  <pre><code>CREATE TABLE users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  email TEXT
+)</code></pre>
+  <p>If you prefer the lightweight version, id INTEGER PRIMARY KEY without AUTOINCREMENT is fine and often faster.</p>
+
+  <h3>Insert records without SQL injection drama</h3>
+  <p>In the CLI you can paste values directly for quick testing. In application code always use parameter binding. Use question mark placeholders with the sqlite3 adapters to keep your data and pride intact.</p>
+  <pre><code>INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com')
+
+# Python example
+cursor.execute("INSERT INTO users (name, email) VALUES (?, ?)", (name, email))</code></pre>
+
+  <h2>Querying like a slightly less confused person</h2>
+  <p>SELECT is your main tool. Combine WHERE with LIKE, ORDER BY, and LIMIT for predictable results during testing.</p>
+  <pre><code>SELECT id, name, email FROM users WHERE name LIKE 'A%' ORDER BY name LIMIT 10</code></pre>
+  <p>Use LIMIT for quick checks and ORDER BY when you care about deterministic output.</p>
+
+  <h2>Update and delete safely</h2>
+  <p>Do not run destructive commands while sleepy. Always SELECT first to verify the rows you will affect.</p>
+  <pre><code>UPDATE users SET email = 'alice@newdomain.com' WHERE id = 1
+DELETE FROM users WHERE id = 1</code></pre>
+
+  <h2>Transactions for when you do multiple things</h2>
+  <p>Group related changes inside a transaction so you can roll everything back if your plan goes off the rails.</p>
+  <pre><code>BEGIN TRANSACTION
+-- do several updates and inserts
+COMMIT
+-- or
+ROLLBACK</code></pre>
+  <p>Transactions keep your data consistent and your future self from shouting at your past self.</p>
+
+  <h2>Indexes and performance basics</h2>
+  <p>Create indexes on columns you filter on often. This is basic database hygiene.</p>
+  <pre><code>CREATE INDEX idx_users_email ON users(email)</code></pre>
+  <p>Indexes speed up reads at the cost of slower writes and more disk space. Test before you overindex everything.</p>
+
+  <h2>Useful pragmas and shell helpers</h2>
+  <p>Pragma commands let you tune behavior and check settings. These are not magic but they are handy.</p>
+  <pre><code>PRAGMA foreign_keys = ON
+PRAGMA journal_mode = WAL
+PRAGMA synchronous = NORMAL</code></pre>
+  <p>In the sqlite3 shell use .tables to list tables and .schema to inspect structures. Use .backup to make a quick copy before you try anything risky.</p>
+  <pre><code>.tables
+.schema users
+.backup backup.db</code></pre>
+
+  <h2>Best practices summary</h2>
+  <ul>
+    <li>Use parameter binding in app code to avoid SQL injection</li>
+    <li>Run SELECT before UPDATE or DELETE to verify your target rows</li>
+    <li>Wrap multi step changes in transactions for atomicity</li>
+    <li>Create indexes for frequent filters but do not index everything</li>
+    <li>Use PRAGMA settings to enable foreign keys and tune journaling if needed</li>
+    <li>Make a backup with .backup before risky operations</li>
+  </ul>
+
+  <p>That is the practical foundation for working with SQLite3 as a lightweight embedded database. It is fast, simple, and surprisingly feature rich for small projects. Now go create something that does not need a cloud bill and pretend you always intended it that way.</p>
+</article>
+

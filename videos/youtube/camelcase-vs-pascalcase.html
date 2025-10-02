@@ -1,0 +1,63 @@
+---
+layout: video
+title: "CamelCase vs PascalCase"
+description: "Clear comparison of CamelCase and PascalCase with examples and guidance for choosing the right naming style for cleaner code"
+video_host: "youtube"
+video_id: "yPMs2UzTuso"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M41S"
+thumbnail_url: "https://i.ytimg.com/vi/yPMs2UzTuso/maxresdefault.jpg"
+content_url: "https://youtu.be/yPMs2UzTuso"
+embed_url: "https://www.youtube.com/embed/yPMs2UzTuso"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - CamelCase
+  - PascalCase
+  - naming conventions
+  - code style
+  - programming
+  - code readability
+  - JavaScript
+  - CSharp
+  - linters
+  - coding standards
+---
+
+<p>If you have ever squinted at a codebase and wondered which capitalization cult everyone joined then welcome. The one real difference between camelCase and PascalCase is tiny and tragic in its simplicity. camelCase starts with a lowercase letter and PascalCase starts with an uppercase letter. That is it. The rest is etiquette and tribal alignment.</p>
+
+<h2>Quick examples that save arguments</h2>
+<p>Want quick proof without the meeting drama Here are the usual examples people throw at each other</p>
+<ul>
+  <li><code>myVariableName</code> typical lower camel example used for variables and function parameters</li>
+  <li><code>MyClassName</code> typical upper camel example used for classes and public types</li>
+</ul>
+
+<h2>Why the fuss matters for readability and tooling</h2>
+<p>This is not just about looking pretty in screenshots. Naming conventions are how humans and tools guess intent. When you see <code>myHelper</code> you expect a value or a function. When you see <code>MyHelper</code> you suspect a type or constructor. Languages and frameworks lean on these signals so you do not have to guess whether something is a thing you instantiate or a value you pass around.</p>
+
+<h3>Language tendencies to memorize</h3>
+<ul>
+  <li>JavaScript normally uses lower camel for functions and local variables and upper camel for classes and constructor functions</li>
+  <li>CSharp prefers upper camel for most public identifiers including classes and public methods</li>
+  <li>Java follows the same split as JavaScript with lower camel for methods and upper camel for classes</li>
+</ul>
+
+<h2>Practical rules for teams that do not like chaos</h2>
+<p>Pick the convention that matches the ecosystem and use it everywhere. If your repo mixes styles you will get bikeshedding in reviews and weird IDE autocomplete that looks like it is having an identity crisis. Consistency helps humans and linters alike.</p>
+
+<h3>Checklist to make life easier</h3>
+<ul>
+  <li>Choose the project convention based on the main language and framework</li>
+  <li>Enforce the choice with a linter and a short style guide so new contributors do not invent creative chaos</li>
+  <li>Document when exceptions are allowed so reviewers do not turn every file into a referendum</li>
+</ul>
+
+<h2>Small team friendly tips</h2>
+<p>If you need a tiebreaker let the language win. Use lower camel for variables and functions in JavaScript and use PascalCase for classes and exported types in CSharp. Linters and IDEs will do most of the policing so your code reviews can focus on real problems like performance or whether the logger has feelings.</p>
+
+<h2>Summary for the impatient</h2>
+<p>camelCase starts lowercase and is for variables and function parameters. PascalCase starts uppercase and is for classes and public types. Match the convention of your language and enforce it with tooling. Do that and you will save reviewers from arguing about capitalization until the end of time.</p>
+

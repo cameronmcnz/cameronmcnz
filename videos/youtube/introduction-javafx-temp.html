@@ -1,0 +1,88 @@
+---
+layout: video
+title: "introduction javafx temp"
+description: "Quick guide to create a minimal JavaFX template and run a basic GUI window with a single class"
+video_host: "youtube"
+video_id: "i-rdkrpGCfQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M23S"
+thumbnail_url: "https://i.ytimg.com/vi/i-rdkrpGCfQ/maxresdefault.jpg"
+content_url: "https://youtu.be/i-rdkrpGCfQ"
+embed_url: "https://www.youtube.com/embed/i-rdkrpGCfQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - javafx
+  - java
+  - gui
+  - tutorial
+  - javafx template
+  - javafx tutorial
+  - stage
+  - scene
+  - fxml
+  - maven
+---
+
+<p>So you want a JavaFX template that does the heavy lifting and does not make you cry. Good choice. This guide shows a tiny but functional JavaFX setup that gets you from blank IDE to visible window in minutes while keeping things sane for later scaling.</p>
+
+<h2>Why pick this template</h2>
+<p>This minimal approach is great for quick prototypes and teaching the basics of stage scene and UI composition. It keeps business logic out of the UI class and leaves hooks for CSS testing, FXML, and build tools like Maven or Gradle.</p>
+
+<h2>Set up the project</h2>
+<p>Use JDK 11 or higher so modern JavaFX modules behave themselves. You can either download the JavaFX SDK from Gluon or add a managed dependency from the OpenJFX artifacts. If you use an IDE remember to pass the VM options so the runtime can find the JavaFX modules when the SDK is external.</p>
+
+<ul>
+  <li>Choose plain Java for quick work or a module aware setup for production safety</li>
+  <li>Use module path or classpath depending on your project style</li>
+  <li>Add meaningful fx ids to nodes for testing and CSS targeting</li>
+</ul>
+
+<h2>Build the Main class</h2>
+<p>Keep the Main class focused on creating the stage and scene. Do not stuff business rules into start. Here is a stripped down example that shows the anatomy without drowning you in boilerplate.</p>
+
+<pre><code>public class Main extends Application {
+  public void start(Stage primaryStage) {
+    Button btn = new Button("Hello")
+    Scene scene = new Scene(new StackPane(btn), 300, 200)
+    primaryStage.setScene(scene)
+    primaryStage.show()
+  }
+
+  public static void main(String[] args) {
+    launch(args)
+  }
+}
+</code></pre>
+
+<p>Yes that code omits heavy ceremony on purpose. In a real app you will split UI creation into methods or separate controller classes and possibly load an FXML file with FXMLLoader.</p>
+
+<h2>Compose the scene and style it</h2>
+<p>Assemble nodes into layout containers like BorderPane VBox HBox or StackPane. Use CSS files for styling so you avoid painting directly in code. Give nodes ids and style classes to make later refactors less annoying.</p>
+
+<ul>
+  <li>Layout first, polish later with CSS</li>
+  <li>Use pref widths and heights for predictable testing</li>
+  <li>Keep animation and long running tasks off the JavaFX application thread</li>
+</ul>
+
+<h3>Example CSS hint</h3>
+<p>Create a style sheet and attach it to the scene for quick theming. Use -fx prefixes as usual and target ids for deterministic results in tests.</p>
+
+<h2>Run and troubleshoot</h2>
+<p>If the window does not appear check your VM arguments and module path settings. The console usually tells you what is missing. Common problems are mismatched Java version missing JavaFX modules or forgetting the VM flags when using an external SDK.</p>
+
+<ul>
+  <li>Verify JDK and JavaFX versions match your expectations</li>
+  <li>Check console for module not found messages</li>
+  <li>Try running a minimal example to isolate environmental issues</li>
+</ul>
+
+<h2>Nail the build</h2>
+<p>Use Maven or Gradle to manage JavaFX dependencies in a reproducible way. Add OpenJFX artifacts and configure your plugin or run tasks to package a runtime image when you need distribution. This keeps you from repeating the same setup misery on CI or a teammate machine.</p>
+
+<h2>Wrap up</h2>
+<p>This compact template gives you a fast path to a visible JavaFX window while leaving room for FXML controllers CSS based styling and proper build tool setup. It is clean enough to teach and practical enough to bootstrap a real app. Now go make a button do something wildly useful or at least mildly entertaining.</p>
+

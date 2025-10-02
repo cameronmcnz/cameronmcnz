@@ -1,0 +1,103 @@
+---
+layout: video
+title: "How to Install Jenkins and Build CI/CD Pipelines on Windows"
+description: "Step by step guide to install Jenkins on Windows and create CI CD pipelines for automated builds tests and deployments"
+video_host: "youtube"
+video_id: "M5nOIklD7SA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT36M4S"
+thumbnail_url: "https://i.ytimg.com/vi/M5nOIklD7SA/maxresdefault.jpg"
+content_url: "https://youtu.be/M5nOIklD7SA"
+embed_url: "https://www.youtube.com/embed/M5nOIklD7SA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Windows
+  - CI CD
+  - Continuous Integration
+  - Continuous Delivery
+  - Pipeline
+  - DevOps
+  - Automation
+  - Build
+  - Jenkinsfile
+---
+
+<h2>Why this exists</h2>
+<p>If you want Jenkins running on Windows and doing your CI CD heavy lifting without a soap opera worthy amount of drama then you are in the right place. This guide walks through installation, basic configuration, a starter Jenkinsfile and the usual bits that trip people up when they try to get Continuous Integration and Continuous Delivery working on a Windows host.</p>
+
+<h2>Quick checklist before we get messy</h2>
+<ul>
+  <li>Install a supported Java runtime, like OpenJDK 11 or 17</li>
+  <li>Download the Jenkins Windows installer or use a package manager such as Chocolatey</li>
+  <li>Decide where Jenkins home will live and who gets to touch it</li>
+  <li>Have repository access and credentials ready for Git or your SCM</li>
+</ul>
+
+<h2>Install Java and Jenkins</h2>
+<p>Jenkins needs Java so install a supported runtime first. Pick OpenJDK 11 or 17 for stability. Then grab the Jenkins Windows installer from the official site or use a package manager if you like automation and mild self satisfaction.</p>
+<p>The installer will create a Jenkins home directory and write an initial admin password file for first time login. Keep that file safe or at least pretend you found it on purpose.</p>
+
+<h2>Start the service and finish the setup</h2>
+<p>Start the Jenkins service from the Windows Services app or let the installer do it for you. The setup wizard will offer a pile of recommended plugins. Yes that is a lot but yes you probably want most of them if you plan to do CI CD and pipeline visualizations.</p>
+<p>Create an admin user during the wizard. Then configure system settings and set a sensible home path for build agents. If you plan to scale with multiple Windows agents label them appropriately so builds land on machines that know how to run your tooling.</p>
+
+<h2>Create a pipeline job and use a Jenkinsfile</h2>
+<p>From New Item choose a pipeline and pick the declarative pipeline option for readable pipeline as code. Declarative pipelines are less mystical and easier to onboard your teammates with.</p>
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Building'
+      }
+    }
+    stage('Test') {
+      steps {
+        echo 'Running tests'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Deploying'
+      }
+    }
+  }
+  post {
+    always {
+      echo 'Pipeline finished'
+    }
+  }
+}
+</code></pre>
+<p>Put that Jenkinsfile in your repository or paste it into the pipeline job definition to get started. This keeps your pipeline in version control and makes rollbacks less awkward.</p>
+
+<h2>Connect source control and manage credentials</h2>
+<p>Install the Git plugin and add credentials into the Jenkins credentials store. Use the credentials ID in the pipeline job configuration or let multibranch pipeline autodiscover branches if you want fewer clicks and more automation.</p>
+<p>Test repository cloning from Jenkins to confirm access. If Jenkins cannot clone you will see the error in the console log and your will to debug will be tested.</p>
+
+<h2>Define build test and deploy stages</h2>
+<p>Split the pipeline into clear stages for build test and deploy. Use agents to target Windows specific steps and label agents so jobs land on the correct platform. Keep secrets out of code and in the credentials plugin to avoid landing on the security leaderboard for all the wrong reasons.</p>
+<ul>
+  <li>Build stage runs compile and packaging commands for your project</li>
+  <li>Test stage runs unit and integration tests with your chosen runner</li>
+  <li>Deploy stage publishes artifacts to your artifact store or runs deployment scripts</li>
+</ul>
+
+<h2>Run pipelines and watch the logs</h2>
+<p>Trigger a build manually or configure webhooks from your source control provider to kick off builds automatically. Watch the console output for errors. If you prefer pretty visuals try the Blue Ocean plugin for a nicer pipeline UI.</p>
+<p>As load grows add more agents and tune executors. Jenkins scales horizontally by adding agents and labeling them for platform matching. That is how you go from single machine to a functioning DevOps carpet of automated workers.</p>
+
+<h2>Final tips that save time and reputation</h2>
+<ul>
+  <li>Keep credentials in the Jenkins credentials store and never hard code secrets in the Jenkinsfile</li>
+  <li>Use declarative pipelines for readable pipeline as code that your team can understand</li>
+  <li>Run agents with the tools and SDK versions your builds expect to avoid mysterious failures</li>
+  <li>Install only the plugins you need and keep Jenkins updated for security and stability</li>
+</ul>
+
+<p>This guide covered installing Jenkins on Windows setting up a basic declarative pipeline connecting source control and running builds tests and deployments. Follow these steps and your CI CD will be far more predictable than a human sprint retro.</p>
+

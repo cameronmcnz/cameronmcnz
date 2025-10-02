@@ -1,0 +1,76 @@
+---
+layout: video
+title: "git stash untracked files example"
+description: "Learn how to stash untracked files in git with clear commands and examples to keep new files safe when switching branches"
+video_host: "youtube"
+video_id: "WJSKompBwds"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M32S"
+thumbnail_url: "https://i.ytimg.com/vi/WJSKompBwds/maxresdefault.jpg"
+content_url: "https://youtu.be/WJSKompBwds"
+embed_url: "https://www.youtube.com/embed/WJSKompBwds"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git stash
+  - untracked files
+  - git tutorial
+  - version control
+  - stash untracked
+  - git stash -u
+  - developer tips
+  - command line
+  - git workflow
+---
+
+<h2>Why stash untracked files</h2>
+<p>If you are juggling branches and you added new files that are not yet tracked, you do not have to choose between losing work and creating a messy commit. Git stash can hide those new files while you switch branches and then bring them back when you are ready. This guide shows the exact commands and a few survival tips so your future self does not curse you.</p>
+
+<h2>See what is sitting in your working tree</h2>
+<p>Before hiding anything use the command line to check the situation. That way you know which files are tracked and which ones are fresh and untracked.</p>
+
+<pre><code>git status</code></pre>
+
+<p>git status lists modified tracked files and new untracked files by name. No guessing, no panic.</p>
+
+<h2>Create a stash that includes untracked files</h2>
+<p>The default stash only saves tracked changes. If you want to stash new files as well use the untracked flag. For example this will save tracked edits and new files that are not ignored.</p>
+
+<pre><code>git stash push -u -m "WIP untracked"</code></pre>
+
+<p>If you also want to stash ignored files for a moment use the all flag. Handle that with care because ignored files are ignored for a reason, usually to keep secrets or noise out of source control.</p>
+
+<pre><code>git stash push --all -m "WIP including ignored"</code></pre>
+
+<h2>Confirm what went into the stash</h2>
+<p>Stashes are cheap and reversible but it is polite to check what you stashed before you start applying stuff. The stash list shows entries and their messages. The stash show command gives a quick diff preview so you can confirm the right files were captured.</p>
+
+<pre><code>git stash list
+
+git stash show -p stash@{0}</code></pre>
+
+<h2>Restore your files when ready</h2>
+<p>Pick your favorite method. If you want the stash to remain available use apply. If you want to reapply and remove the stash use pop. Either way you can handle conflicts the same way you handle regular merge conflicts.</p>
+
+<ul>
+  <li>Reapply and keep the stash entry: <pre><code>git stash apply stash@{0}</code></pre></li>
+  <li>Reapply and remove the stash entry: <pre><code>git stash pop</code></pre></li>
+  <li>Remove an entry you no longer need: <pre><code>git stash drop stash@{0}</code></pre></li>
+</ul>
+
+<h2>Common gotchas and tips</h2>
+<ul>
+  <li>Give stashes clear messages so your future self does not have to play detective.</li>
+  <li>Stashes are local to the repository. They are not pushed to remote so do not rely on them for backups.</li>
+  <li>If git stash pop reports conflicts resolve them and then git add the files before committing.</li>
+  <li>If you are worried about losing work create a branch instead of stashing (this is the less dramatic option).</li>
+</ul>
+
+<h3>Short workflow recap</h3>
+<p>Check status, stash with -u if you need new files saved, inspect the stash, then git stash apply or git stash pop to recover. Drop the stash when you are done to keep the list tidy and your repo from becoming a graveyard of old experiments.</p>
+
+<p>Now go do the thing you needed to switch branches for and try not to forget you stashed stuff. If you do forget it at least you have a good excuse the next time your teammates ask where that file went.</p>
+

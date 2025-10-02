@@ -1,0 +1,75 @@
+---
+layout: video
+title: "REST URLs and HTTP Verbs Explained"
+description: "Clear guide to REST URLs and HTTP verbs GET POST PUT DELETE HEAD PATCH for building and debugging web APIs"
+video_host: "youtube"
+video_id: "L1DU13XiogA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT13M26S"
+thumbnail_url: "https://i.ytimg.com/vi/L1DU13XiogA/maxresdefault.jpg"
+content_url: "https://youtu.be/L1DU13XiogA"
+embed_url: "https://www.youtube.com/embed/L1DU13XiogA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - REST
+  - HTTP
+  - GET
+  - POST
+  - PUT
+  - DELETE
+  - PATCH
+  - HEAD
+  - APIs
+  - WebDevelopment
+---
+
+<p>If you are reading this you probably like telling computers what to do and then watching them ignore you. Calm down, that is normal. REST is basically a polite argument between clients and servers where URLs name things and HTTP methods do the heavy lifting. Get the nouns right and the verbs will behave.</p>
+
+<h2>URLs are nouns and HTTP methods are verbs</h2>
+<p>Think of a URL as a noun that points to a resource. Use plural nouns for collections and hierarchical segments for relationships. That means paths like <code>/users</code> and <code>/users/123/posts/456</code> are sensible. Avoid embedding verbs in path segments. You do not need <code>/getUser</code> unless you want to cause grief.</p>
+
+<h3>Example patterns that do not lie</h3>
+<pre><code>GET    /users          retrieves a collection or list of users
+GET    /users/123      retrieves user 123
+POST   /users          creates a new user under the users collection
+PUT    /users/123      replaces user 123 fully
+PATCH  /users/123      applies a partial update to user 123
+DELETE /users/123      removes user 123
+HEAD   /users/123      checks headers without the body</code></pre>
+
+<h2>GET and HEAD behave when you do not make them cry</h2>
+<p>GET is safe and cacheable when your responses allow caching. That means no naughty side effects like changing state when someone asks for data. HEAD is like GET but without the body. It is useful for checking headers, existence, or caching metadata before you waste bandwidth on a full download.</p>
+
+<h2>POST is the messy one and idempotency is your friend</h2>
+<p>POST creates things. It is not idempotent by default, which means retries may produce duplicates. If clients might retry requests, design your server to accept an idempotency key or token with POST requests. This saves support tickets and passive aggressive emails.</p>
+
+<h2>PUT replaces, PATCH edits, DELETE vanishes</h2>
+<p>PUT replaces the whole resource, so you send the full user object when you use PUT. PUT is idempotent, so repeating the same PUT leaves the resource in the same state. PATCH is for deltas. Use it when you only want to change a few fields and avoid re-sending the entire resource. DELETE typically behaves idempotently because deleting something twice still leaves it gone.</p>
+
+<h3>When to pick which method</h3>
+<ul>
+  <li>Use GET for reads and for operations that can be cached safely</li>
+  <li>Use POST to create when the server assigns identifiers or when actions are inherently non idempotent</li>
+  <li>Use PUT when you can send a full representation and you want idempotency</li>
+  <li>Use PATCH for partial updates and smaller payloads</li>
+  <li>Use DELETE to remove resources</li>
+  <li>Use HEAD for quick existence checks or to inspect response headers</li>
+</ul>
+
+<h2>Status codes that do the talking</h2>
+<p>Return meaningful status codes so clients do not have to guess. 200 means success with a body. 201 signals a created resource. 204 is success with no body. 404 means not found. 409 hints at conflicts. Pick the right code and you will make life easier for everyone who has to integrate with your API.</p>
+
+<h2>Practical rules to stop accidental chaos</h2>
+<ul>
+  <li>Use nouns for paths and avoid verbs in path segments</li>
+  <li>Use query parameters for filtering and paging, not for actions</li>
+  <li>Prefer idempotent methods for operations that may be retried by clients</li>
+  <li>Accept an idempotency key on POST for non idempotent operations that clients may retry</li>
+  <li>Document behavior for caching, conditional requests, and error responses so nobody has to reverse engineer your intentions</li>
+</ul>
+
+<p>In short, model your REST API around resources, pick HTTP methods that match intent, and be kind to clients by being predictable. Do that and your APIs will be less likely to ignite passive aggressive bug reports. If you slip up, fix the design rather than sending angry emails.</p>
+

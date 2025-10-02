@@ -1,0 +1,66 @@
+---
+layout: video
+title: "How to Delete Folders from Git repos"
+description: "Quick guide to remove folders from a Git repo safely including staging removal committing pushing and history rewrite options"
+video_host: "youtube"
+video_id: "ca_-OXBQtGw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M42S"
+thumbnail_url: "https://i.ytimg.com/vi/ca_-OXBQtGw/maxresdefault.jpg"
+content_url: "https://youtu.be/ca_-OXBQtGw"
+embed_url: "https://www.youtube.com/embed/ca_-OXBQtGw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - git rm
+  - git filter-repo
+  - git filter-branch
+  - BFG
+  - remove folder
+  - force push
+  - git history
+  - version control
+---
+
+<h2>What this does and why</h2>
+<p>So you added a folder full of secrets or junk and now you want it gone like it never existed. This guide shows the practical steps to remove a tracked folder from a Git or GitHub repo and when you need to go nuclear and scrub that folder from git history. No miracles here just correct commands and a small amount of regret management.</p>
+
+<h2>Remove a tracked folder and push the change</h2>
+<p>If the folder is only in the latest commits you do not need to rewrite history. Remove it from the working tree and stage the removal with git rm. Commit with a clear message so future archaeologists do not misinterpret your motives.</p>
+<pre><code>git rm -r path/to/folder
+git commit -m 'Remove unwanted folder'
+git push origin main</code></pre>
+<p>If the branch is protected follow your team rules first. A forced change to a protected branch is a good way to get paged at 2am.</p>
+
+<h2>When you need to wipe the folder from history</h2>
+<p>When the folder appears in older commits you must rewrite git history. That changes commit ids and will force collaborators to rebase or reclone. Use modern tools for speed and safety and always work on a mirror copy first.</p>
+
+<h3>Using git filter repo for a surgical scrub</h3>
+<p>git filter repo is fast and reliable for removing paths from an entire repository timeline. Work against a mirror clone so you do not break your main copy while testing.</p>
+<pre><code>git clone --mirror git@example.com repo.git
+git filter-repo --path path/to/folder --invert-paths
+git push --force --all</code></pre>
+
+<h3>Using the BFG for large files and folders</h3>
+<p>BFG can be simpler when you have many large files to excise. It wraps a lot of the git plumbing and often finishes faster.</p>
+<pre><code>bfg --delete-folders foldername repo.git
+git push --force --all</code></pre>
+
+<h2>Notes on older tools and why they exist</h2>
+<p>git filter-branch still works but it is slow and fiddly. Use it only if you have a reason to stick to the old ways. For most jobs use git filter repo or BFG instead.</p>
+
+<h2>Warnings and best practices</h2>
+<ul>
+<li>Create a mirror clone before any history rewrite. Test your commands on the mirror so you do not spend the rest of the week apologizing.</li>
+<li>Rewrite history will change commit ids. Expect collaborators to rebase or reclone their forks and branches.</li>
+<li>Protected branches may block pushes. Follow your team policy and coordinate changes to avoid surprise outages.</li>
+<li>Notify your team and schedule a window for the work if the repo is actively used. This is not the time to be a lone cowboy.</li>
+</ul>
+
+<h2>Final tip</h2>
+<p>Removing a folder locally is easy. Removing it from history is a serious change to your version control timeline. Back up, test on a mirror, and tell your coworkers before you force push. If anything goes wrong you will have the backup and a perfectly reasonable excuse to blame a mysterious script.</p>
+

@@ -1,0 +1,77 @@
+---
+layout: video
+title: "Git Reset Hard"
+description: "Learn how to use git reset --hard safely to discard changes move HEAD and recover using reflog"
+video_host: "youtube"
+video_id: "0jQ_cYlDpVw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/0jQ_cYlDpVw/maxresdefault.jpg"
+content_url: "https://youtu.be/0jQ_cYlDpVw"
+embed_url: "https://www.youtube.com/embed/0jQ_cYlDpVw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git reset
+  - git reset hard
+  - git tutorial
+  - version control
+  - reflog
+  - git safety
+  - force push
+  - command line
+  - recover commits
+---
+
+<p>If you like living on the edge and you use version control then <strong>git reset --hard</strong> is the thrill ride that also deletes your picnic basket. This guide will show the safe, sarcastic and technically correct way to move HEAD and force the working tree to match a commit while leaving you a path back when you mess up.</p>
+
+<h2>Check the repo and save your work</h2>
+<p>Before you do anything heroic or regretful run <code>git status</code> and see what is about to be nuked. If you want the changes later either commit them or stash them. No drama is the point here.</p>
+<pre><code>git status
+# to keep changes
+git add .
+git commit -m "WIP save before reset"
+# or to stash and hide the evidence
+git stash push -m "WIP before reset"
+</code></pre>
+
+<h2>Pick the target commit</h2>
+<p>Find the commit you actually want to end up at. Use <code>git log --oneline</code> for a compact view. Look at the message and diff to make sure it is not a mirage.</p>
+<pre><code>git log --oneline --decorate --graph
+# inspect a commit if you need to be extra sure
+git show COMMIT_HASH
+</code></pre>
+
+<h2>Run the hard reset</h2>
+<p>When you are certain run the reset command. This moves HEAD and forces the index and working tree to match that commit. If you have uncommitted work it will be discarded without mercy.</p>
+<pre><code>git reset --hard COMMIT_HASH
+</code></pre>
+<p>Yes it is brutal. No it will not send you a warning message. That is why you saved your work earlier.</p>
+
+<h2>Update the remote safely</h2>
+<p>If the branch you rewrote was already pushed to a shared remote you need to update the remote too. Use force with lease to reduce the chance of trashing other peoples work. It is not a perfect safety net but it helps.</p>
+<pre><code>git push --force-with-lease origin your-branch-name
+</code></pre>
+<p>If you are the kind of person who likes to break history in public warn your team first and coordinate a tiny funeral for the old commits.</p>
+
+<h2>Recover lost commits with reflog</h2>
+<p>If something went wrong and you need to roll back the reset the reflog is your emergency parachute. It records where HEAD has been for a limited time.</p>
+<pre><code>git reflog
+# find the HEAD entry you want then
+git reset --hard HEAD@{n}
+</code></pre>
+<p>Reflog entries expire so do not rely on it as a permanent backup. Still it is a lifesaver when you realize five minutes too late that you reset the wrong branch.</p>
+
+<h3>Quick safety checklist</h3>
+<ul>
+  <li>Create a temporary branch before a hard reset with <code>git branch backup</code> if you want a manual undo point</li>
+  <li>Prefer <code>--force-with-lease</code> over raw force when pushing to shared branches</li>
+  <li>Use <code>git stash</code> or commits to preserve WIP</li>
+  <li>Tell your teammates when you rewrite history so they do not debug ghost commits</li>
+</ul>
+
+<p>Summary in plain words Keep calm and save your work first Inspect the target commit Reset with respect for the damage you can do Push with lease to avoid stomping others and use reflog for recovery when courage fails. If nothing else remember that backup branches are cheap and pride can be rebuilt.</p>
+

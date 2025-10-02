@@ -1,0 +1,88 @@
+---
+layout: video
+title: "JFrog artifactory tutorial Download setup and JAR deployment"
+description: "Guide to download setup JFrog Artifactory and deploy JARs with Maven repository setup permissions and verification steps"
+video_host: "youtube"
+video_id: "F-Tb0OFaaKQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M33S"
+thumbnail_url: "https://i.ytimg.com/vi/F-Tb0OFaaKQ/maxresdefault.jpg"
+content_url: "https://youtu.be/F-Tb0OFaaKQ"
+embed_url: "https://www.youtube.com/embed/F-Tb0OFaaKQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - jfrog
+  - artifactory
+  - jar
+  - maven
+  - repository
+  - deployment
+  - setup
+  - devops
+  - tutorial
+  - automation
+---
+
+<p>If you want to stop emailing JARs to teammates and pretending that is version control then this guide will get a local JFrog Artifactory running and accept Maven JAR uploads in a few practical steps. No snake oil required just a bit of setup and a few clicks in the UI.</p>
+
+<h2>Download and install Artifactory</h2>
+<p>Head to the JFrog site and pick OSS or Pro depending on how fancy your team is. For quick developer testing grab the zip or tarball and extract it on your machine. If you are on a server use the platform specific installer so the service survives reboots and yells less at you.</p>
+<p>Start the server with the provided startup script or the system service command that matches your distro. Then open the web UI in a browser and follow the initial admin setup and password change prompts. Yes the UI will nag you and that is normal. Do not skip the admin password step unless you enjoy chaos.</p>
+
+<h2>Create a local Maven repository</h2>
+<p>In the Artifactory admin area create a new local repository with Maven layout. Use a clear name that follows your naming convention. Good names stop people from accidentally overwriting production artifacts with their experimental builds.</p>
+<ul>
+  <li>Grant deploy permissions to a dedicated service account or CI user</li>
+  <li>Set any required property or layout rules for group and artifact coordinates</li>
+  <li>Enable checksum calculation to make verification easier later</li>
+</ul>
+
+<h2>Configure Maven for deployment</h2>
+<p>Point your Maven client at the new Artifactory repo by adding a server entry to your Maven settings and a distributionManagement block to your project POM. Use a non interactive account for CI that has only the rights it actually needs.</p>
+<h3>Example settings entry</h3>
+<pre><code>&lt;settings&gt;
+  &lt;servers&gt;
+    &lt;server&gt;
+      &lt;id&gt;local&lt;/id&gt;
+      &lt;username&gt;deploy&lt;/username&gt;
+      &lt;password&gt;secret&lt;/password&gt;
+    &lt;/server&gt;
+  &lt;/servers&gt;
+&lt;/settings&gt;
+</code></pre>
+<h3>Example distribution management in pom</h3>
+<pre><code>&lt;distributionManagement&gt;
+  &lt;repository&gt;
+    &lt;id&gt;local&lt;/id&gt;
+    &lt;url&gt;https://artifactory.example.com/artifactory/my-maven-local&lt;/url&gt;
+  &lt;/repository&gt;
+&lt;/distributionManagement&gt;
+</code></pre>
+<p>Once configured you can push a single JAR with the familiar Maven command. Replace REPO_URL with the full repository path from the Artifactory UI and make sure repositoryId matches the id in settings.xml.</p>
+<pre><code>mvn deploy -Dfile=target/my.jar -Durl=REPO_URL -DrepositoryId=local</code></pre>
+
+<h2>Verify the deployed artifact and troubleshoot</h2>
+<p>Open the Artifactory UI and browse your repository. You should see the artifact under the expected group and artifact coordinates with checksum files and metadata. If anything looks amiss check the artifact checksum and the generated maven metadata.</p>
+<ul>
+  <li>If deployment fails inspect the Artifactory server logs for errors and stack traces</li>
+  <li>Confirm the deploying user has write and deploy permissions for the target repo</li>
+  <li>Check network or proxy issues between your build agent and Artifactory</li>
+</ul>
+
+<h2>Automation and CI tips</h2>
+<p>Once the manual workflow works plug this into your CI pipeline for automated builds and releases. Use a CI service account or an encrypted credentials store so you are not embedding passwords in plain text. Artifactory plays nicely with Maven and most CI tools so you can automate JAR uploads and promote builds without finger crossing.</p>
+
+<h2>Quick checklist before you call it done</h2>
+<ul>
+  <li>Artifactory is reachable and the web UI is accessible</li>
+  <li>Repository naming follows your convention and permissions are trimmed</li>
+  <li>Maven settings.xml contains the correct server id and credentials</li>
+  <li>POM distribution management points at the right repository URL</li>
+  <li>Uploaded JAR appears in the UI with checksums and metadata</li>
+</ul>
+
+<p>There you go. You now have a repeatable JFrog Artifactory setup and a reliable Maven JAR deployment flow that will save your team time and reduce the number of mystery JARs floating around inboxes. If you want CI integration or replication between Artifactory instances that is the next chapter and much of it can be automated with CI pipelines or Infrastructure as Code.</p>
+

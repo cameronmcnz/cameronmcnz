@@ -1,0 +1,70 @@
+---
+layout: video
+title: "How to add multiple git worktrees to your repo example"
+description: "Quick guide to add multiple git worktrees so different branches can be worked on at once without checkout conflicts."
+video_host: "youtube"
+video_id: "qKCHSOQYRQI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M12S"
+thumbnail_url: "https://i.ytimg.com/vi/qKCHSOQYRQI/maxresdefault.jpg"
+content_url: "https://youtu.be/qKCHSOQYRQI"
+embed_url: "https://www.youtube.com/embed/qKCHSOQYRQI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - worktree
+  - git worktree
+  - multiple worktrees
+  - git tutorial
+  - branching
+  - developer workflow
+  - git commands
+  - repository
+  - CLI
+---
+
+<p>Yes you can stop juggling checkouts like a circus act. With <strong>git worktree</strong> you can have multiple worktrees so different branches live in different folders and you never accidentally commit to the wrong branch again. This is pure developer hygiene and a tiny rebellion against endless context switching in the CLI.</p>
+
+<h2>Prepare your repository</h2>
+<p>Before you summon extra worktrees make sure your repository is clean and the branch you want exists or can be created. Use the familiar Git commands in the repo root to avoid surprises.</p>
+<ul>
+  <li>Confirm no uncommitted changes with <code>git status</code></li>
+  <li>Create a branch up front if you need to with <code>git branch feature-branch</code> or create it from a commit or remote when you add the worktree</li>
+</ul>
+
+<h2>Create a new worktree</h2>
+<p>Adding a worktree is basically asking Git to give you a sibling folder with its own checkout. It links back to the same repository so you do not need another clone and you keep objects shared on disk.</p>
+<pre><code>git worktree add ../feature-branch feature-branch</code></pre>
+<p>That example creates a folder next to your current repo named <code>../feature-branch</code> and checks out the branch called <code>feature-branch</code> there. If the branch does not exist and you created it earlier Git will use it. If you create it on the fly Git will place the branch in the new worktree.</p>
+
+<h3>What actually happens</h3>
+<ul>
+  <li>A separate working directory appears in the sibling folder</li>
+  <li>Commits are stored in the same object store but the checkouts are independent</li>
+  <li>You can run editors tests and build tasks in each worktree without switching branches</li>
+</ul>
+
+<h2>Work inside the new worktree</h2>
+<p>Use the worktree just like a normal checkout. Run <code>git status</code> and <code>git commit</code> inside the worktree folder. Branch operations behave the same as in a clone. The main difference is that the main repo and the worktree are separate checkouts so you can keep one for an integration branch and another for a quick fix or experimental feature.</p>
+
+<h2>Clean up when a worktree is no longer needed</h2>
+<p>When you are done remove the linked checkout so Git does not keep stale metadata around. If the branch is no longer needed delete or merge it so it does not become an orphan.</p>
+<pre><code>git worktree remove ../feature-branch
+# then optionally
+git worktree prune
+</code></pre>
+<p><code>git worktree prune</code> removes stale references to worktrees that are gone. Remember to delete or merge branches you no longer need to keep the repository tidy.</p>
+
+<h2>Developer workflow tips that actually help</h2>
+<ul>
+  <li>Name each worktree folder to match the branch so shells editors and CI do not lie to you</li>
+  <li>Run long running tasks like tests or builds in their own worktree so they do not block quick edits</li>
+  <li>Prune stale worktrees periodically to avoid confusion and stale refs</li>
+  <li>Use multiple worktrees when you need parallelism not just for the novelty</li>
+</ul>
+
+<p>Multiple worktrees speed up multitasking because you can keep context for each branch in its own folder. That reduces accidental commits on the wrong branch and makes parallel development with Git less painful. Go forth and branch responsibly.</p>
+

@@ -1,0 +1,70 @@
+---
+layout: video
+title: "How to Use the Git Submodule Init and Update Command by Exam"
+description: "Learn how to initialize and update Git submodules with commands and examples to fetch nested repositories and keep them synced"
+video_host: "youtube"
+video_id: "i7lRIICGPts"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M2S"
+thumbnail_url: "https://i.ytimg.com/vi/i7lRIICGPts/maxresdefault.jpg"
+content_url: "https://youtu.be/i7lRIICGPts"
+embed_url: "https://www.youtube.com/embed/i7lRIICGPts"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git-submodule
+  - submodule
+  - git-init
+  - git-update
+  - version-control
+  - devops
+  - git-tutorial
+  - git-commands
+  - repository
+---
+
+<h2>Why submodules exist and why they annoy you</h2>
+<p>Git submodule is a way to embed one repository inside another. It is great for sharing a library across projects but it also creates an extra layer of surprises when you clone a repo and the nested repositories are missing. If you want predictable nested repositories you need to know the init and update commands and a few best practices from this devops friendly tutorial.</p>
+
+<h2>Initialize submodules without a surprise network hit</h2>
+<p>Running <code>git submodule init</code> tells your local Git about the submodule paths listed in the superproject. It does not fetch any data. That means no bandwidth and no immediate changes to your working tree. Think of it as setting up an index card with the address of the house you are about to visit.</p>
+
+<pre><code>git submodule init</code></pre>
+
+<h2>Fetch and checkout the exact recorded commit</h2>
+<p>To actually download the nested repository files run <code>git submodule update</code>. This command fetches the commits that the superproject points at and checks out the exact commit inside the submodule working tree. That exact commit behavior is why many submodules appear in a detached HEAD state. This is intentional. It ensures the superproject reproduces the same nested state every time.</p>
+
+<pre><code>git submodule update
+# combine setup and fetch for all nested repos
+git submodule update --init --recursive</code></pre>
+
+<h3>When you need a branch instead of a fixed commit</h3>
+<p>Submodules record commits not branches. If you want the submodule to follow a branch you have two options. Either enter the submodule and switch to the branch then pull, or use the remote option to update from the configured branch. The commands are simple and boring but effective.</p>
+
+<pre><code># update submodules to track the configured remote branch
+git submodule update --remote
+
+# or inside the submodule do this
+cd path/to/submodule
+git fetch
+git checkout main
+git pull</code></pre>
+
+<h2>Clone right the first time</h2>
+<p>When cloning a repository that contains submodules use recursion so you do not have to run extra steps later. This is a tiny trick that saves you from manual fiddling and mild profanity in team chats.</p>
+
+<pre><code>git clone --recurse-submodules &lt;repository-url&gt;</code></pre>
+
+<h2>Quick troubleshooting tips</h2>
+<ul>
+  <li>Run <code>git submodule status</code> to see which submodules are at detached commits or out of sync</li>
+  <li>Use <code>git submodule update --init --recursive</code> as a one line cure for missing nested content</li>
+  <li>If a submodule needs to move to a branch enter its folder and run fetch and checkout as shown above</li>
+</ul>
+
+<h2>Summary for people who skim</h2>
+<p>Register submodules locally with <code>git submodule init</code>. Fetch and check out the recorded states with <code>git submodule update</code>. Combine init and fetch and handle nested submodules with <code>--init --recursive</code> or avoid manual steps by cloning with <code>--recurse-submodules</code>. Remember that submodules point to commits not branches so updating to a branch requires extra steps or the <code>--remote</code> option. Use <code>git submodule status</code> for a quick health check. Now go forth and manage nested repositories like a slightly less chaotic human.</p>
+

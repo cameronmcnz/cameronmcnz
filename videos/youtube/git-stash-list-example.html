@@ -1,0 +1,77 @@
+---
+layout: video
+title: "git stash list example"
+description: "Quick guide to using git stash list to view inspect and manage saved changes with practical commands and examples"
+video_host: "youtube"
+video_id: "PpPM5GnoVTI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M6S"
+thumbnail_url: "https://i.ytimg.com/vi/PpPM5GnoVTI/maxresdefault.jpg"
+content_url: "https://youtu.be/PpPM5GnoVTI"
+embed_url: "https://www.youtube.com/embed/PpPM5GnoVTI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git stash
+  - git
+  - git stash list
+  - stash
+  - git tutorial
+  - version control
+  - git commands
+  - stash show
+  - stash apply
+  - stash pop
+---
+
+<p>Welcome to the fine art of stash maintenance where you pretend you were working on a feature and not debugging the build for three hours. <code>git stash list</code> is your inventory command when half finished work needs to be parked and you need to look sane to your future self.</p>
+
+<h2>Quick stash inventory</h2>
+<p>Run <code>git stash list</code> to see what you have saved. The output gives a numbered stack that looks like a bulletin board for abandoned ideas. Example output might look like this</p>
+<pre><code>stash@{0} - WIP on main 9b3f2c Fix layout glitch
+stash@{1} - WIP on feature/auth work in progress
+stash@{2} - WIP on experiment quick test</code></pre>
+<p>Each entry is an index you can reference, like stash@{0} or stash@{1}. Naming stashes with a message makes life less cryptic and helps you avoid applying the wrong pile of code at the worst possible moment.</p>
+
+<h2>Inspect a stash before you touch it</h2>
+<p>If you do not want surprises run <code>git stash show -p stash@{0}</code> to view the full patch. That shows the exact hunks that were saved so you can decide if you want everything or only a part.</p>
+<p>If you only need a quick summary use <code>git stash show stash@{0}</code> which gives a one line diffstat style summary. Use the full patch when you plan to cherry pick hunks or worry about conflicts.</p>
+
+<h2>Apply or pop depending on how reckless you feel</h2>
+<p>Use these commands based on how tidy you want your stash list to remain</p>
+<ul>
+  <li><code>git stash apply stash@{1}</code> reapplies changes and keeps the stash in the list for later</li>
+  <li><code>git stash pop</code> reapplies the top stash and removes it from the list in one move</li>
+</ul>
+<p>Pop is convenient and slightly reckless if your working tree or index has changes that can conflict. When in doubt apply into a temporary branch and inspect the result.</p>
+
+<h2>Name and manage stashes for sanity</h2>
+<p>Create a human readable stash message with a command like</p>
+<pre><code>git stash push -m 'WIP feature X'</code></pre>
+<p>Named stashes keep <code>git stash list</code> from reading like a crime scene log. When you finish with a stash remove it with</p>
+<pre><code>git stash drop stash@{0}</code></pre>
+<p>And if you want dramatic cleanup use</p>
+<pre><code>git stash clear</code></pre>
+<p>But remember clear deletes everything and there is no undo. This is not optional drama, this is permanent deletion of code you might need.</p>
+
+<h3>Simple recovery workflow</h3>
+<ul>
+  <li>Inspect the stash with <code>git stash show -p</code></li>
+  <li>If unsure create a temp branch with <code>git checkout -b temp-restore</code></li>
+  <li>Reapply the stash with <code>git stash apply stash@{0}</code> and test</li>
+  <li>Once happy drop the stash with <code>git stash drop stash@{0}</code></li>
+</ul>
+
+<h2>Practical tips that save time and dignity</h2>
+<ul>
+  <li>Use descriptive messages when you stash to speed up future brain recovery</li>
+  <li>Prefer <code>git stash apply</code> if you want to keep a backup copy of the stash</li>
+  <li>Use <code>git stash pop</code> when you are sure and you do not mind cleaning up right away</li>
+  <li>When resolving conflicts on apply do it on a branch to avoid contaminating main work</li>
+  <li>Keep your stash list tidy so it does not become a graveyard of abandoned experiments</li>
+</ul>
+
+<p>Stashing is not magic, it is a polite lie you tell your repo while you go fix something else. Use <code>git stash list</code> to keep track, inspect changes with <code>git stash show -p</code>, and restore carefully with <code>git stash apply</code> or <code>git stash pop</code>. Follow these steps and you will avoid the horror of restoring the wrong patch and wondering why the app broke in spectacular fashion.</p>
+

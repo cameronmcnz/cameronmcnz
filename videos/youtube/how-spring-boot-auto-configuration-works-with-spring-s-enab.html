@@ -1,0 +1,64 @@
+---
+layout: video
+title: "How Spring Boot Auto Configuration Works with Spring's @Enab"
+description: "Clear explanation of how Spring Boot auto configuration activates with @EnableAutoConfiguration and how to control conditional beans and exclusions"
+video_host: "youtube"
+video_id: "6u6PJXTb1cQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT44M49S"
+thumbnail_url: "https://i.ytimg.com/vi/6u6PJXTb1cQ/maxresdefault.jpg"
+content_url: "https://youtu.be/6u6PJXTb1cQ"
+embed_url: "https://www.youtube.com/embed/6u6PJXTb1cQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Auto Configuration
+  - EnableAutoConfiguration
+  - Spring Framework
+  - ConditionalOnClass
+  - spring.factories
+  - Bean Configuration
+  - Spring Boot Starters
+  - Configuration Overrides
+  - Debugging AutoConfig
+---
+
+<h2>Quick truth about auto configuration</h2>
+<p>If you expected magic then sorry, this is engineering dressed up as convenience. Spring Boot auto configuration is just metadata plus rules that decide which beans to register for you. @EnableAutoConfiguration flips the switch and the framework consults the metadata produced by starters and the classpath to figure out what to wire. No mysticism required, only a tiny bit of clever bureaucracy.</p>
+
+<h2>How auto configuration classes get registered</h2>
+<p>Starters and libraries ship metadata that lists candidate auto configuration classes. Historically that metadata lived in <code>META-INF/spring.factories</code> and newer versions also use <code>META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports</code>. Spring Boot loads that list at startup and treats it like a menu of default configurations to consider.</p>
+
+<h3>What that means for you</h3>
+<ul>
+  <li>If a starter is on the classpath its auto config can be considered automatically.</li>
+  <li>If a dependency is missing the corresponding auto config quietly loses interest and does not run.</li>
+  <li>That list is the reason you get sane defaults without wiring every bean yourself.</li>
+</ul>
+
+<h2>Conditional checks that decide what runs</h2>
+<p>Auto configuration classes are full of guard rails. Annotations such as <code>@ConditionalOnClass</code> and <code>@ConditionalOnMissingBean</code> act like bouncers at a club. They inspect the runtime environment and either let a configuration in or send it packing.</p>
+<p>Typical checks you will see include presence of classes, missing beans, property values, and environment profiles. The outcome is that only relevant configs apply to your application context, which is neat unless you forgot to include a required dependency.</p>
+
+<h2>Bean creation and ordering</h2>
+<p>When a conditional passes Spring registers beans following the normal bean lifecycle. Spring Boot uses ordering hints such as <code>@AutoConfigureBefore</code> and <code>@AutoConfigureAfter</code> in addition to import ordering to avoid conflicts.</p>
+<p>If you provide a user defined bean of the same type the framework respects that and usually does not register the auto configured alternative. In other words your bean often wins. That is how you customize behavior without hacking the framework.</p>
+
+<h2>Override and exclusion strategies</h2>
+<p>There are polite and blunt ways to stop auto configuration from doing its thing.</p>
+<ul>
+  <li>Provide your own bean with the same type and signature to override a default.</li>
+  <li>Exclude specific auto configuration classes via the <code>spring.autoconfigure.exclude</code> property or with the exclude attribute on <code>@EnableAutoConfiguration</code>.</li>
+  <li>For more surgical control create a dedicated configuration class and use ordering annotations.</li>
+</ul>
+
+<h2>Debugging auto config when it acts needy</h2>
+<p>When behavior is mysterious enable the auto configuration report. Start your app with <code>--debug</code> or set <code>debug=true</code> in your properties. Spring Boot will print which auto configuration classes matched and which did not. You can also raise logging for <code>org.springframework.boot.autoconfigure</code> to DEBUG for extra detail.</p>
+<p>That report saves time and spares guesswork when the framework is behaving like a needy magician that only does tricks under specific conditions.</p>
+
+<h2>Summary</h2>
+<p>Auto configuration is metadata plus conditional rules plus ordering and overrides. Learn where the metadata comes from, read the conditions such as <code>@ConditionalOnClass</code> and <code>@ConditionalOnMissingBean</code>, and use exclusion or user beans when you want to steer the defaults. With a little practice you can keep the convenience and avoid surprises.</p>
+

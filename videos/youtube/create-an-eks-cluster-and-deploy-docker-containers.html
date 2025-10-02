@@ -1,0 +1,114 @@
+---
+layout: video
+title: "Create an EKS Cluster and Deploy Docker Containers"
+description: "Quick tutorial to create an AWS EKS cluster build Docker images push to ECR and deploy to Kubernetes using eksctl kubectl and Docker"
+video_host: "youtube"
+video_id: "j0oR94MDahI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M9S"
+thumbnail_url: "https://i.ytimg.com/vi/j0oR94MDahI/maxresdefault.jpg"
+content_url: "https://youtu.be/j0oR94MDahI"
+embed_url: "https://www.youtube.com/embed/j0oR94MDahI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - EKS
+  - AWS
+  - Kubernetes
+  - Docker
+  - eksctl
+  - kubectl
+  - ECR
+  - Deployment
+  - CloudNative
+  - CI CD
+---
+
+<article>
+  <h1>Step by step EKS setup with ECR uploads and Kubernetes deployment for CI CD</h1>
+  <p>If you want to stop pretending that Kubernetes is magic and actually ship an app to Amazon EKS on AWS, this guide is for you. You will provision a cluster, build and push Docker images to ECR, deploy Kubernetes Deployment and Service manifests with kubectl, and then clean up before AWS charges you for eternal regret.</p>
+
+  <h2>Prepare your local environment</h2>
+  <p>Install the usual suspects on your workstation: AWS CLI, eksctl, kubectl, and Docker. Configure a profile with aws configure and set your default region. Make sure Docker can build images and that kubectl can talk to a cluster if one is present.</p>
+  <p>Quick checklist</p>
+  <ul>
+    <li>AWS CLI configured with credentials and a default region</li>
+    <li>eksctl installed for easy cluster creation</li>
+    <li>kubectl installed for interacting with Kubernetes</li>
+    <li>Docker running for image builds and pushes</li>
+  </ul>
+
+  <h2>Create an EKS cluster with eksctl</h2>
+  <p>eksctl is the fast lane for EKS. One command can create the control plane and a managed node group without you writing a CloudFormation epic.</p>
+  <pre><code>eksctl create cluster --name demo --region us-west-2 --nodes 2</code></pre>
+  <p>Wait a few minutes for node registration. Then confirm nodes are visible with kubectl get nodes. If kubectl looks confused, check your kubeconfig and aws credentials.</p>
+
+  <h2>Build and push Docker images to ECR</h2>
+  <p>Create an ECR repository if you do not already have one. Then build your image and tag it for the repository. You can rely on the default tag if you want to avoid tag drama.</p>
+  <pre><code>aws ecr create-repository --repository-name myapp
+aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 123456789012.dkr.ecr.us-west-2.amazonaws.com
+docker build -t 123456789012.dkr.ecr.us-west-2.amazonaws.com/myapp .
+docker push 123456789012.dkr.ecr.us-west-2.amazonaws.com/myapp</code></pre>
+  <p>Store the registry URI somewhere safe, because you will need it in your Kubernetes manifests. That URI is the link between your CI CD pipeline and the cluster.</p>
+
+  <h2>Deploy Kubernetes manifests with kubectl</h2>
+  <p>Create a Deployment that references the pushed image and a Service to expose it. Keep manifests small and sensible so you can actually debug them when things go sideways.</p>
+  <pre><code># deployment.yaml
+apiVersion v1
+kind Deployment
+metadata
+  name myapp-deployment
+spec
+  replicas 2
+  selector
+    matchLabels
+      app myapp
+  template
+    metadata
+      labels
+        app myapp
+    spec
+      containers
+      - name myapp
+        image 123456789012.dkr.ecr.us-west-2.amazonaws.com/myapp
+        ports
+        - containerPort 80
+
+# service.yaml
+apiVersion v1
+kind Service
+metadata
+  name myapp-service
+spec
+  type LoadBalancer
+  selector
+    app myapp
+  ports
+  - port 80
+    targetPort 80</code></pre>
+  <p>Apply the manifests with kubectl apply -f deployment.yaml and kubectl apply -f service.yaml. Watch pods spin up with kubectl get pods and inspect logs with kubectl logs for fast failure analysis.</p>
+
+  <h2>Expose and verify your service</h2>
+  <p>For quick testing use kubectl port-forward or check the LoadBalancer external IP in the AWS console. If you prefer the terminal, run curl against the external IP or port forward locally and open the app in a browser.</p>
+  <pre><code>kubectl port-forward svc/myapp-service 8080 80
+# then in another shell
+curl 127.0.0.1 8080</code></pre>
+  <p>Common troubleshooting tips</p>
+  <ul>
+    <li>If pods are not scheduling inspect events with kubectl describe pod</li>
+    <li>If images fail to pull check ECR permissions and registry URI</li>
+    <li>If health checks fail check container logs with kubectl logs</li>
+  </ul>
+
+  <h2>Clean up when you are done</h2>
+  <p>Do not be that person who forgets to delete the cluster and wakes up to a bill. Remove the cluster and any unneeded ECR repositories when you are finished.</p>
+  <pre><code>eksctl delete cluster --name demo --region us-west-2
+aws ecr delete-repository --repository-name myapp --force</code></pre>
+
+  <h3>Final notes on CloudNative practices</h3>
+  <p>This flow is the backbone of many CI CD pipelines. Use immutable image tags in real pipelines, automate ECR pushes from your CI system, and make manifests part of your source repo. Kubernetes will still be opinionated, but at least you can be calm and prepared when it complains.</p>
+  <p>Now go deploy something slightly heroic and then clean it up before your credit card cries.</p>
+</article>
+

@@ -1,0 +1,70 @@
+---
+layout: video
+title: "Lab 8 - Jenkins Security"
+description: "Hands on Jenkins security lab covering authentication authorization plugins and practical hardening steps for CI pipelines"
+video_host: "youtube"
+video_id: "aI4tLPCUAIY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M18S"
+thumbnail_url: "https://i.ytimg.com/vi/aI4tLPCUAIY/maxresdefault.jpg"
+content_url: "https://youtu.be/aI4tLPCUAIY"
+embed_url: "https://www.youtube.com/embed/aI4tLPCUAIY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Jenkins security
+  - CI CD
+  - authentication
+  - authorization
+  - security plugins
+  - matrix security
+  - role based access
+  - CSRF protection
+  - hardening
+---
+
+<h1>Practical Jenkins security plan for authentication authorization and agents</h1>
+<p>If your Jenkins server is still running with default settings you are basically hosting a welcome party for attackers. This guide walks through realistic steps to lock down Jenkins for CI CD while keeping developers from staging a mutiny and while preserving build flow.</p>
+
+<h2>Enable authentication and create an admin user</h2>
+<p>Go to Manage Jenkins then Configure Global Security and turn on security. Create a strong admin account and stop using default credentials unless you enjoy ransom notes and frantic 3 a m alerts. Prefer unique long passwords or integrate with your identity provider to avoid password chaos.</p>
+
+<h2>Choose the right security realm</h2>
+<p>Local user database is fine for labs and quick tests. For production use LDAP or OAuth so you have a single place to manage identities. Centralized authentication makes offboarding less painful and audit trails less mysterious.</p>
+
+<h2>Set authorization with least privilege</h2>
+<p>Pick matrix security or role based access based on team structure. The golden rule is least privilege. If someone only needs to run jobs do not give them admin rights so they can redecorate your Jenkins instance.</p>
+<ul>
+  <li>Admin role, only the permissions needed to manage jobs and plugins</li>
+  <li>Developer role, configure and run jobs but no plugin or system rights</li>
+  <li>Read only role, view pipelines and logs without changing anything</li>
+</ul>
+<p>Consider the Role Based Authorization Strategy plugin for flexible group control and use periodic reviews to remove stale privileges. Anonymous access should normally be turned off.</p>
+
+<h2>Install and manage security plugins</h2>
+<p>Security plugins are helpful and also more maintenance. Recommended plugins include Role Based Authorization Strategy, Matrix Authorization Strategy if you prefer it, audit or logging plugins, and Configuration as Code so your settings are reproducible. Keep plugins updated and uninstall those you never use to shrink your attack surface.</p>
+
+<h2>Harden agents and network access</h2>
+<p>Require agents to authenticate and use encrypted protocols. Prefer SSH agents or the latest secured agent protocols and avoid legacy remoting if you can. Place build agents behind firewalls and on segregated networks so a compromised build does not become a roaming admin.</p>
+<p>Use HTTPS for the web UI and enable CSRF protection in Configure Global Security. If you do not use the CLI disable it or restrict it with allow lists to reduce opportunities for misuse.</p>
+
+<h2>Test access controls and backup configuration</h2>
+<p>Testing is not optional. Log in as representative roles and try common developer workflows to catch permission holes. Backup the Jenkins config and credential stores before and after changes so you can roll back if a hardening step breaks a pipeline.</p>
+<p>Configuration as Code is your friend for repeatable configuration and easier disaster recovery. Keep backups off the Jenkins host when possible to avoid single points of failure.</p>
+
+<h3>Quick security checklist</h3>
+<ul>
+  <li>Enable security and create a strong admin account</li>
+  <li>Use LDAP or OAuth for centralized authentication in production</li>
+  <li>Apply least privilege with matrix security or role based access</li>
+  <li>Install, update, and prune security plugins</li>
+  <li>Encrypt agent channels and require agent authentication</li>
+  <li>Enable HTTPS and CSRF protection</li>
+  <li>Test role workflows and backup configuration and credentials</li>
+</ul>
+
+<p>Security is a process not a checkbox. Do these steps and you will move from an open default Jenkins to a locked down continuous delivery server with fewer sleepless nights and more useful logs. If something breaks you will at least have a backup and a better excuse.</p>
+

@@ -1,0 +1,67 @@
+---
+layout: video
+title: "Apache Struts with Eclipse and Tomcat Example"
+description: "Step by step guide to build and run an Apache Struts app using Eclipse and Tomcat with configuration tips and deployment hints"
+video_host: "youtube"
+video_id: "ZxkkFpT3AxE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M56S"
+thumbnail_url: "https://i.ytimg.com/vi/ZxkkFpT3AxE/maxresdefault.jpg"
+content_url: "https://youtu.be/ZxkkFpT3AxE"
+embed_url: "https://www.youtube.com/embed/ZxkkFpT3AxE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Apache Struts
+  - Eclipse IDE
+  - Tomcat
+  - Java
+  - Struts Tutorial
+  - Web Application
+  - JSP
+  - Action Class
+  - Deployment
+  - Maven
+---
+
+<p>If you need to build a Struts web app but would rather not read ten thousand pages of dry documentation written by someone who hates you this guide walks through the essentials using Eclipse and Tomcat with just enough sarcasm to keep you awake.</p>
+
+<h2>Preparation and setup</h2>
+<p>Install a recent Java JDK and point Eclipse to the installation. Use the Eclipse package for Enterprise Java Developers so you do not spend an afternoon adding tools by hand. Set your JAVA_HOME and make sure Eclipse runs with the same JDK. Boring but required.</p>
+
+<h2>Configure Tomcat in Eclipse</h2>
+<p>Open Eclipse preferences and add a Tomcat runtime. Then open the Servers view and create a server instance for local testing. This server hosts your app while you code and break things in new and inventive ways.</p>
+
+<h2>Create the Dynamic Web Project</h2>
+<p>Create a new Dynamic Web Project in Eclipse and choose a web module version that matches your Struts library. This project will hold controllers views config files and web resources. Keep your packages tidy or your future self will rage quietly.</p>
+
+<h3>Add Struts libraries and dependencies</h3>
+<p>You can either drop the Struts jars into WEB INF lib or let Maven manage dependencies for you. If you use Maven add the Struts core and taglib artifacts to your pom and run a normal build. Managing dependencies with Maven saves time and prevents mysterious classpath gremlins.</p>
+
+<h2>Configure struts config and web descriptor</h2>
+<p>Add a struts config file named struts-config.xml to WEB INF and declare your action mappings and forwards there. Edit web.xml to register the Struts controller servlet and map the URL pattern you want for actions typically a pattern like star dot do. Make sure the action paths in struts config match the URLs your pages will request.</p>
+
+<h2>Create Action classes and JSP views</h2>
+<p>Implement Action classes to handle incoming form data and to coordinate business logic. For Struts 1 extend the framework Action class and implement the execute method. Put your JSPs under the web content folder and use the Struts tag libraries for cleaner forms and less hand coded HTML logic.</p>
+
+<h3>Quick checklist for views and actions</h3>
+<ul>
+  <li>Define form beans if you need to capture request parameters</li>
+  <li>Map actions and forwards in struts config so navigation works</li>
+  <li>Use Struts tag libraries for form and bean handling</li>
+</ul>
+
+<h2>Build deploy and test on Tomcat</h2>
+<p>Start the Tomcat server from Eclipse and publish the project. In a browser navigate to localhost 8080 slash your app name slash the action path dot do to exercise the flow. Check server logs for stack traces and console output if things fail. Debugging is just controlled panic punctuated by useful log messages.</p>
+
+<h2>Troubleshooting tips</h2>
+<ul>
+  <li>Missing classes Usually a dependency is not on the WEB INF lib path or your Maven build did not include a runtime scope artifact</li>
+  <li>Blank pages Check your JSP include paths and make sure the Struts taglib directives are correct</li>
+  <li>Action not found Verify the action path and that struts config is on the classpath and well formed</li>
+</ul>
+
+<p>This guide covered the core steps to get a Struts web application up and running in Eclipse and Tomcat with Maven options for dependency management. Go forth and deploy responsibly or at least with a good backup plan.</p>
+

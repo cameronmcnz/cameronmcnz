@@ -1,0 +1,97 @@
+---
+layout: video
+title: "Git Rename Branch Example"
+description: "Step by step guide to rename a Git branch locally and on remote with safe commands and cleanup tips for teams"
+video_host: "youtube"
+video_id: "7cK6v-5mmoo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M35S"
+thumbnail_url: "https://i.ytimg.com/vi/7cK6v-5mmoo/maxresdefault.jpg"
+content_url: "https://youtu.be/7cK6v-5mmoo"
+embed_url: "https://www.youtube.com/embed/7cK6v-5mmoo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - rename branch
+  - git branch rename
+  - git tutorial
+  - git remote
+  - git push
+  - git delete branch
+  - git branch -m
+  - version control
+  - git workflow
+---
+
+<p>If you need to rename a Git branch and you do not want to summon the fury of your team this guide helps you do it safely. This covers local rename, pushing the new name to the remote, removing the old remote name, and the tiny etiquette required so your coworkers do not hate you.</p>
+
+<h2>Quick idea of what will happen</h2>
+<p>You will switch to the branch you want to rename then rename it locally with git branch -m. Next you push the new branch name and set upstream with git push origin -u new-branch. After that you remove the old remote name with git push origin --delete old-branch and tidy things up with git fetch --prune. Finally ask teammates to update their clones so nobody keeps committing to a ghost.</p>
+
+<h2>Step by step commands</h2>
+<p>Run these commands from your repository. Yes this is the boring manual part. No magic is involved.</p>
+
+<h3>1 Switch to the branch you want to rename</h3>
+<pre><code>git switch old-branch
+# or the old school way
+git checkout old-branch
+</code></pre>
+
+<h3>2 Rename the branch locally</h3>
+<p>If you are on the branch use this</p>
+<pre><code>git branch -m new-branch
+</code></pre>
+<p>If you are not on the branch name it explicitly</p>
+<pre><code>git branch -m old-branch new-branch
+</code></pre>
+<p>Commit history stays exactly the same. This is just a label change on your local clone.</p>
+
+<h3>3 Push the new name and set upstream</h3>
+<pre><code>git push origin -u new-branch
+</code></pre>
+<p>That pushes the new branch to the remote and makes future git push and git pull use the remote branch by default.</p>
+
+<h3>4 Remove the old name from the remote</h3>
+<pre><code>git push origin --delete old-branch
+</code></pre>
+<p>Then clean up local stale remote tracking branches</p>
+<pre><code>git fetch --prune
+</code></pre>
+
+<h2>How to ask your teammates to update their clones</h2>
+<p>Communication is not optional here. Send a short note with these commands so people can tidy their local repos without drama.</p>
+<ul>
+  <li>Fetch the updated remote refs</li>
+</ul>
+<pre><code>git fetch origin
+</code></pre>
+<ul>
+  <li>Either rename their local branch if they kept the old name</li>
+</ul>
+<pre><code>git branch -m old-branch new-branch
+</code></pre>
+<ul>
+  <li>Or check out the new branch name and delete the obsolete local name</li>
+</ul>
+<pre><code>git checkout new-branch
+git branch -d old-branch
+</code></pre>
+
+<h2>Troubleshooting and safety tips</h2>
+<p>If you are nervous make a quick backup branch first</p>
+<pre><code>git branch backup/old-branch old-branch
+git push origin backup/old-branch
+</code></pre>
+<p>This gives you a rollback point that is easy to find if things go sideways.</p>
+<p>If someone still sees the old branch after they fetch tell them to prune remote tracking branches</p>
+<pre><code>git fetch --prune
+</code></pre>
+<p>And if they have unmerged work on the old branch they can rename it locally then rebase or merge onto the new branch as needed. That is normal Git hygiene and not an apocalyptic event.</p>
+
+<h2>Wrap up</h2>
+<p>The workflow for a safe branch rename in Git is simple and predictable. Switch to the branch, rename locally with git branch -m, push the new name and set upstream with git push origin -u new-branch, delete the old remote name with git push origin --delete old-branch, and ask teammates to fetch and update. Follow those steps and life in your version control system will be marginally less chaotic.</p>
+<p>Keywords you will find useful while searching for help on this topic include git, rename branch, git branch rename, git remote, git push, git delete branch, git branch -m, version control, and git workflow. Now go rename that branch and try not to break anything important.</p>
+

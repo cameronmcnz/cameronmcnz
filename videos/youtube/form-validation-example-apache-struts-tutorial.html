@@ -1,0 +1,74 @@
+---
+layout: video
+title: "Form Validation Example Apache Struts Tutorial"
+description: "Learn Apache Struts form validation with ActionForm rules JSP integration and client side checks for robust web forms"
+video_host: "youtube"
+video_id: "1jMiBI9Ndtk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M25S"
+thumbnail_url: "https://i.ytimg.com/vi/1jMiBI9Ndtk/maxresdefault.jpg"
+content_url: "https://youtu.be/1jMiBI9Ndtk"
+embed_url: "https://www.youtube.com/embed/1jMiBI9Ndtk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Apache Struts
+  - Struts validation
+  - Form Validation
+  - ActionForm
+  - JSP
+  - Java Web
+  - Server side validation
+  - Client side validation
+  - MVC
+  - Struts tutorial
+---
+
+<h2>Why you should care about form validation</h2>
+<p>If your Java Web form lets bad data through you get angry users and mysterious bugs. This short Struts tutorial walks through practical Form Validation using ActionForm and the Struts validation framework so your app behaves like an adult. We cover server side validation for security and client side validation for user happiness. Expect clear rules and a little sarcasm.</p>
+
+<h2>Step 1 Prepare the project and Struts configuration</h2>
+<p>Start by adding the Apache Struts libraries to WEB INF lib and register the Struts servlet in web xml. Create or update your struts config xml to declare form beans and action mappings. That gives you a routing map for form processing and prevents requests from wandering into exception land.</p>
+
+<h3>What to declare and why</h3>
+<ul>
+  <li>ActionForm beans for each HTML form so field values bind automatically</li>
+  <li>Action mappings so requests hit the right Action class and view</li>
+  <li>Validation rules referenced by your form bean so errors get reported back</li>
+</ul>
+
+<h2>Step 2 Create the ActionForm and validation rules</h2>
+<p>Define a Java form bean with getters and setters for every field. In Struts 1 the form bean can implement a validate method or you can use the validation xml approach. In newer setups annotations or framework specific validators may be available. Start with required and type checks because basic mistakes cause the most drama.</p>
+<p>Keep rules focused. Use required checks, numeric and date type checks, and minimum length or pattern checks for things like email. Server side validation is authoritative so do not skip it even if you love fancy client side tricks.</p>
+
+<h2>Step 3 Build the JSP form and show errors</h2>
+<p>Use the Struts tag library in JSP or simple HTML inputs that map to your ActionForm properties. Add visible error placeholders next to offending fields so users see friendly messages instead of a stack trace. If a submission fails, repopulate the form fields from the form bean so the user does not retype everything.</p>
+
+<h3>Tips for error UX</h3>
+<ul>
+  <li>Show field level messages beside inputs and a summary at the top</li>
+  <li>Keep messages short and actionable</li>
+  <li>Preserve user input so validation feels like a helpful friend and not punishment</li>
+</ul>
+
+<h2>Step 4 Implement the Action class and business checks</h2>
+<p>The Action class is where you validate business logic beyond basic field checks. After running the form validations you may need to check uniqueness, authorization, or cross field rules. Forward to the success page when everything is fine or send the user back to the input view with error messages when something is off.</p>
+<p>Populate request or session attributes as needed so the JSP can redisplay form values and helpful context. This keeps the flow predictable and reduces user rage.</p>
+
+<h2>Step 5 Test and add client side validation</h2>
+<p>Enable Struts client side validation support if your project uses it or add lightweight JavaScript for instant feedback. Client side validation reduces round trips and improves perceived speed. Remember server side validation is the ground truth so do not rely on client checks for security.</p>
+
+<h3>Quick checklist for reliable form flows</h3>
+<ul>
+  <li>Struts libraries present and servlet registered in web xml</li>
+  <li>ActionForm bean with getters and setters for each input</li>
+  <li>Validation rules implemented in validation xml or via annotations</li>
+  <li>JSP binds fields and shows errors next to inputs</li>
+  <li>Action class enforces business rules and forwards correctly</li>
+  <li>Client side validation for UX and server side validation for security</li>
+</ul>
+
+<p>Wrap up and final thought. This is a Struts tutorial focused on pragmatic Form Validation for MVC Java Web apps. Follow the sequence prepare, declare, bind, validate and test and you will have fewer user complaints and fewer midnight bug hunts. If your forms still misbehave blame the copywriter not the framework.</p>
+

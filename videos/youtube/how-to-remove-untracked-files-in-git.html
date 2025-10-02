@@ -1,0 +1,75 @@
+---
+layout: video
+title: "How to remove untracked files in git"
+description: "Learn safe ways to preview and delete untracked files in Git using git clean with examples and tips for avoiding data loss."
+video_host: "youtube"
+video_id: "Y2BdOJOwExs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M6S"
+thumbnail_url: "https://i.ytimg.com/vi/Y2BdOJOwExs/maxresdefault.jpg"
+content_url: "https://youtu.be/Y2BdOJOwExs"
+embed_url: "https://www.youtube.com/embed/Y2BdOJOwExs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git clean
+  - untracked files
+  - git tutorial
+  - version control
+  - command line
+  - git ignore
+  - developer tips
+  - safe deletion
+  - git commands
+---
+
+<h2>Start with a calm preview</h2>
+<p>If you are about to delete things from a repository do not improvise. Git gives you neat ways to see what will go away before you commit to regret. Use git status to get a quick look or run a dry run of git clean to list candidates without deleting anything.</p>
+<pre><code>git status --untracked-files=normal
+# or a focused dry run
+git clean -n
+# include directories in the dry run
+git clean -nd</code></pre>
+
+<h2>Dry runs are your friend</h2>
+<p>The <code>-n</code> flag shows what would be removed without touching a single file. Think of it as a preview mode where you still get to look brave without taking action. If the output looks reasonable you can go further.</p>
+
+<h3>Common cleanup flags explained</h3>
+<ul>
+  <li><strong>-n</strong> show what would be removed</li>
+  <li><strong>-f</strong> force deletion when you are done looking brave</li>
+  <li><strong>-d</strong> include untracked directories</li>
+  <li><strong>-x</strong> remove files listed in .gitignore as well as untracked files</li>
+  <li><strong>-i</strong> interactive mode that lets you pick items one by one</li>
+</ul>
+
+<pre><code># remove untracked files after a dry run
+git clean -f
+
+# remove untracked directories too
+git clean -fd
+
+# remove everything including ignored files use with extreme caution
+git clean -fdx
+
+# interactive selection when you want to be picky
+git clean -i</code></pre>
+
+<h2>When to include ignored files</h2>
+<p>Ignored files are ignored for a reason. They often include build outputs local configs and other noise. If your disk is full or your build artifacts are a mess you can use <code>-x</code> to include .gitignore entries. Warning this can remove files you actually wanted to keep locally.</p>
+
+<h2>Interactive mode for the nervous</h2>
+<p>If your fingers are faster than your judgement try <code>git clean -i</code>. It gives a menu so you can approve deletions one screen at a time. This is the human friendly option for when you want to avoid tragic mistakes and awkward explanations to teammates.</p>
+
+<h2>Safety tips every developer should follow</h2>
+<ul>
+  <li>Create a temporary branch or stash local changes before you start cleaning</li>
+  <li>Use the dry run first and only add force once you are sure</li>
+  <li>Back up important files outside the repo if you are not 100 percent confident</li>
+</ul>
+
+<p>In short use git status and git clean -n to preview use <code>git clean -f</code> and related flags when you are ready and use interactive mode when you want the elegant agony of choosing what stays. Git gives you the tools to avoid catastrophe so use them and enjoy the illusion of control.
+

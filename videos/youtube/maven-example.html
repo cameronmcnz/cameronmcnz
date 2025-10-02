@@ -1,0 +1,88 @@
+---
+layout: video
+title: "Maven Example"
+description: "Practical Maven Example guide for creating a Java project managing dependencies and running builds with clear steps and a helpful tip."
+video_host: "youtube"
+video_id: "VHz5gs5ANGE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M6S"
+thumbnail_url: "https://i.ytimg.com/vi/VHz5gs5ANGE/maxresdefault.jpg"
+content_url: "https://youtu.be/VHz5gs5ANGE"
+embed_url: "https://www.youtube.com/embed/VHz5gs5ANGE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Maven
+  - Maven Example
+  - pom.xml
+  - Java
+  - Build
+  - Dependencies
+  - mvn
+  - Maven tutorial
+  - Java build
+  - Continuous Integration
+---
+
+<h2>Intro with minimal drama</h2>
+<p>If you need a Java build that does not require ritual sacrifice then Maven is your friend and your mild tormentor. This short Maven tutorial shows how to create a simple project folder structure add a minimal pom.xml declare dependencies and run a build with mvn so you get a runnable artifact without crying into your terminal.</p>
+
+<h2>Project layout that keeps surprise bugs away</h2>
+<p>Maven expects the conventional layout so give it what it wants. Create a project folder with these paths:</p>
+<ul>
+  <li>src/main/java for production code</li>
+  <li>src/test/java for tests</li>
+</ul>
+<p>Using this layout avoids manual classpath work and keeps your CI pipeline from inventing new ways to fail.</p>
+
+<h2>Minimal pom.xml you can copy and not feel guilty about</h2>
+<p>Put a minimal pom at the project root. The pom tells Maven the group id artifact id and version and controls dependency resolution and the build lifecycle. Here is a tiny example you can paste and adjust.</p>
+<pre><code>&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;com.example&lt;/groupId&gt;
+  &lt;artifactId&gt;myapp&lt;/artifactId&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;junit&lt;/groupId&gt;
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;
+      &lt;version&gt;4.13.2&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/project&gt;</code></pre>
+
+<h2>Add a dependency and let Maven fetch the drama</h2>
+<p>To add a library declare its groupId artifactId and version inside the dependencies block. Maven will fetch the jar from a remote repository and store it in your local cache so your project can compile against it. Transitive dependencies will also show up whether you meant them or not.</p>
+
+<h3>Example dependency snippet</h3>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+  &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+  &lt;version&gt;3.12.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+
+<h2>Build with mvn and get the artifact</h2>
+<p>Run the build with the usual command.</p>
+<pre><code>mvn clean package</code></pre>
+<p>That runs the default lifecycle phases including compile test and package and puts the output in the target folder. If you need a fat jar use a plugin such as the Maven shade plugin or the assembly plugin to bundle dependencies into a runnable jar.</p>
+
+<h2>Run the produced jar</h2>
+<p>From the project root run the jar like this.</p>
+<pre><code>java -jar target/myapp-1.0-SNAPSHOT.jar</code></pre>
+<p>If your jar is not runnable then double check your plugin config or your main class because Java is not psychic.</p>
+
+<h2>Quick tips for CI and dependency sanity</h2>
+<ul>
+  <li>Use scopes to keep test jars out of production artifacts</li>
+  <li>Run mvn dependency tree early to inspect transitive surprises before CI melts down</li>
+  <li>Cache the Maven local repository in your CI to avoid repeated downloads and to speed up builds</li>
+  <li>Pin versions where it matters to avoid a surprise upgrade breaking the build</li>
+</ul>
+
+<h2>Wrap up that actually helps</h2>
+<p>This tutorial covered project layout pom basics dependency declaration and the simple build and run sequence that gets a Java project from source to runnable artifact with minimal fuss. You now know where to put code how to declare dependencies how to build with mvn and how to run the jar. Go break something in CI and then fix it like a pro.</p>
+

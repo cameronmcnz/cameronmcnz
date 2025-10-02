@@ -1,0 +1,83 @@
+---
+layout: video
+title: "How to create a bare git repo with init and update example"
+description: "Create a bare Git repo using git init and update refs and server info. Quick commands and practical tips for server side repositories and sharing."
+video_host: "youtube"
+video_id: "JnAbi0J9wT8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M41S"
+thumbnail_url: "https://i.ytimg.com/vi/JnAbi0J9wT8/maxresdefault.jpg"
+content_url: "https://youtu.be/JnAbi0J9wT8"
+embed_url: "https://www.youtube.com/embed/JnAbi0J9wT8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - bare-repo
+  - git-init
+  - git-update-ref
+  - git-update-server-info
+  - server-repo
+  - version-control
+  - devops
+  - ssh-git
+  - git-tutorial
+---
+
+<h2>Why a bare repo and not your messy local tree</h2>
+<p>Think of a bare Git repository as the vault where everyone dumps commits and walks away. No working tree is kept so no one accidentally edits files on the server while trying to be helpful. This is the standard pattern for a central server repo used in team workflows CI and deployment pipelines.</p>
+
+<h2>Quick setup checklist</h2>
+<ul>
+  <li>Create the bare repo with git init --bare</li>
+  <li>Set filesystem permissions so teammates can push and pull</li>
+  <li>Add server side hooks to enforce rules or trigger deploys</li>
+  <li>Use git update-ref only when you know what you are doing</li>
+  <li>Run git update-server-info when serving over dumb http</li>
+</ul>
+
+<h2>Step by step and the commands you will actually run</h2>
+<p>Yes we will use commands because typing is cathartic. Run these on the server where the central repo lives.</p>
+
+<h3>Create the bare repository</h3>
+<pre><code>git init --bare /srv/git/project.git</code></pre>
+<p>A bare repository stores the Git database without a checked out working tree. That makes it suitable to act as a server repo for collaborators and automated systems.</p>
+
+<h3>Set permissions and hooks</h3>
+<p>Make sure the Unix permissions let your team push and pull. Common approaches are a shared group or a dedicated deploy user. Put validation or deploy scripts in hooks under the hooks directory.</p>
+<pre><code>/srv/git/project.git/hooks</code></pre>
+<p>Example hook ideas</p>
+<ul>
+  <li>receive hook to prevent force pushes to protected branches</li>
+  <li>post receive hook to trigger CI or copy files to a staging area</li>
+</ul>
+
+<h3>Clone and push from a developer machine</h3>
+<pre><code>git clone user@server /srv/git/project.git
+# make changes locally
+git push origin main</code></pre>
+<p>Using SSH access is the usual choice for security and convenience. Push and pull like normal developers do unless you have a very good reason to mess with refs directly.</p>
+
+<h3>Manual ref updates when you are desperate</h3>
+<p>Sometimes you need to set a branch pointer directly. This is powerful and slightly dangerous. Verify the commit hash before touching anything.</p>
+<pre><code>git update-ref refs/heads/branch-name <target-hash></code></pre>
+<p>Use this for recovery or scripted migrations only. For routine work prefer normal pushes and protected branch policies.</p>
+
+<h3>When to run update server info</h3>
+<p>If you are serving the repo over plain http without smart HTTP support run git update-server-info inside the bare repo. This generates auxiliary files so dumb http clients can discover refs and fetch objects. It is not required for modern smart HTTP setups but useful for simple static hosting.</p>
+<pre><code>cd /srv/git/project.git
+git update-server-info</code></pre>
+
+<h2>Best practices and safety tips</h2>
+<ul>
+  <li>Prefer pushes and hooks over manual ref manipulation</li>
+  <li>Use receive hooks to validate commits and reject bad pushes</li>
+  <li>Restrict who can push to protected branches with server side rules</li>
+  <li>Run update server info only if you need dumb http compatibility</li>
+</ul>
+
+<h2>Summary and parting wisdom</h2>
+<p>Creating a bare repository with git init is quick and painless. Set sane permissions add hooks to enforce policies and avoid update ref unless you enjoy accidental data loss. If you are serving over dumb http remember git update-server-info so ancient clients can still fetch your genius work. Now go make commits and try not to break production on your first day.</p>
+

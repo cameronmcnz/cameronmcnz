@@ -1,0 +1,68 @@
+---
+layout: video
+title: "Spring Boot vs Spring vs Framework What's the difference?"
+description: "Clear comparison of Spring Boot Spring and Spring Framework scope goals and when to pick each for Java applications."
+video_host: "youtube"
+video_id: "S2xyFQlpzIY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M10S"
+thumbnail_url: "https://i.ytimg.com/vi/S2xyFQlpzIY/maxresdefault.jpg"
+content_url: "https://youtu.be/S2xyFQlpzIY"
+embed_url: "https://www.youtube.com/embed/S2xyFQlpzIY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Spring Framework
+  - Spring vs Boot
+  - Java
+  - Microservices
+  - Auto Configuration
+  - Dependency Injection
+  - Starter POMs
+  - Spring Ecosystem
+  - Boot vs Framework
+---
+
+<p>Short version with attitude The Spring family is like an overachieving sibling group that covers everything from tiny helpers to enterprise muscle. If you want speed and fewer decisions pick Spring Boot. If you want fine grained control and the joy of wiring things yourself pick the Spring Framework. Yes both are related and yes they can play nicely together.</p>
+
+<h2>What the Spring Framework actually brings</h2>
+<p>The Spring Framework is the core. It gives you dependency injection and AOP plus a modular set of projects such as Spring MVC, Spring JDBC and the plumbing libraries you actually test against. Think of it as the engine and the rules for how beans behave and talk to each other. Use it when lifecycle control, custom wiring, or reusable libraries matter.</p>
+
+<h2>What Spring Boot adds to the table</h2>
+<p>Spring Boot is an opinionated layer on top of the core framework. It provides auto configuration, starter POMs and embedded servers so you can go from zero to API in minutes. Boot picks sensible defaults and wires common components so you do not have to write a mountain of boilerplate. It is ideal for microservices, prototypes, and teams that prefer convention over endless configuration.</p>
+
+<h3>Starter dependency example</h3>
+<p>Here is a minimal Maven dependency snippet to pull in a web starter</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+
+<h3>Minimal Boot app in Groovy style</h3>
+<p>This shows how tiny a Boot app can be when you let it handle the heavy lifting</p>
+<pre><code>@SpringBootApplication
+class App {
+  static void main(String[] args) {
+    SpringApplication.run(App, args)
+  }
+}</code></pre>
+
+<h2>When to pick Boot and when to pick the Framework</h2>
+<ul>
+  <li>Pick Spring Boot when you need fast delivery, embedded servers, starter POMs, and auto configuration for microservices or APIs.</li>
+  <li>Pick the Spring Framework when you build libraries, need custom class loading, or must control bean wiring and lifecycle precisely.</li>
+  <li>If you care about integration with Spring Security, Spring Data or Spring Cloud both options are relevant because those projects integrate with the core framework and with Boot.</li>
+</ul>
+
+<h3>Quick rules of thumb</h3>
+<ul>
+  <li>If unsure start with Spring Boot and override defaults as needed.</li>
+  <li>If a future requirement demands unusual runtime behavior or a custom container switch to direct Spring Framework configuration.</li>
+  <li>Remember that Boot does not remove the core framework. It just hides some knobs until you need them.</li>
+</ul>
+
+<p>Final thought Pick Boot for speed and fewer knobs to tweak. Pick the Spring Framework for control and custom runtime needs. And if you pick the wrong one you can usually migrate before your users notice unless your CI pipeline enjoys drama.</p>
+

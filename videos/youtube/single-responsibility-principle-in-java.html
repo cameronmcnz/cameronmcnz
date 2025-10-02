@@ -1,0 +1,64 @@
+---
+layout: video
+title: "Single Responsibility Principle in Java"
+description: "Learn the Single Responsibility Principle in Java with clear examples and refactoring tips for cleaner maintainable code"
+video_host: "youtube"
+video_id: "MPp4A4F6rQI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M9S"
+thumbnail_url: "https://i.ytimg.com/vi/MPp4A4F6rQI/maxresdefault.jpg"
+content_url: "https://youtu.be/MPp4A4F6rQI"
+embed_url: "https://www.youtube.com/embed/MPp4A4F6rQI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Single Responsibility Principle
+  - SRP
+  - Java
+  - SOLID
+  - Clean Code
+  - Refactoring
+  - OOP
+  - Design Principles
+  - Software Architecture
+  - Coding Best Practices
+---
+
+<h2>Make Java classes less dramatic with SRP</h2>
+<p>The Single Responsibility Principle or SRP is the mildly tyrannical rule that says each class should have one reason to change. In Java this means your classes should focus on a single role so maintenance does not feel like archaeology mixed with guessing games. Follow SRP and your code will be easier to read test and refactor which is the adult thing to do.</p>
+
+<h3>What a responsibility really means</h3>
+<p>A responsibility answers a single why for change. If you cannot name a class with a single clear verb or role then it probably does more than one job. Pick names that tell the truth like OrderRepository PaymentValidator or CsvExporter. If the name sounds like a shopping list then split it up.</p>
+
+<h3>How to spot a class that is trying to be everything</h3>
+<ul>
+  <li>Mixed concerns such as business logic mixed with file access or UI rendering</li>
+  <li>Huge classes with dozens of methods that do unrelated things</li>
+  <li>Methods that touch persistence validation and formatting in one go</li>
+  <li>Unit tests that require massive setup to exercise a single behavior</li>
+</ul>
+
+<h2>Refactor moves that do the heavy lifting</h2>
+<p>When you find a class with multiple reasons to change move related methods into a new class. For example pull CSV export logic out of a service and into a CsvExporter. That makes the service easier to read and the exporter easier to test. Keep method signatures small and avoid passing an armful of parameters around because nobody enjoys that.</p>
+
+<h3>Small practical steps</h3>
+<ul>
+  <li>Extract a class for one cohesive responsibility</li>
+  <li>Move helper methods out when they belong to a different role</li>
+  <li>Prefer composition over stuffing unrelated methods into one class</li>
+  <li>Run tests after each small refactor so you do not unleash surprises</li>
+</ul>
+
+<h2>Design minimal interfaces for each role</h2>
+<p>Expose only what the consumer needs. An interface named Notifier should offer methods for sending messages not database hooks. Clear focused interfaces make swapping implementations painless and reduce coupling across the system. This is how you get clean abstractions that do not leak implementation details like shame.</p>
+
+<h2>Write tests that reflect single responsibility</h2>
+<p>Unit tests should target one behavior per test. If your tests need complex setup touching persistence formatting and external calls then the class under test is probably doing too many jobs. Focused classes lead to focused tests and faster refactoring with less fear.</p>
+
+<h3>Quick rename exercise</h3>
+<p>If you are unsure about a class try renaming it. If you cannot pick a single clear name that fits then the class likely needs to be split. If the name is a paragraph then refactor.</p>
+
+<p>Applying SRP in Java is not a magic spell but it is one of the highest value habits in SOLID clean code and software architecture. Expect fewer ripple effects when requirements change and fewer surprise bugs that show up at 2 AM. Your future team will thank you and your present self will stop apologizing to the code base.</p>
+

@@ -1,0 +1,91 @@
+---
+layout: video
+title: "How to download and install Git"
+description: "Quick guide to downloading installing and configuring Git on Windows macOS and Linux with verification commands"
+video_host: "youtube"
+video_id: "JsSmJhCi8-I"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT57S"
+thumbnail_url: "https://i.ytimg.com/vi/JsSmJhCi8-I/maxresdefault.jpg"
+content_url: "https://youtu.be/JsSmJhCi8-I"
+embed_url: "https://www.youtube.com/embed/JsSmJhCi8-I"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - Download Git
+  - Install Git
+  - Git tutorial
+  - Version control
+  - Git on Windows
+  - Git on macOS
+  - Git on Linux
+  - Git setup
+  - git config
+---
+
+<p>So you want Git installed and working without it turning into a twelve step debugging saga. Good news is Git is small and stubborn in a good way. This guide walks you through downloading installing and configuring Git on Windows macOS and Linux with a few sanity preserving tips and commands you can actually remember.</p>
+
+<h2>Choose the right installer for your operating system</h2>
+
+<p>Pick the installer that matches your OS and workflow. Do not grab random builds from sketchy websites. Use the official releases or your distribution package manager for predictable results.</p>
+
+<h3>Windows</h3>
+<p>Get the Git for Windows installer. The installer gives you Git Bash a credential helper and a few setup options like which editor to use and how Git is added to your PATH. Accept sensible defaults if you are unsure. Recent Git for Windows builds include Git Credential Manager which makes authentication less painful when talking to remotes.</p>
+
+<h3>macOS</h3>
+<p>Homebrew is the easy path for most people who use macOS and want package management. Run the familiar command if you already use Homebrew.</p>
+<pre><code>brew install git</code></pre>
+<p>Alternately the Xcode command line tools include a Git binary and can be installed with the system prompt or with xcode-select if needed.</p>
+
+<h3>Linux</h3>
+<p>Use your distribution package manager for the most stable integration. Examples for popular families are below. Substitute your distro as appropriate.</p>
+<ul>
+  <li>Debian and Ubuntu style</li>
+</ul>
+<pre><code>sudo apt update && sudo apt install git</code></pre>
+<ul>
+  <li>Fedora and RHEL style</li>
+</ul>
+<pre><code>sudo dnf install git</code></pre>
+<ul>
+  <li>Arch style</li>
+</ul>
+<pre><code>sudo pacman -S git</code></pre>
+
+<h2>Configure your identity and a few useful options</h2>
+<p>If commits had a return address these two commands would set it. Run them so your commits are not anonymous drama.</p>
+<pre><code>git config --global user.name "Your Name"
+git config --global user.email "your_email@example.com"</code></pre>
+<p>Extras that make life nicer</p>
+<ul>
+  <li>Set your editor so commit messages open where you expect</li>
+</ul>
+<pre><code>git config --global core.editor "code --wait"</code></pre>
+<ul>
+  <li>Enable a credential helper if you want fewer password prompts</li>
+</ul>
+<pre><code>git config --global credential.helper manager-core</code></pre>
+
+<h2>Verify installation and init a test repository</h2>
+<p>Quick checks to confirm Git is present and behaving</p>
+<pre><code>git --version
+git init test-repo
+cd test-repo
+git status</code></pre>
+<p>If git --version shows a version number then Git is installed. Initializing a repository and running git status proves the basic plumbing works and removes mystery.</p>
+
+<h2>Optional extras for humans who prefer convenience</h2>
+<p>If the command line makes you squint there are graphical clients and shell integrations that help. Options include Git GUI clients or GitHub Desktop for basic git workflows. Shell integrations and prompt helpers give you branch names and status inline which is oddly satisfying.</p>
+
+<h2>Troubleshooting tips that do not involve panic</h2>
+<ul>
+  <li>If git is not found check your PATH and reinstall with official installer or package manager</li>
+  <li>If authentication fails check your credential helper and remote URL protocol like HTTPS or SSH</li>
+  <li>When in doubt check git --version and rerun the config commands if commits look strange</li>
+</ul>
+
+<p>This guide covered how to download install and configure Git on Windows macOS and Linux plus ways to verify everything works. Now go make a commit and pretend this was effortless all along.</p>
+

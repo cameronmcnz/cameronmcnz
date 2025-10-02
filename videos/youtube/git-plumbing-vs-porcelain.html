@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Git Plumbing vs Porcelain"
+description: "Clear comparison of Git plumbing and porcelain commands for developer workflows and scripts. Learn when to use which and why."
+video_host: "youtube"
+video_id: "hExQA8EjLBA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/hExQA8EjLBA/maxresdefault.jpg"
+content_url: "https://youtu.be/hExQA8EjLBA"
+embed_url: "https://www.youtube.com/embed/hExQA8EjLBA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - Plumbing
+  - Porcelain
+  - GitHub
+  - GitLab
+  - Bitbucket
+  - DevOps
+  - GitOps
+  - Version Control
+  - Commands
+---
+
+<article>
+  <p>If Git were a kitchen, plumbing would be the pipes and porcelain would be the shiny sink you proudly post about on social media. Plumbing commands give you raw access to the repository internals, and porcelain commands keep humans from crying over object ids. Both are useful, and neither will make you a better developer overnight. But knowing when to use each will save time and dignity.</p>
+
+  <h2>What plumbing and porcelain actually do</h2>
+  <p>Plumbing commands are low level, deterministic, and designed for scripts and automation. They expose objects, hashes, and indexes so machines can reason about the repo. Porcelain commands wrap those primitives and present friendly messages that humans can understand. Use plumbing when precision matters. Use porcelain when you want readable output and handy safeguards.</p>
+
+  <h3>Why both matter in real projects</h3>
+  <p>In CI pipelines on GitHub, GitLab, or Bitbucket you want predictable steps. That is plumbing territory. In day to day branching, committing, and rebasing you want porcelain to avoid accidental disaster. In GitOps and DevOps workflows you will often mix them. Automation gets stronger with plumbing, developer productivity stays high with porcelain, and version control remains useful when you can actually read the logs.</p>
+
+  <h2>Common plumbing commands to learn</h2>
+  <p>These are the building blocks for scripts and automation. They do not hold your hand. That is the point.</p>
+  <ul>
+    <li><strong>git rev-parse</strong> to resolve refs to object ids</li>
+    <li><strong>git cat-file</strong> to inspect objects directly</li>
+    <li><strong>git update-index</strong> to manipulate the index for scripted workflows</li>
+  </ul>
+
+  <h2>Porcelain commands you will use every day</h2>
+  <p>These are friendly by design. They give readable output and guardrails that keep you from doing something you will regret later.</p>
+  <ul>
+    <li><strong>git add</strong> to stage changes</li>
+    <li><strong>git commit</strong> to record history</li>
+    <li><strong>git checkout</strong> or <strong>git switch</strong> to move between branches</li>
+  </ul>
+
+  <h3>Short examples that show the difference</h3>
+  <p>Want to script something that always gets the current commit id for an automation step use plumbing.</p>
+  <pre><code>git rev-parse HEAD</code></pre>
+  <p>Want to stage files and get a pleasant message for your coworker who will review your commit use porcelain.</p>
+  <pre><code>git add .
+git commit -m "Fix formatting and hope for the best"
+</code></pre>
+
+  <h2>How to choose in practice</h2>
+  <p>Ask what you need more. Predictable machine friendly output suggests plumbing. Clear interactive feedback suggests porcelain. When you build tooling for GitOps or CI, prefer plumbing to avoid brittle parsing. When you work locally, prefer porcelain so your terminal does not become a horror show.</p>
+
+  <h2>Quick cheat sheet</h2>
+  <ul>
+    <li>Automation and scripts use plumbing</li>
+    <li>Human workflows use porcelain</li>
+    <li>Learn three plumbing commands and one porcelain command to get started</li>
+    <li>Use both in CI on GitHub, GitLab, or Bitbucket depending on the need</li>
+  </ul>
+
+  <p>Learning a few plumbing commands turns flaky hacks into reliable routines, while porcelain keeps your daily work sane. That is the balance that keeps version control useful and teams happy, or at least marginally less miserable.</p>
+</article>
+

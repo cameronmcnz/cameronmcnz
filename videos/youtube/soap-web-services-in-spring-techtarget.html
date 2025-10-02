@@ -1,0 +1,82 @@
+---
+layout: video
+title: "SOAP Web Services in Spring #techtarget"
+description: "Build SOAP web services with Spring covering WSDL generation endpoint mapping marshalling and testing with practical tips"
+video_host: "youtube"
+video_id: "YALQRUoA-8g"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT25M16S"
+thumbnail_url: "https://i.ytimg.com/vi/YALQRUoA-8g/maxresdefault.jpg"
+content_url: "https://youtu.be/YALQRUoA-8g"
+embed_url: "https://www.youtube.com/embed/YALQRUoA-8g"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - SOAP
+  - Spring
+  - Web Services
+  - WSDL
+  - XML
+  - Spring WS
+  - Marshalling
+  - Endpoint
+  - SoapUI
+  - Java
+---
+
+<h2>Overview</h2>
+<p>If you need reliable SOAP web services that behave like grown ups and not like Tuesday morning production incidents then this guide walks through a contract first approach with Spring. You will see how to go from an XSD to Java models and then to a live WSDL that clients can actually consume. Keywords to flex during standups include SOAP, Spring WS, WSDL, XML, marshalling, Endpoint and SoapUI.</p>
+
+<h2>What this covers</h2>
+<ul>
+  <li>Project setup and dependencies to add with Maven or Gradle</li>
+  <li>Designing an XSD and generating Java classes with JAXB or XJC</li>
+  <li>Wiring Spring WS beans so the WSDL shows up</li>
+  <li>Implementing @Endpoint handlers and keeping business logic out of the way</li>
+  <li>Configuring marshalling with Jaxb2Marshaller or message converters</li>
+  <li>Testing with SoapUI and adding simple security ideas like HTTPS and WS Security headers</li>
+</ul>
+
+<h2>Project setup</h2>
+<p>Create a Spring Boot project and add your Spring Web Services dependency along with a JAXB or Jackson XML binding library. Let Maven or Gradle manage the drama. You do not need magic plugins to get started, just the usual dependency entries and a main application class.</p>
+
+<h3>Dependencies and build</h3>
+<p>Include Spring WS support and an XML binding tool. Common choices are Jaxb2 or Jackson XML. They will let you marshal and unmarshal XML payloads so your endpoint can speak both human and machine.</p>
+
+<h2>Design the XSD and generate models</h2>
+<p>Start with an XML schema that describes request and response messages. This is contract first territory which prevents future arguments about who promised what. Use JAXB or XJC to generate Java classes from the XSD. Generated classes reduce hand typed errors and keep runtime validation simple.</p>
+
+<h2>Configure Spring WS beans</h2>
+<p>Register a MessageDispatcherServlet so SOAP messages reach Spring WS. Declare a DefaultWsdl11Definition bean and wire an XsdSchema bean that points to your schema file. That combination will expose a WSDL based on your XSD at a predictable URL for client discovery. Think of it as publishing a map before sending people into the jungle.</p>
+
+<h2>Implement endpoints and services</h2>
+<p>Annotate your handler class with @Endpoint and map handler methods with @PayloadRoot. Keep the endpoint thin and focused on translating requests to service calls. Put the actual business logic in a separate service class so unit tests are mercifully easy to write.</p>
+
+<h3>Handler responsibilities</h3>
+<ul>
+  <li>Unwrap the request object</li>
+  <li>Call the service layer for business rules</li>
+  <li>Wrap and return the response object</li>
+</ul>
+
+<h2>Configure marshalling and WSDL generation</h2>
+<p>Provide a Jaxb2Marshaller bean or configure a message converter and point it at the generated package that contains your JAXB classes. DefaultWsdl11Definition will use the XSD and schema location settings to create a WSDL. Consumers can retrieve the WSDL and use it to generate client stubs in their favorite language or their least favorite legacy framework.</p>
+
+<h2>Test and secure the service</h2>
+<p>Run the application and exercise the SOAP operations with SoapUI or a simple Java client. Validate incoming XML against the schema to catch nonsense payloads early. For production think about transport level security with HTTPS and message level protections such as WS Security headers if you need authentication or message integrity.</p>
+
+<h2>Quick checklist</h2>
+<ul>
+  <li>Create XSD and generate JAXB models</li>
+  <li>Wire MessageDispatcherServlet and DefaultWsdl11Definition</li>
+  <li>Expose XsdSchema so the WSDL is generated</li>
+  <li>Implement @Endpoint handlers and keep services testable</li>
+  <li>Configure Jaxb2Marshaller or equivalent</li>
+  <li>Test with SoapUI and add HTTPS or WS Security for production</li>
+</ul>
+
+<h2>Final words</h2>
+<p>This approach gives you a maintainable contract first SOAP service powered by Spring. You get schema driven models, predictable WSDL generation and endpoints that do their job without pretending to be application servers. Now go make the clients happy or at least less likely to yell at you on Slack.</p>
+

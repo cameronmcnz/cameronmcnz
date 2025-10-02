@@ -1,0 +1,68 @@
+---
+layout: video
+title: "Start JFR in Eclipse (Long)"
+description: "Learn how to start Java Flight Recorder in Eclipse capture JVM recordings and analyze performance with practical steps and tips"
+video_host: "youtube"
+video_id: "fjc885twWPE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M19S"
+thumbnail_url: "https://i.ytimg.com/vi/fjc885twWPE/maxresdefault.jpg"
+content_url: "https://youtu.be/fjc885twWPE"
+embed_url: "https://www.youtube.com/embed/fjc885twWPE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JFR
+  - Java Flight Recorder
+  - Eclipse
+  - JVM
+  - JDK
+  - profiling
+  - performance
+  - jcmd
+  - recording
+  - tutorial
+---
+
+<h2>Quick checklist before you press record</h2>
+<p>Yes this is a tutorial and yes you can skip straight to the jcmd part if Eclipse gives you attitude. First make sure your JDK actually includes Java Flight Recorder and that your Eclipse build has the JFR launch integration or a plugin that adds JFR controls. Modern OpenJDK builds and Oracle JDK usually include JFR. If you are on ancient Java please upgrade or accept your fate.</p>
+
+<h2>Enable JFR in your Eclipse launch configuration</h2>
+<p>Open the Run or Debug launch configuration for your project and look for a Flight Recorder tab or a place to add JVM options. If the UI appears you can enable the recorder, pick a profile or custom settings, and set the target filename for the recording. If the UI is missing you may still be able to add recording options via the VM arguments field but that depends on your Eclipse flavor and plugins.</p>
+
+<h3>When Eclipse gives you a nice UI</h3>
+<ul>
+  <li>Turn on the recorder in the Flight Recorder tab.</li>
+  <li>Choose a profile such as profile or tune custom events if you enjoy complexity.</li>
+  <li>Pick a filename that does not conflict with your backup strategy or existing chaos.</li>
+  <li>Launch your app with the configured run or debug button and watch the Eclipse console for recording messages.</li>
+</ul>
+
+<h3>When Eclipse refuses to cooperate</h3>
+<p>Not every Eclipse install is friendly. If there is no Flight Recorder tab you can still capture recordings from a running JVM with jcmd. That is often faster and more reliable than wrestling with the IDE.</p>
+
+<h2>Start the application and capture a recording</h2>
+<p>Use the launch button in Eclipse when you have configured JFR. The recorder starts according to your chosen settings and the JVM writes a recording file during the run. Keep an eye on the console for messages about start and stop events. If you are running long lived tests consider setting a duration so the recording does not eat your disk.</p>
+
+<h2>Save the file and open it for analysis</h2>
+<p>When the run finishes or when you stop the recorder open the generated .jfr file in the Eclipse JFR viewer or export it to analyze in other tools. Look for allocation hotspots method hotspots and wall time hotspots to guide optimization work. The viewer shows threads I O and CPU hotspots so you can prioritize the things that actually slow your app down.</p>
+
+<h2>Use jcmd as a reliable fallback</h2>
+<p>Find the JVM process id with jps or your OS process viewer. Then run a command like this from a terminal to start a recording from outside Eclipse</p>
+<pre>jcmd 1234 JFR.start name=MyRun settings=profile duration=60s filename=recording.jfr</pre>
+<p>To stop early run</p>
+<pre>jcmd 1234 JFR.stop name=MyRun</pre>
+<p>jcmd is especially useful for production or containerized JVMs where the IDE has no business being involved.</p>
+
+<h2>Troubleshooting and quick tips</h2>
+<ul>
+  <li>If you do not see a recording file check file permissions and the working directory of the JVM.</li>
+  <li>Use profile for general profiling and switch to custom when you need very specific events or lower overhead.</li>
+  <li>For short tests set a duration so you do not forget about the recorder and find a 10 GB file on disk.</li>
+  <li>Remember to correlate JFR findings with wall time and allocation metrics before changing production code.</li>
+</ul>
+
+<p>That covers checking environment compatibility configuring launch settings starting a recording saving the output and using jcmd as a fallback. Now go find your performance bottleneck and pretend you knew it all along.</p>
+

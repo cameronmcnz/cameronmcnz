@@ -1,0 +1,88 @@
+---
+layout: video
+title: "What is Dependency Injection?"
+description: "Clear and practical explanation of dependency injection for developers. Learn benefits types and patterns for cleaner testable code."
+video_host: "youtube"
+video_id: "gD3TWLkHw4w"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT29M48S"
+thumbnail_url: "https://i.ytimg.com/vi/gD3TWLkHw4w/maxresdefault.jpg"
+content_url: "https://youtu.be/gD3TWLkHw4w"
+embed_url: "https://www.youtube.com/embed/gD3TWLkHw4w"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - dependency injection
+  - DI
+  - inversion of control
+  - IoC
+  - constructor injection
+  - setter injection
+  - unit testing
+  - decoupling
+  - software design
+  - SOLID
+---
+
+<p>Dependency injection is the polite way to stop your objects from being clingy. Instead of each object building its own sidekicks it receives required collaborators from the outside. That simple change buys you decoupling easier unit testing and a cleaner separation of responsibilities that even your future self might thank you for.</p>
+
+<h2>Why use dependency injection</h2>
+<p>Think of dependency injection or DI as inversion of control with better manners. Rather than hiding how a dependency is created inside a class you move that responsibility to a single place often called a composition root. The result is code that is easier to swap mock or extend without rewriting the business logic.</p>
+
+<h2>Main benefits you will actually notice</h2>
+<ul>
+  <li>Decoupling that reduces hidden coupling and surprise behavior</li>
+  <li>Cleaner unit testing since tests can inject fakes spies or stubs</li>
+  <li>Flexible configuration so swapping implementations is trivial</li>
+  <li>Small composition roots that keep wiring in one readable place</li>
+  <li>Better adherence to SOLID principles especially the single responsibility and dependency inversion ideas</li>
+</ul>
+
+<h2>Common injection patterns</h2>
+<h3>Constructor injection</h3>
+<p>This is the most common pattern. Required collaborators are passed into the constructor which tends to yield immutable dependencies and clear intent. If a class cannot be constructed without a dependency the constructor signature shouts that fact.</p>
+
+<h3>Setter injection</h3>
+<p>Use setters for optional collaborators or when you need to change the dependency after creation. Useful but it can make the object state less obvious at first glance.</p>
+
+<h3>Interface injection</h3>
+<p>Less common but handy when an abstraction needs to accept a dependency through an agreed contract. It is mostly a niche tool when plain constructor injection would be awkward.</p>
+
+<h2>Small example without the corporate buzzwords</h2>
+<pre><code>class Logger {
+  log(message) {
+    console.log(message)
+  }
+}
+
+class UserService {
+  constructor(logger) {
+    this.logger = logger
+  }
+  createUser(name) {
+    this.logger.log('create ' + name)
+  }
+}
+
+const logger = new Logger()
+const userService = new UserService(logger)
+</code></pre>
+
+<p>Here the composition root creates and wires the instances so UserService never has to know how to construct a Logger. That makes it trivial to inject a fake logger during unit testing or a more advanced logger in production.</p>
+
+<h2>DI and unit testing</h2>
+<p>Unit tests love dependency injection. Inject a spy when you want to assert behavior or a lightweight fake when you want to isolate logic. No need to touch production wiring for tests which keeps both code and pipelines sane.</p>
+
+<h2>Practical tips</h2>
+<ul>
+  <li>Prefer constructor injection for required collaborators</li>
+  <li>Keep a small readable composition root for object wiring</li>
+  <li>Use setter injection for optional plugins or late configuration</li>
+  <li>Favor interfaces or abstractions when you expect multiple implementations</li>
+  <li>Use DI frameworks or containers when lifecycle or complex wiring becomes tedious but remember the principle works without them</li>
+</ul>
+
+<p>Dependency injection is not a magic lamp. It will not fix bad design or lazy tests. What it will do is make decoupling explicit reduce friction when swapping implementations and make unit testing a lot less of a guessing game. If you want more testable modular software then DI is a tool worth learning and using with a little discipline.
+

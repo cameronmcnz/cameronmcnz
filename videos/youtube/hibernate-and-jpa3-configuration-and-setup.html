@@ -1,0 +1,135 @@
+---
+layout: video
+title: "Hibernate and JPA3 Configuration and Setup"
+description: "Compact guide to configure Hibernate with JPA3 for Java projects covering dependencies persistence unit entities and runtime tips"
+video_host: "youtube"
+video_id: "koeEOErFvRw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT24M38S"
+thumbnail_url: "https://i.ytimg.com/vi/koeEOErFvRw/maxresdefault.jpg"
+content_url: "https://youtu.be/koeEOErFvRw"
+embed_url: "https://www.youtube.com/embed/koeEOErFvRw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Hibernate
+  - JPA3
+  - Jakarta Persistence
+  - Java ORM
+  - persistence.xml
+  - Maven
+  - Gradle
+  - Entity mapping
+  - Hibernate configuration
+  - EntityManager
+---
+
+<h1>Configure Jakarta Persistence and Hibernate for Maven or Gradle builds</h1>
+
+<p>If you want a Java ORM that behaves like an obedient but slightly opinionated intern then welcome to Hibernate with JPA3. This guide walks through dependency selection, persistence unit wiring, entity mapping and runtime settings so your EntityManager does not throw tantrums in production.</p>
+
+<h2>Dependencies and build tool setup</h2>
+
+<p>Pick a Hibernate core 6.x release and the Jakarta Persistence API 3.x artifact. Add a JDBC driver for your database and consider HikariCP for connection pooling if you like fast apps and less debugging during peak hours. Lock versions in Maven or Gradle so future you does not chase ephemeral bugs.</p>
+
+<p>Example Maven snippet</p>
+<pre><code>&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.hibernate.orm&lt;/groupId&gt;
+    &lt;artifactId&gt;hibernate-core&lt;/artifactId&gt;
+    &lt;version&gt;6.3.0.Final&lt;/version&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;jakarta.persistence&lt;/groupId&gt;
+    &lt;artifactId&gt;jakarta.persistence-api&lt;/artifactId&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
+    &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
+    &lt;version&gt;42.6.0&lt;/version&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+
+<p>Example Gradle snippet using Kotlin or Groovy syntax will be similar with implementation entries for the same artifacts.</p>
+
+<h2>Provide a persistence unit</h2>
+
+<p>You can declare a persistence unit via META-INF/persistence.xml or supply properties programmatically at boot. Both work. persistence.xml remains handy for small apps and tests. When you use it make sure the file lives in src/main/resources/META-INF so the classpath can find it.</p>
+
+<h3>Key properties to configure</h3>
+
+<ul>
+  <li><code>jakarta.persistence.jdbc.url</code> = your JDBC connection string for the DB</li>
+  <li><code>jakarta.persistence.jdbc.user</code> = DB username</li>
+  <li><code>jakarta.persistence.jdbc.password</code> = DB password</li>
+  <li><code>jakarta.persistence.schema-generation.database.action</code> = update or create depending on your comfort with data loss</li>
+  <li><code>hibernate.dialect</code> = the correct dialect class for your database</li>
+</ul>
+
+<p>Minimal persistence.xml example</p>
+<pre><code>&lt;persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0"&gt;
+  &lt;persistence-unit name="default" transaction-type="RESOURCE_LOCAL"&gt;
+    &lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
+    &lt;properties&gt;
+      &lt;property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/mydb" /&gt;
+      &lt;property name="jakarta.persistence.jdbc.user" value="sa" /&gt;
+      &lt;property name="jakarta.persistence.jdbc.password" value="secret" /&gt;
+      &lt;property name="jakarta.persistence.schema-generation.database.action" value="update" /&gt;
+      &lt;property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" /&gt;
+    &lt;/properties&gt;
+  &lt;/persistence-unit&gt;
+&lt;/persistence&gt;</code></pre>
+
+<h2>Entity classes and mapping best practices</h2>
+
+<p>Annotate domain classes with <code>@Entity</code>, mark the primary key with <code>@Id</code> and pick a <code>@GeneratedValue</code> strategy that matches your database. I recommend explicit column mappings for clarity and less accidental SQL oddities later.</p>
+
+<ul>
+  <li>Use <code>@Table</code> and <code>@Column</code> when names differ from defaults</li>
+  <li>Prefer eager thinking about fetch strategies instead of trusting defaults</li>
+  <li>Validate mappings early with a schema generation pass when convenient</li>
+</ul>
+
+<h2>EntityManagerFactory and transactions</h2>
+
+<p>In simple apps obtain an EntityManagerFactory via <code>jakarta.persistence.Persistence.createEntityManagerFactory</code>. In Jakarta EE or Spring you will often let the container manage the factory and the transactions. If you go manual then remember to open an EntityManager, begin a transaction, commit or rollback, and always close the EntityManager. That sequence is boring but vital.</p>
+
+<pre><code>EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+EntityManager em = emf.createEntityManager();
+EntityTransaction tx = em.getTransaction();
+try {
+  tx.begin();
+  // persist or query entities
+  tx.commit();
+} catch (Exception ex) {
+  if (tx.isActive()) tx.rollback();
+  throw ex;
+} finally {
+  em.close();
+}</code></pre>
+
+<h2>Testing and SQL visibility</h2>
+
+<p>Write a small integration test that boots the persistence unit, persists an entity, and runs a query. That single test often saves you from weeks of head scratching. Enable SQL logging to inspect the generated SQL and catch mapping mistakes quickly.</p>
+
+<ul>
+  <li><code>hibernate.show_sql</code> = true</li>
+  <li><code>hibernate.format_sql</code> = true</li>
+</ul>
+
+<p>If you need more structured SQL inspection add a logging appender for <code>org.hibernate.SQL</code> and for bind parameter output set <code>org.hibernate.type.descriptor.sql.BasicBinder</code> to debug level.</p>
+
+<h2>Practical tips and common pitfalls</h2>
+
+<ul>
+  <li>If your dialect is wrong you will get subtle SQL errors. Pick the dialect that matches your database and major version.</li>
+  <li>HikariCP will save your app from connection storms. Use it for production like you would use brakes on a car.</li>
+  <li>Avoid letting schema generation run in production unless you enjoy surprises.</li>
+  <li>Lock dependency versions and test upgrades in an isolated branch instead of on main when caffeine is low and morale is high.</li>
+</ul>
+
+<p>That covers the essentials for wiring Hibernate with JPA3 in a Java project using Maven or Gradle. You now have a reproducible dependency setup, a persistence unit that is sane, mapping advice that actually helps and a plan for tests and logging. Now go make something that persists data and does not persist regret.</p>
+

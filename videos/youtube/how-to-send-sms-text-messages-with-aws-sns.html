@@ -1,0 +1,68 @@
+---
+layout: video
+title: "How to send SMS Text Messages with AWS SNS"
+description: "Guide to sending SMS with AWS SNS using console CLI and SDK plus cost controls delivery settings and monitoring"
+video_host: "youtube"
+video_id: "_nqkjGmI0DE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M2S"
+thumbnail_url: "https://i.ytimg.com/vi/_nqkjGmI0DE/maxresdefault.jpg"
+content_url: "https://youtu.be/_nqkjGmI0DE"
+embed_url: "https://www.youtube.com/embed/_nqkjGmI0DE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - SNS
+  - SMS
+  - AWS CLI
+  - AWS SDK
+  - CloudWatch
+  - Messaging
+  - Serverless
+  - Delivery
+  - Cost Control
+---
+
+<article>
+  <p>If you need to send real SMS messages from the cloud and avoid embarrassing billing surprises, AWS SNS is your friend and mild tormentor. This guide walks through when to use topics, how to configure SMS preferences and spending controls, how to verify numbers where required, and how to monitor delivery and cost with CloudWatch and billing alerts. Expect practical tips, a few jokes, and zero magic.</p>
+
+  <h2>Choose a messaging pattern and stop guessing</h2>
+  <p>SNS supports two common patterns. Use a topic when you want fan out broadcasting, for example alerts to many subscribers. Publish directly to phone numbers when you have one off notifications, like a two factor code or a single customer update. Topics add routing and subscription control, direct publishes keep things simple and fast.</p>
+
+  <h2>Set SMS preferences and control costs</h2>
+  <p>Go to the SNS console and configure SMS preferences. The two things that will save your wallet and dignity are a monthly spend limit and a sensible default sender ID where the country supports it. Pick transactional delivery for time sensitive messages and promotional for marketing if local rules require it. Always set a monthly spend limit to prevent rollicking surprise bills.</p>
+
+  <h3>Preferences checklist</h3>
+  <ul>
+    <li>Monthly spend limit to avoid shock.</li>
+    <li>Default sender ID in supported countries for brand recognition.</li>
+    <li>Delivery type set per legal requirements in target countries.</li>
+  </ul>
+
+  <h2>Phone number verification and regional quirks</h2>
+  <p>Some countries require phone number registration or specific origination numbers. Check the SNS country support list before firing up a bulk campaign. If your region needs registration, follow those steps first or your messages will be sad and undelivered.</p>
+
+  <h2>Test from the console then automate with CLI and SDK</h2>
+  <p>Use the console to send a quick test and confirm formatting and sender configuration. When you are ready to automate, the AWS CLI is straightforward and repeatable.</p>
+  <pre><code>aws sns publish --phone-number +15551234567 --message 'Hello from AWS SNS'</code></pre>
+  <p>For production use an AWS SDK in the language you prefer. Implement retry logic, handle errors, and respect rate limits in the destination country. Retrying blindly will only make you louder and more expensive.</p>
+
+  <h2>Monitor delivery and costs with CloudWatch</h2>
+  <p>Enable CloudWatch metrics to track delivery and failure rates. Create billing alarms for your monthly SMS spend threshold. Useful metrics include SMSSuccessRate and SMSMonthlySpentUSD. If delivery drops, check regional restrictions and carrier issues before blaming your code.</p>
+
+  <h3>Monitoring quick tips</h3>
+  <ul>
+    <li>Alert on low success rate to catch carrier blocks early.</li>
+    <li>Use billing alarms to cap monthly spend and avoid budget nightmares.</li>
+    <li>Log publish responses and integrate with your observability stack for traces.</li>
+  </ul>
+
+  <h2>Serverless friendly practices</h2>
+  <p>If you are invoking SNS from Lambda or other serverless compute, keep functions idempotent and add exponential backoff with jitter for retries. Also throttle concurrency if you are blasting thousands of messages to avoid regional rate limits.</p>
+
+  <p>Wrap up. SNS is powerful for messaging when configured properly. Use topics for broadcast, direct publish for single recipients, enforce spend limits, verify numbers when required, and monitor delivery with CloudWatch. Do this and you will have reliable SMS delivery and a bank account that still lets you buy coffee.</p>
+</article>
+

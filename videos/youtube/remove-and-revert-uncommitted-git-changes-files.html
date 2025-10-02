@@ -1,0 +1,86 @@
+---
+layout: video
+title: "Remove and Revert Uncommitted Git Changes & Files"
+description: "Quick guide to remove and revert uncommitted Git changes and files with safe commands and examples for the working tree."
+video_host: "youtube"
+video_id: "yrw_mlhkExY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M4S"
+thumbnail_url: "https://i.ytimg.com/vi/yrw_mlhkExY/maxresdefault.jpg"
+content_url: "https://youtu.be/yrw_mlhkExY"
+embed_url: "https://www.youtube.com/embed/yrw_mlhkExY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git restore
+  - git reset
+  - git clean
+  - git stash
+  - uncommitted changes
+  - revert changes
+  - remove files
+  - version control
+  - tutorial
+---
+
+<h2>Stop the panic and inspect the repo</h2>
+<p>If your working tree looks like a crime scene and you are not sure which files to keep, breathe and run <code>git status</code>. This shows modified staged and untracked files and prevents deleting something that you actually meant to keep. Treat this command as your safety net and your therapist.</p>
+
+<h2>Check repository status</h2>
+<p>Run the single line check to see what is going on. It takes two seconds and saves you from heroic mistakes.</p>
+<pre><code>git status</code></pre>
+
+<h2>Discard changes in a tracked file</h2>
+<p>If a tracked file has local edits that you want to throw away and pretend they never happened use <code>git restore</code>. This replaces the working copy with the version from your last commit so the file matches history again.</p>
+<pre><code>git restore path/to/file</code></pre>
+<p>Keep in mind this overwrites local edits. If you might regret this later stash first or make a quick patch branch.</p>
+
+<h2>Unstage a change without losing edits</h2>
+<p>If you added something to the index by mistake use restore to move it out of staging while keeping the working copy intact. This is the gentle undo move.</p>
+<pre><code>git restore --staged path/to/file</code></pre>
+
+<h2>Remove untracked files and folders</h2>
+<p>When build artifacts or forgotten temp files clutter the tree use <code>git clean</code> to nuke them. Always preview first unless you enjoy surprises.</p>
+<ul>
+  <li>Preview what would be removed with <code>git clean -n</code></li>
+  <li>Remove files with <code>git clean -f</code></li>
+  <li>Remove directories as well with <code>git clean -fd</code></li>
+</ul>
+<p>Do not run these commands from the wrong directory if you value your free time.</p>
+
+<h2>Revert all tracked changes and reset the tree</h2>
+<p>If you want the working tree and index to match the last commit exactly use reset hard. This is the nuclear option. It will discard all local modifications for tracked files so double check <code>git status</code> first.</p>
+<pre><code>git reset --hard</code></pre>
+
+<h2>Stash changes for a later comeback</h2>
+<p>When you want to pause work and not delete it stash is your friend. It shelves changes and lets you switch context without creating a half baked commit history.</p>
+<pre><code>git stash push -m 'wip note'
+# apply and remove from stash
+git stash pop
+# list stashed entries
+git stash list</code></pre>
+
+<h3>When to stash versus reset</h3>
+<ul>
+  <li>Stash when you might come back to the work</li>
+  <li>Reset when you are sure those edits are trash and you want a clean slate</li>
+  <li>Clean when the clutter is untracked files and not code you care about</li>
+</ul>
+
+<h2>Quick command cheat sheet</h2>
+<ul>
+  <li><code>git status</code> to inspect the scene</li>
+  <li><code>git restore path/to/file</code> to discard edits to a tracked file</li>
+  <li><code>git restore --staged path/to/file</code> to unstage without losing edits</li>
+  <li><code>git clean -n</code> to preview untracked removals</li>
+  <li><code>git clean -f</code> or <code>git clean -fd</code> to remove untracked files or folders</li>
+  <li><code>git reset --hard</code> to reset working tree and index to the last commit</li>
+  <li><code>git stash push -m 'note'</code> to shelve work for later</li>
+</ul>
+
+<h2>Recap</h2>
+<p>This short guide covered safe ways to inspect a repo discard single tracked file edits unstage staged changes clean away untracked clutter reset the whole working tree and stash work for later. Use <code>git status</code> as your first stop and pick the command that matches your bravery level. If in doubt stash and live to regret less later.</p>
+

@@ -1,0 +1,65 @@
+---
+layout: video
+title: "Swagger UI Tutorial for REST API Developers"
+description: "Learn Swagger UI for documenting testing and exploring REST APIs using OpenAPI to speed development and improve developer experience"
+video_host: "youtube"
+video_id: "GxAu8UjLfbM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT16M57S"
+thumbnail_url: "https://i.ytimg.com/vi/GxAu8UjLfbM/maxresdefault.jpg"
+content_url: "https://youtu.be/GxAu8UjLfbM"
+embed_url: "https://www.youtube.com/embed/GxAu8UjLfbM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Swagger UI
+  - OpenAPI
+  - REST API
+  - API Documentation
+  - Swagger Editor
+  - swagger-ui-express
+  - API Testing
+  - Developer Experience
+  - OpenAPI 3
+  - API Design
+---
+
+<h2>Why Swagger UI is the adult supervision your API needs</h2>
+<p>If your API is a mystery novel full of plot holes then Swagger UI is the practical narrator that tells people what actually happens. Use OpenAPI 3 to describe paths parameters schemas responses and servers so humans and machines stop guessing. The net result is faster onboarding fewer support tickets and less awkward slack messages at 2 a m.</p>
+
+<h2>Create an OpenAPI spec</h2>
+<p>Start by authoring an OpenAPI 3 document in YAML or JSON that lists every path parameter schema response and server you care about. You can write it by hand if you enjoy that sort of suffering or use the Swagger Editor to make the process less painful and more accurate. If your framework supports annotations use those to keep the spec close to the code.</p>
+
+<h3>What to include</h3>
+<ul>
+  <li>Paths with HTTP methods and clear operation ids</li>
+  <li>Parameter descriptions including query path and header usage</li>
+  <li>Request and response schemas for predictable payloads</li>
+  <li>Security schemes for any protected endpoints</li>
+</ul>
+
+<h2>Serve or install Swagger UI</h2>
+<p>Once you have a spec you need a place to render it. Host the Swagger UI static bundle on any web server or use a CDN for quick demos. For Node projects add the swagger ui middleware such as swagger ui express to serve a friendly docs page alongside your API backend. No build pipeline required for the demo version but do not use that as an excuse to skip real docs maintenance.</p>
+
+<h2>Load the spec into Swagger UI</h2>
+<p>Point the UI configuration at your spec URL or embed the JSON directly in the UI setup. Confirm that endpoints models and examples render correctly. If something looks wrong fix the OpenAPI source not the UI. The UI follows the spec like a good intern and will not invent fields you forgot to declare.</p>
+
+<h2>Try endpoints from the UI</h2>
+<p>Use the Try Out control to send real requests from the browser. Provide authentication headers query parameters and request bodies to validate behavior. Inspect response payloads headers and status codes to gather debugging evidence. This is excellent for manual API testing and for convincing a skeptical teammate that your code actually works.</p>
+
+<h2>Customize and secure the docs</h2>
+<p>Adjust theme layout and behavior through Swagger UI configuration and optional plugins to match your developer experience goals. Protect the docs route with authentication or serve a read only copy for public discovery while keeping private endpoints behind secure paths. For CI workflows validate the spec and publish artifacts so the docs do not drift from reality.</p>
+
+<h3>Practical tips that will save time</h3>
+<ul>
+  <li>Store the OpenAPI file in the repository so changes are tracked</li>
+  <li>Validate the spec in CI to catch breaking changes early</li>
+  <li>Generate client stubs or tests from the spec when useful</li>
+  <li>Separate public and private docs to avoid accidental leaks</li>
+</ul>
+
+<h2>Quick recap and next steps</h2>
+<p>Author a clear OpenAPI 3 spec host Swagger UI near your backend point the UI at the spec try endpoints from the browser and lock down whatever needs locking. Keep the spec up to date and you will reduce guesswork speed onboarding and make your API a lot less annoying for everyone involved. Now go write some YAML and have a sensible cup of coffee while the docs do the heavy lifting.</p>
+

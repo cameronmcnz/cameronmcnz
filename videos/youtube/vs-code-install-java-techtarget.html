@@ -1,0 +1,71 @@
+---
+layout: video
+title: "VS Code Install Java #techtarget"
+description: "Quick guide to install Java for Visual Studio Code with JDK setup extension picks and debugging tips for a smooth developer workflow"
+video_host: "youtube"
+video_id: "CIGFfBdwT2E"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M17S"
+thumbnail_url: "https://i.ytimg.com/vi/CIGFfBdwT2E/maxresdefault.jpg"
+content_url: "https://youtu.be/CIGFfBdwT2E"
+embed_url: "https://www.youtube.com/embed/CIGFfBdwT2E"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - VS Code
+  - Visual Studio Code
+  - Java
+  - JDK
+  - Java extension pack
+  - Debugger for Java
+  - Java language server
+  - Setup guide
+  - Developer tools
+  - Programming
+---
+
+<h1>A practical guide to VS Code JDK setup extensions and debugging tools</h1>
+<p>If you want Java in Visual Studio Code and you do not want to cry into your terminal this afternoon then this is the guide for you. We will walk through installing a JDK verifying the runtime is available installing the right extensions and getting a simple project to build run and debug. Keep calm and blame gradle later.</p>
+
+<h2>Install a JDK</h2>
+<p>Pick a vendor such as Temurin or OpenJDK and run the platform installer like a normal person. After installation open a terminal and confirm the JVM is visible by running</p>
+<pre><code>java -version</code></pre>
+<p>If the command prints a Java version you are good to move on. If not check your installation steps and environment variables described below.</p>
+
+<h2>Install Visual Studio Code</h2>
+<p>Download VS Code from the official site and install it for your operating system. Launch the editor and try not to be intimidated by the welcome screen. You will need the editor for the next step which is installing Java related extensions.</p>
+
+<h2>Add the Java extensions</h2>
+<p>Open the Extensions view and search for the Java Extension Pack. Install the pack to get the language server code runner and debugger bundled together. Also consider adding these individual helpers if you want particular powers</p>
+<ul>
+  <li>Debugger for Java for breakpoints stepping and variable inspection</li>
+  <li>Language support for Java which provides code completion and error checking</li>
+  <li>Java Test Runner if you plan to run unit tests without the black magic</li>
+</ul>
+<p>Once installed the Java extension pack will configure many defaults so you can focus on programming rather than arguing with the IDE.</p>
+
+<h2>Configure the Java runtime and environment variables</h2>
+<p>Tell VS Code where your JDK lives by setting the standard JAVA_HOME environment variable. On Unix like systems add a line to your shell profile that looks like this</p>
+<pre><code>export JAVA_HOME=/usr/lib/jvm/java-11-openjdk</code></pre>
+<p>Then update your PATH so the JDK bin folder is found by terminals and tools. To do that prepend the path to the JDK bin folder then use a word for the separator and then the existing PATH variable when you run the export command. If you are on Windows use the System Properties environment variables UI to set JAVA_HOME and add the JDK bin folder to Path.</p>
+
+<h2>Create run and debug a simple Java project</h2>
+<p>You can generate a project with the Java Project Explorer or create files by hand. For a minimal example make a HelloWorld class compile it and run it from the project folder with these commands</p>
+<pre><code>javac HelloWorld.java
+java HelloWorld</code></pre>
+<p>VS Code also offers a handy run button in the editor gutter for quick execution. To debug place breakpoints in the source open the Run and Debug view and start a debug session. The extensions create sensible launch settings so stepping through code inspecting variables and evaluating expressions works out of the box.</p>
+
+<h2>Troubleshooting tips</h2>
+<ul>
+  <li>If java -version shows a different runtime than you expect verify JAVA_HOME and the PATH ordering</li>
+  <li>If the language server does not start disable and re enable the Java extensions or reload the window</li>
+  <li>Use the Output and Problems panels to see what the extensions are complaining about</li>
+  <li>If you have multiple JDKs installed set VS Code to use a specific runtime in its settings to avoid surprises</li>
+</ul>
+
+<h2>Recap and final advice</h2>
+<p>The flow goes like this install a JDK install VS Code add the Java extension pack configure runtime variables create a project then build run and debug. Follow these steps and you will have a working Java setup in Visual Studio Code that is ready for small programs big projects and inevitable bugs.</p>
+<p>Now go write something that compiles. If it does not compile come back here and read the troubleshooting section while making a strong cup of coffee.</p>
+

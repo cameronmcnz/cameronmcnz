@@ -1,0 +1,110 @@
+---
+layout: video
+title: "JDBC vs Hibernate What's the difference with JPA?"
+description: "Compare JDBC Hibernate and JPA to learn which Java persistence approach fits use cases from raw SQL to full ORM."
+video_host: "youtube"
+video_id: "Ha8jlVEhV9I"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M13S"
+thumbnail_url: "https://i.ytimg.com/vi/Ha8jlVEhV9I/maxresdefault.jpg"
+content_url: "https://youtu.be/Ha8jlVEhV9I"
+embed_url: "https://www.youtube.com/embed/Ha8jlVEhV9I"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JDBC
+  - Hibernate
+  - JPA
+  - ORM
+  - Java
+  - SQL
+  - EntityManager
+  - PreparedStatement
+  - Caching
+  - Persistence
+---
+
+<h2>Short answer for people who like clear choices</h2>
+<p>If you want raw SQL power and name your own execution plan then pick JDBC. If you want a standard ORM API to shrink boilerplate then pick JPA. If you want all the fancy extras like second level caching HQL and decades of configuration tricks then pick Hibernate. Yes this is a multiple choice question and yes you can be smug about your choice later.</p>
+
+<h2>What JDBC actually does</h2>
+<p>JDBC is the low level Java API that gives you a Connection PreparedStatement and ResultSet and then trusts you not to leak resources or summon a deadlock. It is explicit it is fast when tuned right and it is brutally honest about the SQL it produces.</p>
+
+<h3>Pros</h3>
+<ul>
+  <li>Complete control over SQL and execution plans</li>
+  <li>Predictable performance for complex native queries</li>
+  <li>No ORM magic hiding expensive operations</li>
+</ul>
+
+<h3>Cons</h3>
+<ul>
+  <li>Lots of boilerplate mapping and cleanup</li>
+  <li>Manual transaction and resource management</li>
+  <li>Harder to maintain when domain models change</li>
+</ul>
+
+<h2>What JPA brings to the table</h2>
+<p>JPA is a specification not a product. It defines an EntityManager lifecycle annotations and mapping rules so you can switch implementations without rewriting your domain. It gives you a consistent ORM model for Java persistence and fewer lines of glue code.</p>
+
+<h3>Core benefits</h3>
+<ul>
+  <li>EntityManager based CRUD and queries</li>
+  <li>Annotations to map classes to tables</li>
+  <li>Standardized behavior across implementations</li>
+</ul>
+
+<h2>Where Hibernate fits</h2>
+<p>Hibernate implements JPA and then many vendors asked for dessert and got the whole bakery. Expect HQL a richer mapping model lazy loading dirty checking second level cache and a large ecosystem of integrations and tools. It is the feature heavy option when you need more than vanilla portability.</p>
+
+<h3>Hibernate extras</h3>
+<ul>
+  <li>Second level cache for read heavy workloads</li>
+  <li>HQL and Criteria like rich query APIs</li>
+  <li>Custom types and mapping features for tricky domains</li>
+</ul>
+
+<h2>Quick examples that explain without hand waving</h2>
+<p>Raw JDBC style example with PreparedStatement and ResultSet</p>
+<pre><code>Connection conn = DriverManager.getConnection(url, user, password)
+PreparedStatement ps = conn.prepareStatement("select id from users where name = ?")
+ps.setString(1, "alice")
+ResultSet rs = ps.executeQuery()
+while(rs.next()) {
+  int id = rs.getInt("id")
+}
+rs.close()
+ps.close()
+conn.close()
+</code></pre>
+
+<p>Basic JPA EntityManager flow with a simple find and commit</p>
+<pre><code>EntityManager em = entityManagerFactory.createEntityManager()
+em.getTransaction().begin()
+User u = em.find(User.class, 1)
+u.setName("Alice")
+em.getTransaction().commit()
+em.close()
+</code></pre>
+
+<p>JPQL example using a positional parameter to avoid extra syntax fuss</p>
+<pre><code>List<User> users = em.createQuery("select u from User u where u.name = ?1", User.class)
+  .setParameter(1, "Alice")
+  .getResultList()
+</code></pre>
+
+<h2>When to pick each one</h2>
+<ul>
+  <li>Use JDBC when raw SQL mastery and micro tuning matter most</li>
+  <li>Use JPA when you want portability and to cut boilerplate</li>
+  <li>Use Hibernate when caching advanced mapping or ecosystem tools matter more than strict portability</li>
+</ul>
+
+<h2>Practical tip that will save your weekend</h2>
+<p>Measure your real hot path. Prototype the slowest query in JDBC and in Hibernate then compare execution plans memory usage and developer time. Real metrics beat religious arguments every time. Also remember to watch out for lazy loading surprises and N plus 1 queries which love to appear when you are not looking.</p>
+
+<h2>Final verdict</h2>
+<p>There is no single winner. JDBC is the scalpel JPA is the standard toolkit and Hibernate is the Swiss army knife with a laser pointer. Choose based on control performance and team productivity and then write tests that make your choice stick.</p>
+

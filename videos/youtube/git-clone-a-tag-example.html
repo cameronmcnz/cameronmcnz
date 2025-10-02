@@ -1,0 +1,71 @@
+---
+layout: video
+title: "git clone a tag example"
+description: "Quick guide to clone a specific Git tag and check out the tagged snapshot with commands and tips for avoiding a detached HEAD."
+video_host: "youtube"
+video_id: "_wFubY6zwYU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M9S"
+thumbnail_url: "https://i.ytimg.com/vi/_wFubY6zwYU/maxresdefault.jpg"
+content_url: "https://youtu.be/_wFubY6zwYU"
+embed_url: "https://www.youtube.com/embed/_wFubY6zwYU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - clone
+  - tag
+  - git tag
+  - checkout
+  - shallow clone
+  - detached HEAD
+  - git clone tag
+  - versioning
+  - tutorial
+---
+
+<p>If you only need the released snapshot and not the entire history that your CI or curiosity would otherwise hoard, cloning a specific Git tag is the polite way to ask for mercy. This guide shows how to find tags, grab a tag snapshot efficiently, and avoid the awkward detached HEAD situation when you want to make changes.</p>
+
+<h2>Find tags on the remote or locally</h2>
+<p>First step, do not guess the tag name like you are choosing a Wi Fi network. Query the remote to see what tags exist without cloning everything.</p>
+<pre><code>git ls-remote --tags REPO_URL</code></pre>
+<p>That prints remote tag refs so you can pick the exact tag name. If you already cloned the repository run</p>
+<pre><code>git tag -l</code></pre>
+<p>to list local tags. Simple, fast, and prevents you from staring at commit 1a2b3c in despair.</p>
+
+<h2>Shallow clone the tag snapshot</h2>
+<p>If you only need the tagged snapshot and nothing else, a shallow clone keeps download size small. This is perfect for CI jobs or quick inspections.</p>
+<pre><code>git clone --branch TAG_NAME --depth 1 REPO_URL .</code></pre>
+<p>This fetches the commit that the tag points to and avoids pulling the entire project history. Replace TAG_NAME and REPO_URL with your values. The --branch flag accepts tag names as well as branches, which is a nice trick to remember when you want to be efficient.</p>
+
+<h2>Avoid detached HEAD if you plan to work on the code</h2>
+<p>Cloning or checking out a tag may leave you on a detached HEAD. That is Git speaking plainly when you are not on a branch and you try to commit. If you want to make changes create a branch from the tag like this.</p>
+<pre><code>git checkout -b my-branch TAG_NAME</code></pre>
+<p>Now you are on a normal branch that starts at the tag snapshot and you can commit, push, or invent new features without confusing Git.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Find tags with git ls-remote --tags REPO_URL or git tag -l locally</li>
+  <li>Grab a lightweight snapshot with git clone --branch TAG_NAME --depth 1 REPO_URL .</li>
+  <li>Create a branch to avoid detached HEAD using git checkout -b new-branch TAG_NAME</li>
+</ul>
+
+<h2>When you need the full repo or alternative workflows</h2>
+<p>Sometimes you actually need the full repository. In that case clone normally and fetch tags afterwards, or fetch tags into an existing clone.</p>
+<pre><code>git clone REPO_URL
+cd repo
+git fetch --tags
+git checkout tags/TAG_NAME -b new-branch</code></pre>
+<p>This workflow is useful if you already have a clone and only want to switch to a release snapshot without recloning.</p>
+
+<h2>Troubleshooting and tips</h2>
+<ul>
+  <li>If git ls-remote does not list expected tags check whether the tags are annotated or lightweight and whether they were pushed to the remote.</li>
+  <li>Shallow clones with --depth 1 are great for speed but some operations like history traversal or git bisect will not work until you fetch more history.</li>
+  <li>Always create a branch from a tag if you intend to commit. Detached HEAD is fine for reading code and building artifacts but hostile to new commits.</li>
+</ul>
+
+<p>That covers the essentials. You can now fetch a tag, keep your download small, and either inspect a release or start development from that exact snapshot without accidentally living in detached HEAD purgatory.</p>
+

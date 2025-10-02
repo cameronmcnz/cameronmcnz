@@ -1,0 +1,77 @@
+---
+layout: video
+title: "Git Delete Remote Branch Example"
+description: "Learn safe commands to remove a remote Git branch and confirm removal on origin with simple steps for GitHub GitLab and other remotes"
+video_host: "youtube"
+video_id: "dtZWX5F9-Q4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M55S"
+thumbnail_url: "https://i.ytimg.com/vi/dtZWX5F9-Q4/maxresdefault.jpg"
+content_url: "https://youtu.be/dtZWX5F9-Q4"
+embed_url: "https://www.youtube.com/embed/dtZWX5F9-Q4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - delete branch
+  - remote branch
+  - git push
+  - git tutorial
+  - github
+  - git commands
+  - version control
+  - devops
+  - cli
+---
+
+<p>If you have ever created a branch, pushed it to origin, and then forgotten about it until it became a fossil, welcome to the club. This guide shows how to remove a remote Git branch without drama and how to confirm origin no longer remembers your bad decisions. Commands are the same whether you use GitHub or another Git hosting service.</p>
+
+<h2>Refresh remote state</h2>
+<p>Before you hit the nuclear button, get an accurate view of what the remote thinks exists. That avoids deleting the wrong branch and starting a support ticket with your future self.</p>
+<pre><code>git fetch --prune</code></pre>
+<p>This fetch will update remote refs and prune any branches that were deleted on the server. It keeps your local view in sync with origin so you do not chase ghosts.</p>
+
+<h2>Delete the local branch when it is safe</h2>
+<p>Only delete your local branch after merging or confirming the work is no longer needed. Use the safe delete first and use force only when you know what you are doing.</p>
+<pre><code>git branch -d feature/name</code></pre>
+<p>If Git refuses because the branch is unmerged and you are sure you want to destroy it, use this:</p>
+<pre><code>git branch -D feature/name</code></pre>
+<p>Remember that -d will protect you from losing commits. -D will not. Choose wisely unless you enjoy rewriting history as a hobby.</p>
+
+<h2>Delete the branch from the remote</h2>
+<p>Deleting a remote branch is mostly a single push command wrapped in a little ceremony. This tells origin to drop the named branch.</p>
+<pre><code>git push origin --delete feature/name</code></pre>
+<p>That is the modern explicit form. Older tutorials may show pushing an empty ref but do not follow those into the internet dark ages.</p>
+
+<h2>Verify remote branch removal</h2>
+<p>Always confirm origin no longer lists the branch. A quick check prevents surprise reappearances during sprint demos.</p>
+<ul>
+  <li>List remote branches from your local repo with</li>
+</ul>
+<pre><code>git branch -r</code></pre>
+<ul>
+  <li>Or query the server directly with</li>
+</ul>
+<pre><code>git ls-remote --heads origin</code></pre>
+<p>If neither command shows the branch name then congrats. The branch is gone from origin and you can go drink something celebratory or pretend you meant to do this all along.</p>
+
+<h3>Quick checklist before you delete</h3>
+<ul>
+  <li>Make sure changes are merged or saved elsewhere</li>
+  <li>Run git fetch --prune so you have an accurate remote view</li>
+  <li>Prefer git branch -d locally and only use -D if necessary</li>
+  <li>Use git push origin --delete to remove the branch on the server</li>
+  <li>Verify with git branch -r or git ls-remote --heads origin</li>
+</ul>
+
+<h3>Tips for less painful branch hygiene</h3>
+<ul>
+  <li>Use descriptive branch names so forgotten branches are less mysterious</li>
+  <li>Open a pull request before deleting so audits and CI logs still make sense</li>
+  <li>Consider pruning stale branches periodically as part of your devops routine</li>
+</ul>
+
+<p>Deleting a remote branch is simple when you follow these steps. Fetch first, delete local only when safe, push the delete, and then verify. Your repository will thank you or at least stop cluttering the branch list.</p>
+

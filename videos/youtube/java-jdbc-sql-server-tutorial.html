@@ -1,0 +1,109 @@
+---
+layout: video
+title: "Java, JDBC & SQL Server Tutorial"
+description: "Learn how to connect Java to SQL Server with the Microsoft JDBC driver URL pattern jar download and Maven setup for practical use"
+video_host: "youtube"
+video_id: "vCfxZv-DMC0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT25M16S"
+thumbnail_url: "https://i.ytimg.com/vi/vCfxZv-DMC0/maxresdefault.jpg"
+content_url: "https://youtu.be/vCfxZv-DMC0"
+embed_url: "https://www.youtube.com/embed/vCfxZv-DMC0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - JDBC
+  - SQL Server
+  - Microsoft JDBC driver
+  - Maven
+  - jar
+  - connection URL
+  - DriverManager
+  - PreparedStatement
+  - database
+---
+
+<h1>Step by step JDBC connection examples for Java with SQL Server and Maven</h1>
+
+<p>If you have ever wrestled with driver jars and connection URLs you are not alone. This guide walks through connecting Java applications to Microsoft SQL Server using the official Microsoft JDBC driver. It covers getting the driver via download or Maven adding the jar to your classpath composing a connection URL loading the driver creating connections and running queries with PreparedStatement all while trying not to cry in the corner.</p>
+
+<h2>Get the Microsoft JDBC driver</h2>
+
+<p>Grab the driver from Microsoft or let Maven do the heavy lifting. Maven is the modern choice if you like saving time and avoiding manual jar hoarding.</p>
+
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;com.microsoft.sqlserver&lt;/groupId&gt;
+  &lt;artifactId&gt;mssql-jdbc&lt;/artifactId&gt;
+  &lt;version&gt;10.2.0.jre11&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+
+<p>If you prefer a manual jar drop just add the downloaded jar to your project classpath. That works fine for tiny demos and nostalgic suffering.</p>
+
+<h2>Add the jar to the classpath or rely on Maven</h2>
+
+<ul>
+  <li>Small throwaway projects: drop the jar in the classpath and move on.</li>
+  <li>Real projects: use Maven and let your build tool manage dependency versions and headaches.</li>
+</ul>
+
+<h2>Build the connection URL and protect your credentials</h2>
+
+<p>The SQL Server JDBC URL follows a pattern that is easy to describe in words. Start with the jdbc prefix then the word sqlserver then two slashes then the server host and optional port then add properties for database name and other options. In text form that looks like</p>
+
+<pre><code>jdbc then the word colon then sqlserver then double slash then HOST and optional PORT then properties separated by the word semicolon</code></pre>
+
+<p>In plain English do not hard code passwords in source. Use environment variables a secrets manager or your build system to inject credentials securely. If you must use a properties file make sure it is not checked into version control.</p>
+
+<h2>Load the driver or let DriverManager auto detect it</h2>
+
+<p>On modern JVMs the driver is auto discovered from the jar service file so you rarely need to call Class.forName. On older JVMs explicit loading with the driver class name can save you a morning of confusion. The driver class name is com.microsoft.sqlserver.jdbc.SQLServerDriver.</p>
+
+<h2>Create a connection and run parameterized queries</h2>
+
+<p>Use DriverManager to obtain a Connection and use PreparedStatement for queries that accept parameters. PreparedStatement is safer and usually faster because it avoids SQL injection and can allow the driver to cache execution plans.</p>
+
+<ol>
+  <li>Obtain a Connection via DriverManager.getConnection with your URL and credentials.</li>
+  <li>Create a PreparedStatement for any SQL that takes parameters.</li>
+  <li>Set parameters in the PreparedStatement using the appropriate set methods and map JDBC types to Java types carefully.</li>
+  <li>Execute queries and iterate the ResultSet mapping columns to Java types.</li>
+</ol>
+
+<p>Example pseudo code without the drama</p>
+
+<pre><code>// pseudo code
+Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver")
+Connection conn = DriverManager.getConnection("jdbc sqlserver double slash HOST databaseName=MyDb user=me password=secret")
+PreparedStatement ps = conn.prepareStatement("select id name from users where email = ?")
+ps.setString(1 userEmail)
+ResultSet rs = ps.executeQuery()
+while rs.next() {
+  // map columns to Java types carefully
+}
+</code></pre>
+
+<h2>Handle exceptions and always close resources</h2>
+
+<p>Use try with resources where possible. It closes Connection PreparedStatement and ResultSet automatically and spares you from resource leaks and awkward explanations to your ops team. When debugging print SQL state and error codes instead of guessing what went wrong.</p>
+
+<ul>
+  <li>Prefer try with resources for concise cleanup.</li>
+  <li>Log SQL state and vendor error codes for faster troubleshooting.</li>
+  <li>Avoid string concatenation for SQL construction use PreparedStatement with parameters.</li>
+</ul>
+
+<h2>Quick checklist before you run anything</h2>
+
+<ul>
+  <li>Is the correct mssql jdbc jar on the classpath or declared in Maven</li>
+  <li>Is the driver class available or can DriverManager auto detect it</li>
+  <li>Is your connection URL using the right host port and databaseName settings</li>
+  <li>Are credentials provided securely and not baked into source</li>
+  <li>Are you using PreparedStatement for user supplied input</li>
+</ul>
+
+<p>Follow these steps and you will have a stable Java to SQL Server connection that behaves itself most of the time. If it misbehaves consult the driver docs check network connectivity and then scream into a pillow if you must. Then come back and read the logs.</p>
+

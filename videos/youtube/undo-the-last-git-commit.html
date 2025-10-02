@@ -1,0 +1,74 @@
+---
+layout: video
+title: "Undo the Last Git Commit"
+description: "Quick guide to undo the last Git commit with reset and revert commands plus safe tips for local and pushed changes."
+video_host: "youtube"
+video_id: "u8FpS-faYWI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/u8FpS-faYWI/maxresdefault.jpg"
+content_url: "https://youtu.be/u8FpS-faYWI"
+embed_url: "https://www.youtube.com/embed/u8FpS-faYWI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - undo last commit
+  - git reset
+  - git revert
+  - version control
+  - git tutorial
+  - git commands
+  - rollback
+  - devops
+  - git best practices
+---
+
+<p>So you made a commit and now regret it. Welcome to version control, where every mistake is forever unless you are clever or lucky. This guide shows how to undo the last Git commit in the safest way for your repo and your coworkers. We cover the usual suspects git reset and git revert and when to use each one so you can survive another day in devops without causing a meltdown.</p>
+
+<h2>Quick commands when you need to fix a commit</h2>
+
+<ul>
+  <li><code>git reset --soft HEAD~1</code> Keep changes staged and edit the message or tweak files before recommitting</li>
+  <li><code>git reset HEAD~1</code> Keep file changes but unstage them so you can rework what you need</li>
+  <li><code>git reset --hard HEAD~1</code> Discard the commit and the working tree changes if you really mean it</li>
+  <li><code>git revert HEAD</code> Undo a commit that has already been shared by adding a new commit that reverses it</li>
+</ul>
+
+<h2>What each command actually does to your repo</h2>
+
+<p>Let us break it down without the corporate euphemisms. Git separates the world into three places the HEAD the index and the working tree. These commands move or change HEAD and the index in different ways. Pick the one that matches how dramatic you are willing to be.</p>
+
+<h3>Keep changes staged</h3>
+
+<p>Use <code>git reset --soft HEAD~1</code> when you just want to fix the commit message or squash the change with another commit. This moves HEAD back one commit while leaving the index intact so everything is staged and ready to go. It is the polite undo for when you are mostly happy with the content but not the prose.</p>
+
+<h3>Keep changes unstaged</h3>
+
+<p>Use <code>git reset HEAD~1</code> when you want to edit files before re staging. This resets the index but keeps your working files as modified. It is the reasonable middle ground for when you need to tweak things before committing again.</p>
+
+<h3>Discard changes completely</h3>
+
+<p>Use <code>git reset --hard HEAD~1</code> only if you are sure the change is worthless and you do not need to recover it. This moves HEAD back and makes your working tree match the previous commit. There is no undo button after this unless reflog performs a miracle, and even then you should not count on it.</p>
+
+<h3>Undo a pushed commit safely</h3>
+
+<p>If the commit has already been pushed to a remote prefer <code>git revert HEAD</code>. This creates a new commit that reverses the effect of the bad commit while preserving history. It keeps your teammates and CI pipelines from having a small nervous breakdown. Rewriting history on a shared branch is rude unless you coordinate with everyone.</p>
+
+<h2>Pushing and the risk of rewriting history</h2>
+
+<p>If you do a reset on a branch that others might have pulled you will need to force push with <code>git push --force</code>. That is the nuclear option. It will rewrite history and may require your teammates to re base or recover their branches. If you must force push use a private cleanup branch first and announce what you are about to do like a responsible human.</p>
+
+<h2>Practical tips and git best practices</h2>
+
+<ul>
+  <li>Create a temporary branch before any destructive reset so you can recover via branch reference</li>
+  <li>When in doubt prefer <code>git revert</code> on shared branches to avoid merge conflicts and angry messages</li>
+  <li>Use <code>git reflog</code> if you think you erased something by mistake and need a miracle</li>
+  <li>Document why you force pushed in the PR or team chat so the story does not become a mystery</li>
+</ul>
+
+<p>This mini tutorial gives you the choices and trade offs when you need to undo the last commit. Use the command that matches the level of safety your repository and your teammates deserve. And remember if your commit message is the only problem a soft reset is less dramatic and far kinder to human relationships.</p>
+

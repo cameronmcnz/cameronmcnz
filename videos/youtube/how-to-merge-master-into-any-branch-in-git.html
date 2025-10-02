@@ -1,0 +1,95 @@
+---
+layout: video
+title: "How to Merge Master into any Branch in Git"
+description: "Quick practical guide to merging master into another branch with commands conflict handling and push best practices"
+video_host: "youtube"
+video_id: "45uNJvo6djA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M5S"
+thumbnail_url: "https://i.ytimg.com/vi/45uNJvo6djA/maxresdefault.jpg"
+content_url: "https://youtu.be/45uNJvo6djA"
+embed_url: "https://www.youtube.com/embed/45uNJvo6djA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - merge
+  - master
+  - branch
+  - git merge
+  - git tutorial
+  - version control
+  - conflict resolution
+  - git commands
+  - git workflow
+---
+
+<h2>Why merge master into your branch</h2>
+<p>If you are working on a feature branch and master keeps getting updates you will want to bring those changes into your branch. Doing this often avoids giant surprise conflicts on merge day and keeps CI from yelling at you. This guide shows the sane git commands to merge master into a branch while keeping your working tree tidy and your stress levels acceptable.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+  <li>Git installed and configured</li>
+  <li>A clean working tree without uncommitted experiments</li>
+  <li>Permission to push the branch if you plan to update remote</li>
+</ul>
+
+<h2>Step by step workflow</h2>
+<p>Short version first for the impatient humans. Then we will explain the drama in each step.</p>
+
+<h3>1 Switch to your target branch</h3>
+<p>Change context to the branch that needs master updates. Replace feature-branch with your branch name.</p>
+<pre><code>git checkout feature-branch
+# or the newer form
+git switch feature-branch</code></pre>
+
+<h3>2 Update local master</h3>
+<p>Fetch remote changes and make sure your local master matches origin master. This ensures the merge brings the latest commits.</p>
+<pre><code>git fetch origin
+git checkout master
+git pull origin master</code></pre>
+
+<h3>3 Merge master into your branch</h3>
+<p>Go back to your branch and merge. If master can be fast forwarded there will be no merge commit. If not a merge commit will record the moment master landed in your branch.</p>
+<pre><code>git checkout feature-branch
+git merge master</code></pre>
+
+<p>If you need a linear history consider rebasing instead of merging. Rebase rewrites commits and will cause trouble if the branch is shared with others. Use rebasing only when you know what you are doing.</p>
+
+<h3>4 Resolve conflicts when they occur</h3>
+<p>If git reports conflicts run git status to see the files. Open each file, choose the correct code, then stage and finish the merge.</p>
+<pre><code>git status
+# edit conflicted files
+git add path/to/file
+git commit</code></pre>
+
+<p>Pro tip If conflict resolution starts to look like therapy for code create a quick backup branch before you do anything drastic</p>
+<pre><code>git branch backup-feature-branch</code></pre>
+
+<h2>Quick checklist before pushing</h2>
+<ul>
+  <li>Run tests or a build to make sure nothing exploded</li>
+  <li>Verify the changes in a diff if you like to be paranoid</li>
+  <li>Push the updated branch to the remote</li>
+</ul>
+<pre><code>git push origin feature-branch</code></pre>
+
+<h2>When to rebase instead of merge</h2>
+<p>Rebase moves your branch commits on top of master and gives a tidy linear history. Do not rebase commits that other people rely on. If your branch is private or you coordinate with reviewers rebase can be a nice option.</p>
+<pre><code>git checkout feature-branch
+git rebase master
+# resolve any rebase conflicts then
+git rebase --continue</code></pre>
+
+<h2>Troubleshooting and recovery</h2>
+<ul>
+  <li>If the merge looks wrong you can abort with git merge --abort while the merge is in progress</li>
+  <li>If you have a backup branch you can reset to it and start over</li>
+  <li>For rebase problems use git rebase --abort to return to the pre rebase state</li>
+</ul>
+
+<h2>Final thoughts</h2>
+<p>Merging master into a feature branch is a simple habit that prevents nasty surprises later. Keep your working tree clean backup if you are nervous and pick merge or rebase based on your team workflow. Do this often and your future self will thank you or at least not cry in the pull request comments.</p>
+

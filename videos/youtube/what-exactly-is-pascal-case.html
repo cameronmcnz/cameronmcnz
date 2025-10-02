@@ -1,0 +1,66 @@
+---
+layout: video
+title: "What exactly is Pascal case?"
+description: "Clear definition of Pascal case with examples rules and when to use in code for classes types and public APIs"
+video_host: "youtube"
+video_id: "hIdoppZqcaI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/hIdoppZqcaI/maxresdefault.jpg"
+content_url: "https://youtu.be/hIdoppZqcaI"
+embed_url: "https://www.youtube.com/embed/hIdoppZqcaI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - PascalCase
+  - naming
+  - naming conventions
+  - coding style
+  - C#
+  - camelCase
+  - classes
+  - variables
+  - programming
+  - style guide
+---
+
+<h2>What Pascal case actually is</h2>
+<p>Pascal case means you write identifiers so each word starts with a capital letter and there are no separators. Think of names like <code>MyClass</code> <code>UserName</code> and <code>GetValue</code>. This is the style you will see for classes types and exported symbols in many languages including C# Java and Go.</p>
+
+<h3>Simple rules that do not deserve drama</h3>
+<ul>
+  <li>Capitalize the first letter of every word including the first word</li>
+  <li>No underscores spaces or hyphens between words</li>
+  <li>Follow your team preference on acronyms so public APIs stay consistent</li>
+</ul>
+
+<p>So you can use <code>XmlParser</code> or <code>XMLParser</code> depending on the style guide your team agreed on. Either option is fine as long as the whole repo is not trapped in existential conflict about it.</p>
+
+<h3>Pascal case versus camel case</h3>
+<p>The main difference is the first letter. Pascal case starts with an uppercase letter while camel case starts with a lowercase letter. So prefer Pascal case for types classes and public API names. Use camel case for local variables private fields and other internal identifiers when your style guide asks for that.</p>
+
+<h2>When to pick Pascal case in your code base</h2>
+<p>Pick Pascal case when readability matters and when the language or framework expects it. In C# public types properties and methods are usually Pascal case. In libraries and public APIs predictable naming reduces friction for users and avoids reviewers wasting time on wardrobe choices for symbols.</p>
+
+<h3>Practical checklist</h3>
+<ul>
+  <li>Types and classes use Pascal case</li>
+  <li>Public methods and properties use Pascal case</li>
+  <li>Local variables and private fields use camel case unless your guide says otherwise</li>
+  <li>Acronyms follow an agreed team convention so exported names are stable</li>
+</ul>
+
+<h2>Tools that make naming less painful</h2>
+<p>Do not rely on human willpower during code review. Use linters code analyzers and editor settings to enforce naming conventions automatically. Modern editors will flag violations and refactor tools will rename symbols safely so you do not have to manually hunt down every usage like a medieval scribe.</p>
+
+<h3>Quick tips for teams</h3>
+<ul>
+  <li>Add a style rule that enforces Pascal case for exported symbols to reduce bikeshedding</li>
+  <li>Document how to treat acronyms so examples in the README do not contradict each other</li>
+  <li>Run naming checks in CI so you get fast feedback instead of a slow review fight</li>
+</ul>
+
+<p>Pascal case is boring and useful. Embrace it for the things that are meant to be read by other humans and leave the cowboy naming for quick throwaway scripts that will be deleted anyway.</p>
+

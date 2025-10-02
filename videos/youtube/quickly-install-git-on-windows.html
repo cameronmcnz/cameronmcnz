@@ -1,0 +1,72 @@
+---
+layout: video
+title: "Quickly install Git on Windows"
+description: "Fast guide to install Git on Windows and set user name email verify installation choose SSH or GUI clients for immediate use"
+video_host: "youtube"
+video_id: "O9-4ohcqP4E"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/O9-4ohcqP4E/maxresdefault.jpg"
+content_url: "https://youtu.be/O9-4ohcqP4E"
+embed_url: "https://www.youtube.com/embed/O9-4ohcqP4E"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - windows
+  - gitbash
+  - devops
+  - gitlab
+  - bitbucket
+  - codecommit
+  - gitkraken
+  - installation
+---
+
+<p>If you want Git on Windows without crafting a sacrificial script or summoning tech support, this guide gets you up and running fast. No hand holding, just the right choices so your commits do not look like anonymous scribbles from a haunted keyboard.</p>
+
+<h2>Download the official Git installer for Windows</h2>
+<p>Always grab Git from the source that does not surprise you. Head to <a href="https://git-scm.com">git-scm.com</a> and choose the Windows installer that matches your CPU, 64 bit or 32 bit. That avoids weird forks and the kind of surprises only a debugger can love.</p>
+<ul>
+  <li>Pick the installer and run it with recommended options unless your company policy says otherwise.</li>
+  <li>The default editor choice is not a personality test. Pick something you can change later and move on.</li>
+</ul>
+
+<h2>Set identity and verify the installation</h2>
+<p>If you do not set your name and email your commits will look like a ghost wrote them. Do this once in Git Bash or a terminal and stop fretting.</p>
+<pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+</code></pre>
+<p>Then confirm Git is installed and see the current settings with these commands.</p>
+<pre><code>git --version
+git config --list
+</code></pre>
+
+<h2>Choose a terminal and handle line endings the sane way</h2>
+<p>If you like Unix like commands, use Git Bash. If your life is PowerShell and you like it that way, pick the integration option. Either is fine as long as you stop switching mid project and causing merge nightmares.</p>
+<ul>
+  <li>For most devs, Git Bash is the easy path to a predictable shell.</li>
+  <li>For Windows heavy shops, enable the option to use PowerShell or the system default terminal.</li>
+</ul>
+<p>When prompted about line endings choose the option that matches your team. Wrong settings will not explode your laptop but they will fill your diffs with pointless changes and ruin your Tuesday.</p>
+
+<h2>SSH keys without the drama</h2>
+<p>If you plan to push to remotes like GitHub GitLab Bitbucket or AWS CodeCommit you should create an SSH key and add the public part to your account. Modern practice is to prefer ed25519 keys for a good mix of security and convenience.</p>
+<pre><code>ssh-keygen -t ed25519 -C "you@example.com"
+# then copy the contents of ~/.ssh/id_ed25519.pub into your account settings
+</code></pre>
+<p>Paste that public key into the SSH keys section of your Git host. That is GitHub or GitLab or Bitbucket or CodeCommit. Yes you will have to click something. Yes you will be glad later.</p>
+
+<h2>Optional GUI clients and final tips</h2>
+<p>If you like buttons and diagrams try a GUI client. Options include GitKraken GitHub Desktop and Sourcetree. GUIs are handy for visualizing branches and merges but the command line will save you when things get complicated.</p>
+<ul>
+  <li>Prefer ed25519 keys for SSH and paste the public key into your profile on the remote host.</li>
+  <li>Verify installation with git --version and inspect settings with git config --list.</li>
+  <li>Keep command line skills. GUIs do not always reveal the magic that saved your branch.</li>
+</ul>
+
+<p>Follow these steps and you will have a working Git installation on Windows ready for cloning committing and pushing code to remote repositories. It will not make you a Git wizard overnight but it will stop Git from being the thing that ruins your build pipeline.</p>
+

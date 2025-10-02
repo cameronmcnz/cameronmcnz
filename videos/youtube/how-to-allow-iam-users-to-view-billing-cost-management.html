@@ -1,0 +1,74 @@
+---
+layout: video
+title: "How to Allow IAM Users to View Billing & Cost Management"
+description: "Grant AWS IAM users read access to billing and cost management using minimal permissions and enabling IAM billing access in the account"
+video_host: "youtube"
+video_id: "VMkw-kmK0zU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M55S"
+thumbnail_url: "https://i.ytimg.com/vi/VMkw-kmK0zU/maxresdefault.jpg"
+content_url: "https://youtu.be/VMkw-kmK0zU"
+embed_url: "https://www.youtube.com/embed/VMkw-kmK0zU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - IAM
+  - Billing
+  - Cost Management
+  - AWS Billing
+  - IAM Users
+  - Permissions
+  - Policies
+  - AWS Tutorial
+  - Cloud
+---
+
+<h1>Step by step guide to grant IAM billing view access safely and cleanly</h1>
+<p>Want your finance team to peek at AWS bills without accidentally detonating the account? Good call. This guide shows how to give IAM users read only access to Billing and Cost Management while keeping full account control locked in the hands that should have it.</p>
+
+<h2>Quick overview</h2>
+<p>High level flow that actually matters</p>
+<ul>
+  <li>Sign in as the root account and enable IAM access to billing in Account Settings</li>
+  <li>Choose the AWS managed read only billing policy or make a scoped custom policy</li>
+  <li>Attach the policy to a group and add users to that group</li>
+  <li>Test access and monitor with CloudTrail and MFA on the root account</li>
+</ul>
+
+<h2>Why do this instead of handing out admin rights</h2>
+<p>Giving everyone full admin is like leaving your front door open and putting a neon sign that says free stuff. Billing view access gives the team what they need to do their job while protecting payments and account configuration.</p>
+
+<h2>Enable IAM access to billing</h2>
+<p>Sign in with the root account and open Account Settings in the AWS console. Turn on the toggle that allows IAM users to access the billing console. Without that toggle the billing pages will not appear to IAM users no matter how many permissions you hand them.</p>
+
+<h2>Pick a policy</h2>
+<p>The easiest and safest choice is the AWS managed policy named AWSBillingReadOnlyAccess. It covers the usual billing and cost explorer views. If your security team demands extra precision you can craft a custom policy that scopes actions to specific billing services budgets or cost explorer operations. Keep the policy as narrow as possible while still letting users do their job.</p>
+
+<h2>Attach the policy to a group</h2>
+<p>Attach the policy to a group rather than to each user. Groups make lifecycle management sensible and boring which is a win for everyone. Create a billing viewers group then add the finance or ops users who need access.</p>
+
+<h2>Programmatic access and APIs</h2>
+<p>If users need programmatic access for scripts or reporting add the minimum API permissions required. Avoid broad rights. Test the API calls using an IAM account that represents the intended permissions so you do not discover problems in front of a live payroll run.</p>
+
+<h2>Verify and troubleshoot</h2>
+<p>Sign in as an IAM user in the billing group and open the Billing and Cost Management console. If something is blocked check these things</p>
+<ul>
+  <li>Is the IAM access to billing toggle still enabled in Account Settings</li>
+  <li>Does the user belong to the group with the billing policy attached</li>
+  <li>Are the policy statements granting the expected read actions and not denying them elsewhere</li>
+</ul>
+
+<h2>Best practices that are not optional</h2>
+<ul>
+  <li>Enable MFA on the root account and keep the root credentials locked away</li>
+  <li>Enable CloudTrail so you can see who viewed billing data and when</li>
+  <li>Use groups and managed policies when possible to reduce human error</li>
+  <li>Grant least privilege and review billing access periodically</li>
+</ul>
+
+<h2>Wrap up</h2>
+<p>Granting billing view access boils down to a simple pattern toggle then policy then test. It gives teams the visibility they need without handing over the account keys. Follow the steps and you will sleep marginally better at night which is an underrated benefit.</p>
+

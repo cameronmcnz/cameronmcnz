@@ -1,0 +1,68 @@
+---
+layout: video
+title: "How to show the names of files changed in a Git commit"
+description: "Show which files changed in a Git commit with git show git diff and git log examples for names only and status output"
+video_host: "youtube"
+video_id: "VZDiggpsfcE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M55S"
+thumbnail_url: "https://i.ytimg.com/vi/VZDiggpsfcE/maxresdefault.jpg"
+content_url: "https://youtu.be/VZDiggpsfcE"
+embed_url: "https://www.youtube.com/embed/VZDiggpsfcE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git show
+  - git diff
+  - git log
+  - name-only
+  - name-status
+  - commit files
+  - version control
+  - CLI
+  - developer tips
+---
+
+<article>
+  <p>Want a clean list of files touched by a commit without wading through a sea of diffs and developer drama This guide gives the small set of commands you actually need to see which files changed in a Git commit and in comparisons between commits</p>
+
+  <h2>Quick ways to show changed files</h2>
+  <p>These commands are the bread and butter for anyone doing version control work in the CLI or writing scripts for CI pipelines Each one focuses on file names not full patch bodies</p>
+
+  <h3>Show names only for a single commit</h3>
+  <p>If you only care about the file list run this</p>
+  <pre><code>git show --name-only COMMIT</code></pre>
+  <p>This prints one path per line after the commit metadata It is the go to when you need paths only for scripts code owners checks or polite snooping</p>
+
+  <h3>Show names with status codes</h3>
+  <p>Want to know if a file was added modified or deleted without parsing the whole diff Use this</p>
+  <pre><code>git show --name-status COMMIT</code></pre>
+  <p>Output shows a short status letter like A M or D next to each path so you can scan who broke what without crying</p>
+
+  <h3>Compare two commits for changed file names</h3>
+  <p>When you need to see what differs between two points in history this is your friend</p>
+  <pre><code>git diff --name-only BASE_COMMIT TARGET_COMMIT</code></pre>
+  <p>Handy for pull request checks quick reviews and determining what to include in a deploy script</p>
+
+  <h3>Use log to list files for the last commit</h3>
+  <p>If you just want the file list for HEAD without extra fuss try this</p>
+  <pre><code>git log -1 --name-only</code></pre>
+  <p>Works well inside CI steps or hooks that operate on the most recent commit</p>
+
+  <h2>Practical tips and developer tricks</h2>
+  <ul>
+    <li>Pipe to grep to filter paths by pattern for focused checks</li>
+    <li>Use sort -u to dedupe results when comparing ranges</li>
+    <li>Combine with xargs to run checks or linters only on changed files</li>
+    <li>Prefer name only outputs when you do not need the diff itself to save time and bandwidth</li>
+  </ul>
+
+  <h2>Recap and when to use each command</h2>
+  <p>Use --name-only when you want just paths Use --name-status when you also want change types Use git diff for comparisons and git log when you are querying history These are the essential CLI developer tips for listing commit files without reading a novel</p>
+
+  <p>Now go forth and inspect commits like a civilized chaos agent</p>
+</article>
+

@@ -1,0 +1,74 @@
+---
+layout: video
+title: "Remove Git Branches from GitLab"
+description: "Learn how to remove local and remote branches from a GitLab repository using commands and the web UI for a cleaner repo."
+video_host: "youtube"
+video_id: "xLoQmOo2Tzk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M18S"
+thumbnail_url: "https://i.ytimg.com/vi/xLoQmOo2Tzk/maxresdefault.jpg"
+content_url: "https://youtu.be/xLoQmOo2Tzk"
+embed_url: "https://www.youtube.com/embed/xLoQmOo2Tzk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitLab
+  - Git
+  - branches
+  - delete branch
+  - remove branch
+  - git tutorial
+  - git commands
+  - repository maintenance
+  - merge request
+  - devops
+---
+
+<article>
+  <p>If your repository looks like a botanical garden of abandoned feature branches you are not alone. This guide walks through how to remove local and remote branches in GitLab while keeping commit history intact and not triggering a small apocalypse for your teammates.</p>
+
+  <h2>Quick safety checks before you delete</h2>
+  <p>Deleting a branch is permanent from the reference point of the branch name. The commits may still be reachable but do your due diligence first. Run these commands to see what you are dealing with and to avoid drama.</p>
+  <ul>
+    <li>List local branches with a peek at the current head using <pre><code>git branch</code></pre></li>
+    <li>See all refs including remotes with <pre><code>git branch -a</code></pre></li>
+    <li>Double check that work has been merged or backed up before removing the branch name</li>
+  </ul>
+
+  <h2>Delete local branches the sensible way</h2>
+  <p>When the feature is merged there is a polite local delete that protects you from accidental data loss.</p>
+  <pre><code>git checkout main</code></pre>
+  <pre><code>git branch -d my-branch</code></pre>
+  <p>If you are absolutely sure and also a little reckless you can force delete.</p>
+  <pre><code>git branch -D my-branch</code></pre>
+  <p>Use the forced delete only when you have confirmed the commits are stored elsewhere or you enjoy explaining mistakes to your team.</p>
+
+  <h2>Remove branches from the remote GitLab repo</h2>
+  <p>Remote deletion is simple and satisfying. This command tells the remote to drop the branch name.</p>
+  <pre><code>git push origin --delete my-branch</code></pre>
+  <p>If you prefer GUI two clicks over typed commands the GitLab web UI offers a Delete button on the Repository Branches page. For bulk cleanup use the branch list filter to show merged branches and delete entries from there while reviewing first.</p>
+
+  <h3>Keep your local clone tidy after remote deletes</h3>
+  <p>Deleting a remote branch does not automatically remove the stale remote ref in your local clone. Clean that up with these commands.</p>
+  <pre><code>git fetch --prune</code></pre>
+  <pre><code>git remote prune origin</code></pre>
+
+  <h2>Protected branches and permissions</h2>
+  <p>Protected branches are guarded for a reason. You will need the appropriate role to delete them. If you have permissions you can unprotect a branch in Project Settings under Repository Protected Branches and then delete it. Otherwise ask a maintainer to help. This keeps important branches safe from accidental deletions and from well intentioned chaos.</p>
+
+  <h2>Merge requests and source branch cleanup</h2>
+  <p>Save future housekeeping by enabling remove source branch on merge requests. This setting prevents leftover branches from spawning like bad ideas. It is a small choice that spares future developers from a graveyard of stale names.</p>
+
+  <h2>Automation and good repository maintenance</h2>
+  <ul>
+    <li>Enable remove source branch on merge to automate obvious cleanup</li>
+    <li>Use branch protection rules wisely to prevent accidental removal of mainline branches</li>
+    <li>Consider periodic cleanup for stale branches if your project is active and you have the rights</li>
+    <li>Use clear branch naming so reviewers and CI can ignore or archive old work easily</li>
+  </ul>
+
+  <p>That is all it takes to keep a GitLab repo from turning into a branch graveyard. Use the git commands for fast precise removal and the web UI for careful review. Clean repo maintenance is a small gift to the next developer who inherits your work and a great way to avoid sad Slack messages at 3 AM.</p>
+</article>
+

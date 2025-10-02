@@ -1,0 +1,58 @@
+---
+layout: video
+title: "What is a Fast Forward Merge in Git?"
+description: "Clear definition and quick examples of a fast forward merge in Git with commands and when to choose a merge commit for history clarity."
+video_host: "youtube"
+video_id: "36ueMx5hro8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M21S"
+thumbnail_url: "https://i.ytimg.com/vi/36ueMx5hro8/maxresdefault.jpg"
+content_url: "https://youtu.be/36ueMx5hro8"
+embed_url: "https://www.youtube.com/embed/36ueMx5hro8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - fast forward merge
+  - git merge
+  - merge strategies
+  - branching
+  - version control
+  - git tutorial
+  - merge commit
+  - git workflow
+  - git tips
+---
+
+<h2>What a fast forward merge does in Git</h2>
+<p>A fast forward merge is Git being efficient and a little smug. If you created a feature branch from main and main did not get any new commits while you worked, merging that feature back can mean no new merge commit ever appears. Git simply advances the main pointer to the tip of your feature branch. The history stays linear and neat which pleases some humans and alarms the rest.</p>
+
+<h3>How this happens in practice</h3>
+<p>Picture this git graph scenario. You branch off main then add commits only on the feature branch. Since main did not change Git can resolve the merge by moving the main reference forward. No merge commit is created and the timeline looks like someone swept up after themselves.</p>
+<pre><code>git checkout main
+git merge feature-branch</code></pre>
+
+<h3>When Git will not fast forward</h3>
+<p>If main gained commits after you branched then a true merge is required. Git will either create a merge commit or prompt you to resolve conflicts first depending on the situation and your merge options. That merge commit is the visible junction where histories come together.</p>
+
+<h3>When you might want to avoid a fast forward merge</h3>
+<p>Sometimes you want a visible record that a set of commits belonged to a named branch. This helps when you need to revert a whole feature or when your team likes having a tidy box around work. To force a merge commit even when a fast forward would be possible use this command</p>
+<pre><code>git merge --no-ff feature-branch</code></pre>
+
+<h3>How to check what actually happened</h3>
+<p>Want proof instead of feelings Use the following git log view to inspect whether merges were fast forwarded or produced merge commits</p>
+<pre><code>git log --graph --oneline</code></pre>
+<p>Graph view gives you the visual confirmation that a thousand words could not match and it also shows which merges left a fingerprint in the history.</p>
+
+<h3>Practical recommendations and git tips</h3>
+<ul>
+  <li>Prefer fast forward merges for tiny fixes and trivial updates to keep history linear and readable.</li>
+  <li>Use git merge --no-ff for larger features when grouping commits under a merge commit helps future maintenance and audits.</li>
+  <li>If your team relies on release bisecting or clear audit trails favor merge commits so you do not surprise your future self.</li>
+  <li>Rebase is another tool to keep history linear but it rewrites history so use it with care on shared branches.</li>
+</ul>
+
+<p>In short Git will fast forward when it can and it will not when branching histories diverge. Decide if you want that invisible tidy history or a visible merge commit that tells the story of a feature. Either choice is valid unless your CI pipeline has opinions and then you do what CI says.</p>
+

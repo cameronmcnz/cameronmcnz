@@ -1,0 +1,107 @@
+---
+layout: video
+title: "A Hibernate 5 SchemaExport example"
+description: "Learn how to programmatically create database tables with Hibernate 5 SchemaExport step by step code and practical tips for schema generation"
+video_host: "youtube"
+video_id: "J3v9z2WJrmA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M23S"
+thumbnail_url: "https://i.ytimg.com/vi/J3v9z2WJrmA/maxresdefault.jpg"
+content_url: "https://youtu.be/J3v9z2WJrmA"
+embed_url: "https://www.youtube.com/embed/J3v9z2WJrmA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Hibernate
+  - SchemaExport
+  - Java
+  - JPA
+  - Database
+  - DDL
+  - Schema generation
+  - Hibernate 5
+  - Programmatic
+  - Tutorial
+---
+
+<p>If you like letting a framework write your database DDL while you sip coffee and hope for the best this short tutorial shows how to use Hibernate 5 SchemaExport to generate tables from JPA annotated classes. It is programmatic schema generation that keeps SQL fatigue to a minimum and still gives you control when you need it.</p>
+
+<h2>What SchemaExport will do for you</h2>
+<p>SchemaExport takes the mapping in your annotated entity classes and the Hibernate metadata model and produces DDL for your target database. You can emit SQL to a file, print it to standard out, or actually execute it against the database. It is ideal for initial schema creation in development or for reproducible builds in CI pipelines.</p>
+
+<h2>Prerequisites and dependencies</h2>
+<p>Add Hibernate core and the JDBC driver for your database to your Maven project. Keep your connection properties handy including the JDBC driver class and database credentials. Double check those credentials now so you do not get the delightful surprise of a failed connection later.</p>
+
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
+  &lt;artifactId&gt;hibernate-core&lt;/artifactId&gt;
+  &lt;version&gt;5.x.y&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+  &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
+  &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
+  &lt;version&gt;42.x.x&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+
+<h2>Define your JPA entities</h2>
+<p>Annotate your classes with JPA annotations so the mapping represents the schema you want. Be sensible about column lengths and nullability so the database does not teach you harsh lessons later.</p>
+
+<pre><code>@Entity
+@Table(name = "person")
+public class Person {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column(length = 100, nullable = false)
+    private String name;
+
+    // getters and setters
+}</code></pre>
+
+<h2>Build Metadata and run SchemaExport</h2>
+<p>Boot the ServiceRegistry, feed annotated classes into MetadataSources, and build a Metadata object. Then configure SchemaExport and run it. Here is an example that shows the typical flow in Java using Hibernate 5 APIs.</p>
+
+<pre><code>StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+    .applySettings(properties)
+    .build();
+
+MetadataSources sources = new MetadataSources(registry);
+sources.addAnnotatedClass(Person.class);
+
+Metadata metadata = sources.buildMetadata();
+
+SchemaExport schemaExport = new SchemaExport();
+schemaExport.setFormat(true);
+schemaExport.setOutputFile("schema.sql");
+
+schemaExport.create(EnumSet.of(TargetType.DATABASE, TargetType.SCRIPT), metadata);</code></pre>
+
+<p>Use different TargetType values depending on whether you want to run DDL against the database, write a script file, or just print SQL for review. Running with SCRIPT and STDOUT is a polite dry run that does not touch the live database.</p>
+
+<h3>Dry run and safe preview</h3>
+<ul>
+  <li>Emit SQL to a file first if you want to peer review the statements.</li>
+  <li>Use STDOUT in CI to collect the SQL and fail fast on errors.</li>
+  <li>Only target DATABASE once you are sure the DDL is correct.</li>
+</ul>
+
+<h2>Common gotchas that will ruin your day</h2>
+<ul>
+  <li>Dialect mismatch may produce invalid SQL for your engine</li>
+  <li>Wrong JDBC driver or bad credentials prevent connection and stop SchemaExport</li>
+  <li>Missing primary key or mis annotated relationships produce incomplete schema</li>
+  <li>Column lengths and types matter for real data so test with representative values</li>
+</ul>
+
+<h2>Verify the generated schema</h2>
+<p>Open your favorite database client and inspect the tables indexes and constraints. Run select queries and check for nullable columns that should not be nullable. If you find issues update the mappings rebuild Metadata and rerun SchemaExport until the schema behaves like you expected it to.</p>
+
+<h2>Wrap up and recommended workflow</h2>
+<p>Use SchemaExport for programmatic schema generation when you want reproducible DDL and less manual SQL writing. Keep an iterative workflow where you build metadata, preview SQL, and then apply to a test database before touching production. Hibernate 5 SchemaExport is not magic but it is a very tidy assistant when you teach it well.</p>
+
+<p>If you made it this far congratulations you now have a reliable path to let Hibernate generate DDL while you get to keep writing Java and pretend the database is not judging you.</p>
+

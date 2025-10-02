@@ -1,0 +1,118 @@
+---
+layout: video
+title: "How to Undo a Pushed Git Commit"
+description: "Learn when to use git reset and git revert after a push and how to fix remote commits safely and without drama"
+video_host: "youtube"
+video_id: "mSrxBJaJwGA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M25S"
+thumbnail_url: "https://i.ytimg.com/vi/mSrxBJaJwGA/maxresdefault.jpg"
+content_url: "https://youtu.be/mSrxBJaJwGA"
+embed_url: "https://www.youtube.com/embed/mSrxBJaJwGA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git reset
+  - git revert
+  - undo commit
+  - force push
+  - git tutorial
+  - git best practices
+  - version control
+  - github
+  - reflog
+---
+
+<p>You pushed a commit and now you regret it. Relax a little and panic in a controlled fashion. This guide walks through the sane options to undo a pushed git commit while keeping your teammates from staging a mutiny. We will cover git revert for safe history, git reset plus a careful force push for private branches, and how to summon lost work from git reflog when things get weird.</p>
+
+<h2>Quick decision guide</h2>
+
+<p>First question to ask yourself is practical and small. Is the branch shared with others or is it your lonely private experimental branch That answer decides everything.</p>
+
+<ul>
+  <li><strong>Shared branch</strong> Use git revert. It creates a new commit that undoes the bad change and keeps history readable.</li>
+  <li><strong>Private branch</strong> You can rewrite history with git reset and then push with force with lease. Do that only if you are certain no one else is building on your branch.</li>
+</ul>
+
+<h2>Use git revert when history matters</h2>
+
+<p>git revert makes a new commit that reverses the changes from a previous commit. This is the least dramatic approach and the one that keeps your github or CI history polite.</p>
+
+<pre><code>git revert HEAD
+# or for a specific commit
+git revert abc123</code></pre>
+
+<p>This preserves a linear history and avoids surprise breakage for anyone who pulled the original commit. After reverting you push like normal.</p>
+
+<pre><code>git push origin branch-name</code></pre>
+
+<h3>When revert is the right move</h3>
+
+<ul>
+  <li>Other people might have based work on the commit</li>
+  <li>You want a clear audit trail for version control or compliance</li>
+  <li>You do not enjoy awkward Slack messages explaining broken history</li>
+</ul>
+
+<h2>Use git reset only on private branches</h2>
+
+<p>If the branch is yours and no one else relies on it you can remove commits from history. This is more aggressive and can be useful during feature development or cleanup.</p>
+
+<pre><code># drop the last commit locally
+git reset --hard HEAD~1
+
+# then rewrite origin safely by checking for upstream changes first
+git push --force-with-lease origin branch-name</code></pre>
+
+<p>Force with lease is the polite version of force push. It checks that the remote has not moved since your last fetch. That reduces the chance of erasing someone else by accident.</p>
+
+<h3>When reset is the right move</h3>
+
+<ul>
+  <li>Your branch is not shared or you coordinate closely with anyone who might be affected</li>
+  <li>You need to remove sensitive data or large files from history before merging</li>
+  <li>You like the feeling of a tidy commit graph and accept the responsibility</li>
+</ul>
+
+<h2>Push etiquette and telling the team</h2>
+
+<p>Regardless of method you must notify teammates when history changes. A short message prevents wasted time and passive aggressive commits later. For a revert push normally. For a reset push with force with lease and add a note explaining why you rewrote history.</p>
+
+<pre><code>git push origin branch-name
+# or after reset
+git push --force-with-lease origin branch-name</code></pre>
+
+<p>Keep the message simple. Who did what and why is enough. If you broke CI mention that too and how you fixed it.</p>
+
+<h2>Verify history and recover lost commits</h2>
+
+<p>After any change check history and continuous integration. Use a concise log view and the reflog when the universe tries to swallow your commit.</p>
+
+<pre><code>git log --oneline
+git reflog</code></pre>
+
+<p>If you need to recover a commit from reflog pick the hash and restore it. For example create a branch from the reflog entry or reset to it.</p>
+
+<pre><code>git checkout -b recover-branch abc123
+# or to restore locally
+git reset --hard abc123</code></pre>
+
+<p>Reflog is your time machine. It will often save you from your own zeal.</p>
+
+<h2>Git best practices to avoid future drama</h2>
+
+<ul>
+  <li>Prefer git revert for public or shared branches</li>
+  <li>Use git reset only on private work and always use force with lease when pushing</li>
+  <li>Run git log and check CI before and after changes</li>
+  <li>Tell teammates when you rewrite history and keep the message short and useful</li>
+  <li>Use git reflog as a retrieval tool if something disappears</li>
+</ul>
+
+<h2>Recap with a dash of reality</h2>
+
+<p>If you want the calm option use git revert and push normally. If you want to surgically remove a commit from your personal branch use git reset and push with force with lease while warning the team. If things go sideways remember git reflog and do not be afraid to make small recovery branches. Version control is a tool not a personality test, but knowing these commands will make you look competent when the inevitable mistake happens.</p>
+

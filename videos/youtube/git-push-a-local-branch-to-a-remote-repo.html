@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Git Push a Local Branch to a Remote Repo"
+description: "Publish a local branch to a remote repository on GitHub GitLab or BitBucket with clear commands upstream setup and verification tips"
+video_host: "youtube"
+video_id: "rUyYCoCkidM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT13M3S"
+thumbnail_url: "https://i.ytimg.com/vi/rUyYCoCkidM/maxresdefault.jpg"
+content_url: "https://youtu.be/rUyYCoCkidM"
+embed_url: "https://www.youtube.com/embed/rUyYCoCkidM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - git push
+  - branches
+  - remote
+  - gitlab
+  - bitbucket
+  - version control
+  - git tutorial
+  - push upstream
+---
+
+<p>If you have ever pushed a branch and then stared at the web UI while wondering where your life went wrong you are in the right place. This bite sized git tutorial walks through how to publish a local branch to a remote, set the upstream so future git push commands are boring, and confirm the branch shows up on GitHub GitLab or Bitbucket.</p>
+
+<h2>Step 1 Create and switch to a local branch</h2>
+<p>Make a clear branch name so teammates do not play detective. Use feature, fix or chore prefixes to stay civilized.</p>
+<pre><code>git checkout -b feature/my-awesome-change
+# or with newer Git
+git switch -c feature/my-awesome-change</code></pre>
+
+<h2>Step 2 Verify your remote configuration</h2>
+<p>Check where you will push. The common remote name is origin but yours might be upstream or something else if your repo is a fork.</p>
+<pre><code>git remote -v</code></pre>
+<p>The output shows remote names and URLs so you do not accidentally push to grandma s mirror of the repo.</p>
+
+<h2>Step 3 Push the branch and set upstream</h2>
+<p>This is the magical command that makes future pushes a one word affair. It tells Git to remember which remote and branch this local branch should track.</p>
+<pre><code>git push -u origin feature/my-awesome-change</code></pre>
+<p>After that you can use plain <code>git push</code> from the same branch and Git will know where to send your work. The phrase push upstream means the same idea in many workflows.</p>
+
+<h2>Step 4 Confirm the remote received the branch</h2>
+<p>Do a quick fetch and inspect remote refs so you do not open a pull request to an empty void.</p>
+<pre><code>git fetch origin
+git branch -r
+# or check heads directly
+git ls-remote --heads origin</code></pre>
+<p>This shows remote branches and avoids the embarrassing moment when CI complains because the branch never arrived.</p>
+
+<h2>Step 5 Create a pull request or merge request</h2>
+<p>Open the repository on GitHub GitLab or Bitbucket and start a pull request or merge request. Write a concise description, link the issue if relevant, and ask for a sanity check instead of a full autopsy.</p>
+
+<h3>Quick troubleshooting checklist</h3>
+<ul>
+  <li>If git push seems to do nothing check <code>git status</code> and <code>git branch -vv</code> to confirm the branch is tracking the expected remote</li>
+  <li>If you need to set tracking after the fact use <code>git branch --set-upstream-to=origin/feature/my-awesome-change</code></li>
+  <li>If you have multiple remotes push to the one you intend by name for example <code>git push -u origin</code> or <code>git push -u upstream</code></li>
+</ul>
+
+<h3>Tips for less grief with branches</h3>
+<ul>
+  <li>Use descriptive branch names so code reviewers are not forced to guess intent</li>
+  <li>Use <code>git push -u</code> once per branch to avoid typing and mistakes</li>
+  <li>Keep your branch up to date with the target branch with small rebases or merges as your team prefers</li>
+</ul>
+
+<p>Why this matters for version control and collaboration. Publishing branches correctly keeps history tidy and makes it trivial for CI, reviewers, and other contributors to find your work on GitHub GitLab or Bitbucket. This little routine makes teamwork less mysterious and far less dramatic.</p>
+
+<p>If you want a short checklist to copy and paste here it is. Create branch, verify remote, git push -u origin your-branch, fetch and confirm, open a pull request. Repeat as necessary and try to enjoy the tiny victories.</p>
+

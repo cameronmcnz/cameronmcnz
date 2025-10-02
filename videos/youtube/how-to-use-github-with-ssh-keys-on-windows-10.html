@@ -1,0 +1,85 @@
+---
+layout: video
+title: "How to use GitHub with SSH Keys on Windows 10"
+description: "Set up SSH keys on Windows 10 for secure GitHub access Learn key generation agent setup and testing for password free Git operations"
+video_host: "youtube"
+video_id: "a-zX_qc2S-M"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M5S"
+thumbnail_url: "https://i.ytimg.com/vi/a-zX_qc2S-M/maxresdefault.jpg"
+content_url: "https://youtu.be/a-zX_qc2S-M"
+embed_url: "https://www.youtube.com/embed/a-zX_qc2S-M"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub
+  - SSH
+  - Windows 10
+  - ssh-keygen
+  - Git Bash
+  - ssh-agent
+  - public key
+  - private key
+  - secure git
+  - tutorial
+---
+
+<p>Want to stop typing your password every time you push and feel like a grown up? This guide walks you through generating SSH keys on Windows 10 adding the public key to your GitHub account and using those keys with Git Bash or the Windows OpenSSH client. It is secure practical and slightly smug.</p>
+
+<h2>Why use SSH keys instead of passwords</h2>
+<p>Passwords are annoying and often predictable. SSH keys are a pair of cryptographic keys that prove it is really you pushing code. Use a private key on your machine and register the matching public key with GitHub. The result is secure git access without password prompts once the agent is set up.</p>
+
+<h2>What you will need</h2>
+<ul>
+  <li>Windows 10 with either Git for Windows and Git Bash or the built in OpenSSH client</li>
+  <li>A GitHub account</li>
+  <li>A terminal you can tolerate</li>
+</ul>
+
+<h2>Step 1 Install Git and open a shell</h2>
+<p>Install Git for Windows if you do not already have it. Git Bash gives you familiar ssh tools so most tutorials will work as shown. If you prefer you can enable the Windows OpenSSH client and use PowerShell. Either way you need a Unix like shell that understands ssh and ssh-add.</p>
+
+<h2>Step 2 Generate a strong key pair</h2>
+<p>Open your shell and run the recommended command. Replace the email with the one on your GitHub account.</p>
+<pre><code>ssh-keygen -t ed25519 -C "your_email@example.com"</code></pre>
+<p>If you must support older systems use RSA with a large key instead like this. It is less modern but sometimes necessary.</p>
+<pre><code>ssh-keygen -t rsa -b 4096 -C "your_email@example.com"</code></pre>
+<p>Accept the default file location unless you have a reason not to. Choose a passphrase for the private key if you want an extra layer of protection. You will be grateful for that passphrase in the unlikely event your laptop is less careful than you are.</p>
+
+<h2>Step 3 Start the ssh agent and add your private key</h2>
+<p>The agent keeps your key unlocked for the session so Git can push without asking for the passphrase every time.</p>
+<pre><code>eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519</code></pre>
+<p>On PowerShell use this to add the key to the agent if clip is not available or you prefer PowerShell commands.</p>
+
+<h2>Step 4 Copy the public key to your clipboard</h2>
+<p>Expose the public key and copy it. In Git Bash the clip tool works fine.</p>
+<pre><code>cat ~/.ssh/id_ed25519.pub | clip</code></pre>
+<p>In PowerShell you can use this variant.</p>
+<pre><code>Get-Content $env:USERPROFILE\.ssh\id_ed25519.pub | Set-Clipboard</code></pre>
+
+<h2>Step 5 Add the key to your GitHub account</h2>
+<p>On GitHub open Settings then SSH and GPG keys then click New SSH key. Paste the clipboard contents into the key field and give it a clear title so you know which machine it is later. Save it. No magic API keys required just paste and confirm.</p>
+
+<h2>Step 6 Test the connection and update your repo remote</h2>
+<p>Check that GitHub recognizes your key with a friendly test command.</p>
+<pre><code>ssh -T git@github.com</code></pre>
+<p>You should see a welcome message that mentions your GitHub username. If you get a permission denied message go back and confirm the public key is pasted correctly and that the agent has your private key loaded.</p>
+<p>Now switch your repository remote to use SSH. On your local repo run this and replace USERNAME and REPO with the correct values.</p>
+<pre><code>git remote set-url origin git@github.com:USERNAME/REPO.git</code></pre>
+<p>Alternatively you can use the ssh URL format if you prefer explicit URLs.</p>
+<pre><code>git remote set-url origin ssh://git@github.com/USERNAME/REPO.git</code></pre>
+<p>Try a git push to confirm everything works and enjoy the sweet silence of no password prompts.</p>
+
+<h2>Troubleshooting and tips</h2>
+<ul>
+  <li>If ssh returns a host key warning type yes to accept it once</li>
+  <li>Use a passphrase and rely on the ssh agent for convenience and safety</li>
+  <li>If you manage multiple machines give each key a descriptive title in GitHub</li>
+  <li>On corporate networks a firewall or proxy can interfere with SSH so test from a different network if things fail</li>
+</ul>
+
+<p>That is it. You generated a key pair started an agent added the public key to GitHub and updated your repo to use SSH. Push away like the modern developer you are while actually doing something useful.</p>
+

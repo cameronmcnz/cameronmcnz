@@ -1,0 +1,117 @@
+---
+layout: video
+title: "Spring Data with MySQL in 60 Seconds"
+description: "Quick guide to integrate Spring Data JPA with MySQL using Spring Boot for fast CRUD setup and repository patterns"
+video_host: "youtube"
+video_id: "JXQDsIhvjlE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/JXQDsIhvjlE/maxresdefault.jpg"
+content_url: "https://youtu.be/JXQDsIhvjlE"
+embed_url: "https://www.youtube.com/embed/JXQDsIhvjlE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Data
+  - MySQL
+  - Spring Boot
+  - JPA
+  - CRUD
+  - Repositories
+  - Entities
+  - Database
+  - Tutorial
+  - Java
+---
+
+<p>If you want Spring Data and MySQL to stop giving you existential dread this morning here is a pragmatic guide that gets you from zero to CRUD in minutes. No magic spells required just Spring Boot configuration JPA entities repositories and a tiny bit of patience.</p>
+
+<h2>What you need to add</h2>
+<p>Use Spring Initializr or your favorite build tool to add Spring Boot starter data JPA and the MySQL JDBC driver. If you like typing XML go ahead Maven will forgive you.</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;mysql&lt;/groupId&gt;
+  &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<h2>Configure application properties</h2>
+<p>Use application.properties for simplicity. Make sure the database exists before you start the app unless you enjoy debugging connection errors.</p>
+<pre><code>spring.datasource.url=jdbc:mysql://localhost:3306/mydb?useSSL=false&amp;serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=secret
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+</code></pre>
+
+<h2>Define a simple entity</h2>
+<p>Keep entities focused on data mapping not on solving world hunger.</p>
+<pre><code>package com.example.demo.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Customer {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String name;
+  private String email;
+
+  // getters and setters
+}
+</code></pre>
+
+<h2>Create a repository</h2>
+<p>Extend JpaRepository and enjoy built in CRUD methods and query derivation. Spring Data writes a lot of boring code for you so you do not have to.</p>
+<pre><code>package com.example.demo.repository;
+
+import com.example.demo.model.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CustomerRepository extends JpaRepository&lt;Customer, Long&gt; {
+  // findByName findByEmail and other derived queries go here
+}
+</code></pre>
+
+<h2>Use it from a service or controller</h2>
+<p>Keep transactional boundaries in the service layer not scattered like confetti. Inject the repository and call save findAll findById and deleteById.</p>
+<pre><code>@Service
+public class CustomerService {
+  private final CustomerRepository repo;
+
+  public CustomerService(CustomerRepository repo) {
+    this.repo = repo;
+  }
+
+  @Transactional
+  public Customer create(Customer c) {
+    return repo.save(c);
+  }
+
+  public List&lt;Customer&gt; list() {
+    return repo.findAll();
+  }
+}
+</code></pre>
+
+<h3>Quick sanity checks</h3>
+<ul>
+  <li>Start the app and watch logs for Hibernate DDL messages</li>
+  <li>Test endpoints with curl Postman or your browser if you like living dangerously</li>
+  <li>Run an integration test with @DataJpaTest for repository level checks</li>
+</ul>
+
+<h2>Production tip</h2>
+<p>Use Flyway or Liquibase for schema migrations not hibernate automatic DDL. Automatic updates are convenient but also a tiny bit reckless in production.</p>
+
+<p>That is it You wired Spring Data JPA to MySQL created an entity and a repository and you can now perform CRUD operations with Spring Boot overseeing the chaos. If something breaks read the logs fix the SQL mapping and blame the configuration not the network layer most of the time.</p>
+

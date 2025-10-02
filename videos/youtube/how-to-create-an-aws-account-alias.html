@@ -1,0 +1,83 @@
+---
+layout: video
+title: "How to Create an AWS Account Alias"
+description: "Quick guide to create an AWS account alias for friendly sign in URLs using the AWS Management Console and best practices"
+video_host: "youtube"
+video_id: "WxZA7fYLa94"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M48S"
+thumbnail_url: "https://i.ytimg.com/vi/WxZA7fYLa94/maxresdefault.jpg"
+content_url: "https://youtu.be/WxZA7fYLa94"
+embed_url: "https://www.youtube.com/embed/WxZA7fYLa94"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - AWS Account
+  - account alias
+  - IAM
+  - root account
+  - sign in URL
+  - AWS console
+  - security
+  - best practices
+  - tutorial
+---
+
+<article>
+  <h2>Make your AWS sign in URL human and slightly less horrifying</h2>
+  <p>If your team hand writes the numeric AWS account ID on a sticky note and pretends that is fine you are not alone. An account alias replaces that ugly number with a readable name so people actually know where they are logging in. This guide covers how to set an AWS account alias in the IAM console and how to test the friendly sign in URL.</p>
+
+  <h3>Quick overview</h3>
+  <p>What you will do</p>
+  <ul>
+    <li>Sign in with a user that can change account settings</li>
+    <li>Open the IAM console and find account settings</li>
+    <li>Pick a short unique alias and save</li>
+    <li>Verify the new sign in URL and share it with the team</li>
+  </ul>
+
+  <h3>Who needs permission and why</h3>
+  <p>Use either the root account or an IAM user that has permissions to manage account settings. Admin level access works best because permissions errors will ruin your mood and waste time. If you try with a restricted user you may hit an endless loop of permission denied messages and blame blaming.</p>
+
+  <h3>Step by step</h3>
+  <ol>
+    <li>
+      <strong>Sign in to the AWS Management Console</strong>
+      <p>Log into the console with a user that can edit account settings. If you are using the root account be extra careful to secure it afterwards.</p>
+    </li>
+    <li>
+      <strong>Open the Identity and Access Management console</strong>
+      <p>The IAM console is where identity options live. From there find the account settings panel where the alias field sits patiently waiting for input.</p>
+    </li>
+    <li>
+      <strong>Enter your alias and save</strong>
+      <p>Pick a short memorable alias such as mycompany or team-name and type it into the account alias box. Aliases must be unique across AWS tenancy and follow allowed characters. If someone else already owns your dream alias pick a sensible variant instead of a random string of numbers.</p>
+    </li>
+    <li>
+      <strong>Test the friendly sign in URL</strong>
+      <p>Visit the sign in link pattern to confirm the alias works. Use this readable pattern for the URL</p>
+      <p>https slash slash youralias dot signin dot aws dot amazon dot com slash console</p>
+      <p>Replace youralias with the value you chose and confirm the page redirects to the console sign in. If it loads you are golden and may share it with the team.</p>
+    </li>
+  </ol>
+
+  <h3>Best practices and security notes</h3>
+  <ul>
+    <li>Choose an alias that is short consistent and tied to your company or team name</li>
+    <li>Avoid overly generic words to reduce the chance of a collision</li>
+    <li>Record the alias in documentation and onboarding materials so humans do not invent new links every week</li>
+    <li>Keep root account use minimal and protect it with a strong password and multi factor authentication</li>
+  </ul>
+
+  <h3>Troubleshooting tips</h3>
+  <p>If the alias fails to save check permissions first. If the alias is reported as taken try a variant that matches your email domain or team prefix. If the sign in page does not load clear your browser cache or try an incognito window to rule out local cache quirks.</p>
+
+  <h3>Why bother</h3>
+  <p>A friendly alias removes confusion and lowers the chance someone posts the wrong numeric ID in a chat and then things explode. It makes onboarding less painful and reduces human error when sharing sign in info. The change is quick to make and saves future headaches so it is worth the minute it takes.</p>
+
+  <p>Now go pick an alias that is short memorable and not owned by that poor soul who thought numbers looked professional.</p>
+</article>
+

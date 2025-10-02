@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Lab 4 - Jenkins Template Jobs"
+description: "Compact guide to building and using Jenkins template jobs for consistent CI workflows parameterized builds and reusable job definitions"
+video_host: "youtube"
+video_id: "RinD5UidVtU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M14S"
+thumbnail_url: "https://i.ytimg.com/vi/RinD5UidVtU/maxresdefault.jpg"
+content_url: "https://youtu.be/RinD5UidVtU"
+embed_url: "https://www.youtube.com/embed/RinD5UidVtU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Jenkins templates
+  - Template jobs
+  - CI
+  - Continuous Integration
+  - Job DSL
+  - Pipeline
+  - Automation
+  - DevOps
+  - Templates as code
+---
+
+<p>If your Jenkins server looks like a museum of abandoned freestyle jobs and odd build scripts, templates are the therapy you did not know you needed. This guide shows how to build and use Jenkins templates so CI behaves predictably and people stop reinventing square wheels during incident windows.</p>
+
+<h2>Why use Jenkins templates in CI</h2>
+<p>Templates bring consistency to Continuous Integration by centralizing common pipeline logic. You get repeatable builds, fewer surprises in logs, and onboarding that does not require decoding tribal knowledge. In DevOps terms this is templates as code and it will save hours and dignity.</p>
+
+<h2>Prepare Jenkins and install plugins</h2>
+<p>Open Plugin Manager and add the Job DSL plugin or the Template Project plugin depending on your workflow. Configure credentials for your source control and ensure pipeline agents are available. A tidy Jenkins instance saves time when builds choose to misbehave.</p>
+
+<h2>Design a golden template job</h2>
+<p>Build one canonical job that contains shared steps environment variables and post build actions. Keep names clear so on call humans do not play guessing games at 3 AM. Focus on common needs like checkout build test and artifact handling rather than trying to be everything to everyone.</p>
+
+<h3>What to include in a template job</h3>
+<ul>
+  <li>Standard checkout and authentication setup</li>
+  <li>Common build steps and test runners</li>
+  <li>Shared environment variables and secret bindings</li>
+  <li>Artifact archiving and retention rules</li>
+  <li>Notifications and basic failure handling</li>
+</ul>
+
+<h2>Parameterize instead of copy paste</h2>
+<p>Swap hard coded values for parameters such as REPO BRANCH and BUILD_ARGS. Parameterized templates let many projects reuse one canonical definition without accidental copy paste therapy. Keep parameters explicit and documented so teams know what to override.</p>
+
+<h2>Instantiate child jobs with Job DSL or template plugin</h2>
+<p>Use Job DSL scripts or the Template Project plugin to generate project jobs from repository metadata or a small script. Generated jobs inherit pipeline steps notifications and artifact rules so every team gets consistent CI behavior without manual fiddling.</p>
+
+<h2>Test templates and automate maintenance</h2>
+<p>Run sample builds validate logs and verify artifacts. Store templates in source control and add automated validation so broken pipelines do not graduate into permanent features. Treat templates as code and apply the same review and testing practices you use for application source.</p>
+
+<h3>Recommended checks before rolling out changes</h3>
+<ul>
+  <li>Run one or two downstream builds against representative repos</li>
+  <li>Check logs for unexpected warnings and flaky steps</li>
+  <li>Verify artifact locations and retention behavior</li>
+  <li>Use pull requests and peer review for template changes</li>
+</ul>
+
+<h2>Tips for sane template design</h2>
+<ul>
+  <li>Keep templates small and composable and prefer many tiny blocks over one giant blob</li>
+  <li>Use parameter overrides for project specific behavior</li>
+  <li>Store templates alongside infrastructure or pipeline code for traceability</li>
+  <li>Automate validation so a bad template does not propagate to dozens of projects</li>
+</ul>
+
+<p>Templates reduce toil enforce standards and speed onboarding by providing a repeatable job blueprint. Set them up once and enjoy the rare feeling of CI behaving like a civilized tool rather than a mystery box. If Jenkins still throws tantrums at scale you can always blame the network but the templates will keep things manageable.</p>
+

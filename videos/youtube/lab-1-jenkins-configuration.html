@@ -1,0 +1,61 @@
+---
+layout: video
+title: "Lab 1 - Jenkins Configuration"
+description: "Step by step guide to configure Jenkins for CI pipeline with user setup plugins and job creation"
+video_host: "youtube"
+video_id: "6vBfgzdfGzg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M46S"
+thumbnail_url: "https://i.ytimg.com/vi/6vBfgzdfGzg/maxresdefault.jpg"
+content_url: "https://youtu.be/6vBfgzdfGzg"
+embed_url: "https://www.youtube.com/embed/6vBfgzdfGzg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - CI
+  - Continuous Integration
+  - DevOps
+  - Jenkins Configuration
+  - Jenkins Lab
+  - Automation
+  - Plugins
+  - Pipeline
+  - Credentials
+---
+
+<h2>Welcome to your Jenkins lab without the drama</h2>
+<p>If you need Jenkins for CI and you want it now without a soap opera of missing plugins and broken credentials then this guide is your friend and your slightly amused therapist. You will install Jenkins run the initial admin setup add the right plugins create users and credentials connect source control and run a build that actually reports success to the team.</p>
+
+<h2>Install and unlock Jenkins</h2>
+<p>For a quick local lab run <code>java -jar jenkins.war</code>. Expect a welcome page that asks for a generated password. You will find that password in the file under <code>$JENKINS_HOME/secrets/initialAdminPassword</code>. Complete the initial admin setup by entering that password and creating an admin user. Use a sensible password unless you enjoy long nights debugging access problems.</p>
+
+<h2>Choose plugins sparingly</h2>
+<p>Plugins add SCM support pipeline steps and UI niceties. The recommended plugin set covers most CI workflows in DevOps. Install the Git plugin and the Pipeline plugin for scripted and declarative pipelines. Resist installing every shiny plugin that promises to make builds sing. Too many plugins mean more updates and more opportunities for chaos.</p>
+
+<h2>Users credentials and secrets</h2>
+<p>Create real users and put keys where they belong in the Jenkins credentials store. Store SSH keys tokens or username and password entries so jobs do not paste secrets into console logs. Use credential IDs in pipeline steps rather than embedding secrets in code. Your future self will thank you or at least send fewer angry commit messages.</p>
+
+<h2>Create jobs and pipelines</h2>
+<p>For source driven pipelines add your repository URL to a new pipeline job and provide a Jenkinsfile in the repo. For quick experiments create a freestyle job and configure build steps and post build actions. Scripted pipelines are powerful for complex automation and declarative pipelines are friendlier for team collaboration. Either way keep the repo as the source of truth for pipeline code.</p>
+
+<h2>Run builds and verify results</h2>
+<p>Run a build and watch the console output and build history. If something fails read the logs check credentials plugin settings and review job configuration. Fix issues and rerun until the build turns green or until you decide that red builds impart character.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Install Jenkins or run <code>java -jar jenkins.war</code> for a lab</li>
+  <li>Complete the initial admin unlock with the generated password</li>
+  <li>Install only the plugins you need like Git and Pipeline</li>
+  <li>Add users and put keys and tokens in the credentials store</li>
+  <li>Create pipeline jobs with a Jenkinsfile when possible</li>
+  <li>Run builds read console output and fix failures</li>
+</ul>
+
+<h2>Maintenance tips that save your weekend</h2>
+<p>Keep plugin count minimal and schedule updates during a maintenance window. Back up <code>$JENKINS_HOME</code> before upgrades to avoid melodramatic recovery sessions. Treat Jenkins as part of your CI automation backbone and it will behave like a reliable if slightly opinionated coworker.</p>
+
+<p>This lab gives you the practical steps for Jenkins configuration CI and pipeline setup so you can move from zero to continuous integration without unnecessary ceremony. Now go build something and let Jenkins do the heavy lifting while you grab coffee.</p>
+

@@ -1,0 +1,86 @@
+---
+layout: video
+title: "Git Status Porcelain"
+description: "Learn how git status porcelain gives stable machine readable output for scripts CI and automation with examples and parsing tips"
+video_host: "youtube"
+video_id: "779ZQ5GE3Jg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/779ZQ5GE3Jg/maxresdefault.jpg"
+content_url: "https://youtu.be/779ZQ5GE3Jg"
+embed_url: "https://www.youtube.com/embed/779ZQ5GE3Jg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git status
+  - porcelain
+  - github
+  - gitlab
+  - bitbucket
+  - devops
+  - gitops
+  - docker
+  - automation
+---
+
+<h2>Why porcelain exists and why you should care</h2>
+<p>Think of git status porcelain as the version of git status that grew up and stopped flirting with humans. It gives machine friendly lines that scripts, CI jobs and GitOps tools can actually trust. If your GitHub, GitLab or Bitbucket pipeline is failing because a filename has a newline or a space it is probably because your parser was reading the human friendly output instead of porcelain.</p>
+
+<h2>Porcelain v1 and v2 in plain terms</h2>
+<p>Both formats start each entry with two status characters then a space then the path. The first character is the index state and the second is the working tree state. v1 is simple and stable for old scripts. v2 is more structured and reduces guesswork so it is better for new automation and Docker based CI images.</p>
+
+<h3>Common status codes</h3>
+<ul>
+  <li>M for modified</li>
+  <li>A for added</li>
+  <li>D for deleted</li>
+  <li>R for renamed</li>
+  <li>C for copied</li>
+  <li>U for unmerged or conflict</li>
+  <li>?? for untracked</li>
+</ul>
+
+<h2>Flags to always use when you care about correctness</h2>
+<p>Use the following when writing parsers or CI checks that must survive odd filenames and international shenanigans</p>
+<ul>
+  <li>git status --porcelain for stable v1 output</li>
+  <li>git status --porcelain=v2 for richer structured output that removes ambiguity</li>
+  <li>Add -z to produce NUL separated entries when filenames might contain newlines or funny characters</li>
+</ul>
+
+<h2>How to parse porcelain without crying</h2>
+<p>Do not try to parse human friendly messages. Read entries as raw lines or NUL separated records. For v1 and v2 the safe approach is to take the first two status characters then the path that follows. Treat double question marks as untracked. Treat any U code as a conflict and avoid automatic commits until humans fix it.</p>
+
+<pre><code>git status --porcelain=v2 -z | while IFS= read -r -d '' entry
+do
+  status=$(printf "%s" "$entry" | cut -c1-2)
+  path=$(printf "%s" "$entry" | cut -c4-)
+  # handle status and path here
+done
+</code></pre>
+
+<p>The example above avoids problems with newlines in filenames by using NUL separation. For rename and copy entries watch for a tab separated source and destination and split that case explicitly.</p>
+
+<h3>Rename and copy gotcha</h3>
+<p>When a line represents a rename or a copy the porcelain output may include both source and destination joined by a tab. If your parser assumes a single path you will silently lose track of moves and end up with confusing diffs in CI.</p>
+
+<h2>Use case examples for CI and automation</h2>
+<ul>
+  <li>Change detector job that just needs to know if the tree differs can run git status --porcelain and treat any non empty output as a signal to run further checks</li>
+  <li>Pre commit hooks and Docker build scripts should use --porcelain=v2 -z to avoid edge cases with weird filenames</li>
+  <li>GitOps pipelines can rely on U codes to block automatic merges until conflicts are resolved</li>
+</ul>
+
+<h2>Quick rules to remember</h2>
+<ul>
+  <li>Prefer porcelain v2 with -z when writing parsers</li>
+  <li>Treat U as conflict and do not auto commit</li>
+  <li>Handle rename and copy entries as two path values when present</li>
+  <li>Treat ?? as untracked and not an error in most CI flows</li>
+</ul>
+
+<p>Follow these rules and your CI will stop sending you passive aggressive failure emails. Your pipelines will be more resilient whether they run on GitHub, GitLab or Bitbucket and whether they drive Docker builds or GitOps deployments. You will have fewer surprises and more time to write clever error messages that do not include swear words.
+

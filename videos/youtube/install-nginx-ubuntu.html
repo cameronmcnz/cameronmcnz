@@ -1,0 +1,76 @@
+---
+layout: video
+title: "install nginx ubuntu"
+description: "Quick practical guide to install Nginx on Ubuntu with commands firewall checks and basic configuration for a working web server"
+video_host: "youtube"
+video_id: "9JQAb1lTDJQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M0S"
+thumbnail_url: "https://i.ytimg.com/vi/9JQAb1lTDJQ/maxresdefault.jpg"
+content_url: "https://youtu.be/9JQAb1lTDJQ"
+embed_url: "https://www.youtube.com/embed/9JQAb1lTDJQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - nginx
+  - ubuntu
+  - install nginx
+  - linux
+  - web server
+  - systemctl
+  - ufw
+  - nginx config
+  - devops
+  - server setup
+---
+
+<p>So you want a web server and not a panic attack. Good news Nginx runs on Ubuntu like it was born to serve static files and small broken dreams. This guide walks through a minimal, production minded server setup with systemctl and ufw while keeping things readable and slightly sarcastic.</p>
+
+<h2>What this covers</h2>
+<p>Install Nginx on Ubuntu, enable the service with systemctl, open the firewall with ufw, verify the site works, and make safe nginx config edits. You will also get quick troubleshooting tips and a note on adding HTTPS with Certbot when you are ready to be secure.</p>
+
+<h2>Update packages and install nginx</h2>
+<p>Refresh package lists first so apt does not surprise you with dependencies from the dark ages.</p>
+<pre><code>sudo apt update
+sudo apt install nginx -y</code></pre>
+
+<h2>Start and enable the service</h2>
+<p>Make Nginx start now and survive reboots. systemctl is your friend whether you like it or not.</p>
+<pre><code>sudo systemctl start nginx
+sudo systemctl enable nginx</code></pre>
+
+<h2>Open the firewall for HTTP traffic</h2>
+<p>If ufw is active allow port 80 so the internet can be mildly useful. If ufw is not active you can skip this step unless you enjoy problems.</p>
+<pre><code>sudo ufw allow 80
+sudo ufw status</code></pre>
+
+<h2>Verify the web server is serving requests</h2>
+<p>Check the default welcome page with curl or a browser. If you prefer to stare at a terminal use curl.</p>
+<pre><code>curl -I localhost</code></pre>
+<p>You should see an HTTP 200 or a similar polite confirmation that files will be served. If not check the Nginx service status.</p>
+<pre><code>sudo systemctl status nginx</code></pre>
+
+<h2>Edit site configuration and enable custom sites</h2>
+<p>Want a custom host or to point a domain at a folder Well edit the default server block or create a new file in sites available. Then enable the site with a symlink in sites enabled.</p>
+<pre><code>sudo nano /etc/nginx/sites-available/default
+sudo ln -s /etc/nginx/sites-available/my site /etc/nginx/sites-enabled/</code></pre>
+<p>Always test before you reload to avoid breaking things while people are trying to access your content.</p>
+<pre><code>sudo nginx -t
+sudo systemctl reload nginx</code></pre>
+
+<h3>Troubleshooting tips</h3>
+<ul>
+<li>Check logs at /var/log/nginx/error.log when stuff fails</li>
+<li>Confirm ports with sudo ss -tulpn or sudo netstat -tulpn if you enjoy installing net tools</li>
+<li>Use sudo journalctl -u nginx to see the service history</li>
+</ul>
+
+<h2>Next steps for a real world server setup</h2>
+<p>For production hardening enable HTTPS with Certbot and tune worker settings if you expect traffic. A quick Certbot setup looks like this.</p>
+<pre><code>sudo apt install certbot python3-certbot-nginx -y
+sudo certbot --nginx</code></pre>
+
+<p>That is the core sequence to install nginx on Ubuntu and get a basic web server running. You now have a functioning linux based web server ready for further devops polish and nginx config tuning. If things go sideways check the logs and breathe deeply. Nginx will forgive you most mistakes if you test before reloading.
+

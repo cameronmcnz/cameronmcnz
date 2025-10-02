@@ -1,0 +1,70 @@
+---
+layout: video
+title: "UiPath OCR Image Example"
+description: "A compact guide to using UiPath OCR to extract text from images using Tesseract and Microsoft OCR for better RPA data capture"
+video_host: "youtube"
+video_id: "RKh9QDkor-g"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M45S"
+thumbnail_url: "https://i.ytimg.com/vi/RKh9QDkor-g/maxresdefault.jpg"
+content_url: "https://youtu.be/RKh9QDkor-g"
+embed_url: "https://www.youtube.com/embed/RKh9QDkor-g"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - OCR
+  - OCR Image
+  - Tesseract
+  - Microsoft OCR
+  - RPA
+  - Automation
+  - Document Understanding
+  - Screen Scraping
+  - Read Image Text
+---
+
+<h2>Overview</h2>
+<p>If you want to pull text out of images with UiPath without blaming the robot, this guide walks through real world steps for OCR using Microsoft OCR and Tesseract. You will cover packages to install, which activities to use, how to tune engines and how to clean the output so your automation does not look like it failed a literacy test.</p>
+
+<h2>Setup and dependencies</h2>
+<p>Open Manage Packages in your UiPath project and install the OCR packages you need, such as Microsoft OCR and Tesseract. Add any Document Understanding packages if you plan to scale beyond single images, and import namespaces so activities show up in the toolbox. No drama, just click install and move on.</p>
+
+<h2>Add the image and pick an OCR activity</h2>
+<p>Use Read Image Text for simple files or OCR Read Text when you need engine switching. If you are grabbing text from a screen region, use Anchor Base when layouts are flaky, or use image-based screen scraping for predictable screens. Point the activity to the image file or the selector for the region and set the output to a string variable.</p>
+
+<h3>When to use Tesseract vs Microsoft OCR</h3>
+<ul>
+  <li>Tesseract: good for offline processing, custom training and odd fonts. Bring patience for training and happy with open source grit.</li>
+  <li>Microsoft OCR: good for built in language support and easier setup, useful when you want cloud level results without training your own model.</li>
+</ul>
+
+<h2>Configure engine options for better accuracy</h2>
+<p>Adjust language and scaling settings in the OCR activity. Scale up low resolution images, increase contrast and remove background noise before calling OCR. For multi column or fixed form documents use zones and templates so the engine knows where to look. Don’t ignore the confidence score, it exists for a reason.</p>
+
+<h2>Run the workflow and inspect results</h2>
+<p>Execute the workflow and check the output variable in Locals or Logs. Expect garbled characters on noisy scans and treat confidence numbers as a reality check. If a result looks wrong, try a different engine, tweak language settings or reprocess with improved preprocessing.</p>
+
+<h2>Post process and validate the text</h2>
+<p>Clean OCR output with trimming, regex and pattern matching to extract meaningful fields. Use confidence thresholds to route questionable results to human review or to retry with alternative settings. For documents with known layouts validate against templates and reject outliers for manual check.</p>
+
+<h3>Suggested validation workflow</h3>
+<ul>
+  <li>Run OCR and capture confidence and raw text</li>
+  <li>Normalize whitespace and remove obvious noise</li>
+  <li>Apply regex or dictionary matching to pull fields like dates and amounts</li>
+  <li>If confidence is low, send to human queue or reprocess with different engine or preprocessing</li>
+</ul>
+
+<h2>Practical tips and troubleshooting</h2>
+<ul>
+  <li>Preprocess images by upscaling, boosting contrast and removing background noise to increase recognition accuracy</li>
+  <li>For repetitive forms create zones and templates to reduce errors and speed processing</li>
+  <li>Train Tesseract only when you have many samples of unusual fonts or layouts, otherwise use Microsoft OCR for convenience</li>
+  <li>Log sample outputs and confidence values so you can measure improvements over time</li>
+</ul>
+
+<p>Follow these steps and your UiPath OCR results will improve faster than blaming the robot for poor scans. It is not magic, it is tweaking, testing and occasional swearing under the breath while you fix the source image.</p>
+

@@ -1,0 +1,70 @@
+---
+layout: video
+title: "How to Request Model Access in Amazon Bedrock AWS"
+description: "Quick practical guide to request foundation model access in Amazon Bedrock on AWS including steps permissions and approval tips"
+video_host: "youtube"
+video_id: "ESVltavkvzw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/ESVltavkvzw/maxresdefault.jpg"
+content_url: "https://youtu.be/ESVltavkvzw"
+embed_url: "https://www.youtube.com/embed/ESVltavkvzw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Amazon Bedrock
+  - AWS
+  - Claude
+  - Foundation Models
+  - Model Access
+  - Bedrock Access Request
+  - AI Governance
+  - IAM
+  - Cloud Tutorial
+  - DeepSeek
+---
+
+<h2>Quick primer on why this matters</h2>
+<p>If you want to run foundation models like Claude on Amazon Bedrock you need access. That access is not a magic switch. AWS wants to know your plan, your compliance posture and that you will not set the models loose on the payroll spreadsheet. This guide walks through the console steps, IAM prep, and the tiny tests that keep you from breaking things in production.</p>
+
+<h2>Open the console and find Bedrock</h2>
+<p>Log in to the AWS Management Console with an account that has admin or delegated permissions. Search for Bedrock and open the service page. If you do not see the request page you probably lack permissions, so stop pretending you have them.</p>
+
+<h2>Request the model</h2>
+<p>Pick a provider and a specific model name when you click request access. Vagueness will be returned to sender with extra questions. Mention the provider name like Anthropic Claude if that is what you need, or the vendor listed in the console. Be specific about the exact model variant.</p>
+
+<h2>Fill out the access request form</h2>
+<p>Keep answers short and useful. AWS reviewers like clarity and despise ambiguity. Include your business use case, expected scale, data handling, and compliance controls. Do not write a novel. The goal is to make approval fast so you can get back to actual work.</p>
+
+<h3>What reviewers want to see</h3>
+<ul>
+<li>Concrete business purpose with examples</li>
+<li>Data classification and handling procedures</li>
+<li>Compliance and governance notes, for example how PII is protected</li>
+<li>Estimated traffic and cost expectations</li>
+</ul>
+
+<h2>Prepare IAM roles and policies</h2>
+<p>Create or confirm roles that give the minimum privileges for Bedrock inference and CloudWatch logging. Attach policies that allow Bedrock API calls and writing to CloudWatch. Least privilege is your friend and it also makes security teams slightly happier.</p>
+
+<h2>Submit the request and keep watch</h2>
+<p>Send the request and monitor the Support Center and account email for updates. Approval times vary so do not assume you will be testing Claude in five minutes. Plan a waiting window before production work starts.</p>
+
+<h2>Test the granted access</h2>
+<p>After approval run a small inference to verify the model works and returns expected output. Check CloudWatch logs usage quotas and billing alerts. Make sure quotas are adequate for your planned load and that logging captures what you need for AI governance.</p>
+
+<h3>Quick test checklist</h3>
+<ul>
+<li>Run a simple inference and confirm response quality</li>
+<li>Verify CloudWatch logs are present and searchable</li>
+<li>Check service quotas and request increases if needed</li>
+<li>Set billing alerts to avoid surprise invoices</li>
+</ul>
+
+<h2>Tips and common hiccups</h2>
+<p>If access is delayed provide clarifying answers and attach compliance documents. If IAM calls fail double check role trust policies and that the role has Bedrock and CloudWatch permissions. If you use internal systems like DeepSeek or CI pipelines remember to update their service roles too.</p>
+
+<p>You have now requested access set permissions and run a sanity test. Sip coffee and pretend the cloud is under control while you monitor for unexpected bills and follow up on any governance questions.</p>
+

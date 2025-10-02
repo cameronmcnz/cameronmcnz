@@ -1,0 +1,108 @@
+---
+layout: video
+title: "Deploy an Apache Web Server on AWS EC2 Instances"
+description: "Quick guide to deploy Apache on AWS EC2 with public and private subnet setup plus security group and basic testing steps"
+video_host: "youtube"
+video_id: "UV1FDL5_z6E"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/UV1FDL5_z6E/maxresdefault.jpg"
+content_url: "https://youtu.be/UV1FDL5_z6E"
+embed_url: "https://www.youtube.com/embed/UV1FDL5_z6E"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - EC2
+  - Apache
+  - VPC
+  - Public Subnet
+  - Private Subnet
+  - Security Group
+  - User Data
+  - Bastion Host
+  - Networking
+---
+
+<p>If you want a web server that greets the internet politely and a backend that hides under a blanket in a private subnet this guide will get you there. We will set up a VPC with a public subnet for the Apache server and a private subnet for backend services. You get routing, security groups, optional bastion access and a working Apache install that does not default to serving the Unix manual.</p>
+
+<h2>What you will build and why it matters</h2>
+<p>Short version, because attention spans are fragile</p>
+<ul>
+  <li>A VPC with one public subnet for the web tier</li>
+  <li>A private subnet for databases or app servers that do not need to be internet famous</li>
+  <li>Security groups that act as the firewall between tiers</li>
+  <li>An EC2 instance running Apache with an Elastic IP or public IPv4</li>
+  <li>Optional NAT gateway or bastion host to give the private subnet controlled egress or SSH entry</li>
+</ul>
+
+<h2>Prerequisites</h2>
+<p>Make sure you have an AWS account and permissions to create VPCs, EC2 instances, and security groups. Have a key pair ready or enable SSM for keyless access. Know the admin IP range you want to allow for SSH access. Know which AMI you prefer, Amazon Linux 2 or Ubuntu work fine.</p>
+
+<h2>Networking and VPC setup</h2>
+<p>Create a VPC and add two subnets. One subnet gets the public traffic and the other stays private. Attach an Internet gateway to your VPC and add a route in the public route table that points 0.0.0.0/0 to the Internet gateway. Private subnet traffic to the internet should go through a NAT gateway if you need outbound access for updates or package installs. If you are thrifty or like hands on SSH you can instead use a bastion host for admin access to private instances.</p>
+
+<h3>Routing and access patterns</h3>
+<ul>
+  <li>Public subnet route table includes a route to the Internet gateway</li>
+  <li>Private subnet route table uses a NAT gateway for outbound internet or has no route for internet at all</li>
+  <li>Bastion host option lets you SSH into a public instance and then hop into private instances</li>
+</ul>
+
+<h2>Security groups that do the actual job</h2>
+<p>Your security groups are the firewall and they deserve clear rules. Create a web server security group and a backend security group.</p>
+
+<ul>
+  <li>Web server security group: allow TCP 80 from 0.0.0.0/0 if you want the site public. Allow SSH from your admin IP range only. Keep other ports closed like they are secrets.</li>
+  <li>Backend security group: do not open port 22 to the world. Allow only the web server security group on the application or database port you need. Use the security group ID as the source so traffic is limited to your web tier.</li>
+</ul>
+
+<h2>Launching the EC2 instance in the public subnet</h2>
+<p>Pick an AMI such as Amazon Linux 2 or Ubuntu. Assign a public IPv4 or attach an Elastic IP if you want a stable address that outlives instance stop start drama. Attach the web server security group and either pick a key pair for SSH or enable SSM for keyless management.</p>
+
+<h3>Automate Apache install with user data</h3>
+<p>Use EC2 user data to install Apache at first boot so you do not have to log in and play sysadmin roulette. Example scripts below will work on the common AMIs. Paste into the user data field when launching the instance.</p>
+
+<pre><code># Amazon Linux 2
+#!/bin/bash
+yum update -y && yum install -y httpd
+systemctl enable --now httpd
+cat > /var/www/html/index.html <<'HTML'
+&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello from Apache on EC2&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;
+HTML
+
+# Ubuntu
+#!/bin/bash
+apt update && apt install -y apache2
+systemctl enable --now apache2
+cat > /var/www/html/index.html <<'HTML'
+&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello from Apache on EC2&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;
+HTML
+</code></pre>
+
+<p>Those commands will install and start Apache and drop in a simple index.html you can use to verify the server. No puppet show required.</p>
+
+<h2>Testing from a browser</h2>
+<p>Open your browser and hit the public IPv4 or Elastic IP. If your security group allows port 80 from the internet you should see the index page. If not check that the instance has a public IP, the web server security group allows TCP 80 from your source, and the instance status checks are green.</p>
+
+<h2>Optional backend in private subnet</h2>
+<p>Need a database or API that does not answer to social media invites? Spin up the backend instance in the private subnet and attach the backend security group. Make sure the backend allows incoming traffic only from the web server security group. For SSH into private hosts use SSM or connect through the bastion host.</p>
+
+<h2>Notes on NAT gateway versus bastion host</h2>
+<ul>
+  <li>NAT gateway gives private instances internet access for package updates but costs money every hour and per gigabyte. Useful if you need library updates without making instances public.</li>
+  <li>Bastion host gives you SSH access into the VPC. Keep it locked down and ephemeral or use SSM to avoid keeping a jump host running forever.</li>
+</ul>
+
+<h2>Quick troubleshooting checklist</h2>
+<ul>
+  <li>Is there a public IP or Elastic IP on the web instance</li>
+  <li>Does the web security group allow TCP 80 from the client</li>
+  <li>Is Apache running according to systemctl status</li>
+  <li>Are instance status checks healthy and is the subnet route table correct</li>
+</ul>
+
+<p>There you go. You now have a sensible network layout with Apache serving the internet and a private subnet for the stuff that should not be on camera. If you want, automate all of this with CloudFormation or Terraform and then you can pretend the cloud did all the work while you drink coffee.</p>
+

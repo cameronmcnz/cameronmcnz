@@ -1,0 +1,77 @@
+---
+layout: video
+title: "A Quick GitLab and GitIgnore Example"
+description: "Learn how to use .gitignore with GitLab to ignore files and keep repositories clean with practical commands and examples"
+video_host: "youtube"
+video_id: "tFRNl_jMPZE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M42S"
+thumbnail_url: "https://i.ytimg.com/vi/tFRNl_jMPZE/maxresdefault.jpg"
+content_url: "https://youtu.be/tFRNl_jMPZE"
+embed_url: "https://www.youtube.com/embed/tFRNl_jMPZE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitLab
+  - gitignore
+  - Git
+  - repositories
+  - version control
+  - git rm
+  - CI
+  - DevOps
+  - ignore files
+  - tutorial
+---
+
+<p>Welcome to the thrilling world of ignore files where careers are made and repository sizes are kept under control. This short guide shows how to use .gitignore with GitLab so your repo does not become a graveyard of node_modules folders and accidental .env files. If you like clean repositories and fewer angry reviewers this is for you.</p>
+
+<h2>Make or update your .gitignore</h2>
+<p>Start by creating a .gitignore at the root of your project. Add simple glob patterns that tell Git what to ignore. Common entries include</p>
+<ul>
+  <li><code>node_modules/</code> to avoid shipping thousands of tiny files</li>
+  <li><code>.env</code> to keep secrets out of history</li>
+  <li><code>*.log</code> to stop logs from cluttering diffs</li>
+</ul>
+<p>Use community templates for your language or framework so you do not have to guess every noisy file. GitHub and GitLab both offer starter templates that cover many common cases.</p>
+
+<h3>Example patterns and what they do</h3>
+<ul>
+  <li><code>/build/</code> ignores the build output at the repository root</li>
+  <li><code>logs/*.log</code> ignores all log files in the logs folder</li>
+  <li><code>!.gitkeep</code> keeps an otherwise empty folder tracked</li>
+</ul>
+
+<h2>Initialize repo and add files</h2>
+<p>Run <code>git init</code> then <code>git add .</code> to stage files. Git will happily track everything you tell it to. A good .gitignore prevents accidental bloat in version control and avoids phantom blame for files that should never have been tracked.</p>
+
+<h2>Commit and push to GitLab</h2>
+<p>Commit with a clear message and push to your branch. For example</p>
+<pre><code>git commit -m 'Initial commit'
+git push origin main</code></pre>
+<p>A tidy .gitignore makes GitLab diffs and merge requests less painful for reviewers and keeps your remote storage from ballooning.</p>
+
+<h2>Stop tracking files that are already committed</h2>
+<p>If a file was already committed you need to remove it from the index while keeping the local copy. Run</p>
+<pre><code>git rm --cached path/to/file
+git commit -m 'Remove tracked secret or large file'</code></pre>
+<p>That removes the file from future commits while leaving it on your workstation. If the file leaked sensitive data consider rotating secrets and, if necessary, rewriting history only after coordinating with your team.</p>
+
+<h2>Verify ignore behavior and handle CI interactions</h2>
+<p>Create a test file that matches one of your patterns and run <code>git status</code> to confirm it is not staged. If things do not behave as expected use</p>
+<pre><code>git check-ignore -v path/to/file</code></pre>
+<p>This command shows which pattern caused the file to be ignored which is very useful for debugging confusing rules.</p>
+<p>Remember that GitLab CI can still upload caches and artifacts even when files are ignored by Git. Check your .gitlab-ci.yml for cache and artifact paths and exclude patterns so CI does not send node_modules or temporary files to your remote storage.</p>
+
+<h2>Troubleshooting tips for DevOps and maintainers</h2>
+<ul>
+  <li>Use <code>git check-ignore -v</code> to see which rule matched a file</li>
+  <li>Leverage community .gitignore templates for popular languages and frameworks</li>
+  <li>If you must remove a file from history consider tools like git filter-repo and discuss with the team first</li>
+  <li>Configure CI caches and artifacts explicitly so pipeline uploads do not defeat your ignore rules</li>
+</ul>
+
+<p>Follow these steps and your repositories will stay lean, reviewers will thank you, and future you will not cry when cloning a 10 GB project. If you still see trouble post a minimal reproducible example and someone in the team will heroically point out the pattern you forgot to add.</p>
+

@@ -1,0 +1,63 @@
+---
+layout: video
+title: "UiPath Save Attachments and Filter Example"
+description: "Learn how to save email attachments with UiPath and apply sender and file type filters for reliable automation and fewer surprises"
+video_host: "youtube"
+video_id: "fnK69RWE5JE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M52S"
+thumbnail_url: "https://i.ytimg.com/vi/fnK69RWE5JE/maxresdefault.jpg"
+content_url: "https://youtu.be/fnK69RWE5JE"
+embed_url: "https://www.youtube.com/embed/fnK69RWE5JE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Save Attachments
+  - Email Automation
+  - Get Outlook Mail Messages
+  - Filter Attachments
+  - UiPath Tutorial
+  - RPA
+  - Attachment Filter
+  - Save Outlook Attachments
+  - Automation Example
+---
+
+<h1>Filter by sender and file type to save only useful attachments in UiPath</h1>
+<p>Want to stop your downloads folder from becoming an evidence locker? This quick guide shows how to use UiPath to fetch email attachments and only keep the ones you actually want. We cover picking the right mail activity, retrieving messages, applying sender and file type filters, saving files safely, and handling errors without crying.</p>
+
+<h2>Pick the right mail activity</h2>
+<p>Use Get Outlook Mail Messages for a local Outlook client. Use Get IMAP Mail Messages for server based access. Configure account settings and the folder you want to scan before proceeding. Pick the wrong activity and the robot will politely tell you it does not know what you meant.</p>
+
+<h2>Retrieve and limit messages</h2>
+<p>Store the mail output in a variable called messages or something equally thrilling. Limit the number of messages to process so your first run does not turn into a weekend project. Sorting by date is handy when recent attachments matter more than receipts from 2012.</p>
+
+<h2>Filter messages and attachments</h2>
+<p>You have two good options. Use LINQ for concise filtering in a single expression or use a For Each with If checks for readability and step by step debugging.</p>
+<pre><code>messages.Where(Function(m) m.From.Address.ToLower.Contains("alice@company.com") AndAlso m.Attachments.Any(Function(a) a.Name.EndsWith(".pdf"))).ToList()</code></pre>
+<p>If LINQ makes you nervous use a For Each mail in messages then If checks on mail.From, mail.Subject or other properties. Then loop mail.Attachments and test extensions like .pdf or .xlsx to decide which attachments to save.</p>
+
+<h2>Save attachments safely</h2>
+<p>Drop a Save Attachments activity inside your message loop. Build the destination path with System.IO.Path.Combine and make sure the folder exists by calling System.IO.Directory.CreateDirectory(folder). If the directory does not exist UiPath will not create it on its own and you will have sad logs.</p>
+<p>To avoid accidental overwrites add a timestamp or GUID to the file name. Example VB expression to prefix a timestamp</p>
+<pre><code>System.IO.Path.Combine(folder, DateTime.Now.ToString("yyyyMMddHHmmss") & "_" & attachment.Name)</code></pre>
+
+<h2>Log errors and run dry tests</h2>
+<p>Wrap your save step in a Try Catch activity and log failures with Log Message or Write Line so you can trace what went wrong. Use a test mailbox during development and add a dry run boolean that only logs matched attachments without saving them. This prevents production clutter and saves your sanity.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+<li>Choose Get Outlook Mail Messages or Get IMAP Mail Messages</li>
+<li>Limit and sort messages by date</li>
+<li>Filter by sender and attachment extension</li>
+<li>Use Save Attachments and System.IO.Path.Combine to write files</li>
+<li>Add a timestamp or GUID to file names to avoid overwrites</li>
+<li>Wrap saves in Try Catch and log results for debugging</li>
+<li>Test with a dry run mailbox before going live</li>
+</ul>
+
+<p>Follow these steps and your UiPath flow will keep only useful attachments instead of hoarding everything in sight. If the robot still misbehaves add more logging and fewer expectations. Happy automating.</p>
+

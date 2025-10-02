@@ -1,0 +1,78 @@
+---
+layout: video
+title: "git log command in terminal examples"
+description: "Compact guide to using git log in the terminal with practical examples for filtering formatting and reading project history"
+video_host: "youtube"
+video_id: "Rwt7W7O0jPE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M35S"
+thumbnail_url: "https://i.ytimg.com/vi/Rwt7W7O0jPE/maxresdefault.jpg"
+content_url: "https://youtu.be/Rwt7W7O0jPE"
+embed_url: "https://www.youtube.com/embed/Rwt7W7O0jPE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git log
+  - terminal
+  - version control
+  - git commands
+  - command line
+  - git tutorial
+  - history
+  - debugging
+  - developer tools
+---
+
+<p>If you have ever been forced to hunt through commit history in the terminal then <strong>git log</strong> is the tool that will make you feel clever and slightly vindictive. This short git tutorial gives practical git log examples for reading repo history finding commits fast and saving time on debugging or preparing release notes.</p>
+
+<h2>Read history with confidence in the terminal</h2>
+<p>The simplest use is also the most honest. Run the base command when you just need to see what happened.</p>
+<ul>
+  <li><code>git log</code> Shows full commit id author date and message in chronological order</li>
+  <li><code>git log --oneline</code> One line per commit for a tidy timeline</li>
+  <li><code>git log -n 5</code> Limit output to the most recent five commits when restraint is required</li>
+</ul>
+
+<h2>Visualize branches like a smug terminal user</h2>
+<p>If you enjoy ASCII art and knowing which branch brought chaos use this compact view. It shows the branching structure commit references and short messages.</p>
+<pre><code>git log --graph --decorate --oneline -n 10 --since=1.month</code></pre>
+<p>That example gives a compact visual of the last month of activity across branches. It is perfect for a quick mental map before you blame someone in a PR review.</p>
+
+<h2>Filter commits to find the real suspect</h2>
+<p>When history is noisy filter by author date or message to zero in on relevant commits.</p>
+<ul>
+  <li><code>git log --author="Alice"</code> Show commits by a specific contributor</li>
+  <li><code>git log --since=2.weeks</code> Show recent work only</li>
+  <li><code>git log --grep="fix"</code> Find commits that mention a keyword</li>
+</ul>
+<p>Combine these flags to create a focused query for debugging or release notes. Think of it as turning on a spotlight and ignoring the drama.</p>
+
+<h3>Inspect changes and stats</h3>
+<p>Sometimes the message is lying and you need the actual diff or a summary.</p>
+<ul>
+  <li><code>git log -p</code> Show patch diffs per commit when context matters</li>
+  <li><code>git log --stat</code> See file level change summaries for a quick impact read</li>
+  <li><code>git log -p -n 3</code> Review the last three patches when someone says it was a small change</li>
+</ul>
+
+<h2>Combine flags and make an alias for sanity</h2>
+<p>Power users combine flags to build useful drills. For example this command gives a neat compact history with branch structure and recent activity.</p>
+<pre><code>git log --graph --decorate --oneline --since=1.month -n 20</code></pre>
+<p>When you reach the point of repeating the same command add an alias to your global config. That saves keystrokes and preserves dignity.</p>
+<pre><code>git config --global alias.lg "log --graph --decorate --oneline"
+# then run
+git lg -n 50</code></pre>
+
+<h2>Quick tips for better debugging and history reading</h2>
+<ul>
+  <li>Use <code>--author</code> or <code>--grep</code> to filter noise and speed up debugging</li>
+  <li>Use <code>-n</code> to avoid terminal overload when the repo is theatrical</li>
+  <li>Use <code>-p</code> when the commit message sounds wrong and you need proof</li>
+  <li>Add aliases for frequent views so you stop retyping elaborate flag salads</li>
+</ul>
+
+<p>These git commands belong in the toolbox of any developer who uses version control and a command line. They make exploring history less like guesswork and more like methodical archaeology. Use them to find regressions fix bugs and write release notes with fewer pleas to the past.</p>
+

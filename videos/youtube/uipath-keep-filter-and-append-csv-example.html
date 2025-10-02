@@ -1,0 +1,78 @@
+---
+layout: video
+title: "UiPath Keep Filter and Append CSV Example"
+description: "Concise UiPath tutorial showing how to keep filtered rows and append them to a CSV for reliable automation and clean data flow."
+video_host: "youtube"
+video_id: "ENjgV6lEbvA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M5S"
+thumbnail_url: "https://i.ytimg.com/vi/ENjgV6lEbvA/maxresdefault.jpg"
+content_url: "https://youtu.be/ENjgV6lEbvA"
+embed_url: "https://www.youtube.com/embed/ENjgV6lEbvA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - RPA
+  - Filter Data Table
+  - CSV
+  - Append CSV
+  - Read CSV
+  - Automation
+  - DataTable
+  - Keep Filter
+  - Tutorial
+---
+
+<h2>Why this matters and why you should care</h2>
+<p>If you work with CSV files in UiPath you have seen the horror show where headers duplicate and duplicates pile up like guilt. This guide shows how to Read CSV into a DataTable apply a Keep filter and safely Append CSV so you do not create a Frankenstein file. It is short practical and slightly sarcastic because you will thank me later.</p>
+
+<h2>Overview of the workflow</h2>
+<p>High level first so your brain does not explode. The main steps are simple and reliable:</p>
+<ul>
+  <li>Read CSV into a DataTable variable such as <code>dtInput</code></li>
+  <li>Use the Filter Data Table activity set to Keep rows and output to <code>dtFiltered</code></li>
+  <li>Append the filtered rows to the target CSV using Append To CSV or a StreamWriter with append true</li>
+  <li>Validate results and remove duplicates if needed</li>
+</ul>
+
+<h2>Step 1 Read CSV and prepare your DataTable</h2>
+<p>Use the Read CSV activity and store results in a DataTable like <code>dtInput</code>. Do not skip encoding checks and header validation. If your headers are spelled differently between files standardize them now. You want consistent column names and matching data types so Append does not turn into chaos.</p>
+
+<h2>Step 2 Apply a Keep filter with Filter Data Table</h2>
+<p>Drag in the Filter Data Table activity and choose Keep rows mode. Define your column conditions or use a custom expression and send the result to <code>dtFiltered</code>. This keeps only the rows you actually want and drops background noise. Think of it as selective amnesia for bad rows.</p>
+
+<h3>Filter tips</h3>
+<ul>
+  <li>Use precise conditions on key columns to reduce false positives</li>
+  <li>If you need complex logic use a custom expression or run a Linq Where query then convert back to a DataTable</li>
+  <li>Normalize date formats and numeric types before filtering to avoid subtle misses</li>
+</ul>
+
+<h2>Step 3 Append filtered rows without duplicating headers</h2>
+<p>There are two pragmatic ways to append. Use an Append To CSV activity from a reliable package or open a <code>StreamWriter</code> with append set to true and write rows manually. Either way check whether the target file exists and only write headers when the file is empty. That prevents header rows from multiplying like bad decisions.</p>
+
+<h3>Practical checklist before writing</h3>
+<ul>
+  <li>Ensure the column order in <code>dtFiltered</code> matches the target file</li>
+  <li>Write headers only if the file does not exist or has zero length</li>
+  <li>Use escaping for commas quotes and newlines per CSV rules</li>
+</ul>
+
+<h2>Step 4 Validate results and handle duplicates</h2>
+<p>After appending read the target CSV back into a DataTable and compare row counts or better yet use a unique key column to dedupe. If you prefer a DataTable approach merge <code>dtFiltered</code> into the existing DataTable with <code>DataTable.Merge</code> and then call <code>DefaultView.ToTable(true)</code> to remove duplicates. That gives you deterministic results and a clear path to automation nirvana.</p>
+
+<h3>Dedup strategies</h3>
+<ul>
+  <li>Use a composite unique key if a single column cannot guarantee uniqueness</li>
+  <li>Normalize text casing and trim whitespace before comparing</li>
+  <li>Consider hashing key columns into a new column for fast comparisons on very large sets</li>
+</ul>
+
+<h2>Extra tips that save hours</h2>
+<p>Keep column order and data types consistent across source and target files. Apply a Distinct operation or use <code>DefaultView.ToTable(true)</code> when you have duplicates. Log row counts before and after appends so you can audit what changed. And add small retries around file write operations because file locks are the universe saying no.</p>
+
+<p>Follow these steps to build a compact UiPath automation that reads a CSV filters rows based on rules and appends new data while keeping headers tidy and preventing duplicate entries. It is the kind of tidy automation your future self will high five you for.
+

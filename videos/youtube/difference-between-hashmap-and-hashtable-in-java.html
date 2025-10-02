@@ -1,0 +1,59 @@
+---
+layout: video
+title: "Difference between HashMap and Hashtable in Java"
+description: "Quick guide on key differences between HashMap and Hashtable in Java covering synchronization null keys performance iteration and modern alternatives"
+video_host: "youtube"
+video_id: "TxXyfKaM9Mo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M23S"
+thumbnail_url: "https://i.ytimg.com/vi/TxXyfKaM9Mo/maxresdefault.jpg"
+content_url: "https://youtu.be/TxXyfKaM9Mo"
+embed_url: "https://www.youtube.com/embed/TxXyfKaM9Mo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - HashMap
+  - Hashtable
+  - Java
+  - Java Collections
+  - Thread Safety
+  - Synchronization
+  - Null Keys
+  - Performance
+  - ConcurrentHashMap
+  - Fail Fast
+---
+
+<h2>Quick answer with a side of sarcasm</h2>
+<p>If you want the short version so you can go back to writing tests instead of arguing about APIs here it is HashMap is not synchronized and not thread safe Hashtable is synchronized and thread safe but old and slow Use HashMap for most single thread code and ConcurrentHashMap for serious concurrent workloads</p>
+
+<h2>Why they feel different when code breaks</h2>
+<p>These two containers both store key value pairs but they behave very differently under pressure HashMap is modern and flexible It lets one null key and many null values and it gives you fast operations when only one thread touches it Hashtable comes from an era when Java was still young It synchronizes most methods and rejects null keys and null values which keeps things safe but also keeps things slower</p>
+
+<h3>Thread safety and synchronization</h3>
+<p>HashMap has no built in synchronization Multiple threads mutating it at the same time may corrupt the internal structure and cause all sorts of delightful chaos such as infinite loops during iteration Hashtable synchronizes its methods so basic operations are thread safe at the cost of throughput That sounds convenient until you realize the cost adds up quickly</p>
+
+<h3>Null keys and values</h3>
+<p>Yes nulls are allowed in HashMap One null key and any number of null values If you like storing absence as an explicit value HashMap lets you do that Hashtable refuses to accept null keys and null values and will throw a runtime exception if you try to be clever</p>
+
+<h3>Iteration behavior and fail fast</h3>
+<p>HashMap iterators are fail fast They detect concurrent modification and throw ConcurrentModificationException to wake you up from your bad assumptions Hashtable has legacy enumerations that do not fail fast which can hide concurrent modification bugs and make debugging more interesting than it should be</p>
+
+<h2>Performance and modern alternatives</h2>
+<p>HashMap is faster in single thread or when you provide external synchronization If you need concurrent reads and writes do not reach for Hashtable Reach for ConcurrentHashMap instead It is designed for concurrency and gives much better throughput than Hashtable or a synchronized HashMap</p>
+
+<h3>Small usage examples</h3>
+<pre><code>Map<String,String> map = new HashMap()<br>Map<String,String> legacy = new Hashtable()<br>Map<String,String> concurrent = new ConcurrentHashMap()</code></pre>
+
+<h2>When to pick which in real projects</h2>
+<ul>
+  <li>Use HashMap for general purpose non concurrent code</li>
+  <li>Use ConcurrentHashMap for high concurrency read and write workloads</li>
+  <li>Avoid Hashtable unless you are stuck maintaining truly legacy code</li>
+</ul>
+
+<h2>Final tip</h2>
+<p>If your code is single threaded or you manage synchronization elsewhere use HashMap If you need concurrent safety and high performance use ConcurrentHashMap If you maintain ancient code that refuses to be updated then yes use Hashtable and try not to cry about it</p>
+

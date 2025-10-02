@@ -1,0 +1,63 @@
+---
+layout: video
+title: "Lab 9 Jenkins"
+description: "Quick practical lab on Jenkins basics for CI pipeline setup plugin use and running simple jobs"
+video_host: "youtube"
+video_id: "kKKeMdS3kjs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M37S"
+thumbnail_url: "https://i.ytimg.com/vi/kKKeMdS3kjs/maxresdefault.jpg"
+content_url: "https://youtu.be/kKKeMdS3kjs"
+embed_url: "https://www.youtube.com/embed/kKKeMdS3kjs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Lab 9
+  - CI
+  - CD
+  - DevOps
+  - Pipeline
+  - Automation
+  - Build
+  - Plugin
+  - Tutorial
+---
+
+<h2>Quick setup for the Jenkins CI lab</h2>
+<p>This is the cheerful crash course for anyone who needs a working Jenkins pipeline without spending their weekend in plugin hell. You will learn the essentials of Jenkins for CI and CD in a lab style walkthrough that covers installation, jobs, source control, credentials, builds, artifacts and notifications. Expect fewer surprises and more automated glory.</p>
+
+<h3>Install Jenkins</h3>
+<p>Grab a package from the official Jenkins site or run the server in a container and map port 8080 to your host. The server will boot and present an initial setup screen that guides you through basic security and plugin choices. Follow the prompts and create an admin account so you can stop yelling at the terminal.</p>
+
+<h3>Open the web console</h3>
+<p>Point a browser to the server address on port 8080 and follow the guided setup to install suggested plugins and create your admin user. Picking plugins manually is a rabbit hole and not the kind that ends with a trophy. Suggested plugins get you a sensible starting point.</p>
+
+<h3>Create a job</h3>
+<p>Choose between freestyle for quick one off tasks and pipeline for repeatable, code driven workflows. Pipeline jobs let you store a Jenkinsfile inside your repository so the whole build flow is version controlled and less likely to mutate into mystery behavior.</p>
+
+<h3>Configure source control and credentials</h3>
+<ul>
+  <li>Add repository URLs in the job or pipeline and register credentials using the credentials manager inside Jenkins.</li>
+  <li>Do not put secrets in plain text. Use the credentials binding plugin or the built in credentials support to inject secrets into your pipeline safely.</li>
+  <li>Prefer SSH keys or token based access over passwords when possible. Less drama on build day.</li>
+</ul>
+
+<h3>Run a build and review logs</h3>
+<p>Click build now and watch the console output. Those logs are brutally honest and will tell you exactly which step failed and why. Make reading logs your hobby if you want faster troubleshooting.</p>
+
+<h3>Save artifacts and add notifications</h3>
+<p>Archive important build outputs so downstream jobs or humans can find compiled binaries and reports. Configure email or chat notifications so your team knows when something breaks and can pretend they were surprised.</p>
+
+<h3>Best practices and tips</h3>
+<ul>
+  <li>Keep the Jenkinsfile in the repository and treat pipeline code like any other source code. Versioned pipeline definitions prevent mysterious configuration drift.</li>
+  <li>Pin plugin versions where practical and back up the Jenkins home configuration regularly.</li>
+  <li>Use least privilege for credentials and use credentials bindings in scripted or declarative pipelines.</li>
+  <li>Run tests inside the pipeline and fail fast to save compute time and morale.</li>
+</ul>
+
+<p>This Lab 9 style tutorial gives you a repeatable path from a fresh install to a functioning CI pipeline. Follow these steps and you will have automated builds, tests and artifact storage without learning to love chaos. Now go break something safely on a lab server and then fix it again like a DevOps hero.</p>
+

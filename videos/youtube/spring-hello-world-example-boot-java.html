@@ -1,0 +1,59 @@
+---
+layout: video
+title: "Spring Hello World Example #boot #java"
+description: "Quick Spring Boot Hello World tutorial showing DI bean setup embedded Tomcat run and println debug steps for Java developers"
+video_host: "youtube"
+video_id: "SnLZ0CEEjDw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT15M18S"
+thumbnail_url: "https://i.ytimg.com/vi/SnLZ0CEEjDw/maxresdefault.jpg"
+content_url: "https://youtu.be/SnLZ0CEEjDw"
+embed_url: "https://www.youtube.com/embed/SnLZ0CEEjDw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - spring
+  - springboot
+  - java
+  - di
+  - ioc
+  - tomcat
+  - springbean
+  - helloworld
+  - println
+  - tutorial
+---
+
+<p>If you want to prove that dependency injection is not a mystical cult, this tiny Spring Boot demo will do it. You will create a Spring Boot app, register a greeting bean, wire it with constructor injection, and watch embedded Tomcat shrug and start. Yes this is the classic Hello World, but with actual wiring and slightly fewer existential questions.</p>
+
+<h2>Create the project and main application class</h2>
+<p>Use start.spring.io or your IDE project initializer to pick Spring Boot with the Spring Web dependency, or the minimal set you need for a console demo. A lean project saves build time and dependency drama. Add a main application class annotated with <code>@SpringBootApplication</code> and a main method that calls <code>SpringApplication.run</code> to start the context.</p>
+
+<h2>Make a greeting bean that does the saying</h2>
+<p>Define a class annotated with <code>@Component</code> or <code>@Service</code> that exposes a public method which prints a greeting. For learning you can use <code>System.out.println</code> to see output on the console. For real apps prefer a logger for levels and better control in production.</p>
+
+<h2>Wire it with constructor injection and pick where to run it</h2>
+<p>Constructor injection is clearer and easier to test than field injection, so use that style. Inject the greeting bean into a <code>CommandLineRunner</code> if you want the message to appear at startup, or inject it into a controller if you want the greeting to be served over HTTP. CommandLineRunner runs when the ApplicationContext finishes starting, which is perfect for a startup Hello World.</p>
+
+<h3>Why CommandLineRunner</h3>
+<ul>
+  <li>It runs at startup so you get immediate validation that beans are wired correctly.</li>
+  <li>It keeps startup logic separated from application boot code, which is tidy and less spooky.</li>
+  <li>If you prefer HTTP testing inject the bean into a controller and return the greeting from a handler.</li>
+</ul>
+
+<h2>Run the app and watch embedded Tomcat do its thing</h2>
+<p>Start the app from your IDE or use your build tool to run it. If you included the web dependency embedded Tomcat will spin up and serve endpoints, and the console will show the println output or your logger message. If you see nothing check component scan packages and wiring choices. The usual suspects are wrong package locations or missing annotations.</p>
+
+<h2>Troubleshooting and tips</h2>
+<ul>
+  <li>Prefer constructor injection for clarity and testability</li>
+  <li>Use a logger rather than println in production for levels and cleaner output</li>
+  <li>If beans are not found verify package scanning and that your main class sits above component packages</li>
+  <li>Remember embedded Tomcat only appears when a web dependency is present</li>
+</ul>
+
+<p>This workflow produces a tiny but useful example of Spring Boot wiring that demonstrates inversion of control, Spring managed beans, and how a simple println helps validate wiring during the early learning phase. It is short, practical, and just sarcastic enough to keep you awake while you learn DI in Java with Spring Boot and embedded Tomcat.</p>
+

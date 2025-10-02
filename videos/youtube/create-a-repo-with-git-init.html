@@ -1,0 +1,80 @@
+---
+layout: video
+title: "Create a Repo with Git init"
+description: "Learn how to create a local Git repository with git init and make the first commit plus optional remote setup in one minute."
+video_host: "youtube"
+video_id: "GsLNBIW1R-M"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/GsLNBIW1R-M/maxresdefault.jpg"
+content_url: "https://youtu.be/GsLNBIW1R-M"
+embed_url: "https://www.youtube.com/embed/GsLNBIW1R-M"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git init
+  - create repo
+  - git tutorial
+  - version control
+  - git basics
+  - initial commit
+  - git remote
+  - command line
+  - developer tools
+---
+
+<p>If you want to create repo history without crying later this guide will help. This short git tutorial covers git init on the command line and walks you through the initial commit and adding a git remote. It is practical and mildly sarcastic but accurate which is the good kind of mean.</p>
+
+<h2>Why start with git init</h2>
+<p>git init is the simplest way to bring version control to a project folder. It makes a hidden .git folder where Git stores all the metadata that tracks changes and saves you from manually rewriting history when things go wrong. That day will come. Be ready.</p>
+
+<h2>Prepare the project folder</h2>
+<p>Open your terminal and change directory to the folder you want to track. The repository lives where you run git init so pick the right spot and try not to make your downloads folder a Git graveyard.</p>
+
+<h3>Quick checks</h3>
+<ul>
+  <li>Confirm you are in the intended folder with <code>pwd</code> or <code>ls</code></li>
+  <li>Set identity if needed with <code>git config user.name "Your Name"</code> and <code>git config user.email "you@example.com"</code></li>
+</ul>
+
+<h2>Initialize the repository</h2>
+<p>Run the command that actually creates the repo.</p>
+<pre><code>git init</code></pre>
+<p>That creates a .git folder that Git will use to track your files. No drama now, only future responsibility.</p>
+
+<h2>Create a sensible ignore file</h2>
+<p>Before you stage everything take a second to create a .gitignore. This keeps build artifacts user secrets and other trash out of your repo. You get to avoid shame and your coworkers will thank you in passive aggressive comments.</p>
+<pre><code># Example entries
+node_modules/
+.env
+dist/
+*.log
+</code></pre>
+
+<h2>Stage and make the initial commit</h2>
+<p>Staging selects what goes into the first snapshot. Then commit with a clear message and modest pride.</p>
+<pre><code>git add .
+git commit -m "Initial commit"
+</code></pre>
+<p>Good commit messages make future debugging less painful and your future self slightly less angry. Keep messages short and descriptive.</p>
+
+<h2>Add a remote and push if you want backup or sharing</h2>
+<p>If you plan to host the repo on a service add a remote and push the branch. Replace the URL with the one from your hosting service.</p>
+<pre><code>git remote add origin https://example.com/yourname/yourrepo.git
+git push -u origin main
+</code></pre>
+<p>Note that some hosts still use master as the default branch name. Adjust the branch name if needed.</p>
+
+<h2>Useful tips from someone who learned the hard way</h2>
+<ul>
+  <li>Create the .gitignore before the first commit to avoid accidentally committing junk</li>
+  <li>Use descriptive branch names that show purpose and avoid cryptic labels</li>
+  <li>Sign commits or set up CI later if you care about provenance and automation</li>
+  <li>Back up and push early to reduce the amount of crying required for recovery</li>
+</ul>
+
+<p>This workflow gets you a working local repo and an optional remote with minimal fuss. It is the foundation of good version control practices and a must have among developer tools. Now that your repo exists you can branch work merge responsibly and pretend you always followed best practices.</p>
+

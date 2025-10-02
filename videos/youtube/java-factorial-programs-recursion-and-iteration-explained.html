@@ -1,0 +1,103 @@
+---
+layout: video
+title: "Java Factorial Programs Recursion and Iteration Explained"
+description: "Learn Java factorial methods using recursion and iteration with clear examples performance notes and testing tips for safe code."
+video_host: "youtube"
+video_id: "qsYhBcAANHc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M40S"
+thumbnail_url: "https://i.ytimg.com/vi/qsYhBcAANHc/maxresdefault.jpg"
+content_url: "https://youtu.be/qsYhBcAANHc"
+embed_url: "https://www.youtube.com/embed/qsYhBcAANHc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - factorial
+  - recursion
+  - iteration
+  - Java tutorial
+  - recursive function
+  - iterative loop
+  - Big O
+  - stack overflow
+  - BigInteger
+---
+
+<article>
+  <p>If you need to calculate factorials in Java and you like sane programs that do not explode at runtime, welcome. This guide shows the math idea, two common implementations, when the runtime will throw a tiny tantrum, and how to handle very large results with BigInteger. Witty commentary included at no extra cost.</p>
+
+  <h2>What factorial means in plain English</h2>
+  <p>Factorial of n is n times n minus one times n minus two and so on until you hit one. By definition 0 factorial equals 1. That simple rule drives every implementation choice you will make here.</p>
+
+  <h2>Iterative implementation for the practical developer</h2>
+  <p>The iterative approach uses a loop to accumulate a product. It reads like assembly line work and it is memory friendly. Time complexity is O(n) and space complexity is O(1) apart from the variables you use.</p>
+
+  <pre><code>// iterative factorial pseudocode for clarity and copy paste pity
+static long factorialIterative(int n) {
+    if (n &lt; 0) throw new IllegalArgumentException("negative input")
+    long result = 1
+    for (int i = 2; i &lt;= n; i++) {
+        result *= i
+    }
+    return result
+}
+</code></pre>
+
+  <p>Use the iterative loop when input size can grow. It will not eat stack frames and it is predictable. Also remember that a 64 bit long overflows at 21 factorial so stop trusting long after 20 factorial.</p>
+
+  <h2>Recursive implementation for the elegant but fragile</h2>
+  <p>Recursion expresses factorial in self referential math style. It looks cute on whiteboards and is great for teaching. Both recursion and iteration take linear time. The kicker is stack usage. Java does not do tail call optimization so each recursive call consumes a stack frame and very large n will trigger a StackOverflowError.</p>
+
+  <pre><code>// recursive factorial pseudocode that reads like math
+static long factorialRecursive(int n) {
+    if (n &lt; 0) throw new IllegalArgumentException("negative input")
+    if (n == 0 || n == 1) return 1
+    return n * factorialRecursive(n - 1)
+}
+</code></pre>
+
+  <p>Recursion is fine when n is small and clarity matters. For production where n might grow, favor the iterative version unless you like debugging stack traces at 2 am.</p>
+
+  <h2>Performance and risks</h2>
+  <ul>
+    <li>Time complexity for both methods is O(n)</li>
+    <li>Iterative approach uses constant extra space</li>
+    <li>Recursive approach uses O(n) stack frames and can cause StackOverflowError for large n</li>
+    <li>Primitive long holds values up to 9,223,372,036,854,775,807 so factorials above 20 will overflow long</li>
+  </ul>
+
+  <h2>How to handle huge factorials with BigInteger</h2>
+  <p>When you want exact results beyond 20 factorial use java.math.BigInteger. It handles arbitrary precision arithmetic but costs CPU and memory. For most uses you will prefer iterative multiplication with BigInteger because it is simple and robust.</p>
+
+  <pre><code>// iterative factorial using BigInteger pseudocode
+static BigInteger factorialBigInteger(int n) {
+    if (n &lt; 0) throw new IllegalArgumentException("negative input")
+    BigInteger result = BigInteger.ONE
+    for (int i = 2; i &lt;= n; i++) {
+        result = result.multiply(BigInteger.valueOf(i))
+    }
+    return result
+}
+</code></pre>
+
+  <h2>Testing tips and edge cases</h2>
+  <ul>
+    <li>Check zero and one, both should return 1</li>
+    <li>Reject or handle negative inputs explicitly to avoid mysterious behavior</li>
+    <li>Verify boundary around 20 factorial when using long</li>
+    <li>For BigInteger check performance and memory when n grows large</li>
+  </ul>
+
+  <h2>Rules of thumb for mortal programmers</h2>
+  <ul>
+    <li>Use iteration for production when n can grow and you need stability</li>
+    <li>Use recursion for teaching, small n, or when you enjoy elegant code and the occasional StackOverflowError story</li>
+    <li>Use BigInteger for correctness when results exceed 64 bit range</li>
+  </ul>
+
+  <p>There you go. Now you can write factorial code that does not surprise anyone except the intern who thought recursion would scale forever. Go forth and compute responsibly.</p>
+</article>
+

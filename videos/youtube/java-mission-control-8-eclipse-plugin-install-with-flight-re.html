@@ -1,0 +1,81 @@
+---
+layout: video
+title: "Java Mission Control 8 Eclipse Plugin Install with Flight Re"
+description: "Step by step guide to install Java Mission Control 8 plugin in Eclipse and record JVM traces with Flight Recorder for performance analysis."
+video_host: "youtube"
+video_id: "E3gxhuATmHs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M26S"
+thumbnail_url: "https://i.ytimg.com/vi/E3gxhuATmHs/maxresdefault.jpg"
+content_url: "https://youtu.be/E3gxhuATmHs"
+embed_url: "https://www.youtube.com/embed/E3gxhuATmHs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java Mission Control
+  - JMC
+  - Eclipse
+  - Flight Recorder
+  - JFR
+  - JDK8
+  - Performance
+  - Profiling
+  - Plugin Install
+  - Troubleshooting
+---
+
+<p>If you want to add Java Mission Control to Eclipse and capture clean Flight Recorder traces without turning your JVM into a fossil, this guide walks you through the essentials with a little attitude. We will cover the JMC plugin install, how to enable JFR so the JVM actually emits useful events, how to start recordings from the plugin, and how to analyze the output for real performance clues.</p>
+
+<h2>Before you start</h2>
+<p>Do not skip this part unless you enjoy debugging things that were avoidable. Verify these boxes first</p>
+<ul>
+  <li>Use a JDK that bundles Flight Recorder or explicitly supports JFR. JDK 8 builds from some vendors include JFR and modern OpenJDK builds have JFR in more recent versions. Check vendor notes for support and any required flags.</li>
+  <li>Match JMC 8 to a compatible Eclipse release and JVM. Check the JMC download page for the update site URL and compatibility notes.</li>
+  <li>Back up your workspace if you like your current settings. Eclipse updates do things and they do them confidently.</li>
+</ul>
+
+<h2>Install the plugin in Eclipse</h2>
+<ol>
+  <li>Open Eclipse and use the Install New Software workflow. Add the Java Mission Control update site from the JMC downloads page and let Eclipse do its thing.</li>
+  <li>Select the JMC features you need and follow the installer prompts. Say yes to the restart when Eclipse asks. It is not polite to ignore a restart request.</li>
+  <li>After restart open the JMC perspective or find the JMC views under Window then Perspective then Open Perspective. The plugin should appear in the list.</li>
+</ol>
+
+<h2>Enable Flight Recorder on the JVM</h2>
+<p>Flight Recorder has a few moods depending on JVM version. It might be on by default or it might need a gentle shove at startup.</p>
+<ul>
+  <li>For older Oracle JDK 8 builds you may need startup flags such as -XX:+UnlockCommercialFeatures -XX:+FlightRecorder to let the JVM emit JFR events.</li>
+  <li>For modern JDKs you can often toggle recordings at runtime. Use jcmd with a live process id and the JFR commands. Example commands look like this</li>
+</ul>
+<pre><code>jcmd &lt;pid&gt; JFR.start name=MyRecording settings=profile duration=60s
+jcmd &lt;pid&gt; JFR.dump name=MyRecording filename=myrecording.jfr</code></pre>
+<p>Choose a settings profile that matches your goal. Use a high level profile for latency investigation and an allocation heavy profile for memory work. Keep durations sensible to avoid huge files and sad developers.</p>
+
+<h2>Connect from JMC and start a recording</h2>
+<p>Open the Java Mission Control perspective. You can connect to local JVMs from the process list or create a remote connection using JMX if you must suffer over the network.</p>
+<ol>
+  <li>Select the target JVM and open the flight recorder UI.</li>
+  <li>Start a new recording and pick a template for the type of profiling you want. Set a duration and file location if you plan to keep the trace.</li>
+  <li>Let the recording run long enough to capture the issue but short enough to keep your disk and sanity intact.</li>
+</ol>
+
+<h2>Analyze the recording</h2>
+<p>JMC provides analyzers that surface hotspots, high allocation rates, blocking threads, and other juicy signals. Browse the flight recorder data, open the flame graph and allocation views, and look for suspicious hotspots and long pauses.</p>
+<ul>
+  <li>Use the thread and event browser to correlate spikes with specific code paths.</li>
+  <li>Export the .jfr file or snapshots for teammates or for attaching to bug reports.</li>
+</ul>
+
+<h2>Troubleshooting tips</h2>
+<ul>
+  <li>Plugin does not appear in Eclipse. Check that the correct update site was used and that the installed features matched your Eclipse build.</li>
+  <li>Recording is empty. Verify that Flight Recorder is enabled on the JVM and that the right flags are present or that jcmd JFR.start succeeded.</li>
+  <li>Files are too large. Reduce sampling detail or shorten duration and use targeted templates for allocations or latency.</li>
+  <li>Connection problems. Try local connections first to rule out network or JMX configuration issues and inspect the Eclipse error log for stack traces.</li>
+  <li>Still stuck. Check vendor documentation for your JDK build on Flight Recorder support and update JMC if you are running an older plugin version.</li>
+</ul>
+
+<p>Follow these steps and you will have JMC integrated in Eclipse, JFR recordings you can actually use, and a few neat artifacts to hand to whoever signed off on the release. If something refuses to work blame the JVM for being stubborn and then fix the flags.</p>
+

@@ -1,0 +1,81 @@
+---
+layout: video
+title: "Amazon S3 Static Website Hosting & Custom Domains"
+description: "Quick guide to host a static website on Amazon S3 and point a custom domain using AWS Route53 with optional CloudFront for HTTPS"
+video_host: "youtube"
+video_id: "AZPpjGV_bX4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M9S"
+thumbnail_url: "https://i.ytimg.com/vi/AZPpjGV_bX4/maxresdefault.jpg"
+content_url: "https://youtu.be/AZPpjGV_bX4"
+embed_url: "https://www.youtube.com/embed/AZPpjGV_bX4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Amazon S3
+  - S3 static hosting
+  - Route53
+  - custom domain
+  - DNS
+  - CloudFront
+  - ACM
+  - SSL
+  - bucket policy
+  - static website
+---
+
+<h2>Quick overview and why you should care</h2>
+<p>Yes you can host a static website on Amazon S3 and map it to your own domain. No you do not need a wizard or a mysterious monthly bill to start. With S3 static hosting you get simple object serving, with Route53 you drive DNS, and with CloudFront plus ACM you get the HTTPS goodness your users expect. This guide walks through the essentials and points out the annoying bits so you do not waste time.</p>
+
+<h2>What you will end up with</h2>
+<ul>
+  <li>A public static website stored in an S3 bucket using S3 static hosting</li>
+  <li>A custom domain managed in Route53 with DNS records pointing to your site</li>
+  <li>Optional CloudFront distribution for HTTPS and caching</li>
+  <li>An ACM certificate for SSL on CloudFront when you want secure traffic</li>
+</ul>
+
+<h2>Create the S3 bucket and enable static hosting</h2>
+<p>Pick a bucket name that matches your root domain if you want the apex site to work without redirection. In the S3 console go to bucket properties and enable static website hosting. Set your index document and error document. This makes the bucket act like a simple web origin that serves HTML CSS and static assets.</p>
+
+<h3>Upload your site files</h3>
+<p>Use the console or the AWS CLI to upload your build. If you use the CLI you will use the s3 URI format in commands. For example you might run a sync command roughly like this on your machine.</p>
+<pre><code>aws s3 sync ./site s3 slash slash your-bucket-name --acl public-read</code></pre>
+<p>Note that AWS block public access settings can prevent public reads. Adjust them only if you intend to serve public content. If you want to avoid public buckets you can use CloudFront to restrict access with an origin access identity or origin access control instead.</p>
+
+<h2>Bucket policy and public access notes</h2>
+<p>If you choose public hosting add a minimal bucket policy that allows public read of objects. Keep it tight and only permit s3 get object for the bucket objects. If you plan to front the bucket with CloudFront prefer an origin access control to keep the bucket private and reduce accidental exposure.</p>
+
+<h2>Make DNS changes in Route53</h2>
+<p>Create or use an existing hosted zone for your domain in Route53. For direct S3 website endpoints you can create an A record alias that targets the S3 website endpoint for the region where your bucket lives. If you want HTTPS create a CloudFront distribution and make an A record alias that targets the CloudFront distribution instead.</p>
+
+<h3>TTL and testing</h3>
+<p>When you are iterating on DNS set a low TTL to speed up testing. Once everything is stable increase the TTL for fewer DNS queries and less cache thrashing.</p>
+
+<h2>Add CloudFront and request an ACM certificate when you want HTTPS</h2>
+<p>CloudFront gives you HTTPS and global caching at the edge. Request an ACM certificate in the us east 1 region for CloudFront to use. Once the certificate is issued associate it with the distribution. Use an A type alias record in Route53 to point your domain to the CloudFront distribution so traffic goes through the CDN and stays encrypted with SSL or TLS.</p>
+
+<h3>Tips for ACM and CloudFront</h3>
+<ul>
+  <li>Request the ACM certificate in the us east 1 region for CloudFront compatibility</li>
+  <li>Validate the certificate by DNS validation in your hosted zone for the fastest automated path</li>
+  <li>Use origin access control on the S3 origin to prevent direct public bucket reads if you want true origin protection</li>
+</ul>
+
+<h2>Verify everything is working</h2>
+<p>After deployments check a few things. Verify DNS propagation with dig or your favorite DNS tool. Fetch content with curl to confirm headers and status codes. Load the site in a browser and test HTTPS if you added CloudFront. If content is stale invalidate the CloudFront cache once and avoid frequent invalidations unless you like paying for impatience.</p>
+
+<h2>Common gotchas and how to avoid them</h2>
+<ul>
+  <li>Forgot to enable static hosting or set index document and you get a 403 instead of a home page</li>
+  <li>Left bucket public when you meant private use CloudFront origin access control for privacy</li>
+  <li>Requested ACM certificate in the wrong region remember CloudFront needs the certificate from us east 1</li>
+  <li>Used the S3 REST endpoint instead of the S3 website endpoint for direct hosting the REST endpoint will not serve index documents the website endpoint will</li>
+</ul>
+
+<h2>Final notes and a tiny reality check</h2>
+<p>Hosting a static website on Amazon S3 with a custom domain is straightforward if you follow the flow. S3 gives storage and web serving, Route53 gives DNS control, CloudFront provides HTTPS and caching, and ACM covers the SSL certificate part. The most common friction points are DNS, certificate region mismatch, and bucket access settings. Fix those and you will have a fast cheap static website that behaves like it belongs in the modern web era.</p>
+<p>If you want I can sketch the minimal bucket policy or the origin access control steps in plain language so you do not paste something dangerous. Or I can hand you a checklist that prevents the top five mistakes people commit when they deploy static websites on S3 like it is 2008 again.</p>
+

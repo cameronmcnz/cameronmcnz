@@ -1,0 +1,94 @@
+---
+layout: video
+title: "Create a Table in Microsoft SQL Server for JDBC with Java"
+description: "Step by step guide to create a SQL Server table from Java using JDBC with clear steps and a safe CREATE TABLE example"
+video_host: "youtube"
+video_id: "Q8ZkvlkTa0I"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M45S"
+thumbnail_url: "https://i.ytimg.com/vi/Q8ZkvlkTa0I/maxresdefault.jpg"
+content_url: "https://youtu.be/Q8ZkvlkTa0I"
+embed_url: "https://www.youtube.com/embed/Q8ZkvlkTa0I"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - SQL Server
+  - JDBC
+  - Java
+  - CREATE TABLE
+  - Database
+  - DDL
+  - Connection
+  - PreparedStatement
+  - Driver
+  - Tutorial
+---
+
+<p>If you think creating a table is thrilling wait until you do it from Java with JDBC. This short tutorial will get you from dependency panic to a real CREATE TABLE in SQL Server without leaking credentials or your dignity. We cover adding the driver handling connections preparing and executing DDL and verifying the result</p>
+
+<h2>What you need before you start</h2>
+<p>Keep these on your desk or at least in your project</p>
+<ul>
+  <li>Microsoft JDBC driver for SQL Server available on Maven Central or as a jar</li>
+  <li>JDK and a build tool such as Maven or Gradle</li>
+  <li>Credentials stored securely not hard coded</li>
+  <li>An instance of SQL Server reachable from your app</li>
+</ul>
+
+<h2>Add the JDBC driver and project dependency</h2>
+<p>Use your build tool to fetch the driver. A minimal Maven example shown as escaped XML is fine if you like verbose files</p>
+<pre><code>&lt;dependency&gt
+  &lt;groupId&gtcom.microsoft.sqlserver&lt;/groupId&gt
+  &lt;artifactId&gtmssql-jdbc&lt;/artifactId&gt
+  &lt;version&gt10.2.0.jre11&lt;/version&gt
+&lt;/dependency&gt</code></pre>
+<p>If you prefer a jar just drop it on the classpath. The driver registers itself so DriverManager can find it when you ask for a connection</p>
+
+<h2>Create a database connection the right way</h2>
+<p>Use a JDBC URL adapted for SQL Server and avoid putting secrets in source files. Try with resources is your friend for automatic cleanup</p>
+<pre><code>String url = "jdbc:sqlserver://localhost:1433;databaseName=TestDb"
+String user = System.getenv("DB_USER")
+String pass = System.getenv("DB_PASS")
+// Prefer a secrets store or environment variables over hard coding
+</code></pre>
+
+<h2>Prepare and execute a CREATE TABLE statement</h2>
+<p>DDL is typically executed with a Statement. If you need to change schema or table names at runtime validate them strictly to avoid SQL injection of identifiers</p>
+<pre><code>String ddl = "CREATE TABLE Users ("
+           + "Id INT PRIMARY KEY, "
+           + "Username VARCHAR(50) NOT NULL, "
+           + "CreatedAt DATETIME2)"
+
+try (Connection conn = DriverManager.getConnection(url, user, pass);
+     Statement stmt = conn.createStatement()) {
+    stmt.executeUpdate(ddl)
+    System.out.println("Table created or already exists depending on server settings")
+} catch (SQLException e) {
+    // Log meaningful message and handle or rethrow as appropriate
+    e.printStackTrace()
+}
+</code></pre>
+<p>If you must construct DDL dynamically validate object names with a whitelist. Do not accept raw DDL from users unless you enjoy disasters</p>
+
+<h2>Handle resources and exceptions</h2>
+<p>Use try with resources so connections and statements close automatically even when things go sideways. Catch SQLExceptions and log the SQLState and error code along with a human friendly note</p>
+
+<h2>Verify the new table exists</h2>
+<p>Open SQL Server Management Studio or run a quick query against the catalog for a reality check</p>
+<pre><code>SELECT TABLE_SCHEMA TABLE_NAME
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_NAME = 'Users'</code></pre>
+<p>A matching row means success. No matching row means you forgot to run the code or the code threw an exception and you ignored it like a bad text message</p>
+
+<h3>Pro tips for production</h3>
+<ul>
+  <li>Use connection pooling for repeated DDL or normal queries to avoid expensive handshakes</li>
+  <li>Apply migrations with a tool when you need versioned schema changes</li>
+  <li>Prefer DATETIME2 or proper types for timestamps and avoid odd default behaviors</li>
+  <li>Store credentials in a secrets manager and rotate them like they owe you money</li>
+</ul>
+
+<p>That is all you need to create tables in SQL Server from Java using JDBC. You added the driver created a secure connection prepared and executed DDL handled resources and verified the result. Now go make a table and try not to drop production while you are at it</p>
+

@@ -1,0 +1,71 @@
+---
+layout: video
+title: "UiPath Set Reading Order to Inferred for Adobe"
+description: "Quick tutorial on setting Adobe reading order to Inferred so UiPath extracts PDF text more reliably for automation and document understanding"
+video_host: "youtube"
+video_id: "-yVXW1MmG7I"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M19S"
+thumbnail_url: "https://i.ytimg.com/vi/-yVXW1MmG7I/maxresdefault.jpg"
+content_url: "https://youtu.be/-yVXW1MmG7I"
+embed_url: "https://www.youtube.com/embed/-yVXW1MmG7I"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Adobe Acrobat
+  - Reading Order
+  - Inferred
+  - PDF extraction
+  - OCR
+  - Accessibility
+  - Document Understanding
+  - Automation
+  - UiPath tips
+---
+
+<p>If your UiPath automation treats PDF text like a scrambled treasure map you are not alone. Telling Adobe Acrobat Pro to use Inferred reading order often fixes the chaos and makes PDF extraction and Document Understanding behave like grown ups. This guide walks you through the practical steps and the bits where humans need to intervene.</p>
+
+<h2>Why inferred reading order matters for UiPath</h2>
+<p>PDFs are visual files first and logical stories second. When text floats in columns or images sit oddly on the page UiPath and accessibility tools can read things out of order. Choosing Inferred reading order tells Acrobat to guess the logical flow based on layout and tags which improves OCR and downstream parsing for automation and accessibility.</p>
+
+<h2>What you need before you start</h2>
+<ul>
+  <li>Adobe Acrobat Pro. Acrobat Reader will not cut it for authoring features.</li>
+  <li>A backup copy of the original PDF. You will want the original if things go sideways.</li>
+  <li>UiPath Studio or your automation runner and a small sample set of pages to test with.</li>
+</ul>
+
+<h2>Step by step to set Inferred reading order in Adobe Acrobat Pro</h2>
+<ol>
+  <li>Open the PDF in Adobe Acrobat Pro so the Accessibility tools are available.</li>
+  <li>Go to Tools then Accessibility and open the Reading Order panel. The panel shows visual blocks and a menu to pick how the logical flow is determined.</li>
+  <li>Select the Inferred option and apply it to the document or to specific pages that look broken. Acrobat will attempt to reconstruct the logical sequence from layout, tags and object positions.</li>
+  <li>Save the file using Save or Save As so the reading order changes are embedded. If you skip saving UiPath will keep reading the old structure and you will blame automation instead of the file.</li>
+</ol>
+
+<h2>How to test in UiPath</h2>
+<p>In UiPath use Read PDF Text for searchable PDFs. Use Read PDF With OCR for scanned images and pick an OCR engine that matches your language and font style. Point the activity to the saved PDF and test extraction on a few representative pages before you push to production.</p>
+<p>Applying inferred reading order often corrects misplaced fragments and broken line sequences that break parsers and Document Understanding pipelines. A quick check will tell you if the change fixed things or if manual tagging is required.</p>
+
+<h3>Troubleshooting and practical tips</h3>
+<ul>
+  <li>If the PDF still reads poorly run the Make Accessible action in Acrobat to add tags then reapply Inferred reading order. More tags help the guesser do a better job.</li>
+  <li>For scanned pages use a higher DPI when running OCR and pick a reliable OCR engine. That reduces gibberish and fused words.</li>
+  <li>Complex layouts with lots of floating objects or tables may still need manual tagging. Yes this is boring. Yes it sometimes matters.</li>
+  <li>Test several pages not just page one. Files can be inconsistent and one golden page does not mean the whole book is readable.</li>
+  <li>Keep UiPath PDF and OCR packages up to date so you do not fight fixed bugs from three versions ago.</li>
+</ul>
+
+<h2>Quick checklist before you roll to production</h2>
+<ul>
+  <li>Saved PDF contains the new reading order</li>
+  <li>UiPath activity points to the saved file</li>
+  <li>Extraction validated on representative pages</li>
+  <li>Fallback plan exists for manual tagging if automation fails</li>
+</ul>
+
+<p>Follow these steps and your UiPath workflows will get far fewer weird line breaks and orphan words. If nothing improves then you get to enjoy the thrilling world of manual accessibility tagging which builds character and mild resentment.</p>
+

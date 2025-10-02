@@ -1,0 +1,70 @@
+---
+layout: video
+title: "What is Amazon Bedrock?"
+description: "Quick guide to Amazon Bedrock features pricing models and SageMaker Agents for building generative AI on AWS"
+video_host: "youtube"
+video_id: "kT6qmPM_D-w"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT58S"
+thumbnail_url: "https://i.ytimg.com/vi/kT6qmPM_D-w/maxresdefault.jpg"
+content_url: "https://youtu.be/kT6qmPM_D-w"
+embed_url: "https://www.youtube.com/embed/kT6qmPM_D-w"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Amazon Bedrock
+  - AWS Bedrock
+  - Claude
+  - SageMaker Agents
+  - Deepseek
+  - AWS pricing
+  - Foundation models
+  - Generative AI
+  - Model deployment
+  - Security and governance
+---
+
+<h2>Quick summary without the corporate fluff</h2>
+<p>AWS Bedrock is a managed service that gives you a single API to call multiple foundation models. That means you can use Anthropic Claude, Amazon Titan, and other third party models through the same gateway. For fast prototyping and production grade deployments Bedrock handles the plumbing so you can focus on prompts and product features instead of arguing with model endpoints.</p>
+
+<h2>What you can actually build</h2>
+<p>Think generative AI features like chat assistants, summarizers, code helpers, or retrieval augmented generation pipelines. Plug in a retrieval tool such as Deepseek style indexes to cut token costs and improve factuality. Or orchestrate multi step workflows with SageMaker Agents when your app needs to do more than one trick before returning a result.</p>
+
+<h3>Typical integration pieces</h3>
+<ul>
+  <li>Unified API access to foundation models like Claude and Titan</li>
+  <li>SageMaker Agents for orchestration and automation</li>
+  <li>Retrieval with Deepseek style indexes for context and token savings</li>
+  <li>Model deployment and scaling handled by AWS Bedrock managed infra</li>
+</ul>
+
+<h2>Money talk and latency reality</h2>
+<p>Pricing is pay per use with charges for inference and optional data processing and storage. Different vendors and models behave like different coffee beans. Some are fast and cheap, others are slow and dramatic. Run small tests to estimate costs and latency before you send production traffic. Read the official AWS pricing pages for up to date numbers and avoid surprises by setting budgets and alerts.</p>
+
+<h2>Security and governance without hand waving</h2>
+<p>Security matters more than trendy features. Use IAM roles and fine grained policies to limit who can call which models. Put Bedrock traffic through VPC endpoints and enable encryption in transit and at rest. Redact or anonymize sensitive content before sending it to external models, and log everything so you can audit usage and chargeback when someone runs a thousand expensive calls to impress their manager.</p>
+
+<h3>Practical governance checklist</h3>
+<ul>
+  <li>Per environment API keys and least privilege IAM roles</li>
+  <li>VPC endpoints and network controls for private traffic</li>
+  <li>Encryption for data in motion and at rest</li>
+  <li>Logging, cost alerts, and usage audits</li>
+  <li>Automatic redaction or manual review for sensitive inputs</li>
+</ul>
+
+<h2>How to pick and ship models without gambling the budget</h2>
+<p>Choose a model that matches your latency cost and quality needs. Prototype with cheap calls and small token limits. Document evaluation metrics and run A B tests for prompts and temperature settings. Remember quality often trades off with cost. If conversational quality matters pick a more capable model. If volume matters pick a lighter model and use retrieval to keep token usage down.</p>
+
+<h2>Deployment tips that actually save time and money</h2>
+<ul>
+  <li>Start with a low cost model for initial tests</li>
+  <li>Use Deepseek style retrieval to reduce token usage and boost accuracy</li>
+  <li>Orchestrate tasks with SageMaker Agents for complex flows</li>
+  <li>Monitor latency and costs from day one and set limits</li>
+</ul>
+
+<p>Bottom line, AWS Bedrock is great for rapid prototyping and managed production model deployment when you want a single API to manage multiple foundation models. It does not remove the need for careful design, security and cost control. With the right configuration and monitoring you can move fast without waking up to a terrifying bill.</p>
+

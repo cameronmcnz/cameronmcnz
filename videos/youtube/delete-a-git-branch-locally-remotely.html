@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Delete a Git Branch Locally & Remotely"
+description: "Quick guide to delete a Git branch locally and on the remote with safe and force commands and cleanup tips"
+video_host: "youtube"
+video_id: "McFRdUmYNpg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/McFRdUmYNpg/maxresdefault.jpg"
+content_url: "https://youtu.be/McFRdUmYNpg"
+embed_url: "https://www.youtube.com/embed/McFRdUmYNpg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - branch
+  - delete branch
+  - git branch -d
+  - git push --delete
+  - remote branch
+  - git cleanup
+  - version control
+  - git tutorial
+  - git tutorial
+---
+
+<p>So you built a feature branch, fixed a bug, and now you want to get rid of the evidence. Good. This guide walks through removing a Git branch on your machine and telling the remote to forget it too. It keeps the facts straight and the drama low.</p>
+
+<h2>Before you delete a branch</h2>
+<p>Deleting branches is easy and permanent enough to be fun if you enjoy surprises. Do these checks first so the surprise is a pleasant one.</p>
+<ul>
+  <li>Confirm you are not on the branch you want to delete</li>
+  <li>Make sure any important work is merged or backed up</li>
+  <li>Check branch protection rules on your remote hosting service</li>
+</ul>
+
+<h2>Switch away from the target branch</h2>
+<p>Git will not let you delete the branch you are currently using. So switch to a safe place first like main or develop. Pick whatever branch your team actually uses for shipping.</p>
+<pre><code>git switch main</code></pre>
+
+<h2>Delete the local branch safely</h2>
+<p>Use the safe delete command when you want Git to protect you from losing commits. This command refuses to delete branches that contain commits not merged anywhere else.</p>
+<pre><code>git branch -d feature-name</code></pre>
+<p>If Git says the branch is not fully merged then you either need to merge it or be certain you want to lose the commits.</p>
+
+<h2>Force delete when you know what you are doing</h2>
+<p>Okay bold move. If you are absolutely sure the branch is expendable use the force delete. This nukes the branch locally even if commits would be orphaned.</p>
+<pre><code>git branch -D feature-name</code></pre>
+<p>Use this with care and maybe a small prayer to the version control gods.</p>
+
+<h2>Remove the branch on the remote</h2>
+<p>Tell the remote to drop the branch. This is just a push that deletes a ref on the server. If it fails inspect permissions and branch protection rules on your hosting service.</p>
+<pre><code>git push origin --delete feature-name</code></pre>
+
+<h2>Prune stale remote references</h2>
+<p>After deleting a remote branch your local clone may still list it until you clean up stale refs. Run one of these to keep your branch list honest.</p>
+<ul>
+  <li><code>git remote prune origin</code> to remove stale refs now</li>
+  <li><code>git fetch --prune</code> to fetch and prune in one go</li>
+</ul>
+
+<h2>Verify what remains</h2>
+<p>Want to double check before you celebrate The Vanishing Branch Use this to list local and remote branches with details.</p>
+<pre><code>git branch -av</code></pre>
+
+<h3>Quick safety tips</h3>
+<ul>
+  <li>Create a lightweight backup tag if you want to be extra cautious</li>
+</ul>
+<pre><code>git tag backup/feature feature-name</code></pre>
+
+<p>One final thought Keep a calm checklist and confirm branch names before running destructive commands. That small pause saves you from a frantic revert later and maybe from explaining the mistake in a team meeting.</p>
+

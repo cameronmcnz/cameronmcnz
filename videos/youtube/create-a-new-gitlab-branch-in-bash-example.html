@@ -1,0 +1,91 @@
+---
+layout: video
+title: "Create a new GitLab branch in BASH example"
+description: "Learn how to create and push a new GitLab branch from BASH using git commands and simple automation steps for a clean developer workflow"
+video_host: "youtube"
+video_id: "yOqYvGhrK14"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M32S"
+thumbnail_url: "https://i.ytimg.com/vi/yOqYvGhrK14/maxresdefault.jpg"
+content_url: "https://youtu.be/yOqYvGhrK14"
+embed_url: "https://www.youtube.com/embed/yOqYvGhrK14"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gitlab
+  - bash
+  - git
+  - branch
+  - tutorial
+  - automation
+  - devops
+  - workflow
+  - commands
+  - scripting
+---
+
+<article>
+  <p>Tired of typing the same git commands like it is some medieval ritual? This guide shows how to create a new GitLab branch from Bash and push it to the remote like a civilized human. It is aimed at developers who want automation, consistency, and fewer awkward merge surprises. We cover authentication checks, creating a local branch, pushing with upstream tracking, verifying the remote, and a tiny Bash script to automate the boring parts.</p>
+
+  <h2>Prepare credentials and authentication</h2>
+  <p>First things first check that you can talk to the remote without screaming. Use SSH keys or HTTPS credentials. If your project uses a personal access token store it in an environment variable such as GITLAB_TOKEN and do not paste it into logs or chat threads that make HR nervous. If you use SSH make sure your key is added to the agent and registered in the GitLab project settings.</p>
+
+  <h3>Quick checks before you start</h3>
+  <ul>
+    <li>Confirm you can fetch from the repo with <code>git fetch</code></li>
+    <li>Confirm your remote is set as <code>origin</code> or adjust commands to match</li>
+    <li>Make sure you do not have uncommitted work with <code>git status --porcelain</code></li>
+  </ul>
+
+  <h2>Create a descriptive local branch</h2>
+  <p>Pick a branch name that will not make reviewers cry. Many teams use a prefix like <code>feature</code> or <code>fix</code> followed by a short slug. Example command to start a branch in a new task:</p>
+  <pre><code>git checkout -b feature/my-new-feature</code></pre>
+  <p>This creates a local branch and switches you there so you can do your work without wrecking the mainline.</p>
+
+  <h2>Push the branch and set upstream</h2>
+  <p>When the branch is ready to live on GitLab push it and set the upstream so future <code>git push</code> calls know where to go. Use this command:</p>
+  <pre><code>git push --set-upstream origin feature/my-new-feature</code></pre>
+  <p>That creates the remote branch and links your local branch to it. Later you can just run plain <code>git push</code> and git will understand what you mean.</p>
+
+  <h2>Verify the branch on the remote</h2>
+  <p>Do a quick check to avoid surprises. Run <code>git fetch</code> and then list remote branches with <code>git branch -r</code>. You can also peek at the GitLab web UI if you enjoy clicking around. These checks stop you from opening a merge request against a branch that does not exist or pushing to a wrong remote.</p>
+
+  <h2>Automate with a small Bash script</h2>
+  <p>Wrap the flow into a tiny script and your future self will thank you. The script below validates a simple branch naming pattern checks for uncommitted changes and runs the push. It is a basic automation step for any devops friendly workflow or scripting toolbox.</p>
+
+  <pre><code>#!/usr/bin/env bash
+set -euo pipefail
+
+branch="$1"
+
+if [ -z "$branch" ]; then
+  echo "Usage $0 branch-name"
+  exit 1
+fi
+
+if [ -n "$(git status --porcelain)" ]; then
+  echo "You have uncommitted changes. Stash or commit them first"
+  exit 1
+fi
+
+if [[ ! "$branch" =~ ^(feature|fix|hotfix)/[a-z0-9._-]+$ ]]; then
+  echo "Branch name must follow pattern feature or fix or hotfix slash short-slug"
+  exit 1
+fi
+
+git checkout -b "$branch"
+git push --set-upstream origin "$branch"
+</code></pre>
+
+  <h2>Troubleshooting and tips</h2>
+  <ul>
+    <li>If push fails check remote permissions and whether your SSH key or token is valid</li>
+    <li>For automation in CI use the project deploy token or CI job token with least privilege</li>
+    <li>Use branch names that team CI and merge rules can parse to avoid surprises</li>
+  </ul>
+
+  <p>This is a practical workflow that keeps your git branching tidy and your reviews less painful. Use the script as a starting point and extend it if your workflow needs extra checks for issue keys or ticket IDs. Now go create branches responsibly and spare the rest of the team a confusing commit history.</p>
+</article>
+

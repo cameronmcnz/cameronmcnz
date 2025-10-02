@@ -1,0 +1,85 @@
+---
+layout: video
+title: "How to improve UiPath OCR with Google Cloud Vision"
+description: "Compare UiPath OCR and Google Cloud Vision and get practical tips to boost OCR accuracy and integration in UiPath workflows."
+video_host: "youtube"
+video_id: "y-Yi9f4AnQA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M42S"
+thumbnail_url: "https://i.ytimg.com/vi/y-Yi9f4AnQA/maxresdefault.jpg"
+content_url: "https://youtu.be/y-Yi9f4AnQA"
+embed_url: "https://www.youtube.com/embed/y-Yi9f4AnQA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - OCR
+  - Google Cloud Vision
+  - GCV
+  - OCR comparison
+  - RPA
+  - Text extraction
+  - Automation
+  - OCR accuracy
+  - Integration
+---
+
+<p>If your UiPath OCR is doing a passable impression of a human reading a receipt after a glass of wine then this guide is for you. Google Cloud Vision can rescue those messy screenshots handwriting and multi language pages that make native UiPath OCR grumble. This is about practical integration and real world tradeoffs not wishful thinking.</p>
+
+<h2>Why swap in Google Cloud Vision for UiPath OCR</h2>
+<p>Short version that still hurts to read UiPath built in engines are fast and cheap for neat predictable screens. Google Cloud Vision or GCV brings more advanced models better handling of noise odd layouts and handwriting. The tradeoff is that you trade latency cost and a bit of architectural hair to get the accuracy boost.</p>
+<ul>
+  <li>UiPath OCR is great for regular RPA tasks with stable UI and low latency needs</li>
+  <li>GCV shines for noisy images complex layouts handwriting and multi language text extraction</li>
+  <li>Expect to plan for API keys network retries rate limits and cost monitoring when volume grows</li>
+</ul>
+
+<h2>Quick integration steps for UiPath and Google Cloud Vision</h2>
+<p>This is the minimal roadmap that keeps you from inventing disaster.</p>
+<ol>
+  <li>Create a Google Cloud project and enable the Vision API</li>
+  <li>Create a service account and download the JSON key file for secure machine to machine authentication</li>
+  <li>Preprocess images inside UiPath with image activities to improve odds of success</li>
+  <li>Call the Vision API from UiPath using an HTTP Request activity or a vetted community activity</li>
+  <li>Send images as base64 and request text detection or document text detection depending on the layout</li>
+  <li>Parse the JSON response and map text and bounding boxes into your automation flow</li>
+</ol>
+
+<h3>Notes on each step</h3>
+<p>Create the GCP project and enable Vision API so you can actually use the modern OCR models. The service account key is your automation identity so protect it like an admin password.</p>
+
+<h3>Image preprocessing tips</h3>
+<p>Image cleanup matters more than most developers want to admit. Spend a few minutes here and save hours downstream.</p>
+<ul>
+  <li>Convert to grayscale and apply thresholding to improve contrast</li>
+  <li>Deskew and crop to focus on the region of interest</li>
+  <li>Adjust DPI or resize so text is in the sweet spot for OCR models</li>
+  <li>Remove obvious UI chrome and overlays when possible</li>
+</ul>
+
+<h3>Calling the API from UiPath</h3>
+<p>Use the HTTP Request activity or a community supported package that wraps Vision API calls. Send images as base64 in the request body and ask for text detection or document text detection for multi column and complex documents. The response contains text blocks bounding boxes confidence scores and language hints.</p>
+
+<h2>Parsing results and turning them into reliable data</h2>
+<p>Do not trust raw OCR output as gospel. Use confidence thresholds and regex driven cleanup for final fields. Keep these tactics in your toolbox.</p>
+<ul>
+  <li>Prefer higher confidence text when multiple candidates overlap</li>
+  <li>Use bounding boxes to map text to form fields or table cells</li>
+  <li>Apply regex or normalization to dates amounts and IDs</li>
+  <li>Implement retry logic for transient network failures and exponential backoff for rate limit responses</li>
+</ul>
+
+<h2>Practical tradeoffs and monitoring</h2>
+<p>Google Cloud Vision will likely increase OCR accuracy for difficult inputs but it will add cost and latency. For low volume high accuracy needs this is often a clear win. For high volume simple screens UiPath native OCR can still be the better choice.</p>
+<ul>
+  <li>Accuracy boost for complex layouts handwriting and multi language text</li>
+  <li>Added latency due to network calls and processing time</li>
+  <li>Monitor cost per run and set alerts before your cloud bill becomes a horror story</li>
+  <li>Keep a fallback path using UiPath engines for low latency or offline runs</li>
+</ul>
+
+<h2>Final notes</h2>
+<p>Integrating GCV with UiPath is an integration and tuning exercise not a magic wand. Treat preprocessing parsing and thresholding as first class parts of your design and you will see better OCR accuracy and fewer surprises. Now go automate something that no sane human wants to do by hand.</p>
+

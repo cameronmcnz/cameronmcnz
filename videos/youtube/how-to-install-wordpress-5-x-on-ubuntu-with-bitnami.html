@@ -1,0 +1,103 @@
+---
+layout: video
+title: "How to install WordPress 5.x on Ubuntu with Bitnami"
+description: "Step by step guide to install WordPress 5.x on Ubuntu using a Bitnami stack with commands and configuration tips for a smooth setup"
+video_host: "youtube"
+video_id: "SFODsZJqBR0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M59S"
+thumbnail_url: "https://i.ytimg.com/vi/SFODsZJqBR0/maxresdefault.jpg"
+content_url: "https://youtu.be/SFODsZJqBR0"
+embed_url: "https://www.youtube.com/embed/SFODsZJqBR0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - WordPress
+  - Ubuntu
+  - Bitnami
+  - Tutorial
+  - Installation
+  - LAMP
+  - Server
+  - Apache
+  - MySQL
+  - Security
+---
+
+<p>If you want WordPress on Ubuntu without wrestling with every dependency yourself then the Bitnami stack is the calm, mildly smug path. This guide walks through the real world steps to get WordPress 5.x running on an Ubuntu server and keeps the technical bits accurate while making mild jokes at your past server setup attempts.</p>
+
+<h2>Prepare the Ubuntu server</h2>
+<p>Start with a clean, updated Ubuntu box and basic tooling. This is boring but vital. Run package updates and install common utilities so you do not get surprised later.</p>
+<pre><code>sudo apt update && sudo apt upgrade -y
+sudo apt install curl wget unzip build-essential -y
+sudo timedatectl set-timezone America/New_York</code></pre>
+<p>Set your timezone and locales now unless you like mysterious timestamp bugs later. If you are on a cloud VM make sure you have an SSH key and a non root user ready.</p>
+
+<h2>Download the Bitnami WordPress installer</h2>
+<p>Go to the official Bitnami site and copy the Linux installer link for the WordPress stack. Do not trust random mirrors. Use a secure download tool and verify the file checksum when available.</p>
+<pre><code>wget 'paste the official Bitnami installer link here'
+sha256sum bitnami-wordpress-5.x.x-linux-x64.run</code></pre>
+<p>If the checksum looks right make the installer executable and prepare for the prompts.</p>
+
+<h2>Run the installer</h2>
+<p>Run the installer as a local administrator and follow the interactive prompts. The installer takes care of Apache and MariaDB configuration for the stack so you do not need to hand wire everything.</p>
+<pre><code>chmod +x bitnami-wordpress-5.x.x-linux-x64.run
+sudo ./bitnami-wordpress-5.x.x-linux-x64.run</code></pre>
+<p>The installer will ask for an install directory an administrator account and whether to enable optional components. Choose strong passwords and a sensible install location. If another service already uses ports 80 or 443 you can change the ports during installation or adjust them afterward.</p>
+
+<h2>Configure ports and services</h2>
+<p>Bitnami stores its stack under /opt/bitnami by default. To change Apache ports edit the Bitnami Apache config files and restart the stack. To manage the stack use the bundled control script.</p>
+<pre><code>sudo /opt/bitnami/ctlscript.sh restart apache
+sudo /opt/bitnami/ctlscript.sh restart mysql</code></pre>
+<p>If you want automatic start on reboot create a simple systemd unit like this and enable it. That way the stack starts when the server does and you avoid the midnight panics.</p>
+<pre><code>[Unit]
+Description=Bitnami services
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/opt/bitnami/ctlscript.sh start
+ExecStop=/opt/bitnami/ctlscript.sh stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+
+<h2>Secure credentials and database</h2>
+<p>Security is not optional. Pick strong passwords for the WordPress admin and for the MariaDB users. Limit SSH access and use a firewall so your server is not an open invitation.</p>
+<ul>
+  <li>Allow only necessary ports with UFW</li>
+  <li>Consider binding the database to localhost if external access is not needed</li>
+  <li>Disable password logins for SSH and use keys instead</li>
+</ul>
+<pre><code>sudo ufw allow OpenSSH
+sudo ufw allow 80
+sudo ufw allow 443
+sudo ufw enable</code></pre>
+<p>To restrict MariaDB edit the my.cnf in the Bitnami stack and set bind-address to 127.0.0.1 if you do not need remote DB access.</p>
+
+<h2>Verify access and finalize</h2>
+<p>Open your server IP or domain in a browser and log into the WordPress dashboard at /wp-admin with the admin account you created during installation. Test creating a post change the permalink structure and install updates for plugins and themes.</p>
+<p>Important housekeeping steps</p>
+<ul>
+  <li>Run plugin and theme updates from the dashboard to avoid incompatibilities with WordPress 5.x</li>
+  <li>Back up the /opt/bitnami directory and the database regularly</li>
+  <li>Harden wp-config php file permissions and remove sample files you do not need</li>
+</ul>
+
+<h3>Quick command cheat sheet</h3>
+<pre><code>sudo apt update && sudo apt upgrade -y
+wget 'bitnami installer link'
+sha256sum bitnami-wordpress-5.x.x-linux-x64.run
+chmod +x bitnami-wordpress-5.x.x-linux-x64.run
+sudo ./bitnami-wordpress-5.x.x-linux-x64.run
+sudo /opt/bitnami/ctlscript.sh restart
+sudo ufw allow OpenSSH
+sudo ufw allow 80
+sudo ufw allow 443
+sudo ufw enable</code></pre>
+
+<p>That is the gist. Bitnami saves you a lot of manual wiring but you still need to be responsible for updates security and backups. If you enjoy living dangerously you can skip the backups but do not say I did not warn you.</p>
+

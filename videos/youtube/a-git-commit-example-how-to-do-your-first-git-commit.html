@@ -1,0 +1,94 @@
+---
+layout: video
+title: "A Git Commit Example || How to do Your first Git commit"
+description: "Quick guide to making your first Git commit with commands for GitHub and GitLab beginners"
+video_host: "youtube"
+video_id: "zir10a7Tb0U"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/zir10a7Tb0U/maxresdefault.jpg"
+content_url: "https://youtu.be/zir10a7Tb0U"
+embed_url: "https://www.youtube.com/embed/zir10a7Tb0U"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - GitHub
+  - GitLab
+  - commit
+  - first commit
+  - version control
+  - python
+  - javascript
+  - cli
+  - tutorial
+---
+
+<h2>Quick note before we start</h2>
+<p>This is a short and slightly sarcastic guide to making your first Git commit from the command line and sending it to GitHub or GitLab. If you are working with Python, JavaScript, or any other code, these steps will get your changes into version control without drama. Follow the commands, keep commits focused, and try not to name your branch weird things.</p>
+
+<h2>Step 1 Initialize or clone the repository</h2>
+<p>If you are starting a project from scratch run the init command inside your project folder. If the project already exists on GitHub or GitLab clone it to your machine. Both approaches put a .git folder under your control which is where Git stores its secrets.</p>
+<pre><code>git init
+
+# or to copy an existing repo to your machine
+# replace &lt;repo-url&gt; with the remote address provided by your host
+git clone &lt;repo-url&gt;
+</code></pre>
+
+<h2>Step 2 Stage the files you want in the commit</h2>
+<p>Staging is the polite way of choosing what goes into the next snapshot. Use add to collect changes. Yes you can do add . and dump everything in, but you will thank yourself later for smaller, focused commits.</p>
+<pre><code># stage a single file
+git add README.md
+
+# stage everything in the working directory
+git add .
+
+# stage interactively to build tidy commits
+git add -p
+</code></pre>
+
+<h2>Step 3 Create the commit with a helpful message</h2>
+<p>Write the commit message like you are writing a meaningful one line note to future you. Present tense is the usual convention. Keep the first line short so log views do not break down in tears.</p>
+<pre><code>git commit -m "Add user authentication"
+</code></pre>
+
+<h2>Step 4 Add a remote if you do not have one</h2>
+<p>If you cloned then the remote is already configured and you can skip this. If not set the remote name origin and confirm your branch. Newer repos often use main instead of master so rename if needed.</p>
+<pre><code>git remote add origin &lt;remote-url&gt;
+
+# confirm branch name
+git branch
+
+# set branch name to main if you prefer that convention
+git branch -M main
+</code></pre>
+
+<h2>Step 5 Push your commit to the remote</h2>
+<p>Push the commit to share it with the world or at least with CI. The first push usually needs the upstream flag so Git knows where to send future updates.</p>
+<pre><code>git push -u origin main
+
+# later you can simply run
+git push
+</code></pre>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Keep commits small and focused</li>
+  <li>Use clear commit messages in present tense</li>
+  <li>Use git status and git log to see what is happening</li>
+  <li>Use git add -p to craft precise commits</li>
+</ul>
+
+<h3>Common mistakes and fixes</h3>
+<ul>
+  <li>If you forgot to stage a file do git add file and then git commit --amend to combine it into the last commit when appropriate</li>
+  <li>If push fails because of a branch mismatch fetch and rebase or pull before pushing</li>
+  <li>Use git log to inspect history and git status to confirm your working tree</li>
+</ul>
+
+<h2>Final notes and etiquette</h2>
+<p>Version control is a long term contract between you and future developers who will curse your unclear commits. Spend two extra minutes on a message and use focused commits. This saves hours in bug hunts and awkward blame sessions. Now go commit something decent and try not to break the build.</p>
+

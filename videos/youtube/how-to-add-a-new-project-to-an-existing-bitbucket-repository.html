@@ -1,0 +1,75 @@
+---
+layout: video
+title: "How to add a new project to an existing Bitbucket repository"
+description: "Step by step guide to add a new project folder to an existing Bitbucket repository using local git and Bitbucket web UI"
+video_host: "youtube"
+video_id: "8wkRZHn4FlE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M46S"
+thumbnail_url: "https://i.ytimg.com/vi/8wkRZHn4FlE/maxresdefault.jpg"
+content_url: "https://youtu.be/8wkRZHn4FlE"
+embed_url: "https://www.youtube.com/embed/8wkRZHn4FlE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Bitbucket
+  - Git
+  - Repository
+  - Clone
+  - Push
+  - Branch
+  - Pull Request
+  - Web UI
+  - Developer
+  - Tutorial
+---
+
+<h2>What this guide covers</h2>
+<p>Yes you can shove a whole new project into an existing Bitbucket repository without breaking anything or triggering a production meltdown. This short tutorial walks you through cloning the repo with Git creating the folder adding files and pushing a branch so reviewers can do their thing with a pull request. If the command line is not your spirit animal there is also a web UI option.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+  <li>Git installed and configured with your user name and email</li>
+  <li>Access to the Bitbucket repository with push rights or a branch workflow</li>
+  <li>A local workspace ready for mild chaos</li>
+</ul>
+
+<h2>Steps</h2>
+
+<h3>Clone the repository</h3>
+<p>Start by cloning so you are working on a local copy of the source tree. Use your real repository URL in place of the placeholder.</p>
+<pre><code>git clone REPO_URL
+cd repo-name</code></pre>
+
+<h3>Create the project folder and add files</h3>
+<p>Inside the cloned repo make a directory for the new project. Add your source files configs and any build scripts that belong there. Keep things tidy so future you does not curse present you.</p>
+<pre><code>mkdir new-project
+# add files into new-project using your editor or copy commands</code></pre>
+
+<h3>Stage commit and push</h3>
+<p>If your team uses a branch based workflow create a feature branch first to avoid touching mainline. Commit with a clear message that explains what you added and why. Ambiguous messages cause grief and bad PR titles.</p>
+<pre><code>git checkout -b feature/add-new-project
+git add new-project
+git commit -m "Add new project folder new-project"
+git push origin feature/add-new-project</code></pre>
+
+<h3>Create a pull request on Bitbucket</h3>
+<p>Open a pull request for review. Assign reviewers add a helpful description and link any issue numbers. A good PR makes code review less like a haunted house tour.</p>
+
+<h3>Alternatively use the Bitbucket web UI</h3>
+<p>If you hate terminals or the change is tiny you can upload files directly in the Bitbucket web interface. That works for a few files but becomes a misery for many files or binary assets. Use the web UI for small edits and the command line for anything substantial.</p>
+
+<h2>Tips and common gotchas</h2>
+<ul>
+  <li>If your push is rejected check branch protection rules or required checks in Bitbucket</li>
+  <li>Run a quick build or tests locally before requesting review to avoid wasting reviewers time</li>
+  <li>Keep commit messages focused and break big changes into logical commits</li>
+</ul>
+
+<h2>Recap</h2>
+<p>Clone the repo create the folder add files stage commit and push then open a pull request for review. Or use the web UI for tiny uploads. Follow the branch rules your team prefers and add a clear PR description so reviewers do not need a Ouija board to understand the change.</p>
+
+<p>Now go add that project and try not to break anything important. If you do at least leave a good commit message.</p>
+

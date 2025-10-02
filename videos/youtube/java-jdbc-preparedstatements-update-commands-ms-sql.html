@@ -1,0 +1,114 @@
+---
+layout: video
+title: "Java, JDBC PreparedStatements, Update Commands & MS SQL"
+description: "Run JDBC PreparedStatement update commands in Java against MS SQL Server with safe parameter binding and proper resource handling"
+video_host: "youtube"
+video_id: "5jr57GJ27XE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M37S"
+thumbnail_url: "https://i.ytimg.com/vi/5jr57GJ27XE/maxresdefault.jpg"
+content_url: "https://youtu.be/5jr57GJ27XE"
+embed_url: "https://www.youtube.com/embed/5jr57GJ27XE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - JDBC
+  - PreparedStatement
+  - MS SQL Server
+  - SQL
+  - Database
+  - ExecuteUpdate
+  - SQL Injection
+  - Connection Pooling
+  - Resource Management
+---
+
+<h2>Quick overview</h2>
+<p>If you want to update MS SQL Server from Java without setting your app on fire with SQL injection or resource leaks then PreparedStatement is your friend. This guide walks through getting a connection from a pool or DriverManager preparing a statement binding parameters executing updates and managing transactions so your data stays sane and your pager stays quiet.</p>
+
+<h2>Get a connection the right way</h2>
+<p>In production use a connection pool such as HikariCP not DriverManager in a loop unless you enjoy outages. Obtain a java.sql.Connection from your pool and treat it like a borrowed car. Return it fast and do not leave crumbs in the cup holder.</p>
+
+<h3>Example setup</h3>
+<pre><code>HikariDataSource ds = new HikariDataSource() // configure pool elsewhere
+try (Connection conn = ds.getConnection()) {
+    // use conn here
+}
+</code></pre>
+
+<h2>Prepare the SQL and bind parameters</h2>
+<p>Never build SQL by string concatenation with untrusted input. Use parameter markers, the question marks, and let the JDBC driver do the escaping. JDBC parameter indexes start at one so the first marker is index one. This avoids SQL injection and that weird bug where your WHERE clause turns into a social experiment.</p>
+
+<pre><code>try (Connection conn = ds.getConnection();
+     PreparedStatement ps = conn.prepareStatement("UPDATE users SET name = ? WHERE id = ?")) {
+    ps.setString(1, "Alice")
+    ps.setInt(2, 42)
+    int rows = ps.executeUpdate()
+    if (rows != 1) {
+        // handle unexpected row count
+    }
+}
+</code></pre>
+
+<h2>Execute update and check results</h2>
+<p>executeUpdate returns an int with the number of rows affected. Use this for sanity checks and to avoid silent failures. If you expect a single row confirm that you got one. If you need to update many rows in batches use addBatch and executeBatch to reduce round trips.</p>
+
+<h3>Batch example</h3>
+<pre><code>try (Connection conn = ds.getConnection();
+     PreparedStatement ps = conn.prepareStatement("UPDATE users SET status = ? WHERE id = ?")) {
+    ps.setString(1, "active")
+    ps.setInt(2, 101)
+    ps.addBatch()
+    ps.setString(1, "inactive")
+    ps.setInt(2, 102)
+    ps.addBatch()
+    int[] counts = ps.executeBatch()
+}
+</code></pre>
+
+<h2>Handle transactions and resource management</h2>
+<p>Decide your transaction boundaries. For multiple related updates turn off auto commit and call commit when all steps succeed or call rollback on failure. try with resources is the polite choice for closing PreparedStatement and Connection automatically so that your database does not develop abandonment issues.</p>
+
+<pre><code>Connection conn = null
+try {
+    conn = ds.getConnection()
+    conn.setAutoCommit(false)
+    try (PreparedStatement ps = conn.prepareStatement("UPDATE accounts SET balance = balance - ? WHERE id = ?")) {
+        // bind and execute updates here
+    }
+    conn.commit()
+} catch (SQLException ex) {
+    if (conn != null) {
+        try {
+            conn.rollback()
+        } catch (SQLException ex2) {
+            // log rollback failure
+        }
+    }
+    // log or rethrow exception
+} finally {
+    if (conn != null) {
+        try {
+            conn.close()
+        } catch (SQLException ex) {
+            // ignore or log
+        }
+    }
+}
+</code></pre>
+
+<h2>Best practices checklist</h2>
+<ul>
+    <li>Use PreparedStatement with parameter markers to stop SQL injection</li>
+    <li>Prefer a connection pool in production so your app scales and breathes</li>
+    <li>Use try with resources or equivalent to close statements and connections</li>
+    <li>Check the int return from executeUpdate for sanity checks</li>
+    <li>Disable auto commit for grouped updates and use commit or rollback</li>
+    <li>Use batch updates for many similar statements to save round trips</li>
+</ul>
+
+<p>Follow these patterns and your JDBC updates to MS SQL Server will be boring and reliable which is the developer equivalent of a good night sleep. If something still breaks debug with the affected row counts and proper logging not wild guessing.
+

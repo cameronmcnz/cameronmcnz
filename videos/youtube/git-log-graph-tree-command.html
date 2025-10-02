@@ -1,0 +1,30 @@
+---
+layout: video
+title: "Git Log Graph Tree Command"
+description: "Quick guide to using git log graph tree command to visualize commit history as a branch shaped graph on the command line"
+video_host: "youtube"
+video_id: "5qJok5_A2No"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/5qJok5_A2No/maxresdefault.jpg"
+content_url: "https://youtu.be/5qJok5_A2No"
+embed_url: "https://www.youtube.com/embed/5qJok5_A2No"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git log
+  - graph
+  - git graph
+  - command line
+  - version control
+  - branch visualization
+  - git tutorial
+  - developer tools
+  - git tips
+---
+
+<h2>See the branch shaped graph quickly</h2><p>If you have ever stared into the abyss of commit history and guessed where a branch vanished then this command is your mild salvation. The git log graph option paints a quick ASCII map of commits on the command line so you can stop squinting and start blaming the right merge.</p><pre><code>git log --graph --oneline</code></pre><h2>Make output compact and readable</h2><p>When you do not want a novel in your terminal add one line output and decorations to show branch names tags and short messages in a single view. This keeps your mental RAM free for actual decisions.</p><pre><code>git log --graph --oneline --decorate</code></pre><h2>Include all refs and remote branches</h2><p>Curious about those phantom commits from CI or a remote your colleague refuses to explain Use the all branches and remotes flags to stop assuming they do not exist.</p><pre><code>git log --graph --oneline --decorate --all --branches --remotes</code></pre><h2>Customize the format for faster scanning</h2><p>Colors and a tight format make it easier to scan a messy merge history. Replace the fields below to match your taste. Shorter hashes and concise messages work best when you are trying to find that one commit that broke everything.</p><pre><code>git log --graph --pretty=format '%C(yellow)%h %Creset%s %C(green)(%cr) %C(bold blue)' --all</code></pre><p>You can swap %h for %H if you need full hashes or add %an to show the author. Keep the format short so the graph lines and messages stay side by side.</p><h3>Practical tips and tiny rituals</h3><ul><li>Limit noise with oneline when you only need the map and a hint of message</li><li>Use decorate to see branch names and tags instead of memorizing where things lived</li><li>Include --all --branches and --remotes when investigating CI failures or mysterious merges</li><li>Adjust the pretty format to show relative time so you know if the commit is ancient or fresh</li></ul><h2>Piping and sharing without chaos</h2><p>When you want to copy a commit hash for a PR add line numbers or use a pager. This reduces the chance of grabbing the wrong hash and then apologizing to humans you work with.</p><pre><code>git log --graph --oneline --decorate --all | nl -ba | less -R</code></pre><p>Try these commands on your repo and tweak the pretty format to match your workflow. The goal is to make the command line feel less like punishment and more like a map that points at the thing that is wrong.</p><p>If you want more tricks ask for aliases and git config snippets to save typing and dignity.</p>
+

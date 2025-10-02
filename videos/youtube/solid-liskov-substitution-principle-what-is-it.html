@@ -1,0 +1,73 @@
+---
+layout: video
+title: "SOLID Liskov Substitution Principle What is it?"
+description: "Clear explanation of the Liskov Substitution Principle from SOLID with examples pitfalls and practical design tips for safe subclassing."
+video_host: "youtube"
+video_id: "WDxh-OfsdPo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M12S"
+thumbnail_url: "https://i.ytimg.com/vi/WDxh-OfsdPo/maxresdefault.jpg"
+content_url: "https://youtu.be/WDxh-OfsdPo"
+embed_url: "https://www.youtube.com/embed/WDxh-OfsdPo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - SOLID
+  - Liskov
+  - LSP
+  - OOP
+  - Design Principles
+  - Inheritance
+  - Polymorphism
+  - Refactoring
+  - Software Design
+  - Clean Code
+---
+
+<p>If you like surprises in production then congratulations you can ignore the Liskov Substitution Principle and enjoy debugging at 2 AM. For the rest of us who prefer software that behaves like it was designed on purpose the Liskov idea is simple and useful. In SOLID and OOP design this principle says that a subtype must behave like its base type so client code does not get unpleasant surprises.</p>
+
+<h2>What the principle actually expects</h2>
+<p>A base type defines a contract about inputs outputs and object state after methods run. Subclasses must honor that contract. If a subclass tightens allowed inputs or breaks promised outputs then polymorphism stops working and callers get wrong results instead of polite exceptions.</p>
+
+<h2>Classic broken example</h2>
+<p>The infamous Square inherits from Rectangle story is still the sad clown of inheritance mistakes. A square that mutates width and height together changes setter semantics and invalidates code that expects independent setters. Observable behavior like area becomes wrong and that is a violation of LSP.</p>
+
+<pre><code>class Rectangle {
+  setWidth(w) {}
+  setHeight(h) {}
+  area() {}
+}
+
+class Square extends Rectangle {
+  setWidth(s) { super.setWidth(s) super.setHeight(s) }
+  setHeight(s) { super.setWidth(s) super.setHeight(s) }
+}
+</code></pre>
+
+<h2>Practical rules to keep your code honest</h2>
+<ul>
+  <li>Define clear contracts by documenting expected inputs outputs and side effects so subclass authors do not invent surprises</li>
+  <li>Avoid strengthening preconditions in subclasses because client code will pass values allowed by the base type</li>
+  <li>Preserve postconditions and invariants so callers can rely on results and object state after calls</li>
+  <li>If a subtype needs different behavior prefer composition and delegation over inheritance</li>
+  <li>Write tests that use subclasses through base type interfaces and assert observable behavior remains consistent</li>
+</ul>
+
+<h3>Composition is not a betrayal</h3>
+<p>If the subtype behaves differently enough then composition with a small shared interface is often the cleaner choice. Composition keeps responsibilities explicit and avoids accidental contract drift. This is core to clean code and helps during refactoring when the temptation to copy paste and tweak wins.</p>
+
+<h2>Testing patterns that catch violations</h2>
+<p>Unit tests that treat derived objects as base type instances are your best early warning system. Create tests that exercise the contract not the implementation. Put instances through the same scenarios a client would and verify outputs invariants and side effects. If a test fails you found a substitutability problem before users did.</p>
+
+<h2>Short checklist before you inherit</h2>
+<ul>
+  <li>Can every client of the base type treat the candidate subtype as if it were the base type</li>
+  <li>Does the subtype accept the same range of inputs and return the same guarantees</li>
+  <li>Will invariants hold after method calls on the subtype</li>
+  <li>Would composition make the intention clearer and safer</li>
+</ul>
+
+<p>Follow these LSP guidelines and your OOP designs will play nicely with polymorphism and refactoring. Keep contracts small explicit and tested and your future self will stop leaving passive aggressive comments in code reviews. That is good for software design and surprisingly kind to humans.</p>
+

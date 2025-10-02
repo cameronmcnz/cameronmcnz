@@ -1,0 +1,3455 @@
+# OpenAI Batch Error Report
+Batch ID: batch_68de596c64848190a462067525eed39f
+Request Counts: BatchRequestCounts(completed=0, failed=1146, total=1146)
+
+## Summary (Top Reasons)
+- 1146× unknown
+    • cid=article_0 idx=0 title=How to improve UiPath OCR with Google Cloud Vision
+      code=None type=None status=400
+      msg=
+    • cid=article_1 idx=1 title=Send Gmail Emails with UiPath Example
+      code=None type=None status=400
+      msg=
+    • cid=article_2 idx=2 title=Send Email Attachments from Gmail with UiPath Tutorial
+      code=None type=None status=400
+      msg=
+
+## Per-item Errors
+- cid=article_0 idx=0 title=How to improve UiPath OCR with Google Cloud Vision
+  code=None type=None status=400
+  msg=
+- cid=article_1 idx=1 title=Send Gmail Emails with UiPath Example
+  code=None type=None status=400
+  msg=
+- cid=article_2 idx=2 title=Send Email Attachments from Gmail with UiPath Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_3 idx=3 title=How to Send Outlook Emails in UiPath Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_4 idx=4 title=Send Outlook Attachments in UiPath Automation Example
+  code=None type=None status=400
+  msg=
+- cid=article_5 idx=5 title=UiPath Web Scraping Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_6 idx=6 title=Data Scrape Web Text to Excel with UiPath Example
+  code=None type=None status=400
+  msg=
+- cid=article_7 idx=7 title=Web Scrape and Follow URL Links in UiPath Example Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_8 idx=8 title=Fix UiPath Activity Missing and Not Loaded Error
+  code=None type=None status=400
+  msg=
+- cid=article_9 idx=9 title=Switch UiPath Orchestrator language back to English
+  code=None type=None status=400
+  msg=
+- cid=article_10 idx=10 title=How to register for UiPath Orchestrator online
+  code=None type=None status=400
+  msg=
+- cid=article_11 idx=11 title=How to Deploy to UiPath Orchestrator Example
+  code=None type=None status=400
+  msg=
+- cid=article_12 idx=12 title=Configure UiPath Assistant Machine Key and Orchestrator URL
+  code=None type=None status=400
+  msg=
+- cid=article_13 idx=13 title=How to Publish to UiPath Orchestrator Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_14 idx=14 title=Create an Unattended Robot in UiPath Orchestrator Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_15 idx=15 title=Run the Hello World Robot in UiPath Orchestrator
+  code=None type=None status=400
+  msg=
+- cid=article_16 idx=16 title=UiPath Orchestrator Process Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_17 idx=17 title=UiPath Orchestrator Trigger Example
+  code=None type=None status=400
+  msg=
+- cid=article_18 idx=18 title=How to create UiPath Queues tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_19 idx=19 title=How to read data from a UiPath Queue Item Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_20 idx=20 title=How to Get and Set UiPath Queue Transactions Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_21 idx=21 title=How to set and increase a UiPath robot's screen resolution
+  code=None type=None status=400
+  msg=
+- cid=article_22 idx=22 title=UiPath Invalid Machine Key Error Fix
+  code=None type=None status=400
+  msg=
+- cid=article_23 idx=23 title=Simple Apache Struts 2.5 Example
+  code=None type=None status=400
+  msg=
+- cid=article_24 idx=24 title=Apache Struts with Eclipse and Tomcat Example
+  code=None type=None status=400
+  msg=
+- cid=article_25 idx=25 title=Struts Hello World Example v. 2.5
+  code=None type=None status=400
+  msg=
+- cid=article_26 idx=26 title=Struts Tags and the Struts 2 Taglib library for HTML in JSPs
+  code=None type=None status=400
+  msg=
+- cid=article_27 idx=27 title=Struts Form Handling and Annotation Action Mappings Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_28 idx=28 title=Form Validation Example Apache Struts Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_29 idx=29 title=Annotations Struts 2 Actions and Properties Files
+  code=None type=None status=400
+  msg=
+- cid=article_30 idx=30 title=Struts 2 i18n ApplicationResources as MessageResources
+  code=None type=None status=400
+  msg=
+- cid=article_31 idx=31 title=Exception Handling with Struts 2 Annotations
+  code=None type=None status=400
+  msg=
+- cid=article_32 idx=32 title=Apache Struts Debugging Tools Tutorial v2.5
+  code=None type=None status=400
+  msg=
+- cid=article_33 idx=33 title=Struts Input Validation with Annotation Based Validators
+  code=None type=None status=400
+  msg=
+- cid=article_34 idx=34 title=How to use Apache Struts interceptors tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_35 idx=35 title=Apache Struts Unit Testing with JUnit Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_36 idx=36 title=How to Integrate Struts and Ajax Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_37 idx=37 title=Struts jQuery Plugin Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_38 idx=38 title=Apache Struts 2 File Upload Example Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_39 idx=39 title=How to Push an Empty Git Folder or Directory Example
+  code=None type=None status=400
+  msg=
+- cid=article_40 idx=40 title=What is .gitkeep in Git? Plus an example?
+  code=None type=None status=400
+  msg=
+- cid=article_41 idx=41 title=jQuery File Upload Example
+  code=None type=None status=400
+  msg=
+- cid=article_42 idx=42 title=jQuery & Ajax File Upload Example
+  code=None type=None status=400
+  msg=
+- cid=article_43 idx=43 title=Pure JavaScript File Upload Example
+  code=None type=None status=400
+  msg=
+- cid=article_44 idx=44 title=JavaScript and Ajax File Upload Example
+  code=None type=None status=400
+  msg=
+- cid=article_45 idx=45 title=Ajax File Upload in PHP Example
+  code=None type=None status=400
+  msg=
+- cid=article_46 idx=46 title=Simple JSP and Servlet File Upload Example
+  code=None type=None status=400
+  msg=
+- cid=article_47 idx=47 title=Fix the Maven Compliance Specified is JDK 1.5 not JRE 1.8 Er
+  code=None type=None status=400
+  msg=
+- cid=article_48 idx=48 title=Maven Compiler Plugin Java 8 Dependency Example
+  code=None type=None status=400
+  msg=
+- cid=article_49 idx=49 title=Simple Spring Boot File Upload Example
+  code=None type=None status=400
+  msg=
+- cid=article_50 idx=50 title=Multiple Values Per Key in Java Maps Example
+  code=None type=None status=400
+  msg=
+- cid=article_51 idx=51 title=Fix Eclipse's SerialVersionUID Warning Error
+  code=None type=None status=400
+  msg=
+- cid=article_52 idx=52 title=How Sass Variables Work
+  code=None type=None status=400
+  msg=
+- cid=article_53 idx=53 title=Quick Sass Mixins Example
+  code=None type=None status=400
+  msg=
+- cid=article_54 idx=54 title=Getting started with GitHub Pages
+  code=None type=None status=400
+  msg=
+- cid=article_55 idx=55 title=Use Your Custom Godaddy Domain Name for Github Pages
+  code=None type=None status=400
+  msg=
+- cid=article_56 idx=56 title=UiPath Certification Exam Objectives RPA Overview
+  code=None type=None status=400
+  msg=
+- cid=article_57 idx=57 title=How to Install Tomcat 10 for Jakarta Development
+  code=None type=None status=400
+  msg=
+- cid=article_58 idx=58 title=Install Eclipse IDE for Jakarta EE Dev
+  code=None type=None status=400
+  msg=
+- cid=article_59 idx=59 title=How to Install Git
+  code=None type=None status=400
+  msg=
+- cid=article_60 idx=60 title=How to Set the Default Git Branch Name from Master to Main
+  code=None type=None status=400
+  msg=
+- cid=article_61 idx=61 title=Change Git's Init Branch Name Default
+  code=None type=None status=400
+  msg=
+- cid=article_62 idx=62 title=Use the latest Tomcat Version in Eclipse IDE
+  code=None type=None status=400
+  msg=
+- cid=article_63 idx=63 title=GitHub Pages HTML
+  code=None type=None status=400
+  msg=
+- cid=article_64 idx=64 title=Jekyll Markdown and GitHub Pages
+  code=None type=None status=400
+  msg=
+- cid=article_65 idx=65 title=Jekyll Front Matter and Liquid Objects, Tags and Filters
+  code=None type=None status=400
+  msg=
+- cid=article_66 idx=66 title=Jekyll Blog Development Tutorial on GitHub Pages Example
+  code=None type=None status=400
+  msg=
+- cid=article_67 idx=67 title=Intro to Jekyll Themes and Layout Creation in GitHub Pages
+  code=None type=None status=400
+  msg=
+- cid=article_68 idx=68 title=GitHub Actions Bash Shell Commands
+  code=None type=None status=400
+  msg=
+- cid=article_69 idx=69 title=Run Shell Script in GitHub Actions Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_70 idx=70 title=GitHub Actions Environment Variables
+  code=None type=None status=400
+  msg=
+- cid=article_71 idx=71 title=Multi Step GitHub Actions Example
+  code=None type=None status=400
+  msg=
+- cid=article_72 idx=72 title=Multi Job GitHub Actions Workflow Example
+  code=None type=None status=400
+  msg=
+- cid=article_73 idx=73 title=Maven Build in GitHub Actions Example
+  code=None type=None status=400
+  msg=
+- cid=article_74 idx=74 title=GitHub Action Workflows on Mac, Windows and Linux
+  code=None type=None status=400
+  msg=
+- cid=article_75 idx=75 title=Java Artifacts in GitHub Actions Maven Build
+  code=None type=None status=400
+  msg=
+- cid=article_76 idx=76 title=How to publish GitHub Actions artifacts example
+  code=None type=None status=400
+  msg=
+- cid=article_77 idx=77 title=Use Encrypted GitHub Actions Secrets in CI CD Workflows
+  code=None type=None status=400
+  msg=
+- cid=article_78 idx=78 title=Lab 1 - Jenkins Configuration
+  code=None type=None status=400
+  msg=
+- cid=article_79 idx=79 title=Lab 2 - Jenkins Build Jobs
+  code=None type=None status=400
+  msg=
+- cid=article_80 idx=80 title=Lab 3 - Advanced Jenkins Jobs
+  code=None type=None status=400
+  msg=
+- cid=article_81 idx=81 title=Lab 4 - Jenkins Template Jobs
+  code=None type=None status=400
+  msg=
+- cid=article_82 idx=82 title=Lab 5 - Non-Java Node Builds
+  code=None type=None status=400
+  msg=
+- cid=article_83 idx=83 title=Lab 6 - Jenkins Pipelines
+  code=None type=None status=400
+  msg=
+- cid=article_84 idx=84 title=Lab 12 - Groovy Pipelines & Shared Libraries
+  code=None type=None status=400
+  msg=
+- cid=article_85 idx=85 title=Lab 8 - Jenkins Security
+  code=None type=None status=400
+  msg=
+- cid=article_86 idx=86 title=Install Ubuntu 20 on VMWare Player in Less than 5 Minutes
+  code=None type=None status=400
+  msg=
+- cid=article_87 idx=87 title=How to Install Jekyll on Windows 10 Example
+  code=None type=None status=400
+  msg=
+- cid=article_88 idx=88 title=How to build with Jenkins and Docker example
+  code=None type=None status=400
+  msg=
+- cid=article_89 idx=89 title=Apache Ant & Jenkins Build Job Examples
+  code=None type=None status=400
+  msg=
+- cid=article_90 idx=90 title=Declarative Jenkins Pipeline for Ant builds with Docker Exam
+  code=None type=None status=400
+  msg=
+- cid=article_91 idx=91 title=Build Java apps in Jenkins with Maven Example
+  code=None type=None status=400
+  msg=
+- cid=article_92 idx=92 title=Example of a Jenkins Maven Integration Pipeline for Java Bui
+  code=None type=None status=400
+  msg=
+- cid=article_93 idx=93 title=Warnings Next Gen Jenkins Plugin for Static Analysis
+  code=None type=None status=400
+  msg=
+- cid=article_94 idx=94 title=Jenkins with PMD, FindBugs and CheckStyle Plugins Example
+  code=None type=None status=400
+  msg=
+- cid=article_95 idx=95 title=Jenkins Docker Pipeline Maven Build Example
+  code=None type=None status=400
+  msg=
+- cid=article_96 idx=96 title=Jenkins GitHub WebHooks Example
+  code=None type=None status=400
+  msg=
+- cid=article_97 idx=97 title=Fix the Jenkins withMaven not found DSL pipeline error
+  code=None type=None status=400
+  msg=
+- cid=article_98 idx=98 title=How to run Jenkins on AWS
+  code=None type=None status=400
+  msg=
+- cid=article_99 idx=99 title=Run Bitnami Jenkins with AWS
+  code=None type=None status=400
+  msg=
+- cid=article_100 idx=100 title=Install Jenkins on Windows 10 Fast
+  code=None type=None status=400
+  msg=
+- cid=article_101 idx=101 title=Run a Jenkins War File
+  code=None type=None status=400
+  msg=
+- cid=article_102 idx=102 title=Install a Jenkins War Example
+  code=None type=None status=400
+  msg=
+- cid=article_103 idx=103 title=Jenkins GitHub Integration
+  code=None type=None status=400
+  msg=
+- cid=article_104 idx=104 title=Install a Jenkins War Example
+  code=None type=None status=400
+  msg=
+- cid=article_105 idx=105 title=Jenkins Shared Library Example with GitHub
+  code=None type=None status=400
+  msg=
+- cid=article_106 idx=106 title=Jenkins Home Directory What is JENKINS_HOME and How to Set
+  code=None type=None status=400
+  msg=
+- cid=article_107 idx=107 title=Install Jenkins on Tomcat
+  code=None type=None status=400
+  msg=
+- cid=article_108 idx=108 title=Jenkins Installer for Windows
+  code=None type=None status=400
+  msg=
+- cid=article_109 idx=109 title=Jenkins YAML Pipeline Build Job Example
+  code=None type=None status=400
+  msg=
+- cid=article_110 idx=110 title=Jenkins Hello World Build Job Example
+  code=None type=None status=400
+  msg=
+- cid=article_111 idx=111 title=Jenkins Hello World Pipeline Example
+  code=None type=None status=400
+  msg=
+- cid=article_112 idx=112 title=Jenkins Blue Ocean Plugin Overview
+  code=None type=None status=400
+  msg=
+- cid=article_113 idx=113 title=How to Create Jenkins Blue Ocean Pipelines
+  code=None type=None status=400
+  msg=
+- cid=article_114 idx=114 title=Java Mission Control 8 Eclipse Plugin Install with Flight Re
+  code=None type=None status=400
+  msg=
+- cid=article_115 idx=115 title=A Quick Java Mission Control Overview
+  code=None type=None status=400
+  msg=
+- cid=article_116 idx=116 title=Start JFR in Eclipse (Long)
+  code=None type=None status=400
+  msg=
+- cid=article_117 idx=117 title=Java Flight Recorder LinkedList vs HashSet Performance
+  code=None type=None status=400
+  msg=
+- cid=article_118 idx=118 title=Performance Costs of Synchronized Methods in Java
+  code=None type=None status=400
+  msg=
+- cid=article_119 idx=119 title=Java Autoboxing & Unboxing of Primitive Types Performance Im
+  code=None type=None status=400
+  msg=
+- cid=article_120 idx=120 title=How to Force Garbage Collection in Java
+  code=None type=None status=400
+  msg=
+- cid=article_121 idx=121 title=How to Stop Java GC and Prevent Garbage Collection on JVM
+  code=None type=None status=400
+  msg=
+- cid=article_122 idx=122 title=Epsilon GC Garbage Collector Example
+  code=None type=None status=400
+  msg=
+- cid=article_123 idx=123 title=OutOfMemoryError in Java Explained
+  code=None type=None status=400
+  msg=
+- cid=article_124 idx=124 title=Java Recursion Examples
+  code=None type=None status=400
+  msg=
+- cid=article_125 idx=125 title=Java Factorial Programs Recursion and Iteration Explained
+  code=None type=None status=400
+  msg=
+- cid=article_126 idx=126 title=Install Git Flow on Windows
+  code=None type=None status=400
+  msg=
+- cid=article_127 idx=127 title=The Gitflow Release Branch from Start to Finish
+  code=None type=None status=400
+  msg=
+- cid=article_128 idx=128 title=Gitflow Hotfix Branch Example
+  code=None type=None status=400
+  msg=
+- cid=article_129 idx=129 title=Git Flow Init Example
+  code=None type=None status=400
+  msg=
+- cid=article_130 idx=130 title=Gitflow on GitHub How to use Git Flow workflows
+  code=None type=None status=400
+  msg=
+- cid=article_131 idx=131 title=How to use StudioX Activities in UiPath Studio
+  code=None type=None status=400
+  msg=
+- cid=article_132 idx=132 title=UiPath Studio Get Username Password Activity
+  code=None type=None status=400
+  msg=
+- cid=article_133 idx=133 title=How to Automate a Website Login with UiPath Studio
+  code=None type=None status=400
+  msg=
+- cid=article_134 idx=134 title=How to Block User Input with UiPath Studio Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_135 idx=135 title=How to Install Docker on Ubuntu 20 in Less Than 5 Minutes
+  code=None type=None status=400
+  msg=
+- cid=article_136 idx=136 title=How to install minikube Kubernetes on Ubuntu 20 in 5 minutes
+  code=None type=None status=400
+  msg=
+- cid=article_137 idx=137 title=01 Introduction Test
+  code=None type=None status=400
+  msg=
+- cid=article_138 idx=138 title=Lab01 Gitflow
+  code=None type=None status=400
+  msg=
+- cid=article_139 idx=139 title=lab 03 Gradle and Groovy
+  code=None type=None status=400
+  msg=
+- cid=article_140 idx=140 title=Lab 04 Gradle builds
+  code=None type=None status=400
+  msg=
+- cid=article_141 idx=141 title=Lab 5 Spring REST
+  code=None type=None status=400
+  msg=
+- cid=article_142 idx=142 title=Lab 6 Spring Data JdbcTemplate
+  code=None type=None status=400
+  msg=
+- cid=article_143 idx=143 title=lab 7 Spring JPA
+  code=None type=None status=400
+  msg=
+- cid=article_144 idx=144 title=Lab 9 Jenkins
+  code=None type=None status=400
+  msg=
+- cid=article_145 idx=145 title=Create a Jenkins Job
+  code=None type=None status=400
+  msg=
+- cid=article_146 idx=146 title=Lab 11 Jenkins
+  code=None type=None status=400
+  msg=
+- cid=article_147 idx=147 title=Your Own CI
+  code=None type=None status=400
+  msg=
+- cid=article_148 idx=148 title=Quick Docker Example
+  code=None type=None status=400
+  msg=
+- cid=article_149 idx=149 title=UiPath Certified Logo and Badge
+  code=None type=None status=400
+  msg=
+- cid=article_150 idx=150 title=Fork GitHub from the Command Line
+  code=None type=None status=400
+  msg=
+- cid=article_151 idx=151 title=Build and Deploy RESTful Spring Boot Microservices to AWS
+  code=None type=None status=400
+  msg=
+- cid=article_152 idx=152 title=Lab 4 Without Code
+  code=None type=None status=400
+  msg=
+- cid=article_153 idx=153 title=Maven Example
+  code=None type=None status=400
+  msg=
+- cid=article_154 idx=154 title=Recovery Partition Removal How to delete permanently
+  code=None type=None status=400
+  msg=
+- cid=article_155 idx=155 title=Download & Install UiPath Studio 21.4
+  code=None type=None status=400
+  msg=
+- cid=article_156 idx=156 title=Download Old UiPath Studio Version
+  code=None type=None status=400
+  msg=
+- cid=article_157 idx=157 title=UiPath Studio Community vs Enterprise Edition
+  code=None type=None status=400
+  msg=
+- cid=article_158 idx=158 title=UiPath Variable Types
+  code=None type=None status=400
+  msg=
+- cid=article_159 idx=159 title=UiPath Variable Scope Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_160 idx=160 title=Passing Arguments in UiPath
+  code=None type=None status=400
+  msg=
+- cid=article_161 idx=161 title=How to Pass UiPath Arguments Example
+  code=None type=None status=400
+  msg=
+- cid=article_162 idx=162 title=UiPath If Activity by Example
+  code=None type=None status=400
+  msg=
+- cid=article_163 idx=163 title=UiPath Switch Example
+  code=None type=None status=400
+  msg=
+- cid=article_164 idx=164 title=How to Switch on a String in UiPath
+  code=None type=None status=400
+  msg=
+- cid=article_165 idx=165 title=UiPath While Loop Example
+  code=None type=None status=400
+  msg=
+- cid=article_166 idx=166 title=UiPath Do While Loop Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_167 idx=167 title=UiPath For Each Loop Example
+  code=None type=None status=400
+  msg=
+- cid=article_168 idx=168 title=How to use Break and Continue in UiPath
+  code=None type=None status=400
+  msg=
+- cid=article_169 idx=169 title=UiPath Flowchart Example
+  code=None type=None status=400
+  msg=
+- cid=article_170 idx=170 title=Spring Lab 1 Hello Message
+  code=None type=None status=400
+  msg=
+- cid=article_171 idx=171 title=Git Clone or Fork? Which command should you choose?
+  code=None type=None status=400
+  msg=
+- cid=article_172 idx=172 title=GitFlow Lab 1 with a Fork and a Clone
+  code=None type=None status=400
+  msg=
+- cid=article_173 idx=173 title=How to clone merge build and follow GitFlow Workflow
+  code=None type=None status=400
+  msg=
+- cid=article_174 idx=174 title=Jenkins and GitHub Example
+  code=None type=None status=400
+  msg=
+- cid=article_175 idx=175 title=Git GitHub Maven Eclipse
+  code=None type=None status=400
+  msg=
+- cid=article_176 idx=176 title=What is an EC2 Instance? Amazon Elastic Compute Cloud?
+  code=None type=None status=400
+  msg=
+- cid=article_177 idx=177 title=How to Create an EC2 Instance in AWS Elastic Cloud Compute
+  code=None type=None status=400
+  msg=
+- cid=article_178 idx=178 title=How to Deploy AWS EC2 Instances into a Public Subnet
+  code=None type=None status=400
+  msg=
+- cid=article_179 idx=179 title=EC2 Full Form | Amazon Elastic Compute Cloud from AWS
+  code=None type=None status=400
+  msg=
+- cid=article_180 idx=180 title=How Much Does an AWS EC2 Instance Cost Per Month
+  code=None type=None status=400
+  msg=
+- cid=article_181 idx=181 title=How Much does S3 Storage Cost in AWS Pricing?
+  code=None type=None status=400
+  msg=
+- cid=article_182 idx=182 title=AWS EC2 Spot Instances How to create a Spot EC2 Instance
+  code=None type=None status=400
+  msg=
+- cid=article_183 idx=183 title=Use AWS KMS to Encrypt and Decrypt Files on EC2 S3
+  code=None type=None status=400
+  msg=
+- cid=article_184 idx=184 title=How to Create an AWS EC2 Spot Instance | Amazon Web Services
+  code=None type=None status=400
+  msg=
+- cid=article_185 idx=185 title=How Much does Amazon Bedrock Cost to Prompt Deepseek?
+  code=None type=None status=400
+  msg=
+- cid=article_186 idx=186 title=Amazon Bedrock Pricing for Image Generation
+  code=None type=None status=400
+  msg=
+- cid=article_187 idx=187 title=Java Spring Boot AWS Beanstalk Amazon Deployment JAR
+  code=None type=None status=400
+  msg=
+- cid=article_188 idx=188 title=Route 53, AWS Beanstalk, Domain Names, DNS, Alias Records a
+  code=None type=None status=400
+  msg=
+- cid=article_189 idx=189 title=Route 53 Sub Domains S3 Buckets and Domain Mapping
+  code=None type=None status=400
+  msg=
+- cid=article_190 idx=190 title=AWS EC2 User Data Script Sample Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_191 idx=191 title=How to Install AWS CLI & Git on EC2 Instances
+  code=None type=None status=400
+  msg=
+- cid=article_192 idx=192 title=Amazon Machine Image Creation & Launch Custom AWS AMI
+  code=None type=None status=400
+  msg=
+- cid=article_193 idx=193 title=How to Create an AWS AMI for EC2
+  code=None type=None status=400
+  msg=
+- cid=article_194 idx=194 title=Java, Spring, AWS & Amazon's Elastic Beanstalk Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_195 idx=195 title=Java Spring Boot Docker AWS EKS Deployment Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_196 idx=196 title=AWS Management Console and the Dark Mode Theme
+  code=None type=None status=400
+  msg=
+- cid=article_197 idx=197 title=How to Set a Default AWS Region in the Amazon Console
+  code=None type=None status=400
+  msg=
+- cid=article_198 idx=198 title=How to Download and Install the AWS CLI
+  code=None type=None status=400
+  msg=
+- cid=article_199 idx=199 title=How to Delete AWS Secret Access Keys in IAM
+  code=None type=None status=400
+  msg=
+- cid=article_200 idx=200 title=AWS Parameter Store SSM with KMS SecureString & CLI
+  code=None type=None status=400
+  msg=
+- cid=article_201 idx=201 title=How to Create an IAM User in AWS Management Console
+  code=None type=None status=400
+  msg=
+- cid=article_202 idx=202 title=How to Create AWS IAM Admin Users in Console
+  code=None type=None status=400
+  msg=
+- cid=article_203 idx=203 title=AWS Batch Tutorial | Create Jobs Queues Fargate EC2 EKS
+  code=None type=None status=400
+  msg=
+- cid=article_204 idx=204 title=Create an AWS API Gateway & Mock Responses
+  code=None type=None status=400
+  msg=
+- cid=article_205 idx=205 title=Create DynamoDB Tables for EC2 EKS API SNS SQS
+  code=None type=None status=400
+  msg=
+- cid=article_206 idx=206 title=How to Create an AWS S3 Bucket Amazon Web
+  code=None type=None status=400
+  msg=
+- cid=article_207 idx=207 title=AWS S3 Static Website Hosting
+  code=None type=None status=400
+  msg=
+- cid=article_208 idx=208 title=Create AWS SSL Certificates in Amazon Certificate Manager
+  code=None type=None status=400
+  msg=
+- cid=article_209 idx=209 title=GitHub Pages Free Website Hosting How-To Guide
+  code=None type=None status=400
+  msg=
+- cid=article_210 idx=210 title=Map Your Domain to GitHub Pages with GoDaddy
+  code=None type=None status=400
+  msg=
+- cid=article_211 idx=211 title=Tough AWS Solution Architect Pro Exam Question on EC2
+  code=None type=None status=400
+  msg=
+- cid=article_212 idx=212 title=AWS Solution Architect Professional Blue Green AMIs EC2
+  code=None type=None status=400
+  msg=
+- cid=article_213 idx=213 title=AWS Cloud Practitioner Exam Q A CLI S3 EC2 EKS
+  code=None type=None status=400
+  msg=
+- cid=article_214 idx=214 title=AWS DevOps Engineer Certification Exam Questions & Answers
+  code=None type=None status=400
+  msg=
+- cid=article_215 idx=215 title=AWS Machine Learning AI Specialty Exam Bedrock Sagemaker
+  code=None type=None status=400
+  msg=
+- cid=article_216 idx=216 title=AWS Solution Architect Question Beanstalk EC2 Encryption
+  code=None type=None status=400
+  msg=
+- cid=article_217 idx=217 title=Transfer Domain Name to AWS Route53 from GoDaddy #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_218 idx=218 title=How to Transfer a Domain to AWS Route 53
+  code=None type=None status=400
+  msg=
+- cid=article_219 idx=219 title=Free Website Hosting with GitHub Pages for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_220 idx=220 title=Vibe Coding with Copilot
+  code=None type=None status=400
+  msg=
+- cid=article_221 idx=221 title=Vibe Coding with Replit
+  code=None type=None status=400
+  msg=
+- cid=article_222 idx=222 title=Transfer to AWS #TechTarget
+  code=None type=None status=400
+  msg=
+- cid=article_223 idx=223 title=hosting github pages
+  code=None type=None status=400
+  msg=
+- cid=article_224 idx=224 title=AWS Practitioner Certification Practice Exam
+  code=None type=None status=400
+  msg=
+- cid=article_225 idx=225 title=Amazon AI LLMs and AWS Bedrock Tutorial for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_226 idx=226 title=Amazon AI, GPTs, LLMs and Generative AI with AWS Bedrock
+  code=None type=None status=400
+  msg=
+- cid=article_227 idx=227 title=How to Create an AWS Account | Free Tier
+  code=None type=None status=400
+  msg=
+- cid=article_228 idx=228 title=Scrum Master Certification Exam Practice Questions& Answers
+  code=None type=None status=400
+  msg=
+- cid=article_229 idx=229 title=40 Scrum Product Owner Exam Questions and Answers
+  code=None type=None status=400
+  msg=
+- cid=article_230 idx=230 title=Installing Java 7 & Configuring JAVA_HOME Env Variable
+  code=None type=None status=400
+  msg=
+- cid=article_231 idx=231 title=Download and Installation of Liferay Portal 6.1
+  code=None type=None status=400
+  msg=
+- cid=article_232 idx=232 title=Why I Love Liferay Portal Five Neat Things Out of the Box
+  code=None type=None status=400
+  msg=
+- cid=article_233 idx=233 title=Simon Maple and Cameron McKenzie on WebSphere Liberty
+  code=None type=None status=400
+  msg=
+- cid=article_234 idx=234 title=Almost Lost the Viper GTS in a Single Car Accident QEW/427
+  code=None type=None status=400
+  msg=
+- cid=article_235 idx=235 title=Avoiding a car crash at a lights out intersection
+  code=None type=None status=400
+  msg=
+- cid=article_236 idx=236 title=Const Orshanksy's YRP forcible confinement GTA
+  code=None type=None status=400
+  msg=
+- cid=article_237 idx=237 title=York Regional Police Cst Orshansky Violates Charter Rights
+  code=None type=None status=400
+  msg=
+- cid=article_238 idx=238 title=Why carding never works - Illegal Detainment YRP
+  code=None type=None status=400
+  msg=
+- cid=article_239 idx=239 title=A Police Record Because You Asked for a Lawyer?
+  code=None type=None status=400
+  msg=
+- cid=article_240 idx=240 title=Illegally 'Carding' Citizens in Toronto/York Region - Detai
+  code=None type=None status=400
+  msg=
+- cid=article_241 idx=241 title=OPP/Cops Chase Two Tuners and a Crotch Rocket Stunt Racing o
+  code=None type=None status=400
+  msg=
+- cid=article_242 idx=242 title=Raven does a Kamikaze into my Windshield on the 401
+  code=None type=None status=400
+  msg=
+- cid=article_243 idx=243 title=Maple Leafs' Frederik Andersen worst NHL goalie
+  code=None type=None status=400
+  msg=
+- cid=article_244 idx=244 title=The death of Superkickd's Doctor Giggles
+  code=None type=None status=400
+  msg=
+- cid=article_245 idx=245 title=Oshawa Hot Spots on Fire Bloor and Simcoe
+  code=None type=None status=400
+  msg=
+- cid=article_246 idx=246 title=2nd view of Oshawa fire Hot Spots Bloor n Simcoe
+  code=None type=None status=400
+  msg=
+- cid=article_247 idx=247 title=Solve Jenkins unable to find valid certification path error
+  code=None type=None status=400
+  msg=
+- cid=article_248 idx=248 title=Find and edit system, global & local Git config files
+  code=None type=None status=400
+  msg=
+- cid=article_249 idx=249 title=Create an embedded Open Liberty executable JAR for WebSphere
+  code=None type=None status=400
+  msg=
+- cid=article_250 idx=250 title=How to change the default Git editor to Notepad++ not Vim
+  code=None type=None status=400
+  msg=
+- cid=article_251 idx=251 title=Example of How to Use the Git Reset Hard Command
+  code=None type=None status=400
+  msg=
+- cid=article_252 idx=252 title=Fix jvm.dll missing server JVM error SonarQube
+  code=None type=None status=400
+  msg=
+- cid=article_253 idx=253 title=Jenkins vs. Maven - How Apache Maven and Jenkins CI Compare
+  code=None type=None status=400
+  msg=
+- cid=article_254 idx=254 title=Getting started with the Nexus Maven repository manager
+  code=None type=None status=400
+  msg=
+- cid=article_255 idx=255 title=Bottom Up SOAP Web Service in Eclipse Example
+  code=None type=None status=400
+  msg=
+- cid=article_256 idx=256 title=Create a Top Down SOAP Web Services in Eclipse
+  code=None type=None status=400
+  msg=
+- cid=article_257 idx=257 title=JFrog artifactory tutorial Download setup and JAR deployment
+  code=None type=None status=400
+  msg=
+- cid=article_258 idx=258 title=Fix JFrog Artifactory 2097152KB heap startup error quickly
+  code=None type=None status=400
+  msg=
+- cid=article_259 idx=259 title=Not Git, but GitHub Interview Questions
+  code=None type=None status=400
+  msg=
+- cid=article_260 idx=260 title=Jenkins Interview Questions
+  code=None type=None status=400
+  msg=
+- cid=article_261 idx=261 title=Sample DevOps Interview Questions
+  code=None type=None status=400
+  msg=
+- cid=article_262 idx=262 title=Jenkins Artifactory Integration Tutorial Uploading JARs
+  code=None type=None status=400
+  msg=
+- cid=article_263 idx=263 title=Simple Java JDeps Example
+  code=None type=None status=400
+  msg=
+- cid=article_264 idx=264 title=Here are the differences between GitHub and Git
+  code=None type=None status=400
+  msg=
+- cid=article_265 idx=265 title=How to install Git on Windows in 10 simple steps
+  code=None type=None status=400
+  msg=
+- cid=article_266 idx=266 title=How to install Apache Tomcat 9 Java web app server on Window
+  code=None type=None status=400
+  msg=
+- cid=article_267 idx=267 title=Eclipse and Tomcat integration for Java development
+  code=None type=None status=400
+  msg=
+- cid=article_268 idx=268 title=Breastfeeding mother removed from courtroom in Montreal
+  code=None type=None status=400
+  msg=
+- cid=article_269 idx=269 title=Five things you didn't know about JDBC
+  code=None type=None status=400
+  msg=
+- cid=article_270 idx=270 title=How to install OpenJDK with AdoptOpenJDK Java
+  code=None type=None status=400
+  msg=
+- cid=article_271 idx=271 title=Hibernate vs JPA compared Which one should you choose?
+  code=None type=None status=400
+  msg=
+- cid=article_272 idx=272 title=Best Static Code Analysis Tools for Java Code Quality
+  code=None type=None status=400
+  msg=
+- cid=article_273 idx=273 title=Top Java Test Frameworks
+  code=None type=None status=400
+  msg=
+- cid=article_274 idx=274 title=Best Java deployment tools
+  code=None type=None status=400
+  msg=
+- cid=article_275 idx=275 title=The most important Java CLI tools to know
+  code=None type=None status=400
+  msg=
+- cid=article_276 idx=276 title=Git revert vs reset What's the difference?
+  code=None type=None status=400
+  msg=
+- cid=article_277 idx=277 title=Here's how to set JAVA_HOME in Windows 7
+  code=None type=None status=400
+  msg=
+- cid=article_278 idx=278 title=How to deploy Spring Boot microservices to Amazon ECS
+  code=None type=None status=400
+  msg=
+- cid=article_279 idx=279 title=Five different ways to upload JAR files to JFrog Artifactory
+  code=None type=None status=400
+  msg=
+- cid=article_280 idx=280 title=Jenkins Git Plugin Tips Tricks and Examples
+  code=None type=None status=400
+  msg=
+- cid=article_281 idx=281 title=How to quickly deploy from Spring Boot to a Docker container
+  code=None type=None status=400
+  msg=
+- cid=article_282 idx=282 title=How to use the application.properties file in Spring Boot
+  code=None type=None status=400
+  msg=
+- cid=article_283 idx=283 title=JDBC vs Hibernate What's the difference with JPA?
+  code=None type=None status=400
+  msg=
+- cid=article_284 idx=284 title=How to deploy a WAR file to Tomcat using Maven
+  code=None type=None status=400
+  msg=
+- cid=article_285 idx=285 title=How to deploy a WAR file to Apache Tomcat using Jenkins CI
+  code=None type=None status=400
+  msg=
+- cid=article_286 idx=286 title=How to install WordPress 5.x on Ubuntu with Bitnami
+  code=None type=None status=400
+  msg=
+- cid=article_287 idx=287 title=git stash name example
+  code=None type=None status=400
+  msg=
+- cid=article_288 idx=288 title=What is the Hibernate SessionFactory? How do you build it?
+  code=None type=None status=400
+  msg=
+- cid=article_289 idx=289 title=How to add multiple git worktrees to your repo example
+  code=None type=None status=400
+  msg=
+- cid=article_290 idx=290 title=A Hibernate 5 SchemaExport example
+  code=None type=None status=400
+  msg=
+- cid=article_291 idx=291 title=Hibernate and JPA CRUD example with Hibernate 5.4 and JPA 2.
+  code=None type=None status=400
+  msg=
+- cid=article_292 idx=292 title=WildFly vs JBoss EAP How Red Hat Java servers compare
+  code=None type=None status=400
+  msg=
+- cid=article_293 idx=293 title=How to Edit Ubuntu's etc Hosts File by Example
+  code=None type=None status=400
+  msg=
+- cid=article_294 idx=294 title=How to install GitLab on Ubuntu 20 without errors
+  code=None type=None status=400
+  msg=
+- cid=article_295 idx=295 title=How to create GitLab projects How to delete GitLab projects
+  code=None type=None status=400
+  msg=
+- cid=article_296 idx=296 title=GitLab git clone example
+  code=None type=None status=400
+  msg=
+- cid=article_297 idx=297 title=GitLab commit push to origin example
+  code=None type=None status=400
+  msg=
+- cid=article_298 idx=298 title=Delete folder in Ubuntu example How to remove a directory
+  code=None type=None status=400
+  msg=
+- cid=article_299 idx=299 title=Essential Git GitLab commands The 8 you must know
+  code=None type=None status=400
+  msg=
+- cid=article_300 idx=300 title=How to Write a Git Commit Messages Properly with Examples
+  code=None type=None status=400
+  msg=
+- cid=article_301 idx=301 title=GitLab branch and branch permissions example
+  code=None type=None status=400
+  msg=
+- cid=article_302 idx=302 title=Create a new GitLab branch in BASH example
+  code=None type=None status=400
+  msg=
+- cid=article_303 idx=303 title=GitLab merge request example
+  code=None type=None status=400
+  msg=
+- cid=article_304 idx=304 title=merge develop into master in GitLab example
+  code=None type=None status=400
+  msg=
+- cid=article_305 idx=305 title=A GitLab merge branch to master example
+  code=None type=None status=400
+  msg=
+- cid=article_306 idx=306 title=GitLab merge master to branch example
+  code=None type=None status=400
+  msg=
+- cid=article_307 idx=307 title=GitLab delete branch example
+  code=None type=None status=400
+  msg=
+- cid=article_308 idx=308 title=GitLab delete branch remote example
+  code=None type=None status=400
+  msg=
+- cid=article_309 idx=309 title=Create a GitLab tag example
+  code=None type=None status=400
+  msg=
+- cid=article_310 idx=310 title=Why the keyword const in Java is unimplemented explained
+  code=None type=None status=400
+  msg=
+- cid=article_311 idx=311 title=Top Joe Rogan JRE podcasts for programmers and developers
+  code=None type=None status=400
+  msg=
+- cid=article_312 idx=312 title=The git submodule add example
+  code=None type=None status=400
+  msg=
+- cid=article_313 idx=313 title=Add git submodules to GitHub example
+  code=None type=None status=400
+  msg=
+- cid=article_314 idx=314 title=gitlab add submodule example
+  code=None type=None status=400
+  msg=
+- cid=article_315 idx=315 title=How to Use the Git Submodule Init and Update Command by Exam
+  code=None type=None status=400
+  msg=
+- cid=article_316 idx=316 title=How to Use the Git Submodule Update Command by Example
+  code=None type=None status=400
+  msg=
+- cid=article_317 idx=317 title=How to git submodule tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_318 idx=318 title=Ubuntu git clone example
+  code=None type=None status=400
+  msg=
+- cid=article_319 idx=319 title=git init bare example
+  code=None type=None status=400
+  msg=
+- cid=article_320 idx=320 title=How the Git Init Bare and Clone Commands Work
+  code=None type=None status=400
+  msg=
+- cid=article_321 idx=321 title=How to create a bare git repo with init and update example
+  code=None type=None status=400
+  msg=
+- cid=article_322 idx=322 title=git clone branch example
+  code=None type=None status=400
+  msg=
+- cid=article_323 idx=323 title=How to Git Clone to a Specific Directory with GitHub
+  code=None type=None status=400
+  msg=
+- cid=article_324 idx=324 title=git clone a tag example
+  code=None type=None status=400
+  msg=
+- cid=article_325 idx=325 title=shallow git clone example
+  code=None type=None status=400
+  msg=
+- cid=article_326 idx=326 title=git clone depth 1 example
+  code=None type=None status=400
+  msg=
+- cid=article_327 idx=327 title=git log one line example (oneline)
+  code=None type=None status=400
+  msg=
+- cid=article_328 idx=328 title=How to Use the Git Log Graph Command by Example
+  code=None type=None status=400
+  msg=
+- cid=article_329 idx=329 title=git log pretty examples
+  code=None type=None status=400
+  msg=
+- cid=article_330 idx=330 title=git log command in terminal examples
+  code=None type=None status=400
+  msg=
+- cid=article_331 idx=331 title=How to set a sudo alias
+  code=None type=None status=400
+  msg=
+- cid=article_332 idx=332 title=delete a GitHub repository example
+  code=None type=None status=400
+  msg=
+- cid=article_333 idx=333 title=How to rename a GitHub repository in Git
+  code=None type=None status=400
+  msg=
+- cid=article_334 idx=334 title=How to Revert a Git Commit
+  code=None type=None status=400
+  msg=
+- cid=article_335 idx=335 title=git undo commits example
+  code=None type=None status=400
+  msg=
+- cid=article_336 idx=336 title=Git clean up strategies
+  code=None type=None status=400
+  msg=
+- cid=article_337 idx=337 title=Easily rebase GitHub branches
+  code=None type=None status=400
+  msg=
+- cid=article_338 idx=338 title=How to Squash Git Commits
+  code=None type=None status=400
+  msg=
+- cid=article_339 idx=339 title=git rebase master to branch example
+  code=None type=None status=400
+  msg=
+- cid=article_340 idx=340 title=Git rebase to master example
+  code=None type=None status=400
+  msg=
+- cid=article_341 idx=341 title=Git config file locations on Windows and Ubuntu
+  code=None type=None status=400
+  msg=
+- cid=article_342 idx=342 title=Why you can't find the gitconfig file?
+  code=None type=None status=400
+  msg=
+- cid=article_343 idx=343 title=How to Use the Git Config List Command Example
+  code=None type=None status=400
+  msg=
+- cid=article_344 idx=344 title=How to Remove and Delete Properties from Git Config
+  code=None type=None status=400
+  msg=
+- cid=article_345 idx=345 title=How to set the Git user.name Property in Git Config
+  code=None type=None status=400
+  msg=
+- cid=article_346 idx=346 title=How to Set the Git Email Property in Git Config
+  code=None type=None status=400
+  msg=
+- cid=article_347 idx=347 title=How to Configure Your Global Git Config Settings
+  code=None type=None status=400
+  msg=
+- cid=article_348 idx=348 title=How to Set Your Username and Email in Git Config
+  code=None type=None status=400
+  msg=
+- cid=article_349 idx=349 title=How to Show All Your Git Config Properties at Once
+  code=None type=None status=400
+  msg=
+- cid=article_350 idx=350 title=git reflog example
+  code=None type=None status=400
+  msg=
+- cid=article_351 idx=351 title=git log and reflog compared
+  code=None type=None status=400
+  msg=
+- cid=article_352 idx=352 title=git status command example
+  code=None type=None status=400
+  msg=
+- cid=article_353 idx=353 title=How the Git Working Tree Works by Example
+  code=None type=None status=400
+  msg=
+- cid=article_354 idx=354 title=git stash list example
+  code=None type=None status=400
+  msg=
+- cid=article_355 idx=355 title=git stash untracked files example
+  code=None type=None status=400
+  msg=
+- cid=article_356 idx=356 title=How to Use the Git Clean Command by Example
+  code=None type=None status=400
+  msg=
+- cid=article_357 idx=357 title=How to git clean Untracked Files with the fdx Switch
+  code=None type=None status=400
+  msg=
+- cid=article_358 idx=358 title=Difference between HashMap and Hashtable in Java
+  code=None type=None status=400
+  msg=
+- cid=article_359 idx=359 title=git stash changes
+  code=None type=None status=400
+  msg=
+- cid=article_360 idx=360 title=git stash pop example
+  code=None type=None status=400
+  msg=
+- cid=article_361 idx=361 title=How to install UiPath Studio
+  code=None type=None status=400
+  msg=
+- cid=article_362 idx=362 title=UiPath Studio Hello World Example
+  code=None type=None status=400
+  msg=
+- cid=article_363 idx=363 title=UiPath variables and input boxes example
+  code=None type=None status=400
+  msg=
+- cid=article_364 idx=364 title=UiPath Read, Write and Filter CSV Files Example
+  code=None type=None status=400
+  msg=
+- cid=article_365 idx=365 title=UiPath Keep Filter and Append CSV Example
+  code=None type=None status=400
+  msg=
+- cid=article_366 idx=366 title=Simple UiPath write to Excel example
+  code=None type=None status=400
+  msg=
+- cid=article_367 idx=367 title=UiPath Remove Data Column Example
+  code=None type=None status=400
+  msg=
+- cid=article_368 idx=368 title=UiPath For Each Row Example
+  code=None type=None status=400
+  msg=
+- cid=article_369 idx=369 title=UiPath Get Row Item Example
+  code=None type=None status=400
+  msg=
+- cid=article_370 idx=370 title=Remove duplicate rows in Excel with UiPath Example
+  code=None type=None status=400
+  msg=
+- cid=article_371 idx=371 title=Connect UiPath to Outlook Example
+  code=None type=None status=400
+  msg=
+- cid=article_372 idx=372 title=How to apply Smart Focus in Camtasia 20 Example
+  code=None type=None status=400
+  msg=
+- cid=article_373 idx=373 title=How to read Outlook email subjects in UiPath Studio example
+  code=None type=None status=400
+  msg=
+- cid=article_374 idx=374 title=UiPath Get Outlook Mail Messages Body Example
+  code=None type=None status=400
+  msg=
+- cid=article_375 idx=375 title=UiPath Get Outlook Message Filter Example
+  code=None type=None status=400
+  msg=
+- cid=article_376 idx=376 title=Download Gmail attachments with UiPath Studio Example
+  code=None type=None status=400
+  msg=
+- cid=article_377 idx=377 title=Get IMAP messages in UiPath example
+  code=None type=None status=400
+  msg=
+- cid=article_378 idx=378 title=UiPath Save Attachments and Filter Example
+  code=None type=None status=400
+  msg=
+- cid=article_379 idx=379 title=UiPath Do While Number Guesser Game Challenge Project
+  code=None type=None status=400
+  msg=
+- cid=article_380 idx=380 title=How to create UiPath Sequence Projects Example
+  code=None type=None status=400
+  msg=
+- cid=article_381 idx=381 title=Introduction to UiPath Programming
+  code=None type=None status=400
+  msg=
+- cid=article_382 idx=382 title=Fix Git clone's fatal setting SSL certificate error
+  code=None type=None status=400
+  msg=
+- cid=article_383 idx=383 title=UiPath Try Catch Finally Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_384 idx=384 title=UiPath Exception Handling Example
+  code=None type=None status=400
+  msg=
+- cid=article_385 idx=385 title=UiPath Nested If Then Else Example
+  code=None type=None status=400
+  msg=
+- cid=article_386 idx=386 title=UiPath Logging Example
+  code=None type=None status=400
+  msg=
+- cid=article_387 idx=387 title=Get All Files with UiPath Directory.GetFiles Example
+  code=None type=None status=400
+  msg=
+- cid=article_388 idx=388 title=How to use UiPath Select Folder to get all files
+  code=None type=None status=400
+  msg=
+- cid=article_389 idx=389 title=Introduction to PDF Text Extraction with UiPath
+  code=None type=None status=400
+  msg=
+- cid=article_390 idx=390 title=UiPath Anchor Base Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_391 idx=391 title=UiPath Data Scraping Example
+  code=None type=None status=400
+  msg=
+- cid=article_392 idx=392 title=Text Data Extraction in Multiple PDF files with UiPath Examp
+  code=None type=None status=400
+  msg=
+- cid=article_393 idx=393 title=Screen Scrape Multiple PDF Files with UiPath Example
+  code=None type=None status=400
+  msg=
+- cid=article_394 idx=394 title=UiPath Remove or Delete Empty Rows Example
+  code=None type=None status=400
+  msg=
+- cid=article_395 idx=395 title=UiPath Data Scrape PDFs into Excel Example
+  code=None type=None status=400
+  msg=
+- cid=article_396 idx=396 title=How to create and build a DataTable in UiPath Example
+  code=None type=None status=400
+  msg=
+- cid=article_397 idx=397 title=Add Rows to DataTables in UiPath
+  code=None type=None status=400
+  msg=
+- cid=article_398 idx=398 title=How to Save UiPath DataTables to Excel Example
+  code=None type=None status=400
+  msg=
+- cid=article_399 idx=399 title=How to use UiPath Append Range with Excel Example
+  code=None type=None status=400
+  msg=
+- cid=article_400 idx=400 title=UiPath Extract PDF Text & Save to Excel Example
+  code=None type=None status=400
+  msg=
+- cid=article_401 idx=401 title=UiPath Invoice Processing Demo
+  code=None type=None status=400
+  msg=
+- cid=article_402 idx=402 title=UiPath Set Reading Order to Inferred for Adobe
+  code=None type=None status=400
+  msg=
+- cid=article_403 idx=403 title=How to Maximize Document Windows in a UiPath Sequence
+  code=None type=None status=400
+  msg=
+- cid=article_404 idx=404 title=How to use UiPath Hotkeys Example
+  code=None type=None status=400
+  msg=
+- cid=article_405 idx=405 title=How to move files between folders in UiPath Example
+  code=None type=None status=400
+  msg=
+- cid=article_406 idx=406 title=How to UiPath Move Invoices to a New Directory After Process
+  code=None type=None status=400
+  msg=
+- cid=article_407 idx=407 title=UiPath OCR Image Example
+  code=None type=None status=400
+  msg=
+- cid=article_408 idx=408 title=How to get text from a JPEG image in UiPath Example
+  code=None type=None status=400
+  msg=
+- cid=article_409 idx=409 title=How to Process Scanned Image Invoices with UiPath Example
+  code=None type=None status=400
+  msg=
+- cid=article_410 idx=410 title=OCR with UiPath and Google Cloud Vision Example
+  code=None type=None status=400
+  msg=
+- cid=article_411 idx=411 title=Fix GitHub support for password authentication error fast
+  code=None type=None status=400
+  msg=
+- cid=article_412 idx=412 title=Maven GitHub and Eclipse How to get a Maven project
+  code=None type=None status=400
+  msg=
+- cid=article_413 idx=413 title=Git Branch Create Command Examples
+  code=None type=None status=400
+  msg=
+- cid=article_414 idx=414 title=Git Branch Create and Checkout in one Command Example
+  code=None type=None status=400
+  msg=
+- cid=article_415 idx=415 title=Git Create New Branch with Local Changes
+  code=None type=None status=400
+  msg=
+- cid=article_416 idx=416 title=Quickly Fix Git fatal no upstream branch error
+  code=None type=None status=400
+  msg=
+- cid=article_417 idx=417 title=Push a Local Git Branch to a Remote GitHub repo
+  code=None type=None status=400
+  msg=
+- cid=article_418 idx=418 title=Push a New Local Branch to a Remote GitLab Repository
+  code=None type=None status=400
+  msg=
+- cid=article_419 idx=419 title=Git Branch Delete Local Example
+  code=None type=None status=400
+  msg=
+- cid=article_420 idx=420 title=Git Delete Remote Branch Example
+  code=None type=None status=400
+  msg=
+- cid=article_421 idx=421 title=Git Rename Branch Example
+  code=None type=None status=400
+  msg=
+- cid=article_422 idx=422 title=Remove Git Branches from GitLab
+  code=None type=None status=400
+  msg=
+- cid=article_423 idx=423 title=How to Tag an Older Git Commit
+  code=None type=None status=400
+  msg=
+- cid=article_424 idx=424 title=How to list and switch between GitLab branches
+  code=None type=None status=400
+  msg=
+- cid=article_425 idx=425 title=How to List, Switch and Checkout Git Branches
+  code=None type=None status=400
+  msg=
+- cid=article_426 idx=426 title=The GitHub Branch Explained and Demystified
+  code=None type=None status=400
+  msg=
+- cid=article_427 idx=427 title=A Git Branch Remove Example
+  code=None type=None status=400
+  msg=
+- cid=article_428 idx=428 title=Git Branch Change Name Example
+  code=None type=None status=400
+  msg=
+- cid=article_429 idx=429 title=How to Change GitHub Branch Names Example
+  code=None type=None status=400
+  msg=
+- cid=article_430 idx=430 title=How to Create a Git Branch from a Tag
+  code=None type=None status=400
+  msg=
+- cid=article_431 idx=431 title=How to Create a Git branch from a Commit Example
+  code=None type=None status=400
+  msg=
+- cid=article_432 idx=432 title=How to Create a Git Branch From Master
+  code=None type=None status=400
+  msg=
+- cid=article_433 idx=433 title=How to show the history of a Git file
+  code=None type=None status=400
+  msg=
+- cid=article_434 idx=434 title=Create a Git Branch From Another Branch
+  code=None type=None status=400
+  msg=
+- cid=article_435 idx=435 title=How to show the names of files changed in a Git commit
+  code=None type=None status=400
+  msg=
+- cid=article_436 idx=436 title=How to delete a file from a Git repo
+  code=None type=None status=400
+  msg=
+- cid=article_437 idx=437 title=How to Delete Folders from Git repos
+  code=None type=None status=400
+  msg=
+- cid=article_438 idx=438 title=How to Search Git Logs by Commit Message
+  code=None type=None status=400
+  msg=
+- cid=article_439 idx=439 title=Show Global Git Config & Location
+  code=None type=None status=400
+  msg=
+- cid=article_440 idx=440 title=How to add a Global .gitignore File
+  code=None type=None status=400
+  msg=
+- cid=article_441 idx=441 title=How GitIgnore and GitHub Repos Work
+  code=None type=None status=400
+  msg=
+- cid=article_442 idx=442 title=A Quick GitLab and GitIgnore Example
+  code=None type=None status=400
+  msg=
+- cid=article_443 idx=443 title=How to create a .gitignore file in GitLab
+  code=None type=None status=400
+  msg=
+- cid=article_444 idx=444 title=Best Git Ignore Generators
+  code=None type=None status=400
+  msg=
+- cid=article_445 idx=445 title=How to Remove & Delete a Local Git Repository
+  code=None type=None status=400
+  msg=
+- cid=article_446 idx=446 title=How to Ignore Git Folders and Directories .gitignore
+  code=None type=None status=400
+  msg=
+- cid=article_447 idx=447 title=How to List all Git Commits for a File
+  code=None type=None status=400
+  msg=
+- cid=article_448 idx=448 title=How to Force the Git Pull Command
+  code=None type=None status=400
+  msg=
+- cid=article_449 idx=449 title=How to cancel or undo git pull merge conflicts
+  code=None type=None status=400
+  msg=
+- cid=article_450 idx=450 title=Undo Git Add Before a Commit
+  code=None type=None status=400
+  msg=
+- cid=article_451 idx=451 title=How to Git Merge a Branch into Master
+  code=None type=None status=400
+  msg=
+- cid=article_452 idx=452 title=What is a Git Merge Conflict?
+  code=None type=None status=400
+  msg=
+- cid=article_453 idx=453 title=How to resolve Git merge conflicts
+  code=None type=None status=400
+  msg=
+- cid=article_454 idx=454 title=How to Cancel the Git Merge Process
+  code=None type=None status=400
+  msg=
+- cid=article_455 idx=455 title=How to Merge GitHub Branches to Master
+  code=None type=None status=400
+  msg=
+- cid=article_456 idx=456 title=Resolve GitHub Merge Conflicts
+  code=None type=None status=400
+  msg=
+- cid=article_457 idx=457 title=How to Abort Git Merge Conflicts
+  code=None type=None status=400
+  msg=
+- cid=article_458 idx=458 title=How to Merge Git Commits
+  code=None type=None status=400
+  msg=
+- cid=article_459 idx=459 title=How to Merge Master into any Branch in Git
+  code=None type=None status=400
+  msg=
+- cid=article_460 idx=460 title=How to Git merge one branch into another
+  code=None type=None status=400
+  msg=
+- cid=article_461 idx=461 title=How Git no-ff Merges Work
+  code=None type=None status=400
+  msg=
+- cid=article_462 idx=462 title=What is a Fast Forward Merge in Git?
+  code=None type=None status=400
+  msg=
+- cid=article_463 idx=463 title=Git Uncommit Your Last Commit
+  code=None type=None status=400
+  msg=
+- cid=article_464 idx=464 title=Remove and Revert Uncommitted Git Changes & Files
+  code=None type=None status=400
+  msg=
+- cid=article_465 idx=465 title=Discard local changes and untracked files in Git repo
+  code=None type=None status=400
+  msg=
+- cid=article_466 idx=466 title=Introduction to Lambda Expressions in Java
+  code=None type=None status=400
+  msg=
+- cid=article_467 idx=467 title=Tomcat vs Apache What's the difference?
+  code=None type=None status=400
+  msg=
+- cid=article_468 idx=468 title=Jenkins Tomcat WAR Deployment
+  code=None type=None status=400
+  msg=
+- cid=article_469 idx=469 title=How to Resolve Git Stash Pop Conflicts
+  code=None type=None status=400
+  msg=
+- cid=article_470 idx=470 title=Deploy WARs to Tomcat from Eclipse
+  code=None type=None status=400
+  msg=
+- cid=article_471 idx=471 title=Developer vs DevOps Engineer What's the difference?
+  code=None type=None status=400
+  msg=
+- cid=article_472 idx=472 title=Tomcat vs JBoss Which Application Server Should You Choose?
+  code=None type=None status=400
+  msg=
+- cid=article_473 idx=473 title=How to use the JDK's javap command by example
+  code=None type=None status=400
+  msg=
+- cid=article_474 idx=474 title=How to use JarSigner to Sign Java JAR files digitally
+  code=None type=None status=400
+  msg=
+- cid=article_475 idx=475 title=scrumbut
+  code=None type=None status=400
+  msg=
+- cid=article_476 idx=476 title=Top 5 Reasons Youll Love Jakarta Servlet 6.0
+  code=None type=None status=400
+  msg=
+- cid=article_477 idx=477 title=s3 bucket temp
+  code=None type=None status=400
+  msg=
+- cid=article_478 idx=478 title=install nginx ubuntu
+  code=None type=None status=400
+  msg=
+- cid=article_479 idx=479 title=filezilla ftp nginx
+  code=None type=None status=400
+  msg=
+- cid=article_480 idx=480 title=How to create and run a script in Ubuntu
+  code=None type=None status=400
+  msg=
+- cid=article_481 idx=481 title=Configure GitHub SSH Keys
+  code=None type=None status=400
+  msg=
+- cid=article_482 idx=482 title=How to use GitHub with SSH Keys on Windows 10
+  code=None type=None status=400
+  msg=
+- cid=article_483 idx=483 title=Create and Configure GitLab SSH Keys
+  code=None type=None status=400
+  msg=
+- cid=article_484 idx=484 title=JavaScript and Node.js File Upload Example
+  code=None type=None status=400
+  msg=
+- cid=article_485 idx=485 title=jdbc
+  code=None type=None status=400
+  msg=
+- cid=article_486 idx=486 title=networking lab
+  code=None type=None status=400
+  msg=
+- cid=article_487 idx=487 title=Performance
+  code=None type=None status=400
+  msg=
+- cid=article_488 idx=488 title=threads
+  code=None type=None status=400
+  msg=
+- cid=article_489 idx=489 title=Apache Reverse Proxy Configuration Example
+  code=None type=None status=400
+  msg=
+- cid=article_490 idx=490 title=Run Apache in Docker Example Host Your Website
+  code=None type=None status=400
+  msg=
+- cid=article_491 idx=491 title=Docker Compose Example with Apache
+  code=None type=None status=400
+  msg=
+- cid=article_492 idx=492 title=Differences Between Docker Compose and Dockerfile
+  code=None type=None status=400
+  msg=
+- cid=article_493 idx=493 title=Differences Between Docker Run and Docker Compose Compared
+  code=None type=None status=400
+  msg=
+- cid=article_494 idx=494 title=Difference Between Rows vs Columns Explained Quickly
+  code=None type=None status=400
+  msg=
+- cid=article_495 idx=495 title=Setup an Apache Load Balancer Example
+  code=None type=None status=400
+  msg=
+- cid=article_496 idx=496 title=Install & Setup PHP and Nginx on Ubuntu Linux with FPM
+  code=None type=None status=400
+  msg=
+- cid=article_497 idx=497 title=How to Install Tomcat 10 on Ubuntu 22
+  code=None type=None status=400
+  msg=
+- cid=article_498 idx=498 title=How to configure Nginx Reverse Proxy Servers Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_499 idx=499 title=Setup Login to Tomcat Manager without 401 403 errors
+  code=None type=None status=400
+  msg=
+- cid=article_500 idx=500 title=How to add a new project to an existing GitHub repository
+  code=None type=None status=400
+  msg=
+- cid=article_501 idx=501 title=How to Add & Upload a New Project to an Existing GitLab
+  code=None type=None status=400
+  msg=
+- cid=article_502 idx=502 title=How to add a new project to an existing Bitbucket repository
+  code=None type=None status=400
+  msg=
+- cid=article_503 idx=503 title=Create Bitbucket App Password Fix Git Auth Errors
+  code=None type=None status=400
+  msg=
+- cid=article_504 idx=504 title=How to install Java on Ubuntu with apt
+  code=None type=None status=400
+  msg=
+- cid=article_505 idx=505 title=Fix the 'Expected a Step on Line' error in Jenkins
+  code=None type=None status=400
+  msg=
+- cid=article_506 idx=506 title=Docker and Docker Compose on Ubuntu How to setup
+  code=None type=None status=400
+  msg=
+- cid=article_507 idx=507 title=Nginx Load Balancer Example Setup and Config
+  code=None type=None status=400
+  msg=
+- cid=article_508 idx=508 title=Configure a Docker Nginx Reverse Proxy Image and Container
+  code=None type=None status=400
+  msg=
+- cid=article_509 idx=509 title=How to Open a Java JAR File in Windows
+  code=None type=None status=400
+  msg=
+- cid=article_510 idx=510 title=How to run a Java JAR file on Windows 10
+  code=None type=None status=400
+  msg=
+- cid=article_511 idx=511 title=Fix Java's 'Could Not Find or Load Main Class' Jar error
+  code=None type=None status=400
+  msg=
+- cid=article_512 idx=512 title=How to Install and Configure the Nginx Proxy Manager
+  code=None type=None status=400
+  msg=
+- cid=article_513 idx=513 title=How to format a Java double with printf example
+  code=None type=None status=400
+  msg=
+- cid=article_514 idx=514 title=Use the Java Console Class for User Input
+  code=None type=None status=400
+  msg=
+- cid=article_515 idx=515 title=Java Double Brace Initialization of Lists and Sets Explained
+  code=None type=None status=400
+  msg=
+- cid=article_516 idx=516 title=How to import the Java Scanner
+  code=None type=None status=400
+  msg=
+- cid=article_517 idx=517 title=How to use the Java Scanner next & nextLine methods
+  code=None type=None status=400
+  msg=
+- cid=article_518 idx=518 title=How to use the Java Ternary Operator by Example
+  code=None type=None status=400
+  msg=
+- cid=article_519 idx=519 title=How to use Java's JOptionPane
+  code=None type=None status=400
+  msg=
+- cid=article_520 idx=520 title=Multiversion Concurrency Control MVCC Explained
+  code=None type=None status=400
+  msg=
+- cid=article_521 idx=521 title=What's the Difference Between Forward and Reverse Proxies?
+  code=None type=None status=400
+  msg=
+- cid=article_522 idx=522 title=Quick Introduction to Java JShell Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_523 idx=523 title=Chrome Color Picker from Image
+  code=None type=None status=400
+  msg=
+- cid=article_524 idx=524 title=Single Responsibility Principle in Java (SOLID Principles Tu
+  code=None type=None status=400
+  msg=
+- cid=article_525 idx=525 title=Git Fetch vs Git Pull? Which one should you choose?
+  code=None type=None status=400
+  msg=
+- cid=article_526 idx=526 title=How to Install the Java 21 JDK Early Access Edition
+  code=None type=None status=400
+  msg=
+- cid=article_527 idx=527 title=Hibernate and JPA3 Configuration and Setup
+  code=None type=None status=400
+  msg=
+- cid=article_528 idx=528 title=Hibernate and JPA 3.x CRUD Operations Example
+  code=None type=None status=400
+  msg=
+- cid=article_529 idx=529 title=You first Java AWS Lambda function in less than 5 minutes
+  code=None type=None status=400
+  msg=
+- cid=article_530 idx=530 title=How to enable Java 21 preview features
+  code=None type=None status=400
+  msg=
+- cid=article_531 idx=531 title=How to create AWS Lambda functions in Python
+  code=None type=None status=400
+  msg=
+- cid=article_532 idx=532 title=Import a Gradle Project from GitHub
+  code=None type=None status=400
+  msg=
+- cid=article_533 idx=533 title=Quickly run a Spring Boot JAR file at the Command Line
+  code=None type=None status=400
+  msg=
+- cid=article_534 idx=534 title=How to login to DockerHub with an Access Token
+  code=None type=None status=400
+  msg=
+- cid=article_535 idx=535 title=Push a Spring Boot app to Dockerhub
+  code=None type=None status=400
+  msg=
+- cid=article_536 idx=536 title=Introduction to Spring Boot Tutorial for 2023
+  code=None type=None status=400
+  msg=
+- cid=article_537 idx=537 title=How to run your Spring Boot JAR file from the command line
+  code=None type=None status=400
+  msg=
+- cid=article_538 idx=538 title=How to Containerize Spring Boot applications
+  code=None type=None status=400
+  msg=
+- cid=article_539 idx=539 title=Fix Docker Hub Invalid Username or Password Error with an Ac
+  code=None type=None status=400
+  msg=
+- cid=article_540 idx=540 title=What should a successful HTTP PUT operation return?
+  code=None type=None status=400
+  msg=
+- cid=article_541 idx=541 title=Git reset hard vs soft What's the difference?
+  code=None type=None status=400
+  msg=
+- cid=article_542 idx=542 title=How do you say idempotent?
+  code=None type=None status=400
+  msg=
+- cid=article_543 idx=543 title=PUT vs POST What's the difference?
+  code=None type=None status=400
+  msg=
+- cid=article_544 idx=544 title=The HTTP verbs
+  code=None type=None status=400
+  msg=
+- cid=article_545 idx=545 title=How to say Udemy?
+  code=None type=None status=400
+  msg=
+- cid=article_546 idx=546 title=60 Second Spring Boot Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_547 idx=547 title=PUT vs POST What's the difference?
+  code=None type=None status=400
+  msg=
+- cid=article_548 idx=548 title=REST URLs and HTTP Verbs Explained
+  code=None type=None status=400
+  msg=
+- cid=article_549 idx=549 title=Delete a Git Branch Locally & Remotely
+  code=None type=None status=400
+  msg=
+- cid=article_550 idx=550 title=How to delete both a remote and local Git branch
+  code=None type=None status=400
+  msg=
+- cid=article_551 idx=551 title=How to Use Git & GitHub Desktop Tutorial for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_552 idx=552 title=How to Install Jenkins and Build CI/CD Pipelines on Windows
+  code=None type=None status=400
+  msg=
+- cid=article_553 idx=553 title=Learn Apache Maven Full Tutorial in Java for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_554 idx=554 title=Learn Git Sourcetree BitBucket Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_555 idx=555 title=How to Push Code to a GitHub Repository
+  code=None type=None status=400
+  msg=
+- cid=article_556 idx=556 title=GitKraken Tutorial Crash Course for Git Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_557 idx=557 title=Git Push a Local Branch to a Remote Repo
+  code=None type=None status=400
+  msg=
+- cid=article_558 idx=558 title=Learn Jenkins Fast! A Simple Jenkins CI Tutorial for Beginne
+  code=None type=None status=400
+  msg=
+- cid=article_559 idx=559 title=How to Git Clone a Specific Commit
+  code=None type=None status=400
+  msg=
+- cid=article_560 idx=560 title=How to Install Git on Windows 10 | Download Install
+  code=None type=None status=400
+  msg=
+- cid=article_561 idx=561 title=If __name__=="__main__" in Python What does it do?
+  code=None type=None status=400
+  msg=
+- cid=article_562 idx=562 title=Prime Stuffed Meat Two
+  code=None type=None status=400
+  msg=
+- cid=article_563 idx=563 title=Pros and Cons of Microservices vs Monolithic Architectures
+  code=None type=None status=400
+  msg=
+- cid=article_564 idx=564 title=The Git Index Explained How to stage a file with Git add
+  code=None type=None status=400
+  msg=
+- cid=article_565 idx=565 title=Create a Repo with Git init
+  code=None type=None status=400
+  msg=
+- cid=article_566 idx=566 title=Quickly install Git on Windows
+  code=None type=None status=400
+  msg=
+- cid=article_567 idx=567 title=What is Git? How would you define Git?
+  code=None type=None status=400
+  msg=
+- cid=article_568 idx=568 title=Git Config Location Where does Git store config?
+  code=None type=None status=400
+  msg=
+- cid=article_569 idx=569 title=Git Author Identity Unknown Error Fix
+  code=None type=None status=400
+  msg=
+- cid=article_570 idx=570 title=A Git Commit Example || How to do Your first Git commit
+  code=None type=None status=400
+  msg=
+- cid=article_571 idx=571 title=What is a Git Commit?
+  code=None type=None status=400
+  msg=
+- cid=article_572 idx=572 title=What is the Git Index?
+  code=None type=None status=400
+  msg=
+- cid=article_573 idx=573 title=Your Git Commit History with Git Log and Reflog commands
+  code=None type=None status=400
+  msg=
+- cid=article_574 idx=574 title=Git Status Command
+  code=None type=None status=400
+  msg=
+- cid=article_575 idx=575 title=Git Add All vs Git Add . - How to stage all files in Git
+  code=None type=None status=400
+  msg=
+- cid=article_576 idx=576 title=How to Change a Git Commit Message
+  code=None type=None status=400
+  msg=
+- cid=article_577 idx=577 title=Git Plumbing vs Porcelain #Git #GitHub
+  code=None type=None status=400
+  msg=
+- cid=article_578 idx=578 title=Git Status Porcelain
+  code=None type=None status=400
+  msg=
+- cid=article_579 idx=579 title=Undo the Last Git Commit
+  code=None type=None status=400
+  msg=
+- cid=article_580 idx=580 title=Git Revert a Commit
+  code=None type=None status=400
+  msg=
+- cid=article_581 idx=581 title=Git Reset Hard
+  code=None type=None status=400
+  msg=
+- cid=article_582 idx=582 title=How to amend a Git commit
+  code=None type=None status=400
+  msg=
+- cid=article_583 idx=583 title=Git Merge Explained
+  code=None type=None status=400
+  msg=
+- cid=article_584 idx=584 title=How to install Mojo on Windows and Write Your First App
+  code=None type=None status=400
+  msg=
+- cid=article_585 idx=585 title=Introduction to Mojo in the Visual Studio Code Editor
+  code=None type=None status=400
+  msg=
+- cid=article_586 idx=586 title=Solve prefix sum puzzle in Java with Arrays Vectors SIMD
+  code=None type=None status=400
+  msg=
+- cid=article_587 idx=587 title=How to Remove Duplicates from a List in Java
+  code=None type=None status=400
+  msg=
+- cid=article_588 idx=588 title=How to Find All Duplicates in a List in Java
+  code=None type=None status=400
+  msg=
+- cid=article_589 idx=589 title=How to Download and Install Eclipse
+  code=None type=None status=400
+  msg=
+- cid=article_590 idx=590 title=How to Download and Install Java 21
+  code=None type=None status=400
+  msg=
+- cid=article_591 idx=591 title=Git and GitHub Crash Course For Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_592 idx=592 title=Learn to Program in Mojo Tutorial for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_593 idx=593 title=What's the difference between GitHub and Git?
+  code=None type=None status=400
+  msg=
+- cid=article_594 idx=594 title=Learn Git and GitLab Tutorial For Beginners | Full Course
+  code=None type=None status=400
+  msg=
+- cid=article_595 idx=595 title=Git Login Issues Keeps Asking Username Password?
+  code=None type=None status=400
+  msg=
+- cid=article_596 idx=596 title=How to use Git Remote Add Origin
+  code=None type=None status=400
+  msg=
+- cid=article_597 idx=597 title=Git Set Upstream Example | Learn Branch Management in Git
+  code=None type=None status=400
+  msg=
+- cid=article_598 idx=598 title=GitHub URL Example | Learn how to use GitHub URLs & Git
+  code=None type=None status=400
+  msg=
+- cid=article_599 idx=599 title=Generate GitLab SSH Keys & setup SSH on GitLab
+  code=None type=None status=400
+  msg=
+- cid=article_600 idx=600 title=How to Generate GitHub SSH Keys
+  code=None type=None status=400
+  msg=
+- cid=article_601 idx=601 title=How to Undo a Pushed Git Commit - Reset & Revert a Git Commi
+  code=None type=None status=400
+  msg=
+- cid=article_602 idx=602 title=Why Java Uses static & final for Constants
+  code=None type=None status=400
+  msg=
+- cid=article_603 idx=603 title=How to Unstage a File in Git Remove from Staging Index
+  code=None type=None status=400
+  msg=
+- cid=article_604 idx=604 title=How to Convert a Java String to int or long Type
+  code=None type=None status=400
+  msg=
+- cid=article_605 idx=605 title=My Video
+  code=None type=None status=400
+  msg=
+- cid=article_606 idx=606 title=Git Stash Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_607 idx=607 title=Rename a Git Branch
+  code=None type=None status=400
+  msg=
+- cid=article_608 idx=608 title=How to download and install Git
+  code=None type=None status=400
+  msg=
+- cid=article_609 idx=609 title=Git Log Graph Tree Command
+  code=None type=None status=400
+  msg=
+- cid=article_610 idx=610 title=Rename Master Branch to Main on GitHub
+  code=None type=None status=400
+  msg=
+- cid=article_611 idx=611 title=Change Git Branch Master to Main Locally and Remotely
+  code=None type=None status=400
+  msg=
+- cid=article_612 idx=612 title=GitHub Personal Access Token How To Create Use
+  code=None type=None status=400
+  msg=
+- cid=article_613 idx=613 title=Git Set Remote Upstream URL
+  code=None type=None status=400
+  msg=
+- cid=article_614 idx=614 title=Change the Remote Git URL with Set Remote Origin
+  code=None type=None status=400
+  msg=
+- cid=article_615 idx=615 title=How to Push an Existing Project to GitLab
+  code=None type=None status=400
+  msg=
+- cid=article_616 idx=616 title=Java Constructors Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_617 idx=617 title=Complete Java Records Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_618 idx=618 title=Java Tic Tac Toe Game Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_619 idx=619 title=How to Install the MySQL Database | Beginners Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_620 idx=620 title=SOLID Liskov Substitution Principle
+  code=None type=None status=400
+  msg=
+- cid=article_621 idx=621 title=SOLID Liskov Substitution Principle Explained?
+  code=None type=None status=400
+  msg=
+- cid=article_622 idx=622 title=Install Spring Tool Suite 2024
+  code=None type=None status=400
+  msg=
+- cid=article_623 idx=623 title=Advanced Spring Boot Restful APIs Tutorial Build Web App
+  code=None type=None status=400
+  msg=
+- cid=article_624 idx=624 title=The difference between Controller vs RestController in Sprin
+  code=None type=None status=400
+  msg=
+- cid=article_625 idx=625 title=Spring Boot H2 Console JDBC URL for Embedded H2 Databases an
+  code=None type=None status=400
+  msg=
+- cid=article_626 idx=626 title=Swagger Test Spring Boot REST APIs with SpringDoc OpenAPI
+  code=None type=None status=400
+  msg=
+- cid=article_627 idx=627 title=Spring Boot Console App with CommandLineRunner
+  code=None type=None status=400
+  msg=
+- cid=article_628 idx=628 title=Swagger UI Tutorial for REST API Developers
+  code=None type=None status=400
+  msg=
+- cid=article_629 idx=629 title=Advanced Spring Tutorial | Spring MVC Spring Data JDBC
+  code=None type=None status=400
+  msg=
+- cid=article_630 idx=630 title=What's the difference between Spring Boot and Spring MVC?
+  code=None type=None status=400
+  msg=
+- cid=article_631 idx=631 title=What is MVC? Model View Controller Explained
+  code=None type=None status=400
+  msg=
+- cid=article_632 idx=632 title=Spring Hello World Example #boot #java
+  code=None type=None status=400
+  msg=
+- cid=article_633 idx=633 title=How Spring XML Configuration Works by Example
+  code=None type=None status=400
+  msg=
+- cid=article_634 idx=634 title=What is Inversion of Control?
+  code=None type=None status=400
+  msg=
+- cid=article_635 idx=635 title=Dependency Injection and Inversion of Control in Spring
+  code=None type=None status=400
+  msg=
+- cid=article_636 idx=636 title=How does a HashMap Work Internally?
+  code=None type=None status=400
+  msg=
+- cid=article_637 idx=637 title=How Spring Boot Auto Configuration Works
+  code=None type=None status=400
+  msg=
+- cid=article_638 idx=638 title=What is Dependency Injection?
+  code=None type=None status=400
+  msg=
+- cid=article_639 idx=639 title=Stop Using Setter Injection Constructor Injection is Better
+  code=None type=None status=400
+  msg=
+- cid=article_640 idx=640 title=How to Clone a Repository from GitHub
+  code=None type=None status=400
+  msg=
+- cid=article_641 idx=641 title=Master Spring Profiles in Spring Boot
+  code=None type=None status=400
+  msg=
+- cid=article_642 idx=642 title=Spring Boot Properties & Configurations 10x Devs Must Know
+  code=None type=None status=400
+  msg=
+- cid=article_643 idx=643 title=Spring Boot application.properties How it Works
+  code=None type=None status=400
+  msg=
+- cid=article_644 idx=644 title=How to Install Node JS on Windows 10/11
+  code=None type=None status=400
+  msg=
+- cid=article_645 idx=645 title=How to Install PostgreSQL on Windows 10 or 11
+  code=None type=None status=400
+  msg=
+- cid=article_646 idx=646 title=Advanced Spring Data & JDBC Tutorial #SpringBoot
+  code=None type=None status=400
+  msg=
+- cid=article_647 idx=647 title=React Hello World App for Beginners #javascript #reactjs
+  code=None type=None status=400
+  msg=
+- cid=article_648 idx=648 title=Spring Boot Actuator Full Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_649 idx=649 title=Create a Custom Spring Boot Actuator Endpoint Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_650 idx=650 title=Actuator Metrics in Spring Boot Examples
+  code=None type=None status=400
+  msg=
+- cid=article_651 idx=651 title=Expose & Enable Spring Boot Actuator Endpoints
+  code=None type=None status=400
+  msg=
+- cid=article_652 idx=652 title=Spring Actuator Maven Dependency Configuration #Gradle #spri
+  code=None type=None status=400
+  msg=
+- cid=article_653 idx=653 title=Quick Intro to the Spring Boot Actuator Playlist
+  code=None type=None status=400
+  msg=
+- cid=article_654 idx=654 title=Spring Boot Configuration Properties #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_655 idx=655 title=Spring Boot Soap Web Service Example
+  code=None type=None status=400
+  msg=
+- cid=article_656 idx=656 title=SOAP Web Services in Spring #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_657 idx=657 title=Spring Boot Logging Levels Configuration & Properties
+  code=None type=None status=400
+  msg=
+- cid=article_658 idx=658 title=Java, JDBC & SQL Server Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_659 idx=659 title=JDBC Connection Pooling with Hikari CP & Microsoft SQL Serve
+  code=None type=None status=400
+  msg=
+- cid=article_660 idx=660 title=Statements, JDBC & SQL Server Database Delete Commands
+  code=None type=None status=400
+  msg=
+- cid=article_661 idx=661 title=Java, JDBC PreparedStatements, Update Commands & MS SQL
+  code=None type=None status=400
+  msg=
+- cid=article_662 idx=662 title=JDBC ResultSet Example with the SQL Server Database
+  code=None type=None status=400
+  msg=
+- cid=article_663 idx=663 title=Create a Table in Microsoft SQL Server for JDBC with Java
+  code=None type=None status=400
+  msg=
+- cid=article_664 idx=664 title=How to Install Sqlite on Windows
+  code=None type=None status=400
+  msg=
+- cid=article_665 idx=665 title=CRUD Operations in Sqlite3
+  code=None type=None status=400
+  msg=
+- cid=article_666 idx=666 title=DB Browser SQLite Viewer Manage Data Types and CRUD
+  code=None type=None status=400
+  msg=
+- cid=article_667 idx=667 title=Introduction to Sqlite for Beginners Full Sqlite3 Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_668 idx=668 title=Introduction to JDBC & PostgreSQL Tutorial for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_669 idx=669 title=Java, JDBC & Postgres CRUD Example with Maven
+  code=None type=None status=400
+  msg=
+- cid=article_670 idx=670 title=Install Jenkins from Docker Image & Create Pipeline
+  code=None type=None status=400
+  msg=
+- cid=article_671 idx=671 title=Jenkins Docker Image Tutorial #TechTarget
+  code=None type=None status=400
+  msg=
+- cid=article_672 idx=672 title=Modern SOAP Web Services in Java with Jakarta EE
+  code=None type=None status=400
+  msg=
+- cid=article_673 idx=673 title=Introduction to SQLite3 Tutorial for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_674 idx=674 title=Hello World React Program
+  code=None type=None status=400
+  msg=
+- cid=article_675 idx=675 title=Spring Batch Tutorial for Beginners | Spring Boot
+  code=None type=None status=400
+  msg=
+- cid=article_676 idx=676 title=Spring Boot File Upload REST API Example
+  code=None type=None status=400
+  msg=
+- cid=article_677 idx=677 title=RESTful Spring File Upload Example #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_678 idx=678 title=How to Create a Maven Project in Eclipse for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_679 idx=679 title=How to Create a Maven Project in Eclipse #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_680 idx=680 title=What exactly is Pascal case?
+  code=None type=None status=400
+  msg=
+- cid=article_681 idx=681 title=Use Spring Initializr to Create and Import Spring Boot
+  code=None type=None status=400
+  msg=
+- cid=article_682 idx=682 title=Spring vs Spring Boot vs Framework What's the difference?
+  code=None type=None status=400
+  msg=
+- cid=article_683 idx=683 title=Spring Batch Tutorial | Spring Boot | ItemProcessor
+  code=None type=None status=400
+  msg=
+- cid=article_684 idx=684 title=Spring Boot, JPA and Hibernate Example
+  code=None type=None status=400
+  msg=
+- cid=article_685 idx=685 title=Spring Boot, JPA & Hibernate Project with MySQL & Swagger
+  code=None type=None status=400
+  msg=
+- cid=article_686 idx=686 title=How to Get your ChatGPT Open AI API Key
+  code=None type=None status=400
+  msg=
+- cid=article_687 idx=687 title=How to use the Bluesky Social App
+  code=None type=None status=400
+  msg=
+- cid=article_688 idx=688 title=How to Install Java on Ubuntu and set JAVA_HOME (2025)
+  code=None type=None status=400
+  msg=
+- cid=article_689 idx=689 title=How to Install Eclipse on Ubuntu (2025 UPDATE)
+  code=None type=None status=400
+  msg=
+- cid=article_690 idx=690 title=Install the Java JDK on Ubuntu
+  code=None type=None status=400
+  msg=
+- cid=article_691 idx=691 title=How to Install Java and set JAVA_HOME on Windows 11
+  code=None type=None status=400
+  msg=
+- cid=article_692 idx=692 title=Install Java's JDK and set JAVA_HOME on Windows
+  code=None type=None status=400
+  msg=
+- cid=article_693 idx=693 title=Maven Project Visual Studio #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_694 idx=694 title=VS Code Install Java #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_695 idx=695 title=How to Setup Your Own Bluesky PDS Server in Minutes
+  code=None type=None status=400
+  msg=
+- cid=article_696 idx=696 title=Host Your Own Bluesky PDS Server on AWS #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_697 idx=697 title=Locally Run Huggingface LLMs like Llama on Your Laptop or De
+  code=None type=None status=400
+  msg=
+- cid=article_698 idx=698 title=introduction javafx temp
+  code=None type=None status=400
+  msg=
+- cid=article_699 idx=699 title=Python, Huggingface Transformers, Local LLMs and Llama
+  code=None type=None status=400
+  msg=
+- cid=article_700 idx=700 title=Setup a Bluesky Personal Data Server on AWS
+  code=None type=None status=400
+  msg=
+- cid=article_701 idx=701 title=Learn How to use the Bluesky Python API under 4 Minutes
+  code=None type=None status=400
+  msg=
+- cid=article_702 idx=702 title=2025 Sonarqube Tutorial for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_703 idx=703 title=Agile Estimation & Planning in Software Development
+  code=None type=None status=400
+  msg=
+- cid=article_704 idx=704 title=KebabCase vs SnakeCase vs CamelCase vs PascalCase
+  code=None type=None status=400
+  msg=
+- cid=article_705 idx=705 title=Variable Naming Conventions in Java Python JS Rust Mojo
+  code=None type=None status=400
+  msg=
+- cid=article_706 idx=706 title=CamelCase vs PascalCase
+  code=None type=None status=400
+  msg=
+- cid=article_707 idx=707 title=Introduction to JavaFX tutorial for beginners #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_708 idx=708 title=Build Your First JavaFX Example Application (For Beginners)
+  code=None type=None status=400
+  msg=
+- cid=article_709 idx=709 title=Story Points to Hours
+  code=None type=None status=400
+  msg=
+- cid=article_710 idx=710 title=Advanced JavaFX tutorial #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_711 idx=711 title=GitHub Copilot Tutorial #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_712 idx=712 title=Introduction to GitHub Copilot Tutorial for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_713 idx=713 title=Is GitHub Copilot Free? No, no it's not!?
+  code=None type=None status=400
+  msg=
+- cid=article_714 idx=714 title=What does GitHub Copilot Cost? #techtarget?
+  code=None type=None status=400
+  msg=
+- cid=article_715 idx=715 title=How to Download, Install and Use Claude Desktop Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_716 idx=716 title=Claude Desktop Tutorial #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_717 idx=717 title=Spring Boot MCP Tutorial 00 #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_718 idx=718 title=How to Create an MCP Server for Cursor AI in Java Spring
+  code=None type=None status=400
+  msg=
+- cid=article_719 idx=719 title=Spring XML Configuration #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_720 idx=720 title=Logging in Spring
+  code=None type=None status=400
+  msg=
+- cid=article_721 idx=721 title=Autoconfiguration in Spring Boot
+  code=None type=None status=400
+  msg=
+- cid=article_722 idx=722 title=Allow IAM Users to View Billing and Costs
+  code=None type=None status=400
+  msg=
+- cid=article_723 idx=723 title=How to Create an AWS Account Alias
+  code=None type=None status=400
+  msg=
+- cid=article_724 idx=724 title=How to Quickly 🚀 Create Your Free 💰 Tier AWS Account ☁️
+  code=None type=None status=400
+  msg=
+- cid=article_725 idx=725 title=How to send SMS Text Messages with AWS SNS
+  code=None type=None status=400
+  msg=
+- cid=article_726 idx=726 title=Send SMS Text Messages with AWS SNS #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_727 idx=727 title=How to Configure multiple AWS CLI Profiles
+  code=None type=None status=400
+  msg=
+- cid=article_728 idx=728 title=Amazon S3 Static Website Hosting Custom Domains in Route53
+  code=None type=None status=400
+  msg=
+- cid=article_729 idx=729 title=Create an EKS Cluster and Deploy Docker Containers
+  code=None type=None status=400
+  msg=
+- cid=article_730 idx=730 title=Create a Kubernetes Cluster in AWS EKS #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_731 idx=731 title=Static WebSite Hosting with AWS S3
+  code=None type=None status=400
+  msg=
+- cid=article_732 idx=732 title=Use AWS Configure to Support Multiple AWS CLI Profiles
+  code=None type=None status=400
+  msg=
+- cid=article_733 idx=733 title=Auto Scaling AWS EC2 Instances Made Easy
+  code=None type=None status=400
+  msg=
+- cid=article_734 idx=734 title=Python AWS Elastic Beanstalk Django Deployments
+  code=None type=None status=400
+  msg=
+- cid=article_735 idx=735 title=Node JS AWS Elastic Beanstalk How to Deploy React Web Apps
+  code=None type=None status=400
+  msg=
+- cid=article_736 idx=736 title=Amazon Elastic Beanstalk | What is it?
+  code=None type=None status=400
+  msg=
+- cid=article_737 idx=737 title=Compare LLMs with Amazon Bedrock Claude vs Deepseek
+  code=None type=None status=400
+  msg=
+- cid=article_738 idx=738 title=Amazon Bedrock Luma Labs AI Video Generator #free #ml
+  code=None type=None status=400
+  msg=
+- cid=article_739 idx=739 title=AWS Login to the Amazon Web Services Console #awsconsole
+  code=None type=None status=400
+  msg=
+- cid=article_740 idx=740 title=AWS Console | Amazon's Management Console for AWS S3 EC2
+  code=None type=None status=400
+  msg=
+- cid=article_741 idx=741 title=How to Create an AWS Free Tier Account
+  code=None type=None status=400
+  msg=
+- cid=article_742 idx=742 title=What is Amazon Bedrock?
+  code=None type=None status=400
+  msg=
+- cid=article_743 idx=743 title=Free Website Hosting on AWS S3 for Static Sites
+  code=None type=None status=400
+  msg=
+- cid=article_744 idx=744 title=Amazon EKS Cluster Creation & Deployment to AWS EC2
+  code=None type=None status=400
+  msg=
+- cid=article_745 idx=745 title=How to Request Model Access in Amazon Bedrock AWS
+  code=None type=None status=400
+  msg=
+- cid=article_746 idx=746 title=How to Create Cat Videos with Amazon Bedrock & Luma AI
+  code=None type=None status=400
+  msg=
+- cid=article_747 idx=747 title=AWS Fargate ECS Docker Container Deployment Node JS
+  code=None type=None status=400
+  msg=
+- cid=article_748 idx=748 title=Amazon Bedrock's Video Playground with Luma AI Labs
+  code=None type=None status=400
+  msg=
+- cid=article_749 idx=749 title=AI Guardrails and LLM Filters in Amazon Bedrock
+  code=None type=None status=400
+  msg=
+- cid=article_750 idx=750 title=AWS Bedrock Image Playground with Stable Diffusion & Titan
+  code=None type=None status=400
+  msg=
+- cid=article_751 idx=751 title=How to Compare any Two LLMs with Amazon Bedrock
+  code=None type=None status=400
+  msg=
+- cid=article_752 idx=752 title=What is Amazon Bedrock?
+  code=None type=None status=400
+  msg=
+- cid=article_753 idx=753 title=Amazon Bedrock Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_754 idx=754 title=What is a VPC in AWS? Virtual Private Cloud
+  code=None type=None status=400
+  msg=
+- cid=article_755 idx=755 title=How to Create a Public Subnet in AWS VPC
+  code=None type=None status=400
+  msg=
+- cid=article_756 idx=756 title=What is an Internet Gateway in AWS?
+  code=None type=None status=400
+  msg=
+- cid=article_757 idx=757 title=How to Git Merge a Branch into Master
+  code=None type=None status=400
+  msg=
+- cid=article_758 idx=758 title=What is a Git Merge Conflict?
+  code=None type=None status=400
+  msg=
+- cid=article_759 idx=759 title=How to resolve Git merge conflicts
+  code=None type=None status=400
+  msg=
+- cid=article_760 idx=760 title=How to Cancel the Git Merge Process
+  code=None type=None status=400
+  msg=
+- cid=article_761 idx=761 title=Resolve GitHub Merge Conflicts
+  code=None type=None status=400
+  msg=
+- cid=article_762 idx=762 title=How to Abort Git Merge Conflicts
+  code=None type=None status=400
+  msg=
+- cid=article_763 idx=763 title=How to Merge Git Commits
+  code=None type=None status=400
+  msg=
+- cid=article_764 idx=764 title=How to Git merge one branch into another
+  code=None type=None status=400
+  msg=
+- cid=article_765 idx=765 title=How Git no-ff Merges Work
+  code=None type=None status=400
+  msg=
+- cid=article_766 idx=766 title=What is a Fast Forward Merge in Git?
+  code=None type=None status=400
+  msg=
+- cid=article_767 idx=767 title=Remove and Revert Uncommitted Git Changes & Files
+  code=None type=None status=400
+  msg=
+- cid=article_768 idx=768 title=Discard local changes and untracked files in Git repo
+  code=None type=None status=400
+  msg=
+- cid=article_769 idx=769 title=Introduction to Lambda Expressions in Java
+  code=None type=None status=400
+  msg=
+- cid=article_770 idx=770 title=Tomcat vs Apache What's the difference?
+  code=None type=None status=400
+  msg=
+- cid=article_771 idx=771 title=Jenkins Tomcat WAR Deployment
+  code=None type=None status=400
+  msg=
+- cid=article_772 idx=772 title=How to Resolve Git Stash Pop Conflicts
+  code=None type=None status=400
+  msg=
+- cid=article_773 idx=773 title=Deploy WARs to Tomcat from Eclipse
+  code=None type=None status=400
+  msg=
+- cid=article_774 idx=774 title=Developer vs DevOps Engineer What's the difference?
+  code=None type=None status=400
+  msg=
+- cid=article_775 idx=775 title=Tomcat vs JBoss Which Application Server to Choose?
+  code=None type=None status=400
+  msg=
+- cid=article_776 idx=776 title=How to use the JDK's javap command by example
+  code=None type=None status=400
+  msg=
+- cid=article_777 idx=777 title=How to use JarSigner to Sign Java JAR files digitally
+  code=None type=None status=400
+  msg=
+- cid=article_778 idx=778 title=scrumbut
+  code=None type=None status=400
+  msg=
+- cid=article_779 idx=779 title=Top 5 Reasons Why You'll Love the Jakarta Servlet 6.0 API Re
+  code=None type=None status=400
+  msg=
+- cid=article_780 idx=780 title=s3 bucket temp
+  code=None type=None status=400
+  msg=
+- cid=article_781 idx=781 title=install nginx ubuntu
+  code=None type=None status=400
+  msg=
+- cid=article_782 idx=782 title=filezilla ftp nginx
+  code=None type=None status=400
+  msg=
+- cid=article_783 idx=783 title=How to create and run a script in Ubuntu
+  code=None type=None status=400
+  msg=
+- cid=article_784 idx=784 title=Configure GitHub SSH Keys
+  code=None type=None status=400
+  msg=
+- cid=article_785 idx=785 title=Create and Configure GitLab SSH Keys
+  code=None type=None status=400
+  msg=
+- cid=article_786 idx=786 title=Create and Configure BitBucket SSH keys for Git
+  code=None type=None status=400
+  msg=
+- cid=article_787 idx=787 title=Generate Git SSH Keys That Work Everywhere
+  code=None type=None status=400
+  msg=
+- cid=article_788 idx=788 title=Fix Git's SSH Permission Denied (PublicKey) Error on GitHub
+  code=None type=None status=400
+  msg=
+- cid=article_789 idx=789 title=Find GitHub's SSH URL & Git Cloning!
+  code=None type=None status=400
+  msg=
+- cid=article_790 idx=790 title=jdbc
+  code=None type=None status=400
+  msg=
+- cid=article_791 idx=791 title=networking lab
+  code=None type=None status=400
+  msg=
+- cid=article_792 idx=792 title=Performance
+  code=None type=None status=400
+  msg=
+- cid=article_793 idx=793 title=threads
+  code=None type=None status=400
+  msg=
+- cid=article_794 idx=794 title=Apache Reverse Proxy Configuration Example
+  code=None type=None status=400
+  msg=
+- cid=article_795 idx=795 title=Build an Apache Docker httpd image with a Dockerfile Example
+  code=None type=None status=400
+  msg=
+- cid=article_796 idx=796 title=Run Apache in Docker Example Host Your Website
+  code=None type=None status=400
+  msg=
+- cid=article_797 idx=797 title=Differences Between Docker Compose and Dockerfile by Example
+  code=None type=None status=400
+  msg=
+- cid=article_798 idx=798 title=Difference Between Rows vs Columns Explained Quickly
+  code=None type=None status=400
+  msg=
+- cid=article_799 idx=799 title=Generate a GitHub Personal Access Token and Use Git
+  code=None type=None status=400
+  msg=
+- cid=article_800 idx=800 title=Setup an Apache Load Balancer Example
+  code=None type=None status=400
+  msg=
+- cid=article_801 idx=801 title=Install & Setup PHP and Nginx on Ubuntu Linux with FPM
+  code=None type=None status=400
+  msg=
+- cid=article_802 idx=802 title=How to Install Tomcat 10 on Ubuntu 22
+  code=None type=None status=400
+  msg=
+- cid=article_803 idx=803 title=How to configure Nginx Reverse Proxy Servers Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_804 idx=804 title=Setup Tomcat Manager Login without 401 or 403 errors
+  code=None type=None status=400
+  msg=
+- cid=article_805 idx=805 title=How to Add & Upload a New Project to Existing GitLab repo
+  code=None type=None status=400
+  msg=
+- cid=article_806 idx=806 title=Create Bitbucket App Password Fix Auth Errors Git
+  code=None type=None status=400
+  msg=
+- cid=article_807 idx=807 title=Install Java on Windows
+  code=None type=None status=400
+  msg=
+- cid=article_808 idx=808 title=How to install Java on Ubuntu with apt
+  code=None type=None status=400
+  msg=
+- cid=article_809 idx=809 title=Fix the 'Expected a Step on Line' error in Jenkins
+  code=None type=None status=400
+  msg=
+- cid=article_810 idx=810 title=Docker and Docker Compose on Ubuntu
+  code=None type=None status=400
+  msg=
+- cid=article_811 idx=811 title=Nginx Load Balancer Example Setup and Config
+  code=None type=None status=400
+  msg=
+- cid=article_812 idx=812 title=Configure a Docker Nginx Reverse Proxy Image and Container
+  code=None type=None status=400
+  msg=
+- cid=article_813 idx=813 title=How to Open a Java JAR File in Windows
+  code=None type=None status=400
+  msg=
+- cid=article_814 idx=814 title=Fix Java Not Recognized as an Internal Command Error
+  code=None type=None status=400
+  msg=
+- cid=article_815 idx=815 title=Difference between length() and length() in Java
+  code=None type=None status=400
+  msg=
+- cid=article_816 idx=816 title=How to Install and Configure the Nginx Proxy Manager Tutoria
+  code=None type=None status=400
+  msg=
+- cid=article_817 idx=817 title=Java Comments Introduction Best Practices and Types
+  code=None type=None status=400
+  msg=
+- cid=article_818 idx=818 title=Format a table with Java printf statements
+  code=None type=None status=400
+  msg=
+- cid=article_819 idx=819 title=How to take char based Input with Java Scanner
+  code=None type=None status=400
+  msg=
+- cid=article_820 idx=820 title=How to import the Java Scanner
+  code=None type=None status=400
+  msg=
+- cid=article_821 idx=821 title=How to use Java Scanner next and nextLine
+  code=None type=None status=400
+  msg=
+- cid=article_822 idx=822 title=How to use Java's JOptionPane
+  code=None type=None status=400
+  msg=
+- cid=article_823 idx=823 title=Multiversion Concurrency Control (MVCC) Explained
+  code=None type=None status=400
+  msg=
+- cid=article_824 idx=824 title=What's the Difference Between Forward and Reverse Proxy?
+  code=None type=None status=400
+  msg=
+- cid=article_825 idx=825 title=Quick Introduction to Java JShell Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_826 idx=826 title=Chrome Color Picker from Image
+  code=None type=None status=400
+  msg=
+- cid=article_827 idx=827 title=Single Responsibility Principle in Java
+  code=None type=None status=400
+  msg=
+- cid=article_828 idx=828 title=Git Fetch vs Git Pull? Which one should you choose?
+  code=None type=None status=400
+  msg=
+- cid=article_829 idx=829 title=How to Install the Java 21 JDK Early Access Edition
+  code=None type=None status=400
+  msg=
+- cid=article_830 idx=830 title=Hibernate and JPA3 Configuration and Setup
+  code=None type=None status=400
+  msg=
+- cid=article_831 idx=831 title=Hibernate and JPA 3.x CRUD Operations Example
+  code=None type=None status=400
+  msg=
+- cid=article_832 idx=832 title=Solid Open Closed Principle Example
+  code=None type=None status=400
+  msg=
+- cid=article_833 idx=833 title=You first Java AWS Lambda function in less than 5 minutes
+  code=None type=None status=400
+  msg=
+- cid=article_834 idx=834 title=How to enable Java 21 preview features
+  code=None type=None status=400
+  msg=
+- cid=article_835 idx=835 title=How to create AWS Lambda functions in Python
+  code=None type=None status=400
+  msg=
+- cid=article_836 idx=836 title=Import a Gradle Project from GitHub
+  code=None type=None status=400
+  msg=
+- cid=article_837 idx=837 title=Reset Git Hard and then git log a dog
+  code=None type=None status=400
+  msg=
+- cid=article_838 idx=838 title=How to login to DockerHub with an Access Token
+  code=None type=None status=400
+  msg=
+- cid=article_839 idx=839 title=Push a Spring Boot app to Dockerhub
+  code=None type=None status=400
+  msg=
+- cid=article_840 idx=840 title=How to Containerize Spring Boot applications
+  code=None type=None status=400
+  msg=
+- cid=article_841 idx=841 title=What should a successful HTTP PUT operation return?
+  code=None type=None status=400
+  msg=
+- cid=article_842 idx=842 title=Git reset hard vs soft What's the difference?
+  code=None type=None status=400
+  msg=
+- cid=article_843 idx=843 title=How do you say idempotent?
+  code=None type=None status=400
+  msg=
+- cid=article_844 idx=844 title=PUT vs POST What's the difference?
+  code=None type=None status=400
+  msg=
+- cid=article_845 idx=845 title=The HTTP verbs
+  code=None type=None status=400
+  msg=
+- cid=article_846 idx=846 title=How to say Udemy?
+  code=None type=None status=400
+  msg=
+- cid=article_847 idx=847 title=60 Second Spring Boot Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_848 idx=848 title=PUT vs POST What's the difference?
+  code=None type=None status=400
+  msg=
+- cid=article_849 idx=849 title=REST URLs and HTTP Verbs Explained
+  code=None type=None status=400
+  msg=
+- cid=article_850 idx=850 title=Delete a Git Branch Locally & Remotely
+  code=None type=None status=400
+  msg=
+- cid=article_851 idx=851 title=How to Use Git & GitHub Desktop Tutorial for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_852 idx=852 title=How to Install Jenkins and Build CI/CD Pipelines on Windows
+  code=None type=None status=400
+  msg=
+- cid=article_853 idx=853 title=Learn Git Sourcetree BitBucket Crash Course
+  code=None type=None status=400
+  msg=
+- cid=article_854 idx=854 title=How to Push Code to a GitHub Repository
+  code=None type=None status=400
+  msg=
+- cid=article_855 idx=855 title=GitKraken Tutorial Crash Course for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_856 idx=856 title=Git Push a Local Branch to a Remote Repo
+  code=None type=None status=400
+  msg=
+- cid=article_857 idx=857 title=How to remove untracked files in git
+  code=None type=None status=400
+  msg=
+- cid=article_858 idx=858 title=Learn Jenkins Fast! Simple Jenkins CI Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_859 idx=859 title=How to Git Clone a Specific Commit
+  code=None type=None status=400
+  msg=
+- cid=article_860 idx=860 title=How to Install Git on Windows 10 | Download, Install and Con
+  code=None type=None status=400
+  msg=
+- cid=article_861 idx=861 title=If __name__=="__main__" in Python What does it do?
+  code=None type=None status=400
+  msg=
+- cid=article_862 idx=862 title=Prime Stuffed Meat Two
+  code=None type=None status=400
+  msg=
+- cid=article_863 idx=863 title=Pros and Cons of Microservices vs Monolithic Architectures
+  code=None type=None status=400
+  msg=
+- cid=article_864 idx=864 title=The Git Index Explained How to stage a file with Git add
+  code=None type=None status=400
+  msg=
+- cid=article_865 idx=865 title=How to create a Git repository with git init and GitHub
+  code=None type=None status=400
+  msg=
+- cid=article_866 idx=866 title=Create a Repo with Git init
+  code=None type=None status=400
+  msg=
+- cid=article_867 idx=867 title=Quickly install Git on Windows
+  code=None type=None status=400
+  msg=
+- cid=article_868 idx=868 title=What is Git? How would you define Git?
+  code=None type=None status=400
+  msg=
+- cid=article_869 idx=869 title=Git Config Location Where does Git store config?
+  code=None type=None status=400
+  msg=
+- cid=article_870 idx=870 title=A Git Commit Example || How to do Your first Git commit
+  code=None type=None status=400
+  msg=
+- cid=article_871 idx=871 title=What is a Git Commit?
+  code=None type=None status=400
+  msg=
+- cid=article_872 idx=872 title=What is the Git Index?
+  code=None type=None status=400
+  msg=
+- cid=article_873 idx=873 title=Your Git Commit History with Git Log and Reflog
+  code=None type=None status=400
+  msg=
+- cid=article_874 idx=874 title=Git Status Command
+  code=None type=None status=400
+  msg=
+- cid=article_875 idx=875 title=Git Add All vs Git Add . - How to stage files
+  code=None type=None status=400
+  msg=
+- cid=article_876 idx=876 title=How to Change a Git Commit Message
+  code=None type=None status=400
+  msg=
+- cid=article_877 idx=877 title=Git Plumbing vs Porcelain
+  code=None type=None status=400
+  msg=
+- cid=article_878 idx=878 title=Git Status Porcelain #git #github #gitlab #bitbucket
+  code=None type=None status=400
+  msg=
+- cid=article_879 idx=879 title=Undo the Last Git Commit
+  code=None type=None status=400
+  msg=
+- cid=article_880 idx=880 title=Git Revert a Commit
+  code=None type=None status=400
+  msg=
+- cid=article_881 idx=881 title=Git Reset Hard
+  code=None type=None status=400
+  msg=
+- cid=article_882 idx=882 title=How to amend a Git commit
+  code=None type=None status=400
+  msg=
+- cid=article_883 idx=883 title=Git Merge Explained
+  code=None type=None status=400
+  msg=
+- cid=article_884 idx=884 title=How to install Mojo on Windows || Configure Modular's Progra
+  code=None type=None status=400
+  msg=
+- cid=article_885 idx=885 title=Introduction to the Mojo Programming Language in VS Code
+  code=None type=None status=400
+  msg=
+- cid=article_886 idx=886 title=Solve the prefix sum puzzle in Java with Arrays and SIMD
+  code=None type=None status=400
+  msg=
+- cid=article_887 idx=887 title=How to Remove Duplicates from a List in Java
+  code=None type=None status=400
+  msg=
+- cid=article_888 idx=888 title=How to Download and Install Java 21
+  code=None type=None status=400
+  msg=
+- cid=article_889 idx=889 title=Git and GitHub Crash Course For Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_890 idx=890 title=Git Config File Tutorial What Where Why and How?
+  code=None type=None status=400
+  msg=
+- cid=article_891 idx=891 title=Learn Git and GitLab Tutorial For Beginners [2024]
+  code=None type=None status=400
+  msg=
+- cid=article_892 idx=892 title=Git Login Issues? Keeps Asking for a Username & Password?
+  code=None type=None status=400
+  msg=
+- cid=article_893 idx=893 title=Git's Fatal Please Tell Me Who You Are Error
+  code=None type=None status=400
+  msg=
+- cid=article_894 idx=894 title=How to use Git Remote Add Origin
+  code=None type=None status=400
+  msg=
+- cid=article_895 idx=895 title=GitHub URL Example | Learn how to use GitHub URLs & Git
+  code=None type=None status=400
+  msg=
+- cid=article_896 idx=896 title=Generate GitLab SSH Keys & setup SSH on GitLab
+  code=None type=None status=400
+  msg=
+- cid=article_897 idx=897 title=How to Generate GitHub SSH Keys
+  code=None type=None status=400
+  msg=
+- cid=article_898 idx=898 title=How to Undo a Pushed Git Commit
+  code=None type=None status=400
+  msg=
+- cid=article_899 idx=899 title=How to EDIT UNDO or CHANGE the last Git commit AMEND
+  code=None type=None status=400
+  msg=
+- cid=article_900 idx=900 title=Why Java Uses static & final for Constants
+  code=None type=None status=400
+  msg=
+- cid=article_901 idx=901 title=How to Unstage a File in Git
+  code=None type=None status=400
+  msg=
+- cid=article_902 idx=902 title=How to Convert a Java String to int or long Primitive Type
+  code=None type=None status=400
+  msg=
+- cid=article_903 idx=903 title=My Video
+  code=None type=None status=400
+  msg=
+- cid=article_904 idx=904 title=Git Stash Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_905 idx=905 title=Rename a Git Branch
+  code=None type=None status=400
+  msg=
+- cid=article_906 idx=906 title=How to download and install Git
+  code=None type=None status=400
+  msg=
+- cid=article_907 idx=907 title=Git Log Graph Tree Command
+  code=None type=None status=400
+  msg=
+- cid=article_908 idx=908 title=Rename Master Branch to Main on GitHub
+  code=None type=None status=400
+  msg=
+- cid=article_909 idx=909 title=GitHub Personal Access Token Create Use Fine Grained Access
+  code=None type=None status=400
+  msg=
+- cid=article_910 idx=910 title=Git Set Remote Upstream URL
+  code=None type=None status=400
+  msg=
+- cid=article_911 idx=911 title=Change the Remote Git URL with Set Remote Origin
+  code=None type=None status=400
+  msg=
+- cid=article_912 idx=912 title=How to Push an Existing Project to GitLab
+  code=None type=None status=400
+  msg=
+- cid=article_913 idx=913 title=Java Constructors Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_914 idx=914 title=Complete Java Records Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_915 idx=915 title=Java Tic Tac Toe Game Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_916 idx=916 title=Spring Data with MySQL in 60 Seconds
+  code=None type=None status=400
+  msg=
+- cid=article_917 idx=917 title=How to Install the MySQL Database | Beginners Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_918 idx=918 title=SOLID Liskov Substitution Principle
+  code=None type=None status=400
+  msg=
+- cid=article_919 idx=919 title=SOLID Liskov Substitution Principle What is it?
+  code=None type=None status=400
+  msg=
+- cid=article_920 idx=920 title=Install Spring Tool Suite 2024
+  code=None type=None status=400
+  msg=
+- cid=article_921 idx=921 title=Advanced Spring Boot Restful APIs Tutorial Build App
+  code=None type=None status=400
+  msg=
+- cid=article_922 idx=922 title=Difference between Controller vs RestController in Spring
+  code=None type=None status=400
+  msg=
+- cid=article_923 idx=923 title=Spring Boot CommandLineRunner
+  code=None type=None status=400
+  msg=
+- cid=article_924 idx=924 title=How to Add Swagger to Spring Boot
+  code=None type=None status=400
+  msg=
+- cid=article_925 idx=925 title=Swagger UI Tutorial for REST API Developers
+  code=None type=None status=400
+  msg=
+- cid=article_926 idx=926 title=Spring Boot vs Spring vs Framework What's the difference?
+  code=None type=None status=400
+  msg=
+- cid=article_927 idx=927 title=Advanced Spring Tutorial Spring MVC Spring Data JDBC CRUD
+  code=None type=None status=400
+  msg=
+- cid=article_928 idx=928 title=How to Dockerize Spring Boot Apps
+  code=None type=None status=400
+  msg=
+- cid=article_929 idx=929 title=What's the difference between Spring Boot and Spring MVC?
+  code=None type=None status=400
+  msg=
+- cid=article_930 idx=930 title=What is MVC? Model View Controller Explained
+  code=None type=None status=400
+  msg=
+- cid=article_931 idx=931 title=Spring Hello World Example #boot #java #di #ioc
+  code=None type=None status=400
+  msg=
+- cid=article_932 idx=932 title=How Spring XML Configuration Works
+  code=None type=None status=400
+  msg=
+- cid=article_933 idx=933 title=What is Inversion of Control?
+  code=None type=None status=400
+  msg=
+- cid=article_934 idx=934 title=How Spring @Component & @ComponentScan Work
+  code=None type=None status=400
+  msg=
+- cid=article_935 idx=935 title=Dependency Injection & Inversion of Control in Spring
+  code=None type=None status=400
+  msg=
+- cid=article_936 idx=936 title=How does a HashMap Work Internally?
+  code=None type=None status=400
+  msg=
+- cid=article_937 idx=937 title=How Spring Boot Auto Configuration Works with Spring's @Enab
+  code=None type=None status=400
+  msg=
+- cid=article_938 idx=938 title=What is Dependency Injection?
+  code=None type=None status=400
+  msg=
+- cid=article_939 idx=939 title=Stop Using Setter Injection Constructor Injection is Better
+  code=None type=None status=400
+  msg=
+- cid=article_940 idx=940 title=How to Clone a Repository from GitHub
+  code=None type=None status=400
+  msg=
+- cid=article_941 idx=941 title=How to Write a Git Commit Message
+  code=None type=None status=400
+  msg=
+- cid=article_942 idx=942 title=Master Spring Profiles in Spring Boot
+  code=None type=None status=400
+  msg=
+- cid=article_943 idx=943 title=Spring & Spring Boot ConfigurationProperties Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_944 idx=944 title=application.properties vs application.yml in Spring Boot?
+  code=None type=None status=400
+  msg=
+- cid=article_945 idx=945 title=Spring Boot Properties & Configurations 10x Devs Must Know
+  code=None type=None status=400
+  msg=
+- cid=article_946 idx=946 title=Spring Boot application.properties How it Works
+  code=None type=None status=400
+  msg=
+- cid=article_947 idx=947 title=How to Install Node JS on Windows 10/11 #React #ExpressJS
+  code=None type=None status=400
+  msg=
+- cid=article_948 idx=948 title=How to Install PostgreSQL on Windows 10 or 11 #postgres #jav
+  code=None type=None status=400
+  msg=
+- cid=article_949 idx=949 title=Advanced Spring Data & JDBC Tutorial #SpringBoot #MySQL
+  code=None type=None status=400
+  msg=
+- cid=article_950 idx=950 title=Git Uncommit Your Last Commit
+  code=None type=None status=400
+  msg=
+- cid=article_951 idx=951 title=JavaScript and Node.js File Upload Example
+  code=None type=None status=400
+  msg=
+- cid=article_952 idx=952 title=How to add a new project to an existing Bitbucket repository
+  code=None type=None status=400
+  msg=
+- cid=article_953 idx=953 title=Copy a file in a Docker container to your localhost machine
+  code=None type=None status=400
+  msg=
+- cid=article_954 idx=954 title=How to run your Spring Boot JAR file from the command line
+  code=None type=None status=400
+  msg=
+- cid=article_955 idx=955 title=Swagger Test Spring Boot REST APIs with SpringDoc
+  code=None type=None status=400
+  msg=
+- cid=article_956 idx=956 title=React Hello World App for Beginners #reactjs
+  code=None type=None status=400
+  msg=
+- cid=article_957 idx=957 title=JDBC Tutorial for Beginners (Java Database Connectivity)
+  code=None type=None status=400
+  msg=
+- cid=article_958 idx=958 title=Spring Boot Actuator Full Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_959 idx=959 title=Actuator Metrics in Spring Boot Examples
+  code=None type=None status=400
+  msg=
+- cid=article_960 idx=960 title=Spring Boot Actuator Endpoints
+  code=None type=None status=400
+  msg=
+- cid=article_961 idx=961 title=Expose & Enable Spring Boot Actuator Endpoints
+  code=None type=None status=400
+  msg=
+- cid=article_962 idx=962 title=Spring Actuator Maven Dependency Configuration
+  code=None type=None status=400
+  msg=
+- cid=article_963 idx=963 title=Spring Boot Configuration Properties #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_964 idx=964 title=Spring Boot Soap Web Service Example
+  code=None type=None status=400
+  msg=
+- cid=article_965 idx=965 title=SOAP Web Services in Spring #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_966 idx=966 title=Spring Boot Logging Levels Configuration
+  code=None type=None status=400
+  msg=
+- cid=article_967 idx=967 title=Java, JDBC & SQL Server Tutorial #driver #url #jar #download
+  code=None type=None status=400
+  msg=
+- cid=article_968 idx=968 title=JDBC Connection Pooling with Hikari CP & MS SQL Server
+  code=None type=None status=400
+  msg=
+- cid=article_969 idx=969 title=Statements, JDBC & SQL Server Database Delete Commands
+  code=None type=None status=400
+  msg=
+- cid=article_970 idx=970 title=Java JDBC PreparedStatements Update Commands MS SQL Server
+  code=None type=None status=400
+  msg=
+- cid=article_971 idx=971 title=SQL Server JDBC Connection String URL & Create Operations
+  code=None type=None status=400
+  msg=
+- cid=article_972 idx=972 title=JDBC ResultSet Example with the SQL Server Database
+  code=None type=None status=400
+  msg=
+- cid=article_973 idx=973 title=SQL Server JDBC Driver Download from Maven & Connection
+  code=None type=None status=400
+  msg=
+- cid=article_974 idx=974 title=CRUD in Sqlite3 Create Tables Insert Update Delete
+  code=None type=None status=400
+  msg=
+- cid=article_975 idx=975 title=DB Browser SQLite Viewer Manage Data Types Insert Records
+  code=None type=None status=400
+  msg=
+- cid=article_976 idx=976 title=Introduction to Sqlite for Beginners Full Sqlite3 DB
+  code=None type=None status=400
+  msg=
+- cid=article_977 idx=977 title=Create a PostgreSQL Database Table for Development
+  code=None type=None status=400
+  msg=
+- cid=article_978 idx=978 title=Introduction to JDBC & PostgreSQL Tutorial for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_979 idx=979 title=Postgres JDBC URL for Java Database Connectivity #PostgreSQL
+  code=None type=None status=400
+  msg=
+- cid=article_980 idx=980 title=Java, JDBC & Postgres CRUD Example with Maven
+  code=None type=None status=400
+  msg=
+- cid=article_981 idx=981 title=Install Jenkins from Docker Image & Create Jenkins Pipeline
+  code=None type=None status=400
+  msg=
+- cid=article_982 idx=982 title=Modern SOAP Web Services in Java with Jakarta EE
+  code=None type=None status=400
+  msg=
+- cid=article_983 idx=983 title=Hello World React Program
+  code=None type=None status=400
+  msg=
+- cid=article_984 idx=984 title=Spring Boot Actuator Crash Course
+  code=None type=None status=400
+  msg=
+- cid=article_985 idx=985 title=Spring Batch Tutorial for Beginners | Spring Boot
+  code=None type=None status=400
+  msg=
+- cid=article_986 idx=986 title=Spring Boot File Upload REST API Example
+  code=None type=None status=400
+  msg=
+- cid=article_987 idx=987 title=How to Create a Maven Project in Eclipse
+  code=None type=None status=400
+  msg=
+- cid=article_988 idx=988 title=Spring vs Spring Boot vs Spring Framework Difference?
+  code=None type=None status=400
+  msg=
+- cid=article_989 idx=989 title=Spring Batch Tutorial | Spring Boot | ItemProcessor
+  code=None type=None status=400
+  msg=
+- cid=article_990 idx=990 title=Spring Boot, JPA and Hibernate Example
+  code=None type=None status=400
+  msg=
+- cid=article_991 idx=991 title=Spring Boot, JPA & Hibernate Project with MySQL & Swagger
+  code=None type=None status=400
+  msg=
+- cid=article_992 idx=992 title=Simple Spring Boot ChatGPT RESTful Web App in Java
+  code=None type=None status=400
+  msg=
+- cid=article_993 idx=993 title=How to use the Bluesky Social App Tutorial for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_994 idx=994 title=How to Install Java on Ubuntu and set JAVA_HOME (2025)
+  code=None type=None status=400
+  msg=
+- cid=article_995 idx=995 title=How to Install Eclipse on Ubuntu (2025 UPDATE)
+  code=None type=None status=400
+  msg=
+- cid=article_996 idx=996 title=Get Started with Eclipse and Ubuntu #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_997 idx=997 title=Install the Java JDK on Ubuntu
+  code=None type=None status=400
+  msg=
+- cid=article_998 idx=998 title=How to Setup Java in Visual Studio Code 2025 Update
+  code=None type=None status=400
+  msg=
+- cid=article_999 idx=999 title=Maven Project Visual Studio #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_1000 idx=1000 title=VS Code Install Java #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_1001 idx=1001 title=How to Make Your Bluesky Username your Website Domain Name
+  code=None type=None status=400
+  msg=
+- cid=article_1002 idx=1002 title=How to Setup Your Own Bluesky PDS Server in Minutes
+  code=None type=None status=400
+  msg=
+- cid=article_1003 idx=1003 title=Host Your Own Bluesky PDS Server on AWS #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_1004 idx=1004 title=How to Run Deepseek R1 on Windows (7b mini)
+  code=None type=None status=400
+  msg=
+- cid=article_1005 idx=1005 title=introduction javafx temp
+  code=None type=None status=400
+  msg=
+- cid=article_1006 idx=1006 title=Python, Huggingface Transformers, Local LLMs and Llama
+  code=None type=None status=400
+  msg=
+- cid=article_1007 idx=1007 title=Setup a Bluesky Personal Data Server on AWS
+  code=None type=None status=400
+  msg=
+- cid=article_1008 idx=1008 title=Learn How to use the Bluesky Python API in Less than 4 Minut
+  code=None type=None status=400
+  msg=
+- cid=article_1009 idx=1009 title=2025 Sonarqube Tutorial for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_1010 idx=1010 title=Agile Estimation & Planning Techniques
+  code=None type=None status=400
+  msg=
+- cid=article_1011 idx=1011 title=TEST LEARN JAVA
+  code=None type=None status=400
+  msg=
+- cid=article_1012 idx=1012 title=KebabCase vs SnakeCase vs CamelCase vs PascalCase
+  code=None type=None status=400
+  msg=
+- cid=article_1013 idx=1013 title=CamelCase vs PascalCase
+  code=None type=None status=400
+  msg=
+- cid=article_1014 idx=1014 title=Build Your First JavaFX Example Application (For Beginners)
+  code=None type=None status=400
+  msg=
+- cid=article_1015 idx=1015 title=Story Points to Hours
+  code=None type=None status=400
+  msg=
+- cid=article_1016 idx=1016 title=Advanced JavaFX tutorial #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_1017 idx=1017 title=Advanced JavaFX Tutorial for Desktop Programmers
+  code=None type=None status=400
+  msg=
+- cid=article_1018 idx=1018 title=Is GitHub Copilot Free? No, no it's not!?
+  code=None type=None status=400
+  msg=
+- cid=article_1019 idx=1019 title=What does GitHub Copilot Cost?
+  code=None type=None status=400
+  msg=
+- cid=article_1020 idx=1020 title=How to Download, Install and Use Claude Desktop Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_1021 idx=1021 title=Claude Desktop Tutorial #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_1022 idx=1022 title=Spring Boot MCP Tutorial 00 #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_1023 idx=1023 title=How to Create an MCP Server for Cursor AI in Java
+  code=None type=None status=400
+  msg=
+- cid=article_1024 idx=1024 title=Spring XML Configuration #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_1025 idx=1025 title=Logging in Spring
+  code=None type=None status=400
+  msg=
+- cid=article_1026 idx=1026 title=Autoconfiguration in Spring Boot
+  code=None type=None status=400
+  msg=
+- cid=article_1027 idx=1027 title=How to Allow IAM Users to View Billing & Cost Management
+  code=None type=None status=400
+  msg=
+- cid=article_1028 idx=1028 title=How to Create an AWS Account Alias
+  code=None type=None status=400
+  msg=
+- cid=article_1029 idx=1029 title=How to Quickly 🚀 Create Your Free 💰 Tier AWS Account ☁️
+  code=None type=None status=400
+  msg=
+- cid=article_1030 idx=1030 title=How to send SMS Text Messages with AWS SNS
+  code=None type=None status=400
+  msg=
+- cid=article_1031 idx=1031 title=How to Configure multiple AWS CLI Profiles
+  code=None type=None status=400
+  msg=
+- cid=article_1032 idx=1032 title=Amazon S3 Static Website Hosting & Custom Domains
+  code=None type=None status=400
+  msg=
+- cid=article_1033 idx=1033 title=Create an EKS Cluster and Deploy Docker to Kubernetes
+  code=None type=None status=400
+  msg=
+- cid=article_1034 idx=1034 title=Create a Kubernetes Cluster in AWS EKS #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_1035 idx=1035 title=Static WebSite Hosting with AWS S3
+  code=None type=None status=400
+  msg=
+- cid=article_1036 idx=1036 title=Auto Scaling AWS EC2 Instances Made Easy
+  code=None type=None status=400
+  msg=
+- cid=article_1037 idx=1037 title=Python Elastic Beanstalk AWS Django Deployments
+  code=None type=None status=400
+  msg=
+- cid=article_1038 idx=1038 title=Node JS AWS Elastic Beanstalk Deploy React Web Apps
+  code=None type=None status=400
+  msg=
+- cid=article_1039 idx=1039 title=Amazon Elastic Beanstalk What is it?
+  code=None type=None status=400
+  msg=
+- cid=article_1040 idx=1040 title=Compare LLMs with Amazon Bedrock Claude vs Deepseek
+  code=None type=None status=400
+  msg=
+- cid=article_1041 idx=1041 title=Amazon Bedrock Luma Labs AI Video Generator and AWS
+  code=None type=None status=400
+  msg=
+- cid=article_1042 idx=1042 title=What is EC2 Auto Scaling in AWS?
+  code=None type=None status=400
+  msg=
+- cid=article_1043 idx=1043 title=AWS Login to the Amazon Web Services Management Console
+  code=None type=None status=400
+  msg=
+- cid=article_1044 idx=1044 title=AWS Console Amazon's Management Console for AWS
+  code=None type=None status=400
+  msg=
+- cid=article_1045 idx=1045 title=How to Create an AWS Free Tier Account and Register
+  code=None type=None status=400
+  msg=
+- cid=article_1046 idx=1046 title=What is Amazon Bedrock?
+  code=None type=None status=400
+  msg=
+- cid=article_1047 idx=1047 title=AI Guardrails for LLM and GPT Prompts in Amazon Bedrock
+  code=None type=None status=400
+  msg=
+- cid=article_1048 idx=1048 title=Free Website Hosting on AWS S3 for Static Sites on the Amazo
+  code=None type=None status=400
+  msg=
+- cid=article_1049 idx=1049 title=Amazon EKS Cluster Creation & Deployment to AWS EC2
+  code=None type=None status=400
+  msg=
+- cid=article_1050 idx=1050 title=How to Request Model Access in Amazon Bedrock AWS
+  code=None type=None status=400
+  msg=
+- cid=article_1051 idx=1051 title=How to Create Cat Videos in AWS Console
+  code=None type=None status=400
+  msg=
+- cid=article_1052 idx=1052 title=AWS Fargate ECS Docker Container Deployment
+  code=None type=None status=400
+  msg=
+- cid=article_1053 idx=1053 title=Amazon Bedrock Video Playground with Luma AI Labs
+  code=None type=None status=400
+  msg=
+- cid=article_1054 idx=1054 title=AI Guardrails & LLM Filters in Amazon Bedrock
+  code=None type=None status=400
+  msg=
+- cid=article_1055 idx=1055 title=AWS Bedrock's Image Playground with Stability AI
+  code=None type=None status=400
+  msg=
+- cid=article_1056 idx=1056 title=AI Watermark Detection for Titan LLM and Nova Canvas Images
+  code=None type=None status=400
+  msg=
+- cid=article_1057 idx=1057 title=How to Compare any Two LLMs with Amazon Bedrock
+  code=None type=None status=400
+  msg=
+- cid=article_1058 idx=1058 title=What is Amazon Bedrock?
+  code=None type=None status=400
+  msg=
+- cid=article_1059 idx=1059 title=Amazon Bedrock Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_1060 idx=1060 title=What is a VPC in AWS?
+  code=None type=None status=400
+  msg=
+- cid=article_1061 idx=1061 title=How to Create a Public Subnet in AWS VPC
+  code=None type=None status=400
+  msg=
+- cid=article_1062 idx=1062 title=What is an Internet Gateway in AWS?
+  code=None type=None status=400
+  msg=
+- cid=article_1063 idx=1063 title=What is an EC2 Instance? Amazon Elastic Compute Cloud
+  code=None type=None status=400
+  msg=
+- cid=article_1064 idx=1064 title=How to Create an EC2 Instance in AWS Elastic Cloud Compute S
+  code=None type=None status=400
+  msg=
+- cid=article_1065 idx=1065 title=Deploy an Apache Web Server on AWS EC2 Instances
+  code=None type=None status=400
+  msg=
+- cid=article_1066 idx=1066 title=How to Deploy AWS EC2 Instances into a Public Subnet
+  code=None type=None status=400
+  msg=
+- cid=article_1067 idx=1067 title=EC2 Full Form | Amazon Elastic Compute Cloud from AWS
+  code=None type=None status=400
+  msg=
+- cid=article_1068 idx=1068 title=How Much Does an AWS EC2 Instance Cost Per Month
+  code=None type=None status=400
+  msg=
+- cid=article_1069 idx=1069 title=How Much does S3 Storage Cost in AWS?
+  code=None type=None status=400
+  msg=
+- cid=article_1070 idx=1070 title=AWS EC2 Spot Instances | How to create a Spot EC2 Instance
+  code=None type=None status=400
+  msg=
+- cid=article_1071 idx=1071 title=Use AWS KMS to Encrypt and Decrypt Files on EC2 S3
+  code=None type=None status=400
+  msg=
+- cid=article_1072 idx=1072 title=How to Create an AWS EC2 Spot Instance
+  code=None type=None status=400
+  msg=
+- cid=article_1073 idx=1073 title=Amazon Bedrock Pricing for Stable Diffusion
+  code=None type=None status=400
+  msg=
+- cid=article_1074 idx=1074 title=AWS Bedrock Pricing for Video Generation with Luma Labs AI
+  code=None type=None status=400
+  msg=
+- cid=article_1075 idx=1075 title=Java Spring Boot AWS Beanstalk Amazon Deployment JAR
+  code=None type=None status=400
+  msg=
+- cid=article_1076 idx=1076 title=Route 53 AWS Beanstalk Domain Names DNS Alias CNAME
+  code=None type=None status=400
+  msg=
+- cid=article_1077 idx=1077 title=Route 53, Sub Domains, S3 Buckets and Domain Name Mapping in
+  code=None type=None status=400
+  msg=
+- cid=article_1078 idx=1078 title=AWS EC2 User Data Script Sample Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_1079 idx=1079 title=How to Install AWS CLI & Git on EC2 Instances
+  code=None type=None status=400
+  msg=
+- cid=article_1080 idx=1080 title=Amazon Machine Image Creation and Launch Custom AWS AMI
+  code=None type=None status=400
+  msg=
+- cid=article_1081 idx=1081 title=How to Create an AWS AMI for EC2
+  code=None type=None status=400
+  msg=
+- cid=article_1082 idx=1082 title=Java, Spring, AWS & Amazon's Elastic Beanstalk Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_1083 idx=1083 title=Deploy Docker Containers to Amazon EKS Clusters
+  code=None type=None status=400
+  msg=
+- cid=article_1084 idx=1084 title=AWS Management Console Dark Mode How To Tutorial
+  code=None type=None status=400
+  msg=
+- cid=article_1085 idx=1085 title=How to Set a Default AWS Region in the Amazon Management Con
+  code=None type=None status=400
+  msg=
+- cid=article_1086 idx=1086 title=How to Download and Install the AWS CLI
+  code=None type=None status=400
+  msg=
+- cid=article_1087 idx=1087 title=How to Create an AWS Access Key & Secret | AWS Console
+  code=None type=None status=400
+  msg=
+- cid=article_1088 idx=1088 title=How to Delete AWS Secret Access Keys in IAM
+  code=None type=None status=400
+  msg=
+- cid=article_1089 idx=1089 title=AWS Parameter Store from Amazon's System Manager (SSM)
+  code=None type=None status=400
+  msg=
+- cid=article_1090 idx=1090 title=How to Create an IAM User in AWS Management Console
+  code=None type=None status=400
+  msg=
+- cid=article_1091 idx=1091 title=How to Create AWS IAM Admin Users in Management Console
+  code=None type=None status=400
+  msg=
+- cid=article_1092 idx=1092 title=AWS Batch Tutorial | How to Create Batch Jobs
+  code=None type=None status=400
+  msg=
+- cid=article_1093 idx=1093 title=Create an AWS API Gateway & Mock Responses
+  code=None type=None status=400
+  msg=
+- cid=article_1094 idx=1094 title=How to Create DynamoDB Database Tables to Store NoSQL for EC
+  code=None type=None status=400
+  msg=
+- cid=article_1095 idx=1095 title=How to Create an AWS S3 Bucket Amazon Web Services Practitio
+  code=None type=None status=400
+  msg=
+- cid=article_1096 idx=1096 title=AWS S3 Static Website Hosting
+  code=None type=None status=400
+  msg=
+- cid=article_1097 idx=1097 title=Create AWS SSL Certificates in Amazon Certificate Manager
+  code=None type=None status=400
+  msg=
+- cid=article_1098 idx=1098 title=GitHub Pages Free Website Hosting How-To Guide
+  code=None type=None status=400
+  msg=
+- cid=article_1099 idx=1099 title=Map Domain to GitHub Pages with GoDaddy
+  code=None type=None status=400
+  msg=
+- cid=article_1100 idx=1100 title=Tough AWS Solution Architect Exam EC2 Cluster Placement
+  code=None type=None status=400
+  msg=
+- cid=article_1101 idx=1101 title=AWS Solution Architect Pro Blue Green Deployment AMI EC2
+  code=None type=None status=400
+  msg=
+- cid=article_1102 idx=1102 title=AWS Cloud Practitioner Certification Exam Q A Amazon CLI
+  code=None type=None status=400
+  msg=
+- cid=article_1103 idx=1103 title=AWS DevOps Engineer Exam Qs API Gateways Lambda
+  code=None type=None status=400
+  msg=
+- cid=article_1104 idx=1104 title=AWS Machine Learning & AI Specialty Certification Exam
+  code=None type=None status=400
+  msg=
+- cid=article_1105 idx=1105 title=AWS Solution Architect Exam Beanstalk EC2 Encryption
+  code=None type=None status=400
+  msg=
+- cid=article_1106 idx=1106 title=Transfer Domain Name to AWS Route53 from GoDaddy #techtarget
+  code=None type=None status=400
+  msg=
+- cid=article_1107 idx=1107 title=How to Transfer a Domain to AWS Route 53
+  code=None type=None status=400
+  msg=
+- cid=article_1108 idx=1108 title=Vibe Coding with Copilot
+  code=None type=None status=400
+  msg=
+- cid=article_1109 idx=1109 title=Vibe Coding with Replit
+  code=None type=None status=400
+  msg=
+- cid=article_1110 idx=1110 title=Transfer to AWS #TechTarget
+  code=None type=None status=400
+  msg=
+- cid=article_1111 idx=1111 title=hosting github pages
+  code=None type=None status=400
+  msg=
+- cid=article_1112 idx=1112 title=AWS Practitioner Certification Practice Exam
+  code=None type=None status=400
+  msg=
+- cid=article_1113 idx=1113 title=Amazon AI LLMs and AWS Bedrock Tutorial for Beginners
+  code=None type=None status=400
+  msg=
+- cid=article_1114 idx=1114 title=Amazon AI, GPTs, LLMs and Generative AI with AWS Bedrock
+  code=None type=None status=400
+  msg=
+- cid=article_1115 idx=1115 title=How to Create an AWS Account | Free Tier
+  code=None type=None status=400
+  msg=
+- cid=article_1116 idx=1116 title=Scrum Master Certification Exam Practice Questions& Answers
+  code=None type=None status=400
+  msg=
+- cid=article_1117 idx=1117 title=40 Scrum Product Owner Certification Exam Questions
+  code=None type=None status=400
+  msg=
+- cid=article_1118 idx=1118 title=Download and Installation of Liferay Portal 6.1
+  code=None type=None status=400
+  msg=
+- cid=article_1119 idx=1119 title=Why I Love Liferay Portal Five Neat Things Out of the Box
+  code=None type=None status=400
+  msg=
+- cid=article_1120 idx=1120 title=Simon Maple and Cameron McKenzie Talk About WebSphere
+  code=None type=None status=400
+  msg=
+- cid=article_1121 idx=1121 title=Almost Lost the Viper GTS in a Single Car Accident
+  code=None type=None status=400
+  msg=
+- cid=article_1122 idx=1122 title=Just another York Regional copper ignoring
+  code=None type=None status=400
+  msg=
+- cid=article_1123 idx=1123 title=Apparently this is what constitutes a 'Miranda caution'?
+  code=None type=None status=400
+  msg=
+- cid=article_1124 idx=1124 title=How many times can York Regional Police deny you a lawyer?
+  code=None type=None status=400
+  msg=
+- cid=article_1125 idx=1125 title=Const. Orshanksy's (YRP) forcible confinement GTA
+  code=None type=None status=400
+  msg=
+- cid=article_1126 idx=1126 title=York Police Const. Orshansky Violating Charter Rights
+  code=None type=None status=400
+  msg=
+- cid=article_1127 idx=1127 title=Why carding never works - Illegal Detainment by York
+  code=None type=None status=400
+  msg=
+- cid=article_1128 idx=1128 title=A Police Record Because You Asked for a Lawyer?
+  code=None type=None status=400
+  msg=
+- cid=article_1129 idx=1129 title=Illegally 'Carding' Citizens in Toronto York Region
+  code=None type=None status=400
+  msg=
+- cid=article_1130 idx=1130 title=OPP/Cops Chase Two Tuners and a Crotch Rocket on 401
+  code=None type=None status=400
+  msg=
+- cid=article_1131 idx=1131 title=Talking York Regional Police YRP Charter Rights Violations
+  code=None type=None status=400
+  msg=
+- cid=article_1132 idx=1132 title=Maple Leafs' Frederik Andersen is the worst NHL goalie
+  code=None type=None status=400
+  msg=
+- cid=article_1133 idx=1133 title=The death of Superkickd's Doctor Giggles
+  code=None type=None status=400
+  msg=
+- cid=article_1134 idx=1134 title=2nd view of Oshawa fire Hot Spots Bloor n Simcoe
+  code=None type=None status=400
+  msg=
+- cid=article_1135 idx=1135 title=Solve Jenkins unable to find valid certification path error
+  code=None type=None status=400
+  msg=
+- cid=article_1136 idx=1136 title=How to cherry-pick a commit with Git
+  code=None type=None status=400
+  msg=
+- cid=article_1137 idx=1137 title=Example of How to Use the Git Reset Hard Command
+  code=None type=None status=400
+  msg=
+- cid=article_1138 idx=1138 title=Fix the jvm.dll missing or server JVM error in SonarQube
+  code=None type=None status=400
+  msg=
+- cid=article_1139 idx=1139 title=Jenkins vs. Maven - How Apache Maven and Jenkins CI Compare
+  code=None type=None status=400
+  msg=
+- cid=article_1140 idx=1140 title=Getting started with the Nexus Maven repository manager - OS
+  code=None type=None status=400
+  msg=
+- cid=article_1141 idx=1141 title=Bottom Up SOAP Web Service in Eclipse Example
+  code=None type=None status=400
+  msg=
+- cid=article_1142 idx=1142 title=JFrog artifactory tutorial Download setup JAR deployment
+  code=None type=None status=400
+  msg=
+- cid=article_1143 idx=1143 title=Fix JFrog Artifactory 2097152KB object heap startup error
+  code=None type=None status=400
+  msg=
+- cid=article_1144 idx=1144 title=Not Git, but GitHub Interview Questions
+  code=None type=None status=400
+  msg=
+- cid=article_1145 idx=1145 title=Jenkins Interview Questions
+  code=None type=None status=400
+  msg=

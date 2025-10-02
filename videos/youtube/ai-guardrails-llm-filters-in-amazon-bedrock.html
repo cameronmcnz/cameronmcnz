@@ -1,0 +1,85 @@
+---
+layout: video
+title: "AI Guardrails & LLM Filters in Amazon Bedrock"
+description: "Practical guide to using guardrails and filters in Amazon Bedrock to prevent prompt attacks protect PII with regex and use DeepSeek and Claude safely"
+video_host: "youtube"
+video_id: "yfA9PBPCitw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M45S"
+thumbnail_url: "https://i.ytimg.com/vi/yfA9PBPCitw/maxresdefault.jpg"
+content_url: "https://youtu.be/yfA9PBPCitw"
+embed_url: "https://www.youtube.com/embed/yfA9PBPCitw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Amazon Bedrock
+  - AI guardrails
+  - LLM filters
+  - prompt attacks
+  - PII protection
+  - regex
+  - DeepSeek
+  - Claude
+  - model security
+  - prompt engineering
+---
+
+<article>
+  <h1>Practical LLM filters and PII protection for Bedrock deployments</h1>
+  <p>If you like surprises that involve leaked emails or accidental NDA spoilers then sure skip guardrails. For the rest of us who prefer production systems that do not cough up private data when prodded by a clever prompt attack, Amazon Bedrock offers tools to tighten up model security and keep LLMs in their lane.</p>
+
+  <h2>Why AI guardrails matter</h2>
+  <p>Prompt attacks are basically social engineering with a keyboard. Bad actors try to trick models into revealing sensitive content or performing dangerous actions. Guardrails act as a policy layer that inspects inputs and outputs so the model does not become a data fountain. This matters for compliance and for not embarrassing your company in front of regulators or customers.</p>
+
+  <h2>Where to put filters in the pipeline</h2>
+  <p>Think of filters like safety nets. You want one net upstream to stop obvious issues from ever being fetched, another between retrieval and model input to scrub context, and a final net downstream to redact or reject risky outputs. This layered approach reduces false positives and prevents leaking private content found in retrieved context.</p>
+
+  <h3>Pre filtering</h3>
+  <ul>
+    <li>Sanitize user prompts to block suspicious patterns before retrieval or model calls</li>
+    <li>Apply regex checks for obvious formats like emails and phone numbers</li>
+    <li>Use allowlist rules for sensitive actions and require stronger auth for anything risky</li>
+  </ul>
+
+  <h3>Post filtering</h3>
+  <ul>
+    <li>Run semantic checks on model output with a safety model or policy scorer</li>
+    <li>Redact or reject answers that expose PII or sensitive system details</li>
+    <li>Log the reason for blocking so you can tune rules and satisfy audits</li>
+  </ul>
+
+  <h2>Regex example and limitations</h2>
+  <p>Regex works for structured formats but it is not a silver bullet. Regex catches formats like addresses and emails but misses contextual exposures such as an account number spelled out in a sentence. Use format checks together with semantic rules powered by a safety model to avoid false negatives and false positives.</p>
+  <pre><code>Regex example for email
+[\w.+-]+@[\w-]+\.[\w.-]+</code></pre>
+  <p>Keep regex conservative to reduce false positives. Always pair these patterns with contextual checks that look for intent or unusual data exfiltration patterns.</p>
+
+  <h2>DeepSeek and Claude in the workflow</h2>
+  <p>Use DeepSeek for fast retrieval and to verify sources before feeding context to the model. When you need careful phrasing and strict policy adherence use Claude or another model tuned for safety. Configure model filters both upstream of retrieval and downstream of model output. That reduces false positives and prevents leaking sensitive content found in retrieved context.</p>
+
+  <h2>Practical prompt engineering tips</h2>
+  <ul>
+    <li>Require structured prompts for sensitive actions and apply an allowlist for approved operations</li>
+    <li>Fail closed on ambiguous requests that could expose PII</li>
+    <li>Keep prompts minimal when sending retrieved context to reduce hallucination risk</li>
+  </ul>
+
+  <h2>Testing and monitoring</h2>
+  <p>Run automated adversarial tests against a staging environment and keep a labeled corpus of failures. Simulate prompt attacks with edge cases and grade responses against policy rules. Continuous monitoring and human review for ambiguous cases will keep the system resilient as threat patterns evolve.</p>
+
+  <h2>Logs and audits</h2>
+  <p>Logs should capture why a response was blocked and which rule tripped. That helps you tune filters and provides a defensible audit trail. Do not log sensitive content in plain text. If a human must review a blocked item for false positives use secure workflows and minimal exposure.</p>
+
+  <p>Summary takeaways in plain language</p>
+  <ul>
+    <li>Use layered guardrails across input retrieval and output stages</li>
+    <li>Combine regex based PII detection with semantic safety checks</li>
+    <li>Use DeepSeek for source verification and Claude when you need extra policy adherence</li>
+    <li>Test adversarially and log the why for every block to support tuning and compliance</li>
+  </ul>
+
+  <p>If your internal motto is trust but verify then Amazon Bedrock plus LLM filters gives you the verify part without the endless hand wringing.</p>
+</article>
+

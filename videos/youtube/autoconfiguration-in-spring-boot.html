@@ -1,0 +1,68 @@
+---
+layout: video
+title: "Autoconfiguration in Spring Boot"
+description: "Compact guide to how Spring Boot autoconfiguration works and how to customize and debug automatic bean wiring"
+video_host: "youtube"
+video_id: "UC2CuiiYAlA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT46M5S"
+thumbnail_url: "https://i.ytimg.com/vi/UC2CuiiYAlA/maxresdefault.jpg"
+content_url: "https://youtu.be/UC2CuiiYAlA"
+embed_url: "https://www.youtube.com/embed/UC2CuiiYAlA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - spring boot
+  - autoconfiguration
+  - spring
+  - spring framework
+  - spring boot starters 
+  - spring.factories 
+  - conditional annotations
+  - ConditionalOnMissingBean
+  - EnableAutoConfiguration
+  - actuator
+---
+
+<h2>What autoconfiguration does for you and why it sometimes misbehaves</h2>
+<p>Spring Boot autoconfiguration is the thing that wires up commonsense defaults so you can avoid writing boilerplate. It reads auto configuration classes declared in <code>META-INF/spring.factories</code> and then evaluates conditional annotations like <code>@ConditionalOnClass</code> and <code>@ConditionalOnMissingBean</code> to decide which beans to create. The rules are simple and deterministic. The result is convenience, and occasionally the feeling that your framework has a personality.</p>
+
+<h2>How Spring Boot decides which beans to create</h2>
+<p>The mechanism boils down to two checks. First it checks the classpath to see if a supporting library is available. Second it checks whether a bean is already present in the context. If the required class is on the classpath and no custom bean is present then the auto configuration will create a bean. This is why pulling in a starter dependency can suddenly add a bean to your app without a screaming error.</p>
+
+<h3>Common conditional annotations to know</h3>
+<ul>
+  <li><code>@ConditionalOnClass</code> checks whether a type exists on the classpath</li>
+  <li><code>@ConditionalOnMissingBean</code> ensures a default is only created if you did not define your own</li>
+  <li><code>@ConditionalOnProperty</code> enables or disables parts of auto configuration based on properties</li>
+</ul>
+
+<h2>How to take control without hating your life</h2>
+<p>If auto configuration chooses the wrong thing for you there are clean ways to override it. The easiest is to declare your own bean. Explicit bean definitions win over auto configured beans, and that is by design. If you need to stop classes from loading at all you can exclude specific auto configuration entries from <code>@EnableAutoConfiguration(exclude = { ... })</code> or list their fully qualified names in the property <code>spring.autoconfigure.exclude</code>. Use starters for convenience and switch to explicit wiring when you need precise control.</p>
+
+<h2>Debugging tips that will save you time</h2>
+<p>Guessing is a waste of oxygen. Start your app with <code>--debug</code> to get an autoconfiguration report in the startup log that shows matched and unmatched conditions. If you like spelunking, grep <code>META-INF/spring.factories</code> in your dependencies to find candidate auto configuration classes and then read the conditional annotations in the source to learn what is required on the classpath.</p>
+
+<h3>Use Actuator for inspection</h3>
+<p>The Spring Boot Actuator can surface beans and property values so you can inspect what was added by auto configuration. Endpoints such as the beans and configprops pages are handy for spotting unwanted wiring and default values that came from starters.</p>
+
+<h2>Common traps and how to avoid them</h2>
+<ul>
+  <li>Accidentally adding a starter pulls in an auto configuration you did not expect. Review transitive dependencies.</li>
+  <li>Relying too much on implicit wiring can hide lifecycle problems. Prefer explicit beans when initialization order matters.</li>
+  <li>Assuming a starter will always behave the same across versions can lead to surprises. Check the auto configuration class in the source when behavior looks magical.</li>
+</ul>
+
+<h2>Quick checklist when auto configuration surprises you</h2>
+<ul>
+  <li>Run with <code>--debug</code> and read the autoconfiguration report in the logs</li>
+  <li>Inspect <code>META-INF/spring.factories</code> in your classpath to see which classes are candidates</li>
+  <li>Read the conditional annotations on the auto configuration class to know what it needs</li>
+  <li>Override the bean by declaring your own when behavior must be controlled</li>
+  <li>Use <code>spring.autoconfigure.exclude</code> or <code>@EnableAutoConfiguration(exclude = ...)</code> to prevent specific auto configurations</li>
+</ul>
+
+<p>Autoconfiguration is a feature, not a mystery. Treat it like a helpful but sassy assistant. When it does something unexpected you now have the tools to investigate and fix it instead of muttering angry things at your build file.</p>
+

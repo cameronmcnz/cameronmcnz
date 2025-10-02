@@ -1,0 +1,74 @@
+---
+layout: video
+title: "How to install Mojo on Windows and Write Your First App"
+description: "Step by step guide to install Mojo on Windows configure Modular programming language and create a first app with commands and tips"
+video_host: "youtube"
+video_id: "2O8yMwMs7Z8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT21M22S"
+thumbnail_url: "https://i.ytimg.com/vi/2O8yMwMs7Z8/maxresdefault.jpg"
+content_url: "https://youtu.be/2O8yMwMs7Z8"
+embed_url: "https://www.youtube.com/embed/2O8yMwMs7Z8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Mojo
+  - Modular
+  - Windows
+  - WSL2
+  - installation
+  - programming
+  - tutorial
+  - setup
+  - first app
+  - guide
+---
+
+<h2>Quick summary for people who want to skip the rituals</h2>
+<p>Want Mojo on Windows without a long fight with drivers and environment variables That is doable and a lot less painful than it sounds. This guide walks you through a practical setup using either native Windows or WSL2 with Ubuntu which tends to be the path of least surprise when following Linux focused tooling.</p>
+
+<h2>Pick native Windows or WSL2 and why most people pick WSL2</h2>
+<p>Native Windows can work, but many project tools and examples assume a Linux style shell. WSL2 with Ubuntu gives you that familiar environment plus fewer quirks when installing packages and running build tooling. If you like living dangerously use native Windows. If you like working code pick WSL2.</p>
+
+<h3>Quick prep for WSL2</h3>
+<ul>
+  <li>Enable WSL2 and install Ubuntu from the Microsoft Store</li>
+  <li>Open your Ubuntu shell and run sudo apt update && sudo apt upgrade -y</li>
+  <li>Make sure virtualization is enabled in BIOS if WSL2 complains</li>
+</ul>
+
+<h2>Install the Mojo runtime and developer tools</h2>
+<p>The project distributes installers and a pip style package when available. Try the python based installer first for speed. If the package name changed check the official Modular docs for the correct install command.</p>
+<pre><code>python -m pip install mojo-lang</code></pre>
+<p>If you prefer the prebuilt download visit the Modular site and grab the Windows package. Follow the project instructions for any required runtime or driver pieces if you need GPU support later.</p>
+
+<h2>Configure PATH and pick an editor</h2>
+<p>Add the mojo binary folder to your user PATH in Windows environment settings or export the path in your WSL2 profile. This keeps commands like mojo run available without typing the full path every time. Install a friendly editor such as VS Code and enable any Mojo or syntax plugins for a smoother experience.</p>
+
+<h2>Create and run a tiny first app</h2>
+<p>Create a new folder and add a file named hello.mojo with a minimal example. Keep it silly and obvious while you confirm the toolchain works.</p>
+<pre><code>print("Hello from Mojo on Windows")</code></pre>
+<p>Run it with the runtime command you installed. If you installed the CLI you can usually run</p>
+<pre><code>mojo run hello.mojo</code></pre>
+<p>If your install provided a REPL try that too. The quick feedback loop is delicious when the first run works.</p>
+
+<h2>Troubleshooting for the mildly annoyed</h2>
+<ul>
+  <li>Check Python or runtime versions if installation fails</li>
+  <li>Verify PATH entries if mojo is not found</li>
+  <li>Read error output for missing libraries and search the project issue tracker for similar reports</li>
+  <li>If your toolchain requires GPU support skip that until CPU paths are running fine</li>
+  <li>Windows driver and virtualization quirks are common culprits, so double check drivers and WSL2 settings</li>
+</ul>
+
+<h2>Extra tips for a less grumpy setup</h2>
+<ul>
+  <li>Keep a small test folder with hello.mojo for fast checks</li>
+  <li>Use VS Code tasks or a tiny script to run builds so you do not retype long commands</li>
+  <li>Follow the Modular project documentation for updates to package names or install steps</li>
+</ul>
+
+<p>This short guide covered environment choice, installation methods, PATH setup, and a quick demo to run a first Mojo program on Windows. If something goes wrong try the simple checks above and then consult the project issue tracker. If you enjoy dark debugging humor bring snacks and a beverage of choice.</p>
+

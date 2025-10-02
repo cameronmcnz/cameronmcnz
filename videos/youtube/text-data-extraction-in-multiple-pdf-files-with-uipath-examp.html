@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Text Data Extraction in Multiple PDF files with UiPath Examp"
+description: "Learn how to extract text from many PDF files using UiPath with a step by step workflow that saves results for analysis."
+video_host: "youtube"
+video_id: "AetgInrwM1s"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M6S"
+thumbnail_url: "https://i.ytimg.com/vi/AetgInrwM1s/maxresdefault.jpg"
+content_url: "https://youtu.be/AetgInrwM1s"
+embed_url: "https://www.youtube.com/embed/AetgInrwM1s"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - PDF extraction
+  - RPA
+  - Read PDF Text
+  - OCR
+  - Regex
+  - UiPath tutorial
+  - Automation
+  - For Each
+  - Data extraction
+---
+
+<article>
+  <p>Want to pull text out of a heap of PDFs without crying or copying and pasting until your hands fall off? This UiPath tutorial walks you through a reliable RPA workflow for PDF extraction and data extraction with a dash of sarcasm and zero judgement. We cover searchable files, scanned pages with OCR, regex field grabs and saving results in a spreadsheet for later analysis.</p>
+
+  <h2>What this workflow does</h2>
+  <p>Short version, long benefits. The workflow loops through a folder of PDF files using For Each and extracts text with Read PDF Text for normal PDFs or Read PDF With OCR for images. Then it parses fields with Regex or string methods and writes one row per file to CSV or Excel. Wrap everything in Try Catch and log the messy bits so the bot can fail gracefully.</p>
+
+  <h2>Step 1 Create project and install packages</h2>
+  <p>Open UiPath Studio and create a new process. Add the UiPath.PDF.Activities package to get Read PDF Text. Add the UiPath.OCR.Activities package if you plan to handle scanned documents. Name the workflow something sensible so future you does not go treasure hunting in a spaghetti pile of workflows.</p>
+
+  <h2>Step 2 Gather PDF files</h2>
+  <p>Use an Assign activity to collect file paths into an array. For example use Directory.GetFiles(folderPath, "*.pdf") and store the result in a variable like pdfFiles. This keeps the For Each clean and avoids accidentally pulling in your resume drafts or random screenshots.</p>
+
+  <h2>Step 3 Loop through each file</h2>
+  <p>Use a For Each activity with TypeArgument set to String. Each iteration gives you one file path such as currentFile. Pass that file path to your extractor activity and to your logger so you always know which file caused trouble.</p>
+
+  <h2>Step 4 Choose the right extractor</h2>
+  <p>Use Read PDF Text for searchable documents. For scanned pages use Read PDF With OCR and pick an OCR engine and a scale that makes sense for your documents. Common engines you can use include Tesseract OCR, Microsoft OCR and Google Cloud Vision OCR. Store the output in a variable like extractedText for processing.</p>
+
+  <h3>OCR tips</h3>
+  <ul>
+    <li>Increase scale for small fonts to improve accuracy</li>
+    <li>Try different OCR engines if the first one smells of failure</li>
+    <li>Trim and normalize whitespace before running Regex to avoid brittle matches</li>
+  </ul>
+
+  <h2>Step 5 Extract fields with Regex or string methods</h2>
+  <p>Use Regex to pull structured values like invoice numbers, dates or amounts. Keep patterns focused and test them in UiPath or an online tester. Alternatively use split and index operations for predictable formats. Example targets include invoice number, invoice date and total amount.</p>
+
+  <h2>Step 6 Save results</h2>
+  <p>Accumulate results using Append Range when writing to Excel or use Append CSV for a simpler flow. A single row per file is usually best for audits and filtering. Include the file name, extracted fields and a brief status column to show whether extraction succeeded or needs review.</p>
+
+  <h2>Step 7 Error handling and logging</h2>
+  <p>Wrap extraction and parsing in Try Catch. In the Catch block use Log Message to record the file path and exception message so troubleshooting is less mystical. Optionally write failed file paths to a separate log CSV for manual review.</p>
+
+  <h2>Quick checklist for production</h2>
+  <ul>
+    <li>Install UiPath.PDF.Activities and UiPath.OCR.Activities</li>
+    <li>Collect files with Directory.GetFiles and filter by pdf extension</li>
+    <li>Use For Each with TypeArgument String</li>
+    <li>Choose Read PDF Text or Read PDF With OCR based on file type</li>
+    <li>Parse with Regex and sanitize the text first</li>
+    <li>Append results to Excel or CSV one row per file</li>
+    <li>Wrap in Try Catch and log failures</li>
+  </ul>
+
+  <p>There you go. A practical UiPath automation for PDF extraction and data extraction that survives real world files and occasional chaos. If something fails do not panic. Check the logs, tweak OCR settings or regex patterns and let the bot do the repetitive work while you enjoy slightly fewer headaches.</p>
+</article>
+

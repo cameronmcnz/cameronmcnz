@@ -1,0 +1,63 @@
+---
+layout: video
+title: "AWS Parameter Store SSM with KMS SecureString & CLI"
+description: "Store and decrypt SecureString parameters using AWS SSM Parameter Store KMS keys and AWS CLI commands for secure secrets management"
+video_host: "youtube"
+video_id: "DGOcxrhGqqc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/DGOcxrhGqqc/maxresdefault.jpg"
+content_url: "https://youtu.be/DGOcxrhGqqc"
+embed_url: "https://www.youtube.com/embed/DGOcxrhGqqc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - Parameter Store
+  - SSM
+  - KMS
+  - SecureString
+  - AWS CLI
+  - encryption
+  - secrets
+  - IAM
+  - devops
+---
+
+<h1>How to create and manage SecureString secrets in SSM Parameter Store for production</h1>
+<p>If you like sleep and you care about your on call life span this quick guide shows how to store encrypted secrets in AWS Parameter Store using a customer managed KMS key and the AWS CLI. No mystery or magic here just SSM SecureString, KMS encryption, and a tiny amount of IAM paperwork.</p>
+
+<h2>Step 1 Create or choose a KMS key</h2>
+<p>Use a customer managed key so you get audit logs and rotation control. In practice that means one key per security boundary. Separate keys for prod and staging will stop accidental cross environment secrets and keep your security team from typing angrily.</p>
+<pre><code>aws kms create-key --description MyAppKey</code></pre>
+<pre><code>aws kms create-alias --alias-name alias/myAppKey --target-key-id <key-id></code></pre>
+<p>Keep the key alias handy. You can use alias names in the CLI to avoid copying long key ids around.</p>
+
+<h2>Step 2 Store a SecureString parameter with the AWS CLI</h2>
+<p>Create the parameter with type SecureString and point it at the CMK alias you created. This stores the value encrypted at rest with KMS.</p>
+<pre><code>aws ssm put-parameter --name /prod/db/password --value SuperSecret123 --type SecureString --key-id alias/myAppKey</code></pre>
+<p>Yes that stores the secret. No do not paste actual production passwords into shared Slack channels. You know who you are.</p>
+
+<h3>Step 3 Grant SSM and KMS permissions</h3>
+<p>Two permission layers matter. The IAM principal that calls SSM must have ssm GetParameter and kms Decrypt permissions. The KMS key policy must allow the calling principals to use the key. In some setups you will also need to grant the SSM service principal use of the key depending on how you automate writes.</p>
+<p>Check both the key policy and the IAM role or user policies. Least privilege applies. Granting everything to everyone is a valid quick way to sleep worse.</p>
+
+<h2>Step 4 Retrieve the parameter with decryption</h2>
+<p>When you pull the value include the with decryption flag. This tells SSM to call KMS for the data key so you get the plaintext back in your shell. Avoid printing secrets to logs or sharing them with the entire planet.</p>
+<pre><code>aws ssm get-parameter --name /prod/db/password --with-decryption --query Parameter.Value --output text</code></pre>
+
+<h2>Best practices for devops and secret hygiene</h2>
+<ul>
+  <li>Use descriptive names that include environment and purpose. Example format is slash env slash service slash name like /prod/myapp/db/password.</li>
+  <li>Keep a separate key per environment to reduce blast radius and to simplify audits.</li>
+  <li>Automate rotation. Pair KMS key rotation with automated secret rotation using Lambda or Systems Manager Automation to avoid dramatic late night change requests.</li>
+  <li>Use parameter policies for expiration and automatic versioning when that helps your workflow.</li>
+  <li>Follow least privilege for IAM. The caller needs ssm GetParameter and permission to use the KMS key for decrypt. Audit those policies regularly.</li>
+  <li>Never echo secrets to logs or leave them in shell history. That is not a security feature it is a bug with a cape.</li>
+</ul>
+
+<h2>Short recap</h2>
+<p>This guide covered creating or choosing a CMK, storing a SecureString parameter with the AWS CLI, granting the right IAM and key permissions, retrieving a decrypted value, and operational tips for rotation and naming. Do this and your ops team will love you or at least call you fewer times at night.</p>
+

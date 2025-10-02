@@ -1,0 +1,75 @@
+---
+layout: video
+title: "SOLID Liskov Substitution Principle Explained?"
+description: "Clear guide to the Liskov Substitution Principle in SOLID with examples and practical rules for safer object oriented design and fewer surprises."
+video_host: "youtube"
+video_id: "WDxh-OfsdPo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M12S"
+thumbnail_url: "https://i.ytimg.com/vi/WDxh-OfsdPo/maxresdefault.jpg"
+content_url: "https://youtu.be/WDxh-OfsdPo"
+embed_url: "https://www.youtube.com/embed/WDxh-OfsdPo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - SOLID
+  - Liskov Substitution Principle
+  - LSP
+  - object oriented
+  - OOP
+  - software design
+  - polymorphism
+  - subtyping
+  - code smells
+  - clean architecture
+---
+
+<p>Quick version that will save your weekend. The Liskov Substitution Principle says a subtype must behave like the base type when the base type is expected. This is about behavior not matching method names. If a subclass breaks contracts or surprises client code then you have an LSP problem and probably less fun debugging on Friday night.</p>
+
+<h2>Core rules to actually remember</h2>
+<ul>
+  <li>Do not make preconditions stricter in a subtype</li>
+  <li>Do not make postconditions weaker in a subtype</li>
+  <li>Preserve the invariants the base type promised</li>
+</ul>
+
+<p>Those three rules are the meat and potatoes of LSP. They map to polymorphism and subtyping in OOP and are a key part of SOLID thinking and clean architecture. If you ignore them you will get code smells and confused teammates.</p>
+
+<h2>Classic pitfall that everyone copies into legacy code</h2>
+<p>The rectangle square problem is the poster child. A Rectangle lets you set width and height independently. A Square inherits and forces them to match. Client code that assumes independent setters gets wrong results and mysterious failures.</p>
+
+<pre><code>class Rectangle
+  width
+  height
+  setWidth(w)
+  setHeight(h)
+
+class Square extends Rectangle
+  setWidth(w)
+    setHeight(w)
+  setHeight(h)
+    setWidth(h)
+</code></pre>
+
+<p>That is a textbook violation of LSP and of common sense. The fix is not always clever inheritance. Often composition is the diplomatic solution.</p>
+
+<h2>Design moves that stop the bleeding</h2>
+<ul>
+  <li>Prefer composition over inheritance when behavior differs</li>
+  <li>Program to interfaces that express the contract not the implementation</li>
+  <li>Write behavioral tests that verify substitutability rather than method names</li>
+</ul>
+
+<p>Unit tests that treat a list of subtype instances as a list of base type instances are boring but effective. Make tests that exercise the contract. If you can describe expected outcomes in simple assertions then you have something close to a behavioral contract.</p>
+
+<h3>Quick checklist before you inherit</h3>
+<ul>
+  <li>Does the subtype accept the same inputs under the same conditions</li>
+  <li>Does it guarantee the same outcomes</li>
+  <li>Does it keep the same invariants as the base type</li>
+</ul>
+
+<p>If the answer to any is no then reach for composition or a new abstraction. Following LSP gives fewer runtime surprises, clearer contracts, and code that behaves nicely under extension. In other words you will spend less time apologizing to your future self.
+

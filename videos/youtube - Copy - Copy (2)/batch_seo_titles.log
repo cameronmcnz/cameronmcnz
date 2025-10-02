@@ -1,0 +1,30 @@
+[2025-10-02 07:25:29,972] INFO Uploaded JSONL file. file_id=file-Me34HYaEpPkr96kie7N9eN
+[2025-10-02 07:25:30,278] INFO Created batch. id=batch_68de612940548190b17a2bd49db3e39d status=validating
+[2025-10-02 07:25:30,279] INFO Saved batch id -> openai-batch-id.txt
+[2025-10-02 07:25:30,416] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=validating counts=BatchRequestCounts(completed=0, failed=0, total=0)
+[2025-10-02 07:27:10,685] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress counts=BatchRequestCounts(completed=0, failed=0, total=1146)
+[2025-10-02 07:28:50,970] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress counts=BatchRequestCounts(completed=7, failed=0, total=1146)
+[2025-10-02 07:30:31,233] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress counts=BatchRequestCounts(completed=82, failed=0, total=1146)
+[2025-10-02 07:32:11,498] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress counts=BatchRequestCounts(completed=287, failed=0, total=1146)
+[2025-10-02 07:33:51,766] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress counts=BatchRequestCounts(completed=1027, failed=0, total=1146)
+[2025-10-02 07:35:32,048] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress counts=BatchRequestCounts(completed=1117, failed=0, total=1146)
+[2025-10-02 07:37:12,353] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress
+[2025-10-02 07:38:52,603] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress
+[2025-10-02 07:40:32,860] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress
+[2025-10-02 07:42:13,204] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress
+[2025-10-02 07:43:53,486] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress counts=BatchRequestCounts(completed=1132, failed=0, total=1146)
+[2025-10-02 07:45:33,776] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress counts=BatchRequestCounts(completed=1137, failed=0, total=1146)
+[2025-10-02 07:47:14,067] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress
+[2025-10-02 07:48:54,408] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress
+[2025-10-02 07:50:34,807] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress
+[2025-10-02 07:52:15,067] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress
+[2025-10-02 07:53:55,331] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress
+[2025-10-02 07:55:35,596] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress
+[2025-10-02 07:57:15,892] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=in_progress
+[2025-10-02 07:58:56,184] INFO Batch batch_68de612940548190b17a2bd49db3e39d: status=completed counts=BatchRequestCounts(completed=1146, failed=0, total=1146)
+[2025-10-02 07:58:56,185] INFO Batch terminal status=completed counts=BatchRequestCounts(completed=1146, failed=0, total=1146)
+[2025-10-02 07:58:57,466] INFO Downloaded output -> openai-batch-output.jsonl
+[2025-10-02 07:58:57,466] INFO No error_file_id present.
+[2025-10-02 07:58:57,675] INFO Merged 1146 item(s). Output parse failures: 0. -> articles-funny.json
+[2025-10-02 07:58:57,676] INFO No error lines parsed; not writing error reports.
+[2025-10-02 07:58:57,676] INFO SUMMARY: total=1146, merged_successes=1146, output_parse_failures=0, batch_failed_items=0

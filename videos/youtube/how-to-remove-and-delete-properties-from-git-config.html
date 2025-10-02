@@ -1,0 +1,72 @@
+---
+layout: video
+title: "How to Remove and Delete Properties from Git Config"
+description: "Compact guide to remove and delete properties from Git config using unset remove section and editing for local and global scopes"
+video_host: "youtube"
+video_id: "KDrzyFEZ1TQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M22S"
+thumbnail_url: "https://i.ytimg.com/vi/KDrzyFEZ1TQ/maxresdefault.jpg"
+content_url: "https://youtu.be/KDrzyFEZ1TQ"
+embed_url: "https://www.youtube.com/embed/KDrzyFEZ1TQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git config
+  - remove property
+  - git unset
+  - git remove section
+  - git tutorial
+  - git commands
+  - version control
+  - devops
+  - git tips
+---
+
+<p>If your git config looks like a junk drawer this guide will help you remove stray keys sections and duplicate values without setting off a cascade of surprises. Short version git config is your friend and also your responsibility. Read the commands then breathe and act.</p>
+
+<h2>Inspect current configuration</h2>
+<p>Find the exact key name before you stab at the file. Run these inside a repo to see local values and add a flag for user level settings.</p>
+<pre><code>git config --list
+# look only at repo level
+git config --local --list
+# look at user level
+git config --global --list</code></pre>
+
+<h2>Unset a single property</h2>
+<p>When you just need to replace an email or tidy up a bad entry use unset. Be explicit about scope so you do not surprise other repositories.</p>
+<pre><code>git config --local --unset user.email
+# or for user wide settings
+git config --global --unset user.name</code></pre>
+
+<h2>Unset all values for a key</h2>
+<p>If a key was added multiple times and is causing weird behavior remove every occurrence. This removes duplicates cleanly.</p>
+<pre><code>git config --global --unset-all include.path</code></pre>
+
+<h2>Remove a whole section</h2>
+<p>When a feature or integration no longer applies drop the whole section. This removes all keys inside that section so think before you nuke anything.</p>
+<pre><code>git config --remove-section branch.feature
+# for global scope
+git config --global --remove-section remote.origin</code></pre>
+
+<h2>Edit the config file directly</h2>
+<p>For surgical edits open the file in an editor. Use the built in edit command for user level settings or open the repository file for local changes. Make a backup first because backups are cheap and rollbacks are not.</p>
+<pre><code># edit global user config with your default editor
+git config --global --edit
+# or edit the repo file directly
+cp .git/config .git/config.bak
+nano .git/config</code></pre>
+
+<h3>Quick checklist before you nuke things</h3>
+<ul>
+<li>Inspect scope local versus global to avoid surprise behavior</li>
+<li>Back up the config file before edits</li>
+<li>Prefer local scope while testing to keep user preferences intact</li>
+<li>Run git config --list after changes to confirm expected results</li>
+</ul>
+
+<p>That is the practical work flow for removing properties from git config. Use git unset when you need to remove single values use unset all for duplicates and use remove section when you want everything related to a feature gone. Follow these git commands and your version control karma will remain intact. For extra safety keep a backup and test in local scope first. Happy cleanup and try not to panic.
+

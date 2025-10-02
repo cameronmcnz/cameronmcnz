@@ -1,0 +1,86 @@
+---
+layout: video
+title: "Get All Files with UiPath Directory.GetFiles Example"
+description: "Learn how to use UiPath Directory.GetFiles to list and filter files in a folder with clear steps and a code example"
+video_host: "youtube"
+video_id: "9LHSes2-RwA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M50S"
+thumbnail_url: "https://i.ytimg.com/vi/9LHSes2-RwA/maxresdefault.jpg"
+content_url: "https://youtu.be/9LHSes2-RwA"
+embed_url: "https://www.youtube.com/embed/9LHSes2-RwA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Directory.GetFiles
+  - RPA
+  - UiPath Studio
+  - File Management
+  - For Each
+  - VB.NET
+  - Automation
+  - Tutorial
+  - File Filtering
+---
+
+<h2>Get the files and tell the robot what to do next</h2>
+<p>If your automation needs to deal with files then Directory.GetFiles is the polite way to ask the folder what it is hiding. It returns a String array of full paths that you can loop over with a For Each activity and then read move or otherwise boss around. This guide gives clean steps examples and a few sarcastic remarks to keep you awake while you automate.</p>
+
+<h3>Why use Directory.GetFiles</h3>
+<ul>
+  <li>Fast and built in to the .NET framework used by UiPath Studio</li>
+  <li>Supports simple search patterns to avoid scanning a folder like a raccoon</li>
+  <li>Plays nicely with For Each and LINQ for filtering and ordering</li>
+</ul>
+
+<h2>Quick setup and common examples</h2>
+<p>Use a String variable named folderPath to store an absolute location. Absolute paths save you from the thrilling experience of broken robots that blame relative paths for their life choices.</p>
+
+<h3>Step 1 Assign the folder path</h3>
+<pre><code>folderPath = "C\\Temp\\Reports"</code></pre>
+
+<h3>Step 2 Call Directory.GetFiles to collect everything</h3>
+<pre><code>files = Directory.GetFiles(folderPath)</code></pre>
+<p>This returns a String array with full file paths. If you do nothing else the order is not guaranteed so plan accordingly if order matters.</p>
+
+<h3>Step 3 Apply a search pattern to narrow results</h3>
+<pre><code>pdfFiles = Directory.GetFiles(folderPath, "*.pdf")
+allFiles = Directory.GetFiles(folderPath, "*.*")</code></pre>
+<p>Patterns reduce wasted processing and keep the robot focused on the files you actually care about.</p>
+
+<h2>Loop through results with For Each</h2>
+<p>Set the For Each activity type argument to String and iterate the array returned by Directory.GetFiles. The loop variable contains the full path so you can feed it directly into Read Text File Move File or other activities.</p>
+
+<pre><code>For Each filePath As String In files
+    ' Use Read Text File Move File or other activities here
+Next</code></pre>
+
+<h3>Handle locked files and permissions like a grown up</h3>
+<p>Wrap your file operations in a Try Catch activity. Catch IO exceptions and log a friendly message instead of letting the whole job explode. Robots appreciate graceful failure as much as humans do.</p>
+
+<pre><code>Try
+    ' File operations here
+Catch ex As System.IO.IOException
+    ' Log the issue continue or retry as needed
+End Try</code></pre>
+
+<h2>Sort and filter with LINQ when order matters</h2>
+<p>Directory.GetFiles does not promise ordering. If you need a predictable sequence use LINQ to sort by full path file name or modify criteria to suit your workflow.</p>
+
+<pre><code>sorted = Directory.GetFiles(folderPath).OrderBy(Function(f) f).ToArray()
+sortedByName = Directory.GetFiles(folderPath).OrderBy(Function(f) Path.GetFileName(f)).ToArray()</code></pre>
+
+<h2>Common tips and gotchas</h2>
+<ul>
+  <li>Use absolute folder paths to avoid surprises from different working directories</li>
+  <li>Filter early with patterns like "*.pdf" to reduce memory and CPU work</li>
+  <li>Check access rights and consider retry logic for transient file locks</li>
+  <li>Remember that Directory.GetFiles does not search subfolders unless you use recursive techniques such as Directory.GetFiles plus Directory.GetDirectories or a LINQ approach</li>
+</ul>
+
+<h2>Summary and parting words</h2>
+<p>Directory.GetFiles is the smallest reliable tool for collecting file lists in UiPath. Assign a folderPath call Directory.GetFiles apply a pattern loop with For Each and handle exceptions with Try Catch. Add LINQ if you want sorting and filtering without spaghetti logic. Now go automate something mildly heroic and let the robot handle the boring bits.</p>
+

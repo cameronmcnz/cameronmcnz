@@ -1,0 +1,91 @@
+---
+layout: video
+title: "Fix the 'Expected a Step on Line' error in Jenkins"
+description: "Quick guide to fix the Expected a Step on Line error in Jenkins pipelines with simple syntax checks and plugin updates for fast CI recovery"
+video_host: "youtube"
+video_id: "t4ik0GHawpU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M46S"
+thumbnail_url: "https://i.ytimg.com/vi/t4ik0GHawpU/maxresdefault.jpg"
+content_url: "https://youtu.be/t4ik0GHawpU"
+embed_url: "https://www.youtube.com/embed/t4ik0GHawpU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - jenkins
+  - jenkinsfile
+  - pipeline
+  - expected a step on line
+  - error
+  - declarative pipeline
+  - syntax error
+  - ci cd
+  - devops
+  - troubleshooting
+---
+
+<p>If Jenkins handed you the charming error Expected a Step on Line you are not cursed. You just violated the strict rules of declarative pipeline grammar and the parser is doing its job with surgical rudeness. This guide will help you find the missing steps block fix syntax mistakes and get your CI CD pipeline back to behaving like an obedient robot.</p>
+
+<h2>How Jenkins parses pipeline files</h2>
+<p>There are two flavors of Jenkins pipelines. Declarative pipeline wants a top level pipeline block explicit stages and steps blocks. Scripted pipeline is raw Groovy and plays by different rules. Mixing the two or leaving out required blocks makes the parser complain with messages like Expected a Step on Line which sounds dramatic but usually points to a missing steps wrapper or stray code placed in the wrong scope.</p>
+
+<h2>Why you see Expected a Step on Line</h2>
+<p>Common triggers</p>
+<ul>
+  <li>Stages that contain shell commands directly instead of a steps block</li>
+  <li>Missing braces or misplaced blocks that break the declarative layout</li>
+  <li>Using raw script fragments where a step name is required</li>
+  <li>Outdated pipeline plugins that parse old syntax badly</li>
+</ul>
+
+<h3>Example of a failing Jenkinsfile</h3>
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      // this will cause the parser to moan
+      sh 'mvn -B package'
+    }
+  }
+}
+</code></pre>
+
+<p>The problem here is that in a declarative pipeline stage must contain a steps block. Placing sh directly inside a stage looks valid to a human but not to the parser.</p>
+
+<h3>Fixed Jenkinsfile</h3>
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh 'mvn -B package'
+      }
+    }
+  }
+}
+</code></pre>
+
+<p>Wrap the command in steps and the error usually disappears. If you are using Windows use bat 'dir' or bat 'mvn -B package' instead of sh.</p>
+
+<h2>Validate Jenkinsfile syntax</h2>
+<p>Use the built in pipeline syntax tool in Jenkins or a linter for Jenkinsfile to catch mismatched braces and misplaced blocks. The simplest trick when stuck is to paste the smallest failing Jenkinsfile into the syntax validator and remove parts until the error goes away. That narrows the culprit fast.</p>
+
+<h2>Use the right step names and scope</h2>
+<p>Remember steps must be named functions like sh bat echo and so on. Do not paste raw shell scripts at top level. If you need complex Groovy logic use a script block or switch to scripted pipeline style but be explicit about which style you are using.</p>
+
+<h2>Update plugins and test the job</h2>
+<p>Old pipeline related plugins can produce confusing errors that look like syntax problems. Update pipeline plugin workflow plugin and any linters then rerun the job. If the error persists run the job with a minimal Jenkinsfile and expand from there.</p>
+
+<h2>Troubleshooting checklist</h2>
+<ul>
+  <li>Confirm pipeline style is declarative or scripted</li>
+  <li>Use the pipeline syntax validator on the smallest failing file</li>
+  <li>Wrap commands in steps blocks inside stages</li>
+  <li>Use sh on Unix agents and bat on Windows agents</li>
+  <li>Update pipeline related plugins and try again</li>
+</ul>
+
+<p>Final tip when you feel like screaming paste the failing Jenkinsfile into the validator and delete lines until the error goes away. You will find the offending line faster than arguing with the error message. Now go fix that Jenkinsfile and pretend you meant to teach your team a lesson about strict grammar.</p>
+

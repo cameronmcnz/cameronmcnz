@@ -1,0 +1,70 @@
+---
+layout: video
+title: "Differences Between Docker Run and Docker Compose Compared"
+description: "Compare Docker Run and Docker Compose and learn when to use each for single containers or multi service stacks"
+video_host: "youtube"
+video_id: "tPn046z1YbE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M16S"
+thumbnail_url: "https://i.ytimg.com/vi/tPn046z1YbE/maxresdefault.jpg"
+content_url: "https://youtu.be/tPn046z1YbE"
+embed_url: "https://www.youtube.com/embed/tPn046z1YbE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - docker
+  - docker run
+  - docker compose
+  - docker compose vs run
+  - containers
+  - orchestration
+  - devops
+  - containerization
+  - docker tutorial
+  - compose tutorial
+---
+
+<h2>Quick truth about docker run and docker compose</h2>
+<p>If you are doing containers for a living or pretending to, here is the short version. <strong>docker run</strong> is a fast one off command for launching a single container from the command line. It is great for smoke tests and quick experiments. <strong>docker compose</strong> is a reproducible blueprint for a full stack. It reads a file named <code>docker-compose.yml</code> and brings multiple services up together with a single command like <code>docker compose up -d</code>. One does single containers, the other does multi service sets and shared plumbing.</p>
+
+<h2>Core differences that actually matter</h2>
+<ul>
+  <li><strong>Scope</strong> Use <code>docker run</code> for single containers. Use <code>docker compose</code> to coordinate a web server, a database, and whatever other baggage your app insists on carrying.</li>
+  <li><strong>Configuration</strong> <code>docker run</code> relies on flags at the prompt. That is fine for one offs. <code>docker compose</code> stores config in YAML so you can commit it to git and pretend you had a plan all along.</li>
+  <li><strong>Networking</strong> Compose will create a network so services can talk to each other by name. With <code>docker run</code> you do more manual wiring if you want containers to see one another.</li>
+  <li><strong>Scaling</strong> Repeating a run command is a bad workout plan. Compose can scale replicas with a single flag, for example <code>docker compose up --scale web=3</code>.</li>
+  <li><strong>Reproducibility</strong> Compose files are shareable and versionable. That makes onboarding less painful and deployments less mysterious.</li>
+</ul>
+
+<h3>Examples you will use and not forget immediately</h3>
+<p>Quick test of an nginx image with a name for debugging</p>
+<pre><code>docker run --name web nginx</code></pre>
+
+<p>Bring a whole local stack up and detach so you can go back to your life</p>
+<pre><code>docker compose up -d</code></pre>
+
+<h2>When to pick which tool</h2>
+<ul>
+  <li>Choose <strong>docker run</strong> for experiments, demos, and throwaway containers that you will not need to recreate reliably.</li>
+  <li>Choose <strong>docker compose</strong> for local development, CI test stacks, and small multi service deployments where you want reproducible environment setup.</li>
+  <li>Move to a full orchestration platform when you need cross host scheduling, fine grained deploy policies, or cluster level resilience. Compose is not trying to be that boss.</li>
+</ul>
+
+<h2>Practical tips from someone who broke networking once</h2>
+<ul>
+  <li>Keep your compose files in version control so other humans can see what you did.</li>
+  <li>Use environment variable files to avoid hard coding secrets in YAML.</li>
+  <li>For local dev mirror production topology but do not expect feature parity without extra orchestration work.</li>
+</ul>
+
+<h2>Short checklist for the indecisive</h2>
+<ul>
+  <li>Need a quick container now Use docker run</li>
+  <li>Need a dev stack that you can share Use docker compose</li>
+  <li>Need cluster scheduling Use Kubernetes or another orchestrator</li>
+</ul>
+
+<p>Wrap up. Both tools are part of the containerization toolbox. Use the right one for the job, write your compose files like you mean it, and never, ever trust a container name that sounds too clever. This is a docker tutorial and a compose tutorial wrapped in mild sarcasm and useful facts for devops and containerization work.</p>
+

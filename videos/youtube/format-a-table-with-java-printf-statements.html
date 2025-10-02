@@ -1,0 +1,72 @@
+---
+layout: video
+title: "Format a table with Java printf statements"
+description: "Quick guide to format console tables in Java using printf and format specifiers for aligned columns precision and readable output"
+video_host: "youtube"
+video_id: "Kfc6p41-Iq8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M43S"
+thumbnail_url: "https://i.ytimg.com/vi/Kfc6p41-Iq8/maxresdefault.jpg"
+content_url: "https://youtu.be/Kfc6p41-Iq8"
+embed_url: "https://www.youtube.com/embed/Kfc6p41-Iq8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - java
+  - printf
+  - formatting
+  - tables
+  - string-formatting
+  - console-output
+  - alignment
+  - format-specifiers
+  - programming-tips
+  - beginners
+---
+
+<p>If your console output looks like a sloppy grocery list then welcome. This short guide shows how to use Java printf and format specifiers to produce neat, readable tables that humans can scan without therapy. We keep the output aligned, the decimals respectful, and the code reusable.</p>
+
+<h2>Plan columns and widths</h2>
+<p>Start like a civilized person and decide on column labels and character widths. Think about the longest expected name and the largest number of digits you will get. Reserve a little slack so your table does not wrap mid drama.</p>
+
+<h3>Simple rules to follow</h3>
+<ul>
+  <li>Give numbers a fixed width so decimals line up</li>
+  <li>Give text columns a bit more room and left align them when that makes sense</li>
+  <li>Print the header row with the exact same format string as the data rows</li>
+</ul>
+
+<h2>Choose the right format specifiers and flags</h2>
+<p>Match Java types to specifiers. Use %s for strings, %d for integers and %f for floating point numbers. Add a width to reserve space and add precision to control decimal places. A minus flag before the width left aligns text like %-20s, while a plain width right aligns numbers like %8.2f.</p>
+
+<h2>Build a reusable printf template</h2>
+<p>Make one format string and reuse it. This is the boring magic that keeps every row obedient to the same column rules.</p>
+
+<pre><code>String fmt = "%-15s %8.2f\n"
+System.out.printf(fmt, name, price)
+</code></pre>
+
+<h2>Loop rows and apply the template</h2>
+<p>Run a loop and feed each row into the template. Consistency wins here. One format string prevents one row from trying to steal the spotlight.</p>
+
+<pre><code>for (Product p : products) {
+    System.out.printf(fmt, p.getName(), p.getPrice())
+}
+</code></pre>
+
+<h3>Tweaks that actually matter</h3>
+<p>If you want exactly two decimals use %8.2f. If a text column should hug the left edge use %-20s. If numbers should line up add sufficient width and right alignment. These are small changes that make big visual improvements.</p>
+
+<h2>Quick checklist</h2>
+<ul>
+  <li>Plan column widths before typing anything</li>
+  <li>Pick the right specifiers for each type</li>
+  <li>Assemble one printf template and reuse it</li>
+  <li>Print headers with the same template as data rows</li>
+  <li>Adjust precision and alignment flags until your eyeballs approve</li>
+</ul>
+
+<p>Follow these steps and your console tables will stop resembling modern art. Use width, precision and the minus flag together and you will have tables that are both readable and annoyingly professional. If you need help tuning a specific layout paste a sample and we will make it behave.</p>
+

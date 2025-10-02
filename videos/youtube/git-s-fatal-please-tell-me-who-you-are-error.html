@@ -1,0 +1,78 @@
+---
+layout: video
+title: "Git's Fatal Please Tell Me Who You Are Error"
+description: "Quick guide to resolve Git author identity unknown error by setting user.name and user.email and amending commits when needed"
+video_host: "youtube"
+video_id: "osULf3eWoho"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M34S"
+thumbnail_url: "https://i.ytimg.com/vi/osULf3eWoho/maxresdefault.jpg"
+content_url: "https://youtu.be/osULf3eWoho"
+embed_url: "https://www.youtube.com/embed/osULf3eWoho"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git error
+  - author identity
+  - user.name
+  - user.email
+  - git commit
+  - git config
+  - version control
+  - amend commit
+  - ci configuration
+---
+
+<h2>Why Git will yell at you about author identity</h2>
+<p>You try to commit and Git slaps you with a fatal error asking who you are. That is Git playing hard to get about author identity. Every commit needs a name and an email so version control can track who broke what and who to blame later.</p>
+
+<h3>Check your current Git identity</h3>
+<p>First, see what the repo already knows about you. If nothing prints you get the lovely anonymous contributor experience.</p>
+<pre><code>git config user.name
+git config user.email</code></pre>
+
+<h3>Set a global name and email for your machine</h3>
+<p>If you are on a personal laptop and want to stop fixing this every five minutes use global settings. These become the defaults for all repositories on that machine.</p>
+<pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"</code></pre>
+<p>This is the usual blessing for personal work. Use an email that matches your hosting account to get avatars and less mystery in contributor lists.</p>
+
+<h3>Set a repo specific identity for work or shared machines</h3>
+<p>If you juggle work and personal accounts set identity inside the repository. Local repo config overrides global config without drama.</p>
+<pre><code>cd path/to/repo
+git config user.name "Work Name"
+git config user.email "work@example.com"</code></pre>
+
+<h3>Amend a previous commit that used the wrong author</h3>
+<p>If you already committed with the wrong identity you can fix it. This rewrites history so be polite and check with your team before pushing.</p>
+<pre><code>git commit --amend --reset-author
+# then, if you need to update the remote
+git push --force-with-lease</code></pre>
+<p>Use care when rewriting public history unless your team enjoys surprise reverts.</p>
+
+<h3>Fix CI and automated environments</h3>
+<p>Continuous integration systems do not have feelings and will not infer your name. Configure the environment so automated commits include an author identity.</p>
+<ul>
+<li>Many CI systems support environment variables like GIT_AUTHOR_NAME and GIT_AUTHOR_EMAIL</li>
+<li>Or run a quick global config step in the CI job before committing</li>
+</ul>
+<pre><code>export GIT_AUTHOR_NAME="CI Builder"
+export GIT_AUTHOR_EMAIL="ci@example.com"
+# or
+git config --global user.name "CI Builder"
+git config --global user.email "ci@example.com"</code></pre>
+
+<h2>Quick recap</h2>
+<ul>
+<li>Check current settings with git config user.name and git config user.email</li>
+<li>Set global identity for personal machines with git config --global</li>
+<li>Set repo level identity for work or shared machines with git config inside the repo</li>
+<li>Fix bad commits with git commit --amend --reset-author and push with care</li>
+<li>Configure CI with environment variables or a pre commit setup so automation does not produce git errors</li>
+</ul>
+
+<p>That is it. Give Git a name and an email and it will stop yelling. You will get cleaner version control history and fewer mysterious contributors to blame in the future.</p>
+

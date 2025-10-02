@@ -1,0 +1,66 @@
+---
+layout: video
+title: "PUT vs POST What's the difference?"
+description: "Quick guide to PUT versus POST for REST APIs Learn when to replace resources versus create new ones and why idempotence matters"
+video_host: "youtube"
+video_id: "555Xawr7hgQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT58S"
+thumbnail_url: "https://i.ytimg.com/vi/555Xawr7hgQ/maxresdefault.jpg"
+content_url: "https://youtu.be/555Xawr7hgQ"
+embed_url: "https://www.youtube.com/embed/555Xawr7hgQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - HTTP
+  - PUT
+  - POST
+  - idempotence
+  - REST
+  - API
+  - resource
+  - web development
+  - CRUD
+  - status codes
+---
+
+<p>Welcome to the thrilling world of HTTP verbs where tiny differences ruin your day or save you from bugs. If you have ever wondered whether to use PUT or POST when designing an API the short answer is idempotence and who owns the URL. The long answer is funnier and slightly more useful.</p>
+
+<h2>What idempotence means for your API</h2>
+<p>Idempotence sounds like a math lecture but it is just a promise. If a method is idempotent then repeating the same request does not change the result after the first time. In HTTP land PUT is idempotent POST usually is not. That affects retries caching and developer expectations.</p>
+
+<h2>PUT versus POST in plain English</h2>
+<p>Think of PUT as telling the server to set a resource at a known address. You pick the URL and you send the full representation. Repeat the same PUT over and over and you get the same end state. Use case example</p>
+<pre><code>PUT /users/123</code></pre>
+<p>With POST you are asking the server to do something for you. Create a new child resource process some data or trigger a command. The server often assigns the id and may return 201 Created with a Location header that points to the new URL. POST is not guaranteed to be idempotent so repeated requests can create multiple resources or repeated side effects.</p>
+<pre><code>POST /users</code></pre>
+
+<h3>What the server usually does</h3>
+<ul>
+  <li>PUT stores the supplied representation at the given URL and is expected to be idempotent.</li>
+  <li>POST accepts the entity and then creates or processes one or more resources at server chosen URLs.</li>
+  <li>For partial updates use PATCH instead of trying to abuse PUT.</li>
+</ul>
+
+<h2>Status codes and responses</h2>
+<p>Status codes matter because they set expectations. A successful POST that creates a resource typically returns 201 Created and a Location header with the new URL. PUT can return 200 OK 201 Created or 204 No Content depending on whether the server returns a body. Use 409 Conflict or conditional headers like If-Match for concurrency control when you care about lost updates.</p>
+
+<h2>Practical guidance for web development</h2>
+<ul>
+  <li>Use PUT when the client controls the resource URL and needs an idempotent replace operation. This is great for CRUD update flows where the id is known.</li>
+  <li>Use POST when the client asks the server to create or process and duplicate side effects are acceptable or expected. This is common for create endpoints where the server picks the id.</li>
+  <li>When in doubt choose POST for creation and PUT for updating a known URL.</li>
+  <li>For partial changes prefer PATCH. Document whether your endpoints are idempotent so other developers do not cry into their logs.</li>
+</ul>
+
+<h2>Common mistakes and how to avoid them</h2>
+<ul>
+  <li>Sending partial data with PUT and pretending it is a full replace. That breaks the idempotence contract.</li>
+  <li>Relying on idempotence to solve race conditions. Use ETag based conditional requests to be safe.</li>
+  <li>Assuming POST never returns 201. It frequently does when a new resource was created.</li>
+</ul>
+
+<p>In short pick PUT if the client owns the URL and requires predictable retries. Pick POST when the server should own the creation process and side effects are fine. Keep your status codes consistent document idempotence and avoid surprise behavior. Now go forth and design APIs that do not haunt your future self.</p>
+

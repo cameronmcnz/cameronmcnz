@@ -1,0 +1,94 @@
+---
+layout: video
+title: "How Spring XML Configuration Works by Example"
+description: "Compact guide to Spring XML configuration schemas beans XML files and how Spring Boot loads XML based config for Java apps"
+video_host: "youtube"
+video_id: "HCdAfRHQoso"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M23S"
+thumbnail_url: "https://i.ytimg.com/vi/HCdAfRHQoso/maxresdefault.jpg"
+content_url: "https://youtu.be/HCdAfRHQoso"
+embed_url: "https://www.youtube.com/embed/HCdAfRHQoso"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring
+  - XML
+  - Spring Boot
+  - beans
+  - schemas
+  - ApplicationContext
+  - Dependency Injection
+  - Java
+  - Configuration
+  - Tutorial
+---
+
+<article>
+  <h2>Quick intro to Spring XML and why it still hangs around</h2>
+  <p>If you thought XML was dead you are in good company and also wrong. Many legacy Java apps use Spring XML to wire beans and validate configuration with schemas. Spring Boot prefers Java configuration these days, but XML is still supported when you inherit code written by someone who liked indentation a lot.</p>
+
+  <h2>Read XML schemas and namespaces the boring but useful way</h2>
+  <p>Namespaces tell the Spring parser which rules to apply. Common namespaces include the core beans namespace, the context namespace and aop when you get fancy. The schema locations in the XML file let Spring validate configuration against the right XSD so typos blow up at startup instead of in production.</p>
+  <pre><code>&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd"&gt;
+  
+    &lt;!-- bean declarations go here --&gt;
+  &lt;/beans&gt;</code></pre>
+
+  <h2>Declare beans and properties without reinventing new</h2>
+  <p>Define a bean with an id and a class. You can inject dependencies via constructor args or property tags. Yes it is verbose. Yes it works. Use descriptive ids so future you does not cry during maintenance.</p>
+  <pre><code>&lt;bean id="userService" class="com.example.UserService"&gt;
+    &lt;property name="userRepository" ref="userRepository" /&gt;
+  &lt;/bean&gt;
+
+  &lt;bean id="userRepository" class="com.example.UserRepository" /&gt;</code></pre>
+
+  <h3>Constructor injection or setter injection</h3>
+  <p>Constructor injection is great for immutability and for making your code testable. Setter injection is fine when you need optional wiring. Both are supported with &lt;constructor-arg&gt; and &lt;property&gt; tags.</p>
+
+  <h2>Choose the right scope for your beans</h2>
+  <p>Default scope is singleton. If you need fresh instances every time use prototype. For web apps you can also pick request or session scope. Pick the smallest scope that still keeps your sanity.</p>
+  <ul>
+    <li>singleton for shared services</li>
+    <li>prototype for stateful helpers</li>
+    <li>request or session for web scoped objects</li>
+  </ul>
+
+  <h2>Load XML into an ApplicationContext</h2>
+  <p>In classic Spring you can use ClassPathXmlApplicationContext to bootstrap from XML files. It eagerly loads and wires beans at startup which is great for catching config errors early.</p>
+  <pre><code>ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+MyService svc = ctx.getBean(MyService.class);</code></pre>
+
+  <h2>Keep XML working with Spring Boot</h2>
+  <p>Spring Boot leans toward Java config, but you do not have to abandon XML. The usual pragmatic approach is to import XML into your Java configuration using @ImportResource. That lets modern code live next to legacy wiring without a dramatic rewrite.</p>
+  <pre><code>@Configuration
+@ImportResource("classpath:legacy-beans.xml")
+public class AppConfig { }</code></pre>
+
+  <h3>Alternative bootstrapping tips</h3>
+  <p>You can also register an XML based ApplicationContext initializer if you are into advanced bootstrapping. For most apps @ImportResource is the easier and cleaner route.</p>
+
+  <h2>Testing and migration strategies that do not involve ritual sacrifice</h2>
+  <p>Write unit tests that load a minimal XML context and assert bean wiring. Enable schema validation during tests to catch typos before they reach your CI and your users.</p>
+  <ol>
+    <li>Start with a focused test that loads only the beans under change</li>
+    <li>Assert that dependencies are wired and scopes behave as expected</li>
+    <li>Replace small pieces with @Configuration classes and component scanning</li>
+  </ol>
+
+  <h2>Practical tips and gotchas</h2>
+  <ul>
+    <li>Prefer small focused XML files per module to limit merge conflicts</li>
+    <li>Enable schema validation during CI runs to catch silly typos fast</li>
+    <li>Use clear bean ids or use annotation based names when you migrate for readability</li>
+  </ul>
+
+  <h2>Wrap up</h2>
+  <p>Spring XML is old school but reliable. It teaches you explicit wiring and schema driven validation which can be a lifesaver in legacy systems. When you are ready migrate to Java configuration for better compile time safety and less verbosity. Until then keep your XML tidy and your tests merciless.</p>
+</article>
+

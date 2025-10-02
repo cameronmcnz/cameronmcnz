@@ -1,0 +1,72 @@
+---
+layout: video
+title: "How to Change GitHub Branch Names Example"
+description: "Learn a quick practical way to rename a Git branch locally and on GitHub while preserving history and updating the remote."
+video_host: "youtube"
+video_id: "LYJ81OKXH9c"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M21S"
+thumbnail_url: "https://i.ytimg.com/vi/LYJ81OKXH9c/maxresdefault.jpg"
+content_url: "https://youtu.be/LYJ81OKXH9c"
+embed_url: "https://www.youtube.com/embed/LYJ81OKXH9c"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - branch
+  - rename
+  - git-branch
+  - git-push
+  - remote
+  - tutorial
+  - version-control
+  - workflow
+---
+
+<p>So you want to rename a Git branch. Brave choice. This short tutorial walks through renaming a branch locally, publishing the new name to GitHub, and cleaning up the old reference so your CI and teammates do not hate you. It preserves commit history and explains how to handle default branches and open pull requests.</p>
+
+<h2>When to rename a branch</h2>
+<p>Rename a branch when the name no longer reflects the work, when you fix a typo, or when a new naming convention arrives and your repo suddenly looks too 2017. Renaming a branch does not change commits. It only changes the ref name, so your version control history stays safe.</p>
+
+<h2>Rename the local branch</h2>
+<p>Either rename the branch you are on or rename a different branch from any checkout. The git-branch command handles the local rename while preserving history.</p>
+<pre><code>git branch -m new-branch-name</code></pre>
+<p>To rename a branch you are not currently on use this form.</p>
+<pre><code>git branch -m old-branch-name new-branch-name</code></pre>
+
+<h2>Push the new branch and set upstream</h2>
+<p>Now publish the new branch name to the remote with git-push. If you want future pulls and pushes to work without extra flags add the upstream in one go.</p>
+<pre><code>git push origin new-branch-name
+git push -u origin new-branch-name</code></pre>
+
+<h2>Change the default branch on GitHub</h2>
+<p>If the renamed branch was the repository default update the default branch in the repository settings on GitHub. This prevents surprises for automation and collaborators that expect a specific default branch.</p>
+
+<h2>Delete the old remote branch</h2>
+<p>Once the new branch exists remotely remove the obsolete name so it does not clutter the branch list or confuse CI.</p>
+<pre><code>git push origin --delete old-branch-name</code></pre>
+<p>After deleting, check open pull requests and any branch protection rules on GitHub. Make sure protected rules are moved to the new branch name if needed, and verify pull requests still point to the right commits.</p>
+
+<h2>Update local tracking and cleanup</h2>
+<p>Prune stale references and fix any local tracking that still points at the old remote name.</p>
+<pre><code>git remote prune origin
+git branch -vv</code></pre>
+<p>If a local branch still tracks the old remote, point it to the new upstream.</p>
+<pre><code>git branch -u origin/new-branch-name local-branch-name</code></pre>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Rename local branch with git branch -m</li>
+  <li>Push new branch and set upstream with git push -u origin new-branch-name</li>
+  <li>Update default branch on GitHub if it applied to the old name</li>
+  <li>Delete the old remote branch with git push origin --delete old-branch-name</li>
+  <li>Prune and fix tracking with git remote prune origin and git branch -u</li>
+</ul>
+
+<h3>Troubleshooting and tips</h3>
+<p>If CI or automation still references the old name check branch protection and workflow files. Some GitHub Actions or scripts may hardcode branch names, so update them. If a pull request seems detached, check the PR on GitHub. Often it will follow the commits, but you might need to retarget the PR or recreate it in rare setups.</p>
+<p>Final reassurance, for the fearful and the bold. Renaming is a ref move, not a rewrite. No need to force push or rewrite history. Just rename, publish, delete, and breathe easy while your repo keeps behaving like a repository.</p>
+

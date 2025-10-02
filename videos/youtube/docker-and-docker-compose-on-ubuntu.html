@@ -1,0 +1,67 @@
+---
+layout: video
+title: "Docker and Docker Compose on Ubuntu"
+description: "Quick guide to install configure and use Docker and Docker Compose on Ubuntu for local container development and basic deployments"
+video_host: "youtube"
+video_id: "6j1ISxY5ss4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M25S"
+thumbnail_url: "https://i.ytimg.com/vi/6j1ISxY5ss4/maxresdefault.jpg"
+content_url: "https://youtu.be/6j1ISxY5ss4"
+embed_url: "https://www.youtube.com/embed/6j1ISxY5ss4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Docker
+  - Ubuntu
+  - Docker Compose
+  - containers
+  - installation
+  - tutorial
+  - devops
+  - containerization
+  - linux
+  - guide
+---
+
+<p>If you like small isolated environments that do what you tell them and then quietly resent you later this guide is for you. We will install Docker Engine enable the service fix permissions install Docker Compose run a quick test and bring up a tiny multi container app for local development and simple deployments. No mysticism required just a little terminal abuse.</p>
+
+<h2>Install Docker Engine</h2>
+<p>First update packages and install the distro build of Docker. Yes this is boring but it is the scaffolding for all future container chaos.</p>
+<pre><code>sudo apt update && sudo apt install -y docker.io</code></pre>
+<p>That will put the Docker daemon on your machine. Next make it start on boot and make life easier by avoiding sudo for every command.</p>
+
+<h3>Enable the service and adjust permissions</h3>
+<pre><code>sudo systemctl enable --now docker
+sudo usermod -aG docker $USER</code></pre>
+<p>After adding yourself to the docker group log out and back in so the new group membership takes effect. If you do not log out you will be treated like a guest for a while and that is the worst.</p>
+
+<h2>Install Docker Compose</h2>
+<p>For simple multi container setups install the compose tool from the package manager. This is fine for local dev and quick prototypes. If you want newer features consider the official Compose plugin from Docker later.</p>
+<pre><code>sudo apt install -y docker-compose</code></pre>
+
+<h2>Run a quick test container</h2>
+<p>Make sure the engine answers when you poke it. The classic hello world image is still the least annoying smoke test.</p>
+<pre><code>docker run --rm hello-world</code></pre>
+<p>If the container prints a friendly message your installation is basically functional. If it yells at you read the logs and then blame the internet.</p>
+
+<h2>Bring up a multi container app with Compose</h2>
+<p>Create a compose file describing a web service and a database and then start both with one command. Compose will wire up networking and lifecycle so you can focus on the code that actually breaks later.</p>
+<ul>
+  <li>Create a file named docker-compose.yml in your project root with the services you need.</li>
+  <li>Start everything with a single command.</li>
+</ul>
+<pre><code>docker-compose up -d</code></pre>
+<p>Compose will pull images if needed create a network and run your containers in the background. Use docker-compose logs to inspect output and docker-compose down to stop everything.</p>
+
+<h2>Troubleshooting tips and production note</h2>
+<ul>
+  <li>If commands still require sudo double check your group membership and that you actually logged out and back in.</li>
+  <li>If you need newer Docker or Compose versions for production use add the official Docker repository and follow the vendor instructions. The distro packages are convenient but not always the freshest.</li>
+  <li>Keep an eye on storage. Containers and images can quietly hog disk space and then ruin your day.</li>
+</ul>
+
+<p>There you go. You installed Docker enabled the service fixed permissions installed Compose tested the engine and ran a multi container app with Compose. Now go write something containerized and blame the tools when it fails in production.</p>
+

@@ -1,0 +1,93 @@
+---
+layout: video
+title: "Introduction to JDBC & PostgreSQL Tutorial for Beginners"
+description: "Learn how to connect Java apps to PostgreSQL using JDBC with setup steps code patterns and best practices for beginners"
+video_host: "youtube"
+video_id: "ftK5FbPUaiw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT25M12S"
+thumbnail_url: "https://i.ytimg.com/vi/ftK5FbPUaiw/maxresdefault.jpg"
+content_url: "https://youtu.be/ftK5FbPUaiw"
+embed_url: "https://www.youtube.com/embed/ftK5FbPUaiw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JDBC
+  - PostgreSQL
+  - Java
+  - Database
+  - DriverManager
+  - SQL
+  - Connection
+  - PreparedStatement
+  - Tutorial
+  - Beginner
+---
+
+<p>If your Java app is giving you the silent treatment when you try to talk to PostgreSQL this guide will help. You will learn how to add the JDBC driver to your project configure a connection use DriverManager or a pool and run queries safely with PreparedStatement. Expect a little setup grumbling and a lot fewer runtime surprises.</p>
+
+<h2>What you need before you start</h2>
+<p>Do these first unless you like debugging network and permission issues late at night:</p>
+<ul>
+  <li>Java JDK installed and on your PATH</li>
+  <li>PostgreSQL server running and reachable</li>
+  <li>A test database and a user with the right permissions</li>
+  <li>Build tool set up so you can add the JDBC driver as a dependency</li>
+</ul>
+
+<h2>Add the PostgreSQL JDBC driver</h2>
+<p>For Maven add the dependency to your pom and let the build tool handle the heavy lifting. For Gradle use the usual implementation line. The driver jar must be on the classpath for JDBC to find it.</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
+  &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
+  &lt;version&gt;42.6.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+
+<h2>Configure connection parameters</h2>
+<p>Store connection details in configuration files or environment variables. Do not hardcode credentials unless you enjoy handing out free root access to your database.</p>
+<pre><code class="language-java">String url = "jdbc:postgresql://localhost:5432/mydb";
+String user = "app_user";
+String password = "s3cr3t";</code></pre>
+<p>The JDBC URL includes the host port and database name. Adjust for SSL or connection parameters as needed.</p>
+
+<h2>Open a connection and run queries</h2>
+<p>Use DriverManager for simple cases and a connection pool for anything that will be used in production or by more than one thread. Try with resources will close things properly for you unless you intentionally break it.</p>
+<pre><code class="language-java">try (Connection conn = DriverManager.getConnection(url, user, password);
+     PreparedStatement ps = conn.prepareStatement("SELECT id name FROM users WHERE email = ?")) {
+  ps.setString(1, email);
+  try (ResultSet rs = ps.executeQuery()) {
+    while (rs.next()) {
+      int id = rs.getInt("id");
+      String name = rs.getString("name");
+      // process row
+    }
+  }
+} catch (SQLException e) {
+  // log useful context and rethrow or handle
+}</code></pre>
+<p>Short notes on the important bits</p>
+<ul>
+  <li>Use PreparedStatement for user supplied values to avoid SQL injection and improve performance</li>
+  <li>Use executeQuery for SELECT and executeUpdate for INSERT UPDATE DELETE</li>
+  <li>Access ResultSet columns by name or index depending on your taste and need for speed</li>
+</ul>
+
+<h3>When to use a connection pool</h3>
+<p>If your app creates and closes connections frequently use a pool such as HikariCP. Connection creation is expensive and pooling keeps the database and your patience happier.</p>
+
+<h2>Close resources and handle errors</h2>
+<p>Either use try with resources or ensure ResultSet Statement and Connection are closed in finally blocks. Log exceptions with context such as the SQL statement parameters and the failing operation. Do not swallow SQL exceptions like a mystery hero hiding clues.</p>
+
+<h2>Quick checklist</h2>
+<ul>
+  <li>Driver on classpath</li>
+  <li>Correct JDBC URL and credentials</li>
+  <li>PreparedStatement for user input</li>
+  <li>Try with resources or proper cleanup</li>
+  <li>Meaningful logging for SQLExceptions</li>
+</ul>
+
+<p>Follow these steps and your Java application will have a civil conversation with PostgreSQL. You will avoid common pitfalls like resource leaks SQL injection and connection storms. If something still breaks at least you will have better logs and a solid excuse to blame configuration rather than your code.</p>
+

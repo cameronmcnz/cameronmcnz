@@ -1,0 +1,56 @@
+---
+layout: video
+title: "Git reset hard vs soft What's the difference?"
+description: "Clear comparison of Git reset hard vs soft with examples and guidance for when to use each command in your workflow"
+video_host: "youtube"
+video_id: "Sl-optydhzU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT58S"
+thumbnail_url: "https://i.ytimg.com/vi/Sl-optydhzU/maxresdefault.jpg"
+content_url: "https://youtu.be/Sl-optydhzU"
+embed_url: "https://www.youtube.com/embed/Sl-optydhzU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git reset
+  - git reset hard
+  - git reset soft
+  - version control
+  - git commands
+  - git tips
+  - source control
+  - git workflow
+  - git tutorial
+---
+
+<p>If you have ever wished your repository would just forget your latest experiment then you are in the right place. This is a short guide to the practical difference between <code>git reset --soft</code> and <code>git reset --hard</code> with real world tips for version control survival. Expect blunt honesty and useful git commands that do what they say.</p>
+
+<h2>What git reset soft actually does</h2>
+<p>Use <code>git reset --soft</code> when you want to move where HEAD points but keep your staged changes and working tree exactly as they are. In plain human terms this uncommits work while leaving everything ready to be tweaked and recommitted. It is a gentle rewind for the commit history while preserving your work in the index and working copy.</p>
+<pre><code>git reset --soft HEAD~1</code></pre>
+<p>Common use cases include fixing a bad commit message combining commits or adjusting the set of staged files. This is a core trick in a sane git workflow when you need to rewrite recent history without losing the work you actually care about.</p>
+
+<h2>What git reset hard actually does</h2>
+<p><code>git reset --hard</code> will move HEAD and then force the index and working tree to match the target commit. That means uncommitted changes are gone from the working tree and from the staging area. Think of it as nuking the mess and starting from the snapshot at the commit you chose.</p>
+<pre><code>git reset --hard HEAD~1</code></pre>
+<p>This is useful when you really want to restore a clean known state in your repository or when a bad experiment needs to be wiped from the working tree. It is fast and final unless you have a reflog to rescue you.</p>
+
+<h2>Which one to pick in your git workflow</h2>
+<ul>
+  <li><strong>Keep work for rework</strong> Choose <code>git reset --soft</code> if you want to uncommit but keep changes for editing and recommitting. Good for tidy commit history and interactive fixes.</li>
+  <li><strong>Restore a clean state</strong> Choose <code>git reset --hard</code> when you want to discard uncommitted changes and match a known commit. Use this when the working tree can be safely destroyed.</li>
+  <li><strong>When in doubt</strong> Create a branch or stash first so recovery is possible. Branches protect history and stashes save uncommitted files.</li>
+</ul>
+
+<h3>Useful recovery and safety tips</h3>
+<ul>
+  <li>Create a branch before you reset. Example <code>git branch safe-copy</code> keeps a pointer to the old history.</li>
+  <li>Use stash if you might want your uncommitted work back. Example <code>git stash</code> or <code>git stash push -m "wip"</code> will save your changes away.</li>
+  <li>If you nuked something with a hard reset you did not mean to lose check <code>git reflog</code> to find the previous HEAD and then reset back to that hash.</li>
+</ul>
+
+<p>Bottom line for anyone reading this git tutorial while sweating: <code>git reset --soft</code> rewinds commits but keeps work handy. <code>git reset --hard</code> rewinds and wipes the working tree. Both are useful git commands when used with respect for the repo and a backup strategy. Keep these tips in your git toolkit and your source control life will be less tragic.
+

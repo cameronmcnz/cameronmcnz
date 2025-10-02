@@ -1,0 +1,97 @@
+---
+layout: video
+title: "How to Git merge one branch into another"
+description: "Quick guide to merge one Git branch into another using command line with practical steps to avoid conflicts and keep history clean"
+video_host: "youtube"
+video_id: "ma7Sce92C8c"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M36S"
+thumbnail_url: "https://i.ytimg.com/vi/ma7Sce92C8c/maxresdefault.jpg"
+content_url: "https://youtu.be/ma7Sce92C8c"
+embed_url: "https://www.youtube.com/embed/ma7Sce92C8c"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - merge
+  - branches
+  - git merge
+  - branching
+  - version control
+  - command line
+  - conflicts
+  - git tutorial
+  - workflow
+---
+
+<p>So you need to merge one Git branch into another and you want to do it without creating a soap opera in your repo history. Welcome to the short guide that will save you from awkward merge commits and the blame game. This is a command line focused git tutorial that covers merging, branching, conflicts and basic version control hygiene with a little sarcasm thrown in for flavor.</p>
+
+<h2>Quick checklist for the anxious</h2>
+<ul>
+  <li>Fetch and update your local repo</li>
+  <li>Switch to the target branch</li>
+  <li>Merge the source branch or rebase if you like neat history</li>
+  <li>Resolve conflicts and run tests</li>
+  <li>Push and tell your teammates you did not break the build</li>
+</ul>
+
+<h2>Step 1 update local repo</h2>
+<p>Start by fetching remote changes so you do not get surprised by someone else s midnight refactor. Fresh local branches reduce merge conflicts and blame wars.</p>
+<pre><code>git fetch
+# then on the branch you intend to merge into
+git pull</code></pre>
+<p>git fetch updates remote tracking branches and git pull will merge remote changes into your current branch. If you prefer to inspect before merging run git fetch and then git log origin/target-branch to look around.</p>
+
+<h2>Step 2 switch to the target branch</h2>
+<p>Make sure you are on the branch that will receive the changes. Modern and clear commands work fine here.</p>
+<pre><code>git switch target-branch
+# or the older form
+git checkout target-branch
+git status</code></pre>
+<p>Confirm you are on the right branch with git status. Stash or commit any local work first so you do not create a mess.</p>
+
+<h2>Step 3 merge or rebase choose your history</h2>
+<p>To bring changes from source-branch into your current branch use git merge. If you crave a linear history use git rebase but avoid rebasing branches that are public or shared without coordination.</p>
+<pre><code>git merge source-branch
+# or if you want to rebase instead
+git rebase source-branch</code></pre>
+<p>Merge creates a merge commit when needed. Rebase rewrites commits so the history looks like a neat single line. Both are valid workflows depending on your team s preferences.</p>
+
+<h2>Step 4 resolve conflicts and do not panic</h2>
+<p>If Git cannot reconcile changes it will mark conflict blocks inside files. You will see markers like this in files</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+your changes
+=======
+other changes
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; source-branch</code></pre>
+<p>Edit the file to the desired state, remove the markers, then stage and finish the merge.</p>
+<pre><code>git add path/to/conflicted-file
+# if the merge did not auto complete
+git commit</code></pre>
+<p>For a less manual experience use a merge tool or run git mergetool to get a visual helper. Resolve conflicts locally rather than forcing questionable pushes.</p>
+
+<h2>Step 5 test and inspect history</h2>
+<p>Run your unit tests and quick smoke checks. Verify the merge did what you expected and that nothing is silently broken. Inspect history to ensure the commit graph looks acceptable.</p>
+<pre><code>git log --oneline --graph --decorate -n 20
+# or view the merge commit
+git show --name-only HEAD</code></pre>
+<p>If you used rebase check for accidentally dropped commits. If something looks wrong you can abort a rebase with git rebase --abort or undo the merge with git reset --hard ORIG_HEAD if you are sure.</p>
+
+<h2>Step 6 push and coordinate</h2>
+<p>Push the merged branch back to the remote to make your changes available to the team.</p>
+<pre><code>git push origin target-branch</code></pre>
+<p>If the remote rejects the push it means there are newer commits on the remote. Fetch the remote and merge or rebase again, or coordinate with your teammates before forcing anything. Force pushes to shared branches are a fast track to grief.</p>
+
+<h3>Quick tips for fewer headaches</h3>
+<ul>
+  <li>Use clear branch names like feature/login or fix/session-timeout</li>
+  <li>Keep merges small and focused so reviews are quick and conflicts are smaller</li>
+  <li>Open a pull request for review when collaboration is needed</li>
+  <li>Resolve conflicts locally with a good merge tool rather than guessing at the command line</li>
+  <li>If you prefer tidy history consider a rebase workflow but never rebase public branches without a team plan</li>
+</ul>
+
+<p>Summary recap You updated the repository, switched to the target branch, performed a merge or rebase, handled conflicts, tested the result and pushed the merged branch. Follow these steps and your version control workflow will be less dramatic and more reliable. Now go forth and merge responsibly. And maybe buy coffee for your reviewer.</p>
+

@@ -1,0 +1,110 @@
+---
+layout: video
+title: "Declarative Jenkins Pipeline for Ant builds with Docker Exam"
+description: "Practical guide to run Ant builds in a Declarative Jenkins Pipeline using Docker for consistent CI on agents and reproducible builds"
+video_host: "youtube"
+video_id: "iaRKmqMCwwM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M26S"
+thumbnail_url: "https://i.ytimg.com/vi/iaRKmqMCwwM/maxresdefault.jpg"
+content_url: "https://youtu.be/iaRKmqMCwwM"
+embed_url: "https://www.youtube.com/embed/iaRKmqMCwwM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Declarative Pipeline
+  - Ant
+  - Docker
+  - Jenkinsfile
+  - CI
+  - Continuous Integration
+  - Build Automation
+  - DevOps
+  - Pipeline as Code
+---
+
+<h2>Why run Ant inside Docker with Jenkins</h2>
+<p>Because reproducible builds are the best revenge. Running Ant inside a Docker container makes your CI runs predictable and portable. You get the same JDK and Ant versions every time and fewer mysterious failures to explain at standup.</p>
+
+<h2>Prepare Jenkins and agents with Docker support</h2>
+<p>Make sure your Jenkins controller and agents can either run Docker commands or use the Jenkins Docker plugin if you prefer ephemeral containers. The minimal goals are simple.</p>
+<ul>
+  <li>Install Docker on agents that will run builds or enable a Docker capable cloud agent.</li>
+  <li>Give the Jenkins user access to Docker so pipelines can spin up containers.</li>
+  <li>Verify a quick test run from the agent shell to confirm Docker works.</li>
+</ul>
+<p>If you prefer stricter isolation use the Docker plugin to launch dedicated containers. If you prefer speed and a tiny bit of chaos let agents run Docker directly.</p>
+
+<h2>Create a Declarative Jenkinsfile</h2>
+<p>Put the Jenkinsfile in your repo so it travels with the code and confuses future maintainers in context. Use the declarative syntax and an agent that runs your Ant image. The example below is compact and readable.</p>
+
+<pre><code>pipeline {
+  agent {
+    docker {
+      image 'mycompany/ant-jdk'
+      args '-u 1000'
+    }
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'ant clean compile'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'ant test'
+        junit 'build/test-results/*.xml'
+      }
+    }
+    stage('Archive') {
+      steps {
+        archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+      }
+    }
+  }
+  post {
+    always {
+      echo 'Publishing results and cleaning up'
+      cleanWs()
+    }
+    failure {
+      mail to: 'team@example.com', subject: "Build failed", body: 'Check the Jenkins console and test reports'
+    }
+  }
+}
+</code></pre>
+
+<h3>Notes on the example</h3>
+<ul>
+  <li>Replace the image name with your registry path if needed. Tagging is optional but recommended in practice.</li>
+  <li>Use junit to publish test reports so Jenkins shows failures with pretty graphs.</li>
+  <li>archiveArtifacts keeps the important bits. Stash is useful when you switch nodes within the same job.</li>
+</ul>
+
+<h2>Select or build an Ant Docker image</h2>
+<p>Either start from an official Ant image or make a tiny Dockerfile that installs the exact JDK and Ant versions you need. Keep the image small and tag it clearly. Push it to a registry the agents can reach.</p>
+
+<h2>Run build steps and preserve results</h2>
+<p>Invoke Ant targets like clean compile and test inside the container. Use archiveArtifacts to keep jars and static outputs. Publish JUnit results so failing tests have readable output and blame can be distributed with precision.</p>
+
+<h2>Notifications and cleanup</h2>
+<p>Use post blocks to guarantee that cleanup runs no matter what. Publish test results and send notifications to email or chat so the person who broke the build wakes up to a polite message. If you want to be fancy use Slack or a chat plugin. If you want to be old school send an email and enjoy the nostalgia.</p>
+
+<h2>Quick troubleshooting tips</h2>
+<ul>
+  <li>If Docker commands fail check permissions and that the Docker daemon is reachable from the agent.</li>
+  <li>If tests are missing confirm Ant wrote JUnit xml into build folders that match your junit glob.</li>
+  <li>If artifacts are missing ensure the archive path matches what Ant produces.</li>
+</ul>
+
+<p>There you go. A Declarative Jenkinsfile pattern that runs Ant builds inside Docker for reliable CI and fewer late night interrogations. It keeps the build environment under control and gives you test reports and artifacts to point at when things inevitably go wrong.</p>
+

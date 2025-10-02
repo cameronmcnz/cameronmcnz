@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Advanced JavaFX tutorial #techtarget"
+description: "Advanced JavaFX tutorial covering custom controls animations FXML performance and responsive layouts for modern Java desktop apps"
+video_host: "youtube"
+video_id: "0dofsQT_A5U"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT25M48S"
+thumbnail_url: "https://i.ytimg.com/vi/0dofsQT_A5U/maxresdefault.jpg"
+content_url: "https://youtu.be/0dofsQT_A5U"
+embed_url: "https://www.youtube.com/embed/0dofsQT_A5U"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JavaFX
+  - Java
+  - GUI
+  - FXML
+  - CustomControls
+  - Animations
+  - Performance
+  - CSS
+  - SceneGraph
+  - Packaging
+---
+
+<h2>Why this guide exists and why you will care</h2>
+<p>You have JavaFX on your machine and big ambitions for a slick desktop GUI. You also have limited time and a low tolerance for UIs that feel like they were assembled during a sleep deprived sprint. This guide walks advanced techniques that actually matter. Expect pragmatic tips on project setup FXML custom controls CSS animations performance and packaging with a touch of sarcasm for flavor.</p>
+
+<h2>Project setup and FXML wiring</h2>
+<p>Start with Maven or Gradle and the official JavaFX artifacts. Use the JavaFX plugins that handle runtime image creation and module configuration. If you target modern JDKs use a modular runtime to avoid nasty surprises at install time.</p>
+<ul>
+  <li>Keep FXML controllers thin. Let controllers wire views and keep logic in view models or helper classes.</li>
+  <li>SceneBuilder is optional but saves time for layout work when you are not doing heroic custom drawing.</li>
+  <li>Use explicit module info when you need it. That saves you from late night dependency hunts.</li>
+</ul>
+
+<h2>Custom controls and skinning</h2>
+<p>If you find yourself copying UI code across screens it is time to build a custom control. Extend Control and provide a Skin implementation. Expose properties so users can style and bind without hacking internals.</p>
+<ul>
+  <li>Make the API small and predictable. Consumers should not need to open the class to understand it.</li>
+  <li>Use properties for state and bindings for reactive behavior. Unit test the logic separate from the skin.</li>
+</ul>
+
+<h2>Styling with CSS and themes</h2>
+<p>JavaFX has a CSS model that lets you theme components without turning your code into an inline style mess. Use class selectors and property driven styling. Reserve inline styles for dangerous one off hacks that you will later regret.</p>
+<ul>
+  <li>Prefer style classes over inline attributes. That keeps themes consistent and maintainable.</li>
+  <li>Use pseudo classes to reflect state and avoid hard coded colors in code.</li>
+</ul>
+
+<h2>Animations and transitions</h2>
+<p>Animation makes UIs feel alive when used sparingly and desperate when overused. Learn Timeline and KeyFrame for fine control. Built in transitions like FadeTransition TranslateTransition and ParallelTransition speed up common tasks.</p>
+<p>Coordinate animations with property binding. Never block the JavaFX Application Thread. Offload heavy work to Task or Service and update the UI via Platform runLater when needed.</p>
+
+<h2>Performance profiling and optimization</h2>
+<p>The usual suspects are too many nodes heavy effects and frequent layout passes. When frame rate drops profile first and optimize second. Java Flight Recorder and a sampling profiler reveal the hot paths.</p>
+<ul>
+  <li>Consider Canvas when you render many primitives or custom visuals. It reduces the scene graph weight.</li>
+  <li>Use node caching and snapshot caching for complex static content to avoid repeated rendering.</li>
+  <li>Virtualize large lists and tables to keep memory and layout costs down.</li>
+</ul>
+
+<h2>Packaging and native delivery</h2>
+<p>Creating a small native bundle gives users the familiar install flow and avoids module resolution headaches on target machines. jpackage builds installers and runtime images so your app behaves like a first class citizen.</p>
+<ul>
+  <li>Include only the modules you need in the runtime image to keep size reasonable.</li>
+  <li>Test installers on clean machines to catch platform specific quirks early.</li>
+</ul>
+
+<h2>Final notes and the parting joke</h2>
+<p>Advanced JavaFX is about making choices that scale. The right project layout modular runtime maintainable controls sensible styling efficient animations and careful packaging beat clever hacks every time. Now go build something that looks modern and does not crash on launch. And if it does crash you will at least have good profiling data and a witty error message to soften the blow.</p>
+

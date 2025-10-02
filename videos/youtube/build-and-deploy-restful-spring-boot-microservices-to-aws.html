@@ -1,0 +1,89 @@
+---
+layout: video
+title: "Build and Deploy RESTful Spring Boot Microservices to AWS"
+description: "Step by step guide to build and deploy RESTful Spring Boot microservices on AWS Elastic Beanstalk using Maven Docker and EB CLI"
+video_host: "youtube"
+video_id: "PSnGYWAVfJ0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT20M43S"
+thumbnail_url: "https://i.ytimg.com/vi/PSnGYWAVfJ0/maxresdefault.jpg"
+content_url: "https://youtu.be/PSnGYWAVfJ0"
+embed_url: "https://www.youtube.com/embed/PSnGYWAVfJ0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - AWS Elastic Beanstalk
+  - Microservices
+  - RESTful API
+  - Maven
+  - Docker
+  - EB CLI
+  - Java
+  - Deployment
+  - Cloud
+---
+
+<article>
+  <p>If your microservices had a matchmaking profile it would say single responsibility and likes Deployments on the cloud. This guide walks you through building RESTful Spring Boot microservices and getting them to live in AWS Elastic Beanstalk using Maven Docker and the EB CLI. Yes it is practical and yes you will stare at logs at least once.</p>
+
+  <h2>Why pick AWS Elastic Beanstalk for microservices</h2>
+  <p>Elastic Beanstalk handles the boring parts of cloud deployment so you can focus on code that matters. It supports Java apps as fat jars or container images and it works with EB CLI for repeatable deployments. Use it when you want managed scaling health checks and a fairly civilized dashboard that judges you without words.</p>
+
+  <h2>Design your Spring Boot microservices</h2>
+  <p>Keep each service focused on a single responsibility. Use Spring Initializr to scaffold a project with only the dependencies you need. Add controllers for RESTful API endpoints and a service layer for business logic. Avoid dependency bloat because the cloud does not forgive sloppy builds.</p>
+
+  <h3>What to include</h3>
+  <ul>
+    <li>Spring Boot starter web for REST endpoints</li>
+    <li>Data access libraries only if you use a database</li>
+    <li>Actuator for health checks and metrics</li>
+  </ul>
+
+  <h2>Package or containerize your service</h2>
+  <p>Pick one path Maven jar or Docker image. For the Java platform use Maven to produce a fat jar. For Docker build a simple container that runs your jar with an OpenJDK base. Multi container setups are fine when local parity with production matters.</p>
+
+  <h3>Common commands</h3>
+  <pre><code>mvn clean package
+# or build a Docker image
+# docker build -t myservice .
+</code></pre>
+
+  <h2>Hints for a Dockerfile</h2>
+  <p>Keep it minimal. Copy the jar into the image expose the application port and run java -jar. You do not need a complicated multi stage build for small microservices but it helps keep images small in production.</p>
+
+  <h2>Prepare Elastic Beanstalk</h2>
+  <p>Create an Elastic Beanstalk application and choose the platform that matches your package. Configure environment variables for database credentials and external services. If you want your configuration to travel with your deploy bundle use an .ebextensions directory or the EB console to store required settings.</p>
+
+  <h3>EB CLI workflow</h3>
+  <pre><code>eb init
+eb create my-env
+eb deploy
+eb logs
+</code></pre>
+  <p>Run eb init to link the project to an AWS region and application. Use eb create to spin up an environment and eb deploy to push updates. eb logs will show the details when your service refuses to be reasonable.</p>
+
+  <h2>Testing and troubleshooting</h2>
+  <p>Test endpoints with curl or Postman and verify JSON responses and HTTP status codes. If things go wrong inspect logs with eb logs and check the health check path. Many failures are caused by missing environment variables or port mismatches rather than mystical runtime errors.</p>
+
+  <h3>Quick test example</h3>
+  <pre><code>curl -s -H 'Accept: application/json' your-env.elasticbeanstalk.com/api/items
+</code></pre>
+
+  <h2>Monitoring and scaling</h2>
+  <p>Watch CPU and memory trends on the Elastic Beanstalk dashboard and configure auto scaling to handle load spikes. Use separate environments for staging and production to avoid accidental chaos in live traffic.</p>
+
+  <h2>Deployment tips and best practices</h2>
+  <ul>
+    <li>Keep builds reproducible with Maven and a lock on dependency versions</li>
+    <li>Store secrets in environment variables not in code</li>
+    <li>Use health checks to fail fast when an instance is unhealthy</li>
+    <li>Test locally with the same container or jar that you will deploy</li>
+    <li>Keep logs handy and read them like a confession</li>
+  </ul>
+
+  <p>Deploying Spring Boot microservices to AWS is mostly boring setup followed by occasional terror. Follow these steps and you will have RESTful API services running in the cloud and a reliable way to update them with the EB CLI. When something breaks the logs will tell you what happened and you can blame the network like a pro.</p>
+</article>
+

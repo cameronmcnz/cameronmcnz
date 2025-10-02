@@ -1,0 +1,126 @@
+---
+layout: video
+title: "Pure JavaScript File Upload Example"
+description: "Learn a compact pure JavaScript file upload example with drag and drop progress and server POST using FormData and XMLHttpRequest"
+video_host: "youtube"
+video_id: "vBCU2Upno0c"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M21S"
+thumbnail_url: "https://i.ytimg.com/vi/vBCU2Upno0c/maxresdefault.jpg"
+content_url: "https://youtu.be/vBCU2Upno0c"
+embed_url: "https://www.youtube.com/embed/vBCU2Upno0c"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - javascript
+  - file upload
+  - formdata
+  - xmlhttprequest
+  - drag and drop
+  - progress bar
+  - frontend
+  - ajax
+  - upload tutorial
+  - web development
+---
+
+<h2>Why this guide exists</h2>
+<p>If you are building a frontend that accepts files and you want it to feel less like a 1999 FTP client this upload tutorial is for you. We will show a JavaScript file upload flow that supports drag and drop and a progress bar while keeping the code tiny and understandable. This is practical web development not a magic trick.</p>
+
+<h2>What you will get</h2>
+<ul>
+  <li>Simple HTML with a file input and a drop zone</li>
+  <li>A FormData based upload using XMLHttpRequest for real time progress</li>
+  <li>A friendly progress bar and basic server response handling</li>
+</ul>
+
+<h2>Minimal HTML to start</h2>
+<p>Keep the markup tiny so you can paste it into a sandbox and stop blaming the browser.</p>
+<pre><code>&lt;input id='fileInput' type='file' multiple&gt
+&lt;div id='dropZone' style='padding:20px;border:2px dashed #ccc;margin-top:10px'&gt;Drop files here&lt;/div&gt
+&lt;div id='progressBar' style='width:100%;background:#eee;margin-top:10px'&gt;
+  &lt;div id='progressFill' style='width:0%;background:#4caf50;text-align:center;color:#fff'&gt;&lt;/div&gt
+&lt;/div&gt</code></pre>
+
+<h2>Hook up drag and drop and file selection</h2>
+<p>Both file input and drag and drop are supported so users can choose their level of dramatic flair.</p>
+<pre><code>const fileInput = document.getElementById('fileInput')
+fileInput.addEventListener('change', e => handleFiles(e.target.files))
+
+const dropZone = document.getElementById('dropZone')
+dropZone.addEventListener('dragover', e => e.preventDefault())
+dropZone.addEventListener('drop', e => {
+  e.preventDefault()
+  handleFiles(e.dataTransfer.files)
+})
+
+function handleFiles(files) {
+  Array.from(files).forEach(file => uploadFile(file))
+}</code></pre>
+
+<h2>Upload with FormData and XMLHttpRequest</h2>
+<p>We use FormData and XMLHttpRequest so the browser handles multipart boundaries and you get upload progress events without dark rituals.</p>
+<pre><code>function uploadFile(file) {
+  const fd = new FormData()
+  fd.append('file', file)
+
+  const xhr = new XMLHttpRequest()
+  xhr.open('POST', '/upload')
+
+  xhr.upload.addEventListener('progress', e => {
+    if (e.lengthComputable) {
+      const percent = Math.round(e.loaded / e.total * 100)
+      updateProgress(percent)
+    }
+  })
+
+  xhr.addEventListener('load', () => {
+    handleResponse(xhr.responseText)
+  })
+
+  xhr.addEventListener('error', () => {
+    showMessage('Upload failed, try again')
+  })
+
+  xhr.send(fd)
+}
+</code></pre>
+
+<h3>Important note about headers</h3>
+<p>Do not manually set the content type for multipart form uploads. Let the browser set the boundary. If you try to be clever and set headers yourself the server will hate you.</p>
+
+<h2>Progress UI and response handling</h2>
+<p>A tiny progress bar keeps users from assuming the file was sent to a black hole. Update the fill width and show a percent number.</p>
+<pre><code>function updateProgress(percent) {
+  const fill = document.getElementById('progressFill')
+  fill.style.width = percent + '%'
+  fill.textContent = percent + '%'
+}
+
+function handleResponse(text) {
+  try {
+    const json = JSON.parse(text)
+    showMessage(json.message || 'Upload complete')
+  } catch (err) {
+    showMessage('Upload complete')
+  }
+}
+
+function showMessage(msg) {
+  console.log(msg)
+  // Replace with UI code to show messages to the user
+}
+</code></pre>
+
+<h2>Tips from someone who has broken uploads many times</h2>
+<ul>
+  <li>Test large files and check server timeouts</li>
+  <li>Use xhr.upload progress for frontend progress not server side events</li>
+  <li>Keep the server response JSON friendly so handleResponse does not cry</li>
+</ul>
+
+<h2>Wrap up</h2>
+<p>This AJAX file upload pattern using JavaScript FormData and XMLHttpRequest is reliable and easy to integrate into typical web development stacks. Add validation and nice error handling and your users will upload files without staging a revolt.</p>
+

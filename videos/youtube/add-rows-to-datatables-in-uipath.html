@@ -1,0 +1,82 @@
+---
+layout: video
+title: "Add Rows to DataTables in UiPath"
+description: "Learn practical ways to add rows to UiPath DataTables using Add Data Row and VB expressions for reliable automation"
+video_host: "youtube"
+video_id: "kdqpTZgxiU8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M15S"
+thumbnail_url: "https://i.ytimg.com/vi/kdqpTZgxiU8/maxresdefault.jpg"
+content_url: "https://youtu.be/kdqpTZgxiU8"
+embed_url: "https://www.youtube.com/embed/kdqpTZgxiU8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - DataTable
+  - Add Data Row
+  - RPA
+  - VB Expressions
+  - Automation
+  - Excel
+  - Merge
+  - DataRow
+  - UiPath Studio
+---
+
+<p>If you are building UiPath workflows and treating DataTables like disposable shopping lists you are doing it wrong but also welcome. This guide gives a compact and slightly cheeky walkthrough for adding rows to a UiPath DataTable while keeping types honest and Excel from throwing a tantrum.</p>
+
+<h2>Set up the DataTable schema first</h2>
+<p>Start by deciding the schema. Use Build Data Table for new schemas or Read Range to grab the structure from an existing sheet. Matching column types up front saves you debugging time and those fun runtime errors that smell like regret.</p>
+<ul>
+  <li>Build Data Table when creating a new table by hand</li>
+  <li>Read Range when you need the Excel headers and types</li>
+  <li>Use DataTable.Clone to copy just the schema when you need an empty shell</li>
+</ul>
+
+<h2>Add simple rows fast with Add Data Row activity</h2>
+<p>When your row values are already in order use the Add Data Row activity and supply an ArrayRow. It is the fastest path and perfect for designers who prefer boxes over raw code.</p>
+<pre><code>' Example ArrayRow property value
+{ "Alice", CInt("30"), DateTime.Parse("2020-01-01") }</code></pre>
+<p>Make sure the values match the column order and types. If your data arrives as an object array this is the one click win.</p>
+
+<h2>Create a DataRow when you need control</h2>
+<p>If you need per column logic or want to address columns by name create a DataRow programmatically. It avoids surprises when column order changes and gives you space to convert values cleanly.</p>
+<pre><code>' Create and fill a DataRow
+Dim row As DataRow = dt.NewRow()
+row("Name") = "Bob"
+row("Age") = CInt("42")
+row("StartDate") = DateTime.Parse("2021-05-01")
+dt.Rows.Add(row)</code></pre>
+<p>Using column names improves readability and reduces bugs when your teammate renames the second column to Something Creative.</p>
+
+<h3>When to use ImportRow or Merge</h3>
+<p>Combining tables is a real thing you will do when aggregating multiple sources. Use ImportRow to copy individual DataRow objects into another DataTable while preserving row state. Use Merge to combine whole tables and preserve schema alignment and constraints.</p>
+<pre><code>' Merge example
+dtMain.Merge(dtToMerge)
+
+' ImportRow example
+For Each r As DataRow In dtOther.Rows
+    dtMain.ImportRow(r)
+Next</code></pre>
+
+<h2>Type conversions and column mapping</h2>
+<p>Never trust raw strings to match column types. Use VB conversions such as CInt and DateTime.Parse when populating columns. You can assign by index or by name but name mapping is safer when column order changes.</p>
+
+<h2>Persisting results back to Excel</h2>
+<p>When you are done write the table back to Excel with Write Range. If you only copied schema earlier remember to import or merge the data first. Write Range will take care of the file side so your robot can sleep at night.</p>
+
+<h2>Quick checklist before you push to production</h2>
+<ul>
+  <li>Confirm schema with Build Data Table or Read Range</li>
+  <li>Choose Add Data Row for simple arrays or NewRow plus Rows.Add for column logic</li>
+  <li>Use CInt or DateTime.Parse where types must match</li>
+  <li>Use Merge to combine tables and ImportRow to copy rows one by one</li>
+  <li>Call DataTable.Clone when you want the schema without the baggage</li>
+  <li>Write Range to persist changes back to Excel</li>
+</ul>
+
+<p>There you go. Same technical truths, less ceremony, and a few jokes to keep you human while UiPath does the boring heavy lifting.</p>
+

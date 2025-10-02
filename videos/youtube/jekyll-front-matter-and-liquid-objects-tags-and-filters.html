@@ -1,0 +1,97 @@
+---
+layout: video
+title: "Jekyll Front Matter and Liquid Objects, Tags and Filters"
+description: "Compact guide to using Jekyll front matter and Liquid objects tags and filters to control content and templates for static sites"
+video_host: "youtube"
+video_id: "kFTDPjWqCaM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M44S"
+thumbnail_url: "https://i.ytimg.com/vi/kFTDPjWqCaM/maxresdefault.jpg"
+content_url: "https://youtu.be/kFTDPjWqCaM"
+embed_url: "https://www.youtube.com/embed/kFTDPjWqCaM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - jekyll
+  - front matter
+  - liquid
+  - liquid objects
+  - tags
+  - filters
+  - templates
+  - static site
+  - jekyll tutorial
+  - github pages
+---
+
+<p>Welcome to the magic closet where plain markdown becomes a full blown static site and where front matter holds the keys. If you like predictable templates and slightly smug control over your content then this guide will show you how to use Jekyll front matter with Liquid objects tags and filters without summoning dark template voodoo.</p>
+
+<h2>Front matter basics</h2>
+<p>Front matter is the YAML block at the top of a page or post that tells Jekyll who you are and what to do with the file. It sits between three dashes and exposes variables to your layouts and includes. Be tidy with names and you will avoid debugging that feels like arguing with a toaster.</p>
+
+<pre><code>---
+title: My Post
+date: 2025-01-01
+tags:
+  - jekyll
+  - tutorial
+layout: post
+---</code></pre>
+
+<p>Common variables are title date tags and layout. Use consistent keys so your templates do not silently fail when you typo a variable and then cry into the build log.</p>
+
+<h2>Liquid objects you will actually use</h2>
+<p>Liquid gives you a few objects that are worth memorizing. The page object contains front matter for the current file. The site object contains site wide collections pages and posts. Jekyll also builds helpers like site.posts and site.tags which can save you a lot of looping.</p>
+
+<pre><code>{% raw %}{% comment %} Example in a layout {% endcomment %}
+<h1>{{ page.title }}</h1>
+<p>Posted on {{ page.date | date: "%B %-d, %Y" }}</p>
+<nav>
+  {% for post in site.posts limit:5 %}
+    <a href="{{ post.url }}">{{ post.title }}</a>
+  {% endfor %}
+</nav>{% endraw %}</code></pre>
+
+<h2>Looping and grouping posts by tag</h2>
+<p>Jekyll creates site.tags as a map where the key is the tag name and the value is the array of posts with that tag. This is the easiest and fastest way to make a tag index. No need to reinvent the wheel.</p>
+
+<pre><code>{% raw %}{% for tag in site.tags %}
+  {% assign tag_name = tag[0] %}
+  {% assign posts = tag[1] %}
+  <h3><a href="/tags/{{ tag_name }}">{{ tag_name }}</a> ({{ posts | size }})</h3>
+{% endfor %}{% endraw %}</code></pre>
+
+<p>If you prefer to iterate over all posts and build a custom structure you can do that too. But site.tags is the built in shortcut and it behaves well.</p>
+
+<h2>Filters to shape output</h2>
+<p>Filters change presentation without changing your data. Chain them to tidy things up. Some useful ones are date where sort join uniq map and size. Order matters so read left to right and swap them if the output looks suspicious.</p>
+
+<pre><code>{% raw %}{% assign recent = site.posts | where: "draft", false | sort: "date" | reverse | slice: 0,5 %}
+<ul>
+{% for post in recent %}
+  <li><a href="{{ post.url }}">{{ post.title }}</a> — {{ post.date | date: "%b %-d, %Y" }}</li>
+{% endfor %}
+</ul>{% endraw %}</code></pre>
+
+<p>Want a clean comma separated tag list for a post? Use join. Want unique tags from a list of arrays use map and uniq. Play with small steps and your templates will start behaving like a civil human.</p>
+
+<h3>Example tag list for a single post</h3>
+<pre><code>{% raw %}{% if page.tags %}
+  <p>Tags: {{ page.tags | join: ", " }}</p>
+{% endif %}{% endraw %}</code></pre>
+
+<h2>Build locally and test often</h2>
+<p>Run a local server to preview changes. Iteration is faster than guessing. If something breaks check for typos in variable names or inconsistent tag casing. GitHub Pages has a limited plugin set so test builds locally with the same configuration you deploy with.</p>
+
+<ul>
+  <li>Use consistent tag names and casing</li>
+  <li>Prefer site.tags for tag indexes</li>
+  <li>Chain filters to refine results</li>
+  <li>Run the local server and check templates after each change</li>
+</ul>
+
+<h2>Final tip that sounds obvious but is not</h2>
+<p>Templates are powerful because they keep content and presentation separate. Front matter turns a markdown file into structured data that Liquid can read and act on. Learn a few Liquid filters and objects and your static site will do a lot more heavy lifting while you sip coffee and pretend you meant to write that CSS.</p>
+

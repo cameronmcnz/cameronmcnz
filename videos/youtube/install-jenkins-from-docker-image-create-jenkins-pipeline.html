@@ -1,0 +1,97 @@
+---
+layout: video
+title: "Install Jenkins from Docker Image & Create Jenkins Pipeline"
+description: "Quick guide to run Jenkins from a Docker image and build a basic Jenkins pipeline for CI and CD with commands and a sample Jenkinsfile"
+video_host: "youtube"
+video_id: "QLHc4BnVlR0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT14M45S"
+thumbnail_url: "https://i.ytimg.com/vi/QLHc4BnVlR0/maxresdefault.jpg"
+content_url: "https://youtu.be/QLHc4BnVlR0"
+embed_url: "https://www.youtube.com/embed/QLHc4BnVlR0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Jenkins
+  - Docker
+  - CI
+  - CD
+  - Pipeline
+  - Jenkinsfile
+  - DevOps
+  - Container
+  - Tutorial
+  - Automation
+---
+
+<p>If you want Jenkins up and humming inside a container while you sip coffee and pretend you planned this, this guide gets you there. We will pull the official Jenkins image run it with persistent storage and then create a simple pipeline using a Jenkinsfile. No magic rituals required just Docker and a little patience.</p>
+
+<h2>Start Jenkins in Docker</h2>
+<p>First step is practical and boring in the best possible way. Pull the LTS Jenkins image and start a container with a mounted volume so your config survives container tantrums.</p>
+
+<pre><code>docker pull jenkins/jenkins:lts
+
+docker run --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts</code></pre>
+
+<p>Notes and gotchas</p>
+<ul>
+  <li>If you use a host path for <code>jenkins_home</code> replace the volume spec accordingly.</li>
+  <li>Port 8080 is the web UI. Port 50000 is for agent connections.</li>
+</ul>
+
+<h2>Unlock and complete the initial setup</h2>
+<p>Open your browser to <a href="http://localhost:8080">http://localhost:8080</a> and follow the unlock wizard. Jenkins will ask for an initial admin password which lives in the mounted home directory under <code>/var/jenkins_home/secrets/initialAdminPassword</code>. If the UI asks just cat that file and paste the password like a civilized human.</p>
+
+<h2>Install plugins and add credentials</h2>
+<p>Install the recommended plugins to avoid mysterious dependency fights. After that add whatever credentials you need for your source control and deployment targets. Typical entries include SSH keys for Git or tokens for hosted Git providers.</p>
+
+<ul>
+  <li>Go to Manage Jenkins then Manage Plugins and pick the recommended set.</li>
+  <li>Under Credentials add system scoped items such as SSH username private key or secret text tokens.</li>
+</ul>
+
+<h2>Create a Pipeline job and supply a Jenkinsfile</h2>
+<p>You can create a Pipeline job in the classic UI or maintain the Jenkinsfile in source control which is more sane long term. A minimal declarative Jenkinsfile looks like this and is perfect for proving the pipeline works.</p>
+
+<pre><code>pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh 'echo Building'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'echo Testing'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh 'echo Deploying'
+      }
+    }
+  }
+}</code></pre>
+
+<p>Either paste that Jenkinsfile into the pipeline job configuration or point the job at a repository that contains it. If you use multibranch pipelines Jenkins will discover branches automatically and behave like a pleasant CI overlord.</p>
+
+<h2>Run the pipeline and inspect results</h2>
+<p>Click Build Now or push a change to your repo. The console log shows step by step output and you can find produced artifacts under the workspace directory inside the job. For a nicer visual experience install Blue Ocean and enjoy the pretty graphs.</p>
+
+<ul>
+  <li>Console logs are at the job build page. Read them closely when things go wrong and curse softly.</li>
+  <li>The workspace is on disk under the mounted <code>jenkins_home</code> so artifacts survive container restarts.</li>
+</ul>
+
+<h3>Tips from someone who has broken things before</h3>
+<ul>
+  <li>Keep your Jenkins home on a volume so upgrades and container swaps do not erase your work.</li>
+  <li>Install only the plugins you need to reduce upgrade pain.</li>
+  <li>Use credentials store rather than hard coding secrets in Jenkinsfiles.</li>
+</ul>
+
+<p>There you go Jenkins in Docker with a working pipeline and enough sarcasm to stay awake while it builds. If you want next level we can add agents pipelines that run in containers or integrate a real build tool. For now enjoy automated success and try not to break prod before lunch.</p>
+

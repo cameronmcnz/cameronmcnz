@@ -1,0 +1,86 @@
+---
+layout: video
+title: "How to create and run a script in Ubuntu"
+description: "Learn how to create make executable and run a script in Ubuntu using the terminal with simple commands and examples"
+video_host: "youtube"
+video_id: "-soG9m3dvTY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M58S"
+thumbnail_url: "https://i.ytimg.com/vi/-soG9m3dvTY/maxresdefault.jpg"
+content_url: "https://youtu.be/-soG9m3dvTY"
+embed_url: "https://www.youtube.com/embed/-soG9m3dvTY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Ubuntu
+  - bash
+  - shell scripting
+  - script
+  - chmod
+  - shebang
+  - terminal
+  - linux
+  - tutorial
+  - execute script
+---
+
+<p>If you can type and you have mild control issues with your computer then shell scripting is the tiny addiction that becomes very useful. This guide walks through creating a runnable script in Ubuntu using the terminal and a minimum of ceremony, with honest explanations and a few jokes at your future self.</p>
+
+<h2>Start by making a file and adding a shebang</h2>
+<p>Create a new text file with your editor of choice. Yes nano is fine, yes vim is a flex, and yes you can use touch if you prefer pretending the file made itself.</p>
+<pre><code>nano hello.sh
+# or
+touch hello.sh && nano hello.sh
+</code></pre>
+<p>Put a shebang at the top so the kernel knows which interpreter to call. A portable and common choice is this line.</p>
+<pre><code>#!/usr/bin/env bash
+
+echo "Hello world"
+</code></pre>
+<p>The shebang tells Linux to run the rest of the file with bash. If you skip it the file is still text and you can run it by invoking an interpreter explicitly, but including the shebang makes your script behave like a tiny program.</p>
+
+<h2>Make the script executable with chmod</h2>
+<p>Files need the execute bit set before the kernel will let you run them directly. This is not witchcraft, it is file permissions.</p>
+<pre><code>chmod +x hello.sh
+</code></pre>
+<p>That grants execute permission for the file owner. You can confirm with ls -l to see the x flag in the mode string. If you need other users to run it adjust permissions or install it into a shared directory.</p>
+
+<h2>Run the script from the terminal</h2>
+<p>Run it from the current directory like this.</p>
+<pre><code>./hello.sh
+</code></pre>
+<p>Or call an interpreter explicitly which ignores the file executable bit.</p>
+<pre><code>bash hello.sh
+</code></pre>
+<p>If you put the script in a directory that is in your PATH then you can run it by name from anywhere. Common choices are ~/bin or /usr/local/bin depending on whether you want a single user or system wide tool.</p>
+
+<h3>What to do when things fail</h3>
+<ul>
+<li>Check the shebang for typos</li>
+<li>Verify the execute bit with ls -l</li>
+<li>Run with bash explicitly to get interpreter errors</li>
+<li>Add set -e near the top to stop on the first error and make failures less mysterious</li>
+<li>Add set -x temporarily to trace what the script is running</li>
+</ul>
+
+<h2>Small best practices that save headaches</h2>
+<ul>
+<li>Use #!/usr/bin/env bash for portability across Linux systems</li>
+<li>Keep scripts small and focused so debugging is not a scavenger hunt</li>
+<li>Use meaningful names and put scripts for frequent use in your PATH</li>
+<li>Comment intent not every line, just the weird bits that future you will curse about</li>
+</ul>
+
+<h2>Quick recap checklist</h2>
+<ul>
+<li>Create a file in the terminal or editor</li>
+<li>Add a shebang such as #!/usr/bin/env bash</li>
+<li>Add commands like echo and whatever automation you need</li>
+<li>Run chmod +x to make it executable</li>
+<li>Execute with ./scriptname or bash scriptname or from PATH</li>
+</ul>
+
+<p>There you go. You turned a plain text file into a small automation that saves keystrokes and gives you a tiny sense of mastery over Ubuntu, bash, and the terminal. Be kind to your scripts and they will be kinder to your future self.
+

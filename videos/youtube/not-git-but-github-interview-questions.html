@@ -1,0 +1,82 @@
+---
+layout: video
+title: "Not Git, but GitHub Interview Questions"
+description: "Quick guide to common GitHub interview questions with concise answers and practical tips to prepare for developer interviews"
+video_host: "youtube"
+video_id: "XbQPp3k83VU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M46S"
+thumbnail_url: "https://i.ytimg.com/vi/XbQPp3k83VU/maxresdefault.jpg"
+content_url: "https://youtu.be/XbQPp3k83VU"
+embed_url: "https://www.youtube.com/embed/XbQPp3k83VU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub
+  - Git
+  - Interview Questions
+  - Version Control
+  - Pull Requests
+  - Fork
+  - Branch
+  - Merge Conflicts
+  - Code Review
+  - Developer Interview
+---
+
+<h2>Quick primer on Git and GitHub</h2>
+<p>If your interviewer asks you to explain GitHub and you start babbling about terminals you will still pass if you know the right words. Keep it simple and useful. Git is the version control tool that lives on your machine. GitHub is the remote hosting and collaboration layer that sits on top of Git and adds pull requests issues project boards and access controls.</p>
+
+<h3>What GitHub actually does</h3>
+<p>It hosts repositories and gives teams ways to review code run checks and track work. Think of it as the social network for your code with badges that make merge buttons feel important.</p>
+
+<h3>How Git differs</h3>
+<p>Git handles commits branches merging and history locally. GitHub gives you the remote storage and workflow features that let multiple humans accidentally rewrite history together.</p>
+
+<h2>Pull requests explained with no nonsense</h2>
+<p>A pull request is a formal request to merge changes from one branch or fork into another. It is the place where code review discussion happens tests run and design trade offs get argued over in polite developer language.</p>
+
+<h3>What to mention when asked</h3>
+<ul>
+  <li>Purpose of a pull request. Review feedback and automated checks before merging.</li>
+  <li>Typical flow. Create a branch implement changes open a pull request get reviews address comments and merge when green.</li>
+  <li>Why history matters. Clean commits and good messages make reviews painless and postmortems playable.</li>
+</ul>
+
+<h2>Fork versus branch and when to use each</h2>
+<p>Short answer. Use a branch for work inside the repo and a fork for contributions to someone else s project. If you are working on the same team a branch is faster. If you are contributing to open source fork and send a pull request from your fork.</p>
+
+<h2>Handling merge conflicts without melodrama</h2>
+<p>Conflicts happen. Here is a reliable workflow that actually works during interviews and on real projects.</p>
+<ol>
+  <li>Fetch the latest from the remote with <code>git fetch</code> or <code>git pull</code></li>
+  <li>Create or switch to your local branch with <code>git checkout -b</code> or <code>git checkout</code></li>
+  <li>Merge the target branch into your branch with <code>git merge</code> or rebase if your team prefers</li>
+  <li>Open conflicted files and pick the correct changes then save the files</li>
+  <li>Stage and commit the resolutions with <code>git add</code> and <code>git commit</code></li>
+  <li>Push the resolved branch to the remote with <code>git push</code></li>
+</ol>
+<p>When asked explain why you chose merge or rebase and what you did to verify the result. A quick test run and a clear commit message go a long way.</p>
+
+<h2>Code review and PR etiquette</h2>
+<p>Review comments should be focused on code and impact. Explain trade offs give examples and avoid vague statements. If you get feedback show that you understand it and either accept it or explain the trade off politely.</p>
+
+<h2>Issues and project boards made tolerable</h2>
+<p>Issues track bugs features and tasks. Project boards give you a Kanban view for planning and prioritization. Use clear issue titles labels and links to pull requests so no one has to play detective later.</p>
+
+<h2>Access control and protected branches</h2>
+<p>Use teams and role based permissions to grant the least privilege required. Protect important branches with required reviews passing checks and restriction rules so nobody accidentally deploys a half baked idea.</p>
+
+<h2>How to prepare for a live coding session or PR review</h2>
+<ul>
+  <li>Create a tiny demo repo that shows your approach and trade offs</li>
+  <li>Keep commits focused and messages clear</li>
+  <li>Write a concise pull request description that explains intent tests and known limitations</li>
+  <li>Be ready to defend design choices with real examples not buzzwords</li>
+  <li>Practice walking through the repo like you are narrating a tour that only slightly judges the audience</li>
+</ul>
+
+<p>Final tip Bring a small demo and a calm attitude. Interviewers prefer clarity and practical context over jargon. If you can explain how you fixed a merge conflict without blaming anyone you will do fine and maybe even impress someone with a love of branch hygiene.</p>
+

@@ -1,0 +1,80 @@
+---
+layout: video
+title: "How to Git Clone to a Specific Directory with GitHub"
+description: "Quick guide to clone a GitHub repo into a specific local folder using git clone with a target folder name and basic tips."
+video_host: "youtube"
+video_id: "0-M86l49slw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M54S"
+thumbnail_url: "https://i.ytimg.com/vi/0-M86l49slw/maxresdefault.jpg"
+content_url: "https://youtu.be/0-M86l49slw"
+embed_url: "https://www.youtube.com/embed/0-M86l49slw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - git clone
+  - clone
+  - command line
+  - tutorial
+  - repository
+  - directory
+  - folder
+  - ssh
+---
+
+<p>So you want that repository on your machine but not dumped into a folder named after the author of a README file. Good. This guide explains how to clone a GitHub repo into a specific local folder using the command line, with a few survival tips thrown in.</p>
+
+<h2>What you need before you start</h2>
+<p>Nothing mystical. Either have HTTPS credentials ready or SSH keys set up for GitHub. Open a terminal and pick a sane place on your disk where you want the project to live.</p>
+
+<h2>Quick steps to clone into a specific folder</h2>
+<ol>
+  <li>Copy the clone URL from the GitHub project page. You can choose HTTPS or SSH depending on your setup.</li>
+  <li>Decide on a target folder name. Use an empty folder or let git create a new one for you.</li>
+  <li>Run git clone with the repo URL and the folder name.</li>
+</ol>
+
+<h3>Basic command</h3>
+<p>Tell git where to put the repo by adding your target folder after the URL.</p>
+<pre><code>git clone REPO_URL my-folder</code></pre>
+
+<p>If you want the repo to end up in the current working folder use a dot as the folder name.</p>
+<pre><code>git clone REPO_URL .</code></pre>
+
+<h3>Shallow clone when history is terrifying</h3>
+<p>If the repo has a history the size of a paperback series and you only need the latest files use a shallow clone to save time and bandwidth.</p>
+<pre><code>git clone --depth 1 REPO_URL my-folder</code></pre>
+
+<h2>Common gotchas and how to avoid drama</h2>
+<ul>
+  <li>If the chosen folder already exists and is not empty git will refuse to overwrite. Use an empty folder or a new name.</li>
+  <li>To clone via SSH make sure your public key is added to your GitHub account. If not use the HTTPS option and be ready to enter credentials or use a credential helper.</li>
+  <li>If you want a specific branch at clone time pass the branch flag with the branch name.</li>
+</ul>
+
+<h3>Clone a specific branch example</h3>
+<pre><code>git clone --branch branch-name REPO_URL my-folder</code></pre>
+
+<h2>Verify the result like a wary human</h2>
+<p>Once the clone finishes run a few checks to make sure the files landed where expected.</p>
+<pre><code>ls
+cd my-folder
+git status
+git branch -a</code></pre>
+
+<p>That will show you the working tree, the current branch and any remote branches. If something looks off check the URL you used and whether the folder was empty before you started.</p>
+
+<h2>Recap for busy people who still care about their file system</h2>
+<ul>
+  <li>Copy the repo URL from GitHub using HTTPS or SSH</li>
+  <li>Pick or create a local folder</li>
+  <li>Run git clone with the URL and your chosen folder name</li>
+  <li>Verify with ls and git status</li>
+</ul>
+
+<p>There you go. Minimal fuss, maximum control, and the satisfaction of knowing your projects are in folders that make sense. If you are trying to automate this in scripts use absolute paths and handle existing folders gracefully to avoid surprises.</p>
+

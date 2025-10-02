@@ -1,0 +1,90 @@
+---
+layout: video
+title: "Gitflow on GitHub How to use Git Flow workflows"
+description: "Use Git Flow with GitHub repos Learn feature branch release and hotfix workflows plus PR best practices and tagging"
+video_host: "youtube"
+video_id: "WQuxeEvaCxs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M38S"
+thumbnail_url: "https://i.ytimg.com/vi/WQuxeEvaCxs/maxresdefault.jpg"
+content_url: "https://youtu.be/WQuxeEvaCxs"
+embed_url: "https://www.youtube.com/embed/WQuxeEvaCxs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gitflow
+  - git
+  - github
+  - branching
+  - feature branch
+  - release
+  - hotfix
+  - pull request
+  - versioning
+  - devops
+---
+
+<p>If your repo looks like a reality show where branches fight for screen time, Gitflow can help. This guide shows how to apply the Gitflow branching model on GitHub with practical commands and pull request practices that actually keep things readable and releasable.</p>
+
+<h2>Initialize the branching model</h2>
+<p>Pick <code>main</code> as your production branch and <code>develop</code> as the integration branch. You can let <code>git flow init</code> do the polite ritual, or create the branches by hand with</p>
+<pre><code>git checkout -b develop
+git push -u origin develop
+</code></pre>
+<p>On GitHub enable branch protection for both <code>main</code> and <code>develop</code> so nobody can push heartbreak directly. Require status checks, require reviews, and enable required CI for pull requests.</p>
+
+<h2>Feature branches and pull requests</h2>
+<p>Create one feature branch per task and give it a helpful name, not a cryptic rant about your day. Example names work well like <code>feature/add-login</code> or <code>feature/payment-intent</code>. Using feature branches keeps work isolated, makes code review simple, and makes rollbacks less dramatic.</p>
+<ul>
+  <li>Create a branch locally with <code>git checkout -b feature/name</code> and push it with <code>git push -u origin feature/name</code></li>
+  <li>Open a pull request into <code>develop</code> and require at least one review and passing CI checks before merging</li>
+  <li>Prefer small focused PRs, they get reviewed faster and blame is less painful when you need to bisect</li>
+</ul>
+
+<h2>Release branches and versioning</h2>
+<p>When <code>develop</code> is stable and ready for staging create a release branch named like <code>release/1.2.0</code>. Use that branch to bump version numbers, run final tests, and perform any last minute polishing. Finalize the release by merging the release branch into <code>main</code> and into <code>develop</code> so no fixes are lost.</p>
+<pre><code>git checkout -b release/1.2.0 develop
+# bump version and test
+git checkout main
+git merge --no-ff release/1.2.0
+git tag v1.2.0
+git push origin main
+git push origin --tags
+</code></pre>
+<p>Tagging the <code>main</code> commit with a version tag like <code>v1.2.0</code> keeps your release history searchable and useful for rollbacks.</p>
+
+<h2>Hotfix branches for emergencies</h2>
+<p>When production breaks and someone yells your name, create a hotfix branch from <code>main</code> such as <code>hotfix/1.2.1</code>. Apply the fix, merge the hotfix into <code>main</code> and into <code>develop</code> so the fix survives in future releases, then tag and push.</p>
+<pre><code>git checkout -b hotfix/1.2.1 main
+# fix the bug
+git checkout main
+git merge --no-ff hotfix/1.2.1
+git tag v1.2.1
+git push origin main
+git push origin --tags
+git checkout develop
+git merge hotfix/1.2.1
+git push origin develop
+</code></pre>
+
+<h2>Best practices that do not require miracles</h2>
+<ul>
+  <li>Protect <code>main</code> and <code>develop</code> with required reviews and CI checks</li>
+  <li>Name branches clearly and keep PRs small</li>
+  <li>Use CI on pull requests to catch regressions early</li>
+  <li>Merge hotfixes back into <code>develop</code> to avoid divergent history</li>
+  <li>Keep a consistent tagging scheme like <code>vMAJOR.MINOR.PATCH</code> for traceable versioning</li>
+</ul>
+
+<h3>Quick checklist before you merge</h3>
+<ul>
+  <li>All CI checks passed</li>
+  <li>At least one approving review</li>
+  <li>No merge conflicts with target branch</li>
+  <li>Version bumped if needed and tests green</li>
+</ul>
+
+<p>Gitflow on GitHub is not a magic spell, but when paired with branch protections, CI, and sensible naming it keeps teams sane and releases predictable. Use it to bring order to your branching chaos and to avoid surprise fire drills on Friday night.</p>
+

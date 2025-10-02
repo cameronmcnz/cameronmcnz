@@ -1,0 +1,65 @@
+---
+layout: video
+title: "01 Introduction Test"
+description: "Quick companion guide to the 01 Introduction Test video covering objectives setup and what to watch for during early tests"
+video_host: "youtube"
+video_id: "VRgAd9JJ9rY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M30S"
+thumbnail_url: "https://i.ytimg.com/vi/VRgAd9JJ9rY/maxresdefault.jpg"
+content_url: "https://youtu.be/VRgAd9JJ9rY"
+embed_url: "https://www.youtube.com/embed/VRgAd9JJ9rY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Introduction
+  - Testing
+  - Test Workflow
+  - Project Setup
+  - Debugging
+  - Beginner Guide
+  - QA
+  - Troubleshooting
+  - Video Companion
+  - Quick Tips
+---
+
+<p>This short video companion walks you through a no-nonsense first pass test workflow for a new project. Think of this as the gentle shove that saves everyone from a week of guesswork and frantic console staring. The main goals are simple and useful. Confirm the environment boots without errors and verify that core features respond as expected. Note warnings and any odd behavior and record reproducible steps. That log is your future selfs best friend.</p>
+
+<h2>Quick test checklist for your new project</h2>
+
+<ul>
+  <li>Confirm the development environment matches the documented version. Mismatched runtimes and dependency versions are the ninja of wasted time.</li>
+  <li>Launch the test scenario using the provided scripts or commands, for example <code>npm run test</code> or the project supplied runner.</li>
+  <li>Verify that logs show successful initialization rather than silent failures. A single failed service can ruin the whole parade.</li>
+</ul>
+
+<h2>When a test fails stay calm and do detective work</h2>
+
+<p>Do not scream at the screen. I know you want to. Instead read the error message like it owes you money. Match that message to a likely source and try to reproduce the failure with the smallest possible input. Small reproducible cases make debugging fun again or at least tolerable.</p>
+
+<h3>Steps to isolate the problem</h3>
+
+<ol>
+  <li>Reproduce the issue with minimal inputs and minimal setup. If it fails in a tiny case you win time.</li>
+  <li>Isolate the module or service that produced the error. Replace complex wiring with mocks if needed to narrow the blast radius.</li>
+  <li>Check the usual culprits. Mismatched dependency versions and missing environment variables cause most surprises.</li>
+  <li>Diff configuration files instead of guessing. A one line change in a config often explains more than an hour of random edits.</li>
+</ol>
+
+<h2>Prioritize fixes that unblock further testing</h2>
+
+<p>After the initial pass, fix the things that let more tests run. If a flaky local database prevents all testing, fix that before chasing a UI oddity. Add a short note in the project tracker that documents the failure steps and any attempted fixes. That one line will stop a teammate from repeating the same performance art later.</p>
+
+<h3>Logging and collaboration quick tips</h3>
+
+<ul>
+  <li>Add a timestamped log entry before and after suspect operations. Knowing the exact second something went sideways is worth its weight in saved hours.</li>
+  <li>Attach the smallest reproducer to your bug report. A clear reproduction is the difference between a fix in one day and a meme thread about broken tests.</li>
+  <li>If you tried something wild write it down. Future you will thank you or at least curse you with respect.</li>
+</ul>
+
+<p>Wrap up your first pass with a quick status update and a plan. Say what is blocking further tests and what needs to be done to move forward. Keep it short, factual, and mildly entertaining for the humans who have to read it. Now go enjoy the satisfaction of having saved a future engineer from needless chaos.</p>
+

@@ -1,0 +1,79 @@
+---
+layout: video
+title: "Pros and Cons of Microservices vs Monolithic Architectures"
+description: "Compare pros and cons of microservices and monolithic architectures for scalability agility complexity and operational cost"
+video_host: "youtube"
+video_id: "1oQJ3b8MWzw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M35S"
+thumbnail_url: "https://i.ytimg.com/vi/1oQJ3b8MWzw/maxresdefault.jpg"
+content_url: "https://youtu.be/1oQJ3b8MWzw"
+embed_url: "https://www.youtube.com/embed/1oQJ3b8MWzw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - microservices
+  - monolithic
+  - architecture
+  - scalability
+  - devops
+  - distributed-systems
+  - modularity
+  - deployment
+  - resilience
+  - performance
+---
+
+<article>
+  <p>If your architecture were a relationship status, monolith would be married and microservices would be happily single but chronically flaky. Both strategies work, both break your heart if handled poorly, and both can scale to happiness when you actually know what you are doing.</p>
+
+  <h2>What each approach actually means</h2>
+  <p>Monolithic architecture keeps everything in one deployable unit. You build one artifact, you ship one artifact, you debug one artifact on your laptop and you either pat yourself on the back or cry in the logs. Microservices split responsibilities into independently deployable services. Each service owns a piece of the domain and can be scaled, updated and deployed without dragging the entire code base behind it like a sad parade float.</p>
+
+  <h2>Scalability and performance</h2>
+  <p>Microservices let you scale only the noisy bits of your system. If checkout is spicy at 5 pm you can scale checkout without quadrupling the size of everything else. That saves cloud bills and cache invalidation tantrums. Monoliths force you to scale the whole thing when demand spikes, which is simpler to reason about but often wasteful when load is uneven.</p>
+
+  <h3>Practical patterns for scale</h3>
+  <ul>
+    <li>Use independent services for hotspots like payments or search.</li>
+    <li>Keep latency sensitive paths colocated or well optimized to avoid network tax.</li>
+    <li>Measure performance before splitting things to avoid premature complexity.</li>
+  </ul>
+
+  <h2>Development speed and team autonomy</h2>
+  <p>Microservices give teams freedom to choose languages, frameworks and deployment windows. That freedom is intoxicating and can lead to polyglot chaos if governance is absent. Monoliths centralize changes and make cross team coordination simpler, but a massive code base can slow down fixes and encourage heroic merge days.</p>
+
+  <h2>Operational complexity and DevOps reality</h2>
+  <p>Microservices shift complexity from code coupling to runtime coupling. You now have networking, service discovery, observability and deployments to babysit. That means you need solid DevOps practices and automation or you will spend your days chasing transient network ghosts.</p>
+  <p>Monoliths are easier to reproduce locally and debug, which is a real win for small teams. The trade off is that deployments may be heavier and restart windows can be dramatic if you have tight uptime targets.</p>
+
+  <h2>Fault isolation and resilience</h2>
+  <p>Well designed microservices fail with grace. A bad service can be circuit broken, throttled or rolled back without dragging down the entire platform. If you are sloppy, the network becomes a new shared global failure mode and you will learn to love timeouts and retries in a way that feels unhealthy.</p>
+  <p>Monoliths risk cascading failures because everything runs in the same process or JVM or container. On the other hand, a monolith can be easier to reason about when traffic is moderate and the domain is small.</p>
+
+  <h2>Testing and deployment</h2>
+  <p>Microservices need contract testing, staging strategies and careful integration plans. You will want automated CI pipelines, end to end tests and observability so you can find the misbehaving service before your PagerDuty number gets a workout.</p>
+  <p>Monoliths favor integrated tests and fewer moving parts. That reduces the number of cross service contracts you must maintain but it can make continuous delivery slower if the code base grows without modular boundaries.</p>
+
+  <h2>When to start with a monolith and when to split</h2>
+  <ul>
+    <li>Start with a modular monolith if your team is small or your product is still finding product market fit. Modularity buys you cleaner boundaries without early distributed system debt.</li>
+    <li>Extract services when performance, team size or scaling patterns demand it. Focus on clear business boundaries to avoid arbitrary splits that create more pain than they solve.</li>
+    <li>Invest in automation and observability before you go distributed. If you are not ready to operate multiple services, the theoretical benefits will feel like eternal suffering.</li>
+  </ul>
+
+  <h2>Final pragmatic advice</h2>
+  <p>There is no magic winner. Microservices shine for large distributed systems that need independent scaling and resilient ownership. Monoliths win when you want fast iteration with less operational burden. Use the right tool for the problem, and remember that good modularity, solid DevOps practices and clear ownership matter more than the label on the architecture.</p>
+
+  <p>If you want a cheat sheet, here it is</p>
+  <ul>
+    <li>Prefer a modular monolith early in the project life cycle.</li>
+    <li>Move to microservices when team scale or performance bottlenecks justify the ops overhead.</li>
+    <li>Measure often, automate everything and never trust memory as your architecture plan.</li>
+  </ul>
+
+  <p>Now go pick an architecture and accept that you will iterate. The servers will survive if you feed them monitoring and the teams will survive if you give them good boundaries and coffee.</p>
+</article>
+

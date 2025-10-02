@@ -1,0 +1,72 @@
+---
+layout: video
+title: "KebabCase vs SnakeCase vs CamelCase vs PascalCase"
+description: "Compare KebabCase SnakeCase CamelCase and PascalCase with clear examples uses and guidance for code readability and consistency"
+video_host: "youtube"
+video_id: "pQLJdjdr2MI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M39S"
+thumbnail_url: "https://i.ytimg.com/vi/pQLJdjdr2MI/maxresdefault.jpg"
+content_url: "https://youtu.be/pQLJdjdr2MI"
+embed_url: "https://www.youtube.com/embed/pQLJdjdr2MI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - kebab-case
+  - snake_case
+  - camelCase
+  - PascalCase
+  - naming conventions
+  - code readability
+  - programming style
+  - linting
+  - best practices
+  - developer tips
+---
+
+<h2>Why naming conventions matter for code readability</h2>
+<p>Yes this is another article that tells you to be consistent. But hear me out. Naming conventions are the difference between readable code and a confusing ransom note written in variable names. Use the right case and your team will spend less time arguing in PRs and more time shipping features.</p>
+
+<h2>Quick tour of the cases you will fight about</h2>
+<p>Short definitions with real world uses so you can pick a side and be smug about it.</p>
+
+<h3>Kebab case</h3>
+<p>Kebab case uses lowercase words with hyphens between them. Example <code>kebab-case-example</code>. You will see this in URLs CSS classes and many CLI flags. The hyphen improves human readability and plays nicely with web patterns.</p>
+
+<h3>Snake case</h3>
+<p>Snake case uses lowercase words with underscores. Example <code>snake_case_example</code>. Popular in Python and in databases for column names. The underscore avoids confusion with the minus sign when the identifier appears near math.</p>
+
+<h3>Camel case</h3>
+<p>Camel case starts with lowercase and capital letters mark new words. Example <code>camelCaseExample</code>. This is the common default for JavaScript variables and many editor APIs. It is compact and familiar.</p>
+
+<h3>Pascal case</h3>
+<p>Pascal case capitalizes every word including the first. Example <code>PascalCaseExample</code>. Widely used for class names types and constructors in languages like C# and Java. It signals that the identifier is a type or a constructor.</p>
+
+<h2>How to choose a convention without starting a holy war</h2>
+<ul>
+  <li>Prefer the convention native to the language or framework. Teams that follow community style guides are happier.</li>
+  <li>Add linting rules to the repository so bikeshedding is automated.</li>
+  <li>Document the choice in the README and add a one line note to new contributor docs.</li>
+  <li>Be pragmatic for public APIs. URLs and CSS often want kebab case. JSON and code may want camelCase or snake_case depending on language.</li>
+</ul>
+
+<h2>Practical tips and gotchas</h2>
+<ul>
+  <li>Mixing cases is technical debt. Convert in one PR and run tests.</li>
+  <li>Constants often use UPPER_SNAKE_CASE in many languages. This is okay and widely recognized.</li>
+  <li>Databases sometimes prefer snake_case for columns. Keep mapping code tidy if your app uses camelCase objects.</li>
+  <li>CLI flags usually use kebab case. This avoids confusion with minus signs and looks nice in help output.</li>
+</ul>
+
+<h2>Short checklist for making a decision</h2>
+<ul>
+  <li>Pick the convention used by your language community.</li>
+  <li>Enforce it with a linter and formatter.</li>
+  <li>Note it in the repo so newcomers do not reinvent the chaos.</li>
+  <li>Keep a small migration plan if you must change existing names.</li>
+</ul>
+
+<p>If you follow these developer tips your code readability will improve and your code reviews will focus on logic instead of keyboard style. And if anyone still wants to debate snake wars send them this article and a coffee mug that says consistency beats cleverness.</p>
+

@@ -1,0 +1,96 @@
+---
+layout: video
+title: "How to show the history of a Git file"
+description: "Learn how to view a file history in Git with git log and git blame for precise commit tracing and quick investigation."
+video_host: "youtube"
+video_id: "wkJ4leOuK_o"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M25S"
+thumbnail_url: "https://i.ytimg.com/vi/wkJ4leOuK_o/maxresdefault.jpg"
+content_url: "https://youtu.be/wkJ4leOuK_o"
+embed_url: "https://www.youtube.com/embed/wkJ4leOuK_o"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git history
+  - git blame
+  - git log
+  - version control
+  - git tutorial
+  - file history
+  - programming
+  - git commands
+  - source control
+---
+
+<h1>Trace every edit across renames with git log blame and GUI tools</h1>
+<p>Want to find out who introduced that mysterious bug that only appears at 3 a m and in production? Welcome to Git detective work. This guide gives clear commands and a few survival tips to read a file history in Git. Be sarcastic if you must but keep the facts straight.</p>
+
+<h2>Core commands that actually help</h2>
+<p>These are the tools I use when I need to prove that someone else was the last to touch a file. Each one answers a slightly different question about file history and authorship.</p>
+<ul>
+  <li><code>git log --follow -- path/to/file</code>
+    <p>See every commit that touched the file even when it was renamed. This saves you from missing important ancestors because someone renamed it and hoped no one would notice.</p>
+  </li>
+  <li><code>git blame path/to/file</code>
+    <p>Shows which commit and author last changed each line. Great for assigning polite suspicion at the line level. Add <code>-w</code> to ignore whitespace noise when appropriate.</p>
+  </li>
+  <li><code>git log -p -- path/to/file</code>
+    <p>Shows the diffs for each commit. Useful when commit messages are cryptic or poetic and you need the actual changes to tell the story.</p>
+  </li>
+  <li><code>git log --name-status -- path/to/file</code>
+    <p>Lists commits with a file action marker such as A D or M. Handy when blame is not telling the whole story about moves or deletions.</p>
+  </li>
+  <li><code>git show COMMIT_HASH -- path/to/file</code>
+    <p>Inspect a particular commit and the file changes involved when the commit message is unhelpful or suspiciously minimal.</p>
+  </li>
+  <li><code>gitk path/to/file</code>
+    <p>Open a GUI history viewer for those who prefer a picture to a wall of text. GUIs make branching and merges easier to read if you are allergic to raw graphs.</p>
+  </li>
+</ul>
+
+<h2>Step by step workflow for tracing file history</h2>
+<p>Follow this short routine when you need to reconstruct what happened to a file across time and renames. It is efficient and morally satisfying.</p>
+<ol>
+  <li>
+    <strong>Find commits across renames</strong>
+    <p>Run <code>git log --follow -- path/to/file</code> to get the commit list even if the file moved or was renamed. That prevents you from missing the older commits that matter.</p>
+  </li>
+  <li>
+    <strong>Check line level authorship</strong>
+    <p>Use <code>git blame path/to/file</code> to see who changed each line. Add <code>-L start,end</code> to focus on a specific range if the file is huge.</p>
+  </li>
+  <li>
+    <strong>Read the patches</strong>
+    <p>Use <code>git log -p -- path/to/file</code> or <code>git show COMMIT_HASH -- path/to/file</code> to inspect the diffs. This helps when commit messages read like haikus and human inference fails.</p>
+  </li>
+  <li>
+    <strong>Check file actions</strong>
+    <p>Use <code>git log --name-status -- path/to/file</code> to see whether a commit added deleted or modified the file. This is useful when blame does not explain renames or removals.</p>
+  </li>
+  <li>
+    <strong>Switch to a GUI if needed</strong>
+    <p>Open <code>gitk path/to/file</code> or another history viewer when the merge or rename graph gets messy. Visual timelines are comforting and reduce the chance of accidental finger pointing.</p>
+  </li>
+</ol>
+
+<h2>Troubleshooting and useful variations</h2>
+<ul>
+  <li><strong>Whitespace noise</strong>
+    <p>If blame points to changes that are only formatting run <code>git blame -w path/to/file</code> to ignore whitespace differences.</p>
+  </li>
+  <li><strong>Large files</strong>
+    <p>Limit the blame to a range using <code>git blame -L 100,200 path/to/file</code> to focus on the lines that matter and save your sanity.</p>
+  </li>
+  <li><strong>Missing history after a move</strong>
+    <p>Remember that rename detection has limits. Using <code>git log --follow -- path/to/file</code> is usually enough but if history looks incomplete double check the surrounding commits and merges with a GUI or by inspecting parent commits.</p>
+  </li>
+</ul>
+
+<h2>Final tips from someone who has blamed and been blamed</h2>
+<p>Combine follow blame and patch level logs for a reliable view of who changed what when and why. When a commit message is useless run <code>git show COMMIT_HASH -- path/to/file</code> and read the actual diff. If things still do not add up pull up a GUI and stare until the graph confesses.</p>
+<p>Now go find the culprit and do it with evidence not vibes.</p>
+

@@ -1,0 +1,77 @@
+---
+layout: video
+title: "How to list and switch between GitLab branches"
+description: "Quick guide to list and switch GitLab branches using git commands and the web UI plus safe workflow tips for branch switching"
+video_host: "youtube"
+video_id: "VqUYuKnMth8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M0S"
+thumbnail_url: "https://i.ytimg.com/vi/VqUYuKnMth8/maxresdefault.jpg"
+content_url: "https://youtu.be/VqUYuKnMth8"
+embed_url: "https://www.youtube.com/embed/VqUYuKnMth8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitLab
+  - git
+  - branches
+  - git branch
+  - git switch
+  - git fetch
+  - git push
+  - version control
+  - developer workflow
+  - CLI
+---
+
+<p>So you inherited a repo that looks like a jungle gym for branches and you need to move around without causing an international incident. This guide shows how to list and switch branches in a GitLab repository using local git commands and a tiny amount of common sense. Expect commands you can paste, a little sarcasm, and no useless drama.</p>
+
+<h2>Sync remote refs</h2>
+<p>Start by updating your local view of the server. If you skip this you will get the fun surprise where someone insists a branch exists and you spend 20 minutes proving them wrong.</p>
+<pre><code>git fetch --all</code></pre>
+<p>This downloads refs from origin so the branch list is accurate. Think of it as giving git a quick memory refresh.</p>
+
+<h2>List branches</h2>
+<p>Want to know what is local and what lives only on the server Use these commands to inspect both sides of the dance.</p>
+<ul>
+  <li><code>git branch</code> shows local branches and marks the current one with a star.</li>
+  <li><code>git branch -r</code> lists remote branches that origin advertises.</li>
+  <li><code>git branch -a</code> gives you everything at once, useful when you are feeling investigative.</li>
+</ul>
+
+<h2>Switch to an existing branch</h2>
+<p>Modern git gives you clear commands that do what you expect. To move your working tree to a branch use the switch command.</p>
+<pre><code>git switch branch-name</code></pre>
+<p>If the branch lives only on origin and you want a local copy, create a tracking branch in one move.</p>
+<pre><code>git switch --track origin/branch-name</code></pre>
+<p>This creates the local branch and sets it to track origin so pushes and pulls behave.</p>
+
+<h2>Create and track a new branch</h2>
+<p>When you start a feature or bugfix create the branch locally and check it out immediately.</p>
+<pre><code>git switch -c new-branch-name</code></pre>
+<p>That makes the branch and switches to it. When you are ready to share with the world push it up.</p>
+
+<h2>Push your branch and set upstream</h2>
+<p>Share the branch with GitLab and configure the upstream so future commands are less noisy.</p>
+<pre><code>git push -u origin new-branch-name</code></pre>
+<p>The <code>-u</code> sets origin new-branch-name as the default upstream so <code>git pull</code> and <code>git push</code> know where to talk without extra arguments. This saves keystrokes and reduces keyboard rage.</p>
+
+<h3>Why set upstream</h3>
+<p>Without an upstream git will ask you where to push every time. With an upstream you get the expected two step developer workflow. It is friendlier for humans and CI systems alike.</p>
+
+<h2>Quick cheat sheet</h2>
+<ul>
+  <li><code>git fetch --all</code> update remote refs</li>
+  <li><code>git branch</code> list local branches</li>
+  <li><code>git branch -r</code> list remote branches</li>
+  <li><code>git branch -a</code> show all branches</li>
+  <li><code>git switch branch-name</code> switch to a local branch</li>
+  <li><code>git switch --track origin/branch-name</code> make a local branch from a remote branch</li>
+  <li><code>git switch -c new-branch-name</code> create and check out a new branch</li>
+  <li><code>git push -u origin new-branch-name</code> push and set upstream</li>
+</ul>
+
+<p>These commands map cleanly to GitLab web actions like creating a branch for a merge request, but on the CLI you get speed and fewer clicks. Use them, avoid accidental commits on master, and remember that git is a tool not a personality test.</p>
+

@@ -1,0 +1,83 @@
+---
+layout: video
+title: "Difference Between Rows vs Columns Explained Quickly"
+description: "Quick explanation of how rows differ from columns in spreadsheets and databases so data becomes clearer and less confusing."
+video_host: "youtube"
+video_id: "uQLHzvfQVOY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M36S"
+thumbnail_url: "https://i.ytimg.com/vi/uQLHzvfQVOY/maxresdefault.jpg"
+content_url: "https://youtu.be/uQLHzvfQVOY"
+embed_url: "https://www.youtube.com/embed/uQLHzvfQVOY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - rows
+  - columns
+  - spreadsheets
+  - databases
+  - tables
+  - excel
+  - sql
+  - data layout
+  - orientation
+  - indexing
+---
+
+<p>If you have ever stared at a spreadsheet and whispered a prayer the answer is probably simple. Rows run left to right and hold individual records. Columns run top to bottom and hold attributes that repeat across records. That is the main idea and it is boring and useful at the same time.</p>
+
+<h2>Visual orientation</h2>
+<p>Look left to right for rows. Look top to bottom for columns. If the group of cells reads like one story about one thing you are looking at a row. If the group is a stack of similar facts you are looking at a column. This trick saves time and dignity when cleaning messy data in excel or when reading tables from a database.</p>
+
+<h2>Headers and identifiers</h2>
+<p>Put column headers on top to name attributes such as name age email or amount. Give each row a unique identifier in a column to make joins and lookups reliable. In databases this is usually a primary key column. In spreadsheets a unique id column is your friend when formulas start acting possessed.</p>
+
+<h3>Simple example</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alice</td>
+      <td>30</td>
+      <td>alice@example.com</td>
+    </tr>
+    <tr>
+      <td>Bob</td>
+      <td>42</td>
+      <td>bob@example.com</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Operations and common pitfalls</h2>
+<p>Aggregations like sum average and count usually apply to columns. Filters and edits usually target rows. If you want to sum sales apply the function to the sales column. If you want a particular transaction find the row that represents that transaction. When writing sql you select columns to return and you filter rows with where clauses.</p>
+
+<pre><code>select id name amount
+from sales
+where id = 123
+</code></pre>
+
+<p>Pivot tables and charts get confused when rows and columns are swapped. The first fix is to check orientation before blaming the spreadsheet gremlin. The second fix is to make a cup of coffee and then check orientation again.</p>
+
+<h2>Performance and indexing</h2>
+<p>In databases you create indexes on columns that you use for lookups joins and sorting. Indexing speeds row retrieval when the database needs to find matching records. Do not over index everything because that slows writes and makes your backups heavier than they need to be.</p>
+
+<h2>Design tips that will make future you grateful</h2>
+<ul>
+  <li>Use columns for consistent attributes and rows for single records</li>
+  <li>Give rows a unique id column for joins and lookups</li>
+  <li>Keep one type of data per column to avoid weird formula behavior in excel</li>
+  <li>Freeze headers when scrolling to keep context in tables</li>
+  <li>Index columns that are frequently used in where clauses and joins in sql</li>
+</ul>
+
+<p>Know this and you will waste less time unpicking accidental transposes strange aggregations and awkward joins. And when a pivot table misbehaves you can point at it and say with confidence that the problem is human not mystical.</p>
+

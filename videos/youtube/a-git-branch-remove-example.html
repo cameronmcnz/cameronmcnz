@@ -1,0 +1,83 @@
+---
+layout: video
+title: "A Git Branch Remove Example"
+description: "Learn how to safely delete local and remote Git branches with clear commands and precautions to avoid losing work"
+video_host: "youtube"
+video_id: "ks7TiWDcAjo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M6S"
+thumbnail_url: "https://i.ytimg.com/vi/ks7TiWDcAjo/maxresdefault.jpg"
+content_url: "https://youtu.be/ks7TiWDcAjo"
+embed_url: "https://www.youtube.com/embed/ks7TiWDcAjo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git branch
+  - delete branch
+  - remove branch
+  - github
+  - git tutorial
+  - git commands
+  - branch cleanup
+  - remote branch
+  - version control
+---
+
+<article>
+  <p>If your repository looks like a hedgehog made of feature branches you forgot about, you are not alone. This guide shows how to inspect, remove, and clean up git branches without accidentally tossing work into the void. It stays accurate while being a little sarcastic about our collective tendency to never delete anything.</p>
+
+  <h2>Look before you leap</h2>
+  <p>Start by checking what actually exists. A quick inventory prevents deleting the branch that paid your rent last month.</p>
+  <pre><code>git branch --all
+git status</code></pre>
+  <p>These commands list local and remote refs and show your current branch. If you are sitting on the branch you mean to delete, switch off it first.</p>
+
+  <h2>Switch to a safe branch</h2>
+  <p>Do not try to remove the branch you are standing on unless you enjoy confusing errors.</p>
+  <pre><code>git switch main
+# or for older git versions
+git checkout main</code></pre>
+
+  <h2>Delete a local branch the safe way</h2>
+  <p>If the branch has been merged, use the delete flag that refuses to delete unmerged work. Think of it as the adult supervision option.</p>
+  <pre><code>git branch -d feature-branch</code></pre>
+  <p>This command will fail if the branch has commits that are not merged into your current branch. That gives you a chance to recover or rethink that experiment with the mysterious README.</p>
+
+  <h3>Force delete when you mean it</h3>
+  <p>If the branch is garbage or you are certain the changes are not needed, force removal removes the branch and its pointer. This is irreversible for most users without digging into reflog.</p>
+  <pre><code>git branch -D feature-branch</code></pre>
+  <p>Use this only when you have confirmed nothing important is lost. Yes that includes the clever hack that barely worked in testing.</p>
+
+  <h2>Remove a remote branch on GitHub or other hosts</h2>
+  <p>To ask the remote to drop a branch, push a delete request. Hosting providers may block this with branch protection, so if it fails check the repo settings or contact an admin.</p>
+  <pre><code>git push origin --delete feature-branch</code></pre>
+
+  <h2>Prune local references to removed remote branches</h2>
+  <p>After the remote branch is gone the local list may still show it. Clean up stale refs with one of these commands.</p>
+  <pre><code>git fetch --prune
+# or
+git remote prune origin</code></pre>
+  <p>That makes your branch list honest again. Good for your repo and for your reputation during demos.</p>
+
+  <h2>Verify the cleanup</h2>
+  <p>Do a final check to ensure the branch is nowhere to be found locally or on the remote.</p>
+  <pre><code>git branch -a</code></pre>
+  <p>See nothing? Mission accomplished. See the branch still listed remotely? Revisit the remote deletion step or check for branch protection on GitHub.</p>
+
+  <h2>Quick checklist for sane branch cleanup</h2>
+  <ul>
+    <li>Inspect branches with git branch --all and git status</li>
+    <li>Switch off the branch before deleting</li>
+    <li>Use git branch -d for safe deletion</li>
+    <li>Use git branch -D only when you want to force removal</li>
+    <li>Remove remote branch with git push origin --delete branch-name</li>
+    <li>Prune stale refs with git fetch --prune or git remote prune origin</li>
+    <li>Verify with git branch -a</li>
+  </ul>
+
+  <p>That is all there is to a tidy branch cleanup workflow. Follow these steps and your repo will stop looking like an abandoned garage sale. If something goes wrong you can usually recover from reflog but it is far less fun than taking two extra seconds to double check which branch you are about to delete.</p>
+</article>
+

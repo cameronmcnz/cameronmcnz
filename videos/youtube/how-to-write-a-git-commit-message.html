@@ -1,0 +1,91 @@
+---
+layout: video
+title: "How to Write a Git Commit Message"
+description: "Practical rules and examples for clear Git commit messages that help team collaboration and code reviews"
+video_host: "youtube"
+video_id: "9ilpKtF0KGQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M47S"
+thumbnail_url: "https://i.ytimg.com/vi/9ilpKtF0KGQ/maxresdefault.jpg"
+content_url: "https://youtu.be/9ilpKtF0KGQ"
+embed_url: "https://www.youtube.com/embed/9ilpKtF0KGQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - commit
+  - commit-message
+  - github
+  - gitlab
+  - bitbucket
+  - best-practices
+  - conventions
+  - semantic-commit
+  - version-control
+---
+
+<p>Yes this is another guide to commit messages but hear me out. Good commits save time later and prevent you from becoming the archaeologist who digs through commit logs at 2 a m while regretting every life decision. This short guide gives rules that actually help teammates and tools understand why code changed not just what you typed into your editor.</p>
+
+<h2>Quick rules for sane commit messages</h2>
+
+<ul>
+  <li><strong>Keep the subject short</strong> Aim for under 50 characters so logs stay scannable in terminals and GUIs.</li>
+  <li><strong>Use the imperative mood</strong> Write the subject like an instruction Add feature or Fix bug instead of Added or Fixed</li>
+  <li><strong>Separate subject and body with a blank line</strong> Tools and humans both appreciate this small act of kindness</li>
+  <li><strong>Explain why and what changed not how</strong> The code shows the how The message should explain the reason and the scope</li>
+  <li><strong>Wrap the body at about 72 characters</strong> This keeps diffs and email views neat</li>
+  <li><strong>Reference issues and tests when relevant</strong> Include ticket numbers or test names to speed up context hunting</li>
+  <li><strong>Follow repo conventions</strong> Consistency beats cleverness when your team is reading history</li>
+</ul>
+
+<h3>Subject line examples</h3>
+
+<pre><code>Fix parser crash on empty input
+Add user profile validation
+Remove deprecated api call
+</code></pre>
+
+<p>Short and useful is the goal If you need five lines to explain the change then put the short headline in the subject and the rest in the body</p>
+
+<h3>What to put in the body</h3>
+
+<p>The body is your chance to be helpful not chatty Start with why this change was made and the scope of the fix or feature Then add any important implementation notes that a future developer would want to know</p>
+
+<ul>
+  <li>Why did we change this The root cause or user problem</li>
+  <li>What areas are affected Modules, APIs or performance implications</li>
+  <li>How to verify Tests to run or steps to reproduce</li>
+  <li>References Issue numbers pull requests and test identifiers</li>
+</ul>
+
+<h2>Checklist before you commit</h2>
+
+<ul>
+  <li>Is the subject under 50 characters</li>
+  <li>Does the subject use imperative mood</li>
+  <li>Is there a blank line between subject and body</li>
+  <li>Does the body explain why and how to verify</li>
+  <li>Did you follow the repository prefix or scope conventions</li>
+</ul>
+
+<h2>Semantic commits and repository conventions</h2>
+
+<p>Many teams use a small set of types like feat fix chore docs test refactor style perf build ci and so on Add an optional scope in parentheses to show the affected area for example fix(parser) Short subjects with types help automation and release tooling when configured in CI systems such as GitHub Actions GitLab pipelines or Bitbucket pipelines</p>
+
+<h2>Copy paste friendly template</h2>
+
+<pre><code>Short imperative subject under 50 characters
+
+Explain why the change was needed and what was done
+Describe how to verify and mention tests if any
+Refs #123 or related ticket numbers
+</code></pre>
+
+<h2>Parting advice</h2>
+
+<p>Good commit messages are a small social contract with your future self and your team They reduce annoying detective work and make churn easier to understand If you are ever tempted to write a diary entry as a commit message ask yourself will this help someone debug this code in six months If the answer is no then move it to the PR description or your personal notes</p>
+
+<p>Now go write tidy commits and spare future you from late night archaeology</p>
+

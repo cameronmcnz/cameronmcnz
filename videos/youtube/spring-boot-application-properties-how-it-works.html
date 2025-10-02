@@ -1,0 +1,63 @@
+---
+layout: video
+title: "Spring Boot application.properties How it Works"
+description: "Clear guide to Spring Boot application.properties and YAML showing how profiles and active config merge for Java Kotlin and Graal"
+video_host: "youtube"
+video_id: "QrIHANAjKQU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT50M34S"
+thumbnail_url: "https://i.ytimg.com/vi/QrIHANAjKQU/maxresdefault.jpg"
+content_url: "https://youtu.be/QrIHANAjKQU"
+embed_url: "https://www.youtube.com/embed/QrIHANAjKQU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - application.properties
+  - YAML
+  - profiles
+  - spring.profiles.active
+  - Kotlin
+  - Java
+  - GraalVM
+  - configuration
+  - DevOps
+---
+
+<h1>Understand config precedence and profiles in Spring Boot for Kotlin and Java</h1>
+<p>If your configuration feels like a conspiracy theory you are not alone. Spring Boot reads and merges properties from several places to decide how your app behaves at runtime. Getting the order right stops mysterious overrides, saves hair and prevents late night pings from Ops.</p>
+
+<h2>Where Spring Boot looks for configuration</h2>
+<p>Here is the practical priority you need to know, roughly from highest to lowest. Think of this as the referee who decides which setting wins.</p>
+<ul>
+  <li><strong>Command line arguments</strong> These have the final say when things tie. Useful in quick fixes and CI jobs.</li>
+  <li><strong>Environment variables and Java system properties</strong> This is where containerized apps and runtime overrides live, including SPRING_PROFILES_ACTIVE.</li>
+  <li><strong>External config files</strong> Files placed in a config folder next to the jar or supplied via spring.config.location or spring.config.additional-location. Good for secrets and team specific settings.</li>
+  <li><strong>Profile specific files</strong> Files like application-dev.properties or application-dev.yml override the main application file when the profile is active.</li>
+  <li><strong>Main files inside the jar</strong> application.properties or application.yml packaged in the jar provide defaults.</li>
+  <li><strong>Default properties</strong> Fall back values baked into the application jar.</li>
+</ul>
+
+<h3>Notes about YAML and merging behavior</h3>
+<p>YAML is supported and great for nested configuration and readability. Spring Boot merges configuration in most cases rather than replacing whole objects. That means you can override a single property without reworking the entire section, which is handy for sharing defaults across environments and tweaking a few values per profile.</p>
+
+<h3>How profile activation works</h3>
+<p>Activate a profile with spring.profiles.active=dev or set the environment variable SPRING_PROFILES_ACTIVE when running in containers or CI. Profile specific files with the right suffix will override the main configuration for that profile. Yes this is obvious when it works and infuriating when it does not.</p>
+
+<h2>GraalVM native image and resource caveats</h2>
+<p>When compiling to a native binary with GraalVM resource scanning can behave differently. Property files may not be picked up unless they are explicitly included in the native image resource list. Test profile activation and your configuration as part of the native build pipeline so you do not discover problems at midnight in production.</p>
+
+<h2>When you need to change the lookup order</h2>
+<p>Use spring.config.location and spring.config.additional-location to point Spring Boot at config files outside the jar. This is the right move when teams require externalized configuration, or when secrets must never be baked into artifacts.</p>
+
+<h3>DevOps friendly tips</h3>
+<ul>
+  <li>Supply profile via environment variable or command line in CI and production for predictable behavior.</li>
+  <li>Use the Actuator environment endpoint at /actuator/env during development to inspect the final merged property set and avoid surprise overrides.</li>
+  <li>Remember Kotlin and Java use the same configuration model so rules apply equally to both runtimes.</li>
+</ul>
+
+<p>In short, know the precedence, prefer environment variables or command line for CI, include property files in native image resources when using GraalVM and use Actuator to peek at the merged settings. Do that and your configuration will stop plotting against you.</p>
+

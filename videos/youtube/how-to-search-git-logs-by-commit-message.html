@@ -1,0 +1,81 @@
+---
+layout: video
+title: "How to Search Git Logs by Commit Message"
+description: "Search Git commit messages with git log grep and useful flags to find commits fast from the command line"
+video_host: "youtube"
+video_id: "DeYrRhYkTu0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M23S"
+thumbnail_url: "https://i.ytimg.com/vi/DeYrRhYkTu0/maxresdefault.jpg"
+content_url: "https://youtu.be/DeYrRhYkTu0"
+embed_url: "https://www.youtube.com/embed/DeYrRhYkTu0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git log
+  - commit message
+  - grep
+  - version control
+  - cli
+  - search commits
+  - developer
+  - git commands
+  - tutorial
+---
+
+<p>Need to find that one commit that fixed a bug or introduced chaos and you do not want to read the entire history by candlelight? Use git log and grep like a civilized developer. This guide shows practical commands and small bits of sarcasm to keep you awake while you search commit messages in version control from the CLI.</p>
+
+<h2>Search by message text with --grep</h2>
+<p>The simplest trick is to let git filter commit messages for you. The --grep flag matches the commit message text with a regular expression. It is fast and often all you need.</p>
+<pre><code>git log --grep='fix crash'</code></pre>
+<p>That returns commits whose messages match the pattern. No witchcraft, just grep style matching built into git log.</p>
+
+<h2>Ignore case when people are inconsistent</h2>
+<p>People type commit messages in ALL CAPS, Title Case, and weird emoji hieroglyphs. Use -i to make your search case insensitive.</p>
+<pre><code>git log -i --grep='memory leak'</code></pre>
+<p>Now Fix Memory Leak and fix memory leak are equals. Peace at last.</p>
+
+<h2>Search all branches and tags</h2>
+<p>If the commit is hiding on another branch or a tag please do not assume it will come to you. Use --all to search everywhere.</p>
+<pre><code>git log --all --grep='refactor'</code></pre>
+<p>This covers branches and tags so there is no accidental tunnel vision.</p>
+
+<h2>Make output compact for fast scanning</h2>
+<p>When history gets chatty use a compact view so you can scan results quickly.</p>
+<pre><code>git log --pretty=oneline --grep='typo'</code></pre>
+<p>One line per commit shows the hash and message so you can eyeball the candidate commits without squinting.</p>
+
+<h2>Limit the number of results</h2>
+<p>If the history spits out a novella add -n to cap the results to the most recent matches.</p>
+<pre><code>git log -n 5 --grep='add tests'</code></pre>
+<p>This shows the latest five matches and spares you from scrolling forever.</p>
+
+<h2>Combine flags for a focused search</h2>
+<p>Mix and match the options to suit your workflow. Here is a typical combination that is both practical and slightly smug.</p>
+<pre><code>git log --all -i --pretty=oneline -n 10 --grep='bug fix'</code></pre>
+<p>That searches every ref with case insensitive matching, shows concise results, and limits output to the ten most recent hits. Efficient and tidy.</p>
+
+<h3>When to use git log -S</h3>
+<p>If you want to find commits that changed the code rather than the commit message try git log -S. It looks for changes in the patch text rather than the message. That matters when the message is useless and the code tells the truth.</p>
+<pre><code>git log -S 'calculateTotal' --pretty=oneline</code></pre>
+
+<h3>Filter by author when that helps</h3>
+<p>Sometimes knowing who wrote the commit narrows things down. Use --author to filter by committer or author name.</p>
+<pre><code>git log --author='Alex' --grep='perf'</code></pre>
+
+<h2>Quick checklist</h2>
+<ul>
+  <li>Use --grep to search message text</li>
+  <li>Add -i for case insensitive matches</li>
+  <li>Add --all to search all branches and tags</li>
+  <li>Use --pretty=oneline for compact output</li>
+  <li>Use -n to limit the number of results</li>
+  <li>Use -S to search code changes instead of messages</li>
+  <li>Use --author to narrow results by committer</li>
+</ul>
+
+<p>If you remember one thing let it be this. Search with --grep and tune with -i --all --pretty and -n until the result set looks human sized. That will save you time and dignity. Now go find the commit and pretend you always knew where it was.</p>
+

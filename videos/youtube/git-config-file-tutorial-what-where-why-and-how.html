@@ -1,0 +1,71 @@
+---
+layout: video
+title: "Git Config File Tutorial What Where Why and How?"
+description: "Learn where Git stores config files how to set user identity and scope and how to inspect and verify settings for predictable repository behavior"
+video_host: "youtube"
+video_id: "2qwx59b25V4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M31S"
+thumbnail_url: "https://i.ytimg.com/vi/2qwx59b25V4/maxresdefault.jpg"
+content_url: "https://youtu.be/2qwx59b25V4"
+embed_url: "https://www.youtube.com/embed/2qwx59b25V4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git-config
+  - config-file
+  - version-control
+  - global-config
+  - local-config
+  - user-identity
+  - git-commands
+  - dotfiles
+  - tutorial
+---
+
+<h2>Why Git config scope matters</h2>
+<p>Git has opinions about who you are and how you work. Those opinions live in config files that can be global to your user, local to a repo, or system wide for everyone on the machine. If you do not understand scope you will get awkward commit signatures, editor wars, and the kind of surprises that make you blame your keyboard instead of your configuration.</p>
+
+<h2>Where the files actually live</h2>
+<p>There are three places to look when hunting config files for version control settings.</p>
+<ul>
+  <li><strong>System</strong> level files live in OS controlled folders and apply to all users on the machine.</li>
+  <li><strong>Global</strong> level is the per user file usually known as <code>~/.gitconfig</code>. This is where user identity and default preferences belong.</li>
+  <li><strong>Local</strong> level is the repository file at <code>.git/config</code>. This overrides global settings for the current repo.</li>
+</ul>
+
+<h2>How to find what Git is actually using</h2>
+<p>When you want truth and not guesses, run this little truth machine.</p>
+<pre><code>git config --list --show-origin</code></pre>
+<p>This prints every active variable and shows the file it came from. It is the polite way to avoid blaming coworkers when the author name is wrong.</p>
+
+<h3>Check a single key when curiosity hits</h3>
+<p>To read the value for a specific key use the key name. For example run</p>
+<pre><code>git config user.email</code></pre>
+<p>From inside a repository this returns the repository scoped value if one exists. Add the <code>--global</code> flag to read the user level like this</p>
+<pre><code>git config --global user.email</code></pre>
+
+<h2>Set values in the correct scope and avoid chaos</h2>
+<p>Be intentional. Set identity at the global level so your commits do not wander around with mystery names. Set repository specific overrides at the local level for projects that need a different identity or special settings.</p>
+<ul>
+  <li>Set your global name with <code>git config --global user.name 'Alice'</code></li>
+  <li>Set your global email with <code>git config --global user.email 'alice@example.com'</code></li>
+  <li>Set a repo only editor with <code>git config --local core.editor 'nano'</code></li>
+  <li>System level changes usually require elevated privileges so be careful and polite to your system administrator or sudo</li>
+</ul>
+
+<h2>Verify and prevent awkward commits</h2>
+<p>After any change run the show origin listing again to confirm which file provided which value. The commit machinery reads the effective configuration so verification prevents awkward commit signatures and surprise diffs.</p>
+
+<h2>Quick cheatsheet for the brand weary</h2>
+<ul>
+  <li>Local wins over global wins over system. The closest scope wins.</li>
+  <li>Keep your user identity in the global config and repo exceptions in the local config.</li>
+  <li>Use <code>git config --list --show-origin</code> for a full audit.</li>
+</ul>
+
+<p>This is not rocket science, it is just file housekeeping for your dotfiles. Treat your configs like the tiny dictatorial overlords they are. Set them thoughtfully and your commits will finally behave.</p>
+

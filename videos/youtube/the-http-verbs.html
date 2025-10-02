@@ -1,0 +1,75 @@
+---
+layout: video
+title: "The HTTP verbs"
+description: "Quick guide to HTTP verbs GET POST PUT DELETE PATCH HEAD OPTIONS and how to use safe and idempotent methods in APIs"
+video_host: "youtube"
+video_id: "NiOERfR53as"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT49S"
+thumbnail_url: "https://i.ytimg.com/vi/NiOERfR53as/maxresdefault.jpg"
+content_url: "https://youtu.be/NiOERfR53as"
+embed_url: "https://www.youtube.com/embed/NiOERfR53as"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - HTTP
+  - verbs
+  - GET
+  - POST
+  - PUT
+  - DELETE
+  - PATCH
+  - HEAD
+  - OPTIONS
+  - API
+---
+
+<article>
+  <p>If you treat URLs like nouns then HTTP methods are the verbs that tell the server what drama to perform. Learn them and your APIs will behave. Ignore them and you will get vague bugs that only appear at 3 a m while everyone sleeps and blames caching.</p>
+
+  <h2>Quick reference to common HTTP methods</h2>
+  <p>Below are the usual suspects. Short, factual, and mildly opinionated.</p>
+  <ul>
+    <li><strong>GET</strong> Retrieves a resource without changing server state. Good for fetching lists and single items.</li>
+    <li><strong>POST</strong> Creates a new resource or performs an action with side effects. Use this when data is being added.</li>
+    <li><strong>PUT</strong> Replaces a resource or creates it if it does not exist. Think of this as full replacement.</li>
+    <li><strong>PATCH</strong> Applies a partial update to a resource. Use this when you only change a few fields.</li>
+    <li><strong>DELETE</strong> Removes a resource. Yes it actually deletes things, so be kind to your database.</li>
+    <li><strong>HEAD</strong> Same as GET but without the response body. Useful for metadata checks and link health tests.</li>
+    <li><strong>OPTIONS</strong> Asks the server which methods are allowed on a URL. Often involved in CORS choreography.</li>
+    <li><strong>TRACE</strong> Echoes back the request for diagnostics. Mostly disabled because surprises are rarely fun in security.</li>
+  </ul>
+
+  <h3>Examples you can copy and paste into your brain</h3>
+  <pre><code>GET  /users            // fetch users
+POST /users            // create a new user
+PUT  /users/123        // replace user 123
+PATCH /users/123       // update some fields for user 123
+DELETE /users/123      // remove user 123
+HEAD /users/123        // fetch headers for user 123 without body
+OPTIONS /users         // check allowed methods
+</code></pre>
+
+  <h2>Safe methods and idempotence explained without magic words</h2>
+  <p>Some verbs are polite and do not change anything. These are called safe methods. GET and HEAD are safe. You can repeat them all day and your database will not file a complaint.</p>
+  <p>Idempotence means repeating the same request leaves the server in the same state as doing it once. PUT and DELETE are idempotent in the usual sense. POST usually is not idempotent. PATCH depends on the patch design so do not assume safety without thinking.</p>
+
+  <h2>Status codes and the verbs that get along with them</h2>
+  <p>Methods and status codes should be friends. When a POST successfully creates something return 201 and include a Location header or the resource in the body. When an action succeeds and there is nothing useful to return use 204 to avoid wasting bytes and everyone s time.</p>
+
+  <h3>Practical rules to avoid angry emails</h3>
+  <ul>
+    <li>If a request creates a resource use POST.</li>
+    <li>If a request fully replaces a resource use PUT.</li>
+    <li>If a request tweaks a few fields use PATCH.</li>
+    <li>If a request just reads data use GET or HEAD.</li>
+    <li>Prefer semantic verbs over transport level tricks. That is, use the right HTTP method instead of hiding semantics in query strings or headers.</li>
+  </ul>
+
+  <p>Tip think about two things before you pick a verb. Does the request change server state and will repeating the request cause extra effects. Answering those two questions will save hours of debugging and a modest amount of workplace drama.</p>
+
+  <p>Pick the right verb and your clients, caches, and human teammates will thank you. Pick the wrong verb and you will remember this article fondly when you are on call at midnight.</p>
+</article>
+

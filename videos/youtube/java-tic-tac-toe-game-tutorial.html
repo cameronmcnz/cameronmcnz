@@ -1,0 +1,81 @@
+---
+layout: video
+title: "Java Tic Tac Toe Game Tutorial"
+description: "Step by step Java Tic Tac Toe guide covering game logic GUI event handling and win detection for a playable console or Swing version"
+video_host: "youtube"
+video_id: "As_JBaVUsEg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT39M26S"
+thumbnail_url: "https://i.ytimg.com/vi/As_JBaVUsEg/maxresdefault.jpg"
+content_url: "https://youtu.be/As_JBaVUsEg"
+embed_url: "https://www.youtube.com/embed/As_JBaVUsEg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Tic Tac Toe
+  - Java tutorial
+  - Game development
+  - Swing
+  - Console game
+  - OOP
+  - AI
+  - Win detection
+  - Event handling
+---
+
+<p>Want to make a Tic Tac Toe game in Java that does not make you regret choosing a programming hobby For those who enjoy mild suffering and neat architecture this guide walks through building a playable game with OOP principles a console or Swing UI and a tidy little AI opponent</p>
+
+<h2>Design the model and avoid mess</h2>
+<p>Start by treating the game like an actual program and not a frantic pile of if statements. Use a Board class to hold the cells and to check board state. Use a Player class to hold marker type and move logic. Use a GameController class to coordinate turns validation and game flow so UI code stays clean. Declare clear constants for EMPTY X and O so future you will stop yelling at past you.</p>
+
+<h3>Core classes at a glance</h3>
+<ul>
+  <li>Board, with a 3 by 3 array or a single array of nine cells and methods to get and set cells</li>
+  <li>Player, with marker and a method to request a move</li>
+  <li>GameController, with turn management move validation and game over checks</li>
+</ul>
+
+<h2>Implementing move handling</h2>
+<p>Move handling is boring and strict. Always check bounds and cell occupation before accepting a move. Return a clear result for invalid moves so UI can show a friendly scolding instead of a stack trace. Keep the logic testable so debugging feels like a quick coffee break instead of therapy.</p>
+
+<h2>Win detection that does not cheat</h2>
+<p>After every move scan rows columns and both diagonals to detect a winner. You can implement this as three loops plus two diagonal checks or unroll patterns into a small list of winning triplets. Either works. The point is to keep win detection deterministic and fast.</p>
+
+<h3>Simple win check idea</h3>
+<ul>
+  <li>Check each row for identical non empty markers</li>
+  <li>Check each column for identical non empty markers</li>
+  <li>Check the two diagonals for identical non empty markers</li>
+  <li>If the board is full and no winners then it is a draw</li>
+</ul>
+
+<h2>Build the user interface with either console or Swing</h2>
+<p>Console first because it is quick and satisfying. Print the board prompt for moves and let the GameController validate input. This gives a working loop and makes unit testing easier.</p>
+
+<p>For a GUI use Swing and JButtons arranged in a grid. Give each button an ActionListener that calls your GameController to apply the move and then update the button text from the model. Keep UI code out of the model and avoid embedding game rules in event handlers. The controller should be the single source of truth for game rules and win detection.</p>
+
+<h3>Event handling tips</h3>
+<ul>
+  <li>Attach listeners that delegate to GameController</li>
+  <li>Update UI from model state not the other way around</li>
+  <li>Disable board input after game over to avoid confusion</li>
+</ul>
+
+<h2>Add an AI opponent and tests</h2>
+<p>Start simple with random moves so you can prove the game loop and event handling work. Then add a minimax AI if you enjoy reading about recursion and winning every game. Keep AI code separate from board and controller code so you can unit test the core logic independently.</p>
+
+<h3>Testing to save future embarrassment</h3>
+<ul>
+  <li>Write unit tests for move validation edge cases</li>
+  <li>Test win detection for all rows columns and diagonals</li>
+  <li>Mock or stub input for controller tests so UI does not need to run for logic tests</li>
+</ul>
+
+<h2>Polish and package</h2>
+<p>Once the core is solid add UX touches like clear messages score tracking and a restart button. If using Swing package the app as a runnable jar and keep resource loading simple. Add small integration tests and you will have a Tic Tac Toe program that looks intentional and behaves like you meant it to.</p>
+
+<p>This approach keeps concerns separated makes unit testing feasible and lets you swap a console UI for Swing without rewriting game logic. That is software engineering and a little bit of pride rolled into nine squares.</p>
+

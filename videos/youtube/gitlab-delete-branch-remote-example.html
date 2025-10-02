@@ -1,0 +1,67 @@
+---
+layout: video
+title: "GitLab delete branch remote example"
+description: "Delete a remote branch in GitLab using git push or the web UI with verification and pruning tips for a clean repo."
+video_host: "youtube"
+video_id: "7e6UiZKr0Uc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M31S"
+thumbnail_url: "https://i.ytimg.com/vi/7e6UiZKr0Uc/maxresdefault.jpg"
+content_url: "https://youtu.be/7e6UiZKr0Uc"
+embed_url: "https://www.youtube.com/embed/7e6UiZKr0Uc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gitlab
+  - git
+  - delete branch
+  - remote branch
+  - git push
+  - git tutorial
+  - devops
+  - git commands
+  - branches
+  - version control
+---
+
+<h2>Delete a remote branch from the command line</h2>
+<p>If you like typing commands and feeling slightly powerful then the command line is your friend. Start by syncing your local view of the server so you are not chasing ghosts.</p>
+<pre><code>git fetch origin --prune
+git branch -r</code></pre>
+<p>Pruning removes stale remote references that no longer exist on the server. Now remove the branch from the remote with the blunt but effective command below.</p>
+<pre><code>git push origin --delete BRANCH_NAME</code></pre>
+<p>There is an older alternative that still works if you enjoy confusing new hires.</p>
+<pre><code>git push origin BRANCH_NAME</code></pre>
+<p>The first form reads better at stand ups and makes it look like there is a plan.</p>
+
+<h3>When to force delete a remote branch</h3>
+<p>Only use force when you know what you are doing. For remote branches the push delete command is usually enough. For local branches use the force flag if the branch is not merged and you want to obliterate it without mercy.</p>
+
+<h2>Delete a branch from the GitLab web UI</h2>
+<p>If you prefer buttons and the soothing illusion of safety then the GitLab web UI is your jam. Open your project, go to Repository then Branches and click the delete button next to the branch name. This is handy when reviewers or pipeline rules demand a human in the loop.</p>
+
+<h2>Verify removal and clean local refs</h2>
+<p>After deletion confirm the branch is gone on the server and prune local references so old names do not haunt future work.</p>
+<pre><code>git ls-remote --heads origin BRANCH_NAME
+git fetch origin --prune</code></pre>
+<p>Then remove any stray local branch. Use the safe delete when merged and force delete if you must.</p>
+<pre><code>git branch -d BRANCH_NAME
+git branch -D BRANCH_NAME</code></pre>
+
+<h2>Quick checklist</h2>
+<ul>
+<li>Fetch and prune to sync refs</li>
+<li>Delete remote branch with git push origin --delete BRANCH_NAME</li>
+<li>Confirm with git ls-remote and prune again</li>
+<li>Clean up local branches with git branch -d or git branch -D</li>
+</ul>
+
+<h2>Safety tips for teams and repos</h2>
+<p>Protect important branches using GitLab branch protection rules so no one can accidentally delete main or production. Use clear naming like feature or bugfix and add expiration labels if your repo breeds short lived branches</p>
+<p>Use merge requests and CI checks to avoid deleting branches that still matter. Good naming and a bit of housekeeping will save you from mysterious deploy failures at 3 am.</p>
+
+<h2>Wrap up</h2>
+<p>Deleting remote branches in GitLab is simple and either the CLI or the web UI works. Fetch and prune first, delete on the server, verify, then prune and remove local branches to keep your repo tidy. Do this and you will reduce clutter and avoid the ghost branch horror stories that keep devops engineers awake at night.</p>
+

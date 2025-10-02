@@ -1,0 +1,84 @@
+---
+layout: video
+title: "Amazon Machine Image Creation and Launch Custom AWS AMI"
+description: "Step by step guide to create a custom Amazon Machine Image and launch an AWS AMI EC2 instance on Linux with cleanup and launch tips"
+video_host: "youtube"
+video_id: "oMyjV07MBXA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/oMyjV07MBXA/maxresdefault.jpg"
+content_url: "https://youtu.be/oMyjV07MBXA"
+embed_url: "https://www.youtube.com/embed/oMyjV07MBXA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Amazon Machine Image
+  - AMI
+  - AWS
+  - EC2
+  - Linux
+  - Create AMI
+  - Launch EC2
+  - AWS CLI
+  - Cloud Computing
+  - AMI best practices
+---
+
+<article>
+  <p>Want a predictable EC2 boot without the surprise drama that comes from snowflake servers and forgotten secrets This guide walks you through building a reusable Amazon Machine Image that behaves itself on Linux and plays nicely with automation and deployment pipelines</p>
+
+  <h2>Prepare the source EC2</h2>
+  <p>Start with a clean Linux server that already has the packages and apps you need. Configure users security groups and any startup services. If your instance needs access to other AWS resources attach an IAM role at launch so you do not bake credentials into the image.</p>
+
+  <h3>Harden and tidy the system</h3>
+  <ul>
+    <li>Remove SSH host keys so clones generate unique keys on first boot</li>
+    <li>Purge sensitive credentials and any temporary files</li>
+    <li>Remove unneeded packages and services to shrink attack surface</li>
+    <li>Update packages with a command such as
+      <pre><code>sudo apt update && sudo apt upgrade -y</code></pre>
+      or use the equivalent commands for your distro</li>
+  </ul>
+
+  <h2>Create the AMI</h2>
+  <p>There are two reliable routes Create the AMI in the AWS Console or use the AWS CLI for automation. The CLI call looks like this</p>
+  <pre><code>aws ec2 create-image --instance-id i-0123456789abcdef0 --name 'my-app-ami-v1' --no-reboot</code></pre>
+  <p>Name and tag the image with semantic version information so humans and pipelines can find it later. A consistent naming scheme is a tiny miracle for future you.</p>
+
+  <h2>Launch a new EC2 from the AMI</h2>
+  <p>Choose the AMI when launching an instance. Pick an appropriate instance type networking and key pair. Double check user data and the IAM role to avoid unwanted privileges during boot. If you need ephemeral configuration prefer user data for one time setup instead of baking it into the image.</p>
+
+  <h3>Quick checklist for launch</h3>
+  <ul>
+    <li>Select the correct AMI id and region</li>
+    <li>Choose instance type and EBS volume sizing</li>
+    <li>Attach IAM role for runtime access when needed</li>
+    <li>Provide user data for final setup or health checks</li>
+  </ul>
+
+  <h2>Verify and share</h2>
+  <p>After the new instance boots run smoke tests such as service status endpoint checks and basic logs review. If the image passes testing update sharing permissions or copy the AMI to other regions for disaster recovery and CI CD pipelines.</p>
+
+  <h3>Sharing options</h3>
+  <ul>
+    <li>Adjust AMI launch permissions to share with accounts</li>
+    <li>Use copy-image to replicate across regions for redundancy</li>
+    <li>Automate image promotion in your pipeline if tests pass</li>
+  </ul>
+
+  <h2>Automate the boring bits</h2>
+  <p>Manual AMI baking works for demos but automation scales. Use scripts CI tools or AWS Image Builder to generate reproducible AMIs and attach version tags. With automation you trade some upfront effort for fewer 3 a m incidents.</p>
+
+  <h2>Best practices recap</h2>
+  <ul>
+    <li>Keep the source instance minimal and patched</li>
+    <li>Remove secrets before creating the image</li>
+    <li>Tag AMIs with semantic versions for traceability</li>
+    <li>Test instances after launch and automate promotions</li>
+  </ul>
+
+  <p>Follow these steps and you will get a predictable Amazon Machine Image workflow for AWS EC2 that speeds provisioning and reduces human error That means fewer surprises and more time for coffee or whatever engineers do when not chasing bugs</p>
+</article>
+

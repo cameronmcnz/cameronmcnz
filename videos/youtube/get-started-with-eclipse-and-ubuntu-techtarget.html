@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Get Started with Eclipse and Ubuntu #techtarget"
+description: "Quick tutorial to install Eclipse on Ubuntu and create a Java project with setup tips and common fixes"
+video_host: "youtube"
+video_id: "7g84kwd2I6Q"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M25S"
+thumbnail_url: "https://i.ytimg.com/vi/7g84kwd2I6Q/maxresdefault.jpg"
+content_url: "https://youtu.be/7g84kwd2I6Q"
+embed_url: "https://www.youtube.com/embed/7g84kwd2I6Q"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Eclipse
+  - Ubuntu
+  - Java
+  - IDE
+  - Linux
+  - Installation
+  - Setup
+  - Tutorial
+  - OpenJDK
+  - Developer
+---
+
+<p>If you want to stop staring at a blank terminal and actually ship Java code on Ubuntu then this short guide will get Eclipse up and running without ritual sacrifice. It covers installing OpenJDK, getting Eclipse on your machine, configuring the workspace, creating a project and running a simple program. No hand waving, a little sarcasm, and enough accuracy to keep your build green.</p>
+
+<h2>Install OpenJDK</h2>
+<p>Eclipse needs a JDK to compile and run code. Use OpenJDK 11 or newer unless your project insists on time travel. Update apt and install the JDK with the usual commands.</p>
+<pre><code>sudo apt update && sudo apt install openjdk-11-jdk
+java -version</code></pre>
+<p>The java -version command confirms the runtime. If Eclipse later claims it cannot find Java then point it to the same JDK you just installed.</p>
+
+<h2>Install Eclipse</h2>
+<p>Two practical options exist. Use snap for a fast, low fuss install. Use the tarball when you want control over where plugins live and enjoy manual labor.</p>
+<ul>
+  <li>Quick install using snap</li>
+</ul>
+<pre><code>sudo snap install eclipse --classic</code></pre>
+<ul>
+  <li>Manual install from the Eclipse download site</li>
+</ul>
+<p>Download the package, extract it and run the eclipse executable from the folder. Snap will handle dependencies like an overcaffeinated babysitter. The tarball gives you the power to break things elegantly.</p>
+
+<h2>Configure workspace and Installed JREs</h2>
+<p>Launch Eclipse and pick a workspace folder. This is where your projects live. If you are indecisive you can create multiple workspaces and regret it later.</p>
+<p>In the Eclipse Preferences navigate to Java then Installed JREs and add the path to your JDK if it is not already listed. You can also set workspace code style and configure language support or plugins for your workflow.</p>
+
+<h2>Create a Java project</h2>
+<p>Create a new project from the menu with File then New and choose Java Project. The wizard will help you set the project name and JDK level. Add a package and then a class with a main method. Example minimal class below will make your console happy.</p>
+<pre><code>package com.example;
+
+public class HelloWorld {
+  public static void main(String[] args) {
+    System.out.println("Hello, world");
+  }
+}</code></pre>
+<p>If you need external jars use the project Build Path to add libraries or use Maven or Gradle for dependency management and less manual pain.</p>
+
+<h2>Run and debug</h2>
+<p>Right click the class and choose Run As Java Application or hit the green play button. Check the Console view for output and any compiler messages. If the program misbehaves switch to the Debug perspective, set breakpoints and step through code like a digital detective.</p>
+
+<h2>Tips and troubleshooting</h2>
+<ul>
+  <li>Use snap for speed and convenience. Use the tarball when you want fine grained control over installation folders and plugins.</li>
+  <li>Match the OpenJDK version to your project requirements. Using the wrong Java version is the leading cause of mysterious failures and passive aggressive error messages.</li>
+  <li>If Eclipse cannot find the JDK verify your JAVA_HOME and the Installed JREs setting in Preferences. Typical path on Ubuntu looks like /usr/lib/jvm/java-11-openjdk-amd64 and you can set it with export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 in your shell profile.</li>
+  <li>For build tools use Maven or Gradle inside Eclipse or via the command line. They will save you time and increase your future self respect.</li>
+</ul>
+
+<p>This guide walked you through installing OpenJDK, installing Eclipse, configuring a workspace, creating a Java project and running a simple program. You should be able to write, run and debug Java code on Ubuntu without mystical rituals. Now push some code and try not to break the build too often.</p>
+

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" data-theme="light" data-bs-theme="light">
+    <head>
+    {% include head.html %}
+    </head>
+  <body>
+    {% include nav.html %}
+<!-- JSON block -->
+<script type="application/json" id="qa-json">
+{{ content }}
+</script>
+ 
+<!-- Section -->
+<section class="contrast" id="exam-overview" style="padding-top:5px; padding-bottom:35px;">
+  <div class="row">
+    <div class="col-md-12 col-12">
+      <div class="container">
+
+        <!-- Question card -->
+        <div class="card mt-3">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span id="questionNumber">Question 1</span>
+            <a id="honestyToggle" class="btn btn-warning">Be Honest</a>
+          </div>
+          <div class="card-body">
+            <div class="card-body p-0">
+              <div class="card-title" id="query"></div>
+              <div id="optionsWrap" class="mt-2"></div>
+            </div>
+            <div class="card-text mt-3 d-flex justify-content-between">
+              <span>
+                <a id="previous" class="disabled btn btn-primary">&laquo; Back</a>
+                &nbsp;
+                <a id="next" href="{{page.link}}" class="enabled btn btn-primary">{{page.link-text}} &raquo;</a>
+              </span> 
+            </div>
+          </div>
+        </div>
+
+        <!-- Answer card -->
+        <div id="answerCard" class="card mt-3">
+          <div class="card-header">Answer</div>
+          <div class="card-body">
+            <div id="answer"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<h2 class="visually-hidden">Full AWS Practitioner Certification Question</h2>
+<p class="visually-hidden">{{ page.full-query | escape }}</p>
+
+
+<!-- JS -->
+<script>
+(function () {
+  const src = document.getElementById('qa-json');
+  if (!src) return;
+  let data = JSON.parse(src.textContent);
+
+  const queryEl = document.getElementById('query');
+  const answerEl = document.getElementById('answer');
+  const optionsWrap = document.getElementById('optionsWrap');
+  const answerCard = document.getElementById('answerCard');
+  const honestyToggle = document.getElementById('honestyToggle');
+
+  if (queryEl) queryEl.innerHTML = data.query || '';
+  if (answerEl) answerEl.innerHTML = data.answer || '';
+
+  // Build options
+  if (Array.isArray(data.options)) {
+    data.options.forEach((opt, i) => {
+      const outer = document.createElement('div');
+      outer.className = 'form-check my-2';
+      outer.id = 'outerOptionDiv' + i;
+
+      const input = document.createElement('input');
+      input.className = 'form-check-input option-radio';
+      input.type = 'checkbox';
+      input.id = 'option' + i;
+      input.name = 'optionChecks';
+
+      const label = document.createElement('label');
+      label.className = 'form-check-label';
+      label.htmlFor = input.id;
+      label.textContent = opt.text;
+
+      // On load: mark correct answers
+      if (opt.correct) {
+        input.checked = true;
+        outer.classList.add('border', 'border-success');
+      }
+
+      outer.appendChild(input);
+      outer.appendChild(label);
+      optionsWrap.appendChild(outer);
+    });
+  }
+
+  // Toggle state
+  let honestMode = false;
+  function setHonestMode(honest) {
+    if (honest) {
+      // Hide answer, uncheck and remove green borders
+      answerCard.style.display = 'none';
+      document.querySelectorAll('#optionsWrap .form-check').forEach(div => {
+        div.classList.remove('border', 'border-success');
+        const cb = div.querySelector('input[type="checkbox"]');
+        if (cb) cb.checked = false;
+      });
+      honestyToggle.textContent = 'Cheat';
+    } else {
+      // Show answer, restore checkboxes and borders
+      answerCard.style.display = '';
+      data.options.forEach((opt, i) => {
+        const div = document.getElementById('outerOptionDiv' + i);
+        const cb = document.getElementById('option' + i);
+        if (opt.correct) {
+          div.classList.add('border', 'border-success');
+          cb.checked = true;
+        }
+      });
+      honestyToggle.textContent = 'Be Honest';
+    }
+  }
+
+  // Initial state
+  setHonestMode(false);
+
+  honestyToggle.addEventListener('click', () => {
+    honestMode = !honestMode;
+    setHonestMode(honestMode);
+  });
+})();
+</script>
+
+    {% include footer.html %}
+    {% include scripts.html %}
+	
+  </body>
+</html>
+ 

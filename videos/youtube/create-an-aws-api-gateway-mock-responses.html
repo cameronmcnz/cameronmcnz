@@ -1,0 +1,81 @@
+---
+layout: video
+title: "Create an AWS API Gateway & Mock Responses"
+description: "Configure API Gateway mock responses with mapping templates for quick testing and seamless Lambda integration without deploying backend code"
+video_host: "youtube"
+video_id: "l59-miF9Dj0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT59S"
+thumbnail_url: "https://i.ytimg.com/vi/l59-miF9Dj0/maxresdefault.jpg"
+content_url: "https://youtu.be/l59-miF9Dj0"
+embed_url: "https://www.youtube.com/embed/l59-miF9Dj0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - API Gateway
+  - Mock Responses
+  - Mapping Templates
+  - Lambda
+  - RESTful
+  - ECS
+  - Serverless
+  - Integration
+  - Testing
+---
+
+<h2>Why mock responses are worth the tiny amount of effort</h2>
+<p>If you like shipping broken things loudly then skip this guide. If you prefer reduced panic and fewer angry Slack threads then configuring AWS API Gateway to return mock responses is one of the best tiny wins you can get. Mock responses make integration testing faster and let you iterate on client code without needing Lambda or an ECS service to be ready yet.</p>
+
+<h2>What this covers</h2>
+<ul>
+  <li>Create a RESTful API resource in API Gateway</li>
+  <li>Set the method integration to Mock and define status codes</li>
+  <li>Use mapping templates to shape application slash json responses</li>
+  <li>Test with the console or curl and then switch to Lambda or HTTP backends</li>
+</ul>
+
+<h2>Step 1 Create the API resource</h2>
+<p>Open the API Gateway console and either create a new REST API or use an existing one. Add a resource and pick an HTTP method such as GET or POST. Name things clearly now to avoid debugging that looks like modern art later.</p>
+
+<h2>Step 2 Choose Mock integration and response codes</h2>
+<p>For the method integration select Mock as the integration type. In the integration response area declare the status codes you want to simulate. For example add 200 for success and 500 for a simulated server failure. API Gateway will return these status codes without ever touching your backend which speeds up feedback and lowers stress.</p>
+
+<h2>Step 3 Mapping templates that do the heavy lifting</h2>
+<p>Mapping templates let you shape the mock response body and populate headers so tests feel realistic. Set the response content type to application slash json and create a mapping template using the Velocity template language. Use expressions such as <code>$input.path('$.message')</code> to pull values from a simulated request body or from stage variables.</p>
+
+<h3>Example mapping template</h3>
+<pre><code>#set($payload = $input.path('$.payload'))
+{
+  "status": "ok",
+  "message": "$input.path('$.message')",
+  "data": $payload
+}
+</code></pre>
+<p>This template produces a JSON response and demonstrates how to echo back fields from a fake request. Replace the keys and structure to match your API contract so clients never get surprised when you flip the integration to Lambda later.</p>
+
+<h2>Step 4 Test it without the backend</h2>
+<p>Use the API Gateway test console for quick checks or hit the deployed stage endpoint with curl. A sample curl call might look like this</p>
+<pre><code>curl -X POST https://{api-id}.execute-api.{region}.amazonaws.com/{stage}/resource \
+  -H "Content-Type: application/json" \
+  -d '{"message":"hello world","payload":{"id":123}}'
+</code></pre>
+<p>Confirm the returned status code headers and JSON structure match what your clients expect. Rapid feedback here prevents downstream disasters and awkward release notes.</p>
+
+<h2>Step 5 Swap to Lambda or HTTP backend when ready</h2>
+<p>When your serverless function or ECS service is actually ready change the integration type to Lambda or HTTP. You can often reuse the mapping templates or adapt them so the contract stays stable and client code does not explode. That keeps versioning simple and reduces finger pointing.</p>
+
+<h2>Troubleshooting tips that save time</h2>
+<ul>
+  <li>If your mapping template returns invalid JSON validate the template in the console and check for unescaped quotes</li>
+  <li>Use stage variables to toggle behavior between mock and real integration during testing</li>
+  <li>Keep mapping templates small and focused so they are easy to reuse when you switch to Lambda</li>
+</ul>
+
+<h2>Recap</h2>
+<p>Create an API resource choose Mock integration define response status codes add mapping templates test with the console or curl and then flip to Lambda or HTTP when ready. Mock Responses with mapping templates are a tiny investment that buys you fast integration testing and more predictable serverless deployments.</p>
+
+<p>Keywords covered AWS API Gateway Mock Responses Mapping Templates Lambda RESTful ECS Serverless Integration Testing</p>
+

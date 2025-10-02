@@ -1,0 +1,80 @@
+---
+layout: video
+title: "How to Configure Your Global Git Config Settings"
+description: "Quick guide to set global Git config options like user name email default editor and signing keys so every repository behaves consistently"
+video_host: "youtube"
+video_id: "aW4ZXonqjKY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M56S"
+thumbnail_url: "https://i.ytimg.com/vi/aW4ZXonqjKY/maxresdefault.jpg"
+content_url: "https://youtu.be/aW4ZXonqjKY"
+embed_url: "https://www.youtube.com/embed/aW4ZXonqjKY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git config
+  - global git config
+  - global git
+  - version control
+  - git tutorial
+  - command line git
+  - git user
+  - git email
+  - git signing
+---
+
+<h2>Why bother with a global Git config</h2>
+<p>Think of global Git config as the ID badge your commits wear across every repo on your machine. Set it once and avoid the chaos of commit records that look like they were made by random internet avatars. This short git tutorial covers identity editor and signing so your history stays readable and trustworthy.</p>
+
+<h2>Quick audit of current settings</h2>
+<p>Before you start changing things in a panic run the basic check to see what is already set in global git config. This helps you avoid surprising yourself later.</p>
+<pre><code>git config --global --list</code></pre>
+<p>If you see unexpected values that probably explains why old commits looked like they came from someone called Unknown Developer.</p>
+
+<h2>Set your user name and email</h2>
+<p>These values show up in commit metadata and on services like GitHub. Pick a sensible user.name and an email to match the account you want commits attributed to.</p>
+<pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"</code></pre>
+<p>Use the same public email across devices for shared projects to avoid split author histories. For private work use a different email so you can be mysterious in peace.</p>
+
+<h2>Pick a default editor</h2>
+<p>Git needs an editor when you do interactive rebase or forget to pass a message with commit. Set one you actually know how to close.</p>
+<pre><code>git config --global core.editor "code --wait"
+# or for the minimalists
+git config --global core.editor "nano"</code></pre>
+
+<h2>Enable GPG signing for proof of authorship</h2>
+<p>If you want to prove commits are really yours enable signing. Find your key and tell git about it.</p>
+<pre><code>gpg --list-secret-keys --keyid-format LONG
+# note your key id then
+git config --global user.signingkey YOURKEY
+git config --global commit.gpgsign true</code></pre>
+<p>Signing adds a tiny bit of friction and a lot of confidence that the commit came from you and not from a CI job with attitude.</p>
+
+<h2>List verify and edit the global config</h2>
+<p>Confirm changes with the list command and edit directly when you need more control.</p>
+<pre><code>git config --global --list
+git config --global --edit</code></pre>
+<p>The global file lives at ~/.gitconfig. Open it if you like hand editing or need to copy settings to a new machine.</p>
+
+<h2>Common pitfalls and tips</h2>
+<ul>
+  <li>Do not mix up local and global identity values or your commit attribution will look like it has multiple personalities</li>
+  <li>If a repo has a local config it overrides the global config so check both places when troubleshooting</li>
+  <li>Keep your public projects on one email to avoid fragmented contribution graphs</li>
+  <li>Enable GPG signing for important work to add a layer of authorship proof</li>
+</ul>
+
+<h2>Final checklist before you push anything</h2>
+<ol>
+  <li>Run git config --global --list and confirm your name and email</li>
+  <li>Set core.editor so messages and rebases stop being an adventure</li>
+  <li>Enable signing if you need verified commits</li>
+  <li>Keep a note of your ~/.gitconfig so cloning a new machine is not a scavenger hunt</li>
+</ol>
+
+<p>If you follow these steps your command line git experience will be less chaotic and more predictable. That is a low bar but very satisfying to clear.</p>
+

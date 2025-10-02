@@ -1,0 +1,71 @@
+---
+layout: video
+title: "JDBC Connection Pooling with Hikari CP & Microsoft SQL Serve"
+description: "Compact guide to set up HikariCP with Microsoft SQL Server for efficient JDBC connection pooling and better database performance."
+video_host: "youtube"
+video_id: "17Xl01CcZUM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M21S"
+thumbnail_url: "https://i.ytimg.com/vi/17Xl01CcZUM/maxresdefault.jpg"
+content_url: "https://youtu.be/17Xl01CcZUM"
+embed_url: "https://www.youtube.com/embed/17Xl01CcZUM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JDBC
+  - HikariCP
+  - Microsoft SQL Server
+  - Connection Pooling
+  - DataSource
+  - Java
+  - Spring Boot
+  - Performance
+  - Database
+  - Monitoring
+---
+
+<p>If your app thinks opening a new database connection for every request is clever then this tutorial is here to break that habit. We will walk through setting up JDBC connection pooling with HikariCP for Microsoft SQL Server and show how to stop starving your database and your users at the same time.</p>
+
+<h2>Add dependencies and the JDBC driver</h2>
+<p>Use your build tool to include HikariCP and the Microsoft JDBC driver for SQL Server. If you use Spring Boot add the HikariCP starter so the framework wires things up for you. Do not commit sample URLs with credentials into a repo unless you enjoy explaining to your boss why production leaked secrets are cool.</p>
+
+<h2>Create and configure the HikariDataSource</h2>
+<p>Instantiate a HikariDataSource or declare it as a bean so the framework can manage its lifecycle. Set the basics like driverClassName, username, password, maximumPoolSize and connectionTimeout. The important part is to prefer a framework managed DataSource over a global singleton so shutdown and health checks actually behave.</p>
+
+<h3>Configuration checklist</h3>
+<ul>
+  <li>driverClassName and jdbcUrl set to your SQL Server connection</li>
+  <li>username and password pulled from secure config or vault</li>
+  <li>maximumPoolSize tuned to realistic concurrency</li>
+  <li>connectionTimeout and validationTimeout set so stuck threads fail fast</li>
+  <li>minimumIdle set to avoid cold starts if your workload needs it</li>
+</ul>
+
+<h2>Use the DataSource in application code</h2>
+<p>Stop calling DriverManager directly. Obtain connections from the DataSource with getConnection. When you call close on that Connection you are returning it to the pool and not killing the underlying TCP link. That behavior is the whole point of connection pooling and also the reason your app will stop behaving like it is reinventing fire.</p>
+
+<h2>Tune the pool and enable monitoring</h2>
+<p>Start conservative with max pool size and min idle then observe actual throughput and latency. HikariCP exposes MBeans and can be integrated with Micrometer or Prometheus for metrics. Monitor connection usage, active connections, waiting threads and connection creation rates. If you see a lot of connection wait time you either need more pool capacity or you have long running queries that need fixing.</p>
+
+<h3>What to watch</h3>
+<ul>
+  <li>connection wait time during peak traffic</li>
+  <li>active connections vs max pool size</li>
+  <li>connection creation spikes which mean the pool is constantly growing</li>
+  <li>open transactions that hold connections for too long</li>
+</ul>
+
+<h2>Test under load and measure results</h2>
+<p>Run realistic load tests and measure latency and connection metrics. Look for connection leaks and threads waiting for connections. If the database shows slow queries fix them first. Increasing pool size is a band aid that hides problems and makes the database angrier.</p>
+
+<h2>Quick troubleshooting tips</h2>
+<ul>
+  <li>If connections exhaust quickly check for leaks and unclosed resources</li>
+  <li>If latency spikes correlate with high active connections inspect long running queries</li>
+  <li>If the pool keeps growing set sensible maximumPoolSize and enable leakDetectionThreshold for debugging</li>
+</ul>
+
+<p>In short, HikariCP plus a proper DataSource pattern gives you better resource use and faster responses with Microsoft SQL Server. Tune and monitor rather than guessing, and your app will thank you by not timing out the user who was only trying to click one button.</p>
+

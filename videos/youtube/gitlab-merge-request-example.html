@@ -1,0 +1,62 @@
+---
+layout: video
+title: "GitLab merge request example"
+description: "Quick guide to creating reviewing and merging a GitLab merge request with commands and best practices for a clean workflow"
+video_host: "youtube"
+video_id: "A12mtqGzSgI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M53S"
+thumbnail_url: "https://i.ytimg.com/vi/A12mtqGzSgI/maxresdefault.jpg"
+content_url: "https://youtu.be/A12mtqGzSgI"
+embed_url: "https://www.youtube.com/embed/A12mtqGzSgI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitLab
+  - merge request
+  - merge requests
+  - MR
+  - git
+  - CI
+  - code review
+  - branches
+  - workflow
+  - DevOps
+---
+
+<h2>Quick overview of the flow</h2>
+<p>This is a no-nonsense guide to creating and merging a GitLab merge request while keeping your Git history usable and CI happy. If your team likes clean branches and fewer late night panics then this workflow will appeal to you. We will cover creating a branch, making commits, opening an MR, running CI and doing code review, and finally merging and cleaning up.</p>
+
+<h2>Create a feature branch and set expectations</h2>
+<p>Start from a stable main branch and run <code>git checkout -b feature/name</code>. Use a descriptive branch name so your teammates do not need a detective to figure out what you were doing. Keep each branch focused on a single logical change to make reviews easier and reduce merge conflicts.</p>
+
+<h2>Make commits that tell a story</h2>
+<p>Make small, focused commits with clear messages. When you push for the first time use <code>git push -u origin feature/name</code>. That push will trigger the GitLab pipeline and run your CI jobs. You want those tests green before anyone starts leaving feedback about whitespace.</p>
+
+<h3>Commit tips</h3>
+<ul>
+  <li>Keep commits atomic and named for what they actually do</li>
+  <li>Squash local WIP commits before opening the MR if the history is noisy</li>
+  <li>Use CI feedback to guide fixes instead of guessing at failures</li>
+</ul>
+
+<h2>Open the merge request and give context</h2>
+<p>In GitLab create a new merge request from your feature branch into the target branch. Write a concise title and a helpful description that links related issues or design notes. Add labels and assign reviewers so the team does not have to play email roulette.</p>
+
+<h2>Run CI and handle reviews like an adult</h2>
+<p>Fix pipeline failures before asking for reviews. When reviewers suggest changes use inline suggestions so fixes are atomic and threaded. Keep the discussion in the MR rather than scattering feedback into chat apps where it will grow legs and run away.</p>
+
+<h2>Merge and clean up</h2>
+<p>After approvals and a passing pipeline use the Merge button. If you prefer a tidy history choose a squash merge for a single logical commit. Then clean up branches locally with <code>git branch -d feature/name</code> and remotely with <code>git push origin --delete feature/name</code> to avoid a jungle of old branches.</p>
+
+<h3>Final tips for sane DevOps</h3>
+<ul>
+  <li>Protect main branches to block merges when pipelines fail</li>
+  <li>Use branch rules and required approvals for higher risk areas</li>
+  <li>Document your merge request workflow so new teammates do not reinvent chaos</li>
+</ul>
+
+<p>Follow these steps and your GitLab merge requests will be faster, cleaner, and less likely to cause 2am alerts. Also you will look like someone who knows what they are doing which is a nice bonus.</p>
+

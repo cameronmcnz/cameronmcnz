@@ -1,0 +1,79 @@
+---
+layout: video
+title: "Route 53, Sub Domains, S3 Buckets and Domain Name Mapping in"
+description: "Compact guide to map subdomains to S3 static sites using Route 53 and optional CloudFront and ACM on AWS"
+video_host: "youtube"
+video_id: "0OaF3vl7OFs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/0OaF3vl7OFs/maxresdefault.jpg"
+content_url: "https://youtu.be/0OaF3vl7OFs"
+embed_url: "https://www.youtube.com/embed/0OaF3vl7OFs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Route53
+  - Subdomain
+  - S3
+  - AWS
+  - CloudFront
+  - Static Website
+  - DNS
+  - ACM
+  - Domain Mapping
+  - Tutorial
+---
+
+<p>If you need a subdomain like static.example.com to serve a static website from S3 and you do not enjoy random SSL warnings or manual IP babysitting this guide will save your sanity. We use S3 for storage Route 53 for DNS and optionally CloudFront and ACM for HTTPS and better security. Yes it is that simple and yes you will have to wait for DNS to stop being dramatic.</p>
+
+<h2>What you need before you start</h2>
+<ul>
+  <li>An AWS account with permissions to use S3 Route 53 CloudFront and ACM</li>
+  <li>A registered domain in Route 53 or a delegated hosted zone</li>
+  <li>The desired subdomain name for the bucket for example static.example.com</li>
+  <li>Basic knowledge of DNS and an ability to type without panicking</li>
+</ul>
+
+<h2>Overview of the flow</h2>
+<p>High level summary so you do not wander off and invent new problems. Create an S3 bucket named exactly like your subdomain. Enable static website hosting when you want S3 to serve index documents directly. Upload your files and either allow public reads for the S3 website endpoint or lock the bucket and front it with CloudFront for HTTPS. In Route 53 create an alias record that points to the S3 website endpoint or to your CloudFront distribution. If you want HTTPS request a public certificate in ACM in the us-east-1 region and attach it to CloudFront.</p>
+
+<h2>Step 1 Create the S3 bucket</h2>
+<p>Name the bucket exactly as the subdomain for example static.example.com. In bucket properties turn on static website hosting and set your index document and optionally an error document. If you will use the S3 website endpoint remember it only supports plain HTTP. If you want HTTPS use CloudFront as the front door so the browser can see a padlock and so you can restrict direct access to the bucket.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Bucket name equals the subdomain</li>
+  <li>Enable static website hosting and set index.html</li>
+  <li>Decide on public reads for the bucket or CloudFront to hide the bucket</li>
+</ul>
+
+<h2>Step 2 Upload site files and configure access</h2>
+<p>Upload your HTML CSS and assets to the bucket. For a plain S3 website endpoint you need to allow public reads either by adjusting the public access settings or by adding a bucket policy that grants s3 get object on the objects. If privacy matters or you need HTTPS do not open the bucket. Instead create a CloudFront distribution with the S3 bucket as origin and use an origin access identity or origin access control so only CloudFront can fetch objects.</p>
+
+<h2>Step 3 Create DNS records in Route 53</h2>
+<p>Open the hosted zone for your domain in Route 53. Add an A record alias for the subdomain. For a simple setup point the alias to the S3 website endpoint target. For a secure HTTPS setup point the alias to the CloudFront distribution. Using alias records avoids manual IP management and works with AWS targets more reliably than raw IPs.</p>
+
+<h3>Notes about apex and CNAME</h3>
+<ul>
+  <li>If you need the root domain to serve content you must use an alias A record or CloudFront rather than a CNAME</li>
+  <li>CloudFront distributions often take longer to deploy so be ready for a short wait</li>
+</ul>
+
+<h2>Step 4 Add HTTPS with ACM and CloudFront</h2>
+<p>If you want a secure site request a public certificate in ACM in the us-east-1 region for use with CloudFront. Validate the certificate using DNS validation in Route 53 for the fastest results. After validation attach the certificate to the CloudFront distribution so browsers will stop yelling at visitors with warning messages.</p>
+
+<h2>Step 5 Verify DNS and test the site</h2>
+<p>DNS changes take time. Wait for propagation and then load the subdomain in a browser. Confirm the site serves the expected content and that the certificate is valid when using CloudFront. If redirects or index documents are not behaving revisit the bucket static hosting settings and the Route 53 records.</p>
+
+<h2>Troubleshooting tips</h2>
+<ul>
+  <li>403 errors often mean permissions. Check bucket policy and public access blocks or ensure CloudFront has origin access control</li>
+  <li>Seeing a security warning means you forgot to attach the ACM certificate to CloudFront or you used the wrong region for the certificate</li>
+  <li>If the wrong content appears check that the alias record targets the correct distribution or that the bucket name matches the subdomain</li>
+  <li>Want redirects for the root domain set up a CloudFront behavior or use S3 redirect rules and test each change patiently</li>
+</ul>
+
+<p>There you go. You now have a mapped subdomain serving a static website from S3 with an option for CloudFront and ACM for HTTPS. It is not magic it is configuration and DNS patience. If anything breaks reread the steps and then blame DNS propagation for a while.</p>
+

@@ -1,0 +1,69 @@
+---
+layout: video
+title: "Git Plumbing vs Porcelain #Git #GitHub"
+description: "Quick guide to Git plumbing versus porcelain with examples and advice for scripts and daily workflows"
+video_host: "youtube"
+video_id: "hExQA8EjLBA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/hExQA8EjLBA/maxresdefault.jpg"
+content_url: "https://youtu.be/hExQA8EjLBA"
+embed_url: "https://www.youtube.com/embed/hExQA8EjLBA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Git
+  - Plumbing vs Porcelain
+  - Porcelain
+  - Plumbing
+  - GitHub
+  - GitLab
+  - DevOps
+  - GitOps
+  - Git scripting
+  - Version control
+---
+
+<p>Here is the blunt truth. Git has two personalities that look identical after too much coffee. One speaks in terse machine friendly facts and never lies to your scripts. The other is warm and fuzzy and exists to make humans feel productive. The words are plumbing for the low level bits and porcelain for the human facing bits. If you want stable automation pick plumbing. If you want readable output pick porcelain. If you try to use the human one as an API you will debug for hours and grow a beard of regret.</p>
+
+<h2>What plumbing commands do</h2>
+<p>Plumbing commands give precise answers that scripts can trust. They are the kind of tools you call from CI, from GitOps agents, or from a shell script that would rather not be surprised. Examples you will actually use are <code>git rev-parse</code>, <code>git update-ref</code>, <code>git cat-file</code>, and <code>git ls-tree</code>. These commands return stable identifiers and predictable exit codes so your automation does not hallucinate.</p>
+
+<h2>What porcelain commands do</h2>
+<p>Porcelain commands are the user friendly ones. They were built so humans can scan, commit, and pretend everything is under control. Think <code>git status</code>, <code>git commit</code>, and <code>git log</code>. Porcelain favors clarity over exact format, which is lovely for developers and terrible as a programmatic contract unless you use porcelain modes that promise stable output.</p>
+
+<h3>When to use plumbing</h3>
+<ul>
+  <li>CI pipelines and GitOps controllers that need consistent parsing and exit behavior</li>
+  <li>Git scripting where exact OIDs or refs matter, for example using <code>git rev-parse HEAD</code> to resolve an object id</li>
+  <li>Low level operations like updating refs with <code>git update-ref</code> or reading objects with <code>git cat-file</code></li>
+</ul>
+
+<h3>When to use porcelain</h3>
+<ul>
+  <li>Interactive development, code reviews, and quick status checks with <code>git status</code> and <code>git commit</code></li>
+  <li>When readability is your priority and you do not plan to parse the output with a script</li>
+  <li>When you can enable stable porcelain modes such as <code>git status --porcelain</code> for predictable short output</li>
+</ul>
+
+<h2>Mixing both without crying</h2>
+<p>It is normal and often practical to combine porcelain and plumbing. Many robust scripts use a porcelain summary for humans and fall back to plumbing for authoritative values. For example run <code>git status --porcelain</code> if you need a compact list of changed paths and then feed exact identifiers into plumbing calls like <code>git rev-parse HEAD</code> for lookups. This keeps your Git scripting readable and your automation resilient.</p>
+
+<h2>Practical tips for GitHub GitLab and DevOps workflows</h2>
+<ul>
+  <li>Prefer plumbing in CI jobs on GitHub Actions or GitLab CI when you need to resolve commits or tags reliably</li>
+  <li>Annotate expectable outputs so later maintainers do not discover surprises in production</li>
+  <li>If you must parse porcelain make sure you use a porcelain stable mode or add strict parsing rules to avoid breakage across Git versions</li>
+</ul>
+
+<h2>Quick cheat sheet</h2>
+<ul>
+  <li>Use plumbing for version control automation and GitOps tasks</li>
+  <li>Use porcelain for interactive work and developer ergonomics</li>
+  <li>Use <code>--porcelain</code> when you need a human style command but with stable output for scripts</li>
+</ul>
+
+<p>Bottom line. Treat porcelain as a friendly receptionist who can explain things in plain English. Treat plumbing as the accountant who keeps the ledger correct. Both are useful, just do not expect the receptionist to balance the books for your CI pipeline.</p>
+

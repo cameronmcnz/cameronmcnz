@@ -1,0 +1,81 @@
+---
+layout: video
+title: "Example of How to Use the Git Reset Hard Command"
+description: "Step by step guide to using git reset hard safely with examples stashing and recovery tips for lost commits"
+video_host: "youtube"
+video_id: "PRDUK2WRzjo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M0S"
+thumbnail_url: "https://i.ytimg.com/vi/PRDUK2WRzjo/maxresdefault.jpg"
+content_url: "https://youtu.be/PRDUK2WRzjo"
+embed_url: "https://www.youtube.com/embed/PRDUK2WRzjo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git reset
+  - git reset hard
+  - version control
+  - git reflog
+  - git status
+  - stash
+  - branching
+  - force push
+  - commit recovery
+---
+
+<h2>Why you might learn git reset --hard the painful way</h2>
+<p>git reset --hard is the tool you call when you want to throw away local changes with extreme prejudice. It works exactly as advertised and it does not ask how you are feeling about that decision. That means it is useful and terrifying in equal measure. This guide walks through a sane workflow for git reset hard while keeping commit recovery tools handy.</p>
+
+<h2>Step 1 Inspect the repository state</h2>
+<p>Before you press the big reset button run these commands to see what the repo looks like and to avoid dramatic surprises.</p>
+<pre><code>git status
+git log --oneline
+</code></pre>
+<p>git status shows staged and unstaged files and git log --oneline shows the recent commits and where HEAD points. If you skip this you will still learn something later when you explain to your team why a commit vanished.</p>
+
+<h2>Step 2 Choose the target commit</h2>
+<p>Pick the commit you want HEAD to point at. You can use a full SHA or a relative ref like HEAD~1. If you prefer a guided tour use git reflog to see every movement of HEAD and pick the entry you meant to keep.</p>
+<pre><code>git log --oneline
+git reflog
+</code></pre>
+
+<h2>Step 3 Save any work worth keeping</h2>
+<p>If there is anything you might regret losing stash it or make a quick temporary branch. Memory is famously unreliable under deadline pressure.</p>
+<pre><code>git stash push -m "save before reset"
+# or
+git branch temp-save
+git add .
+git commit -m "temp save"
+</code></pre>
+
+<h2>Step 4 Perform the hard reset</h2>
+<p>Now for the actual action. This moves HEAD, updates the index and replaces files in your working tree. It is blunt and efficient so be sure you really want to remove those changes.</p>
+<pre><code>git reset --hard <commit-sha>
+</code></pre>
+<p>If you are working with a shared branch and need to update the remote you will likely use a force push. Be careful and coordinate with your team when using git push --force.</p>
+
+<h2>Step 5 Verify and recover if needed</h2>
+<p>Double check the result so you can relax or panic in an organized way.</p>
+<pre><code>git status
+git log --oneline
+</code></pre>
+<p>If you discover you reset the wrong commit do not panic. git reflog tracks recent HEAD moves. Find the reflog entry with the lost commit and reset back to it.</p>
+<pre><code>git reflog
+git reset --hard <sha-from-reflog>
+</code></pre>
+
+<h3>Quick checklist</h3>
+<ul>
+<li>Inspect with git status and git log --oneline</li>
+<li>Pick a commit via git log or git reflog</li>
+<li>Stash or create a temp branch for anything you might need</li>
+<li>Run git reset --hard when you are certain</li>
+<li>Use git reflog for commit recovery if things go sideways</li>
+</ul>
+
+<h3>Final tip</h3>
+<p>Create a branch before dramatic resets and when in doubt stash first. That keeps recoveries trivial and your regret levels manageable when deadlines meet aggressive editing.</p>
+

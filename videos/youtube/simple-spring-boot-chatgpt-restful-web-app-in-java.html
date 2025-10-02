@@ -1,0 +1,99 @@
+---
+layout: video
+title: "Simple Spring Boot ChatGPT RESTful Web App in Java"
+description: "Build a Spring Boot REST API that uses OpenAI models to add ChatGPT style responses to a Java app with clear steps and code hints."
+video_host: "youtube"
+video_id: "NHaVmkqL2Vk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT16M30S"
+thumbnail_url: "https://i.ytimg.com/vi/NHaVmkqL2Vk/maxresdefault.jpg"
+content_url: "https://youtu.be/NHaVmkqL2Vk"
+embed_url: "https://www.youtube.com/embed/NHaVmkqL2Vk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - ChatGPT
+  - OpenAI
+  - Java
+  - REST API
+  - SpringAI
+  - WebClient
+  - RESTful
+  - API integration
+  - Tutorial
+---
+
+<h1>Create a resilient Spring Boot REST service that calls OpenAI models</h1>
+
+<p>If you want a Java REST API that actually talks to an OpenAI model and returns chat style replies without setting your hair on fire this guide will get you there. We will use Spring Boot and a lightweight HTTP client to keep things pragmatic and testable. Expect DTOs, a controller, a service that hides API details, and a few sanity checks so your key does not wander off into version control like a bad idea.</p>
+
+<h2>What you need before you start</h2>
+
+<ul>
+  <li>Java 11 or newer and Maven or Gradle</li>
+  <li>Spring Boot web starter and a reactive client such as WebClient</li>
+  <li>An OpenAI API key stored in the environment or a secret manager</li>
+  <li>Basic unit test setup to mock the OpenAI calls</li>
+</ul>
+
+<h2>Project and dependencies</h2>
+
+<p>Create a standard Spring Boot project and add spring-boot-starter-web. Add spring-boot-starter-webflux if you plan to use WebClient which is great for non blocking calls and timeouts. If you prefer an official or community OpenAI SDK you can add that but it is fine to use plain WebClient so you know exactly what is being sent and received.</p>
+
+<h3>Why WebClient</h3>
+
+<p>WebClient gives you fine grained control over timeouts, retries and backoff without turning your service into a spaghetti stack. It plays nicely with Reactor for async flows and keeps the OpenAI calls isolated so tests can stub them easily.</p>
+
+<h2>Configure your API key and properties</h2>
+
+<p>Store the OpenAI API key in environment variables or a vault. Reference it from application properties for base URL and timeout values. Do not commit the key to git unless you need a new career in security incident response.</p>
+
+<p>Keep configuration minimal and explicit. Example settings you will want include base URL, request timeout and a polite retry policy to handle rate limits. Use sensible defaults and let the environment override values at runtime.</p>
+
+<h2>Design DTOs for requests and responses</h2>
+
+<p>Make a ChatRequest with fields such as model and messages where messages is a list of role and content pairs. Make a ChatResponse that includes the model reply text and a status or error block for the client to check. Keep shapes explicit so client code does not guess the schema.</p>
+
+<h2>Implement the controller</h2>
+
+<p>Create a REST controller that accepts a JSON chat request and returns a JSON chat response. Keep controller methods small. They should validate input, call the OpenAiService and map the service output to your response DTO. Lean controllers are easier to test and easier to explain at stand ups.</p>
+
+<h2>Implement the OpenAiService</h2>
+
+<p>Put all API interaction logic behind a service named OpenAiService. Map your ChatRequest into the model payload that OpenAI expects and parse the model output into your ChatResponse DTO. Handle HTTP status codes and surface meaningful errors to the controller rather than letting low level exceptions bubble up to clients.</p>
+
+<ul>
+  <li>Use WebClient for HTTP calls so you can configure timeouts and backoff</li>
+  <li>Retry on transient failures with an exponential backoff and a max attempts limit</li>
+  <li>Respect rate limit headers and fail gracefully when limits are hit</li>
+</ul>
+
+<h2>Testing locally and in CI</h2>
+
+<p>Run the app and POST simple prompts to the /chat endpoint. For unit tests mock the OpenAiService so you are not charged for every CI run. For one or two integration tests use a sandbox key or a carefully controlled test key to validate the end to end flow. Keep integration tests isolated and rate friendly.</p>
+
+<h2>Error handling and resilience</h2>
+
+<p>Wrap API calls with retry logic and circuit breaking where appropriate. Validate inputs carefully so the external API does not reject obvious mistakes. Return clear error objects from your API so front end and mobile clients can show helpful messages instead of a cryptic server stack trace.</p>
+
+<h3>Practical tips</h3>
+
+<ul>
+  <li>Log request identifiers so you can trace a prompt from client to model and back</li>
+  <li>Throttle or queue heavy workloads to avoid surprise bills</li>
+  <li>Keep request and response DTOs versioned if clients will be long lived</li>
+</ul>
+
+<h2>Security and best practices</h2>
+
+<p>Never bake API keys into your source. Prefer an environment secret or a dedicated secret manager. Limit the permissions of the key and rotate keys regularly. If you expose a public endpoint add rate limiting and an API key for your clients so one user does not burn your monthly quota.</p>
+
+<h2>Wrap up</h2>
+
+<p>In short here is the architecture to remember. Use Spring Boot for quick endpoints. Keep WebClient or a small SDK in a service to talk to OpenAI. Define clear DTOs. Add retries and rate limit handling. Test locally with mocks and run a small set of integration tests with a controlled key. You will end up with a maintainable Java REST API that can chat with OpenAI models and not make your weekends miserable.</p>
+
+<p>If you want, I can sketch minimal class outlines and a sample WebClient call in plain pseudocode without any sensitive details. Say the word and I will draw the wiring diagram without the circus act.</p>
+

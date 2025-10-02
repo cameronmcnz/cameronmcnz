@@ -1,0 +1,67 @@
+---
+layout: video
+title: "How to Use the Git Config List Command Example"
+description: "Learn how to use git config list to view and debug Git configuration across local global and system scopes with practical commands and tips"
+video_host: "youtube"
+video_id: "oukEr7s7d3E"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M19S"
+thumbnail_url: "https://i.ytimg.com/vi/oukEr7s7d3E/maxresdefault.jpg"
+content_url: "https://youtu.be/oukEr7s7d3E"
+embed_url: "https://www.youtube.com/embed/oukEr7s7d3E"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git config
+  - git commands
+  - git tutorial
+  - version control
+  - cli
+  - git config list
+  - git troubleshooting
+  - developer tools
+  - configuration
+---
+
+<p>If your Git user name or email is staging a rebellion this is where you send it back to school. The git config list command is the first stop when configuration behaves like it has a secret life. Below we walk through viewing everything that applies to your repo or environment and how to trace the file that actually set a value.</p>
+
+<h2>View all configuration entries</h2>
+<p>Dump the current config that applies to your context and stop guessing. This shows key value pairs that Git is using right now.</p>
+<pre><code>git config --list</code></pre>
+<p>If your commit author looks wrong this is the quick check that will either calm you down or start a productive hissy fit.</p>
+
+<h2>Show where each value came from</h2>
+<p>Git likes to hide which file set a value. Add the flag that reveals the source file and enjoy the satisfaction of naming names.</p>
+<pre><code>git config --list --show-origin</code></pre>
+<p>That output tells you whether a setting came from a system file a global file or the local repository config. Very handy when a global setting is silently hijacking a repo level expectation.</p>
+
+<h2>Fetch or filter a single key</h2>
+<p>When you only care about one thing use the getter style commands. These are the fast lane for troubleshooting a single key like user.email.</p>
+<ul>
+  <li><pre><code>git config user.email</code></pre></li>
+  <li><pre><code>git config --get-all user.email</code></pre></li>
+</ul>
+<p>The first prints the effective value. The second will show multiple entries if someone went overboard and added more than one email.</p>
+
+<h2>Set and unset values in the right scope</h2>
+<p>Pick where a change should live so you do not accidentally announce a new identity to the whole machine.</p>
+<pre><code>git config --global user.name "Jane Doe"
+git config --local --unset user.name</code></pre>
+<p>Use the global flag to change your user wide identity and use the local flag to make repository specific edits or removals.</p>
+
+<h2>Understand scope precedence</h2>
+<p>There is a simple rule to keep in mind when things conflict. Settings in the repository override global settings and global settings override system settings. If a local config exists it wins. If not Git looks higher up the chain.</p>
+
+<h3>Troubleshooting tips that do not waste your time</h3>
+<ul>
+  <li>Start with <code>git config --list --show-origin</code> to see the winner and its file.</li>
+  <li>If name or email look wrong check both local and global files before panicking.</li>
+  <li>Use <code>--get-all</code> when multiple entries might exist.</li>
+  <li>Unset in the proper scope if you want to remove a value without surprising other projects.</li>
+</ul>
+
+<p>Recap in plain language If a setting surprises you dump the list show the origin and then adjust the correct scope. The commands above are the minimum viable toolkit for git troubleshooting of configuration. Now go fix the things and then pretend this was obvious all along.</p>
+

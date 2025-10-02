@@ -1,0 +1,83 @@
+---
+layout: video
+title: "The GitHub Branch Explained and Demystified"
+description: "Clear guide to GitHub branches why branching matters and how to use branches for safer code changes and cleaner workflows"
+video_host: "youtube"
+video_id: "GIXmtOPjofM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT8M53S"
+thumbnail_url: "https://i.ytimg.com/vi/GIXmtOPjofM/maxresdefault.jpg"
+content_url: "https://youtu.be/GIXmtOPjofM"
+embed_url: "https://www.youtube.com/embed/GIXmtOPjofM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - github
+  - git
+  - branch
+  - branching
+  - version control
+  - pull request
+  - merge
+  - rebase
+  - workflow
+  - best practices
+---
+
+<p>Think of a branch as a tiny arrow stuck into your repository history that says I am working over here and please do not panic the main branch. Branches let you try features fix bugs or perform experiments without turning the main line into a horror show. Git stores commits once and then just hands out names to them so branches are cheap fast and basically guilt free.</p>
+
+<h2>What a branch actually is</h2>
+<p>A branch is a movable pointer to a commit in a Git repo. The main branch typically holds deployable code while feature branches hold work in progress. When you create a branch you are not making a copy of the whole project you are making a label that points at an existing commit. That is why creating and switching branches feels instant even when the project is enormous.</p>
+
+<h2>Common commands to keep handy</h2>
+<ul>
+  <li><code>git branch</code> to list or create branches</li>
+  <li><code>git switch</code> or <code>git checkout</code> to move between branches</li>
+  <li><code>git merge</code> to combine changes and preserve the branch history</li>
+  <li><code>git rebase</code> to rewrite a branch on top of another commit and make history linear</li>
+  <li><code>git push</code> to publish a branch to a remote such as GitHub</li>
+</ul>
+<p>Remote tracking branches keep your local names linked to the GitHub copies so collaboration does not turn into carrier pigeons and sticky notes.</p>
+
+<h3>When to merge and when to rebase</h3>
+<p>Use merge when you want a clear graph that shows the join points and preserves the exact history. Use rebase when you want a tidy linear history that reads like a novel instead of a detective story. Be careful with rebase if the branch is already pushed and shared. Rewriting public history will make your teammates sad and possibly dramatic.</p>
+<p>Expect conflicts during rebases and merges. Conflicts are normal. They are not a sign of moral failure. Resolve them locally test the result and then continue.</p>
+
+<h2>Branching workflows without the drama</h2>
+<p>There are a few common approaches to branching and each has trade offs. Pick one that fits your team and stick with it unless you enjoy chaos.</p>
+<ul>
+  <li>Trunk based development favors short lived branches and frequent integration. This keeps merges small and reduces giant conflict storms.</li>
+  <li>Feature branch workflow isolates work for review and testing before merging. Good for larger features and clearer PR history.</li>
+  <li>Use pull requests on GitHub for the social and technical gate. Reviews can be awkward and that is the point. They catch bugs and make everyone slightly less surprised on deploy day.</li>
+</ul>
+
+<h3>Branch naming and commit hygiene</h3>
+<p>Use descriptive branch names so future you and archaeology interns are not confused. Examples that do not suck include:</p>
+<ul>
+  <li>feature/login-rate-limit</li>
+  <li>fix/user-avatar-css</li>
+  <li>chore/update-deps</li>
+</ul>
+<p>Make small focused commits and give them meaningful messages. If a commit is hard to explain the code probably needs a rewrite or you need better discipline.</p>
+
+<h2>Common mistakes to avoid</h2>
+<ul>
+  <li>Long lived diverging branches that make merges huge and painful</li>
+  <li>Pushing unfinished code to main without review or tests</li>
+  <li>Rebasing public branches and then wondering why everyone is upset</li>
+  <li>Leaving stale branches around so the repo looks like a haunted estate</li>
+</ul>
+
+<h2>Quick checklist to keep your repo healthy</h2>
+<ul>
+  <li>Prefer short lived branches and push often to get feedback early</li>
+  <li>Use pull requests for review testing and discussion</li>
+  <li>Choose merge or rebase based on the team need for audit trail versus linear history</li>
+  <li>Resolve conflicts locally and test before pushing</li>
+  <li>Close and delete branches after merge to avoid confusing future archaeologists</li>
+</ul>
+
+<p>Branches exist to reduce fear not to create more drama. Treat them as tools not fortresses and your repository will thank you or at least stop yelling in the logs.</p>
+

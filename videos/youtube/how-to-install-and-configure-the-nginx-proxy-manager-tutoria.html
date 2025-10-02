@@ -1,0 +1,87 @@
+---
+layout: video
+title: "How to Install and Configure the Nginx Proxy Manager Tutoria"
+description: "Quick guide to install and configure Nginx Proxy Manager with Docker for reverse proxy and automatic SSL in a home lab or production environment"
+video_host: "youtube"
+video_id: "QasSXtWy--A"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M30S"
+thumbnail_url: "https://i.ytimg.com/vi/QasSXtWy--A/maxresdefault.jpg"
+content_url: "https://youtu.be/QasSXtWy--A"
+embed_url: "https://www.youtube.com/embed/QasSXtWy--A"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - nginx
+  - nginx-proxy-manager
+  - docker
+  - docker-compose
+  - reverse-proxy
+  - letsencrypt
+  - ssl
+  - home-lab
+  - proxy
+  - server
+---
+
+<p>If you are building a home lab or running services on a server and you still like typing manual nginx rules, fine but this guide will save you time and dignity. Nginx Proxy Manager gives you a web UI to manage reverse proxies, obtain SSL certificates from Let Encrypt, and stop yelling at config files. We will walk through preparing the host, creating a docker compose setup, launching containers, and adding proxy hosts with SSL.</p>
+
+<h2>Prepare the host and prerequisites</h2>
+<p>First stop and breathe. Make sure your server has Docker and docker compose installed and running. Have a stable public IP and DNS records that point the domain names you plan to use at that IP. Forward ports 80 and 443 on any router or firewall that stands between the internet and your server. If you do not forward those ports Let Encrypt cannot issue certificates and the universe will frown.</p>
+
+<ul>
+  <li>Install Docker and docker compose on the server</li>
+  <li>Create persistent folders for database and configuration data so settings survive updates and tantrums</li>
+  <li>Ensure DNS A records point to your server public IP for each domain you will proxy</li>
+</ul>
+
+<h2>Create the docker compose plan without the drama</h2>
+<p>Instead of pasting YAML that you will tweak anyway describe what it must include. Define one service for the Nginx Proxy Manager app and one for a database backend. Map host HTTP and HTTPS ports to the container ports so the proxy can receive traffic. Mount folders for configuration files and certificates so the data survives container recreation. Use a friendly database like MariaDB for production and choose secure credentials for the database user.</p>
+
+<h3>What to include in the compose file</h3>
+<ul>
+  <li>Service for nginx proxy manager image with required volume mounts for data and lets encrypt certificates</li>
+  <li>A database service such as mariadb with a persistent volume and secure environment variables for root and user passwords</li>
+  <li>Port exposures for HTTP and HTTPS on the host so the proxy can respond to incoming connections</li>
+</ul>
+
+<h2>Start the containers and check for tantrums</h2>
+<p>Run docker compose up -d and then monitor logs with docker compose logs -f. You want to see the database initialize and the proxy manager announce that it is ready. If you encounter startup failures check permissions on the host folders that you mounted. Often the fix is to adjust ownership and modes on the filesystem so the containers can write their data.</p>
+
+<h3>Common early problems</h3>
+<ul>
+  <li>Permission errors on mounted folders fix with proper chown and chmod on the host</li>
+  <li>Database connection issues verify credentials and that the DB container finished initialization</li>
+  <li>Ports already in use stop the other services that claimed 80 or 443</li>
+</ul>
+
+<h2>Log in and secure the admin account</h2>
+<p>Open the web UI at the server address and complete the initial admin setup. The default login is often documented in the project docs so change that default password immediately. This is not optional unless you enjoy free admin access for random Internet people.</p>
+
+<h2>Create proxy hosts and enable SSL</h2>
+<p>In the dashboard add proxy hosts by supplying each domain and the upstream address on your local network where the actual service runs. For example point example dot local to the internal IP and port of your app. Turn on automatic SSL using Let Encrypt from the proxy manager options. Make sure DNS for the domain points to your public IP so certificate issuance can happen. If you have strict firewall rules allow outbound traffic needed for ACME validation and incoming validation to ports 80 and 443.</p>
+
+<ul>
+  <li>Enter domain name and internal target address</li>
+  <li>Enable Let Encrypt to automatically obtain SSL certificates</li>
+  <li>Test externally to confirm certificates were issued and proxying works</li>
+</ul>
+
+<h2>Troubleshooting and operational tips</h2>
+<p>If certificates fail check that the DNS A records are correct and that ports 80 and 443 are reachable from the internet. For stubborn permission issues review the ownership of the mounted folders on the host. Keep backups of the configuration database and certificate folders so you can recover from upgrades that go sideways.</p>
+
+<p>For a resilient setup use a separate database container with secure credentials do regular backups and treat your proxy manager like the gatekeeper it is. If it goes down many services will stop working and you will be reminded why automation matters.</p>
+
+<h2>Final checklist</h2>
+<ul>
+  <li>Docker and docker compose installed on the server</li>
+  <li>Persistent volumes for config and certificates</li>
+  <li>DNS records pointing to the public IP of the server</li>
+  <li>Ports 80 and 443 forwarded and reachable</li>
+  <li>Changed the default admin password and verified Let Encrypt certificate issuance</li>
+</ul>
+
+<p>There you go. You now have a manageable reverse proxy with SSL handled automatically and a nice web UI to boss it around. If you still prefer manual config files that is your prerogative but remember this tool exists to make your life less annoying and more secure.</p>
+

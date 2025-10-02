@@ -1,0 +1,79 @@
+---
+layout: video
+title: "How to Push Code to a GitHub Repository"
+description: "Step by step guide to push code to a GitHub repository using git commands from a local machine with clear steps and practical tips"
+video_host: "youtube"
+video_id: "ueQs5pQ8ZMM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT15M29S"
+thumbnail_url: "https://i.ytimg.com/vi/ueQs5pQ8ZMM/maxresdefault.jpg"
+content_url: "https://youtu.be/ueQs5pQ8ZMM"
+embed_url: "https://www.youtube.com/embed/ueQs5pQ8ZMM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - github
+  - git push
+  - git tutorial
+  - version control
+  - git commit
+  - git remote
+  - push code
+  - command line
+  - developer workflow
+---
+
+<p>So you wrote something that actually works and now you want to shove it up to GitHub without starting a small war. This guide walks you through a no nonsense git push workflow that keeps history tidy and your future self less angry. It is short, accurate, and lightly sarcastic for flavor.</p>
+
+<h2>Get a local repo ready</h2>
+<p>If your project is not yet tracked by git do this from the project folder. It creates a hidden history vault that remembers every regrettable change.</p>
+<pre><code>git init
+git remote add origin REPO_URL</code></pre>
+<p>Replace REPO_URL with the address GitHub gives you. You can use SSH or HTTPS depending on what you prefer for authentication. We will talk about that below.</p>
+
+<h2>Stage and commit like a civilized human</h2>
+<p>Staging picks which files join the party. Committing records why you made the mess in the first place.</p>
+<pre><code>git add .
+git commit -m 'Short tidy message about the change'</code></pre>
+<ul>
+  <li>Use git add file when you want to be picky.</li>
+  <li>Keep commit messages concise and useful so future you does not cry.</li>
+</ul>
+
+<h2>Push your branch to GitHub</h2>
+<p>Once your local branch looks sane push it up.</p>
+<pre><code>git push -u origin main</code></pre>
+<p>The -u flag links your local branch to the remote so future pushes are one word simpler. If your main branch uses a different name replace main with the correct branch name.</p>
+
+<h2>Authentication options that will save you from typing your password forever</h2>
+<p>Pick one of these and set it up once so you can push without a dramatic monologue at the terminal.</p>
+
+<h3>SSH keys</h3>
+<p>SSH is the slick option. Generate a key pair on your machine and add the public key to GitHub. Once the key is installed pushing becomes friction free.</p>
+<pre><code>ssh-keygen -t ed25519 -C 'your_email@example.com'
+# then copy the public key and add it to GitHub</code></pre>
+
+<h3>HTTPS with a personal access token</h3>
+<p>If you prefer HTTPS create a personal access token in GitHub and use that instead of your account password. That avoids repeated prompts and is more secure than a plain password.</p>
+
+<h2>Dealing with conflicts without melodrama</h2>
+<p>Sometimes the remote has changes you do not. Fetch them and integrate before pushing again.</p>
+<pre><code>git fetch origin
+git merge origin/main</code></pre>
+<p>Or if you prefer a cleaner history use rebase instead of merge. Resolve conflicts locally then push. This avoids surprise merge commits that look like emotional baggage.</p>
+
+<h2>Quick troubleshooting checklist</h2>
+<ul>
+  <li>Authentication failed Try SSH keys or use a personal access token for HTTPS</li>
+  <li>Push rejected because branch is behind Fetch the remote and merge or rebase then push again</li>
+  <li>Want easier pushes Use git push without -u once upstream is set</li>
+</ul>
+
+<h2>Final tips</h2>
+<p>Keep commits focused. Use branch names that make sense. Set up SSH keys if you like being efficient. If something breaks read the error message and then curse quietly. Repeat until push succeeds.</p>
+
+<p>Now go push that code and pretend it was always meant to work this way.</p>
+

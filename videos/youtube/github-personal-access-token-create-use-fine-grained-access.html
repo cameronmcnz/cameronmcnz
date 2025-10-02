@@ -1,0 +1,75 @@
+---
+layout: video
+title: "GitHub Personal Access Token Create Use Fine Grained Access"
+description: "Quick guide to create get and use GitHub personal access tokens with fine grained permissions for secure automation and CI"
+video_host: "youtube"
+video_id: "RsNwdQ3fCW8"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/RsNwdQ3fCW8/maxresdefault.jpg"
+content_url: "https://youtu.be/RsNwdQ3fCW8"
+embed_url: "https://www.youtube.com/embed/RsNwdQ3fCW8"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub
+  - Personal Access Token
+  - PAT
+  - Fine Grained
+  - Tokens
+  - Authentication
+  - Security
+  - CLI
+  - CI
+  - Workflows
+---
+
+<article>
+  <p>If you like handing out master keys and hoping for the best then ignore this guide and enjoy chaos. If you prefer automation that does not accidentally become a global admin disaster then read on. This short guide explains how to create and use GitHub personal access tokens also known as PATs with fine grained permissions for CI workflows CLI scripts and API calls while keeping security sane.</p>
+
+  <h2>Why fine grained tokens matter</h2>
+  <p>Treat tokens like tiny kingdom keys. A full access token is basically a universal key that will let your automation do whatever it wants. Fine grained tokens let you pick exactly which repositories and which permissions are allowed. That means you can run CI workflows and CLI automation without handing over the crown jewels.</p>
+
+  <h2>Where to create a fine grained PAT</h2>
+  <p>Open GitHub and go to Settings then Developer settings then Personal access tokens then Fine grained tokens. Pick the right account or organization first. This is not the time to guess.</p>
+
+  <h3>Quick creation checklist</h3>
+  <ul>
+    <li>Give the token a clear descriptive name so future you does not curse past you</li>
+    <li>Set an expiration date that matches the use case and your attention span</li>
+    <li>Grant repository level access only for the repos you need</li>
+    <li>Choose minimal permission scopes required for the task and nothing more</li>
+    <li>Click Generate and copy the token immediately because GitHub will show it only once</li>
+  </ul>
+
+  <h2>Using the token in Git and the API</h2>
+  <p>For HTTPS git operations use the PAT in place of your password when prompted. That works for clone fetch pull and push operations. For API calls add an Authorization header with the value Bearer followed by your token when making requests. If you use the GitHub CLI you can pipe the token into the login command like this</p>
+  <pre><code>echo "YOUR_TOKEN_HERE" | gh auth login --with-token</code></pre>
+  <p>This keeps the token out of your interactive prompts and lets scripts authenticate cleanly. For curl just set an Authorization header with Bearer and the token when you call the API.</p>
+
+  <h2>Storing tokens for CI and workflows</h2>
+  <p>Never hard code tokens in scripts. Add the PAT to your repository secrets or to your CI provider secret store. In GitHub Actions create a repo secret and reference it in the workflow using the secrets context such as ${{ secrets.MY_PAT }}. That keeps the value out of logs and reduces accidental exposure.</p>
+
+  <h3>Examples of good secret hygiene</h3>
+  <ul>
+    <li>Use repository or organization secrets instead of environment files</li>
+    <li>Limit scope so a leaked secret has a tiny blast radius</li>
+    <li>Rotate keys periodically and revoke tokens that are no longer used</li>
+    <li>Test with a narrow permission set before expanding access</li>
+  </ul>
+
+  <h2>Rotation revocation and least privilege</h2>
+  <p>Set an expiration date and put token rotation on your calendar. If a token stops being used revoke it right away. Follow least privilege practices so automation keeps working but cannot escalate into a security incident. You can automate rotation workflows in CI if you like living dangerously with safety nets.</p>
+
+  <h2>Troubleshooting tips</h2>
+  <ul>
+    <li>If an API call fails check that the PAT has the required permission scope for the endpoint</li>
+    <li>If git operations are rejected confirm you used the token as the password for HTTPS and that the token has repo access</li>
+    <li>For organization level tokens ensure you selected the right account context when creating the token</li>
+  </ul>
+
+  <p>Fine grained PATs give you control power and dignity all at once. Follow these practices for authentication security in CLI CI and workflows and your automation will behave like an obedient robot instead of a mischievous gremlin.</p>
+</article>
+

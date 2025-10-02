@@ -1,0 +1,108 @@
+---
+layout: video
+title: "Master Spring Profiles in Spring Boot"
+description: "Guide to Spring Profiles in Spring Boot covering active profiles profile properties include annotation and Environment usage"
+video_host: "youtube"
+video_id: "uPiF7OYekiA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT19M24S"
+thumbnail_url: "https://i.ytimg.com/vi/uPiF7OYekiA/maxresdefault.jpg"
+content_url: "https://youtu.be/uPiF7OYekiA"
+embed_url: "https://www.youtube.com/embed/uPiF7OYekiA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - spring
+  - spring-boot
+  - profiles
+  - spring-profiles
+  - spring-properties
+  - active-profile
+  - spring-environment
+  - profile-include
+  - annotation
+  - testing
+---
+
+<h1>Practical Spring profiles guide for properties beans tests and CI</h1>
+
+<p>If you are tired of prod config showing up in dev or of tests that behave like surprise production runs then this guide is for you. We will tame Spring profiles in Spring Boot, manage profile specific properties, use the @Profile annotation for beans, compose profiles with profile include, read values from the Spring environment object and run predictable tests with @ActiveProfiles. All without reinventing the wheel or leaking secrets into git.</p>
+
+<h2>Why use Spring profiles</h2>
+
+<p>Profiles let you swap configuration and beans based on environment. Think dev vs prod vs test. Spring Boot loads a base application.properties and then overlays profile specific files. That means you get sane defaults plus targeted overrides when needed. Also it keeps your code free of if statements pretending to be configuration.</p>
+
+<h2>Files and naming for profile specific properties</h2>
+
+<p>Name your files like application-dev.properties and application-prod.properties. Spring Boot reads application.properties first then applies the active profile file on top. Values in the profile file win, no drama.</p>
+
+<pre><code># default settings
+server.port=8080
+
+# dev overrides go to application-dev.properties
+server.port=8081
+</code></pre>
+
+<h2>Activate a profile</h2>
+
+<p>Set the active profile with a property or a command line switch. For local runs add spring.profiles.active=dev to application.properties or pass --spring.profiles.active=prod when you start the jar. CI pipelines and containers can set the same property so each deployment gets the right configuration.</p>
+
+<ul>
+  <li>Property file example spring.profiles.active=dev</li>
+  <li>Command line example java -jar app.jar --spring.profiles.active=prod</li>
+</ul>
+
+<h2>Bean filtering with the annotation</h2>
+
+<p>Use the @Profile annotation on configuration classes or on individual @Bean methods to load beans only when the matching profile is active. This lets you keep dev helpers and test doubles out of production without complex wiring.</p>
+
+<pre><code>@Configuration
+@Profile("dev")
+public class DevOnlyConfig {
+    @Bean
+    public SomeService devService() {
+        return new DevService();
+    }
+}
+</code></pre>
+
+<h2>Compose profiles with profile include</h2>
+
+<p>When many profile files need the same settings use spring.profiles.include to share them. Create a common profile and include it from other profiles to avoid copy paste and to keep shared defaults in one place.</p>
+
+<pre><code># application-prod.properties
+spring.profiles.include=common
+# prod specific overrides follow
+</code></pre>
+
+<h2>Access properties at runtime and test with active profiles</h2>
+
+<p>Inject the Spring environment object when you need runtime access to properties. Call env.getProperty("my.property") for checks that must run in code. For tests annotate with @ActiveProfiles("test") to simulate the environment and load the correct beans and properties.</p>
+
+<pre><code>@Autowired
+private Environment env;
+
+String value = env.getProperty("my.property");
+</code></pre>
+
+<p>Use @ActiveProfiles on unit or integration tests so you do not accidentally run test code in production. Tests with explicit profiles are easier to reason about and faster to debug.</p>
+
+<h3>Quick checklist</h3>
+
+<ul>
+  <li>Name files application-ENV.properties</li>
+  <li>Set spring.profiles.active for runtime environment</li>
+  <li>Use @Profile for bean filtering</li>
+  <li>Use spring.profiles.include for shared settings</li>
+  <li>Inject Environment for runtime property reads</li>
+  <li>Annotate tests with @ActiveProfiles</li>
+</ul>
+
+<h2>Secrets and CI</h2>
+
+<p>Do not store secrets in profile files that live in source control. Use environment variables, a secret store or a vault and combine them with a tiny profile specific overlay. CI systems can inject secrets at deploy time so your production keys do not go on a public tour of your git history.</p>
+
+<p>Follow this sequence from basic profile files to bean level filtering and test friendly setups and you will have predictable configuration across local dev CI and production. Or you could keep guessing and enjoy the fireworks when the wrong DB gets wiped.</p>
+

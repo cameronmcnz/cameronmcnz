@@ -1,0 +1,85 @@
+---
+layout: video
+title: "Push a Spring Boot app to Dockerhub"
+description: "Step by step guide to build a Spring Boot jar create a Docker image and push the image to Docker Hub with practical commands and tips"
+video_host: "youtube"
+video_id: "dJVp_E4UPXk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M32S"
+thumbnail_url: "https://i.ytimg.com/vi/dJVp_E4UPXk/maxresdefault.jpg"
+content_url: "https://youtu.be/dJVp_E4UPXk"
+embed_url: "https://www.youtube.com/embed/dJVp_E4UPXk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Docker
+  - Docker Hub
+  - Java
+  - Maven
+  - Containerization
+  - Dockerfile
+  - CI CD
+  - DevOps
+  - Microservices
+---
+
+<p>If you want your Spring Boot service to leave your laptop and live in the wild you need a jar a Docker image and a Docker Hub repo. This guide walks through building a Maven jar creating a Dockerfile building the image and pushing it to Docker Hub with a few practical tips for smaller images and smoother CI CD.</p>
+
+<h2>Build the Spring Boot jar</h2>
+<p>Use your normal build tool to produce the runnable artifact. For Maven run the familiar command and try not to cry when the tests fail.</p>
+<pre><code>mvn clean package</code></pre>
+<p>The build produces a jar in the target folder. Make a note of the jar name and path because the Dockerfile will need to copy it into the image.</p>
+
+<h2>Create a Dockerfile for the app</h2>
+<p>Keep the Dockerfile minimal but sensible. For production use prefer a multi stage build so your final image does not include all the build baggage. Here is a compact example using a small runtime base image.</p>
+<pre><code># Multistage build to keep final image small
+FROM maven:3.8.8-jdk-17 AS builder
+WORKDIR /workspace
+COPY pom.xml mvnw .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=builder /workspace/target/myapp.jar ./app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+</code></pre>
+<p>If you do not want a multistage build you can copy the jar produced by your CI pipeline directly into a simpler runtime image. The goal is a compact image that starts fast and behaves predictably in containers and Kubernetes.</p>
+
+<h3>Use a .dockerignore file</h3>
+<p>A .dockerignore file prevents copying Maven artifacts source files and node modules into the image build context. Typical entries include target .idea .git and local config files. This speeds up builds and avoids accidentally leaking secrets into images.</p>
+
+<h2>Build the Docker image locally</h2>
+<p>Tag the image to match the Docker Hub repository name that you will push to. Keep the tag simple while you are testing.</p>
+<pre><code>docker build -t username/spring-boot-app .</code></pre>
+<p>The image will be stored locally. Use small base images and make sure your jars are trimmed of unnecessary libraries if you care about image size and startup speed.</p>
+
+<h2>Login to Docker Hub and push the image</h2>
+<p>Authenticate with Docker Hub from the command line and then push. If you have a CI system you will automate these steps later so you do not have to type them while bleary eyed at 2 a m.</p>
+<pre><code>docker login
+# then
+docker push username/spring-boot-app</code></pre>
+<p>Pushing uploads layers to Docker Hub where your repository becomes the source of truth for deployments CI pipelines and other team members.</p>
+
+<h2>Tagging strategies and CI CD tips</h2>
+<ul>
+  <li>Use semantic tags in CI CD like v1 1.2.3 or commit hashes for reproducibility.</li>
+  <li>Automate image builds in your CI system and push to Docker Hub from the pipeline to avoid human error.</li>
+  <li>Prefer automated vulnerability scans and image signing in production delivery workflows.</li>
+  <li>Keep your Dockerfile and base images up to date to reduce runtime security issues in production.</li>
+</ul>
+
+<h2>Summary and practical tips</h2>
+<p>In short build your Spring Boot jar with Maven copy it into a clean Dockerfile prefer multi stage builds and smaller runtimes login to Docker Hub and push the image. Automate the process in CI CD so you can sleep and still deploy without touching the terminal.</p>
+<p>Quick checklist</p>
+<ul>
+  <li>Add a .dockerignore file to speed builds and avoid leaks</li>
+  <li>Use multi stage builds to shrink final image size</li>
+  <li>Tag images consistently and push from CI for repeatability</li>
+  <li>Scan and update base images regularly as part of DevOps hygiene</li>
+</ul>
+<p>Now go push that image and pretend you meant to do it all along.</p>
+

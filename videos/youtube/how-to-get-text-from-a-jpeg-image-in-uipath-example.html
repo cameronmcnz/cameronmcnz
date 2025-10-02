@@ -1,0 +1,86 @@
+---
+layout: video
+title: "How to get text from a JPEG image in UiPath Example"
+description: "Step by step guide to extract text from a JPEG using UiPath and OCR with practical tips for accuracy cleanup and error handling"
+video_host: "youtube"
+video_id: "gkKiemETAwI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M36S"
+thumbnail_url: "https://i.ytimg.com/vi/gkKiemETAwI/maxresdefault.jpg"
+content_url: "https://youtu.be/gkKiemETAwI"
+embed_url: "https://www.youtube.com/embed/gkKiemETAwI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - JPEG
+  - OCR
+  - Tesseract
+  - Computer Vision
+  - Automation
+  - Text Extraction
+  - Regex
+  - Image Processing
+  - RPA
+---
+
+<p>Ever tried to coax text out of a JPEG and felt like you were interrogating an image with nothing but a paperclip and hope? Welcome to practical UiPath OCR, where the robot does the heavy lifting and you get useful strings back instead of gibberish.</p>
+
+<h2>What you will need</h2>
+<p>Keep it simple and avoid the usual chaos. You need UiPath Studio, an OCR package installed, and a decent quality JPEG. Bonus points for Tesseract or Microsoft OCR and a few Computer Vision activities when the document layout is messy.</p>
+
+<h2>Quick checklist before you run anything</h2>
+<ul>
+  <li>Install UiPath OCR activities from Manage Packages</li>
+  <li>Have the JPEG reachable by the workflow and readable at a sensible resolution</li>
+  <li>Decide which OCR engine to use and set language appropriately</li>
+</ul>
+
+<h2>Step by step workflow</h2>
+<ol>
+  <li>
+    <strong>Load the image</strong>
+    <p>Use Load Image or Read Image to bring the JPEG into the workflow. Verify the path and inspect the image visually. If it looks like it was taken in a tunnel or by a raccoon, do some preprocessing first.</p>
+  </li>
+  <li>
+    <strong>Choose an OCR activity</strong>
+    <p>Drop in Tesseract OCR or Microsoft OCR and set language and engine options. Tesseract is great for custom tinkering and offline runs. Microsoft OCR often does layout a bit better for printed text. For scanned multipage or complex layouts use Computer Vision activities for superior layout handling.</p>
+  </li>
+  <li>
+    <strong>Preprocess the image</strong>
+    <p>Basic image processing helps more than wishful thinking. Adjust contrast, remove noise, and resize to about 300 DPI when possible. A small blur or denoising pass plus contrast boost often beats fiddling with obscure engine flags.</p>
+  </li>
+  <li>
+    <strong>Run OCR and capture output</strong>
+    <p>The OCR activity returns text. It will not be perfect. Expect misreads for fancy fonts, low contrast, or handwriting. Capture the raw output to a variable for post processing.</p>
+  </li>
+  <li>
+    <strong>Clean and normalize</strong>
+    <p>Trim whitespace and normalize line endings. Use Regex to extract structured fields like dates or numbers. Example patterns that commonly help are <code>\d{4}-\d{2}-\d{2}</code> for ISO dates and <code>\b\d{2,}\b</code> for numeric IDs. Normalization reduces false positives and makes downstream parsing reliable.</p>
+  </li>
+  <li>
+    <strong>Add resilience</strong>
+    <p>Wrap the OCR steps in Try Catch and log meaningful messages. Retry on flaky sources and handle unreadable images by moving them to a review queue. A friendly log entry saves hours of blinking at a blank console later.</p>
+  </li>
+</ol>
+
+<h3>Troubleshooting common failures</h3>
+<ul>
+  <li>Unreadable image. Try contrast, noise reduction, and a size bump to 300 DPI.</li>
+  <li>Wrong language. Make sure the OCR activity language matches the document language.</li>
+  <li>Bad layout. Use Computer Vision activities for documents with columns or complex templates.</li>
+  <li>False positives. Tighten regex and add normalization rules to reject junk.</li>
+</ul>
+
+<h3>Performance tips and best practices</h3>
+<ul>
+  <li>Preprocessing often gives more improvement than chasing engine flags</li>
+  <li>Keep OCR engines up to date and test with real samples not perfect scans</li>
+  <li>Use small batches and retries if the image source is flaky</li>
+  <li>Log raw OCR output for future tuning and to build a ground truth set</li>
+</ul>
+
+<p>In short go from JPEG to clean text by installing the OCR package, loading the image, picking the right OCR engine like Tesseract or Microsoft OCR, doing sensible image processing, cleaning with Trim and Regex, and adding error handling. Follow these steps and your UiPath workflow will stop pretending the image is a mystery and start returning usable text like a well trained robot should.</p>
+

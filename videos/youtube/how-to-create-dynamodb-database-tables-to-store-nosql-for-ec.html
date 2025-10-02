@@ -1,0 +1,84 @@
+---
+layout: video
+title: "How to Create DynamoDB Database Tables to Store NoSQL for EC"
+description: "Step by step guide to create DynamoDB tables for EC2 EKS API Gateway SNS and SQS with schema choices capacity and security best practices"
+video_host: "youtube"
+video_id: "XAbjvmrbN-A"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT58S"
+thumbnail_url: "https://i.ytimg.com/vi/XAbjvmrbN-A/maxresdefault.jpg"
+content_url: "https://youtu.be/XAbjvmrbN-A"
+embed_url: "https://www.youtube.com/embed/XAbjvmrbN-A"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - DynamoDB
+  - NoSQL
+  - AWS
+  - EC2
+  - EKS
+  - API Gateway
+  - SNS
+  - SQS
+  - Tutorial
+  - Database
+---
+
+<article>
+  <p>If you want a NoSQL database that survives traffic spikes and the occasional developer panic attack then DynamoDB is your friend and sometimes your therapist. This guide walks through creating tables and wiring them to EC2 EKS API Gateway SNS and SQS so your data lives somewhere safe and your services can actually talk to each other.</p>
+
+  <h2>Pick keys like you mean it</h2>
+  <p>Your partition key decides whether your table will scale or become a hot mess. Choose a partition key that spreads traffic across partitions. Add a sort key when you need ordered queries. Only add a global secondary index when your query patterns actually demand a different key. Example field names are userId and orderId and those names are boring for a reason.</p>
+
+  <h3>Quick rules for keys and indexes</h3>
+  <ul>
+    <li>Prefer a high cardinality partition key to avoid hot keys.</li>
+    <li>Add a sort key when you need range queries or time ordered items.</li>
+    <li>Use GSIs for alternate query patterns and pay attention to their capacity cost.</li>
+    <li>Keep attribute names consistent across apps so no one spends the afternoon debugging misspelled attributes.</li>
+  </ul>
+
+  <h2>Create tables with the console or CLI</h2>
+  <p>Want shiny visuals and click therapy Use the AWS Console. Want repeatable automation and the ability to cry into version control Use the AWS CLI with CloudFormation or Terraform templates. When scripting include attribute definitions and key schema in JSON so your infra lives in code and not in someone s memory.</p>
+
+  <h3>Example approach</h3>
+  <p>Create a CloudFormation or Terraform template that defines your table name attributes key schema and any GSIs. Then deploy it as part of your pipeline. This avoids the classic manual setup problem where prod and staging disagree about whether orderId is a number or a string.</p>
+
+  <h2>Choose capacity mode and autoscaling</h2>
+  <p>If your traffic is predictable choose provisioned capacity with autoscaling. If traffic is spiky or full of surprises choose on demand to avoid unexpected throttling and billing soap operas. Monitor consumed read and write capacity with CloudWatch and adjust if your adaptive capacity is not enough.</p>
+
+  <h2>Set IAM roles and resource policies the right way</h2>
+  <p>Always grant least privilege. Create roles for EC2 EKS API Gateway SNS and SQS that only allow the actions they need on the specific tables they need. Avoid blanket DynamoDB permissions unless you enjoy debugging privilege escalations.</p>
+
+  <h2>Integrate with EC2 and EKS</h2>
+  <p>From EC2 and EKS call DynamoDB with AWS SDKs and signed requests. If you run containers use IAM roles for service accounts or instance profiles so credentials are handled by AWS and not by you pasting keys into environment variables.</p>
+
+  <h2>Integrate with API Gateway SNS and SQS</h2>
+  <p>For API Gateway you can use a Lambda proxy or direct integration mapping templates. Lambdas are popular because they let you validate and transform data before it hits DynamoDB. For SNS and SQS use Lambdas that consume messages and write to DynamoDB for durable state. This way your notifications and queues become sources of truth instead of flaky messengers.</p>
+
+  <h3>Integration tips</h3>
+  <ul>
+    <li>Use Lambda error handling and dead letter queues to avoid data loss when writes fail.</li>
+    <li>Batch writes from SQS consumers when appropriate to save on write costs.</li>
+    <li>Validate messages early so DynamoDB does not get junk data.</li>
+  </ul>
+
+  <h2>Test monitor and optimize</h2>
+  <p>Run load tests to expose hot keys. CloudWatch metrics will show read and write capacity usage throttles and latency. If you see throttles investigate partition distribution and consider adaptive capacity tuning or key redesign. Add alarms for throttles and high consumed capacity so you know before your users start shouting.</p>
+
+  <h3>Optimization checklist</h3>
+  <ul>
+    <li>Look for uneven partition usage and fix hot keys by redesigning keys or adding random suffixes when appropriate.</li>
+    <li>Use Query not Scan when possible to reduce billing and improve performance.</li>
+    <li>Consider time to live for expiring items to avoid storage bloat.</li>
+    <li>Monitor GSI usage and provision capacity or switch to on demand if needed.</li>
+  </ul>
+
+  <h2>Wrap up and next steps</h2>
+  <p>You now have the checklist to design tables secure them with least privilege connect them to EC2 EKS API Gateway SNS and SQS and keep them healthy with monitoring and testing. If you want to be extra responsible add automated tests to your pipeline that deploy a table copy run read and write checks and tear it down. Your future self will send you a thank you note and maybe a coffee if you do it right.</p>
+
+  <p>Keywords for your nerdy search engine queries include DynamoDB NoSQL AWS EC2 EKS API Gateway SNS SQS and database. Go build something resilient and try not to break production.</p>
+</article>
+

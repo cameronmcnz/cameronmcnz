@@ -1,0 +1,59 @@
+---
+layout: video
+title: "How the Git Working Tree Works by Example"
+description: "Practical guide to how the Git working tree index and repository interact using clear example commands and explanations"
+video_host: "youtube"
+video_id: "up3zKqHePTI"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M37S"
+thumbnail_url: "https://i.ytimg.com/vi/up3zKqHePTI/maxresdefault.jpg"
+content_url: "https://youtu.be/up3zKqHePTI"
+embed_url: "https://www.youtube.com/embed/up3zKqHePTI"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - working tree
+  - index
+  - repository
+  - git tutorial
+  - git example
+  - version control
+  - git commands
+  - staging area
+  - git internals
+---
+
+<h2>Start with a clean sandbox</h2>
+<p>If you want to understand how changes travel from your messy laptop to sacred commit history you need three players in the drama. The working tree is your filesystem where you edit files. The index is the staging area that holds the snapshot you plan to commit. The repository stores committed snapshots and the HEAD pointer tells you which one is current. We will use tiny examples and actual <code>git</code> commands so you can stop guessing and start winning.</p>
+
+<h2>Boot the repo and peek around</h2>
+<p>Run <code>git init</code> then <code>git status</code> to prove the repo starts empty and lonely. Create a file named <code>hello.txt</code> and add some text. Run <code>git status</code> again and you will see the working tree has an untracked file. That means the file exists on disk but Git has not been told to care about it yet.</p>
+
+<h3>Commands to remember</h3>
+<ul>
+  <li><code>git init</code> to create a repo</li>
+  <li><code>git status</code> to inspect the working tree</li>
+  <li><code>git add hello.txt</code> to stage a file</li>
+</ul>
+
+<h2>Stage it like a pro</h2>
+<p>Use <code>git add hello.txt</code> then try <code>git status --short</code> or <code>git ls-files --stage</code> to inspect the index. Think of the index as a photo studio where files get their glamour shots before going public. The index records a snapshot that will become the next commit.</p>
+
+<h2>Make changes and compare states</h2>
+<p>Edit <code>hello.txt</code> again and use <code>git diff</code> to compare the working tree with the index. To see what you have staged versus the last commit use <code>git diff --staged</code>. These two diffs are your best friends when you want to avoid accidentally shipping half baked work.</p>
+
+<h2>Commit and inspect history</h2>
+<p>When the index looks right run <code>git commit -m 'add hello'</code>. Then run <code>git log --oneline</code> to view the repository history. The repository now stores the committed snapshot and HEAD moves with each commit. That is the life cycle from working tree to index to repository.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Make edits in the working tree</li>
+  <li>Stage the snapshot in the index with <code>git add</code></li>
+  <li>Commit to the repository with <code>git commit</code></li>
+</ul>
+
+<p>Tip Use <code>git status --porcelain</code> for machine friendly output and <code>git restore --staged</code> to unstage files if you change your mind. No drama required. Now go break something and then fix it like a champ.</p>
+

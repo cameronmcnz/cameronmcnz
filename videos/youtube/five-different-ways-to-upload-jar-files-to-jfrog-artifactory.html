@@ -1,0 +1,81 @@
+---
+layout: video
+title: "Five different ways to upload JAR files to JFrog Artifactory"
+description: "Learn five practical ways to upload JAR files to JFrog Artifactory using common tools and commands for CI and manual use"
+video_host: "youtube"
+video_id: "g63IjCK2bgw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M52S"
+thumbnail_url: "https://i.ytimg.com/vi/g63IjCK2bgw/maxresdefault.jpg"
+content_url: "https://youtu.be/g63IjCK2bgw"
+embed_url: "https://www.youtube.com/embed/g63IjCK2bgw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - JFrog
+  - Artifactory
+  - JAR
+  - Upload
+  - Maven
+  - Gradle
+  - JFrog CLI
+  - REST API
+  - curl
+  - Repository
+---
+
+<h2>Quick summary for people who skipped the manual</h2>
+<p>You need JAR upload options for JFrog Artifactory that actually work with your build system and sleep schedule. Here are five real world ways to push JAR files into an Artifactory repository while keeping your CI happy and your teammates slightly less annoyed.</p>
+
+<h2>Methods at a glance</h2>
+<ul>
+  <li>Web UI for one offs and visual reassurance</li>
+  <li>Maven deploy plugin for classic Java builds</li>
+  <li>Gradle publish for modern Gradle pipelines</li>
+  <li>curl using the REST API for quick scripts and debugging</li>
+  <li>JFrog CLI for CI friendly, fast uploads and checksums</li>
+</ul>
+
+<h3>Web UI</h3>
+<p>Open the Artifactory browser, navigate to the target repository and drag and drop your JAR. This is great when you have one file and a coffee break to spare. It is manual but foolproof when you need a sanity check or a demo for less technical stakeholders.</p>
+
+<h3>Maven deploy plugin</h3>
+<p>If your project already uses Maven then letting Maven handle coordinates is the sane path. Add distributionManagement in your pom.xml and run the standard deploy goal. Maven reads credentials from your settings.xml and calculates group id, artifact id and version for you.</p>
+<p>Typical command</p>
+<pre><code>mvn deploy</code></pre>
+<p>This is ideal when the build pipeline is Maven centric and you want artifact coordinates to be consistent and reproducible.</p>
+
+<h3>Gradle publish</h3>
+<p>For Gradle projects apply the maven publish plugin, declare a publication and a repository block, then run gradle publish. Gradle will build the JAR and publish the artifact using the group and version you configured.</p>
+<p>Typical command</p>
+<pre><code>gradle publish</code></pre>
+<p>Use this when your build logic is in Gradle and you want integration with tasks and versioning in the same toolchain.</p>
+
+<h3>curl and the REST API</h3>
+<p>Want the simplest scripting route without installing a new tool In a pinch curl plus Artifactory REST works. Use an HTTP PUT against the repository path to upload a JAR from any machine that can reach Artifactory.</p>
+<p>Example</p>
+<pre><code>curl -u USER -X PUT https//example.com/artifactory/my-repo/path/app.jar -T build/libs/app.jar</code></pre>
+<p>This is handy for quick tests, one off uploads and ad hoc automation. It is also the least glamorous option when you need robustness like checksum optimization or parallelism though it still gets the job done.</p>
+
+<h3>JFrog CLI</h3>
+<p>Install the JFrog CLI, configure the server once with your credentials, then use a single upload command. The CLI adds useful features like checksum optimization and parallel uploads which matter in CI pipelines.</p>
+<p>Example</p>
+<pre><code>jfrog rt u 'build/libs/*.jar' my-repo/path/</code></pre>
+<p>Use the CLI when you want fast uploads, resume friendly behavior and better integration with automation. This is the recommended choice for CI and repeatable builds.</p>
+
+<h2>Trade offs and quick tips</h2>
+<ul>
+  <li>Web UI for manual checks and quick fixes when you need visual confirmation</li>
+  <li>Maven or Gradle when the build tool should be the source of truth for artifacts</li>
+  <li>curl when you need ad hoc scripts or a tiny debugging hammer</li>
+  <li>JFrog CLI when you want performance and CI friendliness</li>
+</ul>
+
+<h2>Security and repeatability</h2>
+<p>Store credentials in a secure config file or credential store. For Maven use settings.xml with server entries. For JFrog CLI use the jfrog rt config flow so tokens or credentials are preserved without copy pasting secrets in scripts. Avoid embedding plain text passwords in pipeline steps.</p>
+
+<h2>Final note for the lazy and the thorough</h2>
+<p>If you want automation and speed choose JFrog CLI. If you want to keep things inside your existing build choose the Maven or Gradle route. If you want to test something fast use curl or the Web UI and then graduate to the proper tool when the feature leaves beta and your boss notices.</p>
+

@@ -1,0 +1,109 @@
+---
+layout: video
+title: "Getting started with the Nexus Maven repository manager - OS"
+description: "Quick tutorial on setting up Nexus Repository Manager OSS version 2 for Maven repos Learn to install start configure and deploy artifacts"
+video_host: "youtube"
+video_id: "pn2iwxYGkhA"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M26S"
+thumbnail_url: "https://i.ytimg.com/vi/pn2iwxYGkhA/maxresdefault.jpg"
+content_url: "https://youtu.be/pn2iwxYGkhA"
+embed_url: "https://www.youtube.com/embed/pn2iwxYGkhA"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Nexus
+  - Nexus OSS
+  - Nexus Repository
+  - Maven
+  - Maven Repository
+  - Repository Manager
+  - DevOps
+  - Java
+  - Artifact Management
+  - Repository Setup
+---
+
+<h2>Quick overview</h2>
+<p>If your team treats the public Maven Central like a sketchy buffet then you need a repository manager. Nexus OSS is the no-nonsense repository manager that hosts your private Maven artifacts and proxies remote Maven repositories for CI and local development. This guide walks through a pragmatic setup so you can stop wrestling with dependency hell and start blaming cache policies instead.</p>
+
+<h2>Before you start</h2>
+<ul>
+  <li>Java installed and working. Run <code>java -version</code> and try not to cry if the JVM is ancient.</li>
+  <li>Download the Nexus OSS archive from Sonatype or a trusted mirror.</li>
+  <li>A non root user for running Nexus, because running services as root is a great way to write horror stories.</li>
+</ul>
+
+<h2>Install and start Nexus Repository Manager</h2>
+<p>Unpack the distribution into the directory you intend to run Nexus from and set ownership so the Nexus user can actually read and write files.</p>
+<pre><code>tar xvf sonatype-nexus-oss-2.x.y-bundle.tar.gz
+sudo chown -R nexus:nexus sonatype-nexus-oss-2.x.y
+</code></pre>
+<p>Start the server with the bundled script and tail the log to watch startup messages.</p>
+<pre><code>sudo -u nexus ./bin/nexus start
+tail -f sonatype-work/nexus/logs/nexus.log
+</code></pre>
+<p>The default HTTP port is 8081 unless you or that ancient sysadmin changed it. Note the port so Maven and CI can reach Nexus.</p>
+
+<h2>Access the web UI and secure the admin account</h2>
+<p>Open the Nexus web console in your browser at the host and port from the previous step. Log in with the default admin credentials documented for your Nexus version and immediately change the password. The web UI is where you create repositories, manage users, and break fewer things than you would via config files alone.</p>
+
+<h2>Create hosted, proxy and group Maven repositories</h2>
+<p>Minimal setup for a typical Maven workflow includes:</p>
+<ul>
+  <li>A hosted repository for internal artifacts and CI deployments</li>
+  <li>A proxy repository that points at Maven Central, typically using the URL https://repo1.maven.org/maven2</li>
+  <li>An optional group repository to present a single endpoint to Maven clients</li>
+</ul>
+<p>Give repo names that humans and scripts can live with long term. Avoid whimsical names unless you enjoy painful rename migrations later.</p>
+
+<h3>Repository tips</h3>
+<ul>
+  <li>Use semantic naming like <code>maven-releases</code> and <code>maven-snapshots</code></li>
+  <li>Limit anonymous access unless you want the whole internet to see your artifact hoard</li>
+  <li>Set proxy cache timeouts according to your network and build reliability needs</li>
+</ul>
+
+<h2>Configure Maven to use Nexus</h2>
+<p>Edit your Maven <code>settings.xml</code> to add credentials for deploys and a mirror so normal Maven requests go to your Nexus endpoint. Update your projects to point distributionManagement at the hosted repo when you publish artifacts.</p>
+<p>Example snippet to add to <code>~/.m2/settings.xml</code>:</p>
+<pre><code>&lt;settings&gt;
+  &lt;servers&gt;
+    &lt;server&gt;
+      &lt;id&gt;nexus-repo&lt;/id&gt;
+      &lt;username&gt;deploy_user&lt;/username&gt;
+      &lt;password&gt;password_here&lt;/password&gt;
+    &lt;/server&gt;
+  &lt;/servers&gt;
+  &lt;mirrors&gt;
+    &lt;mirror&gt;
+      &lt;id&gt;nexus-mirror&lt;/id&gt;
+      &lt;mirrorOf&gt;central</lt;mirrorOf&gt;
+      &lt;url&gt;http://nexus-host:8081/nexus/content/groups/public&lt;/url&gt;
+    &lt;/mirror&gt;
+  &lt;/mirrors&gt;
+&lt;/settings&gt;
+</code></pre>
+<p>If your security policy is picky then use Maven's password encryption with the settings security file. That's the grown up way to avoid the stickynote on the monitor approach.</p>
+
+<h2>Deploy and verify artifacts</h2>
+<p>Update your POM with the <code>distributionManagement</code> coordinates for the hosted repository and run the usual Maven choreography to publish.</p>
+<pre><code>mvn deploy
+mvn dependency:get -Dartifact=groupId:artifactId:version
+</code></pre>
+<p>Use <code>mvn dependency:get</code> for quick checks that Nexus is serving the artifact you just pushed. CI pipelines should be configured to authenticate to Nexus for deploy steps and to use the group repo for resolving dependencies.</p>
+
+<h2>Housekeeping and artifact management</h2>
+<p>Snapshots pile up like bad decisions. Configure snapshot cleanup policies and retention rules in Nexus so your disk does not become a shrine to old builds. Set retention rules for both snapshots and releases according to your release cadence and storage budget.</p>
+<ul>
+  <li>Automate cleanup of old snapshots</li>
+  <li>Enable content validation to avoid corrupted artifacts spreading to builds</li>
+  <li>Monitor cache hit ratios to tune proxy settings and save bandwidth</li>
+</ul>
+
+<h2>Wrapping up</h2>
+<p>Setting up Nexus OSS as your Maven repository manager gives DevOps teams a controlled artifact management solution for local development and CI. You get hosting, proxying and grouping of Maven repositories along with access controls and retention policies. It is not magic but it is reliable. Document your repo names credentials and policies so future you does not open a ticket that tries to explain this to past you.</p>
+<p>If you run into trouble check the Nexus logs, consult Sonatype documentation for your specific Nexus OSS version, and remember that most problems are either permissions or typos. Prefer the former to avoid blaming typos forever.</p>
+

@@ -1,0 +1,74 @@
+---
+layout: video
+title: "Static WebSite Hosting with AWS S3"
+description: "Step by step guide to host a static website on AWS S3 with bucket setup public policy and optional CloudFront for HTTPS and speed"
+video_host: "youtube"
+video_id: "ZxOeAL7-y4o"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M9S"
+thumbnail_url: "https://i.ytimg.com/vi/ZxOeAL7-y4o/maxresdefault.jpg"
+content_url: "https://youtu.be/ZxOeAL7-y4o"
+embed_url: "https://www.youtube.com/embed/ZxOeAL7-y4o"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - S3
+  - Static Website
+  - Hosting
+  - CloudFront
+  - Bucket Policy
+  - Index Document
+  - Error Document
+  - Website Hosting
+  - AWS Tutorial
+---
+
+<article>
+  <h1>Step by step S3 static site setup with bucket policy CDN and HTTPS</h1>
+  <p>Ready to make your static site boring and dependable instead of a rental car that catches fire on the freeway? This guide walks through hosting a static website on Amazon S3 from bucket creation through optional CDN and HTTPS. No wizardry, just a few clicks and some polite policy statements.</p>
+
+  <h2>Create the S3 bucket</h2>
+  <p>Pick a globally unique, DNS friendly bucket name and choose a region near your users. If you plan to use a custom domain later, avoid special characters and keep it simple. Regions matter for latency and billing, so choose wisely and then forget about it until you need to migrate.</p>
+
+  <h2>Enable website hosting and set index and error pages</h2>
+  <p>In the S3 console open Properties and turn on website hosting. Set an index document, typically index.html, and an optional error document such as error.html for nicer 404 pages. The site endpoint shown in the console is useful for early tests before you add CloudFront.</p>
+
+  <h2>Upload files and manage permissions</h2>
+  <p>Use the console or the AWS CLI to upload your files. You can set object ACLs to public read or you can let a bucket policy do the job. Public means public, so double check there are no secrets in the assets folder unless you enjoy surprises.</p>
+
+  <h3>CLI quick tip</h3>
+  <p>For a simple upload with the AWS CLI use a command like</p>
+  <pre><code>aws s3 sync build/ s3://your-bucket-name</code></pre>
+  <p>This keeps file timestamps and reduces churn. Use versioned filenames in your build to avoid cache headaches.</p>
+
+  <h2>Make the site readable by browsers</h2>
+  <p>Add a bucket policy granting anonymous users permission to read objects under the bucket prefix. In plain English grant s3 get object so browsers can fetch assets without credentials. If you want to be fancier, use CloudFront with origin access control so the bucket does not have to be public.</p>
+
+  <h2>Add CloudFront and a custom domain for HTTPS</h2>
+  <p>CloudFront gives you HTTPS and a global edge cache which means faster loads and fewer angry emails. Create a distribution that points to your S3 website or the S3 origin. If you use CloudFront with a custom domain request a certificate from AWS Certificate Manager in the us-east-1 region, since CloudFront expects certificates from that region.</p>
+
+  <h3>DNS and certificates</h3>
+  <p>Point a CNAME or an alias record from your domain provider to the CloudFront distribution. Validate the ACM certificate via DNS to avoid the email therapy process.</p>
+
+  <h2>Test the site and maintain deployments</h2>
+  <p>Hit the S3 website endpoint or the CloudFront domain and check the browser network tab for missing assets or 403s. Automate deployment with a build script that outputs versioned filenames so new releases do not collide with cached files. When you do need to clear edge caches use an invalidation in CloudFront or bump the file names.</p>
+
+  <h2>Checklist before you hit launch</h2>
+  <ul>
+    <li>Bucket name is DNS friendly and in the right region</li>
+    <li>Website hosting enabled with index and error documents set</li>
+    <li>Files uploaded and either public or covered by a bucket policy</li>
+    <li>Optional CloudFront distribution created and linked to a custom domain</li>
+    <li>ACM certificate requested in us east 1 and DNS validated</li>
+    <li>Cache strategy in place, either invalidation or versioned filenames</li>
+  </ul>
+
+  <h2>Final tips and gotchas</h2>
+  <p>If a file returns a 403 check object permissions and the bucket policy. If assets seem stale then you are battling cache behavior. Use meaningful cache control headers on static assets and invalidate only when necessary to save money. And remember to avoid storing secrets in the static host, because public means public and that really is permanent.</p>
+
+  <p>There you go. You now have a boring and reliable static website on AWS S3, optionally bolstered by CloudFront and HTTPS. Go enjoy the silence while your site serves index.html with minimal drama.</p>
+</article>
+

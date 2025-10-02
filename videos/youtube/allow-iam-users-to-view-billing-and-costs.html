@@ -1,0 +1,65 @@
+---
+layout: video
+title: "Allow IAM Users to View Billing and Costs"
+description: "Grant IAM users read only access to AWS billing and cost management and enable cost explorer for safe visibility"
+video_host: "youtube"
+video_id: "VMkw-kmK0zU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT2M55S"
+thumbnail_url: "https://i.ytimg.com/vi/VMkw-kmK0zU/maxresdefault.jpg"
+content_url: "https://youtu.be/VMkw-kmK0zU"
+embed_url: "https://www.youtube.com/embed/VMkw-kmK0zU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - IAM
+  - Billing
+  - Cost Management
+  - Cost Explorer
+  - AWSBillingReadOnlyAccess
+  - Access Management
+  - Cloud Costs
+  - Security
+  - FinOps
+---
+
+<h2>Quick summary for the budget police</h2>
+<p>If your finance or FinOps team needs to stare at cloud spend without accidentally nuking the account then give them read only access to AWS Billing and Cost Management. This guide walks you through enabling IAM access to billing, choosing a safe policy such as AWSBillingReadOnlyAccess or a focused custom policy, enabling Cost Explorer, and verifying that reports actually show up. No panic buttons included.</p>
+
+<h2>Enable IAM access to the billing console</h2>
+<p>Sign in as the root account owner or a billing administrator and open the billing preferences in the AWS console. Turn on the option that allows IAM users to access billing. AWS keeps this switch behind a setting because billing surprises are apparently considered a feature.</p>
+
+<h2>Choose a policy and avoid admin regret</h2>
+<p>Use the managed policy AWSBillingReadOnlyAccess if you want a quick and supported route. If your security team insists on least privilege then craft a custom policy that grants only the billing and Cost Explorer read actions your teams need. The goal is to let finance view invoices, cost reports, and usage without any write powers that could change account settings.</p>
+
+<h2>Create a group and attach permissions</h2>
+<p>Create a group for finance or ops and attach the chosen policy to that group. Add the IAM users who need visibility to the group. Groups keep permission management tidy and stop the classic hair pulling moment when a user inherits admin abilities by accident.</p>
+
+<h3>Why a group is nicer than attaching to each user</h3>
+<ul>
+  <li>Centralized management so you do not chase individual policies.</li>
+  <li>Faster onboarding and offboarding for FinOps hires or consultants.</li>
+  <li>Cleaner audits and fewer accidental privilege escalations.</li>
+</ul>
+
+<h2>Enable Cost Explorer and initialize reports</h2>
+<p>Open Cost Explorer in the Billing console and enable the service if it is not already active. Dashboards can appear blank until Cost Explorer finishes initializing. If users report empty charts check that Cost Explorer is enabled and that the read policy includes the Cost Explorer view actions.</p>
+
+<h2>Verify access with a test user</h2>
+<p>Sign in as one of the IAM users or use an isolated test account to confirm the following items are visible</p>
+<ul>
+  <li>Billing dashboards and invoice views</li>
+  <li>Cost Explorer charts and saved reports</li>
+  <li>Usage and cost allocation tags where applicable</li>
+</ul>
+<p>If something is missing double check the policy scope and whether Cost Explorer has finished processing data.</p>
+
+<h2>Audit and lifecycle management</h2>
+<p>Review who has billing read access on a regular basis. Remove access when a role changes or when a contractor leaves. Treat billing view rights like a key to the financial vault and rotate access with the same seriousness as you treat other privileged permissions.</p>
+
+<h2>Final notes for the sober and the curious</h2>
+<p>Giving teams read only access reduces risk while keeping the people who pay the bills informed about cloud costs. Follow least privilege, use groups, and enable Cost Explorer if you want meaningful dashboards. If nothing else you will be able to blame your finance team instead of AWS when the bill shows up.</p>
+

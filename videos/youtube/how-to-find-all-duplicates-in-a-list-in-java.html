@@ -1,0 +1,94 @@
+---
+layout: video
+title: "How to Find All Duplicates in a List in Java"
+description: "Learn practical Java techniques to find all duplicates in a List using Map Set and streams with notes on complexity and when to choose each."
+video_host: "youtube"
+video_id: "R1TOeuKJ_bo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT10M1S"
+thumbnail_url: "https://i.ytimg.com/vi/R1TOeuKJ_bo/maxresdefault.jpg"
+content_url: "https://youtu.be/R1TOeuKJ_bo"
+embed_url: "https://www.youtube.com/embed/R1TOeuKJ_bo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Duplicates
+  - List
+  - HashMap
+  - Set
+  - Streams
+  - Algorithms
+  - Performance
+  - Coding
+  - Tutorial
+---
+
+<h1>Practical Java patterns to find duplicates and balance memory and speed</h1>
+<p>If your Java list has more clones than a sci fi convention then yes you need to find duplicates. This guide walks through reliable ways to detect repeated elements in a List while being annoyingly honest about trade offs in memory and speed. We cover HashMap counting, the two Set trick, and a tidy Streams version so you can pick your level of elegance or paranoia.</p>
+
+<h2>Why not just eyeball it</h2>
+<p>Because eyeballing is linear in confidence and quadratic in regret. Naive nested loops are O(n squared) and fine for tiny lists or dramatic code golf. For anything nontrivial use linear time methods that scale like a responsible adult.</p>
+
+<h2>Approach 1 Count frequencies with a Map</h2>
+<p>Use a HashMap to count how many times each element appears. You get full frequency info which is nice when you care about counts not just presence.</p>
+<pre><code class='language-java'>Map&lt;T, Integer&gt; counts = new HashMap&lt;&gt;();
+for (T item : list) {
+    counts.put(item, counts.getOrDefault(item, 0) + 1);
+}
+List&lt;T&gt; duplicates = counts.entrySet().stream()
+    .filter(e -&gt; e.getValue() &gt; 1)
+    .map(Map.Entry::getKey)
+    .collect(Collectors.toList());
+</code></pre>
+<p>Performance notes: time is O(n) and memory grows with unique elements. Use this when counts matter or when duplicates may appear many times and you need the exact number.</p>
+
+<h2>Approach 2 Track seen and duplicates with two Sets</h2>
+<p>This is compact and commonly the best first attempt. One Set records values you have seen. If add fails then the value is a duplicate and you stash it in a second Set.</p>
+<pre><code class='language-java'>Set&lt;T&gt; seen = new HashSet&lt;&gt;();
+Set&lt;T&gt; dupes = new HashSet&lt;&gt;();
+for (T item : list) {
+    if (!seen.add(item)) {
+        dupes.add(item);
+    }
+}
+// dupes now contains unique values that appeared more than once
+</code></pre>
+<p>Memory wise this often uses slightly less overhead than a full map when you only care about which values repeat. It also naturally yields unique duplicates without extra cleanup.</p>
+
+<h2>Approach 3 Use Streams for a tidy expression</h2>
+<p>If you prefer fluent style and shorter code the Streams API groups and filters nicely. Expect a bit of runtime overhead compared to tight loops but enjoy the readable pipeline.</p>
+<pre><code class='language-java'>List&lt;T&gt; duplicates = list.stream()
+    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+    .entrySet().stream()
+    .filter(e -&gt; e.getValue() &gt; 1)
+    .map(Map.Entry::getKey)
+    .collect(Collectors.toList());
+</code></pre>
+<p>This gives the same information as the map approach but in fewer lines. Use it when maintainability matters more than raw micro performance.</p>
+
+<h2>Choosing the right method</h2>
+<ul>
+  <li>Small lists and quick scripts: the two Set trick is simple and fast</li>
+  <li>When you need counts or further analysis: HashMap counting wins</li>
+  <li>When code clarity is king: Streams look elegant even if they walk a little slower</li>
+  <li>Memory budget matters: measure unique element count before assuming a Map is safe</li>
+</ul>
+
+<h3>Complexity cheat sheet</h3>
+<ul>
+  <li>HashMap counting time O(n) space O(u) where u is number of unique items</li>
+  <li>Two Set method time O(n) space O(u) but slightly less per entry overhead than a Map in many JVMs</li>
+  <li>Nest loops naive approach time O(n squared) which is only acceptable for tiny n</li>
+</ul>
+
+<h2>Edge cases and gotchas</h2>
+<p>Nulls are valid list elements in Java. HashMap and HashSet handle null keys so decide whether null counts as a duplicate in your business logic. For mutable list elements use immutable keys or a stable key extractor to avoid surprise behavior when objects change hash codes mid flight.</p>
+
+<h2>Quick wrap up</h2>
+<p>Pick Map when you need counts, pick two Sets when you just want which values repeat, and pick Streams when code readability wins and you do not need extreme micro performance. If you are still unsure run a quick benchmark on realistic input and let the numbers do the yelling for you.</p>
+
+<p>Now go find those duplicates and pretend you enjoyed it.</p>
+

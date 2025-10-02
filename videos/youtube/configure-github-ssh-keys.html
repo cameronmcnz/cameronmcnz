@@ -1,0 +1,75 @@
+---
+layout: video
+title: "Configure GitHub SSH Keys"
+description: "Practical guide to generate add and test an SSH key for secure GitHub access without fuss"
+video_host: "youtube"
+video_id: "s6KTbytdNgs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M18S"
+thumbnail_url: "https://i.ytimg.com/vi/s6KTbytdNgs/maxresdefault.jpg"
+content_url: "https://youtu.be/s6KTbytdNgs"
+embed_url: "https://www.youtube.com/embed/s6KTbytdNgs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub
+  - SSH
+  - SSH Keys
+  - ssh-keygen
+  - Git
+  - Developer
+  - Security
+  - Linux
+  - macOS
+  - Windows
+---
+
+<p>If you are tired of typing your password every time Git nags you like a needy app then SSH keys are the calm, efficient solution. This guide walks developers through generating an SSH key with ssh-keygen adding it to the agent copying the public key into GitHub and switching repos to SSH so pushes and pulls stop asking for passwords during normal development work.</p>
+
+<h2>Why SSH keys improve GitHub security and workflow</h2>
+<p>SSH keys let your machine prove who it is without shouting a password every time. They are stronger than passwords when generated with modern algorithms and they make automation and CI a lot less painful. Use ed25519 by default for better security and smaller keys. If you must support ancient environments fall back to RSA with a large key size.</p>
+
+<h2>Step 1 Generate a new SSH key</h2>
+<p>Open a terminal on Linux macOS or Git Bash on Windows and run one of these commands. Pick ed25519 unless you have a compatibility headache.</p>
+<pre><code>ssh-keygen -t ed25519 -C "your_email@example.com"
+# fallback if you need RSA for some ancient server
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"</code></pre>
+<p>The command creates a private key and a matching public key under your home folder in .ssh. Use the default file name unless you want multiple keys for multiple machines. When prompted add a passphrase unless you plan to live dangerously.</p>
+
+<h2>Step 2 Start the SSH agent and add the key</h2>
+<p>The SSH agent keeps your unlocked key in memory so you are not typing the passphrase every five minutes. Start it and add your key like this.</p>
+<pre><code>eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519</code></pre>
+<p>On Windows you can use Git Bash which includes OpenSSH or enable the built in OpenSSH agent in Windows. If you use PuTTY tools you will load a .ppk into Pageant instead.</p>
+
+<h2>Step 3 Copy the public key and paste it into GitHub</h2>
+<p>Dump the public key to the terminal and copy the whole line into your GitHub account settings under SSH and GPG keys. Give the key a descriptive title so future you remembers which laptop or VM this was.</p>
+<pre><code>cat ~/.ssh/id_ed25519.pub</code></pre>
+<p>Log into GitHub go to Settings then SSH and GPG keys then New SSH key and paste the contents. If you use multiple accounts use different keys or an SSH config entry.</p>
+
+<h2>Step 4 Test the connection</h2>
+<p>Verify GitHub accepts your key with a test connection. The first time you will confirm the host fingerprint.</p>
+<pre><code>ssh -T git@github.com</code></pre>
+<p>A successful message will tell you which GitHub account matched the key. If you see permission denied then double check which key the agent has loaded and that you copied the public key correctly.</p>
+
+<h2>Step 5 Switch a repo remote to SSH</h2>
+<p>If your repository still uses HTTPS change the remote to the SSH clone URL shown on the repository page. Copy that SSH URL from GitHub and run this command in the repo. Do not type the SSH URL by hand unless you enjoy typos.</p>
+<pre><code>git remote set-url origin <paste the SSH clone URL from GitHub here></code></pre>
+<p>After that pushes and pulls will authenticate with your SSH key instead of asking for your username and password.</p>
+
+<h2>Windows notes for developers</h2>
+<p>Use Git Bash for familiar commands on Windows. Modern Windows includes OpenSSH so the same ssh-keygen and ssh-add flow can work. If you prefer PuTTY use puttygen to create or convert keys and use Pageant as the agent. Keep the private key file safe and never paste it anywhere public.</p>
+
+<h2>Security tips and cleanup</h2>
+<ul>
+<li>Use ed25519 when possible for better security and smaller keys.</li>
+<li>Protect your private key with a passphrase and use the agent for convenience.</li>
+<li>Create one key per machine or per CI task so you can revoke a single key if a device is lost.</li>
+<li>Review and remove old keys from your GitHub account from time to time.</li>
+<li>Never share your private key file or paste it into websites that look useful but are probably traps.</li>
+</ul>
+
+<p>This setup reduces password hell and keeps your Git operations smooth while maintaining strong developer security. Now go forth and push code with confidence and slightly less suffering.</p>
+

@@ -1,0 +1,82 @@
+---
+layout: video
+title: "How GitIgnore and GitHub Repos Work"
+description: "Learn how .gitignore controls which files enter a GitHub repository and how to untrack files that should be ignored"
+video_host: "youtube"
+video_id: "TlzJ6QjwEpE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M1S"
+thumbnail_url: "https://i.ytimg.com/vi/TlzJ6QjwEpE/maxresdefault.jpg"
+content_url: "https://youtu.be/TlzJ6QjwEpE"
+embed_url: "https://www.youtube.com/embed/TlzJ6QjwEpE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - gitignore
+  - github
+  - version control
+  - git tutorial
+  - repository
+  - git commands
+  - developer tools
+  - dotfiles
+  - software development
+---
+
+<h2>What .gitignore does and why you should care</h2>
+<p>Think of .gitignore as the bouncer for your repository. It tells Git which files to ignore when you stage and commit. It will not rescue you if you already committed a secret key, but it will stop future disasters and reduce the number of angry code review comments about giant binaries.</p>
+
+<h2>Quick rules that will save your repo and your dignity</h2>
+<ul>
+  <li>Place a plain text file named <code>.gitignore</code> at the repository root</li>
+  <li>Use templates for common languages and frameworks to avoid reinventing the wheel</li>
+  <li>Use a leading slash to match from the repo root and a trailing slash to mean folder</li>
+  <li>Prefix a pattern with <code>!</code> to unignore a file that would otherwise be ignored</li>
+</ul>
+
+<h3>Common entries you will actually want</h3>
+<p>Examples that belong in most projects include <code>node_modules/</code> and <code>.env</code>. Add OS and editor junk like <code>.DS_Store</code> and <code>Thumbs.db</code> to a global ignore file instead of cluttering the repo version of .gitignore.</p>
+
+<h2>Fixing files that are already tracked</h2>
+<p>If Git is already tracking a file you now want ignored adding it to .gitignore will not magically untrack it. You need to remove the tracked copy from the index while keeping your local file intact.</p>
+<pre><code>git rm --cached path/to/file
+# or for a folder
+git rm -r --cached node_modules
+</code></pre>
+<p>Then update and push the .gitignore file as usual</p>
+<pre><code>git add .gitignore
+git commit -m "Update .gitignore"
+git push
+</code></pre>
+
+<h2>Global ignore for personal clutter</h2>
+<p>Some files are personal and not relevant to the team. Use a global ignore file to keep those out of every repo you touch. Configure it once on your machine and forget about it.</p>
+<pre><code>git config --global core.excludesfile ~/.gitignore_global
+# then add patterns like
+.DS_Store
+Thumbs.db
+</code></pre>
+
+<h2>Patterns that actually matter</h2>
+<ul>
+  <li><code>/build</code> prevents tracking the build folder at repo root</li>
+  <li><code>logs/*.log</code> ignores log files in the logs folder</li>
+  <li><code>*.secret</code> ignores any file with that extension</li>
+  <li><code>!important.txt</code> keeps a single file despite a broader rule</li>
+</ul>
+
+<h2>Staging behavior and final checklist</h2>
+<p>Staging is respectful. When you run <code>git add</code> Git follows .gitignore rules and will not stage ignored files unless you forcibly add them. To wrap this up follow a short checklist.</p>
+<ul>
+  <li>Create or edit <code>.gitignore</code> at the repo root</li>
+  <li>Remove tracked files you now want ignored with <code>git rm --cached</code></li>
+  <li>Commit and push the changes to keep the remote clean</li>
+  <li>Set a global ignore for OS and editor artifacts</li>
+</ul>
+
+<h2>Final thought</h2>
+<p>Using .gitignore and the global excludes file is one of the easiest ways to keep your repository tidy and your teammates from muttering. It will not protect secrets that are already committed, so treat that as a separate emergency and rotate keys as needed. Otherwise enjoy a repo that does not contain your snack sized backups or editor temp files.</p>
+

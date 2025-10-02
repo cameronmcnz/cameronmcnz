@@ -1,0 +1,78 @@
+---
+layout: video
+title: "Amazon S3 Static Website Hosting Custom Domains in Route53"
+description: "Step by step guide to host a static site on Amazon S3 and map a custom domain in Route53 with HTTPS and caching tips"
+video_host: "youtube"
+video_id: "AZPpjGV_bX4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M9S"
+thumbnail_url: "https://i.ytimg.com/vi/AZPpjGV_bX4/maxresdefault.jpg"
+content_url: "https://youtu.be/AZPpjGV_bX4"
+embed_url: "https://www.youtube.com/embed/AZPpjGV_bX4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Amazon S3
+  - S3 static hosting
+  - Route53
+  - Custom domain
+  - CloudFront
+  - ACM
+  - Static website
+  - AWS tutorial
+  - DNS
+  - Web hosting
+---
+
+<article>
+  <h2>Quick promise and warning</h2>
+  <p>If you want cheap, fast, and boringly reliable hosting for HTML CSS and JS then S3 plus Route53 is your friend. Add CloudFront and you get HTTPS caching and speed. This guide walks through the sane steps without pretending DNS is fun.</p>
+
+  <h2>Create the S3 bucket and enable static hosting</h2>
+  <p>Name the bucket to match your site domain for the smoothest mapping, for example example.com. Enable static website hosting in the bucket settings and set an index document like index.html and an error document like error.html. Be mindful of the public access controls. You will need to disable block public access if you plan to serve a public static site, but do it only after you understand the risks.</p>
+
+  <h3>Permissions that actually matter</h3>
+  <ul>
+    <li>Use a bucket policy to grant public read to objects if you serve a purely static site.</li>
+    <li>Alternatively set object ACLs to public read, but the policy approach is cleaner for automation.</li>
+    <li>Remember to set correct MIME types for files so CSS and JavaScript do not behave like mysterious blobs.</li>
+  </ul>
+
+  <h2>Upload files and automate deployments</h2>
+  <p>Drag and drop works when you are desperate and impatient. For anything remotely repeatable use the AWS CLI or CI. The s3 sync command will save your future self from regret and frantic terminal typing.</p>
+  <p>Example conceptually do this on your CI pipeline to push new builds to S3 and keep cache friendly headers sane. Make sure to set cache control for assets you want browsers and CDNs to keep.</p>
+
+  <h2>Set up Route53 DNS</h2>
+  <p>Create or import a hosted zone for your domain. Then add records that point your domain to the site. You have two sensible options depending on whether you add CloudFront.</p>
+  <ul>
+    <li>If you skip CloudFront then add an alias record that points to the S3 website endpoint for the apex domain. Use a CNAME only for subdomains when appropriate.</li>
+    <li>If you use CloudFront then create an alias record pointing to the CloudFront distribution. This is the recommended path if you want HTTPS and global caching.</li>
+  </ul>
+
+  <h2>Use CloudFront for HTTPS and performance</h2>
+  <p>CloudFront is the reason you get HTTPS without fancy server setup and the reason users on the other side of the planet stop complaining. Request an ACM certificate for your domain in the US East 1 region since CloudFront requires that. Add the certificate to CloudFront and list your custom domain as an alternate domain name in the distribution.</p>
+  <p>Important detail to keep your redirects working: use the S3 website endpoint as the CloudFront origin if you rely on S3 hosted redirects and index behavior. If you point CloudFront to the S3 REST endpoint you might lose website style redirects.</p>
+
+  <h3>CloudFront caching and invalidation</h3>
+  <ul>
+    <li>Set sensible TTLs for HTML and longer TTLs for static assets like images and compiled JS.</li>
+    <li>When you deploy a new build and need instant updates use CloudFront invalidation. It costs money for wildcards but saves angry users.</li>
+  </ul>
+
+  <h2>Testing and final checklist</h2>
+  <p>After DNS propagates test the site over HTTPS and plain HTTP to verify redirects and certificates. If you used CloudFront confirm that the alternate domain name is attached and the certificate is valid. Check response headers for cache control and confirm the correct content type on assets.</p>
+  <p>Monitor logs if you want to be proactive. S3 access logs or CloudFront logs can tell you about 404s and clients doing weird things. If anything goes sideways check the bucket policy, DNS records, and the ACM certificate region.</p>
+
+  <h2>Troubleshooting tips</h2>
+  <ul>
+    <li>Site returns access denied after setup, check block public access and bucket policy.</li>
+    <li>HTTPS certificate not found, verify the ACM cert was requested in US East 1 for CloudFront.</li>
+    <li>Redirects not working, point CloudFront to the S3 website endpoint instead of the REST endpoint.</li>
+    <li>New files not showing, run a CloudFront invalidation or update cache control headers.</li>
+  </ul>
+
+  <p>There you go, a practical path from empty bucket to fast, secure static site. You get cheap hosting, global delivery, and a tiny mountain of DNS jargon to impress or annoy colleagues. Now push that build and pretend it was effortless.</p>
+</article>
+

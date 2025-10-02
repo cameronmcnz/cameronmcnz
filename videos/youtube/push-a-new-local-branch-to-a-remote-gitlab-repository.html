@@ -1,0 +1,74 @@
+---
+layout: video
+title: "Push a New Local Branch to a Remote GitLab Repository"
+description: "Step by step guide to push a new local branch to a GitLab remote and set upstream for simple future pushes."
+video_host: "youtube"
+video_id: "RBk1I-G2YA4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M52S"
+thumbnail_url: "https://i.ytimg.com/vi/RBk1I-G2YA4/maxresdefault.jpg"
+content_url: "https://youtu.be/RBk1I-G2YA4"
+embed_url: "https://www.youtube.com/embed/RBk1I-G2YA4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - gitlab
+  - branches
+  - push
+  - remote
+  - local-branch
+  - git-tutorial
+  - version-control
+  - cli
+  - devops
+---
+
+<h1>Create commit and push a new local branch to GitLab from the CLI</h1>
+<p>Welcome to the thrilling world of branches where your feature lives alone until it meets the remote and humans judge it. This short git tutorial makes pushing a new local branch to GitLab boring and reliable which is exactly what you want. Follow these steps in your favorite terminal or in that integrated terminal you pretend to use.</p>
+
+<h2>Prepare a readable branch name</h2>
+<p>Branch names are tiny contracts with future you. Keep them clear and consistent so you avoid awkward meetings later. Use names that communicate intent like feature/auth or fix/login. Avoid cute names like dragondance unless you love chaos.</p>
+
+<h3>Create and switch to the branch</h3>
+<p>You can use either modern or classic commands depending on your comfort level with progress. Both do the same useful thing which is create the branch and switch to it.</p>
+<pre><code>git switch -c feature/name
+# or if switch is not available
+git checkout -b feature/name</code></pre>
+
+<h3>Stage and commit your work</h3>
+<p>Add what you changed and make a commit message that explains why you did it. Future you will thank you or at least yell less.</p>
+<pre><code>git add .
+git commit -m "Add feature description"
+</code></pre>
+
+<h2>Push the branch to GitLab and set upstream</h2>
+<p>Now send the branch to the remote and tell git to remember where to push next time. That -u trick is like teaching git your preferred coffee order so it does not ask every morning.</p>
+<pre><code>git push -u origin feature/name</code></pre>
+<p>The -u flag links your local branch to origin/feature/name so later you can simply run git push from the same branch. This saves typing and tiny regrets.</p>
+
+<h2>Verify the branch on the remote</h2>
+<p>Check that GitLab actually received your masterpiece. You can do this in the web UI if you enjoy clicking things or in the CLI if you crave validation via text output.</p>
+<pre><code>git fetch
+git branch -r</code></pre>
+<p>Once the branch appears on GitLab you can open a merge request in the UI and let the review circus begin.</p>
+
+<h2>Quick tips for happy version control</h2>
+<ul>
+  <li>Use readable branch names with slashes like feature/ or fix/ so tools and humans stay sane</li>
+  <li>Enable signed commits if your repo policy demands it or if you like marginally more trust</li>
+  <li>Set push default to current to avoid typing the remote and branch every time with</li>
+</ul>
+<pre><code>git config --global push.default current</code></pre>
+<ul>
+  <li>Confirm you are pushing to the right remote before force pushing</li>
+  <li>Use the CLI for speed and the GitLab UI to open merge requests and add reviewers</li>
+</ul>
+
+<h2>Recap and final sarcastic note</h2>
+<p>Create a branch locally with git switch or git checkout then stage and commit your work. Push the branch to GitLab with git push -u origin branchname and verify the remote using git fetch and git branch -r. The process is five minutes of effort and a lifetime of fewer mistakes. Now go write code and let git handle the awkward part of being organized.</p>
+
+<p>Keywords sprinkled for SEO and sanity include git, gitlab, branches, push, remote, local-branch, git-tutorial, version-control, cli, and devops. You used all of them right here and your CI pipeline applauds quietly.</p>
+

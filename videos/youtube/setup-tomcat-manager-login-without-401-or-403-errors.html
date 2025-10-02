@@ -1,0 +1,79 @@
+---
+layout: video
+title: "Setup Tomcat Manager Login without 401 or 403 errors"
+description: "Guide to configure Tomcat Manager login and avoid 401 and 403 errors using correct user roles and access settings"
+video_host: "youtube"
+video_id: "PU73QmFuiag"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M23S"
+thumbnail_url: "https://i.ytimg.com/vi/PU73QmFuiag/maxresdefault.jpg"
+content_url: "https://youtu.be/PU73QmFuiag"
+embed_url: "https://www.youtube.com/embed/PU73QmFuiag"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Tomcat
+  - Tomcat Manager
+  - 401 error
+  - 403 error
+  - tomcat users
+  - manager gui
+  - deployment
+  - authentication
+  - webapp
+  - tutorial
+---
+
+<p>If your Tomcat Manager login throws a 401 error or a 403 error you are not alone and this guide will get you back to deploying like a semi functional sysadmin. We will cover the usual suspects that cause authentication and access failures and show the exact places to look in conf and webapp files so you stop guessing and start fixing.</p>
+
+<h2>Quick checklist to stop 401 and 403 responses</h2>
+
+<ul>
+  <li>Add a tomcat user with the manager gui role in conf/tomcat-users.xml</li>
+  <li>Make sure the manager webapp is present and enabled in webapps</li>
+  <li>Check for host restrictions that cause 403 forbidden responses</li>
+  <li>Restart Tomcat so configuration changes take effect</li>
+  <li>Test the manager URL and verify credentials and role membership</li>
+</ul>
+
+<h2>Step by step with a hint of sarcasm</h2>
+
+<p>Step one is editing the file that actually matters conf/tomcat-users.xml. If you add a user but forget the right role Tomcat will politely refuse login with a 401 error. Add a line like this inside the &lt;tomcat-users&gt; block and yes this file is XML so be careful with syntax.</p>
+
+<pre><code>&lt;user username="deploy" password="s3cr3t" roles="manager-gui" /&gt;</code></pre>
+
+<p>Make sure the role name is manager-gui exactly. Tomcat is not going to be forgiving about spaces or synonyms. If you need deployment automation consider creating a dedicated user with only the manager roles you need so you do not hand out root level keys to strangers.</p>
+
+<h3>Why a 401 happens</h3>
+
+<p>A 401 error means authentication failed. Either the username or password is wrong or the user does not have the manager-gui role. Double check you edited the active conf file. On systems with multiple Tomcat instances or package manager installs the configuration path you edited may not be the one Tomcat actually reads.</p>
+
+<h3>Why a 403 happens</h3>
+
+<p>A 403 forbidden means authentication passed or was not required but access from your client IP is blocked by a valve or context restriction in the manager webapp. The manager application ships with an access restriction by default so remote hosts are often blocked.</p>
+
+<pre><code>&lt;Context path="/manager" docBase="manager" reloadable="false"&gt;
+  &lt;Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.0\.0\.1" /&gt;
+&lt;/Context&gt;</code></pre>
+
+<p>If you need remote access add your client address to the allow attribute or remove the valve during controlled testing. Keep access restricted in production and do not open manager GUI to the entire internet. You have been warned.</p>
+
+<h2>Restart Tomcat and test login</h2>
+
+<p>Tomcat reads conf files at startup. After making changes restart the service so new users and role mappings take effect. On systemd hosts run the usual systemctl command or use bin/catalina.sh stop and start if you prefer drama. Then open your browser and go to localhost slash 8080 slash manager slash html and enter the credentials you added.</p>
+
+<h3>Troubleshooting tips that actually help</h3>
+
+<ul>
+  <li>If login still fails verify the user entry and that manager-gui is spelled correctly</li>
+  <li>Check for multiple Tomcat installations and confirm you edited the active conf path</li>
+  <li>Look in catalina logs for authentication errors and context problem messages</li>
+  <li>If the manager webapp is missing check the webapps folder or your package maintainer notes</li>
+</ul>
+
+<p>Recap without the drama. Add a user with manager-gui in conf/tomcat-users.xml. Make sure the manager webapp allows your client address or is enabled locally. Restart Tomcat and test the manager URL. Do that and your 401 and 403 errors should vanish like bad coffee from the break room.</p>
+
+<p>If you want I can walk you through an exact file for your Tomcat version or check a snippet from your conf files and point out the offending lines with a polite smirk.</p>
+

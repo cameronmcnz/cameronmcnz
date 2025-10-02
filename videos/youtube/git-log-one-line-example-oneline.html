@@ -1,0 +1,61 @@
+---
+layout: video
+title: "git log one line example (oneline)"
+description: "Quick guide to using git log oneline for compact commit history examples commands and a handy alias"
+video_host: "youtube"
+video_id: "YLQ4YoAcaCw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M6S"
+thumbnail_url: "https://i.ytimg.com/vi/YLQ4YoAcaCw/maxresdefault.jpg"
+content_url: "https://youtu.be/YLQ4YoAcaCw"
+embed_url: "https://www.youtube.com/embed/YLQ4YoAcaCw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git log
+  - oneline
+  - git tutorial
+  - version control
+  - command line
+  - commit history
+  - git commands
+  - developer
+  - source control
+---
+
+<p>Want to read your project history without a migraine or doom scrolling through verbose metadata That is the gentle promise of git log with the oneline view It trims each commit down to an abbreviated SHA and the commit message so you can actually find the thing you broke last Tuesday</p>
+
+<h2>Quick commands for a fast commit history</h2>
+<p>When you need a compact, scannable list try these first</p>
+<pre><code>git log --oneline</code></pre>
+<p>If you like context for merges and branch tips add a small ASCII graph and labels</p>
+<pre><code>git log --oneline --graph --decorate --all</code></pre>
+
+<h3>Limit and filter like a responsible developer</h3>
+<p>Want recent work only or commits that mention the word bugfix Use the count flag or grep and stop wasting time</p>
+<pre><code>git log --oneline -n 10
+git log --oneline --grep="bugfix"</code></pre>
+
+<h2>Make an alias and look like you know what you are doing</h2>
+<p>If you type the same command more than twice create a short alias and feel smug without trying too hard</p>
+<pre><code>git config --global alias.lg "log --oneline --graph --decorate --all"
+# then just run
+git lg</code></pre>
+<p>The alias produces the same compact, informative view with one tidy command It also reduces typing which is the secret of developer happiness</p>
+
+<h2>Tidy tips and common pitfalls</h2>
+<ul>
+<li>Preserve color when scrolling by using a pager that supports color for example set GIT_PAGER to less with raw control codes</li>
+<li>Abbreviated SHAs are great for scanning but not for scripting If you need exact SHAs use full length or ensure your tooling can resolve short ids</li>
+<li>Use grep for keyword hunting and author flags when tracking who forgot to add tests</li>
+<li>Combine flags conservatively to avoid a wall of text that defeats the purpose of oneline</li>
+</ul>
+
+<h2>Why this matters</h2>
+<p>Reading history should be quick enough that you do not invent new excuses A compact oneline view gives a readable timeline without losing the context of branches and merges when you ask for it Use aliases to keep your workflow consistent across machines and projects</p>
+
+<p>Go forth and browse your commit history with purpose and a little sarcasm You will still break things sometimes but at least now you can find the commit that did it fast</p>
+

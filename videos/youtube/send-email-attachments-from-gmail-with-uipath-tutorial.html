@@ -1,0 +1,91 @@
+---
+layout: video
+title: "Send Email Attachments from Gmail with UiPath Tutorial"
+description: "Quick guide to sending Gmail attachments with UiPath covering authentication packages activities and error handling for reliable automation"
+video_host: "youtube"
+video_id: "ZnpQgcwvAOY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M1S"
+thumbnail_url: "https://i.ytimg.com/vi/ZnpQgcwvAOY/maxresdefault.jpg"
+content_url: "https://youtu.be/ZnpQgcwvAOY"
+embed_url: "https://www.youtube.com/embed/ZnpQgcwvAOY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - UiPath
+  - Gmail
+  - email attachments
+  - RPA
+  - automation
+  - Send SMTP Mail Message
+  - UiPath Studio
+  - mail activities
+  - Gmail authentication
+  - tutorial
+---
+
+<h2>Quick summary for the impatient human</h2>
+<p>If you want UiPath to send email attachments from Gmail without throwing tantrums or random authentication errors this guide will get you there. We keep security intact and use official mail activities so your automation behaves like a responsible adult.</p>
+
+<h2>What you need before you start</h2>
+<ul>
+  <li>UiPath Studio installed and a project ready to be dramatic</li>
+  <li>A Gmail account with either OAuth credentials or an App Password if you have two factor authentication</li>
+  <li>The UiPath mail activities or the GSuite package from Manage Packages in Studio</li>
+  <li>Files to attach with absolute file paths and a healthy respect for File.Exists checks</li>
+</ul>
+
+<h2>Prepare Gmail authentication the less painful way</h2>
+<p>Do not use less secure app access unless you like frustration. Create OAuth credentials for production level flows or generate an App Password for personal accounts that use two factor authentication. The GSuite package can handle OAuth scopes for you which is convenient and less likely to break next week.</p>
+
+<h3>Notes on authentication</h3>
+<p>App Passwords work fine for SMTP when you cannot or do not want to implement OAuth. For enterprise grade automation set up OAuth and store tokens securely in Orchestrator assets or a vault.</p>
+
+<h2>Install the right UiPath package</h2>
+<p>Open Manage Packages and install either UiPath.Mail.Activities or UiPath.GSuite depending on your chosen path. The mail package gives you Send SMTP Mail Message and handy helpers for attachments. The GSuite package gives OAuth integration and Gmail specific activities if you prefer API level control.</p>
+
+<h2>Build a reliable attachment list</h2>
+<p>Do not guess where files live. Use absolute paths and construct a List(of String) for multiple attachments. Before you try to attach anything verify the file exists. This saves a whole lot of debugging and shame.</p>
+
+<h3>Checklist for attachments</h3>
+<ul>
+  <li>Use absolute paths like C:\Data\Reports\report.pdf</li>
+  <li>Confirm File.Exists before adding to the list</li>
+  <li>Handle missing files with a log entry and a graceful fallback</li>
+</ul>
+
+<h2>Configure Send SMTP Mail Message properly</h2>
+<p>Use smtp.gmail.com as the host and 587 as the port. Enable SSL when using SMTP. Supply credentials via an Orchestrator asset or use the OAuth tokens from the GSuite package. Fill the To Subject Body and Attachments fields with workflow variables so your process is not hard coded to yesterday's email list.</p>
+
+<h3>Important settings</h3>
+<ul>
+  <li>Host smtp.gmail.com</li>
+  <li>Port 587 with SSL enabled for STARTTLS</li>
+  <li>Credentials from secure assets or OAuth tokens</li>
+  <li>Attachments as a List(of String) variable</li>
+</ul>
+
+<h2>Test and add error handling like a grown up</h2>
+<p>Run the workflow in Debug and watch the Output panel. Wrap mail sending in a Try Catch and catch authentication exceptions missing file exceptions and network failures. Log clear messages so the next human or robot knows what went wrong without guessing.</p>
+
+<h3>Suggested Try Catch approach</h3>
+<ul>
+  <li>Try to send the message</li>
+  <li>Catch authentication failures and log instructions to check OAuth or App Passwords</li>
+  <li>Catch file related exceptions and log the missing path</li>
+  <li>Catch general exceptions and include the StackTrace in debug logs only</li>
+</ul>
+
+<h2>Final checklist for reliable automation</h2>
+<ul>
+  <li>Gmail authentication is configured securely</li>
+  <li>Mail activities or GSuite package is installed in UiPath Studio</li>
+  <li>Attachment list uses absolute paths and checks existance</li>
+  <li>Send SMTP Mail Message is configured with smtp.gmail.com port 587 and SSL</li>
+  <li>Error handling and logging are in place for easy recovery</li>
+</ul>
+
+<p>Follow these steps and your automation will send Gmail attachments like a responsible intern who actually reads instructions. If something still misbehaves check credentials network connectivity and file paths in that precise order.</p>
+

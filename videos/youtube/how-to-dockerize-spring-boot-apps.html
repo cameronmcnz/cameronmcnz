@@ -1,0 +1,74 @@
+---
+layout: video
+title: "How to Dockerize Spring Boot Apps"
+description: "Step by step guide to package Spring Boot microservices as Docker images and deploy containers with practical tips and commands"
+video_host: "youtube"
+video_id: "JDaBBV15g50"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT17M39S"
+thumbnail_url: "https://i.ytimg.com/vi/JDaBBV15g50/maxresdefault.jpg"
+content_url: "https://youtu.be/JDaBBV15g50"
+embed_url: "https://www.youtube.com/embed/JDaBBV15g50"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Docker
+  - Spring Boot
+  - Microservices
+  - Dockerfile
+  - Containerization
+  - Java
+  - CI CD
+  - Deployment
+  - Kubernetes
+  - Docker Compose
+---
+
+<h2>Quick overview</h2>
+<p>So you built a Spring Boot microservice in Java and now you want to wrap it in a neat little container so the world can run it without drama. This guide walks through packaging a runnable jar into a Docker image and taking that image from local sanity checks to CI CD and then to production on Docker Compose or Kubernetes. Same facts as the boring manuals but with fewer lectures and more sarcasm.</p>
+
+<h2>Prepare the application</h2>
+<p>Make sure Maven or Gradle produces a single executable jar. Configure your server port and health endpoints so orchestrators can ping your service and decide if it is alive or faking it. Trim dev junk from the build to keep the image small and avoid shipping your IDE settings to production.</p>
+
+<h2>Create a Dockerfile</h2>
+<p>Use a multi stage Dockerfile so the build tools stay in the build stage and the final image contains only the runtime bits. That reduces image size and speeds up delivery which your CI will thank you for.</p>
+<pre><code>FROM maven AS builder
+COPY pom.xml .
+COPY src src
+RUN mvn -DskipTests package
+
+FROM openjdk
+COPY --from=builder target/app.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
+</code></pre>
+<p>This example uses Maven but Gradle works the same idea. Replace openjdk with a slim Java runtime for smaller images. Do not forget to expose the port you use in Spring Boot in the image metadata or simply map it at runtime.</p>
+
+<h2>Build the Docker image</h2>
+<p>Run the docker build command with a meaningful tag so you can push and reference the artifact later. Example command is</p>
+<pre><code>docker build -t myorg/myapp:1.0 .</code></pre>
+<p>Tags help your CI CD pipelines identify releases and forks. Use semantic versioning or commit based tags if you like living dangerously.</p>
+
+<h2>Run and test locally</h2>
+<p>Start the container locally to validate behavior. A quick run might look like this</p>
+<pre><code>docker run -p 8080:8080 --rm myorg/myapp:1.0</code></pre>
+<p>Check logs and hit your health endpoint. Use docker inspect to find dynamic port mappings when you use publish all ports. Quick smoke tests prevent very expensive surprises later.</p>
+
+<h2>Push to a registry and CI CD</h2>
+<p>Tag and push the image to your registry with docker tag and docker push. Use a private registry for internal services and a public one for shared components. Hook the build and push steps into your CI CD pipeline so images are produced automatically on merges or tags.</p>
+
+<h2>Deploy to production</h2>
+<p>For small deployments use Docker Compose to wire up a few services. For fleets of microservices use Kubernetes with health probes, resource limits and readiness checks so your cluster can behave like an adult under load. Always add liveness and readiness probes so Kubernetes can tell the truth about service health.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Produce a runnable jar with Maven or Gradle</li>
+  <li>Use a multi stage Dockerfile to keep images lean</li>
+  <li>Tag images clearly for CI CD and tracing</li>
+  <li>Smoke test locally before pushing</li>
+  <li>Use Docker Compose for small stacks and Kubernetes for scale</li>
+</ul>
+
+<p>If you follow those steps you will have a Dockerized Spring Boot application that plays nicely with CI CD pipelines and modern deployment platforms including Kubernetes. Congratulations you are now officially containerized and marginally more cloud ready than you were five minutes ago.</p>
+

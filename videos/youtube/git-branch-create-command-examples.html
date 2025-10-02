@@ -1,0 +1,76 @@
+---
+layout: video
+title: "Git Branch Create Command Examples"
+description: "Examples of creating Git branches with commands and best practices for local and remote branches"
+video_host: "youtube"
+video_id: "XDD51PC_yZc"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M38S"
+thumbnail_url: "https://i.ytimg.com/vi/XDD51PC_yZc/maxresdefault.jpg"
+content_url: "https://youtu.be/XDD51PC_yZc"
+embed_url: "https://www.youtube.com/embed/XDD51PC_yZc"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git branch
+  - git tutorial
+  - branches
+  - create branch
+  - git checkout -b
+  - git switch -c
+  - git push
+  - version control
+  - git commands
+---
+
+<p>If your current branch strategy feels like a wild safari, welcome to the club. Branches are how you experiment, fix bugs, and avoid pushing half-baked features to main. This guide gives the straight facts and a little attitude while you learn how to create branches, start work, publish them, and clean up the mess when you're done.</p>
+
+<h2>Create and switch in one move</h2>
+<p>If you want to make a branch and start working without the extra steps try one of these shortcuts. Both create a branch and move HEAD so your working tree follows along.</p>
+<pre><code>git checkout -b feature-name
+# or the newer command
+git switch -c feature-name</code></pre>
+<p>Use <code>git checkout -b</code> if you love tradition. Use <code>git switch -c</code> if you prefer clearer intent and slightly less cognitive load. Both end with you on <code>feature-name</code> ready to type code and possibly regret.</p>
+
+<h2>Create a branch without switching</h2>
+<p>Want to record a branch but stay put in your current working tree? Fine. Create the branch reference and keep working where you are.</p>
+<pre><code>git branch feature-name</code></pre>
+<p>This only writes the branch pointer. HEAD stays where it is, so your files do not change. Great for preparing branches while your editor binge compiles in the background.</p>
+
+<h2>Create a branch from a specific commit or tag</h2>
+<p>Sometimes you need a branch that starts from a past commit or a release tag. Point the branch command at that reference and Git will obey.</p>
+<pre><code>git branch hotfix v1.2.0
+# or from a commit hash
+git branch bugfix abc1234</code></pre>
+<p>The new branch will start from the given tag or commit instead of current HEAD. This is how you make a hotfix without dragging in unrelated work.</p>
+
+<h2>Publish the branch and set upstream</h2>
+<p>Local branches are great until collaboration is required. Push the branch to the remote and tell Git where to track changes so future syncs are painless.</p>
+<pre><code>git push -u origin feature-name</code></pre>
+<p>The <code>-u</code> option sets the upstream so later <code>git pull</code> and <code>git push</code> know which remote branch to use. It saves you typing and prevents awkward guessing games.</p>
+
+<h2>Verify branches and clean up when finished</h2>
+<p>List branches and spot the stray ones that outlived their usefulness.</p>
+<pre><code>git branch --all
+# show branches merged into current branch
+git branch --merged
+# delete a branch that has been merged
+git branch -d old-branch
+# force delete when you really mean it
+git branch -D old-branch</code></pre>
+<p>Use <code>git branch --all</code> to see local and remote branches. Use <code>git branch --merged</code> to find branches safe to remove. Be cautious with <code>-D</code> because it will rip out branches even when they are not merged.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Create and switch in one step with <code>git checkout -b</code> or <code>git switch -c</code></li>
+  <li>Create a branch without switching with <code>git branch name</code></li>
+  <li>Branch from a tag or commit by giving that reference after the name</li>
+  <li>Publish and set upstream with <code>git push -u origin name</code></li>
+  <li>List and clean up using <code>git branch --all</code> and <code>git branch -d</code></li>
+</ul>
+
+<p>There you go. You now have the commands to create branches without starting a minor civil war in your repo. Use them wisely and remember that branches are cheap but merge conflicts are memorable.
+

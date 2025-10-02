@@ -1,0 +1,99 @@
+---
+layout: video
+title: "How to Configure multiple AWS CLI Profiles"
+description: "Quick guide to set up multiple AWS CLI profiles for separate accounts and roles with commands and best practices for safe profile management"
+video_host: "youtube"
+video_id: "1v8EMew-8nE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M11S"
+thumbnail_url: "https://i.ytimg.com/vi/1v8EMew-8nE/maxresdefault.jpg"
+content_url: "https://youtu.be/1v8EMew-8nE"
+embed_url: "https://www.youtube.com/embed/1v8EMew-8nE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - AWS CLI
+  - CLI profiles
+  - aws configure
+  - IAM roles
+  - credentials file
+  - shared config
+  - profile switching
+  - scripting
+  - best practices
+---
+
+<p>If your AWS accounts feel like a tangled ball of yarn and you keep accidentally deleting the wrong sandbox you are in the right place. This guide shows how to create and manage multiple AWS CLI profiles so you can switch accounts and roles without turning your credentials file into a crime scene. Expect practical commands and a small amount of sarcastic relief.</p>
+
+<h2>Verify the AWS CLI is installed and behaving</h2>
+<p>First things first check the CLI version so you are not blaming the tools for your mistakes. Run the version command and confirm you have a modern build that handles profiles sensibly.</p>
+<pre><code>aws --version</code></pre>
+<p>If the output looks reasonable you are ready to move on. If not install or upgrade the AWS CLI and try again.</p>
+
+<h2>Create named profiles with aws configure</h2>
+<p>Named profiles keep credentials for each account or role in separate buckets. That saves you from accidentally running a terraform apply against production while thinking you were in staging.</p>
+<pre><code>aws configure --profile work</code></pre>
+<p>The CLI will prompt for access key id secret access key region and output format. Put human readable names on your profiles like work staging backup and you will thank yourself later.</p>
+
+<h3>Quick example</h3>
+<pre><code>aws configure --profile staging
+aws s3 ls --profile staging</code></pre>
+<p>Using the profile flag on each command is the simplest explicit option when you want to be very careful.</p>
+
+<h2>Edit the credentials and config files when you need fine control</h2>
+<p>For advanced setups like assume role chaining or custom regions edit these files in your home directory. The two files to know are the credentials file and the config file.</p>
+<ul>
+  <li>Credentials file at ~/.aws/credentials stores aws_access_key_id and aws_secret_access_key for named profiles</li>
+  <li>Config file at ~/.aws/config holds region output role_arn and source_profile entries</li>
+</ul>
+<p>Example credentials section</p>
+<pre><code>[work]
+aws_access_key_id = AKIAEXAMPLE
+aws_secret_access_key = secretvalue</code></pre>
+<p>Example config section for a role profile</p>
+<pre><code>[profile work-role]
+region = us-east-1
+output = json
+role_arn = arn:aws:iam::123456789012:role/ReadOnlyRole
+source_profile = work</code></pre>
+<p>That setup tells the CLI to use keys from the work profile and then assume the role defined by role_arn. No voodoo required.</p>
+
+<h2>Assume IAM roles and use MFA when appropriate</h2>
+<p>When your organization uses IAM roles you create a profile that points to a role_arn and a source_profile. You can add mfa_serial to require MFA when assuming the role. This is where real security happens not in heroic password reuse.</p>
+
+<h2>Automate profile usage in scripts and CI</h2>
+<p>Scripting with explicit profiles removes guesswork and reduces chances of human error during deployments. Two common patterns work well.</p>
+<ul>
+  <li>Pass the profile flag in commands for one off operations or where you want visible context in logs</li>
+  <li>Set the environment variable so the script runs without changing every command</li>
+</ul>
+<pre><code>export AWS_PROFILE=work
+aws s3 ls</code></pre>
+<p>In CI pipelines set the environment variable in the job configuration so the runner uses the right profile. If you prefer flags they are explicit and harder to accidentally override.</p>
+
+<h2>Verify which identity you are using</h2>
+<p>Before hitting anything destructive run a sanity check command. It will tell you which account and ARN the CLI is using so you can breathe easier.</p>
+<pre><code>aws sts get-caller-identity --profile work</code></pre>
+
+<h2>Best practices and common pitfalls</h2>
+<ul>
+  <li>Use descriptive profile names that include account and purpose like work staging or backup</li>
+  <li>Avoid hard coding credentials into repos or scripts commit history is forever</li>
+  <li>Prefer role based access over long lived keys when possible</li>
+  <li>Enable MFA for sensitive roles and rotate keys regularly</li>
+  <li>Set a default region in profiles to reduce surprises when running region sensitive commands</li>
+</ul>
+
+<h2>Recap and cheat sheet</h2>
+<p>You learned to check your AWS CLI version create named profiles with aws configure use profiles with the profile flag or an environment variable edit the credentials and config files for role based setups and automate profile usage in scripts. Practice these and your account switching will be predictable and less painful.</p>
+<pre><code>aws --version
+aws configure --profile work
+aws s3 ls --profile work
+export AWS_PROFILE=work
+aws sts get-caller-identity --profile work</code></pre>
+
+<p>Now go forth and switch profiles responsibly. Your future self and your production account will both be grateful.</p>
+

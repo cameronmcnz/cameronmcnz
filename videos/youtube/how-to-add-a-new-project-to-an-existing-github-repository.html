@@ -1,0 +1,84 @@
+---
+layout: video
+title: "How to add a new project to an existing GitHub repository"
+description: "Step by step guide to add a new project into an existing GitHub repository using local Git commands branches and basic workflows"
+video_host: "youtube"
+video_id: "gHgidwb50lQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M45S"
+thumbnail_url: "https://i.ytimg.com/vi/gHgidwb50lQ/maxresdefault.jpg"
+content_url: "https://youtu.be/gHgidwb50lQ"
+embed_url: "https://www.youtube.com/embed/gHgidwb50lQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - github
+  - git
+  - new project
+  - existing repository
+  - git tutorial
+  - git commands
+  - git workflow
+  - push
+  - branch
+  - commit
+---
+
+<h2>Why this matters and why you should care</h2>
+<p>Adding a new project to an existing GitHub repository is one of those tasks that sounds innocent until someone ruins the commit history. Follow a clear git workflow and you will avoid merge chaos and angry reviewers. This guide shows the practical git commands you need to create a new project folder inside an existing repository and push it to GitHub for review.</p>
+
+<h2>Prepare a local clone or use your existing copy</h2>
+<p>If you do not already have a local copy of the repository clone it with git. If the repository is already on your workstation then save yourself some time and just cd into the repo root.</p>
+<pre><code>git clone REPO_URL
+cd repo-name</code></pre>
+
+<h2>Create the project folder and add files</h2>
+<p>Make a new folder for the project and add your source files, docs and configuration. Keep the new project self contained when possible so reviewers do not have to spelunk through unrelated files.</p>
+<pre><code>mkdir new-project
+cd new-project
+# add files or copy a starter template</code></pre>
+
+<h3>Quick layout tip</h3>
+<ul>
+  <li>Keep tests near the code so CI can find them</li>
+  <li>Add a README with install and run notes</li>
+  <li>Include a minimal .gitignore if needed</li>
+</ul>
+
+<h2>Create a feature branch and avoid mainline drama</h2>
+<p>Always create a feature branch for the new project. This keeps the main branch clean and gives code reviewers something sensible to look at rather than a cryptic lump of commits.</p>
+<pre><code>git checkout -b feature/new-project</code></pre>
+
+<h2>Stage and commit in sensible steps</h2>
+<p>Stage only the files that belong to the new project. Make small commits with clear messages so the review is not a single mystery blob.</p>
+<pre><code>git add new-project
+git commit -m 'Add new project skeleton and initial files'
+# split large work into multiple commits if it helps reviewers</code></pre>
+
+<h2>Push your branch and open a pull request</h2>
+<p>Push the branch to GitHub and open a pull request. Select the right target branch and include testing notes, a quick summary of changes and any migration instructions.</p>
+<pre><code>git push origin feature/new-project</code></pre>
+
+<h3>Pull request checklist</h3>
+<ul>
+  <li>Link to any relevant issue or spec</li>
+  <li>Explain how to run tests and what CI should check</li>
+  <li>Keep the description focused and friendly to reviewers</li>
+</ul>
+
+<h2>Address feedback and merge when green</h2>
+<p>Respond to review comments with polite fixes. If the repo uses CI make sure tests pass before merging. Squash or rebase only if the repository policy says so and do not rewrite shared history unless everyone agreed to it.</p>
+
+<h2>Short recap and best practices</h2>
+<ul>
+  <li>Clone or use your local repo copy</li>
+  <li>Create a dedicated project folder and add files</li>
+  <li>Use a feature branch to isolate work</li>
+  <li>Stage and commit in logical steps with clear messages</li>
+  <li>Push the branch and open a pull request for review</li>
+</ul>
+
+<p>Follow these git commands and workflow and you will add a new project to an existing repository without traumatizing your commit history. If anything goes wrong blame git and then fix it gracefully.</p>
+

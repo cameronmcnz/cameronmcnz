@@ -1,0 +1,63 @@
+---
+layout: video
+title: "Chrome Color Picker from Image"
+description: "Quick tutorial on using Chrome Developer Tools color picker to sample and copy colors from any image for web design and CSS"
+video_host: "youtube"
+video_id: "jsq5UzK9g0I"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M2S"
+thumbnail_url: "https://i.ytimg.com/vi/jsq5UzK9g0I/maxresdefault.jpg"
+content_url: "https://youtu.be/jsq5UzK9g0I"
+embed_url: "https://www.youtube.com/embed/jsq5UzK9g0I"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Chrome
+  - Color Picker
+  - Eyedropper
+  - Developer Tools
+  - Color Sampling
+  - Hex Color
+  - Web Design
+  - CSS
+  - Design Tools
+  - Productivity
+---
+
+<h2>Quick summary</h2>
+<p>If you ever pretended your eye could pick exact colors while sweating over a mockup you are not alone. Chrome has a built in color picker inside Developer Tools that lets you sample a pixel from any image in a tab and grab the hex value. No special uploads no mystery extensions and no more arguing with a teammate about whether teal is teal enough.</p>
+
+<h2>What you will do</h2>
+<p>Open the image in Chrome. Open DevTools. Trigger the color picker. Use the eyedropper to sample a pixel. Copy the hex value and paste it into your stylesheet or design tool. It is simple and wonderfully unromantic.</p>
+
+<h2>Step by step</h2>
+<ol>
+  <li>Load the image in a Chrome tab. Drag the file into Chrome if you need to. No login required.</li>
+  <li>Open Developer Tools with Ctrl Shift I on Windows or Cmd Option I on Mac. Yes that is a lot of keys. It is worth it.</li>
+  <li>In the Styles panel find any CSS rule that shows a color swatch. Click that swatch to open the color picker.</li>
+  <li>Click the eyedropper icon labeled Pick color from page. Your cursor will turn into a crosshair. Move it over the pixel you want and click to lock the sample.</li>
+  <li>The hex value will appear in the color input box. Click the hex to select and copy it or press Ctrl C or Cmd C to copy to the clipboard.</li>
+  <li>Paste the hex into your stylesheet variable a design mock or a palette manager and pretend you did not enjoy that bit of power.</li>
+</ol>
+
+<h3>Why this works and what to watch for</h3>
+<p>The picker reads the exact pixel rendered in the tab so you get the computed color not a guessed approximation. That means what you copy will match what the browser is showing right now. If the image was scaled compressed or contains anti aliasing you might pick adjacent pixels by accident. Zooming the page before sampling reduces that risk.</p>
+
+<h3>Tips for cleaner samples</h3>
+<ul>
+  <li>Zoom the page when dealing with tiny or compressed images. Bigger pixels make for less accidental color theft.</li>
+  <li>If overlays tooltips or other elements are in the way temporarily hide them in DevTools or move the element out of the way.</li>
+  <li>If you need multiple colors build a small palette in your design tool or a CSS variable list so you do not keep switching back to the picker.</li>
+  <li>Remember that transparent pixels will sample the composited color from layers underneath so check the context if something looks off.</li>
+</ul>
+
+<h3>Troubleshooting and oddballs</h3>
+<p>Sometimes the eyedropper seems stubborn. Make sure the image is actually visible in the tab and not blocked by cross origin restrictions if it is being drawn by a canvas that your page cannot access. If the hex appears slightly different than your design file double check color profiles in your design app or consider sampling a higher fidelity source image.</p>
+
+<h3>Final thoughts</h3>
+<p>This trick saves time and preserves color accuracy when translating from image to code. It stops the whole guessing game where everyone nods and someone whispers Maybe make it greener. Use the eyedropper and let the pixels do the talking.</p>
+
+<p>Example hex to play with #34A853</p>
+

@@ -1,0 +1,86 @@
+---
+layout: video
+title: "Java Spring Boot AWS Beanstalk Amazon Deployment JAR"
+description: "Build a Spring Boot JAR and deploy to AWS Elastic Beanstalk with Maven and the EB CLI. Practical steps troubleshooting and quick tips."
+video_host: "youtube"
+video_id: "OhVz9KFwg34"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M1S"
+thumbnail_url: "https://i.ytimg.com/vi/OhVz9KFwg34/maxresdefault.jpg"
+content_url: "https://youtu.be/OhVz9KFwg34"
+embed_url: "https://www.youtube.com/embed/OhVz9KFwg34"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - Spring Boot
+  - AWS
+  - Elastic Beanstalk
+  - Beanstalk
+  - JAR
+  - Deployment
+  - EB CLI
+  - Maven
+  - Cloud
+---
+
+<p>Want to push a Spring Boot JAR to the cloud and pretend you know what you are doing? Good news, this is boringly repeatable and only mildly magical. Follow these steps to build an executable JAR with Maven and manage deployments with the EB CLI on AWS Elastic Beanstalk. Keywords you care about include Java Spring Boot AWS Elastic Beanstalk JAR Maven and EB CLI. Yes those were intentional.</p>
+
+<h2>Build the JAR</h2>
+<p>Make a reproducible artifact first. Maven will wrap up your Spring Boot app into an executable JAR if your pom includes the Spring Boot plugin. No mystical incantations required.</p>
+<pre><code>mvn clean package -DskipTests
+# produced file will be in target, for example target/myapp.jar</code></pre>
+<p>Verify the JAR runs locally. If it does not run with java -jar then Elastic Beanstalk will not be thrilled either.</p>
+
+<h2>Initialize Elastic Beanstalk</h2>
+<p>From the project root run the EB CLI setup. It writes config so future deploys are less annoying.</p>
+<pre><code>eb init</code></pre>
+<p>When prompted pick a region and the Java platform. The CLI will create the .elasticbeanstalk directory with the necessary mapping to your AWS account.</p>
+
+<h2>Create environment and deploy</h2>
+<p>Make an environment and push your first version. Beanstalk will provision instances and wire the load balancer, which is honestly the part of cloud that feels like actual magic.</p>
+<pre><code>eb create my-env
+# after packaging again for changes
+mvn clean package -DskipTests
+eb deploy</code></pre>
+<p>For iterative updates simply repackage with Maven and run eb deploy. The platform handles instance lifecycle for you unless you enjoy manual server babysitting.</p>
+
+<h2>Set environment variables and health checks</h2>
+<p>Do not bake secrets into code. Use environment variables for profiles, database hosts, and JVM flags. Use the EB CLI or the AWS console to set these.</p>
+<pre><code>eb setenv SPRING_PROFILES_ACTIVE=prod DB_HOST=db.example.com
+# add JVM settings if you need more heap
+eb setenv JAVA_OPTS='-Xmx512m -XX:+UseG1GC'</code></pre>
+<p>Health checks must match your Spring Boot actuator endpoints. If you use the actuator health endpoint set the Beanstalk health check path to <code>/actuator/health</code> in the environment settings so the load balancer does not keep restarting things that are actually fine.</p>
+
+<h2>Monitor logs and troubleshoot</h2>
+<p>When your app flails use these commands to look at the scene of the crime.</p>
+<pre><code>eb logs
+eb health</code></pre>
+<p>Common fixes include:</p>
+<ul>
+  <li>Increase JVM heap via JAVA_OPTS if you see OutOfMemory errors</li>
+  <li>Make sure the app binds to the port the platform expects by passing the port to Spring Boot</li>
+  <li>Check that the JAR name and path match what the platform will run</li>
+  <li>Inspect the logs for startup exceptions and missing environment variables</li>
+</ul>
+
+<h3>If the platform does not start the JAR as expected</h3>
+<p>Create a Procfile at the project root to explicitly tell Beanstalk how to launch your app. This often saves a lot of guesswork.</p>
+<pre><code>Procfile
+web: java -Dserver.port=$PORT -Xmx512m -jar myapp.jar</code></pre>
+<p>Commit that file before packaging and deploying. Adjust the JVM flags to taste and to the size of your wallet.</p>
+
+<h2>Quick deployment checklist</h2>
+<ul>
+  <li>Confirm Maven produced an executable JAR in target</li>
+  <li>Run eb init and select the Java platform</li>
+  <li>Create environment with eb create and deploy with eb deploy</li>
+  <li>Set SPRING_PROFILES_ACTIVE and any database or JVM variables with eb setenv</li>
+  <li>Point health checks at /actuator/health if you use Spring Boot actuator</li>
+  <li>Use eb logs and eb health to diagnose problems</li>
+</ul>
+
+<p>There you go. You now have a repeatable flow to package a Spring Boot JAR with Maven and manage deployments to AWS Elastic Beanstalk with the EB CLI. It will not be glamorous but it will be reliable which is a solid replacement for glamour in production.</p>
+

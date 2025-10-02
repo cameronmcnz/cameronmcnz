@@ -1,0 +1,68 @@
+---
+layout: video
+title: "networking lab"
+description: "Hands on guide to build a small networking lab for testing routing switching and troubleshooting with virtual devices and lightweight tools"
+video_host: "youtube"
+video_id: "DK0lsvs4f5A"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT12M25S"
+thumbnail_url: "https://i.ytimg.com/vi/DK0lsvs4f5A/maxresdefault.jpg"
+content_url: "https://youtu.be/DK0lsvs4f5A"
+embed_url: "https://www.youtube.com/embed/DK0lsvs4f5A"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - networking
+  - lab
+  - virtualization
+  - routing
+  - switching
+  - troubleshooting
+  - gns3
+  - eve-ng
+  - linux networking
+  - packet tracing
+---
+
+<h2>Welcome to the lab that will not break production</h2>
+<p>So you want a networking lab without spending a mortgage payment or sacrificing a desk to a pile of blinking gear. Good call. This guide walks you from a nap friendly topology to packet tracing and troubleshooting with enough sarcasm to keep you awake. We cover virtualization tools like GNS3 and EVE NG, cheap physical options, basic routing and switching setup, and the packet capture moves that prove to your future self that traffic actually flowed.</p>
+
+<h2>Plan your tiny topology</h2>
+<p>Decide how many routers, switches and hosts you need to meet your learning goals. Keep the design tiny unless you enjoy naps between steps. A solid starter: one subnet, two routers, and a couple of hosts. That lets you practice basic routing, failover, and ACLs without getting lost in a sea of interfaces.</p>
+
+<h2>Choose virtualization or cheap physical gear</h2>
+<p>Virtual labs like GNS3 or EVE NG save desk space, reduce coffee spills, and let you snapshot bad ideas. Physical kit such as inexpensive switches or Raspberry Pi hosts gives real hardware experience and a higher chance of pin pricks. Pick what you will actually use and expand later.</p>
+
+<h2>Addressing and interface setup</h2>
+<p>Use a consistent addressing plan so your brain does not suffer. Small static blocks are fine for learning. Configure interfaces on Linux hosts with commands like this and pretend you knew it all along.</p>
+<pre><code>ip addr add 192.168.1.10/24 dev eth0
+ip link set eth0 up
+</code></pre>
+<p>For routers set interface IPs and keep route next hops clear. Static routes are explicit and predictable. Run a simple routing protocol like OSPF if you want realistic route exchange and a little chaos.</p>
+
+<h2>Routing and switching basics</h2>
+<p>Practice layer 2 basics on virtual or physical switches and verify VLAN tagging if you use it. On routers check routing tables and adjacency. If packets take scenic detours confirm the next hop and metrics to see why the network prefers the scenic route.</p>
+
+<h2>Test connectivity and do packet tracing</h2>
+<p>Use ping traceroute and tcpdump to validate flows. Traceroute shows the path and tcpdump or Wireshark proves which device actually forwarded the packet. Capture like a detective and play it back when something goes bump in the network night.</p>
+<pre><code>ping 192.168.1.1
+traceroute 192.168.1.1
+tcpdump -i eth0 -n -w capture.pcap
+</code></pre>
+
+<h2>Troubleshoot with method and ego control</h2>
+<p>When traffic stalls check interface state, ACLs and routing tables in that order. Verify ARP or neighbor entries on layer 2. Keep a short changelog so you do not repeat the same mistake twice and suffer twice as long. Snapshots for virtual devices are your rollback insurance and dignity saver.</p>
+
+<h3>Quick checklist</h3>
+<ul>
+  <li>Start small then expand</li>
+  <li>Use snapshots for virtual devices</li>
+  <li>Keep addressing consistent</li>
+  <li>Test with ping traceroute and tcpdump</li>
+  <li>Log changes and document results</li>
+</ul>
+
+<p>Follow these steps and you will have a reproducible learning environment for routing, switching, troubleshooting, and packet tracing. You will also gain enough confidence to break things on purpose and then fix them, which is the point of a lab.</p>
+

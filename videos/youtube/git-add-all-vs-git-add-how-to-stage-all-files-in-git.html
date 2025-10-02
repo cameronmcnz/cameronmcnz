@@ -1,0 +1,80 @@
+---
+layout: video
+title: "Git Add All vs Git Add . - How to stage all files in Git"
+description: "Compare git add -A and git add . Learn when to stage new modified and removed files across a repo or inside a subfolder for safer commits."
+video_host: "youtube"
+video_id: "nNgq3wjljjs"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/nNgq3wjljjs/maxresdefault.jpg"
+content_url: "https://youtu.be/nNgq3wjljjs"
+embed_url: "https://www.youtube.com/embed/nNgq3wjljjs"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git add
+  - git add -A
+  - git add .
+  - staging
+  - version control
+  - github
+  - gitlab
+  - devops
+  - python
+---
+
+<p>If you have ever staged a commit and then stared at <code>git status</code> like it betrayed you trust me you are not alone. The difference between <code>git add -A</code> and <code>git add .</code> is small in wording and dramatic in consequences. One looks at the whole working tree and the other mindfully ignores whatever is outside your current folder.</p>
+
+<h2>Quick overview</h2>
+<p>Here is the cliff notes version for the people who like living dangerously but not permanently.</p>
+<ul>
+  <li><strong><code>git add -A</code></strong> updates the index across the entire repository. New files modified files and deletions anywhere in the repo get staged.</li>
+  <li><strong><code>git add .</code></strong> updates the index for the current directory and its subdirectories. Changes outside the current path are ignored.</li>
+  <li><strong><code>git add -u</code></strong> updates tracked files only. No new files are added but deletions and modifications to tracked files are staged.</li>
+</ul>
+
+<h2>Why this actually matters</h2>
+<p>Run the command from the project root and both commands behave similarly for most casual use. Run it from a nested folder and suddenly a deletion elsewhere in the project will sneak into your commit if you used <code>-A</code>. That has ruined more commits than any single keyboard shortcut deserves.</p>
+
+<h3>Real world examples</h3>
+<pre><code># Stage everything across the repo
+git add -A
+
+# Stage only the current folder and below
+git add .
+
+# Update tracked files only without adding new files
+git add -u
+
+# Check before you wreck yourself
+git status
+</code></pre>
+
+<h2>Practical advice for sane devs</h2>
+<p>If you are cleaning up deleted files or want your index to match the entire working tree pick <code>git add -A</code>. If you are focused on one subfolder maybe a Python package or a small feature in a monorepo and want to avoid unrelated deletions use <code>git add .</code>. If you only want to update tracked files choose <code>git add -u</code>.</p>
+
+<ul>
+  <li>Use <code>git status</code> before staging to preview what will change</li>
+  <li>Run a small test commit if you are unsure and then amend if needed</li>
+  <li>For CI pipelines on GitHub or GitLab prefer explicit paths so you do not accidentally include unrelated changes</li>
+</ul>
+
+<h2>Tips for teams and devops</h2>
+<p>In team settings set clear conventions. Ask yourself what your repo layout is like. Monorepos often benefit from path based staging to keep commits focused. Smaller repos might prefer the global approach to avoid orphaned deletions.</p>
+
+<h3>Quick workflow checklist</h3>
+<ul>
+  <li>Run <code>git status</code></li>
+  <li>Decide scope for the commit</li>
+  <li>Use <code>git add .</code> for local folder work or <code>git add -A</code> for repo wide changes</li>
+  <li>Use <code>git add -u</code> when you only want to update tracked files</li>
+  <li>Review with <code>git diff --staged</code> if you enjoy pain free commits</li>
+</ul>
+
+<p>Follow these and you will avoid committing deletions from the other side of the repo. You will also be a little less tempted to blame your tools the next time something vanishes. Bonus points if you add the habit of checking pull requests on GitHub or GitLab before merging. That is responsible devops behavior and also useful for pretending you always knew what you were doing.</p>
+
+<p>Short recap The global option covers the whole working tree while the path based option respects current directory boundaries. Pick the one that matches your scope for the next commit and use <code>git status</code> to avoid surprises.</p>
+

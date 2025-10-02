@@ -1,0 +1,108 @@
+---
+layout: video
+title: "Spring Boot Actuator Crash Course"
+description: "Learn how to add configure and use Spring Boot Actuator for monitoring metrics health and management of a Spring Boot application"
+video_host: "youtube"
+video_id: "RSchnSRHWN0"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT26M30S"
+thumbnail_url: "https://i.ytimg.com/vi/RSchnSRHWN0/maxresdefault.jpg"
+content_url: "https://youtu.be/RSchnSRHWN0"
+embed_url: "https://www.youtube.com/embed/RSchnSRHWN0"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot Actuator
+  - Spring Boot
+  - Actuator
+  - Monitoring
+  - Metrics
+  - Health Check
+  - Micrometer
+  - Java
+  - DevOps
+  - Observability
+---
+
+<article>
+  <p>If your app is a ticking time bomb you can at least make the countdown less mysterious. This guide walks through adding Spring Boot Actuator to your Java service so you can see what is actually broken when the pager goes off. No fluff, some snark, and real steps for monitoring, metrics, and health checks with Micrometer and Prometheus.</p>
+
+  <h2>Why use Actuator at all</h2>
+  <p>Actuator gives you endpoints for health status, metrics, and other operational data for Spring Boot applications. That means fewer blind guesses during incidents and more evidence to blame the database or the intern who changed the config last week.</p>
+
+  <h2>Add the Actuator dependency</h2>
+  <p>Include the Spring Boot Actuator starter in your build. For Gradle use the implementation line and for Maven add the starter dependency. This is the tiny change that buys you a dashboard and less chaos.</p>
+
+  <h3>Gradle example</h3>
+  <pre><code>implementation 'org.springframework.boot:spring-boot-starter-actuator'</code></pre>
+
+  <h3>Maven example</h3>
+  <pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+
+  <h2>Expose and configure endpoints</h2>
+  <p>By default only a few actuator endpoints are visible. Use properties to control what you expose. Keep admin level surfaces off the public internet unless you enjoy surprises.</p>
+
+  <pre><code>management.endpoints.web.exposure.include=health,info,metrics
+management.endpoints.web.base-path=/actuator</code></pre>
+
+  <p>If you want an extra safety layer run the management endpoints on a separate port. That gives firewalls and routing one more chance to save the day.</p>
+
+  <pre><code>management.server.port=9090</code></pre>
+
+  <h2>Secure sensitive endpoints</h2>
+  <p>Protect management endpoints with Spring Security or network isolation. Role based access control is the grown up way to avoid accidental prod surgery. If you leave health or metrics open you might get useful info but also an easy target for weird bots.</p>
+
+  <h2>Metrics with Micrometer and Prometheus</h2>
+  <p>Bring in a metrics registry and let Micrometer do the heavy lifting. Prometheus can scrape the app once you add the registry. That gives you time series data and the ability to graph the slow creeping death of one microservice.</p>
+
+  <pre><code>implementation 'io.micrometer:micrometer-registry-prometheus'</code></pre>
+
+  <p>With this in place the /actuator/metrics endpoint will report JVM, HTTP, and custom meters. Connect a long term storage and you can finally answer questions like why CPU spikes at 3am.</p>
+
+  <h2>Custom health indicators</h2>
+  <p>Sometimes the built in health checks are not enough. Make a small component that implements HealthIndicator to express your own checks. Keep it fast and deterministic so the health endpoint does not itself become a problem.</p>
+
+  <pre><code>import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ExternalServiceHealth implements HealthIndicator {
+  @Override
+  public Health health() {
+    boolean ok = checkDependency();
+    if (ok) {
+      return Health.up().withDetail("externalService", "reachable").build();
+    }
+    return Health.down().withDetail("externalService", "unreachable").build();
+  }
+
+  private boolean checkDependency() {
+    // small network call or quick check
+    return true;
+  }
+}</code></pre>
+
+  <h2>Querying endpoints and integrating with monitoring</h2>
+  <p>Use curl for quick checks or let your monitoring system poll endpoints. Common endpoints are /actuator/health and /actuator/metrics. If you added the Prometheus registry point Prometheus to the metrics scrape path and let it collect data over time.</p>
+
+  <pre><code>curl http://localhost:8080/actuator/health
+curl http://localhost:8080/actuator/metrics</code></pre>
+
+  <h2>Operational tips you will thank yourself for later</h2>
+  <ul>
+    <li>Run management endpoints on a separate port for extra safety and routing control.</li>
+    <li>Use role based access for admin level actions and sensitive endpoints.</li>
+    <li>Connect a Prometheus registry and a durable storage so metrics outlive process restarts.</li>
+    <li>Keep custom health checks fast. A slow check makes the health endpoint useless when you need it most.</li>
+  </ul>
+
+  <h2>Wrap up</h2>
+  <p>Spring Boot Actuator with Micrometer gives you a sane view into your application's health and behavior. Add the starter, expose only what you need, secure the admin surfaces, register a metrics registry, and write prudent custom health indicators. The result is fewer surprises during incidents and just enough pride when dashboards are green and the oncall phone stays quiet.</p>
+</article>
+

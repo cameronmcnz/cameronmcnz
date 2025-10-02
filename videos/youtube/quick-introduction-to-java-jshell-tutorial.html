@@ -1,0 +1,78 @@
+---
+layout: video
+title: "Quick Introduction to Java JShell Tutorial"
+description: "Learn Java JShell basics fast with commands examples and tips for interactive Java REPL use"
+video_host: "youtube"
+video_id: "mMnWwlIXLIY"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M29S"
+thumbnail_url: "https://i.ytimg.com/vi/mMnWwlIXLIY/maxresdefault.jpg"
+content_url: "https://youtu.be/mMnWwlIXLIY"
+embed_url: "https://www.youtube.com/embed/mMnWwlIXLIY"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - JShell
+  - REPL
+  - Java Tutorial
+  - Interactive Java
+  - Programming
+  - Java Tips
+  - Code Snippets
+  - Developer Tools
+  - Quick Start
+---
+
+<h2>Why bother with JShell</h2>
+<p>JShell is the Java REPL that saves you from endless builds and gentle code despair. If you want to try an idea, verify a library call, or debug a tiny behavior without opening a full project you are in the right place. This guide shows the quick commands and habits that make interactive Java tolerable and even kind of fun.</p>
+
+<h2>Start JShell and run something right away</h2>
+<p>Open a terminal and type <code>jshell</code>. The prompt accepts expressions and declarations straight away so you can skip the compile run loop. It is like fast food for code but healthier.</p>
+<pre><code>jshell
+jshell> 3 + 4
+jshell> Math.sqrt(16)
+</code></pre>
+<p>Results appear immediately so you can confirm behavior without launching an IDE or a build.</p>
+
+<h2>Declare variables and small snippets</h2>
+<p>Keep snippets short and focused. JShell lets you declare variables and test code fragments in the same session. This is perfect for experimenting with APIs or checking edge cases.</p>
+<pre><code>jshell> int x = 5
+jshell> String s = "hello"
+jshell> var list = java.util.List.of(1, 2, 3)
+</code></pre>
+<p>Use these tiny experiments to narrow down problems before you paste working code into your project.</p>
+
+<h2>Save your work and reload later</h2>
+<p>When a session becomes useful save it so you do not lose your best half baked ideas. Use the built in commands to persist and restore snippets.</p>
+<ul>
+  <li><code>/save demo.jsh</code> saves the current session to a file</li>
+  <li><code>/open demo.jsh</code> loads saved snippets in a new session</li>
+  <li><code>/exit</code> ends the REPL session when you are done</li>
+</ul>
+
+<h2>Commands that are actually useful</h2>
+<p>JShell has a few commands that will keep your session readable and less chaotic. Run them like a responsible developer who has seen at least one production outage.</p>
+<ul>
+  <li><code>/vars</code> lists declared variables so you can find that one you forgot you made</li>
+  <li><code>/list</code> shows all snippets in the current session</li>
+  <li>Break a failing test into smaller bits to isolate the problem faster</li>
+</ul>
+
+<h2>Integrate JShell into your dev loop</h2>
+<p>Use JShell for prototyping algorithm ideas, validating API calls, and reproducing bugs in tiny, controlled snippets. When something works in the REPL copy the minimal, tested code into your project. This reduces wasted build time and keeps your main codebase less messy.</p>
+
+<h3>Quick workflow</h3>
+<ol>
+  <li>Start JShell and confirm a behavior with a simple expression</li>
+  <li>Declare minimal variables and test edge cases</li>
+  <li>Save the session when it becomes useful</li>
+  <li>Paste the tested snippet into your project and write proper tests</li>
+</ol>
+
+<h2>Parting wisdom</h2>
+<p>JShell is not a replacement for tests or code reviews. It is a fast playground that helps you validate ideas, find bugs, and iterate quickly. Treat it like a lab where you run experiments before committing to the main codebase. And yes you can enjoy writing Java again for short periods.</p>
+<p>If you are the kind of developer who likes instant feedback and fewer rebuilds JShell will be your new tiny obsession.</p>
+

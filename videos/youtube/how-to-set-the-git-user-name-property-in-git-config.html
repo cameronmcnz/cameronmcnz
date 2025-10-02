@@ -1,0 +1,63 @@
+---
+layout: video
+title: "How to set the Git user.name Property in Git Config"
+description: "Quick guide to set Git user.name with git config for global and local repos and verify commit author"
+video_host: "youtube"
+video_id: "GYw7-Ld8lns"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT3M46S"
+thumbnail_url: "https://i.ytimg.com/vi/GYw7-Ld8lns/maxresdefault.jpg"
+content_url: "https://youtu.be/GYw7-Ld8lns"
+embed_url: "https://www.youtube.com/embed/GYw7-Ld8lns"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git config
+  - user.name
+  - set git user
+  - git tutorial
+  - git username
+  - global config
+  - local config
+  - git commands
+  - version control
+---
+
+<p>So your commits are being blamed on Mystery Person again. Fixing the git username is the kind of small adulting task that saves future you from awkward blame and frantic Slack messages. This guide shows how to check the current author, set a global git username, override it per repo, and verify the result using simple git commands.</p>
+
+<h2>Check the current name</h2>
+<p>Before you start meddling with config files just peek at what Git thinks your name is. Run this to see everything that matters in one list</p>
+<pre><code>git config --list</code></pre>
+<p>For a focused check run this inside a repository to see the value that actually applies there</p>
+<pre><code>git config user.name</code></pre>
+<p>That local value is what Git will use for commits in that repository. If nothing is set locally Git falls back to global config or system config if present.</p>
+
+<h2>Set a global name to save time</h2>
+<p>If most of your work uses the same identity set a global name so you do not have to repeat yourself across projects. This writes to your global config file</p>
+<pre><code>git config --global user.name 'Your Name'</code></pre>
+<p>Use single quotes in a shell if your name has spaces. This is the tidy option for daily work and keeps knots out of the commit history.</p>
+
+<h2>Set a local name for special cases</h2>
+<p>Want a different author for one repository because you are moonlighting or doing experiment cleanup Use a local config in that repo and it will take precedence over the global setting</p>
+<pre><code>cd path/to/repo
+git config user.name 'Repository Name'</code></pre>
+
+<h2>Verify what Git will actually use</h2>
+<p>Check the global and local user.name values independently</p>
+<pre><code>git config --global user.name
+git config user.name</code></pre>
+<p>To see the author recorded on the last commit run this</p>
+<pre><code>git log -1 --pretty=format:%an</code></pre>
+
+<h3>Quick tips for less drama</h3>
+<ul>
+  <li>Set user.email together with user.name to avoid anonymous commits</li>
+  <li>Use global config for your day job and local config for side projects or shared machines</li>
+  <li>If you used the wrong author on a commit you can rewrite history with amend or rebase but be careful about force pushing and upsetting collaborators</li>
+</ul>
+
+<p>There you go. A few git config commands and your future self will no longer have to explain why commits come from an enigmatic alias. Now go on and make your commit history slightly less mysterious.</p>
+

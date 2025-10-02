@@ -1,0 +1,70 @@
+---
+layout: video
+title: "What's the difference between Spring Boot and Spring MVC?"
+description: "Clear comparison of Spring Boot and Spring MVC with use cases setup differences and when to pick each framework for Java web projects."
+video_host: "youtube"
+video_id: "r3id0xN8gqo"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M45S"
+thumbnail_url: "https://i.ytimg.com/vi/r3id0xN8gqo/maxresdefault.jpg"
+content_url: "https://youtu.be/r3id0xN8gqo"
+embed_url: "https://www.youtube.com/embed/r3id0xN8gqo"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring Boot
+  - Spring MVC
+  - Java
+  - Spring Framework
+  - Web Development
+  - Microservices
+  - Auto Configuration
+  - Embedded Server
+  - REST API
+  - Starter Dependencies
+---
+
+<h2>Quick summary you can skim while pretending to work</h2>
+<p>Spring Boot bundles opinionated auto configuration and operational niceties so you can run a standalone Java app with minimal fuss. Spring MVC is the focused web framework inside the broader Spring Framework that handles controllers request mapping and view resolution. One gives you a ready to run app with an embedded server and starter dependencies. The other asks you to manage dependencies and the servlet container like a responsible adult.</p>
+
+<h2>Core differences explained in plain English</h2>
+<p>Yes this is the part where we compare features like a dating app for frameworks. Both live in the Spring ecosystem and both play nice together, but they have different attitudes.</p>
+<ul>
+  <li><strong>Scope</strong> Spring MVC is the web layer expert. It cares about controllers views and routing. Spring Boot packages whole ecosystems and third party libraries into a runnable application so you can focus on shipping features.</li>
+  <li><strong>Auto configuration</strong> Spring Boot brings opinionated auto configuration and starter dependencies so boilerplate shrinks. Spring MVC leaves configuration in your hands which is great if you like control or debugging mysteries.</li>
+  <li><strong>Packaging and runtime</strong> Classic Spring MVC apps often become WAR files deployed to external servlet containers. Spring Boot typically produces executable jars that run with an embedded server with a single command like <code>java -jar app.jar</code>.</li>
+  <li><strong>Operational features</strong> Spring Boot adds health checks metrics and logging support out of the box which is a gift when you run microservices or REST API backends in production.</li>
+</ul>
+
+<h2>Setup and developer experience</h2>
+<p>If you enjoy editing XML and explaining dependency chains to coworkers then Spring MVC will feel familiar. If you prefer opening one starter dependency and being instantly productive then Spring Boot will make your day and maybe your week.</p>
+<ul>
+  <li>Spring MVC needs explicit dependency and server configuration when deploying to a servlet container.</li>
+  <li>Spring Boot uses starter dependencies and auto configuration to reduce wiring and setup time.</li>
+</ul>
+
+<h2>When to choose Spring Boot</h2>
+<p>Pick Spring Boot when speed matters and you want production ready defaults. It is perfect for microservices REST API projects prototypes and teams that want health checks metrics and centralized logging without a ton of manual setup.</p>
+
+<h2>When to stick with Spring MVC</h2>
+<p>Stick with Spring MVC when you need fine grain control over the web layer or when you must deploy to a shared servlet container managed by operations. Older enterprise apps and certain integration scenarios benefit from the explicit configuration model.</p>
+
+<h3>Learning curve and trade offs</h3>
+<p>Spring MVC teaches the plumbing which helps when you need to debug the internals. Spring Boot abstracts many of those details and gets developers productive fast but that means some internals are hidden until you need them.</p>
+
+<h2>Practical migration checklist</h2>
+<p>If you have a Spring MVC module and want the Boot life here is a pragmatic path that actually works.</p>
+<ul>
+  <li>Add Spring Boot starter dependencies to replace individual libraries.</li>
+  <li>Change packaging from WAR to an executable jar and include the embedded server dependency.</li>
+  <li>Remove redundant configuration and rely on auto configuration where sensible.</li>
+  <li>Configure health checks logging and metrics through Spring Boot actuator and logging starters.</li>
+  <li>Test deployment and startup with <code>java -jar app.jar</code> and keep an eye on any container specific customizations you might have lost.</li>
+</ul>
+
+<h2>Final recommendation that will make your boss happy</h2>
+<p>Start with Spring Boot when you want to move fast build microservices or ship a REST API with minimal ceremony. Keep Spring MVC style patterns when you need low level control or must fit into an existing servlet container. They are not enemies. Use Spring Boot for most greenfield Java web development and borrow MVC techniques when you need precision.</p>
+<p>Now go build something useful and try not to break production on your first deploy.</p>
+

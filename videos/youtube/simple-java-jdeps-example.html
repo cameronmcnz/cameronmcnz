@@ -1,0 +1,67 @@
+---
+layout: video
+title: "Simple Java JDeps Example"
+description: "Quick guide to using jdeps for Java dependency analysis with simple commands and tips for interpreting output"
+video_host: "youtube"
+video_id: "iqzEPE7DWNE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M8S"
+thumbnail_url: "https://i.ytimg.com/vi/iqzEPE7DWNE/maxresdefault.jpg"
+content_url: "https://youtu.be/iqzEPE7DWNE"
+embed_url: "https://www.youtube.com/embed/iqzEPE7DWNE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - jdeps
+  - dependency analysis
+  - jar
+  - module
+  - Graphviz
+  - classpath
+  - static analysis
+  - build tools
+  - code maintenance
+---
+
+<p>If your Java project hides surprise dependencies like a raccoon in the attic then jdeps is the flashlight you need. This guide walks through using jdeps for dependency analysis on jars and modules while giving you a few sarcastic comments to keep things lively. Expect clear reports useful for build tools and ongoing code maintenance.</p>
+
+<h2>Pick a target and run a quick scan</h2>
+<p>Start by pointing jdeps at the artifact that is acting suspiciously. You can inspect a full jar or a single class if you want a surgical look. For a compact summary run a minimal command for a fast read on package level coupling.</p>
+<pre><code>jdeps -s myapp.jar</code></pre>
+<p>The summary output highlights package to package dependencies which is the prime place to spot unwanted third party or platform references.</p>
+
+<h2>Read the report and hunt for surprises</h2>
+<p>Look for unexpected links to platform modules or external libraries. Those are the lines that will bite you during upgrades or when you try to modularize the app. If you see deprecated or platform modules that you did not intend to use log them as tech debt items and investigate the classes that cause the reference.</p>
+
+<h3>Use targeted scans when you do not want to pull an entire jar</h3>
+<ul>
+  <li>Check a single class file when chasing a particular runtime feature</li>
+  <li>Run jdeps on specific packages to narrow noise</li>
+  <li>Repeat scans after changing classpath entries to confirm fixes</li>
+</ul>
+
+<h2>Generate graphs for visual inspection</h2>
+<p>When words fail use pictures. Export dot files for Graphviz and make a pretty map that you can pin to the wall or drop in a PR to freak out teammates.</p>
+<pre><code>jdeps -dotoutput graphs myapp.jar
+# then render with Graphviz
+# dot -Tpng graphs/module-deps.dot -o module-deps.png</code></pre>
+<p>Visual maps help spot cycles and heavy coupling at a glance which is perfect when you are planning module boundaries or refactors.</p>
+
+<h2>Refine results by giving jdeps the right classpath or module path</h2>
+<p>False positives happen when jdeps cannot see all required classes. Tell it where external jars live to clean up the report. For example:</p>
+<pre><code>jdeps -classpath lib/* myapp.jar</code></pre>
+<p>For modular projects use the module path option that matches your build tool setup. Accurate inputs equal trustworthy output.</p>
+
+<h2>Integration and maintenance tips</h2>
+<ul>
+  <li>Run jdeps as part of CI as a static analysis gate to catch new dependency surprises</li>
+  <li>Store generated dot output for historical comparison when you refactor</li>
+  <li>Use the summary flag in automated reports for quick human review</li>
+  <li>Combine jdeps findings with your build tools when planning modularization</li>
+</ul>
+
+<p>jdeps does the heavy lifting for static dependency analysis so you can spend less time guessing and more time fixing. Run targeted scans when you chase a nasty dependency and use Graphviz to make a dependency map that actually helps. Now go find that sneaky transitive jar and pretend it never happened.
+

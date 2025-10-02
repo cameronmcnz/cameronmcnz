@@ -1,0 +1,85 @@
+---
+layout: video
+title: "How to use Apache Struts interceptors tutorial"
+description: "Compact tutorial on Apache Struts interceptors covering config custom interceptor creation and testing for request preprocessing and postprocessing"
+video_host: "youtube"
+video_id: "AS_tLUyTrwg"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT6M53S"
+thumbnail_url: "https://i.ytimg.com/vi/AS_tLUyTrwg/maxresdefault.jpg"
+content_url: "https://youtu.be/AS_tLUyTrwg"
+embed_url: "https://www.youtube.com/embed/AS_tLUyTrwg"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Apache Struts
+  - Struts2
+  - interceptors
+  - Java web
+  - struts.xml
+  - custom interceptor
+  - action
+  - request preprocessing
+  - MVC
+  - tutorial
+---
+
+<h2>Intro</h2>
+<p>If your Java web app is a messy party where every action repeats the same small talk then interceptors are the bouncers you need. Apache Struts interceptors let you run common logic around action execution so you do not paste the same code into every class. This short tutorial covers purpose configuration a custom interceptor and how to attach and test it in a Struts2 MVC setup.</p>
+
+<h2>What interceptors actually do</h2>
+<p>Interceptors wrap action execution to handle cross cutting concerns like authentication logging timing and request preprocessing and postprocessing. Think request goes in then interceptors get to peek adjust or veto things before your action runs and then they can inspect or transform the response after the action returns.</p>
+
+<h2>Configure interceptors in struts.xml</h2>
+<p>In struts.xml you declare interceptor entries and interceptor stacks then reference a stack from an action or a package. The order you list interceptors is the order they run before the action and the reverse order after the action completes. A minimal configuration looks like this example.</p>
+<pre><code>&lt;struts&gt;
+  &lt;package name="default" namespace="/" extends="struts-default"&gt;
+    &lt;interceptor name="logging" class="com.example.LoggingInterceptor" /&gt;
+    &lt;interceptor-stack name="customStack"&gt;
+      &lt;interceptor-ref name="logging" /&gt;
+      &lt;interceptor-ref name="defaultStack" /&gt;
+    &lt;/interceptor-stack&gt;
+
+    &lt;action name="hello" class="com.example.HelloAction"&gt;
+      &lt;result&gt;hello.jsp&lt;/result&gt;
+    &lt;/action&gt;
+  &lt;/package&gt;
+&lt;/struts&gt;</code></pre>
+
+<h2>Implement a custom interceptor</h2>
+<p>For a custom interceptor extend com.opensymphony.xwork2.interceptor.AbstractInterceptor or implement the Interceptor interface. Override the intercept method and be polite about continuing the chain by calling invocation.invoke() when you want the action to run. Manage resources handle exceptions and avoid swallowing failures like a code kamikaze.</p>
+
+<h3>Example behavior to implement</h3>
+<ul>
+  <li>Do quick checks before the action runs for authentication or parameter normalization</li>
+  <li>Call invocation.invoke() to let the next interceptor or the action run</li>
+  <li>Inspect the result after invocation.invoke and perform logging timing or response transformation</li>
+</ul>
+
+<h2>Attach interceptors to actions or packages</h2>
+<p>You can apply an interceptor stack to a single action or to a package so many actions inherit it. Use include and exclude patterns when you want certain actions to skip the logic. This prevents surprising side effects when multiple stacks are combined.</p>
+
+<h2>Test and debug interceptor flow</h2>
+<p>Run the app and trace logs to verify pre processing and post processing stages. Typical failure modes are wrong class names missing mapping and forgetting invocation.invoke. If the debugger feels cooperative set breakpoints inside your intercept method and step through the chain. Logging entry and exit points is a small investment that pays in debugging time saved.</p>
+
+<h2>Common gotchas</h2>
+<ul>
+  <li>Order matters. The stack order controls both pre and post processing flow</li>
+  <li>Keep interceptors single purpose and small. Smaller spies are easier to reason about</li>
+  <li>A global interceptor for sensitive checks can be surprising. Prefer explicit checks where needed</li>
+  <li>Remember to clean up resources and to catch and rethrow or handle exceptions properly</li>
+</ul>
+
+<h2>Quick checklist before you push</h2>
+<ul>
+  <li>Declared interceptor entries in struts.xml</li>
+  <li>Added interceptor stack and referenced it from actions or packages</li>
+  <li>Implemented intercept method and called invocation.invoke()</li>
+  <li>Tested with logs and breakpoints to confirm both pre and post behavior</li>
+</ul>
+
+<h2>Summary</h2>
+<p>Interceptors in Struts2 give you a clean place for request preprocessing and postprocessing so your actions do what they were meant to do without boilerplate code. Configure stacks in struts.xml implement a small focused custom interceptor and attach it to the right actions. Follow the checklist above and your Java web app will behave more predictably and you will spend less time fixing duplicated code and more time doing things that actually matter.</p>
+

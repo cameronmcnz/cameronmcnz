@@ -1,0 +1,76 @@
+---
+layout: video
+title: "How to Push an Existing Project to GitLab"
+description: "Step by step guide to push an existing local project to GitLab using remote setup SSH or HTTPS and branch configuration"
+video_host: "youtube"
+video_id: "OfAl6R6zExU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT19M14S"
+thumbnail_url: "https://i.ytimg.com/vi/OfAl6R6zExU/maxresdefault.jpg"
+content_url: "https://youtu.be/OfAl6R6zExU"
+embed_url: "https://www.youtube.com/embed/OfAl6R6zExU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - gitlab
+  - git
+  - push
+  - git remote
+  - ssh keys
+  - personal access token
+  - git tutorial
+  - version control
+  - git cli
+  - repository management
+---
+
+<p>So you built something locally and now you want to shove it up to GitLab where other humans can stare at your code. This guide will get your repo initialized linked to a remote and authenticated so pushes do not fail in dramatic ways.</p>
+
+<h2>Prepare the local repository</h2>
+
+<h3>Initialize and commit</h3>
+<p>If your folder is not a git repo yet start it. Keep a sensible .gitignore so secrets do not go viral.</p>
+<pre><code>git init
+git add .
+git commit -m "Initial commit"
+</code></pre>
+
+<h3>Check the basics</h3>
+<p>Make sure your branch name is what you expect. Many repos use main now but your project might still use master or something quirky.</p>
+
+<h2>Create a project on GitLab and copy the remote URL</h2>
+<p>On the GitLab web interface create a new project. Copy the remote URL that GitLab shows under repository settings. Do not type that long string by hand unless you enjoy debugging typos at 2 a m.</p>
+
+<h2>Add the remote and push a branch</h2>
+<p>Link your local repo to the GitLab remote using a placeholder instead of an actual URL when documenting steps.</p>
+<pre><code>git remote add origin GITLAB_REMOTE_URL
+git push -u origin main
+</code></pre>
+<p>The -u flag sets the upstream so future pushes are simpler and less likely to trigger a panic.</p>
+
+<h2>Authentication options</h2>
+
+<h3>SSH keys</h3>
+<p>SSH keys are the convenient and secure option. Generate a key pair and paste the public key into your GitLab profile under SSH keys.</p>
+<pre><code>ssh-keygen -t ed25519 -C "your@example.com"
+# then copy the public key file and paste it into GitLab
+</code></pre>
+<p>Test the connection with a simple fetch or an ssh test command to verify GitLab recognizes your key.</p>
+
+<h3>Personal access token</h3>
+<p>If you prefer HTTPS or need CI friendly credentials create a personal access token in GitLab with repository scopes. Use that token as the password when git prompts you, or configure a credential helper to cache it so you do not paste it every time.</p>
+<pre><code>git config --global credential.helper cache
+# when prompted for a password while using an HTTPS remote provide your personal access token
+</code></pre>
+
+<h2>Verify the remote and manage branches</h2>
+<ul>
+<li>Confirm the remote URL with <code>git remote -v</code>.</li>
+<li>See all branches with <code>git branch -a</code>.</li>
+<li>Push other branches with <code>git push -u origin branch-name</code>.</li>
+</ul>
+
+<p>You now know how to initialize a repo add a GitLab remote configure authentication and push branches without summoning the ancient error messages. Go forth and commit with slightly more confidence and slightly less regret.</p>
+

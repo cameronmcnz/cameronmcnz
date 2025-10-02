@@ -1,0 +1,86 @@
+---
+layout: video
+title: "Map Domain to GitHub Pages with GoDaddy"
+description: "Quick guide to point a GoDaddy domain to a GitHub Pages site using DNS records for free hosting and HTTPS"
+video_host: "youtube"
+video_id: "Rt769w5EnCE"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/Rt769w5EnCE/maxresdefault.jpg"
+content_url: "https://youtu.be/Rt769w5EnCE"
+embed_url: "https://www.youtube.com/embed/Rt769w5EnCE"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - GitHub Pages
+  - GoDaddy
+  - Custom Domain
+  - DNS
+  - A record
+  - CNAME
+  - Web Hosting
+  - Tutorial
+  - SSL
+  - Domain Mapping
+---
+
+<article>
+  <h2>Why bother mapping a domain to GitHub Pages</h2>
+  <p>Because username.github.io is fine for hobby projects but not great for looking professional or less like a student who learned HTML yesterday. Pointing your GoDaddy domain to GitHub Pages gets you free hosting, automatic SSL, and less explaining to clients who ask if your site is safe to visit.</p>
+
+  <h2>What you need before you start</h2>
+  <ul>
+    <li>A GoDaddy account with the domain in your control</li>
+    <li>A GitHub repository serving a Pages site that works at username.github.io</li>
+    <li>Access to the repository settings or the ability to add a CNAME file</li>
+    <li>Patience because DNS can be slow and petty</li>
+  </ul>
+
+  <h2>Prepare the GitHub Pages repo</h2>
+  <p>Pick the repo and branch that will serve the site from the Pages settings, or create a CNAME file at the repo root with your full domain, for example example.com. The CNAME tells GitHub which repo owns the domain. Confirm your site is live at the default username.github.io address before touching DNS.</p>
+
+  <h2>Choose the right DNS records for your domain</h2>
+  <p>If you want the root domain, also called the apex domain, you will create A records. For a www subdomain you will create a CNAME record that points www to username.github.io.</p>
+  <h3>Apex domain A records</h3>
+  <p>Add these four A records in GoDaddy DNS for the root domain. Use one record per IP with the host set to @</p>
+  <pre><code>185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153</code></pre>
+  <h3>www subdomain CNAME</h3>
+  <p>If you prefer www, add a CNAME for host www and point it to username.github.io where username is your GitHub account or organization name. That keeps the www traffic routed to GitHub Pages correctly.</p>
+
+  <h2>Update DNS in GoDaddy</h2>
+  <p>Log into GoDaddy and open the domain manager, then edit DNS records. Remove or replace any conflicting A or CNAME records for the same host to avoid DNS drama. While testing set a low TTL so changes show up faster, then raise it back to normal after everything is stable.</p>
+  <ul>
+    <li>Replace old A records for the root if they point to something else</li>
+    <li>Remove any duplicate records that will cause unexpected behavior</li>
+    <li>Save changes and do a small victory dance</li>
+  </ul>
+
+  <h2>Wait for DNS propagation and enable HTTPS</h2>
+  <p>DNS propagation can take minutes or a few hours depending on caches. Once your domain resolves to GitHub Pages open the repository settings and enable HTTPS. GitHub will request and install a certificate automatically when DNS is correct.</p>
+  <p>After the certificate appears turn on enforce HTTPS in the Pages settings so visitors always land on the secure version.</p>
+
+  <h2>Troubleshooting tips that actually help</h2>
+  <ul>
+    <li>If the site shows an error, double check that the CNAME file has exactly the domain and no extra whitespace</li>
+    <li>Use dig or nslookup to verify DNS records from different locations, for example dig example.com or dig www.example.com</li>
+    <li>If the certificate does not provision, wait and then verify DNS is correct. GitHub needs to see the right records publicly before it will issue SSL</li>
+    <li>Make sure you do not have an A record and a CNAME for the same host, that is an instant conflict</li>
+  </ul>
+
+  <h2>Final checklist</h2>
+  <ul>
+    <li>Repo serves site at username.github.io</li>
+    <li>CNAME file or custom domain set in repo settings with your domain</li>
+    <li>A records for apex domain pointing to GitHub Pages IPs or CNAME for www to username.github.io</li>
+    <li>DNS changes saved in GoDaddy and propagated</li>
+    <li>HTTPS enabled and enforce HTTPS turned on</li>
+  </ul>
+
+  <p>Follow these steps and your GoDaddy domain should be mapped to GitHub Pages with a shiny SSL certificate applied. If something breaks, blame DNS caching and then check the records again.</p>
+</article>
+

@@ -1,0 +1,96 @@
+---
+layout: video
+title: "Setup an Apache Load Balancer Example"
+description: "Compact guide to configure an Apache load balancer using mod proxy modules with commands testing tips and monitoring advice"
+video_host: "youtube"
+video_id: "gQuCBLxwNVQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT7M58S"
+thumbnail_url: "https://i.ytimg.com/vi/gQuCBLxwNVQ/maxresdefault.jpg"
+content_url: "https://youtu.be/gQuCBLxwNVQ"
+embed_url: "https://www.youtube.com/embed/gQuCBLxwNVQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Apache
+  - Load Balancer
+  - mod_proxy
+  - mod_proxy_balancer
+  - Reverse Proxy
+  - ProxyPass
+  - High Availability
+  - Web Server
+  - Tutorial
+  - Linux
+---
+
+<h2>What this is and why you should care</h2>
+<p>If your web server setup melts under traffic like a popsicle at a barbecue you need a load balancer. This guide shows how to use Apache with mod_proxy and mod_proxy_balancer to distribute HTTP requests across multiple backends. It is a Linux friendly tutorial that keeps things real and keeps your users from seeing 502 errors at midnight.</p>
+
+<h2>Quick checklist before you start</h2>
+<ul>
+  <li>At least two backend web servers running a simple app or static files</li>
+  <li>Distinct hostnames or ports for each backend so the balancer can target them</li>
+  <li>Root or sudo access on the Apache host</li>
+</ul>
+
+<h2>Prepare the backend servers</h2>
+<p>On each backend install a light web service and confirm it responds with curl or a browser. Use different ports or hostnames so you can prove traffic actually moves around. Example test command on each backend</p>
+<pre><code>curl -sS http://backend1.example.com:8080/health</code></pre>
+<p>If that returns status or HTML you are good to go. If not then fix the app before you try to balance traffic. This step is faster than drama.</p>
+
+<h2>Enable the required Apache modules</h2>
+<p>Run the a2enmod command to turn on the proxy and balancer pieces. On Debian or Ubuntu do this with sudo and then restart Apache to apply the change.</p>
+<pre><code>sudo a2enmod proxy proxy_balancer proxy_http lbmethod_byrequests
+sudo systemctl restart apache2</code></pre>
+<p>That enables mod_proxy and mod_proxy_balancer plus the HTTP proxy and a simple load method. No magic required just a bit of patience and sudo.</p>
+
+<h2>Create the balancer configuration</h2>
+<p>Edit a virtual host file on the Apache front end and define a named balancer. The named block groups your backend members and controls how requests are distributed. A minimal example looks like this</p>
+<pre><code>&lt;VirtualHost *:80&gt;
+    ServerName lb.example.com
+    ProxyPreserveHost On
+
+    &lt;Proxy "balancer://mycluster"&gt;
+        BalancerMember "http://backend1.example.com:8080"
+        BalancerMember "http://backend2.example.com:8080"
+        ProxySet lbmethod=byrequests
+    &lt;/Proxy&gt;
+
+    ProxyPass "/app" "balancer://mycluster"
+    ProxyPassReverse "/app" "balancer://mycluster"
+
+    &lt;Location "/balancer-manager"&gt;
+        SetHandler balancer-manager
+        Require ip 10.0.0.0/8
+    &lt;/Location&gt;
+&lt;/VirtualHost&gt;</code></pre>
+<p>ProxyPass and ProxyPassReverse map a public path to the named cluster and keep redirects and headers behaving as expected. Use ProxySet to control the lbmethod and other tuning options if needed.</p>
+
+<h2>Secure the balancer manager</h2>
+<p>The balancer manager is a web UI that lets you yank backends in and out at runtime. That is useful and dangerous. Restrict access by network or basic auth so the whole internet does not get to press the big red button.</p>
+<ul>
+  <li>Place the manager behind Require ip rules or a basic auth file</li>
+  <li>Allow only admin networks or a VPN to reach the manager</li>
+  <li>Log accesses so you can blame someone later if needed</li>
+</ul>
+
+<h2>Test and monitor the setup</h2>
+<p>Send requests to the public virtual host and watch backends rotate traffic. Use curl in a loop and tail backend logs. If you want a visual trick log a header that shows which backend handled the request.</p>
+<pre><code>for i in 1 2 3 4 5; do curl -sS http://lb.example.com/app/ | head -n1; sleep 1; done</code></pre>
+<p>Enable status pages and health checks for more visibility. Monitor backend response times and error rates. Real monitoring saves you from guessing when things go wrong.</p>
+
+<h3>Troubleshooting tips</h3>
+<ul>
+  <li>502 or 503 errors usually mean a backend is down or misaddressed</li>
+  <li>Check Apache error and proxy logs for which member failed</li>
+  <li>Confirm backend health endpoints respond consistently</li>
+</ul>
+
+<h2>Recap and next steps</h2>
+<p>In short prepare backends, enable mod_proxy and mod_proxy_balancer, create a balancer block and ProxyPass routes, secure the balancer manager, then validate with tests and monitoring. For higher availability consider adding SSL, sticky sessions only when you must, and an external health checker or orchestration tool.</p>
+
+<p>Follow these steps and your Apache load balancer will behave more like a team player and less like a fallen tent in a windstorm.</p>
+

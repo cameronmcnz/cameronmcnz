@@ -1,0 +1,81 @@
+---
+layout: video
+title: "How to Create a Git Branch From Master"
+description: "Quick guide to create a Git branch from master with commands to switch update create and push a branch plus safe branching tips"
+video_host: "youtube"
+video_id: "g7E2pimO3nk"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M31S"
+thumbnail_url: "https://i.ytimg.com/vi/g7E2pimO3nk/maxresdefault.jpg"
+content_url: "https://youtu.be/g7E2pimO3nk"
+embed_url: "https://www.youtube.com/embed/g7E2pimO3nk"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - branch
+  - master
+  - git tutorial
+  - git branch
+  - version control
+  - git checkout
+  - git push
+  - pull request
+  - developer tools
+---
+
+<p>If you want to create a feature branch from master and not wreck the timeline for everyone else on the team then this tiny git tutorial will help. It covers switching to master, updating it from the remote, creating a new git branch, and pushing that branch so your CI and reviewers can do their thing. Yes this is the part of version control that keeps projects moving and arguments to a minimum.</p>
+
+<h2>Switch to master</h2>
+<p>Always start on the main line of development. Run git checkout master to move your working tree to master. If your repository uses main replace master with main in the commands below. Do not start a branch from whatever random branch you have lying around.</p>
+
+<pre><code>git checkout master</code></pre>
+
+<h2>Update master from the remote</h2>
+<p>Make sure master matches the remote so you do not branch from stale code and later enjoy merge headaches. The quick option is git pull origin master. If you prefer a cleaner history then run git fetch origin and then merge the remote tip into your local master.</p>
+
+<pre><code>git pull origin master
+
+or for a two step flow
+
+git fetch origin
+
+git merge origin/master</code></pre>
+
+<h2>Create a new branch from master</h2>
+<p>Name things so your future self and your reviewer do not weep. Use a concise feature name that includes scope like feature/add-login or fix/typo. Create and switch in one command with git checkout -b feature-name. Newer Git versions also support git switch -c feature-name if you prefer that style.</p>
+
+<pre><code>git checkout -b feature-name
+
+or
+
+git switch -c feature-name</code></pre>
+
+<h2>Push the new branch to origin</h2>
+<p>Share the branch with your team and trigger CI by pushing it. Use git push -u origin feature-name. The -u flag makes your next git push and git pull simpler because it sets the upstream tracking branch for you.</p>
+
+<pre><code>git push -u origin feature-name</code></pre>
+
+<h2>Start work and open a pull request</h2>
+<p>Make small commits with clear messages and push often. When you are ready open a pull request on your hosting platform and request reviews from the right humans. If your branch lags behind master you can rebase or merge to stay compatible. Keep the history readable and resolve conflicts locally if needed.</p>
+
+<h3>Rebase or merge which to choose</h3>
+<ul>
+  <li>Rebase keeps a linear history and is neat for short lived feature branches</li>
+  <li>Merge preserves the exact topology and is safer on long running branches with many collaborators</li>
+  <li>If your project uses a strict merge policy follow that policy to avoid CI surprises</li>
+</ul>
+
+<h2>Quick checklist before opening a pull request</h2>
+<ul>
+  <li>Switch to master and update from remote with git pull origin master</li>
+  <li>Create a branch with git checkout -b feature-name</li>
+  <li>Commit often and push with git push -u origin feature-name</li>
+  <li>Rebase or merge master if the branch gets out of date</li>
+  <li>Open a pull request and request a review</li>
+</ul>
+
+<p>There you go. Follow these steps and you will avoid messy merges and awkward team standups. If something goes wrong remember that git reflog is a time machine and your mistakes are not permanent unless you want them to be.
+

@@ -1,0 +1,93 @@
+---
+layout: video
+title: "AWS S3 Static Website Hosting"
+description: "Quick guide to host a static website on Amazon S3 with bucket setup public access index document and optional CloudFront for speed and HTTPS"
+video_host: "youtube"
+video_id: "42KTiSgok1I"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M0S"
+thumbnail_url: "https://i.ytimg.com/vi/42KTiSgok1I/maxresdefault.jpg"
+content_url: "https://youtu.be/42KTiSgok1I"
+embed_url: "https://www.youtube.com/embed/42KTiSgok1I"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - AWS
+  - S3
+  - Static Website
+  - Static Hosting
+  - CloudFront
+  - Bucket Policy
+  - Index Document
+  - Cache Control
+  - MIME Types
+  - DNS
+---
+
+<p>If you want cheap durable hosting that does not meltdown under traffic spikes and mostly just serves files, welcome to S3 static website hosting. This guide walks through bucket creation, public access tuning, index and error document setup, MIME types and Cache Control, and the optional CloudFront layer for HTTPS and global speed. Read it like a recipe for a reliable site and not like a legal contract.</p>
+
+<h2>Why use S3 for static websites</h2>
+<p>Short version: it is inexpensive, reliable, and scales without begging developers to babysit servers. It is perfect for single page apps, docs, marketing sites, and tiny front ends that deserve to be fast.</p>
+<ul>
+  <li>AWS S3 handles storage and delivery with high durability.</li>
+  <li>Static hosting avoids server runtimes which means fewer moving parts.</li>
+  <li>Combine with CloudFront for HTTPS, edge caching, and lower latency.</li>
+</ul>
+
+<h2>Create your bucket and pick a region</h2>
+<p>Create an S3 bucket with a globally unique name that either matches your domain or a friendly project name. Pick a region close to your audience to shave off latency. Yes it matters, and yes it is worth a thought.</p>
+
+<h2>Make the objects readable but not chaos</h2>
+<p>Static assets need to be public if you are serving them directly from the S3 website endpoint. If you use CloudFront you can and should restrict direct public access and let CloudFront fetch objects securely. Adjust block public access settings intentionally. Public access is fine for assets but do not leave other bucket settings wild.</p>
+
+<h3>Example minimal bucket policy</h3>
+<pre><code>{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::your-bucket-name/*"
+    }
+  ]
+}
+</code></pre>
+<p>Replace your-bucket-name. This policy grants public read only to objects, not to bucket configuration or lists. Keep it narrow and intentional.</p>
+
+<h2>Enable static website hosting and set index and error documents</h2>
+<p>In the S3 console enable static website hosting and set an index document such as index.html and an optional error document. S3 will give you a website endpoint that serves pages over HTTP. If you want HTTPS for a custom domain, add CloudFront below.</p>
+
+<h2>Upload files and set correct MIME types and cache headers</h2>
+<p>Upload your HTML CSS JS and images. Make sure each object has a Content-Type metadata set so browsers render things correctly. If you upload from a build pipeline most tools set MIME types automatically, but double check for odd file extensions.</p>
+
+<h3>Cache Control and cache busting</h3>
+<p>Use Cache-Control headers to control browser and CDN caching. Typical patterns work well and keep users happy.</p>
+<ul>
+  <li>Long lived static assets like hashed JS and CSS: Cache-Control: public max-age=31536000 immutable</li>
+  <li>HTML pages you might change: Cache-Control: public max-age=60 must-revalidate or no-cache depending on your needs</li>
+  <li>When updating assets use versioned filenames so clients do not keep an ancient copy forever.</li>
+</ul>
+
+<h2>Add CloudFront for HTTPS performance and global caching</h2>
+<p>CloudFront gives you HTTPS, edge caching, and global reach. Request an ACM certificate in us-east-1 if you are using a custom domain with CloudFront. For origins you can either point CloudFront at the S3 website endpoint or use the S3 REST endpoint with origin access control. If you want to lock the bucket down do not keep it public. Use an Origin Access Identity or the newer Origin Access Control to restrict direct access and have CloudFront fetch objects securely.</p>
+<p>In DNS point your domain to the CloudFront distribution. Route 53 users can create an alias record. Other DNS providers will use an A or CNAME depending on the provider rules. Remember that the S3 website endpoint will not serve HTTPS for your custom domain so CloudFront is the path if you need SSL.</p>
+
+<h2>Test and troubleshoot like a detective</h2>
+<p>Test the S3 website URL and the CloudFront domain. Look in the browser console for 404s wrong MIME types or missing assets. Use curl -I to inspect headers and Cache-Control values. If assets are served but not updated check caching and invalidation. Invalidating CloudFront caches or bumping versioned file names fixes most grief.</p>
+
+<h2>Quick checklist before you go live</h2>
+<ul>
+  <li>Bucket name chosen and region set</li>
+  <li>Public access adjusted and bucket policy applied only to objects</li>
+  <li>Static website hosting enabled with index and error documents</li>
+  <li>Uploaded files have correct Content-Type and Cache-Control headers</li>
+  <li>CloudFront configured for HTTPS with restricted origin if needed</li>
+  <li>DNS points to CloudFront and ACM certificate is attached for the custom domain</li>
+</ul>
+
+<p>There you go. Cheap durable hosting that scales, with a few knobs to tweak. Use long cache times for hashed files, keep HTML fresher, and put CloudFront in front if you need HTTPS and speed around the globe. Now go deploy and enjoy the satisfying feeling of a site that actually loads fast.</p>
+

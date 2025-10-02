@@ -1,0 +1,81 @@
+---
+layout: video
+title: "Git Branch Delete Local Example"
+description: "Learn how to safely delete local Git branches with commands checks and common gotchas explained in a short practical guide"
+video_host: "youtube"
+video_id: "WNCjvqvGGrU"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M25S"
+thumbnail_url: "https://i.ytimg.com/vi/WNCjvqvGGrU/maxresdefault.jpg"
+content_url: "https://youtu.be/WNCjvqvGGrU"
+embed_url: "https://www.youtube.com/embed/WNCjvqvGGrU"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git-branch
+  - delete-branch
+  - local-branch
+  - git-delete
+  - branch-deletion
+  - force-delete
+  - git-commands
+  - version-control
+  - cli
+---
+
+<article>
+  <p>If you have more feature branches than dignity, this guide shows how to delete local git branches the smart way. You will learn how to check your context, list branches, delete branches safely, and force delete when you absolutely mean it. No hand holding, just clear git commands and a tiny amount of moral support.</p>
+
+  <h2>Check current branch before deleting</h2>
+  <p>Deleting the branch you are currently on is a quick path to unhappy surprises. Confirm your branch with one of these git commands, whatever fits your workflow.</p>
+  <pre><code>git status
+# or
+git branch</code></pre>
+  <p>If <code>git status</code> says you are on <code>main</code> or <code>develop</code> then you are safe to remove other branches. If it says the name of the branch you want to delete, switch off it first by checking out a safe branch.</p>
+  <pre><code>git checkout main</code></pre>
+
+  <h2>List local branches and check merge status</h2>
+  <p>Names matter. Typing the wrong branch name is the typo driven calamity everyone fears. First list local branches, then see which ones are merged into your current branch.</p>
+  <pre><code>git branch
+# show branches merged into the current branch
+git branch --merged
+# show branches not yet merged
+git branch --no-merged</code></pre>
+  <p>Use <code>--merged</code> and <code>--no-merged</code> to decide whether the branch is safe to delete or still holding unmerged commits.</p>
+
+  <h2>Delete branch safely</h2>
+  <p>When git can tell that your work has been incorporated into the current branch, it lets you delete politely. This avoids accidental loss of commits.</p>
+  <pre><code>git branch -d feature-name</code></pre>
+  <p>The <code>-d</code> flag refuses to delete a branch that is not merged. That is git showing common sense where humans sometimes do not.</p>
+
+  <h2>Force delete when necessary</h2>
+  <p>If the branch is experimental, abandoned, or you have already pushed and archived the commits elsewhere, use force delete. This obliterates the local ref immediately, so double check before you press enter.</p>
+  <pre><code>git branch -D feature-name</code></pre>
+  <p>Use <code>-D</code> only when you know the commits are expendable or safely backed up on a remote or another branch. This is a tool, not a therapy session.</p>
+
+  <h2>Make a quick backup branch if you are unsure</h2>
+  <p>Not sure if you will regret deleting the branch? Create a local backup branch as a restore point. It takes seconds and your future self will thank you, or at least stop yelling at you.</p>
+  <pre><code>git branch backup/feature-name feature-name</code></pre>
+  <p>That creates <code>backup/feature-name</code> pointing at the same commits so you can delete the original branch and still recover later.</p>
+
+  <h2>Tips for recovery and extra safety</h2>
+  <ul>
+    <li>Use <code>git reflog</code> to find recent commits and recover a deleted branch if needed.</li>
+    <li>If you find the commit hash, recreate the branch with <code>git checkout -b feature-name COMMIT_HASH</code> where COMMIT_HASH is the SHA.</li>
+    <li>When working with a remote, consider deleting the remote branch separately with <code>git push origin --delete feature-name</code> after confirming local cleanup.</li>
+  </ul>
+
+  <h2>Quick checklist before deleting a local branch</h2>
+  <ul>
+    <li>Confirm you are not on the branch, use <code>git status</code> or <code>git branch</code></li>
+    <li>Verify merge status with <code>git branch --merged</code> or <code>--no-merged</code></li>
+    <li>Create a backup branch if you think you might change your mind</li>
+    <li>Use <code>git branch -d</code> for polite deletion, use <code>git branch -D</code> only when you are sure</li>
+  </ul>
+
+  <p>There you go, a tidy, slightly sarcastic walkthrough for deleting local branches with minimal drama. Follow these git commands and you will keep your local-branch list neat, avoid accidental data loss, and preserve your developer reputation just enough to keep getting invited to code reviews.</p>
+</article>
+

@@ -1,0 +1,62 @@
+---
+layout: video
+title: "AI Guardrails and LLM Filters in Amazon Bedrock"
+description: "How Amazon Bedrock uses guardrails and filters to stop prompt attacks and protect PII with regex and DeepSeek"
+video_host: "youtube"
+video_id: "yfA9PBPCitw"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT4M45S"
+thumbnail_url: "https://i.ytimg.com/vi/yfA9PBPCitw/maxresdefault.jpg"
+content_url: "https://youtu.be/yfA9PBPCitw"
+embed_url: "https://www.youtube.com/embed/yfA9PBPCitw"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Amazon Bedrock
+  - AI guardrails
+  - LLM filters
+  - Prompt attacks
+  - PII protection
+  - Regex
+  - DeepSeek
+  - Claude
+  - Security
+  - Compliance
+---
+
+<p>If you want your large language model to behave like a polite guest and not a gossip, Amazon Bedrock gives you tools that help. Build input filters, enforce runtime policies, and run postprocessing redaction so the model is less likely to cough up secrets while still answering your dumb or brilliant questions.</p>
+
+<h2>Why layered guardrails are your friend</h2>
+<p>No single trick will save you. Regex will catch obvious things, semantic tools will catch the stuff someone tried to hide, and runtime policies will refuse or rephrase dangerous outputs. Put those layers together and you get fewer leaks and fewer emergency all hands meetings.</p>
+
+<h3>Input filters and regex for obvious PII</h3>
+<p>Start at the door. Block malicious prompts before they reach the model. Basic pattern matching still does heavy lifting, especially for clear personal data like emails and phone numbers. Keep your regex tight and test it often.</p>
+<pre><code>\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b</code></pre>
+<p>That snippet catches most standard email shapes. It will not catch every obfuscated address, and yes you will get false positives on some weird usernames. Welcome to security.</p>
+
+<h3>Semantic search with DeepSeek to find hidden context</h3>
+<p>Regex misses paraphrases and clever obfuscation. Use embedding based search, for example DeepSeek style tooling, to find passages that are similar to known sensitive content. Semantic methods help you detect PII in context and flag risky passages that a pure pattern match would ignore.</p>
+
+<h2>Runtime policies and wrapping models like Claude</h2>
+<p>Wrap the model with system level policies that can refuse, redact, or return safe alternatives. Models such as Claude respond well to policy wrappers when you need consistent refusals or substitutions. Score requests for instruction chaining, role play, or other prompt attack patterns and block what trips your rules.</p>
+
+<h2>Postprocessing and human review</h2>
+<p>Even the best automated checks fail sometimes, so log suspicious interactions and route high risk cases to human review. Postprocessing can remove or mask PII after the model replies, so you get one last chance to prevent a leak.</p>
+
+<h3>Testing and tuning</h3>
+<p>Run adversarial prompts to measure coverage and tune thresholds. Expect false positives and false negatives. Track both and design workflows for each scenario so your team does not panic when the model refuses perfectly fine queries.</p>
+
+<h2>Practical checklist for Security and Compliance</h2>
+<ul>
+  <li>Instrument input sanitizers to catch obvious PII and prompt attacks</li>
+  <li>Apply regex for standard patterns and update rules as you learn</li>
+  <li>Add embedding based search using DeepSeek or similar tools for context detection</li>
+  <li>Enforce runtime policies around refusal and redaction for high risk outputs</li>
+  <li>Log events, monitor for policy drift, and keep a human review lane for critical cases</li>
+  <li>Test regularly with adversarial prompts and update thresholds based on real failures</li>
+</ul>
+
+<p>In short, treat guardrails like defense in depth. Combine deterministic rules and probabilistic classifiers, wrap models like Claude for consistent behavior, and do not let a single missing regex ruin your compliance posture. Your model will still make mistakes, but with layers in place it will mess up less often and with less dramatic consequences.</p>
+

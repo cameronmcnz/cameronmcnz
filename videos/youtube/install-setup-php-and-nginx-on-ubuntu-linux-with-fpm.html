@@ -1,0 +1,84 @@
+---
+layout: video
+title: "Install & Setup PHP and Nginx on Ubuntu Linux with FPM"
+description: "Step by step guide to install PHP and Nginx on Ubuntu and configure PHP FPM for fastcgi processing and testing."
+video_host: "youtube"
+video_id: "Dv6fYxAVcww"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT11M16S"
+thumbnail_url: "https://i.ytimg.com/vi/Dv6fYxAVcww/maxresdefault.jpg"
+content_url: "https://youtu.be/Dv6fYxAVcww"
+embed_url: "https://www.youtube.com/embed/Dv6fYxAVcww"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - PHP
+  - Nginx
+  - Ubuntu
+  - PHP-FPM
+  - Linux
+  - Tutorial
+  - Web Server
+  - FPM
+  - Server Setup
+  - Guide
+---
+
+<p>So you want a fast PHP site on Ubuntu without hand waving or pretending systemctl is a magic spell. This guide gets Nginx and PHP FPM installed and talking to each other so your app can do PHP things and not crash the server when traffic shows up. Expect commands to run and sanity checks to pass.</p>
+
+<h2>What you need before we start</h2>
+<p>Nothing mystical. Just a Ubuntu server with a non root user that can run sudo and a little patience.</p>
+<ul>
+  <li>Ubuntu server with SSH access</li>
+  <li>Sudo capable user</li>
+  <li>Basic familiarity with editing files under /etc</li>
+</ul>
+
+<h2>Update packages and avoid drama</h2>
+<p>Always start by updating the package list and applying upgrades. This saves you from the dependency circus later.</p>
+<pre><code>sudo apt update && sudo apt upgrade -y</code></pre>
+
+<h2>Install Nginx and PHP FPM</h2>
+<p>Install the web server and the PHP FastCGI process manager in one go. Add the mysql extension if your app uses it.</p>
+<pre><code>sudo apt install nginx php-fpm php-mysql -y</code></pre>
+<p>PHP FPM runs PHP outside of the web server process. That means better performance and fewer mysterious crashes when someone runs a heavy script.</p>
+
+<h2>Configure Nginx to pass PHP to FPM</h2>
+<p>Edit your server block under /etc/nginx/sites-available. If you use the default file then modify /etc/nginx/sites-available/default. You want Nginx to hand off PHP files to PHP FPM.</p>
+<p>Key points to change or verify in the server block</p>
+<ul>
+  <li>Root points to your web root like /var/www/html</li>
+  <li>Ensure index contains index.php so PHP files are served</li>
+  <li>Make Nginx pass PHP requests to PHP FPM using either the local unix socket path or a TCP address if using a remote process manager</li>
+</ul>
+<p>Use the unix socket path under /run if PHP FPM is on the same machine for a slight speed gain. If you must run FPM remotely then use the FPM host and port, for example IP 127.0.0.1 and port 9000. After editing save the file and then check Nginx syntax and reload.</p>
+<pre><code>sudo nginx -t
+sudo systemctl reload nginx</code></pre>
+
+<h2>Quick test with a phpinfo page</h2>
+<p>Create a tiny PHP file in your web root to confirm the pipeline works. Remove the file after confirming so you are not broadcasting your PHP setup to random strangers.</p>
+<pre><code>sudo tee /var/www/html/info.php &gt; /dev/null <<'PHP'
+&lt;?php phpinfo() ?&gt;
+PHP</code></pre>
+<p>Then open the page in a browser at your server IP or domain and look for the PHP info output. If you see it you win. Delete the file when done.</p>
+
+<h2>Restart services and verify</h2>
+<p>If you changed FPM pools or swapped versions restart the services. You can restart both Nginx and PHP FPM or target the specific version installed.</p>
+<pre><code>sudo systemctl restart php*-fpm nginx
+sudo systemctl status nginx
+sudo systemctl status php*-fpm</code></pre>
+<p>Check the status output for active running. If something failed check the journal or the error logs for clues.</p>
+
+<h3>Troubleshooting cheatsheet</h3>
+<ul>
+  <li>500 errors after configuration change Check Nginx error log at /var/log/nginx/error.log and the FPM pool log</li>
+  <li>Permission issues Make sure the web root is readable by the www data user or adjust the socket permissions</li>
+  <li>FPM not listening Confirm the socket file exists under /run or that FPM is bound to the correct IP and port</li>
+</ul>
+
+<h2>Final notes and sensible defaults</h2>
+<p>Prefer unix sockets for local performance and use TCP when you separate the process manager over the network. Keep the phpinfo page offline after testing. Now the server is ready for deployment and you can move on to things like SSL hardening and process supervision which are much more fun when the basics actually work.</p>
+<p>If you enjoy reading man pages show yourself mercy and read the PHP FPM pool configuration for tuning values to match your app and server memory. Otherwise hope for the best and monitor your metrics like a responsible adult.</p>
+

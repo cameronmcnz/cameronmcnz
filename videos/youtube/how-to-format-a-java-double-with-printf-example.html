@@ -1,0 +1,99 @@
+---
+layout: video
+title: "How to format a Java double with printf example"
+description: "Learn how to format a Java double using printf format specifiers for precision width and grouping for clean console output"
+video_host: "youtube"
+video_id: "rznDZGb2pLQ"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M38S"
+thumbnail_url: "https://i.ytimg.com/vi/rznDZGb2pLQ/maxresdefault.jpg"
+content_url: "https://youtu.be/rznDZGb2pLQ"
+embed_url: "https://www.youtube.com/embed/rznDZGb2pLQ"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Java
+  - printf
+  - double
+  - formatting
+  - format specifiers
+  - precision
+  - width
+  - grouping
+  - locale
+  - console output
+---
+
+<h2>Quick intro to making doubles readable on the console</h2>
+<p>Formatting a <strong>double</strong> in Java is the difference between readable output and a garbage column that makes your future self cry. Use <code>System.out.printf</code> and format specifiers to control precision width grouping and sign handling so your console output looks intentional instead of accidental.</p>
+
+<h2>Pick the right format specifier</h2>
+<p>There are three usual suspects when formatting floating point numbers with <code>printf</code>. Choose wisely and avoid the urge to try every option at once.</p>
+
+<h3>Common specifiers</h3>
+<ul>
+  <li><code>%f</code> for normal decimal notation. Good for money style or human friendly numbers.</li>
+  <li><code>%e</code> for scientific notation. Use when numbers vary wildly in magnitude.</li>
+  <li><code>%g</code> for compact automatic choice between <code>%f</code> and <code>%e</code>. Handy when you want the formatter to make the hard calls.</li>
+</ul>
+
+<h2>Control decimal places and alignment with precision and width</h2>
+<p>Precision sets decimal places and width sets the total field size. A precision of two is written as <code>%.2f</code>. Want a fixed column width of eight characters with two decimals use <code>%8.2f</code>. Precision rounds the value and width pads it so columns line up like they were trained in boot camp.</p>
+
+<h2>Flags for grouping and sign</h2>
+<p>Flags make the output human friendly. You can group thousands add a sign or left align. The most useful flags for doubles are:</p>
+<ul>
+  <li><code>,</code> to group thousands like <code>12,345.68</code></li>
+  <li><code>+</code> to always show the sign so positives do not feel ignored</li>
+  <li><code>-</code> to left align when you want your columns less stubborn</li>
+</ul>
+<p>Combine flags to taste. For example <code>%+8.2f</code> reserves eight characters shows two decimals and forces a sign.</p>
+
+<h2>Locale for predictable decimal and grouping characters</h2>
+<p>Different systems have different ideas about whether a comma or a period should be the decimal separator. If you want predictable console output across environments pass a <code>Locale</code> to <code>printf</code>. For a US style decimal and grouping do this:</p>
+<pre><code>import java.util.Locale;
+
+double value = 12345.6789;
+System.out.printf(Locale.US, "%,.2f\n", value);
+// prints 12,345.68
+</code></pre>
+<p>If you run the same code with <code>Locale.GERMANY</code> and do not force the locale the output will use a comma as the decimal marker and a period for grouping. That can mess with parsers and test assertions unless you control locale.</p>
+
+<h2>Code examples that do the heavy lifting</h2>
+<p>Here are a few patterns you will actually use in the wild. Copy them like you mean it.</p>
+
+<pre><code>// Simple rounded and grouped value
+double v = 12345.6789;
+System.out.printf("Formatted %,.2f\n", v);
+// Output: Formatted 12,345.68
+
+// Fixed width with sign and grouping
+System.out.printf("%+12,.2f\n", v);
+// Output:   +12,345.68
+
+// Scientific notation for very large or very small numbers
+double small = 0.000012345;
+System.out.printf("%12.6e\n", small);
+// Output: 1.234500e-05
+</code></pre>
+
+<h2>Edge cases and quick tips</h2>
+<ul>
+  <li>NaN and Infinity print as <code>NaN</code> and <code>Infinity</code> and ignore numeric flags in obvious ways.</li>
+  <li>Negative zero can be surprising. <code>-0.0</code> can format with a sign if you ask for it.</li>
+  <li>If you need exact decimal math for money use <code>BigDecimal</code> and format its value rather than relying on binary floating point rounding.</li>
+</ul>
+
+<h2>Cheat sheet</h2>
+<ul>
+  <li><code>%f</code> normal decimal</li>
+  <li><code>%.2f</code> two decimal places</li>
+  <li><code>%8.2f</code> width eight right aligned</li>
+  <li><code>%-,.2f</code> grouped and left aligned</li>
+  <li><code>Locale.US</code> to force period decimal and comma grouping</li>
+</ul>
+
+<p>There you go. Use the right specifier pick sensible precision set a width for columns and control locale when you care about separators. Your console will look civilized and you will sleep better knowing numbers are not plotting against you.</p>
+

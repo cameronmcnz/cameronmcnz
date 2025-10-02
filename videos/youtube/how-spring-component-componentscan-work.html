@@ -1,0 +1,110 @@
+---
+layout: video
+title: "How Spring @Component & @ComponentScan Work"
+description: "Learn how Spring @Component and @ComponentScan let Spring Boot discover and wire beans and how to control scanning and injection"
+video_host: "youtube"
+video_id: "Bg54Kr7WXEM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT9M28S"
+thumbnail_url: "https://i.ytimg.com/vi/Bg54Kr7WXEM/maxresdefault.jpg"
+content_url: "https://youtu.be/Bg54Kr7WXEM"
+embed_url: "https://www.youtube.com/embed/Bg54Kr7WXEM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Spring
+  - Spring Boot
+  - Component 
+  - ComponentScan 
+  - Java
+  - Dependency Injection
+  - Beans
+  - Annotations
+  - Component Scan
+  - Auto configuration
+---
+
+<h2>Quick verdict</h2>
+<p>If you want Spring to find your beans so you can stop wiring them by hand like it is 2003, use @Component and @ComponentScan and let Spring Boot do the heavy lifting. This guide explains what those annotations do how beans get registered and why constructor injection is the one you should actually trust when writing tests.</p>
+
+<h2>What @Component actually means</h2>
+<p>Annotate a plain Java class with @Component or a specialized stereotype such as @Service or @Repository and Spring treats the class as a candidate for bean creation. That means Spring will create an instance and manage its lifecycle inside the ApplicationContext. It saves you from XML rituals and from writing a factory for every tiny helper class.</p>
+
+<h3>Example component</h3>
+<pre><code>@Component
+public class GreetingService {
+    public String greet(String name) {
+        return "Hello " + name
+    }
+}
+</code></pre>
+
+<h2>How scanning finds your classes</h2>
+<p>@ComponentScan makes Spring walk packages looking for annotated types and register them as beans. In Spring Boot you usually do not need to add @ComponentScan manually because auto configuration and the default package scanning from your main class handle the common cases. If your classes sit outside the main package then use explicit basePackages or basePackageClasses on @ComponentScan.</p>
+
+<h3>Typical configuration</h3>
+<pre><code>@Configuration
+@ComponentScan(basePackages = "com.example.app")
+public class AppConfig {
+}
+
+// Or in Spring Boot the main application can be enough
+@SpringBootApplication
+public class MainApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MainApplication.class, args)
+    }
+}
+</code></pre>
+
+<h2>What happens during bean registration</h2>
+<p>When the ApplicationContext starts Spring scans for annotated classes instantiates them applies post processors and registers the resulting bean definitions. Bean names follow rules derived from the class or the explicit name you provide on the annotation. Bean post processors and lifecycle callbacks run so any AOP proxying or init methods are applied before your bean gets handed off to the wiring team.</p>
+
+<h2>Injection patterns and practical advice</h2>
+<p>Prefer constructor injection because it makes dependencies explicit helps with immutable design and plays nicely with unit testing. Field injection is convenient for toy examples but causes headaches when you try to instantiate objects without the whole Spring context during tests.</p>
+
+<ul>
+  <li>Constructor injection makes mandatory dependencies clear</li>
+  <li>Use @Autowired on the constructor when you need to disambiguate in older Spring versions</li>
+  <li>Use @Qualifier to pick between multiple beans of the same type</li>
+</ul>
+
+<pre><code>@Component
+public class OrderController {
+    private final OrderService orderService
+
+    @Autowired
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService
+    }
+}
+</code></pre>
+
+<h2>Filtering scanning and scopes</h2>
+<p>Component scanning supports include and exclude filters so you can surgically pick which classes become beans. You can also control scopes with @Scope if you want prototype instances or request scoped beans in web apps. Lifecycle annotations such as @PostConstruct and @PreDestroy let you run init and cleanup logic when the context controls the object lifecycle.</p>
+
+<h3>Example filter</h3>
+<pre><code>@ComponentScan(
+  basePackages = "com.example",
+  includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = MyCustomAnnotation.class),
+  excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SomeLegacyClass.class)
+)
+public class FilterConfig {
+}
+</code></pre>
+
+<h2>Auto configuration and package layout</h2>
+<p>Spring Boot gives you sane defaults by scanning from the package of your main application class. Follow that layout and most of the time you can rely on auto configuration and stereotypes without extra declarations. When you stray outside that layout add explicit @ComponentScan settings or move the main class so scanning covers your packages.</p>
+
+<h2>Final tips that will save time and dignity</h2>
+<ul>
+  <li>Favor stereotypes like @Service and @Repository to express intent and to help tooling</li>
+  <li>Keep related components under the same base package so auto configuration does its job</li>
+  <li>Use constructor injection for testability and clearer contracts</li>
+  <li>Limit @ComponentScan only when you need to avoid picking up test or generated classes</li>
+</ul>
+
+<p>There you have it a compact map of how @Component and @ComponentScan make Spring find register and wire beans. Follow package layout rely on stereotypes and use constructor injection so you can sleep at night knowing your dependencies are not silently missing.</p>
+

@@ -1,0 +1,72 @@
+---
+layout: video
+title: "How to Edit Ubuntu's etc Hosts File by Example"
+description: "Step by step guide to safely edit Ubuntu hosts file for local DNS mapping using terminal editors sudo and simple testing commands"
+video_host: "youtube"
+video_id: "45dAJi-aoZM"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT1M13S"
+thumbnail_url: "https://i.ytimg.com/vi/45dAJi-aoZM/maxresdefault.jpg"
+content_url: "https://youtu.be/45dAJi-aoZM"
+embed_url: "https://www.youtube.com/embed/45dAJi-aoZM"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - Ubuntu
+  - hosts file
+  - etc hosts
+  - DNS
+  - nano
+  - sudo
+  - networking
+  - localhost
+  - systemd resolve
+  - tutorial
+---
+
+<h2>Why edit the hosts file on Ubuntu</h2>
+<p>Want to force a domain to point to your machine for debugging, block a site without spiritual counseling, or override DNS for a staging server That is what the hosts file does and it is stubbornly simple and brutally effective</p>
+
+<h2>Back up the hosts file before you adventure</h2>
+<p>Mistakes here lead to sad networking and mild regret. Make a safe backup so you can undo your ambitions in one command</p>
+<pre><code>sudo cp /etc/hosts /etc/hosts.bak</code></pre>
+
+<h2>Edit the file with elevated privileges</h2>
+<p>Pick your weapon nano or vim. The file lives in a protected path so use sudo</p>
+<pre><code>sudo nano /etc/hosts</code></pre>
+<p>In nano press Control O to write and Control X to exit. If you prefer vim then use standard vim save and quit commands</p>
+
+<h3>How lines should look</h3>
+<ul>
+  <li>One mapping per line</li>
+  <li>Format example 127.0.0.1 example.local</li>
+  <li>Use the loopback address for localhost testing and avoid duplicate hostnames on different lines</li>
+</ul>
+
+<h2>Make changes that do not hurt the rest of the system</h2>
+<p>Do not overwrite the real localhost entry unless you enjoy subtle breakage. Add your custom names on new lines and use clearly unique domains for testing like app.localtest or mysite.devtest</p>
+
+<h2>Reload name resolution if needed</h2>
+<p>Some Ubuntu setups cache DNS or use local resolvers. If your change does not appear try flushing caches or restarting network services</p>
+<pre><code>sudo systemd-resolve --flush-caches</code></pre>
+<pre><code>sudo systemctl restart NetworkManager</code></pre>
+
+<h2>Verify the mapping actually works</h2>
+<p>Ping is fast and truthful when it comes to name to IP checks</p>
+<pre><code>ping -c 1 example.local</code></pre>
+<p>You can also test with a browser or curl for HTTP checks</p>
+
+<h2>Troubleshooting when the hosts file seems shy</h2>
+<ul>
+  <li>Check for typos and duplicate entries in /etc/hosts</li>
+  <li>Confirm the hosts lookup order in /etc/nsswitch.conf so hosts is consulted before DNS</li>
+  <li>Look for local DNS services like systemd resolved dnsmasq or a proxy that might override the file</li>
+  <li>Browsers and proxies cache aggressively. Try a hard refresh or a private window</li>
+</ul>
+
+<h2>Quick summary and a pro tip</h2>
+<p>Backing up the file editing with sudo adding your hostname to IP mappings saving the file and flushing caches will get you where you want to be most of the time. The hosts file is small but mighty for local development and lightweight domain rerouting</p>
+<p>Pro tip use test only domains that cannot collide with real public names to avoid accidental chaos</p>
+

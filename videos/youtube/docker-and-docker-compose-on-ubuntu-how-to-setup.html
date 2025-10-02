@@ -1,0 +1,85 @@
+---
+layout: video
+title: "Docker and Docker Compose on Ubuntu How to setup"
+description: "Quick guide to install configure and use Docker and Docker Compose on Ubuntu for reliable container workflows"
+video_host: "youtube"
+video_id: "6j1ISxY5ss4"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT5M25S"
+thumbnail_url: "https://i.ytimg.com/vi/6j1ISxY5ss4/maxresdefault.jpg"
+content_url: "https://youtu.be/6j1ISxY5ss4"
+embed_url: "https://www.youtube.com/embed/6j1ISxY5ss4"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - docker
+  - docker-compose
+  - ubuntu
+  - containers
+  - linux
+  - installation
+  - tutorial
+  - devops
+  - containerization
+  - howto
+---
+
+<article>
+  <h1>Install Docker engine add a user and run Docker Compose on Ubuntu</h1>
+  <p>If you want containers on your Ubuntu laptop or VM without the usual hair pulling, this guide walks through installing Docker and Docker Compose for local container workflows. You will get the engine installed, a non root user setup, the Compose tool ready, and a tiny compose file to actually run something. No nonsense, just commands that work on most Ubuntu releases.</p>
+
+  <h2>Install the Docker engine</h2>
+  <p>Use the Ubuntu packages for a fast and reliable start. These commands install the docker engine package available in the distro repositories and enable the service so it starts now and on reboot.</p>
+  <pre><code>sudo apt update
+sudo apt install -y docker.io
+sudo systemctl enable --now docker</code></pre>
+  <p>Yes this is the quick method. If you later want the official Docker repo for the latest features you can switch, but this will get your containers running for development without fuss.</p>
+
+  <h2>Enable user access to Docker</h2>
+  <p>Running docker as root gets old fast and it makes CI logs look mean. Add your user to the docker group so you can run container commands as your normal user.</p>
+  <pre><code>sudo usermod -aG docker $USER</code></pre>
+  <p>After that either log out and log back in, reboot, or run <code>newgrp docker</code> in the terminal to pick up the group change immediately. This avoids typing sudo for every single docker command.</p>
+
+  <h2>Install Docker Compose</h2>
+  <p>Compose lets you declare multi container setups so your app does not rely on a complex shell script or voodoo. On many Ubuntu releases the compose package is available via apt.</p>
+  <pre><code>sudo apt install -y docker-compose</code></pre>
+  <p>Modern Docker also ships a compose plugin that is used as <code>docker compose</code> with a space, while older installs use the <code>docker-compose</code> binary with a dash. For local dev either approach works, just be consistent in scripts and CI.</p>
+
+  <h2>Create a docker compose file</h2>
+  <p>Start small. Create a file named <code>docker-compose.yml</code> and define one service before you try to orchestrate the entire internet. Here is a minimal example running a simple web service.</p>
+  <pre><code>version: '3.8'
+services:
+  web:
+    image: nginx:stable
+    ports:
+      - 8080:80
+    volumes:
+      - ./site:/usr/share/nginx/html:ro</code></pre>
+  <p>This declares a single service using the nginx image, maps port 8080 on the host to port 80 in the container, and mounts local content for quick iteration.</p>
+
+  <h2>Run and manage containers</h2>
+  <p>Bring the stack up in the background and peek at logs like a responsible operator.</p>
+  <pre><code>docker compose up -d
+docker compose ps
+docker compose logs -f web</code></pre>
+  <p>If your install uses the older command name use <code>docker-compose</code> instead of <code>docker compose</code>. The commands are otherwise the same and the behavior is predictable, unlike that one mystery config you never touched.</p>
+
+  <h3>Common troubleshooting</h3>
+  <ul>
+    <li>Permission denied when running docker commands after group change? Log out and back in or run <code>newgrp docker</code>.</li>
+    <li>Compose file not picked up? Check the filename and indentation. YAML hates tabs and bad attitudes.</li>
+    <li>Want latest features? Consider installing the official Docker packages from Docker for Linux documentation.</li>
+  </ul>
+
+  <h2>Tips for less pain in staging and production</h2>
+  <ul>
+    <li>Pin image tags to avoid surprise updates breaking everything overnight.</li>
+    <li>Run on a recent stable kernel for better compatibility with container runtimes.</li>
+    <li>Keep your compose files in version control and back up important configs.</li>
+  </ul>
+
+  <p>That is the gist. You installed the engine, allowed a non root user to run containers, got Compose installed, wrote a basic compose file, and started a service. Now go build something useful or at least break it in a structured way. Welcome to containerization.</p>
+</article>
+

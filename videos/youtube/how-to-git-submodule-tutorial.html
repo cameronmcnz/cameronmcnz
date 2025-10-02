@@ -1,0 +1,87 @@
+---
+layout: video
+title: "How to git submodule tutorial"
+description: "Learn how to add manage and update git submodule with clear steps and examples for reliable nested repositories and cleaner workflows"
+video_host: "youtube"
+video_id: "ZYq3NJnO08U"
+upload_date: "2025-10-01T11:11:11+11:11"
+duration: "PT24M59S"
+thumbnail_url: "https://i.ytimg.com/vi/ZYq3NJnO08U/maxresdefault.jpg"
+content_url: "https://youtu.be/ZYq3NJnO08U"
+embed_url: "https://www.youtube.com/embed/ZYq3NJnO08U"
+publisher_name: "certificationExams.pro"
+publisher_logo: "/assets/images/logo-512.png"
+in_language: "en"
+is_accessible_for_free: true
+tags:
+  - git
+  - git submodule
+  - submodule tutorial
+  - version control
+  - git tutorial
+  - nested repositories
+  - git commands
+  - submodule update
+  - git workflow
+  - repository management
+---
+
+<h2>Welcome to the submodule jungle</h2>
+<p>Git submodules are the neat way to nest one repository inside another when you want shared libraries or components without copying files like a peasant. They are also the kind of thing that can ruin your afternoon if you do not document the workflow. This guide walks through adding initializing cloning updating and removing submodules while keeping your sanity and your CI build working.</p>
+
+<h2>When to use submodules and when to avoid them</h2>
+<p>Use a git submodule when you need a clear boundary between projects and you want to pin a dependency to a specific commit. Avoid submodules if you and your team prefer magic auto updates from package managers or if you hate manual steps. Submodules are great for shared components or tools that need exact version control for reproducible builds.</p>
+
+<h2>Add a submodule</h2>
+<p>Pick a path inside the parent repo and tell git to add the nested repository. This records the remote and sets up a pointer to the submodule commit. Think of this as putting a leash on a small repo that you want to track.</p>
+<pre><code>git submodule add REPO_URL PATH</code></pre>
+<p>That creates an entry in the .gitmodules file and sets up the nested repo at PATH. Commit the .gitmodules and the PATH change to the parent repo so others see the relationship.</p>
+
+<h2>Initialize and fetch submodule data</h2>
+<p>After adding a submodule or after checking out a branch that mentions submodules run these commands so git registers and downloads the nested repository data. This step prevents mysterious build failures later.</p>
+<pre><code>git submodule init
+git submodule update</code></pre>
+
+<h2>Clone including submodules</h2>
+<p>If you clone a project that uses nested repositories do not be lazy. Populate submodules during the clone to avoid surprises in tests or builds. You can clone first then populate or do it in two steps if you like to watch progress.</p>
+<pre><code>git clone REPO_URL
+git submodule update --init --recursive</code></pre>
+<p>The --recursive flag handles submodules inside submodules. Yes that is a thing. Yes it can be awkward. Move on.</p>
+
+<h2>Update and change submodule commits</h2>
+<p>Submodules track specific commits. To change which commit the parent repo records go into the submodule update or switch branches then commit the change in the parent.</p>
+<pre><code>cd PATH
+git checkout BRANCH
+git pull
+# or checkout a specific commit
+# git checkout COMMIT_HASH
+cd ..
+git add PATH
+git commit -m "Update submodule reference"</code></pre>
+<p>This stages the new recorded commit for the submodule in the parent repository. Push both repos if you want teammates to stop yelling at you.</p>
+
+<h2>Remove a submodule cleanly</h2>
+<p>Removing a submodule needs more care than deleting a folder. Do the deinit and remove steps so no ghost entries haunt your repo.</p>
+<ol>
+  <li>Deinitialize the submodule so git stops tracking it</li>
+  <li>Remove the module directory under .git so git internals do not keep stray data</li>
+  <li>Remove the path from the index and commit the change in the parent repo</li>
+</ol>
+<pre><code>git submodule deinit -f PATH
+rm -rf .git/modules/PATH
+git rm -f PATH
+# edit .gitmodules to remove the entry if needed
+# commit the removal in the parent repo</code></pre>
+<p>After that clean up .gitmodules and commit the edits. If anyone else still has the old data they may need to run the submodule init commands again.</p>
+
+<h2>Tips to stay out of submodule hell</h2>
+<ul>
+  <li>Pin submodule commits to known good states and document the update process in the parent repo</li>
+  <li>Use clear paths and sensible branch names inside submodules so teammates are not asking for the meaning of life</li>
+  <li>Include the git submodule update step in CI or build docs so pipelines do not fail unexpectedly</li>
+  <li>Consider alternatives like subtrees or package registries if you want fewer manual steps</li>
+</ul>
+
+<h2>Final thoughts</h2>
+<p>Git submodules give you explicit control over nested repositories which is great for reproducible builds and shared components. They do add complexity to your git workflow so communicate the process and keep the commands handy. If you follow these steps you will reduce surprises and keep the repo drama to a tolerable level.</p>
+
