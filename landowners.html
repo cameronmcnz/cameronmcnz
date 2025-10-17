@@ -1,0 +1,1011 @@
+---
+layout: default
+title: Engineer Dashboard
+---
+
+
+
+<!-- Main engineer dashboard UI -->
+<header class="hero py-20 mb-20 py-md-6" style="padding-top:20px;">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-4">Landowners Property Claim Tool</h2>
+    <p class="text-center mb-4">Associate Your Email or Phone Number with a Tower</p>
+  <!-- ...existing engineer dashboard UI below (search, results, selected, queue, sent) ... -->
+  <style>
+  body { font-family: system-ui, Arial, sans-serif; margin: 2rem; }
+    #status { text-align:center; margin-bottom: 1rem; }
+    #spinner {
+      display: inline-block;
+      width: 24px; height: 24px;
+      border: 3px solid #ccc; border-top: 3px solid #0078d4;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      vertical-align: middle; margin-right: 8px;
+    }
+    @keyframes spin { 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
+    #searchWrap { max-width: 900px; margin: 0 auto; display: none; }
+    #searchWrap label { font-weight: 600; display:block; margin: .5rem 0 .25rem; }
+    #q {
+      width: 100%; padding: .6rem .8rem; font-size: 1rem;
+      border: 1px solid #d0d7de; border-radius: 8px;
+    }
+    #hint { color:#555; font-size: .9rem; margin-top: .25rem; }
+    #selectedBox {
+      border: 2px solid #0078d4;
+      border-radius: 8px;
+      padding: .5rem .75rem;
+      margin: 1rem 0 .5rem 0;
+      background: #f8faff;
+      font-size: .85rem;
+      color: #1a237e;
+    }
+    #selectedBoxTitle {
+      font-size: .85rem;
+      color: #1565c0;
+      margin-bottom: .25rem;
+    }
+    #selectedList {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .selected-row {
+      display: grid;
+      /* icon | id | project | county | state | date | coords | action */
+  grid-template-columns: 28px 110px 0.95fr 0.6fr 40px 36px 0.8fr 36px;
+      gap: .45rem; align-items: center;
+      padding: .25rem .2rem; border-bottom: 1px solid #e3eafc;
+      background: #e3f2fd;
+    }
+    .selected-row:last-child { border-bottom: none; }
+    .garbage-icon {
+      cursor: pointer;
+      color: #1976d2;
+      font-size: 1.2rem;
+      text-align: center;
+      transition: color .2s;
+    }
+    .garbage-icon:hover { color: #d32f2f; }
+    #results { margin-top: 1rem; }
+    #notificationQueueBox {
+      border: 2px solid #fbc02d;
+      border-radius: 8px;
+      padding: .5rem .75rem;
+      margin: 1rem 0 .5rem 0;
+      background: #fffde7;
+      font-size: .85rem;
+      color: #795548;
+    }
+    #notificationQueueBoxTitle {
+      font-size: .85rem;
+      color: #fbc02d;
+      margin-bottom: .25rem;
+    }
+    #notificationQueueList {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .notification-queue-row {
+      display: grid;
+      /* icon | id | project | county | state | date | coords | action */
+  grid-template-columns: 28px 110px 0.95fr 0.6fr 40px 36px 0.8fr 36px;
+      gap: .45rem; align-items: center;
+      padding: .25rem .2rem; border-bottom: 1px solid #ffe082;
+      background: #fffde7;
+    }
+    .notification-queue-row:last-child { border-bottom: none; }
+    .queue-spinner {
+      color: #fbc02d;
+      font-size: 1.2rem;
+      text-align: center;
+      margin-right: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: spin 1s linear infinite;
+    }
+    #notificationBoxTitle {
+      font-size: .85rem;
+      color: #43a047;
+      margin-bottom: .25rem;
+    }
+    #notificationList {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .notification-row {
+      display: grid;
+      /* icon | id | project | county | state | date | coords | action */
+  grid-template-columns: 28px 110px 0.95fr 0.6fr 40px 36px 0.8fr 36px;
+      gap: .45rem; align-items: center;
+      padding: .25rem .2rem; border-bottom: 1px solid #c8e6c9;
+      background: #e8f5e9;
+    }
+    .notification-row:last-child { border-bottom: none; }
+    #notificationBox {
+      border: 2px solid #43a047;
+      border-radius: 8px;
+      padding: .5rem .75rem;
+      margin: 1rem 0 .5rem 0;
+      background: #e8f5e9;
+      font-size: .85rem;
+      color: #1b5e20;
+      box-sizing: border-box;
+      display: block;
+    }
+    .notification-checkbox {
+      color: #43a047;
+      font-size: 1.2rem;
+      text-align: center;
+      margin-right: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .phone-icon {
+      cursor: pointer;
+      color: #1976d2;
+      font-size: 1.2rem;
+      text-align: center;
+      margin-right: 8px;
+      transition: color .2s;
+      grid-column: 1;
+    }
+    .phone-icon:hover { color: #d32f2f; }
+    .result-row {
+      display: grid;
+      /* placeholder | id | project | county | state | date | coords */
+  grid-template-columns: 28px 110px 0.95fr 0.6fr 40px 36px 0.8fr;
+      gap: .45rem; align-items: center;
+      padding: .45rem .5rem; border-bottom: 1px solid #eee;
+    }
+
+    /* make icon boxes fixed to avoid wrapping */
+    .garbage-icon, .phone-icon, .notification-checkbox { width: 32px; height: 28px; display:flex; align-items:center; justify-content:center; }
+  .star-icon { width: 32px; height: 28px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+    /* truncate lengthy text columns */
+  .selected-row div, .notification-row div, .notification-queue-row div, .result-row div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .id-cell { white-space: normal; overflow: visible; text-overflow: clip; font-feature-settings: "tnum" 1; }
+  /* Make result text always readable and use subtle alternating light greys */
+  .result-row { background: #fbfbfb; padding: .6rem .6rem; }
+  .result-row:nth-child(even) { background: #f0f0f0; }
+  /* Gentle hover to aid scanning */
+  .result-row:hover { background: #e9e9e9; }
+  .result-row { transition: background-color .12s linear; }
+  /* Slightly larger, always-black text for readability while preserving icon colors */
+  .result-row div:not(.star-icon):not(.phone-icon):not(.garbage-icon):not(.notification-checkbox):not(.queue-spinner) { color: #000; font-size: .98rem; }
+  /* Make pill contrast softer */
+  .result-row .pill { background: #fff; border-color: #d6d6d6; }
+    .muted { color:#666; font-size: .9rem; }
+    .pill {
+      display:inline-block; padding:.08rem .3rem; border-radius:999px;
+      border:1px solid #d0d7de; font-size:.75rem; background:#fff; min-width:2.2rem; text-align:center;
+    }
+    .selected-row .pill, .notification-row .pill, .notification-queue-row .pill { font-size:.72rem; }
+    .selected-row div, .notification-row div, .notification-queue-row div { min-width:0; }
+    #footerBar {
+      display:flex; justify-content: space-between; align-items:center;
+      margin-top: .75rem; font-size:.9rem; color:#444;
+    }
+    #selectedCount { font-weight:600; }
+  </style>
+<div id="status">
+  <span id="spinner"></span>
+  <span id="loadingText">Loading</span>
+</div>
+
+<div id="searchWrap">
+  <label for="claimEmail">Email:</label>
+  <input id="claimEmail" type="email" placeholder="owner@example.com" autocomplete="email" style="margin-bottom:.5rem; width:100%; padding:.5rem; border-radius:6px; border:1px solid #d0d7de;" />
+  <label for="claimPhone">Phone:</label>
+  <input id="claimPhone" type="tel" placeholder="+1416..." autocomplete="tel" style="margin-bottom:.5rem; width:100%; padding:.5rem; border-radius:6px; border:1px solid #d0d7de;" />
+  <label for="q">Search windmills (id, project, county, state)</label>
+  <input id="q" type="text" placeholder="Type at least 2 characters…" autocomplete="off" />
+  <div id="hint" class="muted">Results update as you type. Use the checkboxes to select multiple windmills.</div>
+  <!-- Selected UI removed for landowners (kept hidden for compatibility) -->
+  <div id="selectedBox" style="display:none;">
+    <div id="selectedBoxTitle">Selected</div>
+    <ul id="selectedList"></ul>
+  </div>
+  <div id="notificationQueueBox">
+    <div id="notificationQueueBoxTitle">Claim Queue</div>
+    <ul id="notificationQueueList"></ul>
+  </div>
+  <div id="notificationBox" class="notification-box">
+    <div id="notificationBoxTitle">Tower(s) Claimed</div>
+    <ul id="notificationList"></ul>
+  </div>
+  <div id="results"></div>
+  <div id="footerBar">
+    <div><span id="matchCount">0</span> match(es)</div>
+    <div><span id="selectedCount">0</span> selected</div>
+  </div>
+</div>
+
+<script>
+  const DB_NAME = 'WindmillsDB';
+  const STORE = 'turbines';
+  const CSV_URL = '/assets/json/windmills.csv';
+  const MAX_RENDER = 1000; // cap UI to avoid rendering too many at once
+  const DB_LOADED_FLAG = 'windmillsDbLoaded';
+
+  // Track selections
+  const SELECTED_KEY = 'ws_selected';
+  const QUEUE_KEY = 'ws_queue';
+  const NOTIFIED_KEY = 'ws_notified';
+  const FAV_KEY = 'ws_favs';
+
+  const selectedIds = new Set();
+  const selectedRecords = new Map();
+  const queueIds = new Set();
+  const queueRecords = new Map();
+  const notifiedIds = new Set();
+  const notifiedRecords = new Map();
+  const favIds = new Set();
+  const favRecords = new Map();
+
+  // --- NEW: derive requester email from Cognito (fallback)
+  function getRequesterEmail() {
+    const u = window.currentUser;
+    return (u?.email || u?.profile?.email || 'notifications@windafe.org');
+  }
+
+  // --- NEW: prefill the visible email field when user is logged in
+  function prefillClaimEmail() {
+    const emailEl = document.getElementById('claimEmail');
+    if (!emailEl) return;
+    const isAuthed = !!(window.currentUser && !window.currentUser.expired);
+    if (isAuthed) {
+      emailEl.value = getRequesterEmail();
+    }
+  }
+
+  // Keep field in sync live with login/logout
+  window.addEventListener('auth:changed', prefillClaimEmail);
+
+  function saveState() {
+    try {
+      localStorage.setItem(SELECTED_KEY, JSON.stringify(Array.from(selectedIds)));
+      localStorage.setItem(QUEUE_KEY, JSON.stringify(Array.from(queueIds)));
+      localStorage.setItem(NOTIFIED_KEY, JSON.stringify(Array.from(notifiedIds)));
+      localStorage.setItem(SELECTED_KEY + '_records', JSON.stringify(Array.from(selectedRecords.entries())));
+      localStorage.setItem(QUEUE_KEY + '_records', JSON.stringify(Array.from(queueRecords.entries())));
+      localStorage.setItem(NOTIFIED_KEY + '_records', JSON.stringify(Array.from(notifiedRecords.entries())));
+      localStorage.setItem(FAV_KEY, JSON.stringify(Array.from(favIds)));
+      localStorage.setItem(FAV_KEY + '_records', JSON.stringify(Array.from(favRecords.entries())));
+    } catch (e) {
+      console.error('saveState failed', e);
+    }
+  }
+
+  function loadState() {
+    try {
+      const selIds = JSON.parse(localStorage.getItem(SELECTED_KEY) || '[]');
+      const qIds = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]');
+      const nIds = JSON.parse(localStorage.getItem(NOTIFIED_KEY) || '[]');
+      selIds.forEach(id => selectedIds.add(String(id)));
+      qIds.forEach(id => queueIds.add(String(id)));
+      nIds.forEach(id => notifiedIds.add(String(id)));
+
+      const selRecs = JSON.parse(localStorage.getItem(SELECTED_KEY + '_records') || '[]');
+      const qRecs = JSON.parse(localStorage.getItem(QUEUE_KEY + '_records') || '[]');
+      const nRecs = JSON.parse(localStorage.getItem(NOTIFIED_KEY + '_records') || '[]');
+      selRecs.forEach(([id, rec]) => selectedRecords.set(String(id), rec));
+      qRecs.forEach(([id, rec]) => queueRecords.set(String(id), rec));
+      nRecs.forEach(([id, rec]) => notifiedRecords.set(String(id), rec));
+
+      const fIds = JSON.parse(localStorage.getItem(FAV_KEY) || '[]');
+      const fRecs = JSON.parse(localStorage.getItem(FAV_KEY + '_records') || '[]');
+      fIds.forEach(id => favIds.add(String(id)));
+      fRecs.forEach(([id, rec]) => favRecords.set(String(id), rec));
+    } catch (e) {
+      console.error('loadState failed', e);
+    }
+  }
+
+  // Schedule for queued items: map of key->timeoutID so we can cancel if removed
+  const _queueTimers = new Map();
+
+  function scheduleQueueTimer(key, rec) {
+    const now = Date.now();
+    let remaining = 0;
+    if (rec && rec.__queuedUntil) {
+      remaining = Number(rec.__queuedUntil) - now;
+    }
+    if (remaining <= 0) {
+      if (queueIds.has(key)) {
+        queueIds.delete(key);
+        queueRecords.delete(key);
+        notifiedIds.add(key);
+        if (rec && rec.__queuedUntil) delete rec.__queuedUntil;
+        if (rec) rec.__notifiedAt = Date.now();
+        notifiedRecords.set(key, rec);
+        renderNotificationQueueList();
+        renderNotificationList();
+        saveState();
+      }
+      return;
+    }
+    if (_queueTimers.has(key)) clearTimeout(_queueTimers.get(key));
+    const tid = setTimeout(() => {
+      if (queueIds.has(key)) {
+        queueIds.delete(key);
+        queueRecords.delete(key);
+        notifiedIds.add(key);
+        const r = rec || notifiedRecords.get(key) || null;
+        if (r && r.__queuedUntil) delete r.__queuedUntil;
+        if (r) r.__notifiedAt = Date.now();
+        notifiedRecords.set(key, r);
+        renderNotificationQueueList();
+        renderNotificationList();
+        saveState();
+      }
+      _queueTimers.delete(key);
+    }, remaining);
+    _queueTimers.set(key, tid);
+  }
+
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(DB_NAME, 3);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        let store;
+        if (!db.objectStoreNames.contains(STORE)) {
+          store = db.createObjectStore(STORE, { keyPath: 'id' });
+        } else {
+          store = req.transaction.objectStore(STORE);
+        }
+        if (!store.indexNames.contains('by_state'))  store.createIndex('by_state',  'state',  { unique: false });
+        if (!store.indexNames.contains('by_project'))store.createIndex('by_project','project',{ unique: false });
+        if (!store.indexNames.contains('by_count'))  store.createIndex('by_count',  'count',  { unique: false }); // county
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+
+  function normalize(rec) {
+    const out = { ...rec };
+    if ('id' in out && !Number.isNaN(Number(out.id))) out.id = Number(out.id);
+    if ('offshore' in out && !Number.isNaN(Number(out.offshore))) out.offshore = Number(out.offshore);
+    if ('xlong' in out && !Number.isNaN(Number(out.xlong))) out.xlong = Number(out.xlong);
+    if ('ylat' in out && !Number.isNaN(Number(out.ylat))) out.ylat = Number(out.ylat);
+    return out;
+  }
+
+  // Minimal CSV parser that handles quoted fields and CRLF/LF
+  function parseCSV(text) {
+    const rows = [];
+    let cur = [];
+    let field = '';
+    let inQuotes = false;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      const next = text[i+1];
+      if (inQuotes) {
+        if (ch === '"') {
+          if (next === '"') { field += '"'; i++; }
+          else { inQuotes = false; }
+        } else {
+          field += ch;
+        }
+      } else {
+        if (ch === '"') { inQuotes = true; }
+        else if (ch === ',') { cur.push(field); field = ''; }
+        else if (ch === '\r') { /* ignore */ }
+        else if (ch === '\n') { cur.push(field); rows.push(cur); cur = []; field = ''; }
+        else { field += ch; }
+      }
+    }
+    if (field !== '' || cur.length > 0) { cur.push(field); rows.push(cur); }
+    return rows;
+  }
+
+  function bulkPut(db, records) {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE, 'readwrite');
+      const store = tx.objectStore(STORE);
+      for (const r of records) {
+        const req = store.put(r);
+        req.onerror = () => reject(req.error);
+      }
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+      tx.onabort = () => reject(tx.error || new Error('Transaction aborted'));
+    });
+  }
+
+  // Debounce helper
+  function debounce(fn, ms=200) {
+    let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+  }
+
+  // Render results with checkboxes
+  function renderResults(rows, totalMatches) {
+    const results = document.getElementById('results');
+    const matchCountEl = document.getElementById('matchCount');
+    results.innerHTML = '';
+    const frag = document.createDocumentFragment();
+    // filter out items in selected/queue/notified
+    let visible = rows.slice(0, MAX_RENDER).filter(r => {
+      const key = String(r.id);
+      return !(selectedIds.has(key) || queueIds.has(key) || notifiedIds.has(key));
+    });
+    // If search produced no rows but there are favorites, show favorites
+    if ((!visible || visible.length === 0) && favIds.size > 0 && (!rows || rows.length === 0)) {
+      visible = Array.from(favRecords.values()).slice(0, MAX_RENDER);
+    }
+    // Promote favs to the front
+    const favPart = visible.filter(r => favIds.has(String(r.id)));
+    const otherPart = visible.filter(r => !favIds.has(String(r.id)));
+    const ordered = favPart.concat(otherPart);
+
+    ordered.forEach(r => {
+      const key = String(r.id);
+      const row = document.createElement('div');
+      row.className = 'result-row';
+
+      // Click to claim (landowners) — POST claim API then enqueue into Claim Queue
+      row.style.cursor = 'pointer';
+      row.title = 'Click to claim';
+      row.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        // Read contact inputs with defaults
+        const emailEl = document.getElementById('claimEmail');
+        const phoneEl = document.getElementById('claimPhone');
+        const emailRaw = (emailEl && emailEl.value && emailEl.value.trim()) || '';
+        const phoneRaw = (phoneEl && phoneEl.value && phoneEl.value.trim()) || '';
+        const email = emailRaw || getRequesterEmail(); // <-- NEW default from Cognito (or notifications@windafe.org)
+        const phone = phoneRaw || '';
+
+        // Fire a non-blocking claim POST
+        try {
+          fetch('https://api.windsafe.org/v1/public/claim', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ windmillId: String(r.id), email: email, phone: phone })
+          }).then(async res => {
+            let json = null;
+            try { json = await res.json(); } catch(_) { /* ignore */ }
+            if (!res.ok) console.error('Claim POST failed', res.status, json);
+            else console.log('Claim POST response', json);
+          }).catch(err => console.error('Claim POST error', err));
+        } catch (e) { console.error('Claim POST failed to start', e); }
+
+        // Continue with enqueueing into Claim Queue (same scheduling behavior)
+        const delay = Math.floor(Math.random() * 13) + 8; // seconds
+        const queuedUntil = Date.now() + delay * 1000;
+        const recCopy = { ...r, __queuedAt: Date.now(), __queuedUntil: queuedUntil };
+        queueIds.add(key);
+        queueRecords.set(key, recCopy);
+        renderNotificationQueueList();
+        saveState();
+        // Re-render results with latest query
+        if (window.lastRows && window.lastTotal !== undefined) renderResults(window.lastRows, window.lastTotal);
+        // schedule move-to-sent using persisted queuedUntil
+        scheduleQueueTimer(key, recCopy);
+      });
+
+      // Star favorite icon
+      const star = document.createElement('div');
+      star.className = 'star-icon';
+      const isFav = favIds.has(key);
+      star.innerHTML = isFav
+        ? '<svg viewBox="0 0 24 24" width="20" height="20" fill="#f4c542"><path d="M12 .587l3.668 7.431L23.5 9.75l-5.5 5.362L19.335 24 12 19.77 4.665 24 6 15.112 0.5 9.75l7.832-1.732z"/></svg>'
+        : '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1976d2" stroke-width="1.5"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
+      star.title = isFav ? 'Unfavorite' : 'Favorite';
+      star.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        if (favIds.has(key)) { favIds.delete(key); favRecords.delete(key); }
+        else { favIds.add(key); favRecords.set(key, r); }
+        saveState();
+        const q = document.getElementById('q').value;
+        if (window.doSearchCached) window.doSearchCached(q);
+        renderResults(rows, totalMatches);
+      });
+
+      const id = document.createElement('div'); id.className = 'id-cell'; id.textContent = r.id;
+      const project = document.createElement('div'); project.textContent = r.project || '';
+      const county = document.createElement('div'); county.textContent = displayCounty(r.count || '');
+      const state = document.createElement('div'); state.textContent = r.state || '';
+      const dateCell = document.createElement('div');
+      const dateVal = r.__selectedAt || r.__queuedAt || r.__notifiedAt || '';
+      dateCell.textContent = formatDateDM(dateVal);
+      const coords = document.createElement('div');
+      coords.innerHTML = `<span class="pill">${r.ylat ?? ''}</span> <span class="pill">${r.xlong ?? ''}</span>`;
+
+      row.appendChild(star);
+      row.appendChild(id);
+      row.appendChild(project);
+      row.appendChild(county);
+      row.appendChild(state);
+      row.appendChild(dateCell);
+      row.appendChild(coords);
+      frag.appendChild(row);
+    });
+
+    results.appendChild(frag);
+    matchCountEl.textContent = totalMatches;
+  }
+
+  function renderSelectedList() {
+    const selectedList = document.getElementById('selectedList');
+    selectedList.innerHTML = '';
+    if (selectedIds.size > 0) {
+      const header = document.createElement('div');
+      header.style.display = 'flex';
+      header.style.justifyContent = 'space-between';
+      header.style.alignItems = 'center';
+      header.style.marginBottom = '6px';
+      const count = document.createElement('div'); count.textContent = `${selectedIds.size} selected`;
+      const clearBtn = document.createElement('button');
+      clearBtn.textContent = 'Clear All';
+      clearBtn.className = 'btn btn-sm btn-outline-secondary';
+      clearBtn.addEventListener('click', () => {
+        selectedIds.clear();
+        selectedRecords.clear();
+        renderSelectedList();
+        saveState();
+        if (window.lastRows && window.lastTotal !== undefined) renderResults(window.lastRows, window.lastTotal);
+        updateSelectedCount();
+      });
+      header.appendChild(count);
+      header.appendChild(clearBtn);
+      const wrapper = document.createElement('li');
+      wrapper.style.listStyle = 'none';
+      wrapper.appendChild(header);
+      selectedList.appendChild(wrapper);
+    }
+    selectedIds.forEach(key => {
+      const r = selectedRecords.get(key);
+      if (!r) return;
+      const row = document.createElement('li');
+      row.className = 'selected-row';
+
+      const notifyIcon = document.createElement('div');
+      notifyIcon.className = 'phone-icon';
+      notifyIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2a6 6 0 0 0-6 6v4.5c0 .28-.11.53-.29.71L4 15v1h16v-1l-1.71-1.79a1.003 1.003 0 0 1-.29-.71V8a6 6 0 0 0-6-6zm0 20a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2z"/></svg>';
+      notifyIcon.title = 'Queue notification';
+      notifyIcon.addEventListener('click', () => {
+        selectedIds.delete(key);
+        selectedRecords.delete(key);
+        const delay = Math.floor(Math.random() * 13) + 8; // seconds
+        const queuedUntil = Date.now() + delay * 1000;
+        const recCopy = { ...r, __queuedAt: Date.now(), __queuedUntil: queuedUntil };
+        if (r.__selectedAt) recCopy.__selectedAt = r.__selectedAt;
+        queueIds.add(key);
+        queueRecords.set(key, recCopy);
+        try {
+          fetch('https://api.windsafe.org/v1/public/notifications', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ windmillId: String(r.id), requesterEmail: 'tech@windsafe.org' })
+          }).then(res => {
+            if (!res.ok) console.error('Notification POST failed', res.status);
+            else console.log('Notification POST sent', r.id);
+          }).catch(err => console.error('Notification POST error', err));
+        } catch (e) {
+          console.error('Notification POST failed to start', e);
+        }
+        renderSelectedList();
+        renderNotificationQueueList();
+        saveState();
+        const q = document.getElementById('q').value;
+        if (window.lastRows && window.lastTotal !== undefined) {
+          renderResults(window.lastRows, window.lastTotal);
+        }
+        updateSelectedCount();
+        scheduleQueueTimer(key, recCopy);
+      });
+
+      row.appendChild(notifyIcon);
+      const id = document.createElement('div'); id.className = 'id-cell'; id.textContent = r.id;
+      const project = document.createElement('div'); project.textContent = r.project || '';
+      const county = document.createElement('div'); county.textContent = displayCounty(r.count || '');
+      const state = document.createElement('div'); state.textContent = r.state || '';
+      const coords = document.createElement('div');
+      coords.innerHTML = `<span class="pill">${r.ylat ?? ''}</span> <span class="pill">${r.xlong ?? ''}</span>`;
+
+      const dateCell = document.createElement('div');
+      dateCell.textContent = formatDateDM(r.__selectedAt || r.__queuedAt || r.__notifiedAt || '');
+      row.appendChild(id);
+      row.appendChild(project);
+      row.appendChild(county);
+      row.appendChild(state);
+      row.appendChild(dateCell);
+      row.appendChild(coords);
+      const removeIcon = document.createElement('div');
+      removeIcon.className = 'garbage-icon';
+      removeIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M9 3v1H4v2h16V4h-5V3H9zm-4 6v11a2 2 0 002 2h6a2 2 0 002-2V9H5zm2 2h2v7H7v-7zm4 0h2v7h-2v-7z"/></svg>';
+      removeIcon.title = 'Remove from selected';
+      removeIcon.addEventListener('click', () => {
+        selectedIds.delete(key);
+        selectedRecords.delete(key);
+        renderSelectedList();
+        saveState();
+        const q = document.getElementById('q').value;
+        if (window.lastRows && window.lastTotal !== undefined) {
+          renderResults(window.lastRows, window.lastTotal);
+        }
+        updateSelectedCount();
+      });
+
+      row.appendChild(removeIcon);
+      selectedList.appendChild(row);
+    });
+  }
+
+  function renderNotificationQueueList() {
+    const queueList = document.getElementById('notificationQueueList');
+    queueList.innerHTML = '';
+    if (queueIds.size > 0) {
+      const header = document.createElement('div');
+      header.style.display = 'flex';
+      header.style.justifyContent = 'space-between';
+      header.style.alignItems = 'center';
+      header.style.marginBottom = '6px';
+      const count = document.createElement('div'); count.textContent = `${queueIds.size} in queue`;
+      const clearBtn = document.createElement('button');
+      clearBtn.textContent = 'Clear All';
+      clearBtn.className = 'btn btn-sm btn-outline-secondary';
+      clearBtn.addEventListener('click', () => {
+        _queueTimers.forEach(tid => clearTimeout(tid));
+        _queueTimers.clear();
+        queueIds.clear();
+        queueRecords.clear();
+        renderNotificationQueueList();
+        saveState();
+        if (window.lastRows && window.lastTotal !== undefined) renderResults(window.lastRows, window.lastTotal);
+        updateSelectedCount();
+      });
+      header.appendChild(count);
+      header.appendChild(clearBtn);
+      const wrapper = document.createElement('li');
+      wrapper.style.listStyle = 'none';
+      wrapper.appendChild(header);
+      queueList.appendChild(wrapper);
+    }
+
+    queueIds.forEach(key => {
+      const r = queueRecords.get(key);
+      if (!r) return;
+      const row = document.createElement('li');
+      row.className = 'notification-queue-row';
+
+      const spinnerIcon = document.createElement('div');
+      spinnerIcon.className = 'queue-spinner';
+      spinnerIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="10" stroke="#fbc02d" stroke-width="4" fill="none" opacity="0.3"/><path d="M12 2a10 10 0 0 1 10 10" stroke="#fbc02d" stroke-width="4" fill="none"/></svg>';
+
+      const id = document.createElement('div'); id.className = 'id-cell'; id.textContent = r.id;
+      const project = document.createElement('div'); project.textContent = r.project || '';
+      const county = document.createElement('div'); county.textContent = displayCounty(r.count || '');
+      const state = document.createElement('div'); state.textContent = r.state || '';
+      const coords = document.createElement('div');
+      coords.innerHTML = `<span class="pill">${r.ylat ?? ''}</span> <span class="pill">${r.xlong ?? ''}</span>`;
+
+      const dateCell = document.createElement('div');
+      dateCell.textContent = formatDateDM(r.__queuedAt || r.__queuedUntil || r.__notifiedAt || '');
+
+      const removeIcon = document.createElement('div');
+      removeIcon.className = 'garbage-icon';
+      removeIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M9 3v1H4v2h16V4h-5V3H9zm-4 6v11a2 2 0 002 2h6a2 2 0 002-2V9H5zm2 2h2v7H7v-7zm4 0h2v7h-2v-7z"/></svg>';
+      removeIcon.title = 'Remove from queue';
+      removeIcon.addEventListener('click', () => {
+        queueIds.delete(key);
+        if (_queueTimers.has(key)) { clearTimeout(_queueTimers.get(key)); _queueTimers.delete(key); }
+        queueRecords.delete(key);
+        renderNotificationQueueList();
+        saveState();
+        const q = document.getElementById('q').value;
+        if (window.lastRows && window.lastTotal !== undefined) {
+          renderResults(window.lastRows, window.lastTotal);
+        }
+        updateSelectedCount();
+      });
+
+      row.appendChild(spinnerIcon);
+      row.appendChild(id);
+      row.appendChild(project);
+      row.appendChild(county);
+      row.appendChild(state);
+      row.appendChild(dateCell);
+      row.appendChild(coords);
+      row.appendChild(removeIcon);
+      queueList.appendChild(row);
+    });
+  }
+
+  function renderNotificationList() {
+    const notificationList = document.getElementById('notificationList');
+    notificationList.innerHTML = '';
+    if (notifiedIds.size > 0) {
+      const header = document.createElement('div');
+      header.style.display = 'flex';
+      header.style.justifyContent = 'space-between';
+      header.style.alignItems = 'center';
+      header.style.marginBottom = '6px';
+      const count = document.createElement('div'); count.textContent = `${notifiedIds.size} claimed`;
+      const clearBtn = document.createElement('button');
+      clearBtn.textContent = 'Clear All';
+      clearBtn.className = 'btn btn-sm btn-outline-secondary';
+      clearBtn.addEventListener('click', () => {
+        notifiedIds.clear();
+        notifiedRecords.clear();
+        renderNotificationList();
+        saveState();
+        if (window.lastRows && window.lastTotal !== undefined) renderResults(window.lastRows, window.lastTotal);
+        updateSelectedCount();
+      });
+      header.appendChild(count);
+      header.appendChild(clearBtn);
+      const wrapper = document.createElement('li');
+      wrapper.style.listStyle = 'none';
+      wrapper.appendChild(header);
+      notificationList.appendChild(wrapper);
+    }
+    notifiedIds.forEach(key => {
+      const r = notifiedRecords.get(key);
+      if (!r) return;
+      const row = document.createElement('li');
+      row.className = 'notification-row';
+
+      const checkboxIcon = document.createElement('div');
+      checkboxIcon.className = 'notification-checkbox';
+      checkboxIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><rect x="4" y="4" width="16" height="16" rx="4" fill="#43a047"/><path d="M7 12l3 3 5-5" stroke="#fff" stroke-width="2.5" fill="none"/></svg>';
+
+      const id = document.createElement('div'); id.textContent = r.id;
+      const project = document.createElement('div'); project.textContent = r.project || '';
+      const county = document.createElement('div'); county.textContent = displayCounty(r.count || '');
+      const state = document.createElement('div'); state.textContent = r.state || '';
+      const coords = document.createElement('div');
+      coords.innerHTML = `<span class="pill">${r.ylat ?? ''}</span> <span class="pill">${r.xlong ?? ''}</span>`;
+
+      const dateCell = document.createElement('div');
+      dateCell.textContent = formatDateDM(r.__notifiedAt || r.__queuedAt || r.__selectedAt || '');
+
+      const removeIcon = document.createElement('div');
+      removeIcon.className = 'garbage-icon';
+      removeIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M9 3v1H4v2h16V4h-5V3H9zm-4 6v11a2 2 0 002 2h6a2 2 0 002-2V9H5zm2 2h2v7H7v-7zm4 0h2v7h-2v-7z"/></svg>';
+      removeIcon.title = 'Remove from notifications';
+      removeIcon.addEventListener('click', () => {
+        notifiedIds.delete(key);
+        notifiedRecords.delete(key);
+        renderNotificationList();
+        saveState();
+        const q = document.getElementById('q').value;
+        if (window.lastRows && window.lastTotal !== undefined) {
+          renderResults(window.lastRows, window.lastTotal);
+        }
+        updateSelectedCount();
+      });
+
+      row.appendChild(checkboxIcon);
+      row.appendChild(id);
+      row.appendChild(project);
+      row.appendChild(county);
+      row.appendChild(state);
+      row.appendChild(dateCell);
+      row.appendChild(coords);
+      row.appendChild(removeIcon);
+      notificationList.appendChild(row);
+    });
+  }
+
+  function updateSelectedCount() {
+    document.getElementById('selectedCount').textContent = selectedIds.size;
+  }
+
+  // Contains match across id/project/county/state (case-insensitive)
+  function matchesQuery(rec, q) {
+    const needle = q.toLowerCase();
+    const hay = [
+      rec.id != null ? String(rec.id) : '',
+      rec.project || '',
+      rec.count || '',
+      rec.state || ''
+    ].join(' ').toLowerCase();
+    return hay.includes(needle);
+  }
+
+  // Helper: format timestamp as DD/MM
+  function formatDateDM(ts) {
+    if (!ts) return '';
+    try {
+      const d = new Date(Number(ts));
+      const day = String(d.getDate()).padStart(2, '0');
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      return `${day}/${month}`;
+    } catch (e) { return ''; }
+  }
+
+  // Helper: display county name with 'County' appended when non-empty
+  function displayCounty(name) {
+    if (!name) return '';
+    const s = String(name).trim();
+    if (!s) return '';
+    if (/county$/i.test(s)) return s;
+    return s + ' County';
+  }
+
+  // Search: scan with cursor (works across all fields)
+  function searchDB(db, query) {
+    return new Promise((resolve, reject) => {
+      const rows = [];
+      let total = 0;
+      const tx = db.transaction(STORE, 'readonly');
+      const store = tx.objectStore(STORE);
+      const req = store.openCursor();
+      req.onsuccess = (e) => {
+        const cursor = e.target.result;
+        if (!cursor) { resolve({ rows, total }); return; }
+        const value = cursor.value;
+        if (matchesQuery(value, query)) {
+          total++;
+          if (rows.length < MAX_RENDER) rows.push(value);
+        }
+        cursor.continue();
+      };
+      req.onerror = () => reject(req.error);
+    });
+  }
+
+  // Try a fast exact get if query looks like an id (all digits),
+  // then fallback to contains search for broader matches.
+  async function smartSearch(db, query) {
+    const q = query.trim();
+    if (!q) return { rows: [], total: 0 };
+
+    if (/^\d+$/.test(q)) {
+      try {
+        const tx = db.transaction(STORE, 'readonly');
+        const store = tx.objectStore(STORE);
+        const val = await new Promise((resolve, reject) => {
+          const r = store.get(Number(q));
+          r.onsuccess = () => resolve(r.result || null);
+          r.onerror = () => reject(r.error);
+        });
+        if (val) return { rows: [val], total: 1 };
+      } catch {}
+    }
+    return searchDB(db, q);
+  }
+
+  async function autoLoad() {
+    const loadingEl = document.getElementById('loadingText');
+    const spinnerEl = document.getElementById('spinner');
+    const searchWrap = document.getElementById('searchWrap');
+    let dotCount = 0;
+
+    // Restore persistent state
+    loadState();
+
+    // Wait for auth (so we can prefill the email reliably), then prefill
+    try { if (window.authReady) await window.authReady; } catch {}
+    prefillClaimEmail();
+
+    // resume timers for queued items
+    queueIds.forEach(key => {
+      const rec = queueRecords.get(key);
+      scheduleQueueTimer(key, rec);
+    });
+    // render lists from restored state immediately
+    renderSelectedList();
+    renderNotificationQueueList();
+    renderNotificationList();
+
+    // Check if DB is already loaded
+    if (localStorage.getItem(DB_LOADED_FLAG)) {
+      spinnerEl.style.display = 'none';
+      loadingEl.textContent = "Database already loaded. Let's get started.";
+      searchWrap.style.display = 'block';
+
+      // Prefill again once UI is visible (in case DOM just appeared)
+      prefillClaimEmail();
+
+      // Wire up search
+      const db = await openDB();
+      const q = document.getElementById('q');
+      const dbRef = db;
+      const doSearch = debounce(async (val) => {
+        const trimmed = val.trim();
+        if (trimmed.length < 2) {
+          // show favorites when no or short query
+          const favRows = Array.from(favRecords.values());
+          renderResults(favRows, favRows.length);
+          return;
+        }
+        const { rows, total } = await smartSearch(dbRef, trimmed);
+        // promote favorites to the top when present in results
+        renderResults(rows, total);
+      }, 200);
+      q.addEventListener('input', (e) => doSearch(e.target.value));
+      // expose for UI actions to re-run current query
+      window.doSearchCached = (v) => doSearch(v);
+      // default query
+      q.value = 'OK';
+      doSearch(q.value);
+      // ensure lists show restored items
+      renderSelectedList();
+      renderNotificationQueueList();
+      renderNotificationList();
+      return;
+    }
+
+    // Animate dots
+    const dotInterval = setInterval(() => {
+      dotCount = (dotCount + 1) % 4;
+      loadingEl.textContent = 'Loading' + '.'.repeat(dotCount);
+    }, 500);
+
+    try {
+      const db = await openDB();
+      const res = await fetch(CSV_URL, { cache: 'no-cache' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const txt = await res.text();
+      const rows = parseCSV(txt);
+      if (!rows || rows.length < 1) throw new Error('Expected CSV with header and rows');
+      const header = rows[0].map(h => (h || '').trim());
+      const dataRows = rows.slice(1);
+      const raw = dataRows.map(r => {
+        const obj = {};
+        for (let i = 0; i < header.length; i++) obj[header[i]] = (r[i] || '').trim();
+        return obj;
+      });
+      const records = raw.map(normalize);
+      await bulkPut(db, records);
+
+      // Set flag so DB doesn't reload again
+      localStorage.setItem(DB_LOADED_FLAG, 'true');
+
+      clearInterval(dotInterval);
+      spinnerEl.style.display = 'none';
+      loadingEl.textContent = "Finished Loading. Let's get started.";
+      searchWrap.style.display = 'block';
+
+      // Prefill again now that UI is visible
+      prefillClaimEmail();
+
+      // Wire up search after DB is ready
+      const q = document.getElementById('q');
+      const dbRef = db; // capture
+      window.lastRows = [];
+      window.lastTotal = 0;
+      const doSearch = debounce(async (val) => {
+        const trimmed = val.trim();
+        if (trimmed.length < 2) {
+          // show favorites when no or short query
+          const favRows = Array.from(favRecords.values());
+          window.lastRows = favRows;
+          window.lastTotal = favRows.length;
+          renderResults(favRows, favRows.length);
+          return;
+        }
+        const { rows, total } = await smartSearch(dbRef, trimmed);
+        window.lastRows = rows;
+        window.lastTotal = total;
+        renderResults(rows, total);
+      }, 200);
+      q.addEventListener('input', (e) => doSearch(e.target.value));
+      // expose for UI actions to re-run current query
+      window.doSearchCached = (v) => doSearch(v);
+      // default query
+      q.value = 'OK';
+      doSearch(q.value);
+      // Initial render for selected and notification lists
+      renderSelectedList();
+      renderNotificationQueueList();
+      renderNotificationList();
+
+    } catch (err) {
+      clearInterval(dotInterval);
+      spinnerEl.style.display = 'none';
+      document.getElementById('loadingText').textContent = `Error: ${err.message || err}`;
+      console.error(err);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', autoLoad);
+</script>

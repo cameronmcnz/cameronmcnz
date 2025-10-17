@@ -1,0 +1,519 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: WindSafe - HTTP API with optional custom domain, SQS/DLQ, DynamoDB, SQS consumer, claim writer; CORS *; stage=$default
+
+Parameters:
+  # ===== Domain & DNS (defaults for your account) =====
+  RootDomainName:
+    Type: String
+    Default: windsafe.org
+  HostedZoneId:
+    Type: String
+    Default: Z00981423FSYE5YTSK1C2
+  ApiSubdomain:
+    Type: String
+    Default: api
+  ApiCertificateArn:
+    Type: String
+    Default: arn:aws:acm:us-east-1:150322059913:certificate/7701781b-ac52-452b-9cd4-4e6df58605f2
+
+  # Toggle to create custom domain resources (DomainName + ApiMapping + Route53 alias)
+  # Keep "false" for your existing stack so CFN doesn't try to recreate them.
+  CreateCustomDomain:
+    Type: String
+    AllowedValues: ["true","false"]
+    Default: "false"
+    Description: Set to true ONLY on first deploy (or in a new env) to create the API custom domain
+
+  # ===== API naming/versioning =====
+  ApiName:
+    Type: String
+    Default: windsafe-httpapi
+  ApiStageName:
+    Type: String
+    Default: $default          # keep URLs without '/prod'
+  ApiVersionPath:
+    Type: String
+    Default: v1
+  PublicBasePath:
+    Type: String
+    Default: public
+  PrivateBasePath:
+    Type: String
+    Default: private
+  NotificationsPath:
+    Type: String
+    Default: notifications
+
+  # ===== Auth (optional; leave blank to keep private routes open) =====
+  JwtIssuer:
+    Type: String
+    Default: ''
+    Description: OIDC issuer URL for private route JWT authorizer (leave blank to disable)
+  JwtAudience:
+    Type: CommaDelimitedList
+    Default: ''
+    Description: Comma-separated audience values expected in JWT
+
+  # ===== Email/SMS defaults =====
+  SesSenderEmail:
+    Type: String
+    Default: no-reply@windsafe.org
+
+Conditions:
+  UseJwtAuthorizer: !Not [ !Equals [ !Ref JwtIssuer, '' ] ]
+  ShouldCreateCustomDomain: !Equals [ !Ref CreateCustomDomain, "true" ]
+
+Resources:
+  ########################################
+  # SQS (Main + DLQ)
+  ########################################
+  WindSafeDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: windsafe-dlq
+      MessageRetentionPeriod: 1209600
+      KmsMasterKeyId: alias/aws/sqs
+
+  WindSafeQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: windsafe-queue
+      VisibilityTimeout: 60
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt WindSafeDLQ.Arn
+        maxReceiveCount: 5
+      KmsMasterKeyId: alias/aws/sqs
+
+  ########################################
+  # DynamoDB (Windmills directory)
+  ########################################
+  WindmillsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Windmills
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: windmillId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: windmillId
+          KeyType: HASH
+      SSESpecification:
+        SSEEnabled: true
+
+  ########################################
+  # Lambda: SQS consumer (lookup + optional notify)
+  ########################################
+  WindmillNotifierRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: windsafe-windmill-notifier-role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: { Service: [ lambda.amazonaws.com ] }
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: windsafe-sqs-ddb-ses-sns
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: SQSRW
+                Effect: Allow
+                Action:
+                  - sqs:ReceiveMessage
+                  - sqs:DeleteMessage
+                  - sqs:GetQueueAttributes
+                  - sqs:ChangeMessageVisibility
+                Resource: !GetAtt WindSafeQueue.Arn
+              - Sid: DynamoRead
+                Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:BatchGetItem
+                  - dynamodb:Query
+                  - dynamodb:Scan
+                Resource: !GetAtt WindmillsTable.Arn
+              - Sid: EmailSend
+                Effect: Allow
+                Action:
+                  - ses:SendEmail
+                  - ses:SendRawEmail
+                Resource: "*"
+              - Sid: SmsSend
+                Effect: Allow
+                Action:
+                  - sns:Publish
+                Resource: "*"
+
+  WindmillNotifier:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: windsafe-windmill-notifier
+      Runtime: python3.12
+      Timeout: 60
+      MemorySize: 256
+      Role: !GetAtt WindmillNotifierRole.Arn
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref WindmillsTable
+          SES_SENDER: !Ref SesSenderEmail
+          EMAIL_ENABLED: 'false'    # flip to 'true' after SES identities verified / out of sandbox
+          SMS_ENABLED: 'false'
+      Handler: index.handler
+      Code:
+        ZipFile: |
+          import json, os, boto3, logging, time
+          logging.basicConfig(level=logging.INFO)
+          ddb = boto3.resource('dynamodb')
+          ses = boto3.client('ses')
+          sns = boto3.client('sns')
+          table = ddb.Table(os.environ['TABLE_NAME'])
+          SES_SENDER = os.environ.get('SES_SENDER', 'no-reply@example.com')
+          EMAIL_ENABLED = os.environ.get('EMAIL_ENABLED', 'false').lower() == 'true'
+          SMS_ENABLED = os.environ.get('SMS_ENABLED', 'false').lower() == 'true'
+
+          def _ensure_timestamp(ts):
+              try: return int(ts)
+              except: return int(time.time()*1000)
+
+          def handler(event, context):
+              for record in event.get('Records', []):
+                  try:
+                      payload = json.loads(record['body'])
+                      windmill_id = str(payload.get('windmillId', '')).strip()
+                      requester_email = payload.get('requesterEmail', None)
+                      timestamp = _ensure_timestamp(payload.get('timestamp'))
+
+                      if not windmill_id or len(windmill_id) != 7 or not windmill_id.isdigit():
+                          logging.warning({"warn":"invalid windmillId","payload":payload}); continue
+
+                      ddb_resp = table.get_item(Key={'windmillId': windmill_id})
+                      item = ddb_resp.get('Item', {})
+                      emails = item.get('emails', [])
+                      phones = item.get('phones', [])
+                      site_name = item.get('siteName', '')
+
+                      logging.info({
+                        "event": "WindmillContactsResolved",
+                        "windmillId": windmill_id,
+                        "siteName": site_name,
+                        "requesterEmail": requester_email,
+                        "timestamp": timestamp,
+                        "emails": emails, "phones": phones
+                      })
+
+                      subj = f"WindSafe visit notice for windmill {windmill_id}"
+                      body = (
+                        f"Windmill: {windmill_id} ({site_name})\n"
+                        f"Requested by: {requester_email}\n"
+                        f"Timestamp: {timestamp}\n"
+                      )
+
+                      if EMAIL_ENABLED and emails:
+                          for to in emails:
+                              try:
+                                  ses.send_email(
+                                      Source=SES_SENDER,
+                                      Destination={"ToAddresses":[to]},
+                                      Message={"Subject":{"Data": subj},"Body":{"Text":{"Data": body}}}
+                                  )
+                              except Exception as e:
+                                  logging.exception(f"SES send failed to {to}: {e}")
+
+                      if SMS_ENABLED and phones:
+                          for p in phones:
+                              try:
+                                  sns.publish(PhoneNumber=p, Message=subj + "\n" + body)
+                              except Exception as e:
+                                  logging.exception(f"SNS SMS failed to {p}: {e}")
+
+                  except Exception as e:
+                      logging.exception(f"Record processing failed: {e}")
+              return {"status":"ok"}
+
+  WindmillNotifierESM:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      BatchSize: 10
+      Enabled: true
+      EventSourceArn: !GetAtt WindSafeQueue.Arn
+      FunctionName: !Ref WindmillNotifier
+
+  ########################################
+  # HTTP API (v2) with CORS: * everywhere
+  ########################################
+  ApiGatewayToSQSCreds:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: windsafe-httpapi-sqs-role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: { Service: apigateway.amazonaws.com }
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: allow-sqs-send
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: sqs:SendMessage
+                Resource: !GetAtt WindSafeQueue.Arn
+
+  WindSafeHttpApi:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: !Ref ApiName
+      ProtocolType: HTTP
+      CorsConfiguration:
+        AllowOrigins: ['*']
+        AllowHeaders: ['*']
+        AllowMethods: ['*']
+
+  PrivateJwtAuthorizer:
+    Type: AWS::ApiGatewayV2::Authorizer
+    Condition: UseJwtAuthorizer
+    Properties:
+      ApiId: !Ref WindSafeHttpApi
+      AuthorizerType: JWT
+      IdentitySource:
+        - "$request.header.Authorization"
+      Name: windsafe-jwt
+      JwtConfiguration:
+        Issuer: !Ref JwtIssuer
+        Audience: !Ref JwtAudience
+
+  # SQS proxy integration for /notifications
+  NotificationsIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref WindSafeHttpApi
+      IntegrationType: AWS_PROXY
+      IntegrationSubtype: SQS-SendMessage
+      CredentialsArn: !GetAtt ApiGatewayToSQSCreds.Arn
+      RequestParameters:
+        QueueUrl: !Ref WindSafeQueue
+        MessageBody: "$request.body"
+      PayloadFormatVersion: "1.0"
+      TimeoutInMillis: 29000
+
+  # Routes: notifications (public/private)
+  PublicNotificationsRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref WindSafeHttpApi
+      RouteKey: !Sub "POST /${ApiVersionPath}/${PublicBasePath}/${NotificationsPath}"
+      Target: !Sub integrations/${NotificationsIntegration}
+      AuthorizationType: NONE
+
+  PrivateNotificationsRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref WindSafeHttpApi
+      RouteKey: !Sub "POST /${ApiVersionPath}/${PrivateBasePath}/${NotificationsPath}"
+      Target: !Sub integrations/${NotificationsIntegration}
+      AuthorizationType: !If [ UseJwtAuthorizer, JWT, NONE ]
+      AuthorizerId: !If [ UseJwtAuthorizer, !Ref PrivateJwtAuthorizer, !Ref "AWS::NoValue" ]
+
+  # Stage: $default so URLs do NOT include /prod
+  ApiStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      ApiId: !Ref WindSafeHttpApi
+      StageName: !Ref ApiStageName
+      AutoDeploy: true
+
+  ########################################
+  # OPTIONAL Custom domain: api.windsafe.org (gated)
+  ########################################
+  ApiCustomDomain:
+    Condition: ShouldCreateCustomDomain
+    Type: AWS::ApiGatewayV2::DomainName
+    Properties:
+      DomainName: !Sub "${ApiSubdomain}.${RootDomainName}"
+      DomainNameConfigurations:
+        - CertificateArn: !Ref ApiCertificateArn
+          EndpointType: REGIONAL
+          SecurityPolicy: TLS_1_2
+
+  ApiMapping:
+    Condition: ShouldCreateCustomDomain
+    Type: AWS::ApiGatewayV2::ApiMapping
+    Properties:
+      ApiId: !Ref WindSafeHttpApi
+      DomainName: !Ref ApiCustomDomain
+      Stage: !Ref ApiStage
+
+  ApiDomainAliasRecord:
+    Condition: ShouldCreateCustomDomain
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Sub "${ApiSubdomain}.${RootDomainName}."
+      Type: A
+      AliasTarget:
+        DNSName: !GetAtt ApiCustomDomain.DomainNameConfigurations.0.ApiGatewayDomainName
+        HostedZoneId: !GetAtt ApiCustomDomain.DomainNameConfigurations.0.HostedZoneId
+        EvaluateTargetHealth: false
+
+  ########################################
+  # Claim writer: Lambda that upserts emails/phones
+  ########################################
+  ClaimWriterRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: windsafe-claim-writer-role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: { Service: [ lambda.amazonaws.com ] }
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: windsafe-claim-writer-ddb
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:UpdateItem
+                Resource: !GetAtt WindmillsTable.Arn
+
+  ClaimWriterFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: windsafe-claim-writer
+      Runtime: python3.12
+      Handler: index.handler
+      Role: !GetAtt ClaimWriterRole.Arn
+      Timeout: 10
+      MemorySize: 128
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref WindmillsTable
+      Code:
+        ZipFile: |
+          import json, os, boto3, logging
+          logging.basicConfig(level=logging.INFO)
+          ddb = boto3.resource('dynamodb')
+          table = ddb.Table(os.environ['TABLE_NAME'])
+
+          def _uniq(seq):
+              seen=set(); out=[]
+              for s in (seq or []):
+                  if s is None: continue
+                  s=str(s).strip()
+                  if not s: continue
+                  if s not in seen:
+                      seen.add(s); out.append(s)
+              return out
+
+          def handler(event, ctx):
+              try:
+                  body = event.get('body') or '{}'
+                  payload = json.loads(body) if isinstance(body, str) else body
+              except Exception:
+                  return {"statusCode":400,"headers":{"Content-Type":"application/json"},
+                          "body":json.dumps({"error":"invalid JSON"})}
+
+              wid = str(payload.get('windmillId','')).strip()
+              if not (wid.isdigit() and len(wid)==7):
+                  return {"statusCode":400,"headers":{"Content-Type":"application/json"},
+                          "body":json.dumps({"error":"windmillId must be 7 digits"})}
+
+              emails = payload.get('emails')
+              phones = payload.get('phones')
+              if 'email' in payload:
+                  emails = ([payload['email']] if emails is None else [payload['email'], *emails])
+              if 'phone' in payload:
+                  phones = ([payload['phone']] if phones is None else [payload['phone'], *phones])
+
+              emails = _uniq(emails)
+              phones = _uniq(phones)
+              if not emails and not phones:
+                  return {"statusCode":400,"headers":{"Content-Type":"application/json"},
+                          "body":json.dumps({"error":"provide at least one of email(s) or phone(s)"})}
+
+              try:
+                  existing = table.get_item(Key={'windmillId': wid}).get('Item', {})
+                  curE = _uniq(existing.get('emails'))
+                  curP = _uniq(existing.get('phones'))
+                  mergedE = _uniq(curE + emails)
+                  mergedP = _uniq(curP + phones)
+
+                  # preserve other attributes (e.g., siteName)
+                  existing.update({'windmillId': wid, 'emails': mergedE, 'phones': mergedP})
+                  table.put_item(Item=existing)
+
+                  return {"statusCode":200,"headers":{"Content-Type":"application/json"},
+                          "body":json.dumps({"status":"ok","windmillId":wid,"emails":mergedE,"phones":mergedP})}
+              except Exception as e:
+                  logging.exception("ddb upsert failed")
+                  return {"statusCode":500,"headers":{"Content-Type":"application/json"},
+                          "body":json.dumps({"error":"internal error"})}
+
+  ClaimWriterPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref ClaimWriterFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${WindSafeHttpApi}/*/*/*
+
+  ClaimLambdaIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref WindSafeHttpApi
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !GetAtt ClaimWriterFunction.Arn
+      PayloadFormatVersion: "2.0"
+      TimeoutInMillis: 10000
+
+  PublicClaimRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref WindSafeHttpApi
+      RouteKey: !Sub "POST /${ApiVersionPath}/${PublicBasePath}/claim"
+      Target: !Sub integrations/${ClaimLambdaIntegration}
+      AuthorizationType: NONE
+
+  PrivateClaimRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref WindSafeHttpApi
+      RouteKey: !Sub "POST /${ApiVersionPath}/${PrivateBasePath}/claim"
+      Target: !Sub integrations/${ClaimLambdaIntegration}
+      AuthorizationType: !If [ UseJwtAuthorizer, JWT, NONE ]
+      AuthorizerId: !If [ UseJwtAuthorizer, !Ref PrivateJwtAuthorizer, !Ref "AWS::NoValue" ]
+
+Outputs:
+  ApiBaseUrl:
+    Value: !Sub "https://${ApiSubdomain}.${RootDomainName}"
+    Description: Base URL (stage is $default; no /prod)
+  PublicNotificationsUrl:
+    Value: !Sub "https://${ApiSubdomain}.${RootDomainName}/${ApiVersionPath}/${PublicBasePath}/${NotificationsPath}"
+  PrivateNotificationsUrl:
+    Value: !Sub "https://${ApiSubdomain}.${RootDomainName}/${ApiVersionPath}/${PrivateBasePath}/${NotificationsPath}"
+  PublicClaimUrl:
+    Value: !Sub "https://${ApiSubdomain}.${RootDomainName}/${ApiVersionPath}/${PublicBasePath}/claim"
+  PrivateClaimUrl:
+    Value: !Sub "https://${ApiSubdomain}.${RootDomainName}/${ApiVersionPath}/${PrivateBasePath}/claim"
+  QueueUrl:
+    Value: !Ref WindSafeQueue
+  DLQUrl:
+    Value: !Ref WindSafeDLQ
+  DynamoTable:
+    Value: !Ref WindmillsTable
+  LambdaConsumer:
+    Value: !Ref WindmillNotifier
+  ClaimLambda:
+    Value: !Ref ClaimWriterFunction

@@ -1,0 +1,248 @@
+---
+layout: default-no-nav
+title: Callback and redirect page
+---
+    <!-- Hero -->
+    <header class="hero py-8 py-md-6">
+      <div class="container text-center">	
+	
+<p style="margin: 0 0 1rem;">
+  <a id="go-back" href="#" rel="nofollow">Go Back</a>
+</p>
+ 
+<div>
+  <h3>Tokens</h3>
+  <p><b>Scope (from access token):</b> <span id="scope"></span></p>
+  <p><b>Hello:</b> <span id="email"></span></p>
+
+  <details open>
+    <summary><b>Access token (raw)</b></summary>
+    <pre id="access-token"></pre>
+  </details>
+
+  <details>
+    <summary><b>Access token – decoded claims</b></summary>
+    <pre id="access-claims"></pre>
+  </details>
+
+  <details>
+    <summary><b>ID token (raw)</b></summary>
+    <pre id="id-token"></pre>
+  </details>
+
+  <details open>
+    <summary><b>ID token – decoded claims</b></summary>
+    <pre id="id-claims"></pre>
+  </details>
+
+  <details>
+    <summary><b>UserInfo response (via /oauth2/userInfo)</b></summary>
+    <pre id="userinfo-json"></pre>
+  </details>
+
+  <h3>Standard OIDC fields (if present)</h3>
+  <ul>
+    <li><b>email</b>: <span id="f-email"></span> (<b>verified</b>: <span id="f-email-verified"></span>)</li>
+    <li><b>phone_number</b>: <span id="f-phone"></span> (<b>verified</b>: <span id="f-phone-verified"></span>)</li>
+    <li><b>name</b>: <span id="f-name"></span></li>
+    <li><b>given_name</b>: <span id="f-given_name"></span></li>
+    <li><b>family_name</b>: <span id="f-family_name"></span></li>
+    <li><b>preferred_username</b>: <span id="f-preferred_username"></span></li>
+    <li><b>nickname</b>: <span id="f-nickname"></span></li>
+    <li><b>picture</b>: <img id="f-picture" alt="" style="max-height:48px; vertical-align:middle"></li>
+    <li><b>website</b>: <a id="f-website" href="#" target="_blank" rel="noopener"></a></li>
+    <li><b>locale</b>: <span id="f-locale"></span></li>
+    <li><b>zoneinfo</b>: <span id="f-zoneinfo"></span></li>
+    <li><b>updated_at</b>: <span id="f-updated_at"></span></li>
+    <li><b>cognito:username</b>: <span id="f-cognito-username"></span></li>
+    <li><b>cognito:groups</b>: <span id="f-cognito-groups"></span></li>
+    <li><b>sub</b>: <span id="f-sub"></span></li>
+    <li><b>iss</b>: <span id="f-iss"></span></li>
+    <li><b>aud</b>: <span id="f-aud"></span></li>
+    <li><b>auth_time</b>: <span id="f-auth_time"></span></li>
+    <li><b>iat</b>: <span id="f-iat"></span> · <b>exp</b>: <span id="f-exp"></span></li>
+  </ul>
+</div>
+</div>
+</header>
+
+
+<script type="module">
+import {
+  UserManager,
+  WebStorageStateStore
+} from "https://cdn.jsdelivr.net/npm/oidc-client-ts@2.4.0/+esm";
+
+const AUTHORITY = "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_HvASertkx"; // issuer
+
+const CONFIG = {
+  authority: AUTHORITY,                                   // ← issuer-based discovery
+  client_id: "76306fkk2m6h1l76cmfktp0q2t",
+  redirect_uri: `${window.location.origin}/auth/callback.html`,
+  response_type: "code",
+  scope: "openid email profile phone aws.cognito.signin.user.admin",
+
+  // Persist OIDC user/state in localStorage so new tabs see it
+  userStore:  new WebStorageStateStore({ store: window.localStorage }),
+  stateStore: new WebStorageStateStore({ store: window.localStorage })
+  // ❌ remove metadataSeed; let discovery provide endpoints
+};
+
+
+
+
+  const AUTH_KEY     = "cexams.currentUser";
+  const AUTH_PING    = "cexams.authPing";
+  const CHANNEL_NAME = "cexams.auth";
+
+  // --- Go Back wiring ---
+  const goBackEl = document.getElementById("go-back");
+  function setGoBack(urlLike) {
+    // normalize and constrain to same-origin path
+    let href = "/";
+    if (typeof urlLike === "string" && urlLike.trim()) {
+      try {
+        // allow bare paths like "/dashboard"; coerce to same origin
+        href = new URL(urlLike, window.location.origin).toString();
+      } catch {}
+    }
+    if (goBackEl) {
+      goBackEl.setAttribute("href", href);
+      goBackEl.addEventListener("click", (e) => {
+        // always navigate explicitly to avoid loops with Hosted UI in history
+        e.preventDefault();
+        window.location.assign(href);
+      }, { once: true });
+    }
+  }
+
+  function toCurrentUser(u) {
+    if (!u) return null;
+    return {
+      id_token: u.id_token || null,
+      access_token: u.access_token || null,
+      expired: !!u.expired,
+      expires_at: u.expires_at || null,
+      profile: u.profile || {},
+      email: u.profile?.email || null,
+      sub: u.profile?.sub || null,
+      username: u.profile?.["cognito:username"] || null
+    };
+  }
+
+  function setText(id, v) { const el = document.getElementById(id); if (el) el.textContent = v ?? ""; }
+  function setJson(id, obj) { setText(id, JSON.stringify(obj ?? {}, null, 2)); }
+  function stringify(v) { return v === undefined ? "" : String(v); }
+  function formatTs(ts) {
+    if (!ts) return "";
+    if (typeof ts === "number") return new Date(ts * 1000).toISOString();
+    const n = Number(ts);
+    if (!Number.isNaN(n)) return new Date(n * 1000).toISOString();
+    return String(ts);
+  }
+  function decodeJwt(token) {
+    if (!token) return null;
+    const parts = token.split(".");
+    if (parts.length < 2) return null;
+    try {
+      const base64url = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+      const json = decodeURIComponent(escape(atob(base64url)));
+      return JSON.parse(json);
+    } catch { return null; }
+  }
+
+  function writeStoredUser(normalizedOrNull) {
+    try {
+      if (normalizedOrNull) {
+        const withMeta = { ...normalizedOrNull, __updatedAt: Date.now() };
+        localStorage.setItem(AUTH_KEY, JSON.stringify(withMeta));
+      } else {
+        localStorage.removeItem(AUTH_KEY);
+      }
+    } catch (e) {
+      console.warn("localStorage write failed:", e);
+    }
+  }
+  function broadcastAuthChange(user) {
+    const msg = { type: "auth-changed", payload: { user }, ts: Date.now() };
+    try { new BroadcastChannel(CHANNEL_NAME).postMessage(msg); } catch {}
+    try {
+      localStorage.setItem(AUTH_PING, JSON.stringify(msg));
+      localStorage.removeItem(AUTH_PING);
+    } catch {}
+    window.dispatchEvent(new CustomEvent("auth:changed", { detail: { isAuthenticated: !!user && !user.expired, user } }));
+    window.currentUser = user;
+  }
+
+  const userManager2 = new UserManager(CONFIG);
+  const qs = new URLSearchParams(location.search);
+
+  if (qs.get("error")) {
+    setText("email", `Auth error: ${qs.get("error")} – ${qs.get("error_description") || ""}`);
+    console.error("Auth error:", Object.fromEntries(qs.entries()));
+    // fall back go-back target
+    setGoBack("/");
+  } else {
+    try {
+      const user = await userManager2.signinCallback(); // exchanges code for tokens
+      // --- Cross-tab sync ---
+      const normalized = toCurrentUser(user);
+      writeStoredUser(normalized);
+      broadcastAuthChange(normalized);
+
+      // --- Go Back target from state (set in signinRedirect) ---
+      // You used: signinRedirect({ state: { redirectTo: location.pathname } })
+      const redirectTo = user?.state?.redirectTo || "/";
+      setGoBack(redirectTo);
+
+      // --- UI dump (unchanged) ---
+      setText("access-token", user.access_token || "");
+      setText("id-token", user.id_token || "");
+      const at = decodeJwt(user.access_token);
+      const id = decodeJwt(user.id_token);
+      setJson("access-claims", at);
+      setJson("id-claims", id);
+      setText("scope", at?.scope || at?.scp || "");
+      setText("email", user.profile?.email || "");
+      setText("f-email", user.profile?.email || "");
+      setText("f-email-verified", stringify(user.profile?.email_verified));
+      setText("f-phone", user.profile?.phone_number || "");
+      setText("f-phone-verified", stringify(user.profile?.phone_number_verified));
+      setText("f-name", user.profile?.name || "");
+      setText("f-given_name", user.profile?.given_name || "");
+      setText("f-family_name", user.profile?.family_name || "");
+      setText("f-preferred_username", user.profile?.preferred_username || "");
+      setText("f-nickname", user.profile?.nickname || "");
+      const pic = user.profile?.picture || "";
+      if (pic) { const img = document.getElementById("f-picture"); if (img) { img.src = pic; img.alt = "profile picture"; } }
+      const site = user.profile?.website || "";
+      if (site) { const a = document.getElementById("f-website"); if (a) { a.textContent = site; a.href = site; } }
+      setText("f-locale", user.profile?.locale || "");
+      setText("f-zoneinfo", user.profile?.zoneinfo || "");
+      setText("f-updated_at", formatTs(user.profile?.updated_at));
+      setText("f-cognito-username", id?.["cognito:username"] || "");
+      setText("f-cognito-groups", Array.isArray(id?.["cognito:groups"]) ? id["cognito:groups"].join(", ") : (id?.["cognito:groups"] || ""));
+      setText("f-sub", id?.sub || "");
+      setText("f-iss", id?.iss || "");
+      setText("f-aud", id?.aud || "");
+      setText("f-auth_time", formatTs(id?.auth_time));
+      setText("f-iat", formatTs(id?.iat));
+      setText("f-exp", formatTs(id?.exp));
+
+      try {
+        const ui = await fetch(CONFIG.metadataSeed.userinfo_endpoint, {
+          headers: { Authorization: `Bearer ${user.access_token}` }
+        }).then(r => r.json());
+        setJson("userinfo-json", ui);
+      } catch (e) {
+        setText("userinfo-json", `Failed to fetch userInfo: ${e}`);
+      }
+    } catch (e) {
+      console.error("signinCallback failed:", e);
+      setText("email", "Sign-in processing failed. See console.");
+      writeStoredUser(null);
+      broadcastAuthChange(null);
+      setGoBack("/");
+    }
+  }
+</script>

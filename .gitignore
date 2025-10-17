@@ -1,5 +1,26 @@
-_site
-.sass-cache
-.jekyll-cache
+# Jekyll build artifacts
+_site/
+.sass-cache/
+.jekyll-cache/
 .jekyll-metadata
-vendor
+
+# Node dependencies (if using npm/yarn for assets)
+node_modules/
+
+# Log files
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Text editor swap/backup files
+*~
+*.swp
+*.bak
+
+# VSCode settings
+.vscode/
+
+# Mac OS directory files
+._*

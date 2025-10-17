@@ -1,0 +1,363 @@
+---
+layout: default
+title: On-Site Notifications
+---
+
+  <!-- Leaflet map styles -->
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" />
+
+  <!-- PapaParse for fast CSV streaming -->
+  <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root { --bg:#0b1320; --card:#121a2b; --text:#e8eefc; --muted:#9db0d1; --accent:#79c0ff; }
+    html, body { height: 100%; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); }
+    header { padding: 16px 20px; border-bottom: 1px solid #1f2a44; position: sticky; top: 0; background: rgba(11,19,32,.9); backdrop-filter: blur(6px); z-index: 10; }
+    h1 { margin: 0; font-size: 20px; letter-spacing: .2px; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 16px; }
+    .panel { background: var(--card); border: 1px solid #1f2a44; border-radius: 16px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .controls { display: grid; gap: 12px; grid-template-columns: repeat(12, 1fr); align-items: end; }
+    .controls > * { grid-column: span 12; }
+    @media (min-width: 768px){ .controls > .half { grid-column: span 6; } .controls > .third { grid-column: span 4; } }
+    label { display:block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    input, select { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid #2b3a5f; outline: none; background: #0e1626; color: var(--text); }
+    input::placeholder { color: #7087ae; }
+    button { appearance: none; border: 1px solid #2b3a5f; background: #0e213a; color: var(--text); padding: 10px 14px; border-radius: 12px; cursor: pointer; font-weight: 600; }
+    button.primary { background: #103559; border-color: #1f4c7e; }
+    button:hover { filter: brightness(1.1); }
+    .status { color: var(--muted); font-size: 14px; margin-top: 8px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 992px){ .grid { grid-template-columns: 1.2fr .8fr; } }
+    #map { width: 100%; height: 520px; border-radius: 16px; overflow: hidden; border: 1px solid #1f2a44; }
+    .list { max-height: 520px; overflow: auto; padding-right: 6px; }
+    .item { background: #0e1626; border: 1px solid #1f2a44; border-radius: 14px; padding: 12px; display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; }
+    .item h3 { margin: 0; font-size: 16px; }
+    .item .muted { color: var(--muted); font-size: 12px; }
+    .badge { font-size: 12px; padding: 4px 8px; border-radius: 999px; border: 1px solid #284269; color: #cfe6ff; align-self: start; }
+    .coords { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; color: #a8c0e6; }
+    .foot { margin-top: 10px; font-size: 12px; color: var(--muted); }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+
+    /* Loader overlay */
+    .loader { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(11,19,32,.75); backdrop-filter: blur(3px); z-index: 9999; }
+    .loader.hidden { display: none; }
+    .spinner { width: 54px; height: 54px; border-radius: 50%; border: 6px solid #274067; border-top-color: var(--accent); animation: spin 1s linear infinite; margin: 0 auto; }
+    .loader-text { margin-top: 12px; color: var(--muted); text-align: center; font-size: 14px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+
+  <main class="wrap">
+    <!-- Loader (appears while parsing the CSV) -->
+    <div id="loader" class="loader hidden" role="status" aria-live="polite">
+      <div>
+        <div class="spinner" aria-hidden="true"></div>
+        <div class="loader-text">
+          <span id="loader-msg">Loading windmill data…</span>
+          <span id="loader-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <section class="panel" aria-labelledby="find-heading">
+      <h2 id="find-heading" class="sr-only">Find nearby windmills</h2>
+
+      <div class="controls" role="group" aria-label="Controls">
+        <div class="third">
+          <label for="results">Results</label>
+          <select id="results">
+            <option value="5">Top 5</option>
+            <option value="10" selected>Top 10</option>
+            <option value="25">Top 25</option>
+            <option value="50">Top 50</option>
+          </select>
+        </div>
+        <div class="third">
+          <label for="radius">Max radius (km)</label>
+          <select id="radius">
+            <option value="0">No limit</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100" selected>100</option>
+            <option value="250">250</option>
+            <option value="500">500</option>
+          </select>
+        </div>
+        <div class="third">
+          <label>&nbsp;</label>
+          <div style="display:flex; gap:8px;">
+            <button id="btn-locate" class="primary">Use my location</button>
+            <button id="btn-clear">Clear</button>
+          </div>
+        </div>
+
+        <div class="half">
+          <label for="lat">Latitude</label>
+          <input id="lat" type="number" step="any" placeholder="e.g. 36.12" />
+        </div>
+        <div class="half">
+          <label for="lng">Longitude</label>
+          <input id="lng" type="number" step="any" placeholder="e.g. -97.53" />
+        </div>
+        <div class="half">
+          <button id="btn-apply" class="primary">Apply coordinates</button>
+        </div>
+        <div class="half">
+          <div class="status" id="status" aria-live="polite">Grant browser permission to use geolocation, or enter coordinates manually.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" style="margin-top:16px;">
+      <div class="panel">
+        <div id="map" role="img" aria-label="Map showing your location and nearest windmills"></div>
+        <p class="foot">Note: Location accuracy depends on your device. On HTTPS sites geolocation works best. Localhost is also allowed.</p>
+      </div>
+      <div class="panel">
+        <div class="list" id="list" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Leaflet map script -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+
+  <script>
+    // --- Utilities ---
+    const toNum = v => typeof v === 'number' ? v : parseFloat(String(v ?? '').trim());
+
+    function haversineKm(a, b){
+      const R = 6371; // km
+      const dLat = (b.lat - a.lat) * Math.PI/180;
+      const dLon = (b.lng - a.lng) * Math.PI/180;
+      const lat1 = a.lat * Math.PI/180;
+      const lat2 = b.lat * Math.PI/180;
+      const sinDLat = Math.sin(dLat/2), sinDLon = Math.sin(dLon/2);
+      const h = sinDLat*sinDLat + Math.cos(lat1)*Math.cos(lat2)*sinDLon*sinDLon;
+      return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
+    }
+
+    function fmtKm(km){ return km < 1 ? `${Math.round(km*1000)} m` : `${km.toFixed(1)} km`; }
+
+    function escapeHtml(s){
+      return String(s ?? '')
+        .replaceAll('&','&amp;').replaceAll('<','&lt;')
+        .replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+    }
+
+    // --- State ---
+    let windmills = [];
+    let userMarker = null, group = null, map = null;
+
+    // Build a clean, same-origin CSV URL (avoids BOM or mixed-content issues)
+    const CSV_URL = new URL('/assets/json/windmills.csv', window.location.origin).href;
+
+    // --- Data loader: stream-parse the large CSV with progress ---
+    async function loadData(){
+      const loader = document.getElementById('loader');
+      const msg = document.getElementById('loader-msg');
+      const prog = document.getElementById('loader-progress');
+
+      loader.classList.remove('hidden');
+      msg.textContent = 'Loading windmill data…';
+      prog.textContent = '';
+
+      windmills = [];
+      // Try worker mode first. If the browser throws an Invalid URL inside the worker,
+      // retry without worker.
+      const parseOnce = (useWorker) => new Promise((resolve, reject) => {
+        let count = 0;
+        Papa.parse(CSV_URL, {
+          download: true,
+          header: true,         // use column names
+          dynamicTyping: true,  // converts numeric-like strings to numbers
+          worker: useWorker,    // first true, then fallback to false
+          skipEmptyLines: 'greedy',
+          step: (row) => {
+            const r = row.data || {};
+            const x = Number(r.xlong);
+            const y = Number(r.ylat);
+            if (Number.isFinite(x) && Number.isFinite(y)) {
+              windmills.push({
+                id: String(r.id ?? ''),
+                state: r.state ?? '',
+                count: r.count ?? r.county ?? '',
+                zip: String(r.zip ?? ''),
+                project: r.project ?? 'Wind Project',
+                xlong: x,
+                ylat: y,
+                offshore: 0
+              });
+            }
+            count++;
+            if (count % 500 === 0) { prog.textContent = `Parsed ${count.toLocaleString()} rows…`; }
+          },
+          complete: () => resolve(),
+          error: (err) => reject(err)
+        });
+      });
+
+      try {
+        await parseOnce(true);
+      } catch (e) {
+        console.warn('Papa worker parse failed; retrying without worker. Error was:', e);
+        try {
+          await parseOnce(false);
+        } catch (e2) {
+          loader.classList.add('hidden');
+          throw e2;
+        }
+      }
+
+      loader.classList.add('hidden');
+    }
+
+    // --- Map + UI ---
+    function initMap(){
+      map = L.map('map');
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+      map.setView([39.5, -98.35], 4); // USA centroid-ish
+      group = L.layerGroup().addTo(map);
+    }
+
+    function setUserMarker(lat, lng){
+      if (userMarker) { userMarker.setLatLng([lat, lng]); }
+      else {
+        userMarker = L.marker([lat, lng], { title: 'Your location' })
+          .bindPopup('<b>Your location</b>')
+          .addTo(map);
+      }
+      map.setView([lat, lng], 9);
+    }
+
+    function renderNearest(lat, lng){
+      if (!windmills.length) return;
+
+      const radiusKm = parseInt(document.getElementById('radius').value, 10);
+      const maxN = parseInt(document.getElementById('results').value, 10);
+
+      const withDist = windmills.map(w => ({
+        ...w,
+        distanceKm: haversineKm({lat, lng}, {lat: w.ylat, lng: w.xlong})
+      }))
+      .filter(w => radiusKm === 0 || w.distanceKm <= radiusKm)
+      .sort((a,b) => a.distanceKm - b.distanceKm)
+      .slice(0, maxN);
+
+      const list = document.getElementById('list');
+      list.innerHTML = '';
+      group.clearLayers();
+
+      if (withDist.length === 0){
+        list.innerHTML = '<p class="status">No windmills found within the selected radius.</p>';
+        return;
+      }
+
+      // Add markers
+      withDist.forEach(w => {
+        const m = L.circleMarker([w.ylat, w.xlong], { radius: 6, weight: 1, opacity: 0.9 }).addTo(group);
+        m.bindPopup(`<b>${escapeHtml(w.project || 'Wind Project')}</b><br>${escapeHtml(w.state||'')}${w.count ? ' • ' + escapeHtml(w.count) : ''}<br>${fmtKm(w.distanceKm)}`);
+      });
+
+      // Fit map to show user + results
+      const bounds = L.latLngBounds([[lat, lng]]);
+      withDist.forEach(w => bounds.extend([w.ylat, w.xlong]));
+      if (bounds.isValid()) map.fitBounds(bounds.pad(0.2));
+
+      // Render list
+      const frag = document.createDocumentFragment();
+      withDist.forEach(w => {
+        const el = document.createElement('div');
+        el.className = 'item';
+        el.innerHTML = `
+          <div>
+            <h3>${escapeHtml(w.project || 'Wind Project')}</h3>
+            <div class="muted">${escapeHtml(w.state || '')}${w.count ? ' • ' + escapeHtml(w.count) : ''}${w.zip ? ' • ' + escapeHtml(w.zip) : ''}${w.offshore ? ' • Offshore' : ''}</div>
+            <div class="coords">${w.ylat.toFixed(6)}, ${w.xlong.toFixed(6)}</div>
+          </div>
+          <div class="badge">${fmtKm(w.distanceKm)}</div>
+        `;
+        frag.appendChild(el);
+      });
+      list.appendChild(frag);
+    }
+
+    // --- Geolocation handlers ---
+    function getBrowserLocation(){
+      const status = document.getElementById('status');
+      if (!('geolocation' in navigator)){
+        status.textContent = 'Geolocation is not supported in this browser. Enter coordinates manually.';
+        return;
+      }
+      status.textContent = 'Requesting location permission...';
+      navigator.geolocation.getCurrentPosition(pos => {
+        const { latitude: lat, longitude: lng } = pos.coords;
+        document.getElementById('lat').value = lat.toFixed(6);
+        document.getElementById('lng').value = lng.toFixed(6);
+        status.textContent = `Located you at ${lat.toFixed(6)}, ${lng.toFixed(6)} (accuracy ~${Math.round(pos.coords.accuracy)}m)`;
+        setUserMarker(lat, lng);
+        renderNearest(lat, lng);
+      }, err => {
+        const msg = err.code === 1 ? 'Permission denied. Enter coordinates manually.' : 'Unable to get location. Enter coordinates manually.';
+        status.textContent = msg;
+      }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 });
+    }
+
+    function applyManual(){
+      const status = document.getElementById('status');
+      const lat = parseFloat(document.getElementById('lat').value);
+      const lng = parseFloat(document.getElementById('lng').value);
+      if (!Number.isFinite(lat) || !Number.isFinite(lng)){
+        status.textContent = 'Please provide valid numeric latitude and longitude.';
+        return;
+      }
+      status.textContent = `Using ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+      setUserMarker(lat, lng);
+      renderNearest(lat, lng);
+    }
+
+    function clearAll(){
+      document.getElementById('lat').value = '';
+      document.getElementById('lng').value = '';
+      document.getElementById('list').innerHTML = '';
+      document.getElementById('status').textContent = 'Cleared. Click "Use my location" or enter coordinates.';
+      if (group) group.clearLayers();
+      if (map) map.setView([39.5, -98.35], 4);
+    }
+
+    // --- Wire up ---
+    (async function main(){
+      try {
+        initMap();
+        await loadData();
+      } catch (e){
+        console.error(e);
+        document.getElementById('status').textContent = 'Failed to load /assets/json/windmills.csv. Make sure it is reachable and served over HTTP(S).';
+        return;
+      }
+
+      document.getElementById('btn-locate').addEventListener('click', getBrowserLocation);
+      document.getElementById('btn-apply').addEventListener('click', applyManual);
+      document.getElementById('btn-clear').addEventListener('click', clearAll);
+      document.getElementById('results').addEventListener('change', () => {
+        const lat = parseFloat(document.getElementById('lat').value);
+        const lng = parseFloat(document.getElementById('lng').value);
+        if (Number.isFinite(lat) && Number.isFinite(lng)) renderNearest(lat, lng);
+      });
+      document.getElementById('radius').addEventListener('change', () => {
+        const lat = parseFloat(document.getElementById('lat').value);
+        const lng = parseFloat(document.getElementById('lng').value);
+        if (Number.isFinite(lat) && Number.isFinite(lng)) renderNearest(lat, lng);
+      });
+
+      // Optional: auto-request location on load
+      // getBrowserLocation();
+    })();
+  </script>

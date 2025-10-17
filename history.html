@@ -1,0 +1,250 @@
+---
+layout: default
+title: Engineer Dashboard
+---
+
+  <style>
+    .page-wrap { padding: 1.5rem 0; }
+    .muted   { color: #6c757d; }
+    .mono    { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .pill    { display:inline-block; padding:.15rem .5rem; border-radius:999px; background:#f1f3f5; font-size:.8rem; }
+    .status-dot { display:inline-block; width:.5rem; height:.5rem; border-radius:50%; margin-right:.35rem; }
+    .status-sent      { background:#198754; }   /* green */
+    .status-requested { background:#0d6efd; }   /* blue */
+    .status-error     { background:#dc3545; }   /* red */
+    .status-skipped   { background:#6c757d; }   /* gray */
+    .table-responsive { overflow-x:auto; }
+    .empty-state { border:1px dashed #ced4da; border-radius:10px; padding:1.5rem; text-align:center; color:#6c757d; }
+  </style>
+
+<main class="container page-wrap">
+  <div id="status" class="d-flex align-items-center gap-2 mb-3">
+    <div class="spinner-border spinner-border-sm text-secondary" role="status" id="spinner" aria-hidden="true"></div>
+    <span id="loadingText" class="muted">Loading your notifications…</span>
+  </div>
+
+  <section id="content" class="d-none">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+      <div>
+        <h1 class="h5 mb-1">My Notifications</h1>
+        <div class="muted">
+          Signed in as <span id="who" class="mono"></span>
+        </div>
+      </div>
+      <div>
+        <button id="refreshBtn" class="btn btn-outline-secondary btn-sm">Refresh</button>
+      </div>
+    </div>
+
+    <div id="summaryRow" class="row g-3 mb-3">
+      <div class="col-6 col-md-3">
+        <div class="card h-100"><div class="card-body">
+          <div class="muted mb-1">Total rows</div>
+          <div id="sumTotal" class="h5 mb-0">—</div>
+        </div></div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card h-100"><div class="card-body">
+          <div class="muted mb-1">Emails</div>
+          <div id="sumEmails" class="h5 mb-0">—</div>
+        </div></div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card h-100"><div class="card-body">
+          <div class="muted mb-1">SMS</div>
+          <div id="sumSms" class="h5 mb-0">—</div>
+        </div></div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card h-100"><div class="card-body">
+          <div class="muted mb-1">Latest activity</div>
+          <div id="sumLatest" class="h6 mb-0">—</div>
+        </div></div>
+      </div>
+    </div>
+
+    <div id="tableWrap" class="table-responsive">
+      <table class="table table-sm align-middle">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">Turbine</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Type</th>
+            <th scope="col">Latest Status</th>
+            <th scope="col">Latest At</th>
+            <th scope="col">Requests</th>
+            <th scope="col">Group</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <div id="empty" class="empty-state d-none">
+      No notifications found for your account.
+    </div>
+  </section>
+</main>
+
+<script type="module">
+  // ─────────────────────────────────────────────────────────────────────────────
+  // This page assumes your nav include already set up window.authReady/currentUser
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  const API_URL = "https://gh5lxvj6e636zznowsite3a7ae0rqejw.lambda-url.us-east-1.on.aws/"; // public GET endpoint
+  const DEFAULT_LIMIT = 100;
+
+  // DOM refs
+  const $ = (s) => document.querySelector(s);
+  const spinner = $("#spinner");
+  const loadingText = $("#loadingText");
+  const content = $("#content");
+  const who = $("#who");
+  const refreshBtn = $("#refreshBtn");
+  const rowsTbody = $("#rows");
+  const sumTotal = $("#sumTotal");
+  const sumEmails = $("#sumEmails");
+  const sumSms = $("#sumSms");
+  const sumLatest = $("#sumLatest");
+  const emptyDiv = $("#empty");
+
+  refreshBtn?.addEventListener("click", () => fetchAndRender());
+
+  function fmtDate(ts) {
+    if (!ts && ts !== 0) return "";
+    const d = new Date(Number(ts));
+    if (Number.isNaN(d.getTime())) return "";
+    const pad = (n) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+
+  function latestRequest(reqs = []) {
+    if (!Array.isArray(reqs) || reqs.length === 0) return null;
+    return reqs.reduce((a, b) => (a.created_at > b.created_at ? a : b));
+  }
+
+  function statusClass(s) {
+    switch ((s||"").toLowerCase()) {
+      case "sent": return "status-sent";
+      case "requested": return "status-requested";
+      case "error": return "status-error";
+      case "skipped": return "status-skipped";
+      default: return "status-skipped";
+    }
+  }
+
+  function paintSummary(items) {
+    sumTotal.textContent = items.length.toLocaleString();
+    const emails = items.filter(i => (i.type||"").toLowerCase() === "email").length;
+    const sms    = items.filter(i => (i.type||"").toLowerCase() === "sms").length;
+    sumEmails.textContent = emails.toLocaleString();
+    sumSms.textContent = sms.toLocaleString();
+    const newest = items.reduce((acc, it) => {
+      const lr = latestRequest(it.requests || []);
+      const t = lr?.created_at || it.created_at || 0;
+      return t > acc ? t : acc;
+    }, 0);
+    sumLatest.textContent = newest ? fmtDate(newest) : "—";
+  }
+
+  function renderTable(items) {
+    rowsTbody.innerHTML = "";
+    if (!items || items.length === 0) {
+      emptyDiv.classList.remove("d-none");
+      return;
+    }
+    emptyDiv.classList.add("d-none");
+
+    // newest first by latest request time
+    const sorted = [...items].sort((a,b) => {
+      const al = latestRequest(a.requests || [])?.created_at || a.created_at || 0;
+      const bl = latestRequest(b.requests || [])?.created_at || b.created_at || 0;
+      return bl - al;
+    });
+
+    const frag = document.createDocumentFragment();
+    for (const it of sorted) {
+      const lr = latestRequest(it.requests || []);
+      const tr = document.createElement("tr");
+
+      const tdId = document.createElement("td");
+      tdId.innerHTML = `<span class="mono">${it.windmill_id || ""}</span>`;
+      tr.appendChild(tdId);
+
+      const tdDest = document.createElement("td");
+      tdDest.textContent = it.destination || "";
+      tr.appendChild(tdDest);
+
+      const tdType = document.createElement("td");
+      tdType.innerHTML = `<span class="pill"><font color="black">${(it.type || "").toUpperCase()}</font></span>`;
+      tr.appendChild(tdType);
+
+      const tdStatus = document.createElement("td");
+      const st = lr?.status || "—";
+      tdStatus.innerHTML = `<span class="status-dot ${statusClass(st)}"></span>${st}`;
+      tr.appendChild(tdStatus);
+
+      const tdWhen = document.createElement("td");
+      tdWhen.textContent = fmtDate(lr?.created_at || it.created_at);
+      tr.appendChild(tdWhen);
+
+      const tdCount = document.createElement("td");
+      tdCount.textContent = (it.requests?.length || 0).toString();
+      tr.appendChild(tdCount);
+
+      frag.appendChild(tr);
+    }
+    rowsTbody.appendChild(frag);
+    paintSummary(items);
+  }
+
+  async function fetchNotifications(email) {
+    const url = new URL(API_URL);
+    url.searchParams.set("email", email);
+    url.searchParams.set("limit", String(DEFAULT_LIMIT));
+    const res = await fetch(url.toString(), { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json().catch(() => ({}));
+    return Array.isArray(json.items) ? json.items : [];
+  }
+
+  async function fetchAndRender() {
+    try {
+      spinner?.classList.remove("d-none");
+      loadingText.textContent = "Loading your notifications…";
+
+      // Wait for the auth bridge from the nav include
+      try { if (window.authReady) await window.authReady; } catch {}
+      const email = window.currentUser?.email || window.currentUser?.profile?.email || null;
+
+      if (!email) {
+        // Shouldn't happen if page is protected, but handle gracefully
+        loadingText.textContent = "You must be signed in to view notifications.";
+        spinner?.classList.add("d-none");
+        return;
+      }
+
+      who.textContent = email;
+      content.classList.remove("d-none");
+
+      const items = await fetchNotifications(email);
+      renderTable(items);
+
+      spinner?.classList.add("d-none");
+      loadingText.textContent = `Loaded ${items.length} row(s).`;
+    } catch (err) {
+      console.error("Fetch/render failed:", err);
+      spinner?.classList.add("d-none");
+      loadingText.textContent = "Couldn't load notifications.";
+      rowsTbody.innerHTML = "";
+      content.classList.remove("d-none");
+      emptyDiv.classList.remove("d-none");
+    }
+  }
+
+  // Auto-load on page view (user is already authenticated by nav include)
+  fetchAndRender();
+</script>
+
+
+

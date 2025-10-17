@@ -1,0 +1,356 @@
+<script type="module">
+import { UserManager, WebStorageStateStore } from "https://cdn.jsdelivr.net/npm/oidc-client-ts@2.4.0/+esm";
+
+const AUTHORITY = "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_HvASertkx";
+
+const CONFIG = {
+  authority: AUTHORITY,
+  client_id: "76306fkk2m6h1l76cmfktp0q2t",
+  redirect_uri: `${window.location.origin}/auth/callback.html`,
+  response_type: "code",
+  scope: "openid email profile phone aws.cognito.signin.user.admin",
+  userStore:  new WebStorageStateStore({ store: window.localStorage }),
+  stateStore: new WebStorageStateStore({ store: window.localStorage })
+};
+
+const ORIGIN       = window.location.origin;
+const CALLBACK_URL = `${ORIGIN}/auth/callback.html`;
+const SIGNOUT_URL  = `${ORIGIN}/auth/logout.html`;
+const BTN          = document.getElementById("login-or-logout");
+const LABEL        = BTN?.querySelector("span") || BTN;
+
+const AUTH_KEY     = "cexams.currentUser";
+const AUTH_PING    = "cexams.authPing";
+const CHANNEL_NAME = "cexams.auth";
+
+function logHeader(title){ console.groupCollapsed(`🔐 ${title}`); }
+function logFooter(){ console.groupEnd(); }
+function logTable(obj, title){ console.groupCollapsed(title); console.table(obj); console.groupEnd(); }
+
+logHeader("Auth init");
+console.log("Path:", location.pathname);
+logTable({ ORIGIN, CALLBACK_URL, SIGNOUT_URL }, "URLs");
+logTable({ ...CONFIG, userStore: "localStorage", stateStore: "localStorage" }, "OIDC CONFIG");
+
+const IS_CALLBACK_PAGE = location.pathname.endsWith("/auth/callback.html");
+if (!BTN) console.warn("⚠️  #login-or-logout button not found.");
+
+async function checkWellKnown() {
+  const u = `${AUTHORITY}/.well-known/openid-configuration`;
+  const r = await fetch(u, { cache: "no-store" });
+  const j = await r.json();
+  console.groupCollapsed(".well-known (issuer)");
+  console.log("issuer:", j.issuer);
+  console.log("authorization_endpoint:", j.authorization_endpoint);
+  console.log("token_endpoint:", j.token_endpoint);
+  console.log("userinfo_endpoint:", j.userinfo_endpoint);
+  console.groupEnd();
+}
+
+// ---------- UI helpers ----------
+const isAuthed = (u) => !!(u && !u.expired);
+
+function setMode(mode) {
+  if (!BTN) return;
+  BTN.dataset.mode = mode;
+  const text = mode === "logout" ? "Logout" : "Login";
+  if (LABEL) LABEL.textContent = text + " ";
+  BTN.setAttribute("aria-label", text);
+  console.log("UI mode set →", mode);
+}
+
+function buildLogoutUrl() {
+  const url =
+    `${CONFIG.metadataSeed?.end_session_endpoint || ""}` +
+    `?client_id=${encodeURIComponent(CONFIG.client_id)}` +
+    `&logout_uri=${encodeURIComponent(SIGNOUT_URL)}`;
+  console.log("Computed logout URL:", url);
+  return url;
+}
+
+// ---------- SHOW/HIDE protected nav items ----------
+function updateProtectedNav(show) {
+  const ids = ["turbines-item", "history-item"];
+  for (const id of ids) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    if (show) el.classList.remove("d-none");
+    else el.classList.add("d-none");
+  }
+}
+
+// ---------- Global bridge ----------
+function toCurrentUser(u) {
+  if (!u) return null;
+  return {
+    id_token: u.id_token || null,
+    access_token: u.access_token || null,
+    expired: !!u.expired,
+    expires_at: u.expires_at || null,
+    profile: u.profile || {},
+    email: u.profile?.email || null,
+    sub: u.profile?.sub || null,
+    username: u.profile?.["cognito:username"] || null
+  };
+}
+
+const _listeners = new Set();
+window.onAuthChange = (fn) => { _listeners.add(fn); return () => _listeners.delete(fn); };
+
+window.getIdToken     = () => window.currentUser?.id_token || null;
+window.getAccessToken = () => window.currentUser?.access_token || null;
+
+window.apiFetch = async (input, init = {}) => {
+  const token = window.getAccessToken() || window.getIdToken();
+  const headers = new Headers(init.headers || {});
+  if (token) headers.set("Authorization", `Bearer ${token}`);
+  return fetch(input, { ...init, headers, credentials: init.credentials || "same-origin" });
+};
+
+let _resolveAuthReady;
+window.authReady = new Promise((res) => (_resolveAuthReady = res));
+
+// ---------- Cross-tab bus ----------
+let bc = null;
+try { bc = new BroadcastChannel(CHANNEL_NAME); } catch {}
+function broadcast(type, payload) {
+  const msg = { type, payload, ts: Date.now() };
+  if (bc) { try { bc.postMessage(msg); } catch {} }
+  try {
+    localStorage.setItem(AUTH_PING, JSON.stringify(msg));
+    localStorage.removeItem(AUTH_PING);
+  } catch {}
+}
+
+function readStoredUser() {
+  try {
+    const raw = localStorage.getItem(AUTH_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
+function writeStoredUser(normalizedOrNull) {
+  try {
+    if (normalizedOrNull) {
+      const withMeta = { ...normalizedOrNull, __updatedAt: Date.now() };
+      localStorage.setItem(AUTH_KEY, JSON.stringify(withMeta));
+    } else {
+      localStorage.removeItem(AUTH_KEY);
+    }
+  } catch (e) {
+    console.warn("localStorage write failed:", e);
+  }
+}
+
+function notifyAuthChanged(oidcUserOrNull, source = "local") {
+  const normalized = toCurrentUser(oidcUserOrNull);
+  window.currentUser = normalized;
+  const authed = isAuthed(oidcUserOrNull || normalized);
+
+  // 🔒 toggle protected links
+  updateProtectedNav(authed);
+
+  const detail = { isAuthenticated: authed, user: normalized, source };
+  window.dispatchEvent(new CustomEvent("auth:changed", { detail }));
+  for (const fn of _listeners) { try { fn(normalized); } catch {} }
+}
+
+function applyAndBroadcast(oidcUserOrNull, reason) {
+  const normalized = toCurrentUser(oidcUserOrNull);
+  writeStoredUser(normalized);
+  notifyAuthChanged(oidcUserOrNull, reason);
+  broadcast("auth-changed", { user: normalized });
+}
+
+if (bc) {
+  bc.onmessage = (ev) => {
+    const { type, payload } = ev.data || {};
+    if (type === "auth-changed") {
+      console.groupCollapsed("📡 BroadcastChannel auth-changed");
+      console.log(payload);
+      console.groupEnd();
+      window.currentUser = payload?.user || null;
+      setMode(isAuthed(window.currentUser) ? "logout" : "login");
+      notifyAuthChanged(window.currentUser, "broadcast");
+      _resolveAuthReady?.(window.currentUser); _resolveAuthReady = null;
+    }
+  };
+}
+
+window.addEventListener("storage", (e) => {
+  if (e.key === AUTH_KEY || e.key === AUTH_PING) {
+    const stored = readStoredUser();
+    console.groupCollapsed("🗄️ storage event -> auth sync");
+    console.log("stored:", stored);
+    console.groupEnd();
+    window.currentUser = stored;
+    setMode(isAuthed(stored) ? "logout" : "login");
+    notifyAuthChanged(stored, "storage");
+    _resolveAuthReady?.(window.currentUser); _resolveAuthReady = null;
+  }
+});
+
+async function refreshButton(userManager) {
+  console.groupCollapsed("🔄 refreshButton()");
+  try {
+    const stored = readStoredUser();
+    if (stored) {
+      window.currentUser = stored;
+      setMode(isAuthed(stored) ? "logout" : "login");
+      notifyAuthChanged(stored, "stored-prerender");
+    }
+
+    const u = await userManager.getUser();
+
+    if (u) {
+      console.log("getUser() result:", { expired: u.expired, expires_at: u.expires_at, email: u.profile?.email });
+      setMode(isAuthed(u) ? "logout" : "login");
+      applyAndBroadcast(u, "getUser");
+    } else if (!stored) {
+      setMode("login");
+      notifyAuthChanged(null, "no-oidc-user");
+    }
+    _resolveAuthReady?.(window.currentUser); _resolveAuthReady = null;
+  } catch (e) {
+    console.warn("getUser() error:", e);
+    const stored = readStoredUser();
+    if (stored) {
+      setMode(isAuthed(stored) ? "logout" : "login");
+      notifyAuthChanged(stored, "stored-after-error");
+    } else {
+      setMode("login");
+      notifyAuthChanged(null, "getUser-error");
+    }
+    _resolveAuthReady?.(window.currentUser); _resolveAuthReady = null;
+  }
+  console.groupEnd();
+}
+
+if (!IS_CALLBACK_PAGE) {
+  let userManager;
+  try {
+    userManager = new UserManager(CONFIG);
+    window.userManager = userManager;
+    console.log("UserManager created (localStorage stores).");
+  } catch (e) {
+    console.error("Failed to create UserManager:", e);
+  }
+
+  await checkWellKnown();
+
+  userManager?.events.addUserLoaded((u) => {
+    console.groupCollapsed("📥 userLoaded");
+    console.log("email:", u.profile?.email, "expired:", u.expired, "expires_at:", u.expires_at);
+    console.groupEnd();
+    applyAndBroadcast(u, "userLoaded");
+    setMode(isAuthed(u) ? "logout" : "login");
+  });
+
+  userManager?.events.addUserUnloaded(() => {
+    console.log("📤 userUnloaded");
+    applyAndBroadcast(null, "userUnloaded");
+    setMode("login");
+  });
+
+  userManager?.events.addAccessTokenExpired(async () => {
+    console.warn("⏰ accessTokenExpired");
+    const u = await userManager.getUser().catch(() => null);
+    const stillValid = u && !u.expired ? u : null;
+    applyAndBroadcast(stillValid, "tokenExpired");
+    setMode(stillValid ? "logout" : "login");
+  });
+
+  userManager?.events.addSilentRenewError((e) => {
+    console.warn("⚠️ silentRenewError:", e);
+  });
+
+  BTN?.addEventListener("click", async () => {
+    const mode = BTN.dataset.mode || "login";
+    console.groupCollapsed("🖱️ button click", mode);
+    if (mode === "logout") {
+      try {
+        await userManager.removeUser();
+        console.log("Local user removed.");
+      } catch (e) {
+        console.warn("removeUser() failed:", e);
+      }
+      applyAndBroadcast(null, "manual-logout");
+      const url = buildLogoutUrl();
+      console.log("Redirecting to logout:", url);
+      location.href = url;
+    } else {
+      const state = { redirectTo: location.pathname };
+      console.log("Starting signinRedirect with state:", state);
+      await userManager.signinRedirect({ state })
+        .catch(e => console.error("signinRedirect error:", e));
+    }
+    console.groupEnd();
+  });
+
+  await refreshButton(userManager);
+  try { await userManager.clearStaleState(); } catch {}
+
+  // Ensure correct visibility once DOM is ready (prevents FOUC)
+  window.addEventListener('DOMContentLoaded', () => {
+    const authed = isAuthed(window.currentUser);
+    updateProtectedNav(authed);
+  });
+} else {
+  console.log("Callback page detected → nav script idle.");
+}
+
+logFooter();
+</script>
+
+
+
+<nav class="navbar navbar-expand-lg border-bottom bg-body sticky-top">
+  <div class="container">
+    <div class="navbar-brand d-flex align-items-center gap-2">
+      
+<img src="/assets/images/xennial.png" 
+     alt="Cameron McKenzie" 
+     width="40" 
+     height="40" 
+     loading="lazy">
+
+<a href="https://www.xennial.com" class="text-decoration-none">
+  <p class="text-muted-light small mb-0" style="font-size: 0.8rem;">
+    Built by Xennial Innovations
+  </p>
+</a>
+    </div>
+    <div class="d-flex align-items-center gap-2 order-lg-2">
+      <div class="theme-dots d-none d-sm-flex" title="Accent theme">
+        <button class="theme-dot" data-accent="violet" aria-label="Violet"></button>
+        <button class="theme-dot" data-accent="blue" aria-label="Blue"></button>
+        <button class="theme-dot" data-accent="green" aria-label="Green"></button>
+        <button class="theme-dot" data-accent="orange" aria-label="Orange"></button>
+        <button class="theme-dot" data-accent="rose" aria-label="Rose"></button>
+      </div>
+	  <button id="login-or-logout" class="btn btn-sm btn-outline-secondary" type="button" aria-label="Login or Logout">
+		<font color="white"><span class="ms-2 d-none d-md-inline"></span></font>
+      </button>
+      <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse order-lg-1" id="navbarNav">
+      <ul class="navbar-nav mx-auto mt-3 mt-lg-0">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+
+		<li class="nav-item"><a class="nav-link" href="/engineers.html">On-Site Notification</a></li>
+		        <li class="nav-item"><a class="nav-link" href="/observations.html">Field Observations</a></li>
+		<li class="nav-item"><a class="nav-link" href="/geo-search.html">GPS Search</a></li>
+		<li class="nav-item"><a class="nav-link" href="/landowners.html">Get Notified</a></li>
+        <!-- Protected: hidden until authenticated -->
+        <li class="nav-item d-none" id="turbines-item">
+          <a id="turbines-link" class="nav-link" href="/turbines.html">Turbines</a>
+        </li>
+        <li class="nav-item d-none" id="history-item">
+          <a id="history-link" class="nav-link" href="/history.html">History</a>
+        </li>
+      </ul>
+    </div> 
+  </div>
+</nav>

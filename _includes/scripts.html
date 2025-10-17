@@ -1,0 +1,87 @@
+
+    <!-- Local Bootstrap JS -->
+  <script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Theme + mode script -->
+    <script>
+      (function () {
+        const root = document.documentElement;
+        const htmlEl = document.querySelector("html");
+        const modeToggle = document.getElementById("modeToggle");
+        const dots = document.querySelectorAll(".theme-dot");
+        const YEAR = document.getElementById("year");
+        if (YEAR) YEAR.textContent = new Date().getFullYear();
+
+        // Restore saved prefs
+        const savedMode = localStorage.getItem("ce:mode");
+        const savedAccent = localStorage.getItem("ce:accent");
+        if (savedMode) htmlEl.setAttribute("data-theme", savedMode);
+        if (savedAccent) root.style.setProperty("--accent", `var(--accent-${savedAccent})`);
+
+        // Toggle dark/light
+        modeToggle.addEventListener("click", () => {
+          const current = htmlEl.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          htmlEl.setAttribute("data-theme", current);
+          localStorage.setItem("ce:mode", current);
+          modeToggle.querySelector("span")?.replaceChildren(document.createTextNode(current === "dark" ? "Light" : "Dark"));
+        });
+
+        // Change accent
+        dots.forEach((btn) =>
+          btn.addEventListener("click", () => {
+            const accent = btn.getAttribute("data-accent");
+            root.style.setProperty("--accent", `var(--accent-${accent})`);
+            localStorage.setItem("ce:accent", accent);
+          })
+        );
+
+        // Bootstrap presence checks (your original tiny check)
+        const hasBootstrapJS = typeof bootstrap !== "undefined" && typeof bootstrap.Collapse === "function";
+        if (!hasBootstrapJS) console.warn("Bootstrap JS not detected (assets/js/bootstrap.bundle.min.js).");
+        try {
+          const t = document.createElement("div");
+          t.className = "d-none";
+          document.body.appendChild(t);
+          const hasBootstrapCSS = window.getComputedStyle(t).display === "none";
+          t.remove();
+          if (!hasBootstrapCSS) console.warn("Bootstrap CSS not detected (assets/css/bootstrap.min.css).");
+        } catch (e) {
+          console.warn("Bootstrap CSS check failed", e);
+        }
+
+        // Count-up when stats section enters view
+        function animateCounts() {
+          const items = document.querySelectorAll('.stat-number');
+          items.forEach((el) => {
+            const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+            const suffix = el.getAttribute('data-suffix') || '';
+            let start = 0;
+            const duration = 1500; // ms
+            const frames = Math.round(duration / 16);
+            const increment = Math.max(1, Math.ceil(target / frames));
+
+            const tick = () => {
+              start = Math.min(target, start + increment);
+              el.textContent = suffix ? `${start.toLocaleString()}${suffix}` : start.toLocaleString();
+              if (start < target) requestAnimationFrame(tick);
+            };
+
+            requestAnimationFrame(tick);
+          });
+        }
+
+        // Intersection observer to trigger once
+        const statsEl = document.querySelector('.stats-rail');
+        if (statsEl) {
+          const obs = new IntersectionObserver((entries, o) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                animateCounts();
+                o.disconnect();
+              }
+            });
+          }, { threshold: 0.3 });
+          obs.observe(statsEl);
+        }
+      })();
+    </script>
