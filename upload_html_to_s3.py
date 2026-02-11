@@ -32,11 +32,12 @@ def find_html_files(root_dir='.'):
     return html_files
 
 
-def upload_file_to_s3(file_path, bucket_name, s3_key):
+def upload_file_to_s3(s3_client, file_path, bucket_name, s3_key):
     """
     Upload a single file to S3.
     
     Args:
+        s3_client: Boto3 S3 client instance
         file_path: Path to the file to upload
         bucket_name: Name of the S3 bucket
         s3_key: Key (path) to use in S3
@@ -44,8 +45,6 @@ def upload_file_to_s3(file_path, bucket_name, s3_key):
     Returns:
         True if upload was successful, False otherwise
     """
-    s3_client = boto3.client('s3')
-    
     try:
         # Set content type for HTML files
         s3_client.upload_file(
@@ -57,9 +56,6 @@ def upload_file_to_s3(file_path, bucket_name, s3_key):
         return True
     except ClientError as e:
         print(f"Error uploading {file_path} to S3: {e}", file=sys.stderr)
-        return False
-    except NoCredentialsError:
-        print("Error: AWS credentials not found. Please configure AWS CLI or set credentials.", file=sys.stderr)
         return False
 
 
@@ -84,6 +80,13 @@ def main():
     
     print(f"Found {len(html_files)} HTML files.")
     
+    # Initialize S3 client once for all uploads
+    try:
+        s3_client = boto3.client('s3')
+    except NoCredentialsError:
+        print("Error: AWS credentials not found. Please configure AWS CLI or set credentials.", file=sys.stderr)
+        sys.exit(1)
+    
     # Get the root directory for relative path calculation
     root_path = Path('.').resolve()
     
@@ -98,7 +101,7 @@ def main():
         
         print(f"Uploading {relative_path} to s3://{bucket_name}/{s3_key}...", end=' ')
         
-        if upload_file_to_s3(html_file, bucket_name, s3_key):
+        if upload_file_to_s3(s3_client, html_file, bucket_name, s3_key):
             print("✓")
             success_count += 1
         else:
