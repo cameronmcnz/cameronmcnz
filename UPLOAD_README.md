@@ -46,14 +46,14 @@ Make sure your AWS credentials have permission to upload objects to the specifie
 
 ```
 Scanning for HTML files...
-Found 971 HTML files.
+Found 42 HTML files.
 Uploading index.html to s3://my-bucket/index.html... ✓
 Uploading about.html to s3://my-bucket/about.html... ✓
 Uploading videos/youtube/example.html to s3://my-bucket/videos/youtube/example.html... ✓
 ...
 
 Upload complete:
-  Successfully uploaded: 971
+  Successfully uploaded: 42
   Failed: 0
 ```
 

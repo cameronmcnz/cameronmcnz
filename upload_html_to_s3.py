@@ -54,6 +54,9 @@ def upload_file_to_s3(s3_client, file_path, bucket_name, s3_key):
             ExtraArgs={'ContentType': 'text/html'}
         )
         return True
+    except NoCredentialsError:
+        print("\nError: AWS credentials not found. Please configure AWS CLI or set credentials.", file=sys.stderr)
+        sys.exit(1)
     except ClientError as e:
         print(f"Error uploading {file_path} to S3: {e}", file=sys.stderr)
         return False
@@ -81,11 +84,7 @@ def main():
     print(f"Found {len(html_files)} HTML files.")
     
     # Initialize S3 client once for all uploads
-    try:
-        s3_client = boto3.client('s3')
-    except NoCredentialsError:
-        print("Error: AWS credentials not found. Please configure AWS CLI or set credentials.", file=sys.stderr)
-        sys.exit(1)
+    s3_client = boto3.client('s3')
     
     # Get the root directory for relative path calculation
     root_path = Path('.').resolve()
